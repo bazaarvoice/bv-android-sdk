@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice
+END
+BazaarException.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/rsl/!svn/ver/77/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/BazaarException.java
+END
+SubmissionParams.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/SubmissionParams.java
+END
+SubmissionMediaParams.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/SubmissionMediaParams.java
+END
+Media.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/Media.java
+END
+Utils.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/Utils.java
+END
+BazaarParams.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/BazaarParams.java
+END
+BazaarRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/rsl/!svn/ver/106/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/BazaarRequest.java
+END
+DisplayParams.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/DisplayParams.java
+END
+RequestType.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/RequestType.java
+END
+OnBazaarResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/rsl/!svn/ver/97/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/OnBazaarResponse.java
+END
+Equality.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/Equality.java
+END
+Action.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/rsl/!svn/ver/115/trunk/BazaarVoiceSimple/src/com/requiem/bazaarvoice/Action.java
+END
