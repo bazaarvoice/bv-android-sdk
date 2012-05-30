@@ -1,12 +1,10 @@
-package com.requiem.bazaarvoice.test.DisplayTests;
+package com.bazaarvoice.test.DisplayTests;
 
-import com.requiem.bazaarvoice.*;
-import com.requiem.bazaarvoice.test.*;
+import com.bazaarvoice.*;
+import com.bazaarvoice.test.*;
 
 import java.util.ArrayList;
 import android.util.Log;
-import com.requiem.bazaarvoice.*;
-import com.requiem.bazaarvoice.Equality;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

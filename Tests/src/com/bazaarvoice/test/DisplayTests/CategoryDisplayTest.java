@@ -1,12 +1,11 @@
-package com.requiem.bazaarvoice.test.DisplayTests;
+package com.bazaarvoice.test.DisplayTests;
 
 import android.util.Log;
-import com.requiem.bazaarvoice.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.requiem.bazaarvoice.*;
-import com.requiem.bazaarvoice.test.*;
+import com.bazaarvoice.*;
+import com.bazaarvoice.test.*;
 
 /**
  * Created with IntelliJ IDEA.
