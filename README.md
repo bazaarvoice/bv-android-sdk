@@ -17,14 +17,24 @@ This is intended to work with Eclipse but it should work with IntelliJ IDEA as w
 
 Building The Library
 -
-
 **Note: the Tests directory already has the library included in it, but this is necessary for future builds.**
+
+From the command line:
 
 1. Navigate to the BVAndroidSDK directory.
 2. Type ```/path/to/android-sdk/tools/android update lib-project --path .```
 3. Type ```ant clean release```
 4. The library should be in the /bin directory under the name ```classes.jar```. You can rename it as you like.
 5. To use the library, add it to the /libs directory in whatever application or test application you are building.
+
+With Eclipse:
+
+1. Open Eclipse and select File -> Import...
+2. Under General, choose "Existing projects into workspace".
+3. Next to "Select Root Directory", _Browse..._ to the BVAndroidSDK directory and select Open.
+4. Click Finish.
+5. By default, Eclipse will build the project automatically.  Otherwise, build the project by selecting Project -> Build Project.  The library should be in the /bin directory under the name ```bazaarandroidsdk.jar```. You can rename it as you like.
+6. To use the library, add it to the /libs directory in whatever application or test application you are building.
 
 Running the Unit Tests
 -
