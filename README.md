@@ -30,6 +30,6 @@ Running the Unit Tests
 -
 1. Open Eclipse and select File -> Import...
 2. Under General, choose "Existing projects into workspace".
-3. Next to Select Root Directory, browse to the Tests directory and select Open.
+3. Next to "Select Root Directory", _Browse..._ to the Tests directory and select Open.
 4. Click Finish.
 5. Run each test individually (or in groups) by selecting the class (or package) and clicking run.
