@@ -34,6 +34,9 @@ import java.util.LinkedList;
  */
 public class BazaarRequest
 {
+	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
+	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V1";
+	
     private String passKey;
     private String apiVersion;
     private RequestQueue requestQueue;
@@ -197,6 +200,7 @@ public class BazaarRequest
         String requestString = requestHeader +  type + ".json";
         requestString = DisplayParams.addURLParameter(requestString, "apiversion", apiVersion);
         requestString = DisplayParams.addURLParameter(requestString, "passkey", passKey);
+        requestString = DisplayParams.addURLParameter(requestString, SDK_HEADER_NAME, SDK_HEADER_VALUE);
         if (params != null) {
             requestString = params.toURL(requestString);
         }
