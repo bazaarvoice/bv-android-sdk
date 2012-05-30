@@ -37,7 +37,7 @@ public class AnswerSubmissionTest extends BaseTest {
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setCategoryId("1000001");
         submissionParams.setQuestionId("6104");
-        submissionParams.setAction(Action.submit);
+        submissionParams.setAction(Action.preview);
         submissionParams.setAnswerText(answerText);
         submissionParams.setUserId("gpezz");
 

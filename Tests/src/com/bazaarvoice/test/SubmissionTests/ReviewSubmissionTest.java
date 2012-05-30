@@ -34,7 +34,7 @@ public class ReviewSubmissionTest extends BaseTest {
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setProductId("80087355");
-        submissionParams.setAction(Action.submit);
+        submissionParams.setAction(Action.preview);
         submissionParams.setRating(5);
         submissionParams.setReviewText(reviewText);
         submissionParams.setTitle(title);

@@ -30,7 +30,7 @@ public class CommentsSubmissionTest extends BaseTest {
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setProductId("1001");
         submissionParams.setReviewId("83964");
-        submissionParams.setAction(Action.submit);
+        submissionParams.setAction(Action.preview);
         submissionParams.setCommentText(commentText);
         submissionParams.setTitle(titleText);
         submissionParams.setUserId("cwod");

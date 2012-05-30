@@ -34,7 +34,7 @@ public class QuestionSubmissionTest extends BaseTest {
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setProductId("1000001");
-        submissionParams.setAction(Action.submit);
+        submissionParams.setAction(Action.preview);
         submissionParams.setQuestionSummary(questionText);
         submissionParams.setUserId("cwod");
 
