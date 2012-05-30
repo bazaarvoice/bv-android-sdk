@@ -1,14 +1,10 @@
-package com.requiem.bazaarvoice.test.SubmissionTests;
+package com.bazaarvoice.test.SubmissionTests;
 
-import com.requiem.bazaarvoice.*;
-import com.requiem.bazaarvoice.test.*;
+import com.bazaarvoice.*;
+import com.bazaarvoice.test.*;
 
 import android.util.Log;
-import com.requiem.bazaarvoice.BazaarRequest;
 
-import com.requiem.bazaarvoice.Action;
-import com.requiem.bazaarvoice.RequestType;
-import com.requiem.bazaarvoice.SubmissionParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 

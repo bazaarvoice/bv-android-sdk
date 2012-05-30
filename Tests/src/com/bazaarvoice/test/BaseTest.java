@@ -1,6 +1,6 @@
-package com.requiem.bazaarvoice.test;
+package com.bazaarvoice.test;
 
-import com.requiem.bazaarvoice.BazaarRequest;
+import com.bazaarvoice.BazaarRequest;
 import junit.framework.TestCase;
 
 /**

@@ -1,8 +1,8 @@
-package com.requiem.bazaarvoice.test;
+package com.bazaarvoice.test;
 
 import android.os.SystemClock;
 import android.util.Log;
-import com.requiem.bazaarvoice.OnBazaarResponse;
+import com.bazaarvoice.OnBazaarResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
