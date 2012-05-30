@@ -1,0 +1,121 @@
+{
+    "Includes": {},
+    "HasErrors": false,
+    "Offset": 0,
+    "TotalResults": 27,
+    "Locale": "en_US",
+    "Errors": [],
+    "Results": [
+        {
+            "Name": "Necklaces",
+            "Attributes": [],
+            "ParentId": "testCategory1050",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1052",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Watches",
+            "Attributes": [],
+            "ParentId": "testCategory1050",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1051",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Luxury",
+            "ParentId": null,
+            "Attributes": [],
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1050",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Women's Fashions",
+            "Attributes": [],
+            "ParentId": "testCategory1030",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1032",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Men's Wear",
+            "Attributes": [],
+            "ParentId": "testCategory1030",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1031",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Retail",
+            "ParentId": null,
+            "Attributes": [],
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1030",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Spring",
+            "Attributes": [],
+            "ParentId": "testCategory1020",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1022",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Summer",
+            "Attributes": [],
+            "ParentId": "testCategory1020",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1021",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Education",
+            "ParentId": null,
+            "Attributes": [],
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1020",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        },
+        {
+            "Name": "Dryers",
+            "Attributes": [],
+            "ParentId": "testCategory1010",
+            "QuestionIds": [],
+            "ImageUrl": null,
+            "Id": "testCategory1011",
+            "StoryIds": [],
+            "ProductIds": [],
+            "CategoryPageUrl": null
+        }
+    ],
+    "Limit": 10
+}
