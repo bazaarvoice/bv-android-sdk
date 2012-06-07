@@ -20,7 +20,6 @@ public class StorySubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-
                 JSONObject review = response.getJSONObject("Story");
                 Log.i(tag, "Response = \n" + review);
                 //assert there are results
@@ -37,7 +36,7 @@ public class StorySubmissionTest extends BaseTest {
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setAction(Action.preview);
-        submissionParams.setCategoryId("6106");
+        submissionParams.setCategoryId("6108");
         submissionParams.setTitle(titleText);
         submissionParams.setUserId("cwod");
         submissionParams.setStoryText(storyText);
