@@ -1,4 +1,4 @@
-bv-android-sdk
-==============
+BrowseProductExample
+====================
 
-Bazaarvoice Android SDK for Developers
+This example app shows best code practices and some best UI practices, but they are not final.
