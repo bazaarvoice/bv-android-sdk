@@ -88,7 +88,7 @@ public class RatingActivity extends Activity {
 		}
 
 		Uri imageUri = Uri.parse(myIntent.getStringExtra("imageUri"));
-		// uploadPhoto(imageUri);
+		uploadPhoto(imageUri);
 
 		initializeViews();
 	}
