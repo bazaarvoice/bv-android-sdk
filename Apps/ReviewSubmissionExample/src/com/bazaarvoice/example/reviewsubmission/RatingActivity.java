@@ -18,11 +18,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -85,7 +88,7 @@ public class RatingActivity extends Activity {
 		}
 
 		Uri imageUri = Uri.parse(myIntent.getStringExtra("imageUri"));
-		//uploadPhoto(imageUri);
+		// uploadPhoto(imageUri);
 
 		initializeViews();
 	}
@@ -129,15 +132,34 @@ public class RatingActivity extends Activity {
 	 */
 	private void initializeViews() {
 		final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-		scrollView.post(new Runnable(){
+		scrollView.post(new Runnable() {
 
+			/*
+			 * These functions ensure that the main form starts scrolled to the
+			 * top and, if the view is small enough to need scrolling, adds a
+			 * margin at the bottom.
+			 */
+			
 			@Override
 			public void run() {
+				if (scrollView.getScrollY() != 0) {
+					addBottomMargin();
+				}
 				scrollView.fullScroll(ScrollView.FOCUS_UP);
 			}
-			
+
+			private void addBottomMargin() {
+				View bottomSpace = (View) findViewById(R.id.bottomSpace);
+				ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) bottomSpace
+						.getLayoutParams();
+				params.height = (int) TypedValue.applyDimension(
+						TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
+								.getDisplayMetrics());
+				bottomSpace.setLayoutParams(params);
+			}
+
 		});
-		
+
 		thumbImage = (ImageView) findViewById(R.id.thumbImage);
 		thumbImage.setImageBitmap(displayImage);
 
