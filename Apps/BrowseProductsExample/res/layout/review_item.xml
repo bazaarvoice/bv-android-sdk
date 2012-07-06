@@ -2,81 +2,85 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:background="@drawable/list_back" >
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="5"
-        android:orientation="vertical" >
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" >
+
+            <ImageView
+                android:id="@+id/reviewImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxWidth="75dp"
+                android:src="@drawable/camera_icon" />
 
             <LinearLayout
-                android:id="@+id/ratingStars"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent" >
-            </LinearLayout>
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/reviewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Title"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/byLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="By null on date"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <RatingBar
+                    android:id="@+id/reviewRating"
+                    style="@style/bvRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:isIndicator="true" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/LinearLayout1"
+        <TextView
+            android:id="@+id/reviewText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal" >
+            android:maxLines="3"
+            android:text="Here is the review"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/byLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="By line"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#A9A9A9" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/review"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="This is a product"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout1"
         android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="2"
-        android:orientation="vertical" >
+        android:layout_weight="1"
+        android:layout_height="fill_parent" >
 
         <ImageView
-            android:id="@+id/reviewIcon"
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:maxHeight="200dp" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/disclosure" />
+
     </RelativeLayout>
 
 </LinearLayout>

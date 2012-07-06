@@ -11,8 +11,27 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
+/**
+ * ImageDownloader.java <br>
+ * ReviewSubmissionExample<br>
+ * 
+ * <p>
+ * This is a simple class that allows for downloading an image from a given URL.
+ * 
+ * <p>
+ * Created on 6/29/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
+ * 
+ * @author Bazaarvoice Engineering
+ */
 public class ImageDownloader {
 	
+	/**
+	 * Downloads the image at the given URL and returns it as a Bitmap.
+	 * 
+	 * @param url
+	 *            the address of the image
+	 * @return the image as a Bitmap
+	 */
 	public Bitmap download(String url){
 		Bitmap bm = null;
 	    try {
