@@ -166,7 +166,7 @@ public class BazaarFunctions {
 		params.setUserNickname(review.getNickname());
 
 		if (!photoUrl.equals(""))
-			params.setPhotoUrl(photoUrl);
+			params.addPhotoUrl(photoUrl);
 
 		if (!review.getAuthorId().equals("null"))
 			params.setUserId(review.getAuthorId());

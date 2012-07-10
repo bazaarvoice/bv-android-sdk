@@ -49,28 +49,28 @@ public class BazaarReview implements Parcelable {
 	 * Parses the json response of a review query and builds the structure of
 	 * the object.
 	 * 
-	 * @param json
-	 *            the response of a review query
+	 * @param review
+	 *            a json object representing a review
 	 * @throws NumberFormatException
 	 *             if the rating is not formatted as an <code>int</code> (this
 	 *             should never occur)
 	 * @throws JSONException
 	 *             if there is a missing field in the json response
 	 */
-	public BazaarReview(JSONObject json) throws NumberFormatException,
+	public BazaarReview(JSONObject review) throws NumberFormatException,
 			JSONException {
-		String ratingText = json.getString("Rating");
+		String ratingText = review.getString("Rating");
 		if (!"null".equals(ratingText))
 			rating = Integer.parseInt(ratingText);
 		else
 			rating = 0;
 
-		title = json.getString("Title");
-		authorId = json.getString("AuthorId");
-		dateString = formatDateString(json.getString("SubmissionTime"));
-		reviewText = json.getString("ReviewText");
+		title = review.getString("Title");
+		authorId = review.getString("AuthorId");
+		dateString = formatDateString(review.getString("SubmissionTime"));
+		reviewText = review.getString("ReviewText");
 
-		JSONArray photos = json.getJSONArray("Photos");
+		JSONArray photos = review.getJSONArray("Photos");
 		if (photos != null && photos.length() != 0) {
 			Log.i("Photo", photos.toString());
 			JSONObject photo = photos.getJSONObject(0);

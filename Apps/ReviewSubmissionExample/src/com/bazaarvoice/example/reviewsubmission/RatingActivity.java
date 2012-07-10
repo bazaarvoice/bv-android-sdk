@@ -211,6 +211,7 @@ public class RatingActivity extends Activity {
 			review.setNickname(nicknameField.getText().toString());
 			review.setRating((int) ratingBar.getRating());
 
+			//set to preview for easier testing, intention here is to submit
 			BazaarFunctions.previewReview(MainActivity.productId, review,
 					new OnBazaarResponse() {
 

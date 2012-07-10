@@ -120,7 +120,7 @@ public class ProductsActivity extends Activity {
 					public void onResponse(JSONObject json) {
 						Log.i(TAG, "Response = \n" + json);
 						try {
-							JSONArray results = json.getJSONArray("Results");
+							final JSONArray results = json.getJSONArray("Results");
 
 							if (results.length() == 0) {
 								runOnUiThread(new Runnable() {
@@ -145,7 +145,11 @@ public class ProductsActivity extends Activity {
 									public void run() {
 										products.add(newProd);
 										listAdapter.notifyDataSetChanged();
-										runStatisticsQuery();
+										
+										//dismiss dialog on last iteration to save another call to
+										//runOnUiThread()
+										if(products.size() == results.length())
+											progDialog.dismiss();
 									}
 
 								});
@@ -161,93 +165,6 @@ public class ProductsActivity extends Activity {
 				});
 		progDialog.setMessage("Loading products...");
 		progDialog.show();
-	}
-
-	/**
-	 * Sends off a request for statistics for our products list.
-	 */
-	protected void runStatisticsQuery() {
-		final HashMap<String, BazaarProduct> productMap = productArrayListToMap(products);
-		String[] prodIds = new String[productMap.size()];
-		productMap.keySet().toArray(prodIds);
-		BazaarFunctions.runStatisticsQuery(prodIds, new OnBazaarResponse() {
-
-			@Override
-			public void onException(String message, Throwable exception) {
-				Log.e(TAG,
-						"Error = " + message + "\n"
-								+ Log.getStackTraceString(exception));
-
-			}
-
-			@Override
-			public void onResponse(final JSONObject json) {
-				Log.i(TAG, "Response = \n" + json);
-				runOnUiThread(new Runnable() {
-
-					@Override
-					public void run() {
-						try {
-							extractStatistics(json, productMap);
-						} catch (JSONException exception) {
-							Log.e(TAG, "Error = " + exception.getMessage()
-									+ "\n" + Log.getStackTraceString(exception));
-						}
-						listAdapter.notifyDataSetChanged();
-						progDialog.dismiss();
-					}
-
-				});
-			}
-
-		});
-	}
-
-	/**
-	 * Pulls the "AverageOverallRating" and "TotalReviewCount" out of each
-	 * product response in the JSONObject and stores it in its corresponding
-	 * BazaarProduct.
-	 * 
-	 * @param json
-	 *            the JSON response to a statistics query
-	 * @param productMap
-	 *            a map from product ids to products
-	 * @throws JSONException
-	 *             if a field is missing
-	 */
-	private void extractStatistics(JSONObject json,
-			HashMap<String, BazaarProduct> productMap) throws JSONException {
-		JSONArray results = json.getJSONArray("Results");
-		for (int i = 0; i < results.length(); i++) {
-			JSONObject result = results.getJSONObject(i).getJSONObject(
-					"ProductStatistics");
-			String prodId = result.getString("ProductId");
-			BazaarProduct product = productMap.get(prodId);
-
-			JSONObject reviewStats = result.getJSONObject("ReviewStatistics");
-			double avgRating = reviewStats.optDouble("AverageOverallRating");
-			int numReviews = reviewStats.getInt("TotalReviewCount");
-
-			product.setAverageRating(avgRating);
-			product.setNumReviews(numReviews);
-		}
-	}
-
-	/**
-	 * Converts an array list of BazaarProducts to a map using product IDs as
-	 * keys.
-	 * 
-	 * @param products
-	 *            a list of products
-	 * @return a map of the same products
-	 */
-	private HashMap<String, BazaarProduct> productArrayListToMap(
-			ArrayList<BazaarProduct> products) {
-		HashMap<String, BazaarProduct> productMap = new HashMap<String, BazaarProduct>();
-		for (BazaarProduct p : products) {
-			productMap.put(p.getProdID(), p);
-		}
-		return productMap;
 	}
 
 }

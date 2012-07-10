@@ -3,6 +3,7 @@ package com.bazaarvoice.example.browseproducts;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -127,18 +128,18 @@ public class BazaarProduct implements Parcelable {
 	/**
 	 * Creates a BazaarProduct from a json object representing a product.
 	 * 
-	 * @param json
+	 * @param product
 	 *            the json object representing a product
 	 * @throws JSONException
 	 */
-	public BazaarProduct(JSONObject json) throws JSONException {
-		name = json.getString("Name");
-		brand = new Brand(json.getJSONObject("Brand"));
-		description = json.getString("Description");
-		catId = json.getString("CategoryId");
-		imgUrl = json.getString("ImageUrl");
-		prodId = json.getString("Id");
-
+	public BazaarProduct(JSONObject product) throws JSONException {
+		name = product.getString("Name");
+		brand = new Brand(product.getJSONObject("Brand"));
+		description = product.getString("Description");
+		catId = product.getString("CategoryId");
+		imgUrl = product.getString("ImageUrl");
+		prodId = product.getString("Id");
+		extractStatistics(product);
 		reviews = new ArrayList<BazaarReview>();
 	}
 
@@ -147,6 +148,23 @@ public class BazaarProduct implements Parcelable {
 	 */
 	public BazaarProduct() {
 		reviews = new ArrayList<BazaarReview>();
+	}
+
+	/**
+	 * Pulls statistics information out of the json product result only if they
+	 * exist.
+	 * 
+	 * @param product
+	 *            the json object representing a product
+	 * @throws JSONException
+	 *             if a parameter is missing
+	 */
+	private void extractStatistics(JSONObject product) throws JSONException {
+		JSONObject reviewStats = product.optJSONObject("ReviewStatistics");
+		if (reviewStats != null) {
+			setAverageRating(reviewStats.optDouble("AverageOverallRating"));
+			numReviews = reviewStats.getInt("TotalReviewCount");
+		}
 	}
 
 	/**
@@ -303,6 +321,8 @@ public class BazaarProduct implements Parcelable {
 	}
 
 	/**
+	 * Handles NaN values correctly.
+	 * 
 	 * @param averageRating
 	 *            the averageRating to set
 	 */
@@ -313,16 +333,16 @@ public class BazaarProduct implements Parcelable {
 			this.averageRating = averageRating;
 	}
 
-	
 	/*
 	 * Parcel methods and constructors
 	 */
-	
+
 	/**
-	 * Constructs a BazaarProduct from a parcel that has another instance of this
-	 * class in it.
+	 * Constructs a BazaarProduct from a parcel that has another instance of
+	 * this class in it.
 	 * 
-	 * @param parcel the parcel holding an instance of BazaarProduct
+	 * @param parcel
+	 *            the parcel holding an instance of BazaarProduct
 	 */
 	private BazaarProduct(Parcel parcel) {
 		readFromParcel(parcel);
@@ -381,6 +401,7 @@ public class BazaarProduct implements Parcelable {
 	 * Reads the fields of the parcelled object into this instance.
 	 * 
 	 * <b>Note: </b>The fields must be read in the same order they were written.
+	 * 
 	 * @param parcel
 	 */
 	public void readFromParcel(Parcel parcel) {
