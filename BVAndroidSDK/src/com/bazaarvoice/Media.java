@@ -1,50 +1,83 @@
 package com.bazaarvoice;
 
 /**
- * Author: Gary Pezza
- * Created: 5/13/12 10:44 PM
- *
- * This class contains byte data for a media object such as a photo or video
+ * Media.java <br>
+ * Bazaarvoice Android SDK<br>
+ * 
+ * This class contains byte data for a media object such as a photo or video.
+ * Used internally for uploading media in a request.
+ * 
+ * <p>
+ * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
+ * 
+ * @author Bazaarvoice Engineering
  */
 public class Media implements Cloneable {
-    private byte[] media;
-    public static enum MediaType {PHOTO, VIDEO}
-    private MediaType mediaType;
-    private String filename;
+	private byte[] media;
 
-    /**
-     * Construct a media object
-     *
-     * @param media the media data
-     * @param type the type of object
-     * @param filename the filename of the object.  This is important for determining the MIME type.  Make sure
-     *                 you use the right extension for the data, ie .jpg .avi etc
-     */
-    public Media(byte[] media, MediaType type, String filename) {
-        this.media = media;
-        this.mediaType = type;
-        this.filename = filename;
-    }
+	public static enum MediaType {
+		PHOTO, VIDEO
+	}
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        super.clone();
+	private MediaType mediaType;
+	private String filename;
 
-        byte[] copyBytes = new byte[media.length];
-        System.arraycopy(media, 0, copyBytes, 0, media.length);
-        return new Media(copyBytes, mediaType, filename);
-    }
+	/**
+	 * Construct a media object
+	 * 
+	 * @param media
+	 *            the media data
+	 * @param type
+	 *            the type of object
+	 * @param filename
+	 *            the filename of the object. This is important for determining
+	 *            the MIME type. Make sure you use the right extension for the
+	 *            data, ie .jpg .avi etc
+	 */
+	public Media(byte[] media, MediaType type, String filename) {
+		this.media = media;
+		this.mediaType = type;
+		this.filename = filename;
+	}
 
+	/**
+	 * Gets a clone of the media object represented in this instance.
+	 * 
+	 * @return a clone of the media object
+	 */
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		super.clone();
 
-    public String getName() {
-        return mediaType==MediaType.PHOTO?"photo":"video";
-    }
+		byte[] copyBytes = new byte[media.length];
+		System.arraycopy(media, 0, copyBytes, 0, media.length);
+		return new Media(copyBytes, mediaType, filename);
+	}
 
-    public String getFilename() {
-        return filename;
-    }
+	/**
+	 * Get the name of the media type.
+	 * 
+	 * @return "photo" or "video"
+	 */
+	public String getName() {
+		return mediaType == MediaType.PHOTO ? "photo" : "video";
+	}
 
-    byte[] getBytes() {
-        return media;
-    }
+	/**
+	 * Get the filename of the media object.
+	 * 
+	 * @return the filename
+	 */
+	public String getFilename() {
+		return filename;
+	}
+
+	/**
+	 * Get the byte array representing the media object.
+	 * 
+	 * @return the media
+	 */
+	byte[] getBytes() {
+		return media;
+	}
 }
