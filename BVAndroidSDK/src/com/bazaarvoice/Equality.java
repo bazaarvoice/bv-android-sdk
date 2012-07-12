@@ -1,8 +1,6 @@
 package com.bazaarvoice;
 
 /**
- * Equality.java <br>
- * Bazaarvoice Android SDK<br>
  * 
  * An enum for all available equality types in BazaarParams requests.
  * 
@@ -13,8 +11,30 @@ package com.bazaarvoice;
  */
 
 public enum Equality {
-	LESS_THAN("lt"), LESS_THAN_EQ("lte"), EQUAL("eq"), GREATER_THAN("gt"), GREATER_THAN_EQ(
-			"gte");
+	/**
+	 * Matches only results less than the value.
+	 */
+	LESS_THAN("lt"),
+
+	/**
+	 * Matches only results less than or equal to the value.
+	 */
+	LESS_THAN_EQ("lte"),
+
+	/**
+	 * Matches only results equal to the value.
+	 */
+	EQUAL("eq"),
+
+	/**
+	 * Matches only results greater than the value.
+	 */
+	GREATER_THAN("gt"),
+
+	/**
+	 * Matches only results greater than or equal to the value.
+	 */
+	GREATER_THAN_EQ("gte");
 
 	private String equalityStr;
 

@@ -3,10 +3,8 @@ package com.bazaarvoice;
 import org.json.JSONObject;
 
 /**
- * OnBazaarResponse.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This interface is used to define callbacks for when a response to a request
+ * An interface used to define callbacks for when a response to a request
  * is received.
  * 
  * <p>

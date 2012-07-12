@@ -1,9 +1,6 @@
 package com.bazaarvoice;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.os.Environment;
-import android.provider.MediaStore;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -15,10 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Utls.java <br>
- * Bazaarvoice Android SDK<br>
- * 
- * This class contains various utilities. Some are used within the SDK, others
+ * Contains various utilities; some are used within the SDK, others
  * are intended to help developers with tasks relevant to SDK features.
  * 
  * <p>
@@ -27,6 +21,12 @@ import java.util.List;
  * @author Bazaarvoice Engineering
  */
 public class Utils {
+
+	/**
+	 * Creates an instance of Utils. Not needed as all functions are static.
+	 */
+	public Utils() {
+	}
 
 	/**
 	 * Holds the directory of the camera store folder on the user's device.

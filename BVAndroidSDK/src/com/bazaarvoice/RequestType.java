@@ -1,8 +1,6 @@
 package com.bazaarvoice;
 
 /**
- * RequestType.java <br>
- * Bazaarvoice Android SDK<br>
  * 
  * An enum for all the different types of requests we can make to BazaarVoice.
  * 
@@ -12,13 +10,54 @@ package com.bazaarvoice;
  * @author Bazaarvoice Engineering
  */
 public enum RequestType {
-	REVIEWS("reviews", "submitreview"), QUESTIONS("questions", "submitquestion"), ANSWERS(
-			"answers", "submitanswer"), STORIES("stories", "submitstory"), REVIEW_COMMENTS(
-			"reviewcomments", "submitreviewcomment"), STORY_COMMENTS(
-			"storycomments", "submitstorycomment"), PROFILES("authors",
-			"submitauthor"), PHOTOS(null, "uploadphoto"), VIDEOS(null,
-			"uploadvideo"), PRODUCTS("products", null), CATEGORIES(
-			"categories", null), STATISTICS("statistics", null);
+	/**
+	 * Request product reviews.
+	 */
+	REVIEWS("reviews", "submitreview"),
+	/**
+	 * Request questions.
+	 */
+	QUESTIONS("questions", "submitquestion"),
+	/**
+	 * Request question answers.
+	 */
+	ANSWERS("answers", "submitanswer"),
+	/**
+	 * Request stories.
+	 */
+	STORIES("stories", "submitstory"),
+	/**
+	 * Request review comments.
+	 */
+	REVIEW_COMMENTS("reviewcomments", "submitreviewcomment"),
+	/**
+	 * Request story comments.
+	 */
+	STORY_COMMENTS("storycomments", "submitstorycomment"),
+	/**
+	 * Request profiles.
+	 */
+	PROFILES("authors", "submitauthor"),
+	/**
+	 * Request for photos.
+	 */
+	PHOTOS(null, "uploadphoto"),
+	/**
+	 * Request for videos.
+	 */
+	VIDEOS(null, "uploadvideo"),
+	/**
+	 * Request for products
+	 */
+	PRODUCTS("products", null),
+	/**
+	 * Request categories.
+	 */
+	CATEGORIES("categories", null),
+	/**
+	 * Request statistics.
+	 */
+	STATISTICS("statistics", null);
 
 	private String displayName;
 	private String submissionName;
