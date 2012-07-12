@@ -23,10 +23,8 @@ import org.apache.http.entity.mime.MultipartEntity;
 import java.util.LinkedList;
 
 /**
- * BazaarRequest.java <br>
- * Bazaarvoice Android SDK<br>
- * 
- * This class sends and handles requests to the Bazaarvoice API. Both
+ *
+ * Sends and handles requests to the Bazaarvoice API. Both
  * submissions and display requests are handled by this class. They are
  * differentiated by calling the corresponding method to send the request and by
  * passing an object of the corresponding subclass of BazaarParams.
@@ -189,7 +187,7 @@ public class BazaarRequest {
 	 * Send a blocking request to the server with a simple string url and
 	 * optional byte array.
 	 * 
-	 * @usage This method is wrapped by each of the send/post/queue methods and
+	 * <p><b>Usage:</b><br> This method is wrapped by each of the send/post/queue methods and
 	 *        should not be called itself unless needed.
 	 * 
 	 * @param URL

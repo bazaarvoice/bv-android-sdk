@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DisplayParams.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This is the class used for adding parameters to a display request. <br>
+ * Handles the parameters for a display request. <br>
  * Use of this class will rely on knowledge of the <a
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You should use
  * this site as a reference for which parameters to pass using this class.
@@ -89,7 +87,7 @@ public class DisplayParams extends BazaarParams {
 	 * <b>Note:</b> Be sure to remove any leading or trailing white space as it
 	 * could interfere with search performance.
 	 * 
-	 * @usage This is the recommended way to add search terms to a request.
+	 * <p><b>Usage:</b><br> This is the recommended way to add search terms to a request.
 	 *        Although, if you prefer to add them all at once, see
 	 *        {@link #setSearch(List)}.
 	 * 
@@ -239,7 +237,7 @@ public class DisplayParams extends BazaarParams {
 	 * @param attribute
 	 *            what to filter on, i.e. Rating or ProductId
 	 * @param value
-	 *            the values for the filter
+	 *            the value for the filter
 	 */
 	public void addFilterType(String filterType, String attribute, String value) {
 		if (filters == null) {
@@ -294,7 +292,7 @@ public class DisplayParams extends BazaarParams {
 	 * @param attribute
 	 *            what to filter on, i.e. Rating or ProductId
 	 * @param value
-	 *            the values for the filter
+	 *            the value for the filter
 	 */
 	public void addFilter(String attribute, String value) {
 		addFilterType(null, attribute, value);
@@ -357,7 +355,7 @@ public class DisplayParams extends BazaarParams {
 	 * Set the list of subjects for inclusion in the "Include" parameter
 	 * manually.
 	 * 
-	 * @usage Recommended usage is to add subjects one by one using
+	 * <p><b>Usage:</b><br> Recommended usage is to add subjects one by one using
 	 *        {@link #addInclude(String)}.
 	 * @param includes
 	 *            the list of subjects to include
@@ -380,7 +378,7 @@ public class DisplayParams extends BazaarParams {
 	 * sure to remove any leading or trailing white space from each word as it
 	 * may interfere with search performance.
 	 * 
-	 * @usage This is for setting all of the search terms at once and relys on
+	 * <p><b>Usage:</b><br> This is for setting all of the search terms at once and relys on
 	 *        the user encoding the terms correctly. Recommended usage is to add
 	 *        terms one by one using {@link #addSearch(String)}.
 	 * 
@@ -403,7 +401,7 @@ public class DisplayParams extends BazaarParams {
 	/**
 	 * Set the list of "Filter" parameters manually.
 	 * 
-	 * @usage Recommended usage is to add filters one by one using
+	 * <p><b>Usage:</b><br> Recommended usage is to add filters one by one using
 	 *        {@link #addFilter(String, Equality, String[])} or one of the other
 	 *        overridden methods.
 	 * @param filters
@@ -460,7 +458,7 @@ public class DisplayParams extends BazaarParams {
 	/**
 	 * Set the list of content types for the "Stats" parameter manually.
 	 * 
-	 * @usage Recommended usage is to add stats one by one using
+	 * <p><b>Usage:</b><br> Recommended usage is to add stats one by one using
 	 *        {@link #addStats(String)}.
 	 * 
 	 * @param stats
@@ -482,7 +480,7 @@ public class DisplayParams extends BazaarParams {
 	/**
 	 * Set the list of attributes for the "Sort" parameter manually.
 	 * 
-	 * @usage Recommended usage is to add attributes one by one using
+	 * <p><b>Usage:</b><br> Recommended usage is to add attributes one by one using
 	 *        {@link #addSort(String, boolean)}.
 	 * @param sort
 	 *            the list of attributes
@@ -503,7 +501,7 @@ public class DisplayParams extends BazaarParams {
 	/**
 	 * Set the list of "Sort_[TYPE]" parameters manually.
 	 * 
-	 * @usage Recommended usage is to add parameters one by one using
+	 * <p><b>Usage:</b><br> Recommended usage is to add parameters one by one using
 	 *        {@link #addSortType(String, String, boolean)}.
 	 * @param sortType
 	 *            the list of parameters
@@ -524,7 +522,7 @@ public class DisplayParams extends BazaarParams {
 	/**
 	 * Set the list of "Limit_[TYPE]" parameters manually.
 	 * 
-	 * @usage Recommended usage is to add parameters one by one using
+	 * <p><b>Usage:</b><br> Recommended usage is to add parameters one by one using
 	 *        {@link #addLimitType(String, int)}.
 	 * @param limitType
 	 *            the list of parameters

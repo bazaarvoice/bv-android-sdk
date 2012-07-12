@@ -1,10 +1,8 @@
 package com.bazaarvoice;
 
 /**
- * Action.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This is an enum used for defining an action type for content submission.
+ * An enum used for defining an action type for content submission.
  * 
  * <p>
  * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
@@ -12,4 +10,14 @@ package com.bazaarvoice;
  * @author Bazaarvoice Engineering
  * 
  */
-public enum Action {preview,submit}
+public enum Action {
+	/**
+	 * Submit the content only for preview.
+	 */
+	preview,
+
+	/**
+	 * Submit the content fully to Bazaarvoice.
+	 */
+	submit
+}

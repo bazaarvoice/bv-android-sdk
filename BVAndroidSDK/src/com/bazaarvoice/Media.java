@@ -1,11 +1,8 @@
 package com.bazaarvoice;
 
 /**
- * Media.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This class contains byte data for a media object such as a photo or video.
- * Used internally for uploading media in a request.
+ * Contains byte data for a media object such as a photo or video; used internally for uploading media in a request.
  * 
  * <p>
  * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
@@ -15,6 +12,9 @@ package com.bazaarvoice;
 public class Media implements Cloneable {
 	private byte[] media;
 
+	/**
+	 * An enum used for defining the type of media associated with an instance of Media.
+	 */
 	public static enum MediaType {
 		PHOTO, VIDEO
 	}

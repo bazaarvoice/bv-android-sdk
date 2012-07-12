@@ -8,10 +8,8 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
- * SubmissionMediaParams.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This class handles the parameters for media submissions. Only one media
+ * Handles the parameters for media submission. Only one media
  * object per submission, please! <br>
  * Use of this class may be eased with knowledge of the <a
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You might want

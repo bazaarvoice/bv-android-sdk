@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * BazaarParams.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This is the base class used for adding parameters to a BazaarRequest.
+ * The base class for adding parameters to a BazaarRequest. This
+ * class should not be used to add parameters. Instead, use one of the derived
+ * classes: {@link DisplayParams}, {@link SubmissionParams}, {@link SubmissionMediaParams}.
  * 
  * <p>
  * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
@@ -110,11 +110,13 @@ public abstract class BazaarParams {
 	/**
 	 * Add a parameter to the current url.
 	 * 
-	 * @usage This is called internally by subclasses of BazaarParams and by
-	 *        BazaarRequest. This may be able to be used to add additional
-	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField
-	 *        SubmissionParams.addAdditionalField()}.
+	 * <p>
+	 * <b>Usage:</b><br>
+	 * This is called internally by subclasses of BazaarParams and by
+	 * BazaarRequest. This may be able to be used to add additional parameters,
+	 * but is not recommended. For additional fields, see
+	 * {@link SubmissionParams#addAdditionalField
+	 * SubmissionParams.addAdditionalField()}.
 	 * 
 	 * @param url
 	 *            the current url with or without parameters
@@ -137,11 +139,13 @@ public abstract class BazaarParams {
 	 * Add a boolean parameter to the current url as long as the value is not
 	 * null.
 	 * 
-	 * @usage This is called internally by subclasses of BazaarParams and by
-	 *        BazaarRequest. This may be able to be used to add additional
-	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField
-	 *        SubmissionParams.addAdditionalField()}.
+	 * <p>
+	 * <b>Usage:</b><br>
+	 * This is called internally by subclasses of BazaarParams and by
+	 * BazaarRequest. This may be able to be used to add additional parameters,
+	 * but is not recommended. For additional fields, see
+	 * {@link SubmissionParams#addAdditionalField
+	 * SubmissionParams.addAdditionalField()}.
 	 * 
 	 * @param url
 	 *            the current url with or without parameters
@@ -162,7 +166,7 @@ public abstract class BazaarParams {
 	 * Add an integer parameter to the current url as long as the value is not
 	 * null.
 	 * 
-	 * @usage This is called internally by subclasses of BazaarParams and by
+	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
 	 *        BazaarRequest. This may be able to be used to add additional
 	 *        parameters, but is not recommended. For additional fields, see
 	 *        {@link SubmissionParams#addAdditionalField
@@ -187,7 +191,7 @@ public abstract class BazaarParams {
 	 * Add a map of parameters to the current url in the form
 	 * "name_key1=value1&name_key2=value2".
 	 * 
-	 * @usage This is called internally by subclasses of BazaarParams and by
+	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
 	 *        BazaarRequest. This may be able to be used to add additional
 	 *        parameters, but is not recommended. For additional fields, see
 	 *        {@link SubmissionParams#addAdditionalField
@@ -229,10 +233,11 @@ public abstract class BazaarParams {
 	 * Add a list parameters to the url from a list in the form
 	 * "name=value1,value2,value3".
 	 * 
-	 * @usage This is called internally by subclasses of BazaarParams and by
+	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
 	 *        BazaarRequest. This may be able to be used to add additional
 	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField SubmissionParams.addAdditionalField()}.
+	 *        {@link SubmissionParams#addAdditionalField
+	 *        SubmissionParams.addAdditionalField()}.
 	 * 
 	 * @param url
 	 *            the current url with or without parameters
@@ -265,10 +270,11 @@ public abstract class BazaarParams {
 	 * Add a list parameters to the url from a list in the form
 	 * "name_1=value1&name_2=value2&name_3=value3".
 	 * 
-	 * @usage This is called internally by subclasses of BazaarParams and by
+	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
 	 *        BazaarRequest. This may be able to be used to add additional
 	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField SubmissionParams.addAdditionalField()}.
+	 *        {@link SubmissionParams#addAdditionalField
+	 *        SubmissionParams.addAdditionalField()}.
 	 * 
 	 * @param url
 	 *            the current url with or without parameters

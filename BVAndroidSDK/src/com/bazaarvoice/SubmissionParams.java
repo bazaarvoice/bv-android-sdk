@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * SubmissionParams.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This class handles the parameters for content submission. <br>
+ * Handles the parameters for content submission. <br>
  * Use of this class will rely on knowledge of the <a
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You should use
  * this site as a reference for which parameters to pass using this class.
@@ -76,6 +74,12 @@ public class SubmissionParams extends BazaarParams {
 	private String reviewId;
 	private String storyId;
 	private String commentText;
+
+	/**
+	 * Creates a SubmissionParams instance.
+	 */
+	public SubmissionParams() {
+	}
 
 	/**
 	 * Get the Action type for the "Action" parameter for this submission if it
@@ -201,7 +205,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Get the list of "PhotoCaption_{@literal<n>}" parameters for this
+	 * Get the list of "PhotoCaption_{@literal <n>}" parameters for this
 	 * submission if any have been added.
 	 * 
 	 * @return the list of captions
@@ -211,15 +215,18 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Add a photo caption to the list of "PhotoCaption_{@literal<n>}"
+	 * Add a photo caption to the list of "PhotoCaption_{@literal <n>}"
 	 * parameters for this submission.
 	 * 
-	 * @usage For each photo added, the caption must be added in the same order.
-	 *        i.e.<br>
-	 *        addPhotoUrl(photo1);<br>
-	 *        addPhotoUrl(photo2);<br>
-	 *        addPhotoCaption(captionfor1);<br>
-	 *        addPhotoCaption(captionfor2);<br>
+	 * <p>
+	 * <b>Usage:</b><br>
+	 * For each photo added, the caption must be added in the same order. i.e.
+	 * <p>
+	 * addPhotoUrl(photo1);<br>
+	 * addPhotoUrl(photo2);<br>
+	 * addPhotoCaption(captionfor1);<br>
+	 * addPhotoCaption(captionfor2);<br>
+	 * 
 	 * @param photoCaption
 	 *            a photo caption
 	 */
@@ -231,7 +238,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Get the list of "PhotoUrl_{@literal<n>}" parameters for this submission
+	 * Get the list of "PhotoUrl_{@literal <n>}" parameters for this submission
 	 * if any have been added.
 	 * 
 	 * @return the list of photo urls
@@ -241,7 +248,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Add a photo url to the list of "PhotoUrl_{@literal<n>}" parameters for
+	 * Add a photo url to the list of "PhotoUrl_{@literal <n>}" parameters for
 	 * this submission.
 	 * 
 	 * @param photoUrl
@@ -256,7 +263,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Get the list of "ProductRecommendationId_{@literal<n>}" parameters for
+	 * Get the list of "ProductRecommendationId_{@literal <n>}" parameters for
 	 * this submission if any have been added.
 	 * 
 	 * @return the list of product ids
@@ -266,7 +273,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Add a product id to the list of "ProductRecommendationId_{@literal<n>}"
+	 * Add a product id to the list of "ProductRecommendationId_{@literal <n>}"
 	 * parameters for this submission.
 	 * 
 	 * @param productId
@@ -391,12 +398,15 @@ public class SubmissionParams extends BazaarParams {
 	 * Add a video caption to the list of {@literal "VideoCaption_<n>"}
 	 * parameters for this submission.
 	 * 
-	 * @usage For each video added, the caption must be added in the same order.
-	 *        i.e.<br>
-	 *        addVideoUrl(video1);<br>
-	 *        addVideoUrl(video2);<br>
-	 *        addVideoCaption(captionfor1);<br>
-	 *        addVideoCaption(captionfor2);<br>
+	 * <p>
+	 * <b>Usage:</b><br>
+	 * For each video added, the caption must be added in the same order. i.e.
+	 * <p>
+	 * addVideoUrl(video1);<br>
+	 * addVideoUrl(video2);<br>
+	 * addVideoCaption(captionfor1);<br>
+	 * addVideoCaption(captionfor2);<br>
+	 * 
 	 * @param videoCaption
 	 *            a video caption
 	 */

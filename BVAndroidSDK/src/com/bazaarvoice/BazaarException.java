@@ -1,10 +1,8 @@
 package com.bazaarvoice;
 
 /**
- * BazaarException.java <br>
- * Bazaarvoice Android SDK<br>
  * 
- * This is an exception type used for problems that arise in the use of the
+ * An exception type used for problems that arise in the use of the
  * Bazaarvoice SDK.
  * 
  * <p>
