@@ -1,7 +1,5 @@
 package com.bazaarvoice.example.browseproducts;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.DisplayParams;
@@ -45,10 +43,8 @@ public class BazaarFunctions {
 
 		// Add search terms to params
 		String[] tokens = searchPhrase.split("\\s+");
-		if (tokens.length > 0) {
-			ArrayList<String> searchTerms = new ArrayList<String>(
-					Arrays.asList(tokens));
-			params.setSearch(searchTerms);
+		for (String term : tokens){
+			params.addSearch(term);
 		}
 		
 		params.addStats("Reviews");
