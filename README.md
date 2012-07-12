@@ -13,6 +13,8 @@ System Requirements
 
 You should have the Android SDK installed on your system. If you need it, go to: http://developer.android.com/sdk/index.html
 
+If you didn't have the SDK, chances are you don't have the ADT plugin for Eclipse either. Get that by following the steps here: http://developer.android.com/sdk/installing/installing-adt.html
+
 This is intended to work with Eclipse but it should work with IntelliJ IDEA as well.
 
 Building The Library
