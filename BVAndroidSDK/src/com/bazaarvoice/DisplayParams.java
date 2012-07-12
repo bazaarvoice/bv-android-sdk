@@ -22,7 +22,6 @@ public class DisplayParams extends BazaarParams {
 	private List<String> search = null;
 	private Integer offset;
 	private Integer limit;
-	private List<String> attributes;
 	private String filterType;
 	private String locale;
 	private List<String> stats;
@@ -316,7 +315,6 @@ public class DisplayParams extends BazaarParams {
 		}
 
 		url = addURLParamsFromList(url, "include", includes);
-		url = addURLParamsFromList(url, "attribute", attributes);
 		url = addURLParamsFromList(url, "stats", stats);
 		url = addURLParamsFromList(url, "sort", sort);
 
@@ -409,14 +407,6 @@ public class DisplayParams extends BazaarParams {
 	 */
 	public void setFilters(List<String> filters) {
 		this.filters = filters;
-	}
-
-	public List<String> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(List<String> attributes) {
-		this.attributes = attributes;
 	}
 
 	public String getFilterType() {
