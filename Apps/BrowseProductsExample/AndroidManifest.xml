@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ProductsActivity"></activity>
-        <activity android:name="ReviewsActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ReviewsActivity" android:screenOrientation="portrait"></activity>
         <activity android:name="ReviewDisplayActivity" android:screenOrientation="portrait"></activity>
     </application>
 
