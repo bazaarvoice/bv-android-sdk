@@ -6,9 +6,12 @@ Bazaarvoice Android SDK for Developers
 
 *System Requirements*
 
-- Eclipse IDE http://www.eclipse.org/downloads/
-- Android SDK http://developer.android.com/sdk/index.html
+- Eclipse IDE http://www.eclipse.org/downloads/ 
+  - Make sure your Java Compiler is set to 1.6 or greater
+- Android SDK http://developer.android.com/sdk/index.html 
+  - Make sure you have Android 2.2+
 - ADT Plugin for Eclipse http://developer.android.com/sdk/installing/installing-adt.html
+  - Don't forget to create an AVD for your target platform if you are not using a phone to debug
 
 **Note:** IntelliJ IDEA should also work, but Eclipse is explicitly supported.
 
