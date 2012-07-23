@@ -170,7 +170,7 @@ public class BazaarFunctions {
 
 		if (!review.getAuthorId().equals("null"))
 			params.setUserId(review.getAuthorId());
-		else if (!review.getNickname().equals("null"))
+		else if ( !(review.getNickname().equals("null") || "".equals(review.getNickname().trim())) )
 			params.setUserId(review.getNickname());
 		else
 			params.setUserId("Anonymous");
