@@ -1,11 +1,26 @@
-Bazaarvoice Android SDK
-==============
-Bazaarvoice Android SDK for Developers
+# Bazaarvoice Android SDK
+### *Version: 1.0*
 
-**Version: 1.0**
+## Introduction
+The Bazaarvoice software development kit (SDK) for Android is an Android static library that provides an easy way to generate REST calls to the Bazaarvoice Developer API. Using this SDK, mobile developers can quickly integrate Bazaarvoice content into their native Android apps for phones and tablets on Android 2.2 or newer.
 
-*System Requirements*
+Developers can display content as well as submit content such as Ratings & Reviews, Ask & Answer and Stories, including text and photo. Included reference apps and a Quick Start Guide will allow developers to integrate Bazaarvoice quickly, with little overhead.
 
+
+**Where To Start:**
+
+1.  Read the Quick Start guide to get familiar with installation and building a bare-bones, simple application that uses the SDK.
+
+2.  The documentation, located in the docs folder, provides additional information into the capabilities of the SDK itself.
+
+3.  Sample applications, located in the apps folder, provide example uses of the SDK and implementation best practices.
+
+## Requirements
+* Bazaarvoice Platform API version 5.2 or older
+ * Signed Data Usage Amendment, if not already in place
+ * API configured and enabled by Bazaarvoice
+ * API key to access client's staging and production data
+ * Go to the [Bazaarvoice Developer Portal](http://developer.bazaarvoice.com) to get the above completed
 - Eclipse IDE http://www.eclipse.org/downloads/ 
   - Make sure your Java Compiler is set to 1.6 or greater
 - Android SDK http://developer.android.com/sdk/index.html 
@@ -15,10 +30,13 @@ Bazaarvoice Android SDK for Developers
 
 **Note:** IntelliJ IDEA should also work, but Eclipse is explicitly supported.
 
--
-Getting Started
-==
+## What's Included
+This package includes the following:
 
-1. Read the Quick Start guide to get familiar with installation and building a bare-bones, simple application that uses the SDK.
-2. The documentation, located in the doc folder, provides additional information into the capabilities of the SDK itself.
-3.  Sample applications, located in the Apps folder, provide example uses of the SDK and implementation best practices.
+* Android SDK based on Bazaarvoice Developer API
+* Quick Start Guide - Quickly get familiar with installation and building a bare-bones, simple application that uses the SDK
+* Reference applications
+ * **Product browse example:** Illustrates using the Bazaarvoice Android SDK to query, browse and display ratings and reviews for products
+ * **Review submission example:** Illustrates using the Bazaarvoice Android SDK to submit a photo-review that includes a user generated photo (camera/gallery), star rating and review text.
+ * **Intent registration example:** Illustrates using the Bazaarvoice Android SDK to register an intent with an Android phone to allow sharing a photo from any context.
+ 
