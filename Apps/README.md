@@ -19,3 +19,4 @@ Once you have downloaded the directory of the app you want to run, follow these 
 	- _Browse..._ to the assets/docs folder in the project directory.
  - Click _OK_ on both windows.
 6. Run the application by choosing one of the Activity files in the Package Explorer and clicking the run button.
+	*	For the Intent Example, take a photo with the stock browser on a phone and share with BV Photo Share after "running" the app which installs it on the phone.
