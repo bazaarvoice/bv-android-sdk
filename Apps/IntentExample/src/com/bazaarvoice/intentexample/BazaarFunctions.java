@@ -25,6 +25,8 @@ import com.bazaarvoice.intentexample.MainActivity;
  * consolidates the usage of these functions for easier understanding of how to
  * use the SDK.
  * 
+ * 
+ * 
  * <p>
  * Created on 7/19/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
  * 
@@ -98,6 +100,18 @@ public class BazaarFunctions {
 						Log.e(TAG,
 								"Error = " + message + "\n"
 										+ Log.getStackTraceString(exception));
+
+						/*
+						 * When using the NOTIFICATION method, we would need to
+						 * add a fail safe here. If the user were to press
+						 * "Submit" before the photo is uploaded and the photo
+						 * fails to upload, we need to alert them.
+						 * 
+						 * That is very difficult to do from a separate file,
+						 * though. Separating these functions from the main file
+						 * is done here for clarity but shouldn't be done in
+						 * your apps.
+						 */
 					}
 				});
 	}

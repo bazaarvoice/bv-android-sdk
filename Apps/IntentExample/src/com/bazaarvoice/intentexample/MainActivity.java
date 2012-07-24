@@ -24,13 +24,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.bazaarvoice.*;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * MainActivity.java <br>
@@ -58,7 +55,7 @@ public class MainActivity extends Activity {
 
 	private final int DIALOG = 0;
 	private final int NOTIFICATION = 1;
-	private int uploadType = DIALOG;
+	private int uploadType = NOTIFICATION;
 
 	protected final int STORY_FIELDS = 1337;
 
@@ -124,7 +121,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				EditText caption = (EditText) findViewById(R.id.caption);
 				caption.setEnabled(false);
-				findViewById(R.id.submit).setEnabled(false);
 				BazaarFunctions.setStoryCaption(caption.getText().toString());
 				BazaarFunctions.doStorySubmission();
 
@@ -311,6 +307,40 @@ public class MainActivity extends Activity {
 		return path;
 	}
 
+	@SuppressWarnings("deprecation")
+	public void notifyError() {
+		/*
+		 * With the NOTIFICATION method, the Activity has been closed, so we
+		 * need to alert the user through notifications. Depending on your case,
+		 * you may want the PendingIntent to take the user somewhere useful.
+		 */
+		if (uploadType == NOTIFICATION) {
+			notification = new Notification(R.drawable.notif_icon,
+					"Error in upload.", System.currentTimeMillis());
+			PendingIntent intent = PendingIntent.getActivity(
+					getApplicationContext(), 0, new Intent(), 0);
+			notification.setLatestEventInfo(getApplicationContext(),
+					"BV Photo Share",
+					"Your photo failed to upload. Please try again.", intent);
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notificationManager.notify(1, notification);
+		}
+
+		/*
+		 * With the DIALOG method, we can just dismiss the dialog and alert the
+		 * user, letting them click "Submit" again.
+		 */
+		else if (uploadType == DIALOG) {
+			runOnUiThread(new Runnable() {
+				public void run() {
+					dialog.dismiss();
+					Toast.makeText(getApplicationContext(),
+							"Upload failed. Try again.", Toast.LENGTH_LONG).show();
+				}
+			});
+		}
+	}
+
 	/**
 	 * An implementation of OnBazaarResponse used for handling story submission.
 	 * It checks the response to see if there are errors and alerts the user of
@@ -331,6 +361,7 @@ public class MainActivity extends Activity {
 					 * code executes the Activity will not be active if
 					 * (uploadType == NOTIFICATION).
 					 */
+					notifyError();
 
 				} else {
 					if (uploadType == DIALOG) {
@@ -343,7 +374,7 @@ public class MainActivity extends Activity {
 					}
 
 					/*
-					 * Update notification if we are using NOTIFICATION style,
+					 * Update the notification if we are using NOTIFICATION style,
 					 * or display a new notification if we are using DIALOG
 					 * style to show the user that the photo was uploaded when
 					 * the Activity closes.
@@ -369,6 +400,8 @@ public class MainActivity extends Activity {
 			Log.e(TAG,
 					"Error = " + message + "\n"
 							+ Log.getStackTraceString(exception));
+			notifyError();
 		}
 	}
+
 }
