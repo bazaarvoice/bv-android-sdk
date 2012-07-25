@@ -10,9 +10,7 @@ Developers can display content as well as submit content such as Ratings & Revie
 **Where To Start:**
 
 1.  Read the Quick Start guide to get familiar with installation and building a bare-bones, simple application that uses the SDK.
-
 2.  The documentation, located in the docs folder, provides additional information into the capabilities of the SDK itself.
-
 3.  Sample applications, located in the apps folder, provide example uses of the SDK and implementation best practices.
 
 ## Requirements
