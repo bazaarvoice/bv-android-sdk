@@ -13,20 +13,54 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <ViewFlipper
-            android:id="@+id/productFlipper"
+        <RelativeLayout
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/productHolder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:autoStart="true"
-            android:flipInterval="30000" >
+            android:orientation="vertical"
+            android:visibility="visible" >
 
-        </ViewFlipper>
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/bv_icon" />
+
+            <TextView
+                android:id="@+id/productTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:maxLines="3"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
+        </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/bottomButtons"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:visibility="visible" >
 
             <ImageButton
                 android:id="@+id/back"
@@ -43,9 +77,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@android:drawable/ic_media_ff" />
-
         </RelativeLayout>
-
     </LinearLayout>
 
 </FrameLayout>

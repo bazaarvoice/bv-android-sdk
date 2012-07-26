@@ -1,6 +1,5 @@
 package com.example.productwidgetexample;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,31 +56,42 @@ public class ReviewsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.reviews);
 
-		if (savedInstanceState != null) {
-			selectedProduct = savedInstanceState.getParcelable("product");
-			ImageView productImage = (ImageView) findViewById(R.id.productImage);
-			if (selectedProduct.getImageBitmap() != null) {
-				Bitmap scaledImage = Bitmap.createScaledBitmap(
-						selectedProduct.getImageBitmap(), 250, 250, true);
-				productImage.setImageBitmap(scaledImage);
-			} else {
-				Log.i(TAG, "Downloading new product image");
-				downloadProductImage();
-			}
-			initializeViews();
-		} else {
-			Intent myIntent = getIntent();
+		Intent myIntent = getIntent();
+		if (myIntent != null) {
 			selectedProduct = myIntent.getParcelableExtra("product");
-			initializeViews();
-			progDialog.show();
-			downloadProductImage();
-			if (selectedProduct.getNumReviews() != 0) {
-				downloadReviews();
-			} else {
-				noReviews.setVisibility(View.VISIBLE);
-			}
-		}
 
+			// Use saved state if it is the same product
+			if (savedInstanceState != null
+					&& selectedProduct.equals(savedInstanceState
+							.getParcelable("product"))) {
+				loadFromSavedState(savedInstanceState);
+			} else {
+				initializeViews();
+				progDialog.show();
+				downloadProductImage();
+				if (selectedProduct.getNumReviews() != 0) {
+					downloadReviews();
+				} else {
+					noReviews.setVisibility(View.VISIBLE);
+				}
+			}
+		} else if (savedInstanceState != null) {
+			loadFromSavedState(savedInstanceState);
+		}
+	}
+
+	private void loadFromSavedState(Bundle savedInstanceState) {
+		selectedProduct = savedInstanceState.getParcelable("product");
+		ImageView productImage = (ImageView) findViewById(R.id.productImage);
+		if (selectedProduct.getImageBitmap() != null) {
+			Bitmap scaledImage = Bitmap.createScaledBitmap(
+					selectedProduct.getImageBitmap(), 250, 250, true);
+			productImage.setImageBitmap(scaledImage);
+		} else {
+			Log.i(TAG, "Downloading new product image");
+			downloadProductImage();
+		}
+		initializeViews();
 	}
 
 	/**
@@ -203,8 +213,10 @@ public class ReviewsActivity extends Activity {
 	 * downloading images as needed. When all of the images are downloaded, the
 	 * loading dialog is dismissed.
 	 * 
-	 * @param json a response to a review query
-	 * @throws JSONException if a field is missing
+	 * @param json
+	 *            a response to a review query
+	 * @throws JSONException
+	 *             if a field is missing
 	 */
 	protected void displayReviews(JSONObject json) throws JSONException {
 		JSONArray results = json.getJSONArray("Results");
