@@ -231,9 +231,10 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 		views.setTextViewText(R.id.productTitle, product.getName());
 
 		Intent intent = new Intent(context, ReviewsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		intent.putExtra("product", product);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context,
-				intent.hashCode(), intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+				0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 		views.setOnClickPendingIntent(R.id.productImage, pendingIntent);
 	}
 }

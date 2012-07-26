@@ -1,5 +1,5 @@
 # Bazaarvoice Android SDK
-### *Version: 1.1.0* (Beta)
+### *Version: 1.1.1* (Beta)
 
 ## Introduction
 The Bazaarvoice software development kit (SDK) for Android is an Android static library that provides an easy way to generate REST calls to the Bazaarvoice Developer API. Using this SDK, mobile developers can quickly integrate Bazaarvoice content into their native Android apps for phones and tablets on Android 2.2 or newer.
@@ -37,4 +37,4 @@ This package includes the following:
  * **Product browse example:** Illustrates using the Bazaarvoice Android SDK to query, browse and display ratings and reviews for products
  * **Review submission example:** Illustrates using the Bazaarvoice Android SDK to submit a photo-review that includes a user generated photo (camera/gallery), star rating and review text.
  * **Intent registration example:** Illustrates using the Bazaarvoice Android SDK to register an intent with an Android phone to allow sharing a photo from any context.
- 
+ * **Product browse widget:** Illustrates using the Bazaarvoice Android SDK to make a widget that displays products and launches a brower app that shows reviews.

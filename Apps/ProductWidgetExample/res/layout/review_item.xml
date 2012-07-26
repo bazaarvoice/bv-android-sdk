@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
-    android:background="@drawable/list_back" >
+    android:background="#ffffff" >
 
     <LinearLayout
         android:layout_width="0dp"
@@ -68,19 +68,5 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="fill_parent" >
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/disclosure" />
-
-    </RelativeLayout>
 
 </LinearLayout>

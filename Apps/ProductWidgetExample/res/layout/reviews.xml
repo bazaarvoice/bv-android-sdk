@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/app_background2"
+    android:clickable="false"
     android:fadingEdge="none"
     android:orientation="vertical" >
 
@@ -116,6 +117,7 @@
                     android:id="@+id/reviewList"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
+                    android:clickable="false"
                     android:fadingEdge="none" >
 
                 </ListView>
