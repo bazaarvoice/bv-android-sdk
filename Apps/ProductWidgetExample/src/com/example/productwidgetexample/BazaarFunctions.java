@@ -1,5 +1,6 @@
 package com.example.productwidgetexample;
 
+import com.bazaarvoice.ApiVersion;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.DisplayParams;
 import com.bazaarvoice.Equality;
@@ -36,7 +37,7 @@ public class BazaarFunctions {
 	 *            the response listener
 	 */
 	public static void runProductQuery(OnBazaarResponse listener) {
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, ApiVersion.FIVE_TWO);
 		DisplayParams params = new DisplayParams();
 
 		params.addSort("AverageOverallRating", false);
@@ -55,7 +56,7 @@ public class BazaarFunctions {
 	 *            the response listener
 	 */
 	public static void runReviewQuery(String prodId, OnBazaarResponse listener) {
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, ApiVersion.FIVE_TWO);
 		DisplayParams params = new DisplayParams();
 
 		params.addFilter("ProductId", Equality.EQUAL, prodId);
