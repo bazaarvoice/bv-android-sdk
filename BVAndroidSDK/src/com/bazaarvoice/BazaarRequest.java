@@ -39,7 +39,7 @@ import java.util.LinkedList;
  */
 public class BazaarRequest {
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
-	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V1";
+	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V1-1";
 
 	private String passKey;
 	private String apiVersion;
@@ -69,9 +69,9 @@ public class BazaarRequest {
 	 * @param apiVersion
 	 *            the version of the api you want to use
 	 */
-	public BazaarRequest(String domainName, String passKey, String apiVersion) {
+	public BazaarRequest(String domainName, String passKey, ApiVersion apiVersion) {
 		this.passKey = passKey;
-		this.apiVersion = apiVersion;
+		this.apiVersion = apiVersion.getVersionName();
 
 		requestHeader = "http://" + domainName + "/data/";
 		reusableClient = getThreadSafeClient();
@@ -200,7 +200,7 @@ public class BazaarRequest {
 	 * @throws BazaarException
 	 *             on any JSON or communication errors
 	 */
-	public JSONObject send(String URL, RequestMethod method, Media mediaEntity)
+	private JSONObject send(String URL, RequestMethod method, Media mediaEntity)
 			throws BazaarException {
 		try {
 			// create an HTTP request to a protected resource
@@ -249,11 +249,11 @@ public class BazaarRequest {
 	 */
 	private String getRequestString(final String type, BazaarParams params) {
 		String requestString = requestHeader + type + ".json";
-		requestString = DisplayParams.addURLParameter(requestString,
+		requestString = BazaarParams.addURLParameter(requestString,
 				"apiversion", apiVersion);
-		requestString = DisplayParams.addURLParameter(requestString, "passkey",
+		requestString = BazaarParams.addURLParameter(requestString, "passkey",
 				passKey);
-		requestString = DisplayParams.addURLParameter(requestString,
+		requestString = BazaarParams.addURLParameter(requestString,
 				SDK_HEADER_NAME, SDK_HEADER_VALUE);
 		if (params != null) {
 			requestString = params.toURL(requestString);

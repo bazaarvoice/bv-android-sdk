@@ -485,12 +485,27 @@ public class SubmissionParams extends BazaarParams {
 		this.productId = productId;
 	}
 
-	public void addTagDim(String type, String value) {
-		tagDim = addToMap(tagDim, type, value);
+	/**
+	 * Add a "Tag_<Dimension>" parameter to this submission.
+	 * 
+	 * @param dim
+	 *            the dimension for the tag
+	 * @param value
+	 *            the value of the tag
+	 */
+	public void addTagDim(String dim, String value) {
+		tagDim = addToMap(tagDim, dim, value);
 	}
 
-	public String getTagDim(String type) {
-		return tagDim != null ? tagDim.get(type) : null;
+	/**
+	 * Get the value of the tag set with the given dimension.
+	 * 
+	 * @param dim
+	 *            the dimension of the tag
+	 * @return the value of the tag
+	 */
+	public String getTagDim(String dim) {
+		return tagDim != null ? tagDim.get(dim) : null;
 	}
 
 	/**

@@ -65,9 +65,7 @@ public class ReviewDisplayTest extends BaseTest {
         DisplayParams params = new DisplayParams();
         params.addFilter("Id", Equality.EQUAL, "192612");
 
-        ArrayList<String> includes = new ArrayList<String>();
-            includes.add("Products");
-        params.setIncludes(includes);
+        params.addInclude(IncludeType.PRODUCTS);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override

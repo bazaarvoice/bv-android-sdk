@@ -6,11 +6,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.List;
 
 /**
  * 
- * Handles the parameters for media submission. Only one media
- * object per submission, please! <br>
+ * Handles the parameters for media submission. Only one media object per
+ * submission, please! <br>
  * Use of this class may be eased with knowledge of the <a
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You might want
  * to use this site as a reference for which parameters to pass using this
@@ -138,6 +139,11 @@ public class SubmissionMediaParams extends BazaarParams {
 
 	/**
 	 * Set the "Content Type" parameter for the submission.
+	 * 
+	 * <p>
+	 * <b>Usage:</b><br>
+	 * This should be set in {@link #SubmissionMediaParams(String)} , but this method is available in
+	 * case you want to change it after the fact.
 	 * 
 	 * @param contentType
 	 *            a content type

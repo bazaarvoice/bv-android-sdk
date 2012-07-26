@@ -42,8 +42,8 @@ public class ProfileDisplayTest extends BaseTest {
          //Requesting profiles with recommended reviews
          //--------------------------------------
          DisplayParams params = new DisplayParams();
-         params.addFilterType("reviews", "IsRecommended", Equality.EQUAL, "true");
-         params.addInclude("reviews");
+         params.addFilterType(IncludeType.REVIEWS, "IsRecommended", Equality.EQUAL, "true");
+         params.addInclude(IncludeType.REVIEWS);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
              @Override
@@ -108,10 +108,8 @@ public class ProfileDisplayTest extends BaseTest {
         DisplayParams params = new DisplayParams();
         params.addFilter("Id", Equality.EQUAL, "yums");
 
-        ArrayList<String> includes = new ArrayList<String>();
-        includes.add("Questions");
-        includes.add("Reviews");
-        params.setIncludes(includes);
+        params.addInclude(IncludeType.QUESTIONS);
+        params.addInclude(IncludeType.REVIEWS);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override

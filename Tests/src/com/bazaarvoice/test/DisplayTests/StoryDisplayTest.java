@@ -110,12 +110,10 @@ public class StoryDisplayTest extends BaseTest {
         params.addFilter("HasPhotos", "true");
         params.addFilter("ProductId", Equality.EQUAL, "1000001");
 
-        ArrayList<String> includes = new ArrayList<String>();
-            includes.add("Authors");
-            includes.add("Comments");
-            includes.add("Products");
-            includes.add("Categories");
-        params.setIncludes(includes);
+        params.addInclude(IncludeType.AUTHORS);
+        params.addInclude(IncludeType.COMMENTS);
+        params.addInclude(IncludeType.PRODUCTS);
+        params.addInclude(IncludeType.CATEGORIES);
 
         params.addSort("TotalPositiveFeedbackCount", false);
         params.setLimit(4);

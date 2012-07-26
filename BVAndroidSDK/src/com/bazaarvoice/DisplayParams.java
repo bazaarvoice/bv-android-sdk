@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class DisplayParams extends BazaarParams {
 	private List<String> includes;
+	private List<String> attributes;
 	private List<String> sort;
 	private List<String> search = null;
 	private Integer offset;
 	private Integer limit;
-	private String filterType;
 	private String locale;
 	private List<String> stats;
 	private List<String> sortType;
@@ -34,6 +34,18 @@ public class DisplayParams extends BazaarParams {
 	 */
 	public DisplayParams() {
 	}
+	
+	/**
+	 * Add an "Attribute" parameter to the request.
+	 * 
+	 * @param attribute
+	 *            the new attribute
+	 */
+	public void addAttribute(String attribute){
+		if (attributes == null)
+			attributes = new ArrayList<String>();
+		this.attributes.add(encode(attribute));
+	}
 
 	/**
 	 * Add an "Include" parameter to the request.
@@ -41,11 +53,11 @@ public class DisplayParams extends BazaarParams {
 	 * @param include
 	 *            the new include
 	 */
-	public void addInclude(String include) {
+	public void addInclude(IncludeType include) {
 		if (includes == null) {
 			includes = new ArrayList<String>();
 		}
-		this.includes.add(encode(include));
+		this.includes.add(encode(include.getDisplayName()));
 	}
 
 	/**
@@ -172,13 +184,13 @@ public class DisplayParams extends BazaarParams {
 	 * @param values
 	 *            the values for the filter
 	 */
-	public void addFilterType(String filterType, String attribute,
+	public void addFilterType(IncludeType filterType, String attribute,
 			Equality equality, String[] values) {
 		if (filters == null) {
 			filters = new ArrayList<String>();
 		}
 		String filterName = filterType == null ? "filter=" : "filter_"
-				+ filterType + "=";
+				+ filterType.getDisplayName() + "=";
 		StringBuilder filterString = new StringBuilder();
 		filterString.append(filterName).append(attribute).append(":")
 				.append(equality.getEquality()).append(":");
@@ -209,13 +221,13 @@ public class DisplayParams extends BazaarParams {
 	 * @param value
 	 *            the value for the filter
 	 */
-	public void addFilterType(String filterType, String attribute,
+	public void addFilterType(IncludeType filterType, String attribute,
 			Equality equality, String value) {
 		if (filters == null) {
 			filters = new ArrayList<String>();
 		}
 		String filterName = filterType == null ? "filter=" : "filter_"
-				+ filterType + "=";
+				+ filterType.getDisplayName() + "=";
 		StringBuilder filterString = new StringBuilder();
 		filterString.append(filterName).append(attribute).append(":")
 				.append(equality.getEquality()).append(":")
@@ -238,12 +250,12 @@ public class DisplayParams extends BazaarParams {
 	 * @param value
 	 *            the value for the filter
 	 */
-	public void addFilterType(String filterType, String attribute, String value) {
+	public void addFilterType(IncludeType filterType, String attribute, String value) {
 		if (filters == null) {
 			filters = new ArrayList<String>();
 		}
 		String filterName = filterType == null ? "filter=" : "filter_"
-				+ filterType + "=";
+				+ filterType.getDisplayName() + "=";
 		filters.add(filterName + attribute + ":" + encode(value));
 	}
 
@@ -323,10 +335,6 @@ public class DisplayParams extends BazaarParams {
 		url = addURLParameter(url, "offset", offset);
 		url = addURLParameter(url, "limit", limit);
 
-		if (filterType != null) {
-			url = addURLParameter(url, "filterType", filterType + "");
-		}
-
 		if (locale != null) {
 			url = addURLParameter(url, "locale", locale + "");
 		}
@@ -348,13 +356,44 @@ public class DisplayParams extends BazaarParams {
 
 		return url;
 	}
+	
+	/**
+	 * Get the list of attributes.
+	 * 
+	 * @return a list of attributes
+	 */
+	public List<String> getAttributes(){
+		return attributes;
+	}
+	
+	/**
+	 * Set the list of attributes in the "Attributes" parameter
+	 * manually.
+	 * 
+	 * <p><b>Usage:</b><br> Recommended usage is to add attributes one by one using
+	 *        {@link #addAttribute(String)}.
+	 * @param attributes
+	 *            the list of attributes
+	 */
+	public void setAttributes(List<String> attributes){
+		this.attributes = attributes;
+	}
+	
+	/**
+	 * Get the list of includes values.
+	 * 
+	 * @return a list of values
+	 */
+	public List<String> getIncludes(){
+		return includes;
+	}
 
 	/**
 	 * Set the list of subjects for inclusion in the "Include" parameter
 	 * manually.
 	 * 
 	 * <p><b>Usage:</b><br> Recommended usage is to add subjects one by one using
-	 *        {@link #addInclude(String)}.
+	 *       {@link #addInclude(IncludeType)}.
 	 * @param includes
 	 *            the list of subjects to include
 	 */
@@ -407,14 +446,6 @@ public class DisplayParams extends BazaarParams {
 	 */
 	public void setFilters(List<String> filters) {
 		this.filters = filters;
-	}
-
-	public String getFilterType() {
-		return filterType;
-	}
-
-	public void setFilterType(String filterType) {
-		this.filterType = filterType;
 	}
 
 	/**

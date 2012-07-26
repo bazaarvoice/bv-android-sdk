@@ -67,9 +67,7 @@ public class QuestionDisplayTest extends BaseTest {
          DisplayParams params = new DisplayParams();
          params.addFilter("Id", Equality.EQUAL, "14898");
 
-         ArrayList<String> includes = new ArrayList<String>();
-             includes.add("Answers");
-         params.setIncludes(includes);
+         params.addInclude(IncludeType.ANSWERS);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
              @Override
@@ -179,9 +177,7 @@ public class QuestionDisplayTest extends BaseTest {
          DisplayParams params = new DisplayParams();
          params.addFilter("CategoryId", Equality.EQUAL, "1020");
 
-         ArrayList<String> includes = new ArrayList<String>();
-             includes.add("Answers");
-         params.setIncludes(includes);
+         params.addInclude(IncludeType.ANSWERS);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
              @Override

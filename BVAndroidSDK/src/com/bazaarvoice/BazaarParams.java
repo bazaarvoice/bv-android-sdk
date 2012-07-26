@@ -11,7 +11,7 @@ import java.util.Map;
  * 
  * The base class for adding parameters to a BazaarRequest. This
  * class should not be used to add parameters. Instead, use one of the derived
- * classes: {@link DisplayParams}, {@link SubmissionParams}, {@link SubmissionMediaParams}.
+ * classes: {@link DisplayParams}, {@link SubmissionParams}, {@link SubmissionMediaParams}, {@link SubmissionFeedbackParams}.
  * 
  * <p>
  * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
@@ -126,7 +126,7 @@ public abstract class BazaarParams {
 	 *            the value
 	 * @return the url with the parameter added
 	 */
-	public static String addURLParameter(String url, String name, String value) {
+	protected static String addURLParameter(String url, String name, String value) {
 		if (value != null && value.length() > 0) {
 			value = encode(value);
 			char separator = url.contains("?") ? '&' : '?';
@@ -155,7 +155,7 @@ public abstract class BazaarParams {
 	 *            the value
 	 * @return the url with the parameter added
 	 */
-	public static String addURLParameter(String url, String name, Boolean value) {
+	protected static String addURLParameter(String url, String name, Boolean value) {
 		if (value != null) {
 			return addURLParameter(url, name, value.toString());
 		}
@@ -180,7 +180,7 @@ public abstract class BazaarParams {
 	 *            the value
 	 * @return the url with the parameter added
 	 */
-	public static String addURLParameter(String url, String name, Integer value) {
+	protected static String addURLParameter(String url, String name, Integer value) {
 		if (value != null) {
 			return addURLParameter(url, name, value.toString());
 		}
@@ -205,7 +205,7 @@ public abstract class BazaarParams {
 	 *            the map of values to add
 	 * @return the url with the parameter added
 	 */
-	public static String addURLParameter(String url, String name,
+	protected static String addURLParameter(String url, String name,
 			Map<String, String> map) {
 		if (map != null) {
 			for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -247,7 +247,7 @@ public abstract class BazaarParams {
 	 *            the list of values that will be separated by commas
 	 * @return the new url
 	 */
-	public static String addURLParamsFromList(String url, String name,
+	protected static String addURLParamsFromList(String url, String name,
 			List<String> values) {
 		if (values != null) {
 			String paramList = "";
@@ -284,7 +284,7 @@ public abstract class BazaarParams {
 	 *            the list of values that will be separated by commas
 	 * @return the new url
 	 */
-	public static String addNthURLParamsFromList(String url, String name,
+	protected static String addNthURLParamsFromList(String url, String name,
 			List<String> values) {
 		if (values != null) {
 			for (int i = 0; i < values.size(); i++) {
