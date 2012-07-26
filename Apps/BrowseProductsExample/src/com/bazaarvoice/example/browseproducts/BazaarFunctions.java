@@ -1,6 +1,7 @@
 package com.bazaarvoice.example.browseproducts;
 
 
+import com.bazaarvoice.ApiVersion;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.DisplayParams;
 import com.bazaarvoice.Equality;
@@ -26,7 +27,7 @@ public class BazaarFunctions {
 
 	public static final String API_URL = "reviews.apitestcustomer.bazaarvoice.com/bvstaging";
 	public static final String API_KEY = "kuy3zj9pr3n7i0wxajrzj04xo";
-	public static final String API_VERSION = "5.1";
+	public static final ApiVersion API_VERSION = ApiVersion.FIVE_TWO;
 
 	/**
 	 * Sends off a product query with the search term provided.

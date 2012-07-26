@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.bazaarvoice.Action;
+import com.bazaarvoice.ApiVersion;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.OnBazaarResponse;
 import com.bazaarvoice.RequestType;
@@ -37,7 +38,7 @@ public class BazaarFunctions {
 
 	public static final String API_URL = "stories.apitestcustomer.bazaarvoice.com/bvstaging";
 	public static final String API_KEY = "2cpdrhohmgmwfz8vqyo48f52g";
-	public static final String API_VERSION = "5.1";
+	public static final ApiVersion API_VERSION = ApiVersion.FIVE_TWO;
 	protected static final String TAG = "BazaarFunctions";
 
 	public static String USER_ID = "";
