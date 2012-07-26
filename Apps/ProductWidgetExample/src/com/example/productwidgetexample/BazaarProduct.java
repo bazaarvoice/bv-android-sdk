@@ -1,6 +1,5 @@
 package com.example.productwidgetexample;
 
-
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -166,6 +165,22 @@ public class BazaarProduct implements Parcelable {
 			setAverageRating(reviewStats.optDouble("AverageOverallRating"));
 			numReviews = reviewStats.getInt("TotalReviewCount");
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		BazaarProduct other = (BazaarProduct) o;
+		if (!name.equals(other.getName())){
+			return super.equals(o);
+		}
+		else if (!description.equals(other.getDescription())){
+			return super.equals(o);
+		}
+		else if (!prodId.equals(other.getProdID())){
+			return super.equals(o);
+		}
+		else
+			return true;
 	}
 
 	/**
