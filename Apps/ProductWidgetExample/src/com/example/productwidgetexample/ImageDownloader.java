@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 /**
  * ImageDownloader.java <br>
- * ReviewSubmissionExample<br>
+ * ProductWidgetExample<br>
  * 
  * <p>
  * This is a simple class that allows for downloading an image from a given URL.

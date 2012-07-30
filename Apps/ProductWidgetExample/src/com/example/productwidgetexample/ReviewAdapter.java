@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 /**
  * ReviewAdapter.java <br>
- * BrowseProductExample<br>
+ * ProductWidgetExample<br>
  * 
  * <p>
- * This is an adapter tailored for displaying BazaarReview objects
+ * This is an adapter tailored for displaying BazaarReview objects.
  * 
  * <p>
  * Created on 7/3/12. Copyright (c) 2012 BazaarVoice. All rights reserved.

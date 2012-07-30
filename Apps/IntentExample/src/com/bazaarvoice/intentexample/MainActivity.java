@@ -47,6 +47,18 @@ import java.io.File;
  * "Submit Photo" and progress will be shown in the notification bar.
  * 
  * <p>
+ * OOM Issue:<br>
+ * There is a known issue with running out of memory with an app that has a
+ * large bitmap when it is rotated a few times. There are a lot of discussions
+ * and recommendations about what to do about it on StackOverflow and other
+ * sites. This example is not meant to show you the best practice for handling
+ * such a situation but our recommendation is to force portrait mode (which is
+ * what we do here) in the manifest file and to consider scaling the bitmap
+ * down. Forcing portrait mode is not a flawless solution, though, because when
+ * a physical keyboard is pulled out, the system will force the phone into
+ * landscape.
+ * 
+ * <p>
  * Created on 7/19/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
  * 
  * @author Bazaarvoice Engineering
@@ -335,7 +347,8 @@ public class MainActivity extends Activity {
 				public void run() {
 					dialog.dismiss();
 					Toast.makeText(getApplicationContext(),
-							"Upload failed. Try again.", Toast.LENGTH_LONG).show();
+							"Upload failed. Try again.", Toast.LENGTH_LONG)
+							.show();
 				}
 			});
 		}
@@ -374,10 +387,10 @@ public class MainActivity extends Activity {
 					}
 
 					/*
-					 * Update the notification if we are using NOTIFICATION style,
-					 * or display a new notification if we are using DIALOG
-					 * style to show the user that the photo was uploaded when
-					 * the Activity closes.
+					 * Update the notification if we are using NOTIFICATION
+					 * style, or display a new notification if we are using
+					 * DIALOG style to show the user that the photo was uploaded
+					 * when the Activity closes.
 					 */
 					notification = new Notification(R.drawable.notif_icon,
 							"Photo Uploaded.", System.currentTimeMillis());

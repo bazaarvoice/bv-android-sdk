@@ -15,7 +15,7 @@ import android.util.Log;
 
 /**
  * BazaarReview.java <br>
- * ReviewSubmissionExample<br>
+ * ProductWidgetExample<br>
  * 
  * <p>
  * This is a very basic class used to represent a review in the Bazaarvoice

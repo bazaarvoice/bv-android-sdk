@@ -24,7 +24,7 @@ import android.widget.RelativeLayout;
 
 /**
  * BazaarProduct.java <br>
- * ReviewSubmissionExample<br>
+ * ProductWidgetExample<br>
  * 
  * <p>
  * This is a very basic class used to represent a product in the Bazaarvoice
@@ -167,19 +167,22 @@ public class BazaarProduct implements Parcelable {
 		}
 	}
 
+	/**
+	 * Compares the two products by name, description, and product Id.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		BazaarProduct other = (BazaarProduct) o;
-		if (!name.equals(other.getName())){
+		if (!name.equals(other.getName())) {
+			Log.i("Equals", "Name " + name + other.getName());
 			return super.equals(o);
-		}
-		else if (!description.equals(other.getDescription())){
+		} else if (!description.equals(other.getDescription())) {
+			Log.i("Equals", "Description " + description + other.getDescription());
 			return super.equals(o);
-		}
-		else if (!prodId.equals(other.getProdID())){
+		} else if (!prodId.equals(other.getProdID())) {
+			Log.i("Equals", "ID " + prodId + other.getProdID());
 			return super.equals(o);
-		}
-		else
+		} else
 			return true;
 	}
 

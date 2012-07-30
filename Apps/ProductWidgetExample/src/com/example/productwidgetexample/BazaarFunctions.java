@@ -9,7 +9,7 @@ import com.bazaarvoice.RequestType;
 
 /**
  * BazaarFunctions.java <br>
- * ReviewSubmissionExample<br>
+ * ProductWidgetExample<br>
  * 
  * <p>
  * This is a suite of functions that leverage the BazaarvoiceSDK. This class
