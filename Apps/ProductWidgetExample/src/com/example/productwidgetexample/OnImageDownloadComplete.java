@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 
 /**
  * OnImageDownloadComplete.java <br>
- * ReviewSubmissionExample<br>
+ * ProductWidgetExample<br>
  * 
  * This is an interface used for passing callback functions for image downloads.
  * 

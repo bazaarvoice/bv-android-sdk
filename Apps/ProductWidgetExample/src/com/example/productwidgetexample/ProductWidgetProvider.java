@@ -26,6 +26,36 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViews.RemoteView;
 import android.widget.ViewFlipper;
 
+/**
+ * ProductWidgetProvider.java<br>
+ * ProductWidgetExample<br>
+ * 
+ * <p>
+ * This is the main class that defines the functionality of the widget. When it
+ * updates, it downloads a new list of products asynchronously. To navigate
+ * between products, the widget sends an intent to itself with the desired
+ * direction of navigation.
+ * 
+ * <p>
+ * Of mentionable note:
+ * <ul>
+ * <li>Every time you call
+ * {@link AppWidgetManager#updateAppWidget(ComponentName, RemoteViews)} you need
+ * to set all of the click listeners that you want because Android likes to
+ * recycle old RemoteViews to save resources.</li>
+ * 
+ * <li>The flags set for the intent used to launch the ReviewsActivity are
+ * deliberate to ensure that old activities are reused but are delivered new
+ * intents.</li>
+ * 
+ * <li>The widget settings are set in res/xml/browse_widget_info.xml</li>
+ * 
+ * <p>
+ * Created on 7/27/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
+ * 
+ * @author Bazaarvoice Engineering
+ * 
+ */
 public class ProductWidgetProvider extends AppWidgetProvider {
 
 	public static final String TRIGGER = "trigger";
@@ -34,13 +64,17 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 	private static ArrayList<BazaarProduct> products;
 	private static int curProduct;
 
+	/**
+	 * Called when an instance of this widget is added to the home screen and
+	 * whenever an update goes off as set in res/xml/browse_widget_info.xml.
+	 */
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 		RemoteViews root = new RemoteViews(context.getPackageName(),
 				R.layout.browse_widget);
-		
+
 		root.setViewVisibility(R.id.progressBar, View.VISIBLE);
 		root.setViewVisibility(R.id.productHolder, View.GONE);
 		root.setViewVisibility(R.id.bottomButtons, View.GONE);
@@ -50,30 +84,73 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 		AsyncDownloadProducts task = new AsyncDownloadProducts();
 		task.execute(new Context[] { context });
 	}
-	
-	private PendingIntent getNavigationIntent(Context context, int id) {
-		Intent clickIntent = new Intent(context,
-				ProductWidgetProvider.class);
-		clickIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-		clickIntent.putExtra(TRIGGER, id);
 
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-				id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		return pendingIntent;
-	}
-
+	/**
+	 * Sets all of the listeners needed to the RemoteViews object and updates
+	 * the widget UI.
+	 * 
+	 * @param context
+	 *            the application context
+	 * @param root
+	 *            the view representing the widget
+	 */
 	private void refreshWidget(Context context, RemoteViews root) {
-		root.setOnClickPendingIntent(R.id.back, getNavigationIntent(context, R.id.back));
+		root.setOnClickPendingIntent(R.id.back,
+				getNavigationIntent(context, R.id.back));
 		root.setOnClickPendingIntent(R.id.forward,
 				getNavigationIntent(context, R.id.forward));
 		updateProductView(context, root);
-		
+
 		AppWidgetManager appWidgetManager = AppWidgetManager
 				.getInstance(context);
 		ComponentName thisWidget = new ComponentName(context,
 				ProductWidgetProvider.class);
-		AppWidgetManager manager = AppWidgetManager.getInstance(context);
 		appWidgetManager.updateAppWidget(thisWidget, root);
+	}
+
+	/**
+	 * Returns the correct PendingIntent for the given button resource id. The
+	 * back button and the forward button need to have different intents.
+	 * 
+	 * @param context
+	 *            the application context
+	 * @param id
+	 *            the resource id of the button this PendingIntent is for
+	 * @return the correct PendingIntent
+	 */
+	private PendingIntent getNavigationIntent(Context context, int id) {
+		Intent clickIntent = new Intent(context, ProductWidgetProvider.class);
+		clickIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+		clickIntent.putExtra(TRIGGER, id);
+
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id,
+				clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		return pendingIntent;
+	}
+
+	/**
+	 * Sets the image, text, and listener for the product information on the
+	 * widget to match the current product in the list.
+	 * 
+	 * @param context
+	 *            the application context
+	 * @param root
+	 *            the view representing the widget
+	 */
+	public void updateProductView(Context context, RemoteViews root) {
+		if (products == null) {
+			return;
+		}
+		BazaarProduct product = products.get(curProduct);
+		root.setImageViewBitmap(R.id.productImage, product.getImageBitmap());
+		root.setTextViewText(R.id.productTitle, product.getName());
+
+		Intent intent = new Intent(context, ReviewsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra("product", product);
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+				intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		root.setOnClickPendingIntent(R.id.productImage, pendingIntent);
 	}
 
 	/**
@@ -95,11 +172,13 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 	}
 
 	/**
-	 * Moves the ViewFlipper based on an intent sent by clicking one of the
-	 * buttons.
+	 * Changes the current product index depending on which direction button was
+	 * clicked and refreshes the widget.
 	 * 
 	 * @param context
+	 *            the application context
 	 * @param id
+	 *            the resource id of the button pressed
 	 */
 	protected void onNavigate(Context context, Integer id) {
 
@@ -107,28 +186,40 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 				R.layout.browse_widget);
 
 		if (id == R.id.back) {
-			Log.i("Counter Back", "Size = " + products.size());
-			Log.i("Counter Back", "Before = " + curProduct);
 			curProduct = (curProduct - 1) % products.size();
 			if (curProduct < 0) {
 				curProduct += products.size();
 			}
-			Log.i("Counter Back", "After = " + curProduct);
 		} else if (id == R.id.forward) {
-			Log.i("Counter Forward", "Size = " + products.size());
-			Log.i("Counter Forward", "Before = " + curProduct);
 			curProduct = (curProduct + 1) % products.size();
-			Log.i("Counter Forward", "After = " + curProduct);
 		}
 
 		refreshWidget(context, root);
 	}
 
+	/**
+	 * Handles the background download of a list of BazaarProducts.
+	 * 
+	 * <p>
+	 * Created on 7/27/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
+	 * 
+	 * @author Bazaarvoice Engineering
+	 */
 	private class AsyncDownloadProducts extends
 			AsyncTask<Context, Void, RemoteViews> {
 
 		private Context context;
 
+		/**
+		 * A simple counter to make sure the download thread waits for all of
+		 * the images to be downloaded.
+		 * 
+		 * <p>
+		 * Created on 7/27/12. Copyright (c) 2012 BazaarVoice. All rights
+		 * reserved.
+		 * 
+		 * @author Bazaarvoice Engineering
+		 */
 		private class Counter {
 			int value;
 
@@ -153,13 +244,17 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 			}
 		}
 
+		/**
+		 * Sends a request for products, downloads the images, and updates the
+		 * widget UI.
+		 */
 		@Override
 		protected RemoteViews doInBackground(Context... params) {
 			context = params[0];
 			curProduct = 0;
 			products = new ArrayList<BazaarProduct>();
 			final Counter counter = new Counter(1);
-			final RemoteViews views = new RemoteViews(context.getPackageName(),
+			final RemoteViews root = new RemoteViews(context.getPackageName(),
 					R.layout.browse_widget);
 
 			BazaarFunctions.runProductQuery(new OnBazaarResponse() {
@@ -205,36 +300,20 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 				}
 			}
 
-			updateProductView(context, views);
+			updateProductView(context, root);
 
-			views.setViewVisibility(R.id.progressBar, View.GONE);
-			views.setViewVisibility(R.id.productHolder, View.VISIBLE);
-			views.setViewVisibility(R.id.bottomButtons, View.VISIBLE);
-			return views;
+			root.setViewVisibility(R.id.progressBar, View.GONE);
+			root.setViewVisibility(R.id.productHolder, View.VISIBLE);
+			root.setViewVisibility(R.id.bottomButtons, View.VISIBLE);
+			return root;
 		}
 
+		/**
+		 * Refreshes the newly created widget UI.
+		 */
 		@Override
-		protected void onPostExecute(RemoteViews updateViews) {
-			refreshWidget(context, updateViews);
+		protected void onPostExecute(RemoteViews root) {
+			refreshWidget(context, root);
 		}
-
-		
-
-	}
-
-	public void updateProductView(Context context, RemoteViews views) {
-		if (products == null){
-			return;
-		}
-		BazaarProduct product = products.get(curProduct);
-		views.setImageViewBitmap(R.id.productImage, product.getImageBitmap());
-		views.setTextViewText(R.id.productTitle, product.getName());
-
-		Intent intent = new Intent(context, ReviewsActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra("product", product);
-		PendingIntent pendingIntent = PendingIntent.getActivity(context,
-				0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-		views.setOnClickPendingIntent(R.id.productImage, pendingIntent);
 	}
 }

@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 /**
  * ReviewsActivity.java <br>
- * BrowseProductExample<br>
+ * ProductWidgetExample<br>
  * 
  * <p>
  * This is a review browsing screen. It loads the product image and review
@@ -60,26 +60,24 @@ public class ReviewsActivity extends Activity {
 		if (myIntent != null) {
 			selectedProduct = myIntent.getParcelableExtra("product");
 
-			// Use saved state if it is the same product
-			if (savedInstanceState != null
-					&& selectedProduct.equals(savedInstanceState
-							.getParcelable("product"))) {
-				loadFromSavedState(savedInstanceState);
+			initializeViews();
+			progDialog.show();
+			downloadProductImage();
+			if (selectedProduct.getNumReviews() != 0) {
+				downloadReviews();
 			} else {
-				initializeViews();
-				progDialog.show();
-				downloadProductImage();
-				if (selectedProduct.getNumReviews() != 0) {
-					downloadReviews();
-				} else {
-					noReviews.setVisibility(View.VISIBLE);
-				}
+				noReviews.setVisibility(View.VISIBLE);
 			}
+
 		} else if (savedInstanceState != null) {
 			loadFromSavedState(savedInstanceState);
 		}
 	}
 
+	/**
+	 * Loads the content of the activity from a saved state.
+	 * @param savedInstanceState the state saved in {@link #onSaveInstanceState(Bundle)}.
+	 */
 	private void loadFromSavedState(Bundle savedInstanceState) {
 		selectedProduct = savedInstanceState.getParcelable("product");
 		ImageView productImage = (ImageView) findViewById(R.id.productImage);
