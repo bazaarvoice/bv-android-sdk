@@ -1,4 +1,4 @@
-## 1.1.1 (Jul 26, 2012)
+## 1.1.1 (Jul 30, 2012)
 
 * Added Product Browser Widget example.
 * Fized issue with tag_<dimension> and rating_<dimension> parameters.
