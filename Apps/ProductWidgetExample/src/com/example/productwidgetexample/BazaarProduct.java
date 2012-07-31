@@ -177,7 +177,8 @@ public class BazaarProduct implements Parcelable {
 			Log.i("Equals", "Name " + name + other.getName());
 			return super.equals(o);
 		} else if (!description.equals(other.getDescription())) {
-			Log.i("Equals", "Description " + description + other.getDescription());
+			Log.i("Equals",
+					"Description " + description + other.getDescription());
 			return super.equals(o);
 		} else if (!prodId.equals(other.getProdID())) {
 			Log.i("Equals", "ID " + prodId + other.getProdID());
@@ -321,6 +322,14 @@ public class BazaarProduct implements Parcelable {
 	 */
 	public void setCatID(String catID) {
 		this.catId = catID;
+	}
+
+	/**
+	 * @param image
+	 *            the image to set
+	 */
+	public void setImageBitmap(Bitmap image) {
+		imageBitmap = image;
 	}
 
 	/**

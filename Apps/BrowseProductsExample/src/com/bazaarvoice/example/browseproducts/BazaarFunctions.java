@@ -1,6 +1,5 @@
 package com.bazaarvoice.example.browseproducts;
 
-
 import com.bazaarvoice.ApiVersion;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.DisplayParams;
@@ -42,12 +41,14 @@ public class BazaarFunctions {
 		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
 		DisplayParams params = new DisplayParams();
 
-		// Add search terms to params
-		String[] tokens = searchPhrase.split("\\s+");
-		for (String term : tokens){
-			params.addSearch(term);
+		if (!"".equals(searchPhrase.trim())) {
+			// Add search terms to params
+			String[] tokens = searchPhrase.split("\\s+");
+			for (String term : tokens) {
+				params.addSearch(term);
+			}
 		}
-		
+
 		params.addStats("Reviews");
 
 		request.sendDisplayRequest(RequestType.PRODUCTS, params, listener);
