@@ -61,6 +61,7 @@ public class ReviewsActivity extends Activity {
 			selectedProduct = myIntent.getParcelableExtra("product");
 
 			initializeViews();
+			progDialog.setCancelable(false);
 			progDialog.show();
 			downloadProductImage();
 			if (selectedProduct.getNumReviews() != 0) {

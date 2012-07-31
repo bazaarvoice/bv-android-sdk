@@ -281,6 +281,22 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 										@Override
 										public void onFinish(Bitmap image) {
 											counter.decrement();
+
+											/*
+											 * Scale image down to work with
+											 * less powerful phones.
+											 */
+											double factor = (image.getHeight() >= 200) ? image
+													.getHeight() / 200 : 1;
+											Bitmap smaller = Bitmap
+													.createScaledBitmap(
+															image,
+															(int) (image
+																	.getWidth() / factor),
+															(int) (image
+																	.getHeight() / factor),
+															false);
+											newProduct.setImageBitmap(smaller);
 										}
 
 									});
