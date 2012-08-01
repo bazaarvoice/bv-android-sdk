@@ -5,7 +5,10 @@ These apps are meant to show you some of what can be done with the Bazaarvoice S
 
 Note: Using a static class to wrap these SDK calls is not a preferred practice. This is just here to make it easy to use these examples as a reference.
 
-**Important**: Review submission takes at least 15 minutes to get through moderation. If you want to make sure your reviews are being submitted correctly, wait a bit and check https://workbench.bazaarvoice.com. A response with no errors does not necessarily mean that any media has been attached correctly.
+**Important**: If you are a Bazaarvoice client or if you are a developer representing a Bazaarvoice client, 
+review submission takes at least 15 minutes to get through moderation. 
+If you want to make sure your reviews are being submitted correctly, wait a bit and check https://workbench.bazaarvoice.com. 
+A response with no errors does not necessarily mean that any media has been attached correctly.
 
 Running the Apps
 -
