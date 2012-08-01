@@ -54,6 +54,14 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000" />
 
+            <ImageView
+                android:id="@+id/productRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/three_star" />
+
         </LinearLayout>
 
         <RelativeLayout

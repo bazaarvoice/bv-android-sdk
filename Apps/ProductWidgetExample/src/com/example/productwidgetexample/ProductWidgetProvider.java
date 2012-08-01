@@ -129,7 +129,7 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 	}
 
 	/**
-	 * Sets the image, text, and listener for the product information on the
+	 * Sets the image, text, rating, and listener for the product information on the
 	 * widget to match the current product in the list.
 	 * 
 	 * @param context
@@ -138,12 +138,35 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 	 *            the view representing the widget
 	 */
 	public void updateProductView(Context context, RemoteViews root) {
-		if (products == null) {
+		if (products == null || products.size() == 0) {
 			return;
 		}
 		BazaarProduct product = products.get(curProduct);
 		root.setImageViewBitmap(R.id.productImage, product.getImageBitmap());
 		root.setTextViewText(R.id.productTitle, product.getName());
+
+		int resId = 0;
+		switch ((int) product.getAverageRating()) {
+		case (1):
+			resId = R.drawable.one_star;
+			break;
+		case (2):
+			resId = R.drawable.two_star;
+			break;
+		case (3):
+			resId = R.drawable.three_star;
+			break;
+		case (4):
+			resId = R.drawable.four_star;
+			break;
+		case (5):
+			resId = R.drawable.five_star;
+			break;
+		default:
+			resId = R.drawable.three_star;
+			break;
+		}
+		root.setImageViewResource(R.id.productRating, resId);
 
 		Intent intent = new Intent(context, ReviewsActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
