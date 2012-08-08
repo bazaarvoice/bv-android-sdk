@@ -204,6 +204,8 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 	 *            the resource id of the button pressed
 	 */
 	protected void onNavigate(Context context, Integer id) {
+		if (products == null)
+			return;
 
 		RemoteViews root = new RemoteViews(context.getPackageName(),
 				R.layout.browse_widget);
@@ -216,9 +218,9 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 		} else if (id == R.id.forward) {
 			curProduct = (curProduct + 1) % products.size();
 		}
-
 		refreshWidget(context, root);
 	}
+	
 
 	/**
 	 * Handles the background download of a list of BazaarProducts.
@@ -293,6 +295,10 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 					Log.i("Product Query", json.toString());
 					try {
 						JSONArray results = json.getJSONArray("Results");
+						
+						/*
+						 * Download the image for each product before updating the view
+						 */
 						counter.setValue(results.length());
 						for (int i = 0; i < results.length(); i++) {
 							final BazaarProduct newProduct = new BazaarProduct(
@@ -331,6 +337,9 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 
 			});
 
+			/*
+			 * Wait for each product's image to be downloaded.
+			 */
 			while (counter.getValue() > 0) {
 				try {
 					Thread.sleep(2000);

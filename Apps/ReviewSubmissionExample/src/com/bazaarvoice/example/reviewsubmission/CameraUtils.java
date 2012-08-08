@@ -28,6 +28,10 @@ import android.widget.ImageView;
  * A few utilites that ease the process of saving a captured image to file and
  * retrieving it for viewing and upload.
  * 
+ * <p>
+ * This class aids in importing photos as well sized Bitmaps as per <a
+ * href="http://developer.android.com/training/displaying-bitmaps/index.html"
+ * >Displaying Bitmaps Efficiently</a>.
  * 
  * <p>
  * Created on 6/29/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
@@ -97,9 +101,22 @@ public class CameraUtils {
 	public static Bitmap getOrientedBitmap(Uri imageUri, Context context)
 			throws IOException {
 		File file = new File(imageUri.getPath());
-		FileInputStream stream = new FileInputStream(file);
-		Bitmap photo = BitmapFactory.decodeStream(stream);
-		stream.close();
+		FileInputStream optionStream = new FileInputStream(file);
+		FileInputStream photoStream = new FileInputStream(file);
+
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeStream(optionStream, null, options);
+
+		// Calculate inSampleSize
+		options.inSampleSize = 2;
+
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+		Bitmap photo = BitmapFactory.decodeStream(photoStream, null, options);
+
+		optionStream.close();
+		photoStream.close();
 		Matrix matrix = new Matrix();
 		float rotation = CameraUtils.rotationForImage(context, imageUri);
 		if (rotation != 0f) {

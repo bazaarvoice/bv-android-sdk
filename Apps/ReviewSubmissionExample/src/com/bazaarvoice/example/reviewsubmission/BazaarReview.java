@@ -97,7 +97,6 @@ public class BazaarReview {
 	 * @return the formatted string
 	 */
 	private String formatDateString(String timestamp) {
-		Log.i("BazaarReview", timestamp);
 		String year = timestamp.substring(0, 4);
 		int monthNum = Integer.parseInt(timestamp.substring(5, 7));
 		String day = timestamp.substring(8, 10);

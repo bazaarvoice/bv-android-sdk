@@ -91,7 +91,6 @@ public class MainActivity extends Activity {
 		String action = intent.getAction();
 
 		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		BazaarFunctions.setSubmissionResponse(new SubmissionResponseHandler());
 
 		// if this is from the share menu
 		if (Intent.ACTION_SEND.equals(action)) {
@@ -99,16 +98,17 @@ public class MainActivity extends Activity {
 
 				// Get resource path from intent callee
 				Uri uri = (Uri) extras.getParcelable(Intent.EXTRA_STREAM);
-				File file = new File(getRealPathFromURI(uri));
+				File file = new File(CameraUtils.getRealPathFromURI(uri, this));
 				final ImageView img = (ImageView) findViewById(R.id.imagePreview);
 				Bitmap image;
 				try {
 					image = CameraUtils.getOrientedBitmap(uri,
-							getApplicationContext());
+							getApplicationContext(), img.getHeight(), img.getWidth());
 					img.setImageBitmap(image);
 					image = null;
 				} catch (Exception e) {
 					Log.e(this.getClass().getName(), e.toString());
+					e.printStackTrace();
 				}
 
 				/*
@@ -134,6 +134,7 @@ public class MainActivity extends Activity {
 				EditText caption = (EditText) findViewById(R.id.caption);
 				caption.setEnabled(false);
 				BazaarFunctions.setStoryCaption(caption.getText().toString());
+				BazaarFunctions.setSubmissionResponse(new SubmissionResponseHandler());
 				BazaarFunctions.doStorySubmission();
 
 				if (uploadType == NOTIFICATION) {
@@ -239,16 +240,10 @@ public class MainActivity extends Activity {
 			verifyDialog.show();
 
 			BazaarFunctions.doStoryPreview(story.getText().toString(), title
-					.getText().toString(), new OnBazaarResponse() {
+					.getText().toString(), new OnUiBazaarResponse() {
 
 				@Override
-				public void onException(String message, Throwable exception) {
-					Log.e("Preview Submission", "Error = " + message + "\n"
-							+ Log.getStackTraceString(exception));
-				}
-
-				@Override
-				public void onResponse(JSONObject json) {
+				public void onUiResponse(JSONObject json) {
 					/*
 					 * Basic error checking for form errors. This does not
 					 * consider any other kinds of errors and should be more
@@ -260,34 +255,20 @@ public class MainActivity extends Activity {
 									.getJSONObject("FormErrors");
 							String error = formErrors.getJSONArray(
 									"FieldErrorsOrder").getString(0);
-							final String message = formErrors
+							String message = formErrors
 									.getJSONObject("FieldErrors")
 									.getJSONObject(error).getString("Message");
-							runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									Toast.makeText(getApplicationContext(),
-											message, Toast.LENGTH_LONG).show();
-									addStory.setEnabled(true);
-									submit.setEnabled(false);
-								}
-
-							});
+							Toast.makeText(getApplicationContext(), message,
+									Toast.LENGTH_LONG).show();
+							addStory.setEnabled(true);
+							submit.setEnabled(false);
 						} else {
-							runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									addStory.setEnabled(false);
-									submit.setEnabled(true);
-									BazaarFunctions.setStoryTitle(title
-											.getText().toString());
-									BazaarFunctions.setStoryText(story
-											.getText().toString());
-								}
-
-							});
+							addStory.setEnabled(false);
+							submit.setEnabled(true);
+							BazaarFunctions.setStoryTitle(title.getText()
+									.toString());
+							BazaarFunctions.setStoryText(story.getText()
+									.toString());
 
 						}
 					} catch (JSONException e) {
@@ -300,23 +281,6 @@ public class MainActivity extends Activity {
 			});
 
 		}
-	}
-
-	/**
-	 * Helper method to reslove a uri into a path.
-	 * 
-	 * @param contentURI
-	 *            a uri path
-	 * @return the path as a string
-	 */
-	private String getRealPathFromURI(Uri contentURI) {
-		Cursor cursor = getContentResolver().query(contentURI, null, null,
-				null, null);
-		cursor.moveToFirst();
-		int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-		String path = cursor.getString(idx);
-		cursor.close();
-		return path;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -360,11 +324,11 @@ public class MainActivity extends Activity {
 	 * them. If there are no errors, it closes the Activity.
 	 * 
 	 */
-	private class SubmissionResponseHandler implements OnBazaarResponse {
+	private class SubmissionResponseHandler extends OnUiBazaarResponse {
 		private String TAG = "Submission response";
 
 		@SuppressWarnings("deprecation")
-		public void onResponse(JSONObject json) {
+		public void onUiResponse(JSONObject json) {
 			Log.i(TAG, json.toString());
 			try {
 				if (json.getBoolean("HasErrors")) {
@@ -378,12 +342,8 @@ public class MainActivity extends Activity {
 
 				} else {
 					if (uploadType == DIALOG) {
-						runOnUiThread(new Runnable() {
-							public void run() {
-								dialog.dismiss();
-								finish();
-							}
-						});
+						dialog.dismiss();
+						finish();
 					}
 
 					/*
