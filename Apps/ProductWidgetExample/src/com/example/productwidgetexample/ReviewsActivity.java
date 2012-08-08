@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bazaarvoice.OnBazaarResponse;
+import com.bazaarvoice.OnUiBazaarResponse;
 import com.example.productwidgetexample.R;
 
 import android.app.Activity;
@@ -77,7 +78,9 @@ public class ReviewsActivity extends Activity {
 
 	/**
 	 * Loads the content of the activity from a saved state.
-	 * @param savedInstanceState the state saved in {@link #onSaveInstanceState(Bundle)}.
+	 * 
+	 * @param savedInstanceState
+	 *            the state saved in {@link #onSaveInstanceState(Bundle)}.
 	 */
 	private void loadFromSavedState(Bundle savedInstanceState) {
 		selectedProduct = savedInstanceState.getParcelable("product");
@@ -162,14 +165,7 @@ public class ReviewsActivity extends Activity {
 						 * wait for.
 						 */
 						if (selectedProduct.getNumReviews() == 0) {
-							runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									progDialog.dismiss();
-								}
-
-							});
+							progDialog.dismiss();
 						}
 					}
 
@@ -183,10 +179,10 @@ public class ReviewsActivity extends Activity {
 	 * Sends off a request for reviews and displays them on response.
 	 */
 	private void downloadReviews() {
-		selectedProduct.downloadReviews(new OnBazaarResponse() {
+		selectedProduct.downloadReviews(new OnUiBazaarResponse() {
 
 			@Override
-			public void onResponse(JSONObject json) {
+			public void onUiResponse(JSONObject json) {
 				Log.i(TAG, "Response = \n" + json);
 				try {
 					displayReviews(json);
@@ -197,13 +193,6 @@ public class ReviewsActivity extends Activity {
 				}
 			}
 
-			@Override
-			public void onException(String message, Throwable exception) {
-				Log.e(TAG,
-						"Error = " + message + "\n"
-								+ Log.getStackTraceString(exception));
-
-			}
 		});
 	}
 
@@ -252,15 +241,8 @@ public class ReviewsActivity extends Activity {
 		 * No image downloads were started, we are done waiting
 		 */
 		if (imageCounter == 0) {
-			runOnUiThread(new Runnable() {
-
-				@Override
-				public void run() {
-					listAdapter.notifyDataSetChanged();
-					progDialog.dismiss();
-				}
-
-			});
+			listAdapter.notifyDataSetChanged();
+			progDialog.dismiss();
 		}
 	}
 

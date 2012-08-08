@@ -95,7 +95,6 @@ public class BazaarReview implements Parcelable {
 	 */
 	private String formatDateString(String timestamp) {
 		// assuming "2011-12-09T08:55:35.000-06:00" format
-		Log.i("BazaarReview", timestamp);
 		String year = timestamp.substring(0, 4);
 		int monthNum = Integer.parseInt(timestamp.substring(5, 7));
 		String day = timestamp.substring(8, 10);

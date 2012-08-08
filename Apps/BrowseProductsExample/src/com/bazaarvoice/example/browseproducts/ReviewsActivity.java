@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bazaarvoice.OnBazaarResponse;
+import com.bazaarvoice.OnUiBazaarResponse;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -165,14 +166,7 @@ public class ReviewsActivity extends Activity {
 						 * wait for.
 						 */
 						if (selectedProduct.getNumReviews() == 0) {
-							runOnUiThread(new Runnable() {
-
-								@Override
-								public void run() {
-									progDialog.dismiss();
-								}
-
-							});
+							progDialog.dismiss();
 						}
 					}
 
@@ -186,10 +180,10 @@ public class ReviewsActivity extends Activity {
 	 * Sends off a request for reviews and displays them on response.
 	 */
 	private void downloadReviews() {
-		selectedProduct.downloadReviews(new OnBazaarResponse() {
+		selectedProduct.downloadReviews(new OnUiBazaarResponse() {
 
 			@Override
-			public void onResponse(JSONObject json) {
+			public void onUiResponse(JSONObject json) {
 				Log.i(TAG, "Response = \n" + json);
 				try {
 					displayReviews(json);
@@ -200,13 +194,6 @@ public class ReviewsActivity extends Activity {
 				}
 			}
 
-			@Override
-			public void onException(String message, Throwable exception) {
-				Log.e(TAG,
-						"Error = " + message + "\n"
-								+ Log.getStackTraceString(exception));
-
-			}
 		});
 	}
 
@@ -215,8 +202,10 @@ public class ReviewsActivity extends Activity {
 	 * downloading images as needed. When all of the images are downloaded, the
 	 * loading dialog is dismissed.
 	 * 
-	 * @param json a response to a review query
-	 * @throws JSONException if a field is missing
+	 * @param json
+	 *            a response to a review query
+	 * @throws JSONException
+	 *             if a field is missing
 	 */
 	protected void displayReviews(JSONObject json) throws JSONException {
 		JSONArray results = json.getJSONArray("Results");
@@ -253,15 +242,8 @@ public class ReviewsActivity extends Activity {
 		 * No image downloads were started, we are done waiting
 		 */
 		if (imageCounter == 0) {
-			runOnUiThread(new Runnable() {
-
-				@Override
-				public void run() {
-					listAdapter.notifyDataSetChanged();
-					progDialog.dismiss();
-				}
-
-			});
+			listAdapter.notifyDataSetChanged();
+			progDialog.dismiss();
 		}
 	}
 

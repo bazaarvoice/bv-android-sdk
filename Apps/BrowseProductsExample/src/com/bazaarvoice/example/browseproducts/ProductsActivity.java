@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bazaarvoice.OnBazaarResponse;
+import com.bazaarvoice.OnUiBazaarResponse;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -107,52 +108,31 @@ public class ProductsActivity extends Activity {
 		Intent myIntent = getIntent();
 		String searchTerm = myIntent.getStringExtra("searchTerm");
 		BazaarFunctions.runProductSearchQuery(searchTerm,
-				new OnBazaarResponse() {
+				new OnUiBazaarResponse() {
 
 					@Override
-					public void onException(String message, Throwable exception) {
-						Log.e(TAG,
-								"Error = " + message + "\n"
-										+ Log.getStackTraceString(exception));
-					}
-
-					@Override
-					public void onResponse(JSONObject json) {
+					public void onUiResponse(JSONObject json) {
 						Log.i(TAG, "Response = \n" + json);
 						try {
-							final JSONArray results = json.getJSONArray("Results");
+							JSONArray results = json.getJSONArray("Results");
 
 							if (results.length() == 0) {
-								runOnUiThread(new Runnable() {
-
-									@Override
-									public void run() {
-										noResult.setVisibility(View.VISIBLE);
-										progDialog.dismiss();
-									}
-
-								});
-
+								noResult.setVisibility(View.VISIBLE);
+								progDialog.dismiss();
 							}
 
 							for (int i = 0; i < results.length(); i++) {
-								final BazaarProduct newProd = new BazaarProduct(
+								BazaarProduct newProd = new BazaarProduct(
 										results.getJSONObject(i));
 
-								runOnUiThread(new Runnable() {
+								products.add(newProd);
+								listAdapter.notifyDataSetChanged();
 
-									@Override
-									public void run() {
-										products.add(newProd);
-										listAdapter.notifyDataSetChanged();
-										
-										//dismiss dialog on last iteration to save another call to
-										//runOnUiThread()
-										if(products.size() == results.length())
-											progDialog.dismiss();
-									}
-
-								});
+								// dismiss dialog on last iteration to
+								// save another call to
+								// runOnUiThread()
+								if (products.size() == results.length())
+									progDialog.dismiss();
 
 							}
 						} catch (JSONException exception) {
