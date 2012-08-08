@@ -10,7 +10,7 @@
 
 ## 1.1.0 (Jul 26, 2012)
 
-* Adds Feedback submission.
+* Adds Feedback submission. Now supporting API 5.2.
 * Type for "Includes" and "Filter_[TYPE]" is now an enum.
 * API Version parameter is now an enum.
 
