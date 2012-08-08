@@ -1,3 +1,8 @@
+## 1.1.2 (Aug 8, 2012)
+
+* Added OnUiBazaarResponse to ease making UI changes when responses come in.
+* Updated reference apps a bit.
+
 ## 1.1.1 (Jul 30, 2012)
 
 * Added Product Browser Widget example.
