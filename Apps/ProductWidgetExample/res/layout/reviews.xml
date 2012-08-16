@@ -20,15 +20,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@drawable/drop_shadow_down" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:src="@drawable/graphic_star_white" />
     </RelativeLayout>
 
     <LinearLayout
@@ -82,14 +73,20 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/productDescription"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="3"
-                        android:text="Description"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textSize="14sp" />
+                        android:layout_height="0dp"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/productDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Description"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/avgRating"
@@ -99,7 +96,6 @@
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#00ab8e"
                         android:textSize="12sp" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -119,19 +115,17 @@
                     android:layout_height="fill_parent"
                     android:clickable="false"
                     android:fadingEdge="none" >
-
                 </ListView>
 
                 <TextView
-                android:id="@+id/noReviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="No reviews"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#A1A1A1"
-                android:visibility="gone" />
-
+                    android:id="@+id/noReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="No reviews"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#A1A1A1"
+                    android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

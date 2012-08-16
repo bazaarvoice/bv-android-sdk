@@ -12,14 +12,14 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" android:theme="@android:style/Theme.Light.NoTitleBar">
-        <activity android:name="MainActivity" android:screenOrientation="portrait">
+        <activity android:name="MainActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity android:name="RatingActivity"></activity>
-        <activity android:name="RatingPreviewActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="RatingPreviewActivity" ></activity>
     </application>
 
 </manifest>
