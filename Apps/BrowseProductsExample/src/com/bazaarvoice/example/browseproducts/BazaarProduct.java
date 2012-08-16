@@ -135,7 +135,7 @@ public class BazaarProduct implements Parcelable {
 	public BazaarProduct(JSONObject product) throws JSONException {
 		name = product.getString("Name");
 		brand = new Brand(product.getJSONObject("Brand"));
-		description = product.getString("Description");
+		description = product.getString("Description").replaceAll("  ", "").replaceAll("\n", "");
 		catId = product.getString("CategoryId");
 		imgUrl = product.getString("ImageUrl");
 		prodId = product.getString("Id");

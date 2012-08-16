@@ -18,25 +18,16 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@drawable/drop_shadow_down" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:src="@drawable/graphic_star_white" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
+        android:layout_weight="1"
         android:background="@drawable/back" >
 
         <LinearLayout
@@ -44,8 +35,11 @@
             android:layout_height="fill_parent"
             android:layout_margin="8dp"
             android:background="@drawable/fore"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:padding="20dp" >
+            <requestFocus/>
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -83,9 +77,8 @@
                     android:text="Search"
                     android:textAppearance="?android:attr/textAppearanceMediumInverse"
                     android:textColor="#00ab8e" />
-
             </LinearLayout>
-
         </LinearLayout>
-	</LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

@@ -40,8 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:src="@drawable/graphic_star_white" />
+                android:adjustViewBounds="true" />
+
         </ViewAnimator>
     </RelativeLayout>
 
