@@ -6,7 +6,7 @@
 ## 1.1.1 (Jul 30, 2012)
 
 * Added Product Browser Widget example.
-* Fized issue with tag_<dimension> and rating_<dimension> parameters.
+* Fixed issue with ```tag_<dimension>``` and ```rating_<dimension>``` parameters.
 
 ## 1.1.0 (Jul 26, 2012)
 
