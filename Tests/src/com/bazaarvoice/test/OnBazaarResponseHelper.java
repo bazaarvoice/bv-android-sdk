@@ -15,12 +15,21 @@ import static junit.framework.Assert.assertNull;
  */
 public abstract class OnBazaarResponseHelper implements OnBazaarResponse {
     private static final String TAG = "OnBazaarResponseHelper";
+    private static final String PROFILER_TAG = "ProfilerInfo";
+    
+    private String callingFunction;
+    long startTime;
+
     public boolean requestComplete = false;
     private String failStackTrace  = null;
 
     @Override
     public void onResponse(final JSONObject response) {
-        try {
+    	long executionTime = System.currentTimeMillis() - startTime;
+    	Log.i(PROFILER_TAG, callingFunction + ":" + executionTime);
+
+
+    	try {
             onResponseHelper(response);
             failStackTrace = null;
         } catch (JSONException e) {
@@ -40,6 +49,9 @@ public abstract class OnBazaarResponseHelper implements OnBazaarResponse {
     }
 
     public void waitForTestToFinish() {
+    	callingFunction = new Throwable().getStackTrace()[1].getMethodName();
+    	startTime = System.currentTimeMillis();
+
         while (!requestComplete) {
             SystemClock.sleep(200);
         }
