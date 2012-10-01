@@ -191,6 +191,38 @@ public class ProductDisplayTest extends BaseTest {
         request.sendDisplayRequest(RequestType.PRODUCTS, params, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
+    
+    public void testProductsWithReviewSearch() {
+        //--------------------------------------
+        //Requesting a single question by Question ID including Answers
+        //--------------------------------------
+        DisplayParams params = new DisplayParams();
+
+        ArrayList<String> includes = new ArrayList<String>();
+            includes.add("Reviews");
+        params.setIncludes(includes);
+        params.addFilter("Id", Equality.EQUAL, "test2");
+        params.addSearchType("Reviews", "Aenean leo enim");
+        
+        
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response)throws JSONException {
+                Log.i(tag, "Response = \n" + response);
+                JSONArray results = response.getJSONArray("Results");
+                //assert result has the right id
+                JSONObject includesObject = response.getJSONObject("Includes");
+
+                JSONObject reviewsIncludesObject = includesObject.getJSONObject("Reviews");
+                //assert a product exist in the includes
+                assertTrue(reviewsIncludesObject.length() > 0);
+            }
+        };
+
+        request.sendDisplayRequest(RequestType.PRODUCTS, params, bazaarResponse);
+        bazaarResponse.waitForTestToFinish();
+    }
+
 
     public void testRequestQuestionByIdIncludingAnswers() {
          //--------------------------------------
@@ -223,6 +255,37 @@ public class ProductDisplayTest extends BaseTest {
          request.sendDisplayRequest(RequestType.QUESTIONS, params, bazaarResponse);
          bazaarResponse.waitForTestToFinish();
      }
+    
+    public void testRequestQuestionByIdIncludingAnswersAndSearchAnswers() {
+        //--------------------------------------
+        //Requesting a single question by Question ID including Answers
+        //--------------------------------------
+        DisplayParams params = new DisplayParams();
+
+        ArrayList<String> includes = new ArrayList<String>();
+            includes.add("Answers");
+        params.setIncludes(includes);
+        params.addSearchType("Answers", "Cras gravida accumsan eros");
+        
+        
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response)throws JSONException {
+                Log.i(tag, "Response = \n" + response);
+                JSONArray results = response.getJSONArray("Results");
+                JSONObject questionResult = results.getJSONObject(0);
+                //assert result has the right id
+                JSONObject includesObject = response.getJSONObject("Includes");
+
+                JSONObject answersIncludesObject = includesObject.getJSONObject("Answers");
+                //assert a product exist in the includes
+                assertTrue(answersIncludesObject.length() == 1);
+            }
+        };
+
+        request.sendDisplayRequest(RequestType.QUESTIONS, params, bazaarResponse);
+        bazaarResponse.waitForTestToFinish();
+    }
 
     public void testRequest25QuestionsThatHaveAnswersDescendingSubmissionTimeSort() {
           //--------------------------------------
