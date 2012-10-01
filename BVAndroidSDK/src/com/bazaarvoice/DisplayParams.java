@@ -112,7 +112,8 @@ public class DisplayParams extends BazaarParams {
 	 * <p><b>Usage:</b><br> This is the recommended way to add search terms to a request.
 	 *        Although, if you prefer to add them all at once, see
 	 *        {@link #setSearch(List)}.
-	 * 
+	 * @param type
+	 *            the type to search: comments, reviews, etc
 	 * @param searchString
 	 *            the string to search for
 	 */
