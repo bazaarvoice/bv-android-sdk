@@ -1,3 +1,7 @@
+## 1.2.1 (Oct 1, 2012)
+
+* Adds functionality for includes search ```Search_[TYPE]```
+
 ## 1.2.0 (Aug 16, 2012)
 
 * Now officially supporting API 5.3.
