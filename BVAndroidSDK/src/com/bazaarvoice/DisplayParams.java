@@ -26,6 +26,7 @@ public class DisplayParams extends BazaarParams {
 	private String locale;
 	private List<String> stats;
 	private List<String> sortType;
+	private List<String> searchType;
 	private List<String> filters;
 	private List<String> limitType;
 
@@ -98,6 +99,28 @@ public class DisplayParams extends BazaarParams {
 			search = new ArrayList<String>();
 		}
 		search.add("\"" + encode(searchString) + "\"");
+	}
+	
+	/**
+	 * Add a single term to the "Search" parameter. Limits the results to match
+	 * a search string.
+	 * 
+	 * <p>
+	 * <b>Note:</b> Be sure to remove any leading or trailing white space as it
+	 * could interfere with search performance.
+	 * 
+	 * <p><b>Usage:</b><br> This is the recommended way to add search terms to a request.
+	 *        Although, if you prefer to add them all at once, see
+	 *        {@link #setSearch(List)}.
+	 * 
+	 * @param searchString
+	 *            the string to search for
+	 */
+	public void addSearchType(String type, String searchString) {
+		if (searchType == null) {
+			searchType = new ArrayList<String>();
+		}
+		searchType.add("search_" + type + "=" + encode(searchString));
 	}
 
 	/**
@@ -338,6 +361,13 @@ public class DisplayParams extends BazaarParams {
 				separator = '&';
 			}
 		}
+		
+		if (searchType != null) {
+			for (String s : searchType) {
+				url += separator + s;
+				separator = '&';
+			}
+		}
 
 		if (limitType != null) {
 			for (String limit : limitType) {
@@ -480,6 +510,27 @@ public class DisplayParams extends BazaarParams {
 	}
 
 	/**
+	 * Set the list of "Search_[TYPE]" parameters manually.
+	 * 
+	 * <p><b>Usage:</b><br> Recommended usage is to add parameters one by one using
+	 *        {@link #addSearchType(String, String)}.
+	 * @param searchType
+	 *            the list of parameters
+	 */
+	public void setSearchType(List<String> searchType) {
+		this.searchType = searchType;
+	}
+	
+	/**
+	 * Get the list of "Search_[TYPE]" parameters.
+	 * 
+	 * @return a list of parameters
+	 */
+	public List<String> getSearchType() {
+		return searchType;
+	}
+	
+	/**
 	 * Get the list of "Sort_[TYPE]" parameters.
 	 * 
 	 * @return a list of parameters
@@ -499,6 +550,7 @@ public class DisplayParams extends BazaarParams {
 	public void setSortType(List<String> sortType) {
 		this.sortType = sortType;
 	}
+
 
 	/**
 	 * Get the list of "Limit_[TYPE]" parameters.
