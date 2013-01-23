@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class DisplayParams extends BazaarParams {
 	private List<String> includes;
+	private List<String> attributes;
 	private List<String> sort;
 	private List<String> search = null;
 	private Integer offset;
@@ -47,6 +48,22 @@ public class DisplayParams extends BazaarParams {
 			includes = new ArrayList<String>();
 		}
 		this.includes.add(encode(include));
+	}
+	
+	/**
+	 * Attributes to be included when returning content. For example, if includes 
+	 * are requested along with the ModeratorCodes attribute, both the includes and
+	 *  the results will contain moderator codes. In order to filter by ModeratorCode, 
+	 *  you must request the ModeratorCodes attribute parameter.
+	 * 
+	 * @param attribute
+	 *            the new attribute
+	 */
+	public void addAttribute(String attribute) {
+		if (attributes == null) {
+			attributes = new ArrayList<String>();
+		}
+		this.attributes.add(encode(attribute));
 	}
 
 	/**
@@ -159,17 +176,6 @@ public class DisplayParams extends BazaarParams {
 	}
 
 	/**
-	 * Add an "Offset" parameter to the request. Changes the index at which to
-	 * begin returning results.
-	 * 
-	 * @param offset
-	 *            new offset
-	 */
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-
-	/**
 	 * Add a "Limit" parameter to the request. Limits the maximum amount of
 	 * results. The default is 100.
 	 * 
@@ -180,6 +186,17 @@ public class DisplayParams extends BazaarParams {
 		this.limit = limit;
 	}
 
+	/**
+	 * Add an "Offset" parameter to the request. Changes the index at which to
+	 * begin returning results.
+	 * 
+	 * @param offset
+	 *            new offset
+	 */
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	
 	/**
 	 * Add a "Filter_[TYPE]" parameter to the request. Filters any included
 	 * content by the schema of the given attribute, Equality type, and values.
@@ -339,6 +356,7 @@ public class DisplayParams extends BazaarParams {
 		}
 
 		url = addURLParamsFromList(url, "include", includes);
+		url = addURLParamsFromList(url, "attributes", attributes);
 		url = addURLParamsFromList(url, "stats", stats);
 		url = addURLParamsFromList(url, "sort", sort);
 
@@ -392,6 +410,20 @@ public class DisplayParams extends BazaarParams {
 	public void setIncludes(List<String> includes) {
 		this.includes = includes;
 	}
+	
+	/**
+	 * Set the list of attributes for inclusion in the "Attributes" parameter
+	 * manually.
+	 * 
+	 * <p><b>Usage:</b><br> Recommended usage is to add subjects one by one using
+	 *        {@link #addAttribute(String)}.
+	 * @param attributes
+	 *            the list of attributes to include
+	 */
+	public void setAttributes(List<String> attributes) {
+		this.attributes = attributes;
+	}
+
 
 	/**
 	 * Get the list of search terms.
@@ -418,6 +450,25 @@ public class DisplayParams extends BazaarParams {
 		this.search = search;
 	}
 
+	/**
+	 * Get the "Locale" parameter if it has been set.
+	 * 
+	 * @return the locale
+	 */
+	public String getLocale() {
+		return locale;
+	}
+
+	/**
+	 * Add a "Locale" parameter to the request.
+	 * 
+	 * @param locale
+	 *            the locale
+	 */
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+	
 	/**
 	 * Get the list of filters.
 	 * 
@@ -446,25 +497,6 @@ public class DisplayParams extends BazaarParams {
 
 	public void setFilterType(String filterType) {
 		this.filterType = filterType;
-	}
-
-	/**
-	 * Get the "Locale" parameter if it has been set.
-	 * 
-	 * @return the locale
-	 */
-	public String getLocale() {
-		return locale;
-	}
-
-	/**
-	 * Add a "Locale" parameter to the request.
-	 * 
-	 * @param locale
-	 *            the locale
-	 */
-	public void setLocale(String locale) {
-		this.locale = locale;
 	}
 
 	/**

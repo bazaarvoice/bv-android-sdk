@@ -870,7 +870,7 @@ public class SubmissionParams extends BazaarParams {
 		url = addURLParameter(url, "netPromoterComment", netPromoterComment);
 		url = addURLParameter(url, "netPromoterScore", netPromoterScore);
 		url = addURLParameter(url, "rating", rating);
-		url = addURLParameter(url, "ratingDim", ratingDim);
+		url = addURLParameter(url, "rating", ratingDim);
 		url = addURLParameter(url, "reviewText", reviewText);
 		url = addURLParameter(url, "isUserAnonymous", isUserAnonymous);
 		url = addURLParameter(url, "questionSummary", questionSummary);

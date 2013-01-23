@@ -40,6 +40,7 @@ public class ReviewSubmissionTest extends BaseTest {
         submissionParams.setTitle(title);
         submissionParams.setUserNickname("gpezz");
         submissionParams.setUserId("gpezz");
+        submissionParams.addRatingDim("SomeDimension", "4");
 
         submit.postSubmission(RequestType.REVIEWS, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();

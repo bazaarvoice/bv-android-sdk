@@ -34,7 +34,6 @@ public class CommentsSubmissionTest extends BaseTest {
         submissionParams.setCommentText(commentText);
         submissionParams.setTitle(titleText);
         submissionParams.setUserId("cwod");
-
         submit.postSubmission(RequestType.REVIEW_COMMENTS, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }

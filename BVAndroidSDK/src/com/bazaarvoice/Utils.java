@@ -3,7 +3,6 @@ package com.bazaarvoice;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -65,11 +64,6 @@ public class Utils {
 	 */
 	public static ArrayList<File> findFiles(String path, final String extension) {
 		File parentDir = new File(path);
-		FileFilter dirFilter = new FileFilter() {
-			public boolean accept(File file) {
-				return file.isDirectory();
-			}
-		};
 		File[] directories = parentDir.listFiles();
 		if (directories == null)
 			return null;

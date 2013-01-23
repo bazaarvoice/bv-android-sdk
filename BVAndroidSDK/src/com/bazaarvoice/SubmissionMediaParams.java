@@ -1,7 +1,8 @@
 package com.bazaarvoice;
 
-import org.apache.http.entity.ByteArrayEntity;
+import android.graphics.Bitmap;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -77,6 +78,21 @@ public class SubmissionMediaParams extends BazaarParams {
 	 */
 	public void setPhoto(File file) throws FileNotFoundException, IOException {
 		setMedia(file, Media.MediaType.PHOTO);
+	}
+	
+	/**
+	 * Allows client to set photo directly from a bitmap
+	 * 
+	 * @param bitmap
+	 *            the bitmap representation of the image to upload
+	 * @param filename
+	 *            the filename of the photo to upload -- this is necessary to determine mime type
+	 */
+	public void setPhoto(Bitmap bitmap, String filename)  {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+		bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);  
+		byte[] b = baos.toByteArray();  
+		media = new Media(b, Media.MediaType.PHOTO, filename);
 	}
 
 	/**

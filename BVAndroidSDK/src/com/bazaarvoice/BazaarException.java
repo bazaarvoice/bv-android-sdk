@@ -13,6 +13,8 @@ package com.bazaarvoice;
  */
 public class BazaarException extends Exception {
 
+	private static final long serialVersionUID = -1458240370794878582L;
+
 	/**
 	 * Constructs a new BazaarException with the current stack trace and the
 	 * specified detail message.
