@@ -37,6 +37,7 @@ public class QuestionSubmissionTest extends BaseTest {
         submissionParams.setAction(Action.preview);
         submissionParams.setQuestionSummary(questionText);
         submissionParams.setUserId("cwod");
+        submissionParams.setUserNickname("randomnickname");
 
 
         submit.postSubmission(RequestType.QUESTIONS, submissionParams, bazaarResponse);

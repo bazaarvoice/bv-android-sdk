@@ -39,7 +39,7 @@ import java.util.LinkedList;
  */
 public class BazaarRequest {
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
-	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V13";
+	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V131";
 
 	private String passKey;
 	private String apiVersion;
@@ -69,9 +69,9 @@ public class BazaarRequest {
 	 * @param apiVersion
 	 *            the version of the api you want to use
 	 */
-	public BazaarRequest(String domainName, String passKey, String apiVersion) {
+	public BazaarRequest(String domainName, String passKey, ApiVersion apiVersion) {
 		this.passKey = passKey;
-		this.apiVersion = apiVersion;
+		this.apiVersion = apiVersion.getVersionName();
 
 		requestHeader = "http://" + domainName + "/data/";
 		reusableClient = getThreadSafeClient();
@@ -211,6 +211,7 @@ public class BazaarRequest {
 						CoreProtocolPNames.PROTOCOL_VERSION,
 						HttpVersion.HTTP_1_1);
 				// httpRequest.setHeader("Content-Type", "multipart/form-data");
+				httpRequest.setHeader(SDK_HEADER_NAME, SDK_HEADER_VALUE);
 				MultipartEntity mpEntity = new MultipartEntity();
 				ContentBody body = new ByteArrayBody(mediaEntity.getBytes(),
 						mediaEntity.getFilename());
@@ -253,8 +254,6 @@ public class BazaarRequest {
 				"apiversion", apiVersion);
 		requestString = DisplayParams.addURLParameter(requestString, "passkey",
 				passKey);
-		requestString = DisplayParams.addURLParameter(requestString,
-				SDK_HEADER_NAME, SDK_HEADER_VALUE);
 		if (params != null) {
 			requestString = params.toURL(requestString);
 		}
