@@ -1,14 +1,17 @@
 package com.bazaarvoice.test.SubmissionTests;
 
-import com.bazaarvoice.*;
-import com.bazaarvoice.types.*;
-import com.bazaarvoice.test.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.util.Log;
 
-import org.apache.http.ReasonPhraseCatalog;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.bazaarvoice.SubmissionParams;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
+import com.bazaarvoice.types.FeedbackContentType;
+import com.bazaarvoice.types.FeedbackType;
+import com.bazaarvoice.types.FeedbackVoteType;
+import com.bazaarvoice.types.RequestType;
 
 /**
  * Author: Gary Pezza
@@ -16,20 +19,21 @@ import org.json.JSONObject;
  */
 public class FeedbackSubmissionTest extends BaseTest {
     private final String tag = getClass().getSimpleName();
+    private final String reasonText = "This post was not nice.";
 
     public void testFeedbackSubmit() {
+
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
                 Log.i(tag, "FeedbackResponse = \n" + response);
-                //JSONObject review = response.getJSONObject("Review");
+                JSONObject feedback = response.getJSONObject("Feedback");
 
                 //assert there are results
-                //assertEquals(title, review.getString("Title"));
+               assertEquals(reasonText, feedback.getJSONObject("Inappropriate").getString("ReasonText"));
             }
         };
 
-        String reasonText = "This post was not nice.";
         SubmissionParams submissionParams = new SubmissionParams();
         submissionParams.setContentType(FeedbackContentType.REVIEW);
         submissionParams.setContentId("83964");

@@ -1,5 +1,6 @@
 package com.bazaarvoice;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -225,8 +226,13 @@ public abstract class BazaarParams {
 	 *            the value to encode
 	 * @return encoded value
 	 */
+	@SuppressWarnings("deprecation")
 	protected static String encode(String value) {
-		return URLEncoder.encode(value);
+		try {
+			return URLEncoder.encode(value, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return URLEncoder.encode(value);
+		}
 	}
 
 	/**

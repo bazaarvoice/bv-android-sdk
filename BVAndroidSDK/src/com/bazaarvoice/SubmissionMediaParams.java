@@ -197,7 +197,9 @@ public class SubmissionMediaParams extends BazaarParams {
 	 * @return the url with the parameter list on it
 	 */
 	public String toURL(String url) {
-		url = addURLParameter(url, "contentType", contentType.getTypeString());
+		if(contentType != null){
+			url = addURLParameter(url, "contentType", contentType.getTypeString());			
+		}
 		url = addURLParameter(url, "locale", locale);
 		url = addURLParameter(url, "userId", userId);
 		return url;

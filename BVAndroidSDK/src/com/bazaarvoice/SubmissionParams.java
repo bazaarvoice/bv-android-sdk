@@ -958,11 +958,16 @@ public class SubmissionParams extends BazaarParams {
 		url = addURLParameter(url, "CommentText", commentText);
 		
 		url = addURLParameter(url, "contentId", contentId);
-		url = addURLParameter(url, "contentType", contentType.getTypeString());
-		url = addURLParameter(url, "feedbackType", feedbackType.getTypeString());
+		if(contentType != null){
+			url = addURLParameter(url, "contentType", contentType.getTypeString());			
+		}
+		if(feedbackType != null){
+			url = addURLParameter(url, "feedbackType", feedbackType.getTypeString());
+		}
 		url = addURLParameter(url, "reasonText", reasonText);
-		url = addURLParameter(url, "vote", vote.getTypeString());
-
+		if(vote != null){
+				url = addURLParameter(url, "vote", vote.getTypeString());
+		}
 		return url;
 	}
 
