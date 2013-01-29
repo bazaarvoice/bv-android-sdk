@@ -204,7 +204,7 @@ public class ProductDisplayTest extends BaseTest {
             @Override
             public void onResponseHelper(JSONObject response)throws JSONException {
                 Log.i(tag, "Response = \n" + response);
-                JSONArray results = response.getJSONArray("Results");
+                //JSONArray results = response.getJSONArray("Results");
                 //assert result has the right id
                 JSONObject includesObject = response.getJSONObject("Includes");
 
@@ -263,8 +263,8 @@ public class ProductDisplayTest extends BaseTest {
             @Override
             public void onResponseHelper(JSONObject response)throws JSONException {
                 Log.i(tag, "Response = \n" + response);
-                JSONArray results = response.getJSONArray("Results");
-                JSONObject questionResult = results.getJSONObject(0);
+                //JSONArray results = response.getJSONArray("Results");
+                //JSONObject questionResult = results.getJSONObject(0);
                 //assert result has the right id
                 JSONObject includesObject = response.getJSONObject("Includes");
 
@@ -277,6 +277,7 @@ public class ProductDisplayTest extends BaseTest {
         request.sendDisplayRequest(RequestType.QUESTIONS, params, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
+
 
     public void testRequest25QuestionsThatHaveAnswersDescendingSubmissionTimeSort() {
           //--------------------------------------
@@ -318,7 +319,7 @@ public class ProductDisplayTest extends BaseTest {
           request.sendDisplayRequest(RequestType.QUESTIONS, params, bazaarResponse);
           bazaarResponse.waitForTestToFinish();
       }
-
+    
     public void testQuestionsByProductThatHaveAnswersDescendingSubmissionTimeSort() {
           //--------------------------------------
           //Requesting all questions for a particular product sorted by Submission Time.

@@ -109,7 +109,8 @@ public class AnswerDisplayTest extends BaseTest {
                 //ensure we have "Questions"
                 JSONObject questionsObject = includesObject.getJSONObject("Questions");
                 //get the key values from the Questions
-                Iterator questionKeys = questionsObject.keys();
+                @SuppressWarnings("rawtypes")
+				Iterator questionKeys = questionsObject.keys();
                 //ensure we have something to iterate over
                 assertNotNull(questionKeys);
                 assertTrue(questionKeys.hasNext());
