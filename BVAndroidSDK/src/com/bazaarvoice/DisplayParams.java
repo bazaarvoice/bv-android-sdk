@@ -3,6 +3,10 @@ package com.bazaarvoice;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bazaarvoice.types.Equality;
+import com.bazaarvoice.types.IncludeStatsType;
+import com.bazaarvoice.types.IncludeType;
+
 /**
  * 
  * Handles the parameters for a display request. <br>
@@ -17,14 +21,14 @@ import java.util.List;
  * @author Bazaarvoice Engineering
  */
 public class DisplayParams extends BazaarParams {
+	private String search;
+	private String locale;
+	private Integer limit;
+	private Integer offset;
+
 	private List<String> includes;
 	private List<String> attributes;
-	private List<String> sort;
-	private List<String> search = null;
-	private Integer offset;
-	private Integer limit;
-	private String filterType;
-	private String locale;
+	private List<String> sort;	
 	private List<String> stats;
 	private List<String> sortType;
 	private List<String> searchType;
@@ -38,16 +42,97 @@ public class DisplayParams extends BazaarParams {
 	}
 
 	/**
-	 * Add an "Include" parameter to the request.
+	 * Get the search term
 	 * 
-	 * @param include
-	 *            the new include
+	 * @return a list of terms
 	 */
-	public void addInclude(String include) {
+	public String getSearch() {
+		return this.search;
+	}
+
+	
+	/**
+	 * Set the search term to query.  This is an "or" search.  For example, when querying for products with 
+	 * the search term "Electric Dryer," the result returns products that have both "Electric" and "Dryer" 
+	 * in the Product Name or Product Description.
+	 * 
+	 * @param search
+	 *            the earch terms
+	 */
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	/**
+	 * Get the "Locale" parameter if it has been set.
+	 * 
+	 * @return the locale
+	 */
+	public String getLocale() {
+		return locale;
+	}
+	
+	/**
+ 	 * Locale to display Labels, Configuration, Product Attributes and Category Attributes in. The default value 
+ 	 * is the locale defined in the display associated with the API key. If specified, the locale value is also used 
+ 	 * as the default ContentLocale filter value.
+ 	 * 
+	 * @param locale
+	 *            the locale
+	 */
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+	
+	/**
+	 * Get the limit Parameter
+	 * 
+	 * @return limit parameter
+	 */
+	public int getLimit() {
+		return this.limit;
+	}
+
+	/**
+	 *  Limits the maximum number of results that may be returned.
+	 * 
+	 * @param limit
+	 *            new limit
+	 */
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+
+	/**
+	 * Get the offset Parameter
+	 * 
+	 * @return offset parameter
+	 */
+	public int getOffset() {
+		return this.offset;
+	}
+	
+	/**
+	 * Changes the index at which to begin returning results.  Useful for paging, for instance.
+	 * 
+	 * @param offset
+	 *            new offset
+	 */
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	
+	/**
+	 * Related subjects to be included (e.g. Products, Categories, Authors, Reviews...).
+	 * 
+	 * @param type
+	 *            the type to include
+	 */
+	public void addInclude(IncludeType type) {
 		if (includes == null) {
 			includes = new ArrayList<String>();
 		}
-		this.includes.add(encode(include));
+		this.includes.add(encode(type.getTypeString()));
 	}
 	
 	/**
@@ -89,61 +174,38 @@ public class DisplayParams extends BazaarParams {
 	 * @param type
 	 *            the type of content for which to add stats
 	 */
-	public void addStats(String type) {
+	public void addStats(IncludeStatsType type) {
 		if (stats == null) {
 			stats = new ArrayList<String>();
 		}
-		this.stats.add(encode(type));
-	}
-
-	/**
-	 * Add a single term to the "Search" parameter. Limits the results to match
-	 * a search string.
-	 * 
-	 * <p>
-	 * <b>Note:</b> Be sure to remove any leading or trailing white space as it
-	 * could interfere with search performance.
-	 * 
-	 * <p><b>Usage:</b><br> This is the recommended way to add search terms to a request.
-	 *        Although, if you prefer to add them all at once, see
-	 *        {@link #setSearch(List)}.
-	 * 
-	 * @param searchString
-	 *            the string to search for
-	 */
-	public void addSearch(String searchString) {
-		if (search == null) {
-			search = new ArrayList<String>();
-		}
-		search.add("\"" + encode(searchString) + "\"");
+		this.stats.add(encode(type.getTypeString()));
 	}
 	
 	/**
-	 * Add a single term to the "Search" parameter. Limits the results to match
-	 * a search string.
+	 * Search query for included content.  This is an "or" search and must include a type.  For 
+	 * example, when querying included products with the search term "Electric Dryer," the result 
+	 * returns products that have both "Electric" and "Dryer" in the Product Name or Product 
+	 * Description.
 	 * 
 	 * <p>
 	 * <b>Note:</b> Be sure to remove any leading or trailing white space as it
 	 * could interfere with search performance.
 	 * 
-	 * <p><b>Usage:</b><br> This is the recommended way to add search terms to a request.
-	 *        Although, if you prefer to add them all at once, see
-	 *        {@link #setSearch(List)}.
 	 * @param type
 	 *            the type to search: comments, reviews, etc
 	 * @param searchString
 	 *            the string to search for
 	 */
-	public void addSearchType(String type, String searchString) {
+	public void addSearchOnIncludedType(IncludeType type, String searchString) {
 		if (searchType == null) {
 			searchType = new ArrayList<String>();
 		}
-		searchType.add("search_" + type + "=" + encode(searchString));
+		searchType.add("search_" + type.getTypeString() + "=" + encode(searchString));
 	}
 
 	/**
-	 * Add a "Sort_[TYPE]" parameter to the request. Sorts any included content
-	 * by the schema of the given attribute.
+	 * Add a "Sort_[TYPE]" parameter to the request. Sorts any included content of the
+	 * provided type by the schema of the given attribute.
 	 * 
 	 * @param type
 	 *            the type to sort: comments, reviews, etc
@@ -152,74 +214,48 @@ public class DisplayParams extends BazaarParams {
 	 * @param asc
 	 *            true for ascending, false for descending
 	 */
-	public void addSortType(String type, String attribute, boolean asc) {
+	public void addSortOnIncludedType(IncludeType type, String attribute, boolean asc) {
 		if (sortType == null) {
 			sortType = new ArrayList<String>();
 		}
-		sortType.add("sort_" + type + "=" + attribute + ":" + asc);
+		sortType.add("sort_" + type.getTypeString() + "=" + attribute + ":" + asc);
 	}
 
 	/**
 	 * Add a "Limit_[TYPE]" parameter to the request. Limits any included
-	 * content to a maximum amount.
+	 * content of the provided type to a maximum amount.
 	 * 
 	 * @param type
 	 *            the type to limit: comments, reviews, etc
 	 * @param limitVal
 	 *            the number to limit
 	 */
-	public void addLimitType(String type, int limitVal) {
+	public void addLimitOnIncludedType(IncludeType type, int limitVal) {
 		if (limitType == null) {
 			limitType = new ArrayList<String>();
 		}
-		sortType.add("limit_" + type + "=" + limitVal);
-	}
-
-	/**
-	 * Add a "Limit" parameter to the request. Limits the maximum amount of
-	 * results. The default is 100.
-	 * 
-	 * @param limit
-	 *            new limit
-	 */
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
-
-	/**
-	 * Add an "Offset" parameter to the request. Changes the index at which to
-	 * begin returning results.
-	 * 
-	 * @param offset
-	 *            new offset
-	 */
-	public void setOffset(int offset) {
-		this.offset = offset;
+		sortType.add("limit_" + type.getTypeString() + "=" + limitVal);
 	}
 	
-	/**
-	 * Add a "Filter_[TYPE]" parameter to the request. Filters any included
-	 * content by the schema of the given attribute, Equality type, and values.
-	 * <p>
-	 * Allows multiple values.
-	 * 
-	 * @param filterType
-	 *            the type to filter, i.e. Comments for Reviews. If null this is
-	 *            a regular filter
-	 * @param attribute
-	 *            what to filter on, i.e. Rating or ProductId
-	 * @param equality
-	 *            comparison for filtering, greater than, equals etc
-	 * @param values
-	 *            the values for the filter
-	 */
-	public void addFilterType(String filterType, String attribute,
+	// Adds a filter with a single value
+	private void addFilterHelper(String filterName, String attribute, 
+			Equality equality, String value) {
+		if (filters == null) {
+			filters = new ArrayList<String>();
+		}
+		StringBuilder filterString = new StringBuilder();
+		filterString.append(filterName).append(attribute).append(":")
+				.append(equality.getEquality()).append(":")
+				.append(encode(value));
+		filters.add(filterString.toString());
+	}
+	
+	// Adds a filter with multiple values
+	private void addFilterHelper(String filterName, String attribute, 
 			Equality equality, String[] values) {
 		if (filters == null) {
 			filters = new ArrayList<String>();
 		}
-		String filterName = filterType == null ? "filter=" : "filter_"
-				+ filterType + "=";
 		StringBuilder filterString = new StringBuilder();
 		filterString.append(filterName).append(attribute).append(":")
 				.append(equality.getEquality()).append(":");
@@ -232,13 +268,42 @@ public class DisplayParams extends BazaarParams {
 		}
 		filters.add(filterString.toString());
 	}
-
+	
+	/**
+	 * Filter criteria for primary content of the query.
+	 * 
+	 * @param attribute
+	 *            what to filter on, i.e. Rating or ProductId
+	 * @param equality
+	 *            comparison for filtering, greater than, equals etc
+	 * @param value
+	 *            the value for the filter
+	 */
+	public void addFilter(String attribute, Equality equality, String value) {
+		String filterName = "filter=";
+		addFilterHelper(filterName, attribute, equality, value);
+	}
+	
+	
+	/**
+	 * Filter criteria for primary content of the query.
+	 * Allows multiple values.
+	 * 
+	 * @param attribute
+	 *            what to filter on, i.e. Rating or ProductId
+	 * @param equality
+	 *            comparison for filtering, greater than, equals etc
+	 * @param values
+	 *            the values for the filter
+	 */
+	public void addFilter(String attribute, Equality equality, String[] values) {
+		String filterName = "filter=";
+		addFilterHelper(filterName, attribute, equality, values);
+	}
+	
 	/**
 	 * Add a "Filter_[TYPE]" parameter to the request. Filters any included
 	 * content by the schema of the given attribute, Equality type, and value.
-	 * 
-	 * <p>
-	 * Allows only one value.
 	 * 
 	 * @param filterType
 	 *            the type to filter, i.e. Comments for Reviews. If null this is
@@ -250,50 +315,21 @@ public class DisplayParams extends BazaarParams {
 	 * @param value
 	 *            the value for the filter
 	 */
-	public void addFilterType(String filterType, String attribute,
+	public void addFilterOnIncludedType(IncludeType filterType, String attribute,
 			Equality equality, String value) {
-		if (filters == null) {
-			filters = new ArrayList<String>();
-		}
-		String filterName = filterType == null ? "filter=" : "filter_"
-				+ filterType + "=";
-		StringBuilder filterString = new StringBuilder();
-		filterString.append(filterName).append(attribute).append(":")
-				.append(equality.getEquality()).append(":")
-				.append(encode(value));
-		filters.add(filterString.toString());
+		String filterName = "filter_" + filterType.getTypeString() + "=";
+		addFilterHelper(filterName, attribute, equality, value);
 	}
-
+	
+	
 	/**
 	 * Add a "Filter_[TYPE]" parameter to the request. Filters any included
-	 * content by the schema of the given attribute, and value.
-	 * 
-	 * <p>
-	 * Equality is set to "equals", and only one value is allowed.
-	 * 
-	 * @param filterType
-	 *            can be any included nested content. i.e. Comments for Reviews.
-	 *            If null this is a regular filter
-	 * @param attribute
-	 *            what to filter on, i.e. Rating or ProductId
-	 * @param value
-	 *            the value for the filter
-	 */
-	public void addFilterType(String filterType, String attribute, String value) {
-		if (filters == null) {
-			filters = new ArrayList<String>();
-		}
-		String filterName = filterType == null ? "filter=" : "filter_"
-				+ filterType + "=";
-		filters.add(filterName + attribute + ":" + encode(value));
-	}
-
-	/**
-	 * Add a "Filter" parameter to the request. Same as calling
-	 * addFilterType(null, attribute, equality, values);
+	 * content by the schema of the given attribute, Equality type, and values.
 	 * <p>
 	 * Allows multiple values.
 	 * 
+	 * @param filterType
+	 *            the type to filter, i.e. Comments for Reviews.
 	 * @param attribute
 	 *            what to filter on, i.e. Rating or ProductId
 	 * @param equality
@@ -301,41 +337,10 @@ public class DisplayParams extends BazaarParams {
 	 * @param values
 	 *            the values for the filter
 	 */
-	public void addFilter(String attribute, Equality equality, String[] values) {
-		addFilterType(null, attribute, equality, values);
-	}
-
-	/**
-	 * Add a "Filter" parameter to the request. Same as calling
-	 * addFilterType(null, attribute, equality, value);
-	 * <p>
-	 * Allows only one value.
-	 * 
-	 * @param attribute
-	 *            what to filter on, i.e. Rating or ProductId
-	 * @param equality
-	 *            comparison for filtering, greater than, equals etc
-	 * @param value
-	 *            the value for the filter
-	 */
-	public void addFilter(String attribute, Equality equality, String value) {
-		addFilterType(null, attribute, equality, value);
-	}
-
-	/**
-	 * Add a "Filter" parameter to the request. Same as calling
-	 * addFilterType(null, attribute, Equality.EQUALS, value);
-	 * 
-	 * <p>
-	 * Equality is set to "equals", and only one value is allowed.
-	 * 
-	 * @param attribute
-	 *            what to filter on, i.e. Rating or ProductId
-	 * @param value
-	 *            the value for the filter
-	 */
-	public void addFilter(String attribute, String value) {
-		addFilterType(null, attribute, value);
+	public void addFilterOnIncludedType(IncludeType filterType, String attribute,
+			Equality equality, String[] values) {
+		String filterName = "filter_" + filterType.getTypeString() + "=";
+		addFilterHelper(filterName, attribute, equality, values);
 	}
 
 	/**
@@ -355,23 +360,17 @@ public class DisplayParams extends BazaarParams {
 			}
 		}
 
+		url = addURLParameter(url, "search", search);
+		if (locale != null) {
+			url = addURLParameter(url, "locale", locale + "");
+		}
+		url = addURLParameter(url, "offset", offset);
+		url = addURLParameter(url, "limit", limit);
+		
 		url = addURLParamsFromList(url, "include", includes);
 		url = addURLParamsFromList(url, "attributes", attributes);
 		url = addURLParamsFromList(url, "stats", stats);
 		url = addURLParamsFromList(url, "sort", sort);
-
-		url = addURLParamsFromList(url, "search", search);
-
-		url = addURLParameter(url, "offset", offset);
-		url = addURLParameter(url, "limit", limit);
-
-		if (filterType != null) {
-			url = addURLParameter(url, "filterType", filterType + "");
-		}
-
-		if (locale != null) {
-			url = addURLParameter(url, "locale", locale + "");
-		}
 
 		char separator = url.contains("?") ? '&' : '?';
 		if (sortType != null) {
@@ -394,216 +393,6 @@ public class DisplayParams extends BazaarParams {
 				separator = '&';
 			}
 		}
-
 		return url;
 	}
-
-	/**
-	 * Set the list of subjects for inclusion in the "Include" parameter
-	 * manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add subjects one by one using
-	 *        {@link #addInclude(String)}.
-	 * @param includes
-	 *            the list of subjects to include
-	 */
-	public void setIncludes(List<String> includes) {
-		this.includes = includes;
-	}
-	
-	/**
-	 * Set the list of attributes for inclusion in the "Attributes" parameter
-	 * manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add subjects one by one using
-	 *        {@link #addAttribute(String)}.
-	 * @param attributes
-	 *            the list of attributes to include
-	 */
-	public void setAttributes(List<String> attributes) {
-		this.attributes = attributes;
-	}
-
-
-	/**
-	 * Get the list of search terms.
-	 * 
-	 * @return a list of terms
-	 */
-	public List<String> getSearch() {
-		return search;
-	}
-
-	/**
-	 * Set the list of words to be used in the "Search" parameter manually. Be
-	 * sure to remove any leading or trailing white space from each word as it
-	 * may interfere with search performance.
-	 * 
-	 * <p><b>Usage:</b><br> This is for setting all of the search terms at once and relys on
-	 *        the user encoding the terms correctly. Recommended usage is to add
-	 *        terms one by one using {@link #addSearch(String)}.
-	 * 
-	 * @param search
-	 *            the list of search terms
-	 */
-	public void setSearch(List<String> search) {
-		this.search = search;
-	}
-
-	/**
-	 * Get the "Locale" parameter if it has been set.
-	 * 
-	 * @return the locale
-	 */
-	public String getLocale() {
-		return locale;
-	}
-
-	/**
-	 * Add a "Locale" parameter to the request.
-	 * 
-	 * @param locale
-	 *            the locale
-	 */
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
-	
-	/**
-	 * Get the list of filters.
-	 * 
-	 * @return a list of filters.
-	 */
-	public List<String> getFilters() {
-		return filters;
-	}
-
-	/**
-	 * Set the list of "Filter" parameters manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add filters one by one using
-	 *        {@link #addFilter(String, Equality, String[])} or one of the other
-	 *        overridden methods.
-	 * @param filters
-	 *            the list of filters
-	 */
-	public void setFilters(List<String> filters) {
-		this.filters = filters;
-	}
-
-	public String getFilterType() {
-		return filterType;
-	}
-
-	public void setFilterType(String filterType) {
-		this.filterType = filterType;
-	}
-
-	/**
-	 * Get the list of stats.
-	 * 
-	 * @return a list of stats
-	 */
-	public List<String> getStats() {
-		return stats;
-	}
-
-	/**
-	 * Set the list of content types for the "Stats" parameter manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add stats one by one using
-	 *        {@link #addStats(String)}.
-	 * 
-	 * @param stats
-	 *            the list of content types
-	 */
-	public void setStats(List<String> stats) {
-		this.stats = stats;
-	}
-
-	/**
-	 * Get the list of attributes for the "Sort" parameter.
-	 * 
-	 * @return a list of attributes
-	 */
-	public List<String> getSort() {
-		return sort;
-	}
-
-	/**
-	 * Set the list of attributes for the "Sort" parameter manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add attributes one by one using
-	 *        {@link #addSort(String, boolean)}.
-	 * @param sort
-	 *            the list of attributes
-	 */
-	public void setSort(List<String> sort) {
-		this.sort = sort;
-	}
-
-	/**
-	 * Set the list of "Search_[TYPE]" parameters manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add parameters one by one using
-	 *        {@link #addSearchType(String, String)}.
-	 * @param searchType
-	 *            the list of parameters
-	 */
-	public void setSearchType(List<String> searchType) {
-		this.searchType = searchType;
-	}
-	
-	/**
-	 * Get the list of "Search_[TYPE]" parameters.
-	 * 
-	 * @return a list of parameters
-	 */
-	public List<String> getSearchType() {
-		return searchType;
-	}
-	
-	/**
-	 * Get the list of "Sort_[TYPE]" parameters.
-	 * 
-	 * @return a list of parameters
-	 */
-	public List<String> getSortType() {
-		return sortType;
-	}
-
-	/**
-	 * Set the list of "Sort_[TYPE]" parameters manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add parameters one by one using
-	 *        {@link #addSortType(String, String, boolean)}.
-	 * @param sortType
-	 *            the list of parameters
-	 */
-	public void setSortType(List<String> sortType) {
-		this.sortType = sortType;
-	}
-
-
-	/**
-	 * Get the list of "Limit_[TYPE]" parameters.
-	 * 
-	 * @return a list of parameters
-	 */
-	public List<String> getLimitType() {
-		return limitType;
-	}
-
-	/**
-	 * Set the list of "Limit_[TYPE]" parameters manually.
-	 * 
-	 * <p><b>Usage:</b><br> Recommended usage is to add parameters one by one using
-	 *        {@link #addLimitType(String, int)}.
-	 * @param limitType
-	 *            the list of parameters
-	 */
-	public void setLimitType(List<String> limitType) {
-		this.limitType = limitType;
-	}
-
 }

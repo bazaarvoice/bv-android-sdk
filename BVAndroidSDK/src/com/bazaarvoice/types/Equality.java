@@ -1,4 +1,4 @@
-package com.bazaarvoice;
+package com.bazaarvoice.types;
 
 /**
  * 
@@ -25,6 +25,11 @@ public enum Equality {
 	 * Matches only results equal to the value.
 	 */
 	EQUAL("eq"),
+	
+	/**
+	 * Matches only results not equal to the value.
+	 */
+	NOT_EQUAL("neq"),
 
 	/**
 	 * Matches only results greater than the value.
@@ -42,22 +47,10 @@ public enum Equality {
 		equalityStr = text;
 	}
 
-	/**
-	 * Get the equality string associated with this instance.
-	 * 
-	 * @return the equality string
-	 */
 	public String getEquality() {
 		return equalityStr;
 	}
 
-	/**
-	 * Gets the Equality value from the given equality string.
-	 * 
-	 * @param text
-	 *            the equality string
-	 * @return an Equality value
-	 */
 	public static Equality fromString(String text) {
 		if (text != null) {
 			for (Equality b : Equality.values()) {

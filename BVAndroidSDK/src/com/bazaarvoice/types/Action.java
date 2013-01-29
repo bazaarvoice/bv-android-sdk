@@ -1,4 +1,4 @@
-package com.bazaarvoice;
+package com.bazaarvoice.types;
 
 /**
  * 
@@ -14,10 +14,19 @@ public enum Action {
 	/**
 	 * Submit the content only for preview.
 	 */
-	preview,
+	PREVIEW("preview"),
 
 	/**
 	 * Submit the content fully to Bazaarvoice.
 	 */
-	submit
+	SUBMIT("submit");
+	
+	private String actionString;
+	
+	Action(String actionString){
+		this.actionString = actionString;
+	}
+	public String getActionName() {
+		return this.actionString	;
+	}
 }

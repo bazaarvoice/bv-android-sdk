@@ -1,13 +1,15 @@
 package com.bazaarvoice.test.DisplayTests;
 
-import com.bazaarvoice.*;
-import com.bazaarvoice.test.*;
-
-import java.util.ArrayList;
-import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.bazaarvoice.DisplayParams;
+import com.bazaarvoice.types.*;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
 
 
 /**
@@ -42,8 +44,8 @@ public class ProfileDisplayTest extends BaseTest {
          //Requesting profiles with recommended reviews
          //--------------------------------------
          DisplayParams params = new DisplayParams();
-         params.addFilterType("reviews", "IsRecommended", Equality.EQUAL, "true");
-         params.addInclude("reviews");
+         params.addFilterOnIncludedType(IncludeType.REVIEWS, "IsRecommended", Equality.EQUAL, "true");
+         params.addInclude(IncludeType.REVIEWS);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
              @Override
@@ -108,11 +110,9 @@ public class ProfileDisplayTest extends BaseTest {
         DisplayParams params = new DisplayParams();
         params.addFilter("Id", Equality.EQUAL, "yums");
 
-        ArrayList<String> includes = new ArrayList<String>();
-        includes.add("Questions");
-        includes.add("Reviews");
-        params.setIncludes(includes);
-
+        params.addInclude(IncludeType.QUESTIONS);
+        params.addInclude(IncludeType.REVIEWS);
+        
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response)throws JSONException {

@@ -1,6 +1,7 @@
 package com.bazaarvoice.test.DisplayTests;
 
 import com.bazaarvoice.*;
+import com.bazaarvoice.types.*;
 import com.bazaarvoice.test.*;
 
 import android.util.Log;
@@ -29,7 +30,7 @@ public class StatisticsDisplayTest extends BaseTest {
         //--------------------------------------
         DisplayParams params = new DisplayParams();
         params.addFilter("ProductId", Equality.EQUAL, "test1");
-        params.addStats("NativeReviews");
+        params.addStats(IncludeStatsType.NATIVE_REVIEWS);
 
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
@@ -60,7 +61,7 @@ public class StatisticsDisplayTest extends BaseTest {
         //--------------------------------------
         DisplayParams params = new DisplayParams();
         params.addFilter("ProductId", Equality.EQUAL, "test1");
-        params.addStats("Reviews");
+        params.addStats(IncludeStatsType.REVIEWS);
 
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
@@ -91,8 +92,8 @@ public class StatisticsDisplayTest extends BaseTest {
         //--------------------------------------
         DisplayParams params = new DisplayParams();
         params.addFilter("ProductId", Equality.EQUAL, "test1");
-        params.addStats("NativeReviews");
-        params.addStats("Reviews");
+        params.addStats(IncludeStatsType.NATIVE_REVIEWS);
+        params.addStats(IncludeStatsType.REVIEWS);
 
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
@@ -128,7 +129,7 @@ public class StatisticsDisplayTest extends BaseTest {
         String[] idArray = new String[] { "test1", "test2", "test3", "test4"};
         params.addFilter("ProductId", Equality.EQUAL, idArray);
 
-        params.addStats("NativeReviews");
+        params.addStats(IncludeStatsType.NATIVE_REVIEWS);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override

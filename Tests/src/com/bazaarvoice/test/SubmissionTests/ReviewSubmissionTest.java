@@ -1,6 +1,7 @@
 package com.bazaarvoice.test.SubmissionTests;
 
 import com.bazaarvoice.*;
+import com.bazaarvoice.types.*;
 import com.bazaarvoice.test.*;
 
 import android.util.Log;
@@ -34,13 +35,13 @@ public class ReviewSubmissionTest extends BaseTest {
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setProductId("80087355");
-        submissionParams.setAction(Action.preview);
+        submissionParams.setAction(Action.PREVIEW);
         submissionParams.setRating(5);
         submissionParams.setReviewText(reviewText);
         submissionParams.setTitle(title);
         submissionParams.setUserNickname("gpezz");
         submissionParams.setUserId("gpezz");
-        submissionParams.addRatingDim("SomeDimension", "4");
+        submissionParams.addRatingForDimensionExternalId("SomeDimension", "4");
 
         submit.postSubmission(RequestType.REVIEWS, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();

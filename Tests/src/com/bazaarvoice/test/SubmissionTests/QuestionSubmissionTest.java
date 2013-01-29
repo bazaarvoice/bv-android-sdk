@@ -1,6 +1,7 @@
 package com.bazaarvoice.test.SubmissionTests;
 
 import com.bazaarvoice.*;
+import com.bazaarvoice.types.*;
 import com.bazaarvoice.test.*;
 
 import android.util.Log;
@@ -29,12 +30,12 @@ public class QuestionSubmissionTest extends BaseTest {
         submit = new BazaarRequest(
                         "answers.apitestcustomer.bazaarvoice.com/bvstaging",
                         "1wtp4lx7aww42x4154oly21ae",
-                        "5.1");
+                        ApiVersion.FIVE_THREE);
 
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setProductId("1000001");
-        submissionParams.setAction(Action.preview);
+        submissionParams.setAction(Action.PREVIEW);
         submissionParams.setQuestionSummary(questionText);
         submissionParams.setUserId("cwod");
         submissionParams.setUserNickname("randomnickname");

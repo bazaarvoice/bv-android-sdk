@@ -55,4 +55,13 @@ With Eclipse:
 4. Click Finish.
 5. Run each test individually (or in groups) by selecting the class (or package) and clicking run.
 
+Generate Docs
+-
+
+With Eclipse:
+
+1. Navigate to Project -> Generate Javadoc
+2. Under "Select types for which Javadoc will be generated", highlight only src/com.bazaarvoice and src/com.bazaarvoice.types.  Within com.bazaarvoice, exclude Utils.java and Media.java, since these are not client-facing.
+3. Note the output directory.
+4. Click finish and output javadoc.
 

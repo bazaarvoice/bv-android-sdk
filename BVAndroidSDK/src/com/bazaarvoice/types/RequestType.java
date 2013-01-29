@@ -1,8 +1,8 @@
-package com.bazaarvoice;
+package com.bazaarvoice.types;
 
 /**
  * 
- * An enum for all the different types of requests we can make to BazaarVoice.
+ * An enum for all the different types of requests we can make via the BazaarVoice SDK.
  * 
  * <p>
  * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
@@ -57,7 +57,11 @@ public enum RequestType {
 	/**
 	 * Request statistics.
 	 */
-	STATISTICS("statistics", null);
+	STATISTICS("statistics", null),
+	/**
+	 * Request feedback.
+	 */
+	FEEDBACK(null, "submitfeedback");
 
 	private String displayName;
 	private String submissionName;
