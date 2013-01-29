@@ -1,14 +1,15 @@
 package com.bazaarvoice.test.DisplayTests;
 
-import com.bazaarvoice.*;
-import com.bazaarvoice.test.*;
-
-import java.util.ArrayList;
-import android.util.Log;
-import junit.framework.TestCase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.bazaarvoice.DisplayParams;
+import com.bazaarvoice.types.*;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -65,9 +66,7 @@ public class ReviewDisplayTest extends BaseTest {
         DisplayParams params = new DisplayParams();
         params.addFilter("Id", Equality.EQUAL, "192612");
 
-        ArrayList<String> includes = new ArrayList<String>();
-            includes.add("Products");
-        params.setIncludes(includes);
+        params.addInclude(IncludeType.PRODUCTS);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
@@ -96,7 +95,7 @@ public class ReviewDisplayTest extends BaseTest {
          //--------------------------------------
          DisplayParams params = new DisplayParams();
          params.setLimit(10);
-         params.addFilter("HasComments", "true");
+         params.addFilter("HasComments", Equality.EQUAL, "true");
          params.addSort("Rating", false);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {

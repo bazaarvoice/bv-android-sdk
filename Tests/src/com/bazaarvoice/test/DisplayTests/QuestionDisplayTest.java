@@ -1,13 +1,15 @@
 package com.bazaarvoice.test.DisplayTests;
 
-import com.bazaarvoice.*;
-import com.bazaarvoice.test.*;
-
-import java.util.ArrayList;
-import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
+
+import com.bazaarvoice.DisplayParams;
+import com.bazaarvoice.types.*;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
 
 
 /**
@@ -67,9 +69,7 @@ public class QuestionDisplayTest extends BaseTest {
          DisplayParams params = new DisplayParams();
          params.addFilter("Id", Equality.EQUAL, "14898");
 
-         ArrayList<String> includes = new ArrayList<String>();
-             includes.add("Answers");
-         params.setIncludes(includes);
+         params.addInclude(IncludeType.ANSWERS);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
              @Override
@@ -98,7 +98,7 @@ public class QuestionDisplayTest extends BaseTest {
           //--------------------------------------
           DisplayParams params = new DisplayParams();
           params.setLimit(25);
-          params.addFilter("HasAnswers", "true");
+          params.addFilter("HasAnswers", Equality.EQUAL, "true");
           params.addSort("SubmissionTime", false);
 
           OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
@@ -179,9 +179,7 @@ public class QuestionDisplayTest extends BaseTest {
          DisplayParams params = new DisplayParams();
          params.addFilter("CategoryId", Equality.EQUAL, "1020");
 
-         ArrayList<String> includes = new ArrayList<String>();
-             includes.add("Answers");
-         params.setIncludes(includes);
+         params.addInclude(IncludeType.ANSWERS);
 
          OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
              @Override

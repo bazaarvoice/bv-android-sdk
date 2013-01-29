@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import com.bazaarvoice.*;
 import com.bazaarvoice.test.*;
+import com.bazaarvoice.types.*;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,9 +1,5 @@
 package com.bazaarvoice.test.SubmissionTests;
 
-import com.bazaarvoice.*;
-import com.bazaarvoice.test.*;
-
-import android.util.Log;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -15,7 +11,14 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Iterator;
+import android.util.Log;
+
+import com.bazaarvoice.BazaarException;
+import com.bazaarvoice.BazaarRequest;
+import com.bazaarvoice.types.*;
+import com.bazaarvoice.SubmissionMediaParams;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
 
 /**
  * Author: Gary Pezza
@@ -26,7 +29,7 @@ public class PhotoSubmissionTest extends BaseTest {
     private final String tag = getClass().getSimpleName();
     private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
             "2cpdrhohmgmwfz8vqyo48f52g",
-            "5.1");
+            ApiVersion.FIVE_THREE);
     public void testPhotoSubmit() {
 
         //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets
@@ -65,7 +68,7 @@ public class PhotoSubmissionTest extends BaseTest {
             }
         };
 
-        SubmissionMediaParams mediaParams = new SubmissionMediaParams("review_comment");
+        SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         try {
             mediaParams.setPhoto(imageBytes, "Misconstrue_-_Image_1.jpg");

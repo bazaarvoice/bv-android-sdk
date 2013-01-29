@@ -1,6 +1,7 @@
 package com.bazaarvoice.test;
 
 import com.bazaarvoice.BazaarRequest;
+import com.bazaarvoice.types.ApiVersion;
 import junit.framework.TestCase;
 
 /**
@@ -13,7 +14,6 @@ public class BaseTest extends TestCase {
 
     public BazaarRequest request;
     public BazaarRequest submit;
-    private final String tag = getClass().getSimpleName();
 
     @Override
     protected void setUp() throws Exception {
@@ -21,11 +21,11 @@ public class BaseTest extends TestCase {
         request = new BazaarRequest(
                 "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
                 "kuy3zj9pr3n7i0wxajrzj04xo",
-                "5.3");
+                 ApiVersion.FIVE_THREE);
 
         submit = new BazaarRequest(
                 "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
                 "1wtp4lx7aww42x4154oly21ae",
-                "5.3");
+                ApiVersion.FIVE_THREE);
     }
 }

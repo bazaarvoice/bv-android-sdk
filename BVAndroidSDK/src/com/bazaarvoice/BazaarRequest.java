@@ -20,6 +20,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.apache.http.entity.mime.MultipartEntity;
 
+import com.bazaarvoice.types.ApiVersion;
+import com.bazaarvoice.types.RequestType;
+
 import java.util.LinkedList;
 
 /**

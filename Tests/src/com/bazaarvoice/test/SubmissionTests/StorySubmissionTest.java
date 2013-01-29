@@ -1,14 +1,16 @@
 package com.bazaarvoice.test.SubmissionTests;
 
-import com.bazaarvoice.*;
-import com.bazaarvoice.test.*;
-
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Iterator;
+import android.util.Log;
+
+
+import com.bazaarvoice.BazaarRequest;
+import com.bazaarvoice.SubmissionParams;
+import com.bazaarvoice.types.*;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
 
 public class StorySubmissionTest extends BaseTest {
     private final String tag = getClass().getSimpleName();
@@ -31,11 +33,11 @@ public class StorySubmissionTest extends BaseTest {
         submit = new BazaarRequest(
                         "stories.apitestcustomer.bazaarvoice.com/bvstaging",
                         "1wtp4lx7aww42x4154oly21ae",
-                        "5.1");
+                        ApiVersion.FIVE_THREE);
 
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());
-        submissionParams.setAction(Action.preview);
+        submissionParams.setAction(Action.PREVIEW);
         submissionParams.setCategoryId("6108");
         submissionParams.setTitle(titleText);
         submissionParams.setUserId("cwod");

@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import com.bazaarvoice.types.MediaParamsContentType;
+
 /**
  * 
  * Handles the parameters for media submission. Only one media
@@ -23,9 +25,9 @@ import java.io.RandomAccessFile;
  * @author Bazaarvoice Engineering
  */
 public class SubmissionMediaParams extends BazaarParams {
+	private MediaParamsContentType contentType;
 	private String locale;
 	private String userId;
-	private String contentType;
 
 	/**
 	 * Create a new instance of SubmissionMediaParams with a given
@@ -34,24 +36,68 @@ public class SubmissionMediaParams extends BazaarParams {
 	 * @param contentType
 	 *            the content for which the media will be submitted
 	 */
-	public SubmissionMediaParams(String contentType) {
+	public SubmissionMediaParams(MediaParamsContentType contentType) {
 		this.contentType = contentType;
 	}
 
 	/**
-	 * Add the parameters set in this instance to the given url string.
+	 * Get the "Content Type" parameter for the submission.
 	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the url with the parameter list on it
+	 * @return the content type
 	 */
-	public String toURL(String url) {
-		url = addURLParameter(url, "contentType", contentType);
-		url = addURLParameter(url, "locale", locale);
-		url = addURLParameter(url, "userId", userId);
-		return url;
+	public MediaParamsContentType getContentType() {
+		return contentType;
+	}
+	
+	/**
+	 * The content type for which this media is being submitted. Review, question, answer or story.
+	 * 
+	 * @param contentType
+	 *            a content type
+	 */
+	public void setContentType(MediaParamsContentType contentType) {
+		this.contentType = contentType;
+	}
+	
+	/**
+	 * Get the "Locale" parameter for the submission.
+	 * 
+	 * @return the locale
+	 */
+	public String getLocale() {
+		return locale;
+	}
+	
+	/**
+	 * Locale to display Labels, Configuration, Product Attributes and Category Attributes in. The default value is the locale defined in the display associated with the API key.
+	 * 
+	 * @param locale
+	 *            a locale
+	 */
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
+	/**
+	 * Get the "UserId" parameter for the submission.
+	 * 
+	 * @return the user id
+	 */
+	public String getUserId() {
+		return userId;
+	}
+	
+	/**
+	 * User's external ID.
+	 * 
+	 * @param userId
+	 *            a user id
+	 */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	
 	/**
 	 * Set a photo as the media object.
 	 * 
@@ -81,7 +127,7 @@ public class SubmissionMediaParams extends BazaarParams {
 	}
 	
 	/**
-	 * Allows client to set photo directly from a bitmap
+	 * Sets photo directly from a bitmap
 	 * 
 	 * @param bitmap
 	 *            the bitmap representation of the image to upload
@@ -142,61 +188,19 @@ public class SubmissionMediaParams extends BazaarParams {
 		f.read(b);
 		media = new Media(b, mediaType, file.getName());
 	}
-
+	
 	/**
-	 * Get the "Content Type" parameter for the submission.
+	 * Add the parameters set in this instance to the given url string.
 	 * 
-	 * @return the content type
+	 * @param url
+	 *            the base url to append to
+	 * @return the url with the parameter list on it
 	 */
-	public String getContentType() {
-		return contentType;
+	public String toURL(String url) {
+		url = addURLParameter(url, "contentType", contentType.getTypeString());
+		url = addURLParameter(url, "locale", locale);
+		url = addURLParameter(url, "userId", userId);
+		return url;
 	}
-
-	/**
-	 * Set the "Content Type" parameter for the submission.
-	 * 
-	 * @param contentType
-	 *            a content type
-	 */
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
-
-	/**
-	 * Get the "Locale" parameter for the submission.
-	 * 
-	 * @return the locale
-	 */
-	public String getLocale() {
-		return locale;
-	}
-
-	/**
-	 * Set the "Locale" parameter for the submission.
-	 * 
-	 * @param locale
-	 *            a locale
-	 */
-	public void setLocale(String locale) {
-		this.locale = locale;
-	}
-
-	/**
-	 * Get the "UserId" parameter for the submission.
-	 * 
-	 * @return the user id
-	 */
-	public String getUserId() {
-		return userId;
-	}
-
-	/**
-	 * Set the "UserId" parameter for the submission.
-	 * 
-	 * @param userId
-	 *            a user id
-	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	
 }

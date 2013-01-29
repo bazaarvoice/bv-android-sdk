@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import android.util.Log;
 import com.bazaarvoice.*;
+import com.bazaarvoice.types.*;
 import com.bazaarvoice.test.*;
 
 import org.json.JSONArray;
@@ -65,10 +66,7 @@ public class AnswerDisplayTest extends BaseTest {
         //--------------------------------------
         DisplayParams params = new DisplayParams();
         params.addFilter("Id", Equality.EQUAL, "16369");
-
-        ArrayList<String> includes = new ArrayList<String>();
-            includes.add("Questions");
-        params.setIncludes(includes);
+        params.addInclude(IncludeType.QUESTIONS);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
@@ -101,7 +99,7 @@ public class AnswerDisplayTest extends BaseTest {
 
         ArrayList<String> includes = new ArrayList<String>();
             includes.add("Questions");
-        params.setIncludes(includes);
+            params.addInclude(IncludeType.QUESTIONS);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override

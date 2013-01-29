@@ -2,8 +2,8 @@ package com.bazaarvoice.test.DisplayTests;
 
 import com.bazaarvoice.*;
 import com.bazaarvoice.test.*;
+import com.bazaarvoice.types.*;
 
-import java.util.ArrayList;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -172,15 +172,13 @@ public class CommentDisplayTest extends BaseTest {
         //Advanced Comments Request
         //--------------------------------------
         DisplayParams params = new DisplayParams();
-        params.addFilter("HasPhotos", "true");
+        params.addFilter("HasPhotos", Equality.EQUAL, "true");
         params.addFilter("ProductId", Equality.EQUAL, "1000001");
 
-        ArrayList<String> includes = new ArrayList<String>();
-            includes.add("Authors");
-            includes.add("Stories");
-            includes.add("Products");
-            includes.add("Categories");
-        params.setIncludes(includes);
+		params.addInclude(IncludeType.PROFILES);
+		params.addInclude(IncludeType.STORIES);
+		params.addInclude(IncludeType.PRODUCTS);
+		params.addInclude(IncludeType.CATEGORIES);
 
         params.addSort("TotalPositiveFeedbackCount", false);
         params.setLimit(4);
