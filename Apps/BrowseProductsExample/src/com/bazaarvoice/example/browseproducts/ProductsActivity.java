@@ -1,14 +1,10 @@
 package com.bazaarvoice.example.browseproducts;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.OnUiBazaarResponse;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -108,7 +104,7 @@ public class ProductsActivity extends Activity {
 		Intent myIntent = getIntent();
 		String searchTerm = myIntent.getStringExtra("searchTerm");
 		BazaarFunctions.runProductSearchQuery(searchTerm,
-				new OnUiBazaarResponse() {
+				new BazaarUIThreadResponse(this) {
 
 					@Override
 					public void onUiResponse(JSONObject json) {

@@ -2,25 +2,17 @@ package com.bazaarvoice.example.browseproducts;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bazaarvoice.BazaarRequest;
-import com.bazaarvoice.DisplayParams;
-import com.bazaarvoice.Equality;
-import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.RequestType;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.RelativeLayout;
+
+import com.bazaarvoice.OnBazaarResponse;
 
 /**
  * BazaarProduct.java <br>
@@ -76,9 +68,17 @@ public class BazaarProduct implements Parcelable {
 		 *            the json object representing a brand
 		 * @throws JSONException
 		 */
-		public Brand(JSONObject brand) throws JSONException {
-			name = brand.getString("Name");
-			id = brand.getString("Id");
+		public Brand(JSONObject brand) {
+			try {
+				name = brand.getString("Name");
+			} catch (JSONException e) {
+				Log.d("Parsing Error", "No JSON Value for name");
+			}
+			try {
+				id = brand.getString("Id");
+			} catch (JSONException e) {
+				Log.d("Parsing Error", "No JSON Value for id");
+			}
 		}
 
 		/**

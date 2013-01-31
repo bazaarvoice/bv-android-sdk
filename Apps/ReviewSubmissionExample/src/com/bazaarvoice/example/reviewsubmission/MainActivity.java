@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.chute.android.photopickerplus.util.intent.PhotoActivityIntentWrapper;
+import com.chute.android.photopickerplus.util.intent.PhotoPickerPlusIntentWrapper;
+import com.chute.sdk.model.GCAccountMediaModel;
 
 /**
  * MainActivity.java <br>
@@ -88,10 +91,18 @@ public class MainActivity extends Activity {
 			 */
 			@Override
 			public void onClick(View v) {
+				
+				/*
 				Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 				imageUri = CameraUtils.getPhotoUri(getBaseContext());
 				intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 				startActivityForResult(intent, CAMERA_REQUEST);
+				*/
+				
+				 PhotoPickerPlusIntentWrapper wrapper = new PhotoPickerPlusIntentWrapper(MainActivity.this);
+			     wrapper.setMultiPicker(false);
+			     wrapper.startActivityForResult(MainActivity.this, PhotoPickerPlusIntentWrapper.REQUEST_CODE);
+
 			}
 
 		});
@@ -103,31 +114,49 @@ public class MainActivity extends Activity {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Bitmap orientedImage = null;
-		try {
-			orientedImage = CameraUtils.getOrientedBitmap(imageUri, this);
-		} catch (IOException exception) {
-			Log.e(TAG,
-					"Error = " + exception.getMessage() + "\n"
-							+ Log.getStackTraceString(exception));
-			Toast.makeText(getBaseContext(), "Error retrieving photo",
-					Toast.LENGTH_LONG).show();
-			return;
-		}
-		/*
-		 * Send image to next activity: On most phones, the taken image will be
-		 * very large. Scaling it down here should improve performance.
-		 */
-		Bitmap scaledImage = Bitmap.createScaledBitmap(orientedImage, 200, 200,
-				true);
-		Intent intent = new Intent(this, RatingActivity.class);
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		scaledImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] byteArray = stream.toByteArray();
-		intent.putExtra("capturedImage", byteArray);
-		intent.putExtra("imageUri", imageUri.toString());
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivity(intent);
+		super.onActivityResult(requestCode, resultCode, data);
+		
+
+	    if (resultCode != Activity.RESULT_OK) {
+	        return;
+	    } else if(requestCode == PhotoPickerPlusIntentWrapper.REQUEST_CODE) {
+	    	// Chute response...
+		    final PhotoActivityIntentWrapper wrapper = new PhotoActivityIntentWrapper(data);
+		    GCAccountMediaModel mediaModel = wrapper.getMediaCollection().get(0);
+		    Intent intent = new Intent(this, RatingActivity.class);
+		    intent.putExtra("chuteMediaModel", mediaModel);
+		    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(intent);
+	    } else {
+	    	// Standard camera response...
+			Bitmap orientedImage = null;	    	
+			try {
+				orientedImage = CameraUtils.getOrientedBitmap(imageUri, this);
+			} catch (IOException exception) {
+				Log.e(TAG,
+						"Error = " + exception.getMessage() + "\n"
+								+ Log.getStackTraceString(exception));
+				Toast.makeText(getBaseContext(), "Error retrieving photo",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
+			/*
+			 * Send image to next activity: On most phones, the taken image will be
+			 * very large. Scaling it down here should improve performance.
+			 */
+			Bitmap scaledImage = Bitmap.createScaledBitmap(orientedImage, 200, 200,
+					true);
+			Intent intent = new Intent(this, RatingActivity.class);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			scaledImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byte[] byteArray = stream.toByteArray();
+			intent.putExtra("capturedImage", byteArray);
+			intent.putExtra("imageUri", imageUri.toString());
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			startActivity(intent);
+	    }
+	    
+	    
 	}
 
 }

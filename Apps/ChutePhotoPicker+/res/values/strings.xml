@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Photo Picker Plus</string>
+    <!-- Account type -->
+    <string name="facebook">Facebook</string>
+    <string name="flickr">Flickr</string>
+    <string name="instagram">Instagram</string>
+    <string name="picasa">Picasa</string>
+    <string name="camera">Camera Roll</string>
+    <string name="photo_stream">Photo Stream</string>
+
+    <!-- Exceptions -->
+    <string name="parsing_exception">Invalid response format</string>
+    <string name="http_exception">Check your internet connection and try again
+    </string>
+    <string name="http_error">Server Problem, Try again</string>
+    
+    <!-- UI -->
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="albums">Albums</string>
+    <string name="start_slide_chute">PhotoPicker+</string>
+    <string name="device_photos">Device Photos</string>
+    <string name="take_photos">Take a photo</string>
+    <string name="gallery">Gallery</string>
+    <string name="online_photos">Online Photos</string>
+    <string name="loading_albums">Loading albums...</string>
+    <string name="loading_photos">Loading photos...</string>
+    <string name="select_a_photo">Select a Photo</string>
+    <string name="select_photos">Select Photos</string>
+    <string name="select_an_album">Select an Album</string>
+    <string name="title_default">Default</string>
+    <string name="title_user">User</string>
+    <string name="camera_shots">Camera shots</string>
+    <string name="all_photos">All photos</string>
+    <string name="last_photo">Last photo taken</string>
+    
+    <!-- Toast -->
+    <string name="toast_choose_photos">Please select photos</string>
+    <string name="toast_feature_camera">Your device doesn\'t have a camera</string>
+    <string name="no_camera_photos">No photos in camera roll</string>
+
+</resources>

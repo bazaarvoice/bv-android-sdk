@@ -7,8 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.bazaarvoice.OnBazaarResponse;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -25,11 +22,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
-import android.widget.TableLayout.LayoutParams;
+
+import com.bazaarvoice.OnBazaarResponse;
+import com.chute.sdk.model.GCAccountMediaModel;
+import com.darko.imagedownloader.ImageLoader;
+import com.darko.imagedownloader.ImageLoaderListener;
 
 /**
  * RatingActivity.java <br>
@@ -50,7 +50,7 @@ import android.widget.TableLayout.LayoutParams;
  * 
  * @author Bazaarvoice Engineering
  */
-public class RatingActivity extends Activity {
+public class RatingActivity extends Activity implements ImageLoaderListener {
 
 	protected static final String TAG = "Rating Activity";
 	private Bitmap displayImage;
@@ -79,17 +79,39 @@ public class RatingActivity extends Activity {
 		setContentView(R.layout.rating);
 
 		Intent myIntent = getIntent();
-		byte[] byteArray = myIntent.getByteArrayExtra("capturedImage");
-		if (byteArray == null) {
-			displayImage = null;
-		} else if (displayImage == null) {
-			displayImage = BitmapFactory.decodeByteArray(byteArray, 0,
-					byteArray.length);
-		}
-
-		Uri imageUri = Uri.parse(myIntent.getStringExtra("imageUri"));
-		uploadPhoto(imageUri);
-
+		thumbImage = (ImageView) findViewById(R.id.thumbImage);
+		if(myIntent.hasExtra("chuteMediaModel")){
+			// Chute case
+			GCAccountMediaModel model = myIntent.getParcelableExtra("chuteMediaModel");
+			ImageLoader loader = ImageLoader.getLoader(RatingActivity.this);
+			loader.fetchBitmapAsync(model.getThumbUrl(), new ImageLoaderListener() {
+				@Override
+				public void onImageLoadingError() {
+					// If this happens, we have a problem...
+				}
+				
+				@Override
+				public void onImageLoadingComplete(String url, Bitmap bitmap) {
+					thumbImage.setImageBitmap(bitmap);
+					displayImage = bitmap;
+				}
+			});
+			loader.fetchBitmapAsync(model.getLargeUrl(), this);
+			
+		} else {
+			// Camera case
+			byte[] byteArray = myIntent.getByteArrayExtra("capturedImage");
+			if (byteArray == null) {
+				displayImage = null;
+			} else if (displayImage == null) {
+				displayImage = BitmapFactory.decodeByteArray(byteArray, 0,
+						byteArray.length);
+			}
+			thumbImage.setImageBitmap(displayImage);
+			Uri imageUri = Uri.parse(myIntent.getStringExtra("imageUri"));
+			uploadPhoto(imageUri);
+		}		
+		
 		initializeViews();
 	}
 
@@ -159,9 +181,6 @@ public class RatingActivity extends Activity {
 			}
 
 		});
-
-		thumbImage = (ImageView) findViewById(R.id.thumbImage);
-		thumbImage.setImageBitmap(displayImage);
 
 		progressDialog = new ProgressDialog(this);
 
@@ -304,6 +323,42 @@ public class RatingActivity extends Activity {
 			}
 
 		});
+	}
+
+	@Override
+	public void onImageLoadingComplete(String url, Bitmap bitmap) {
+		BazaarFunctions.uploadPhoto(bitmap,
+				url,
+				new OnImageUploadComplete() {
+
+					@Override
+					public void onFinish() {
+						/*
+						 * If the user has clicked "Submit" before the photo
+						 * finishes uploading we must now start submitting the
+						 * review.
+						 */
+						photoUploaded = true;
+						if (progressDialog.isShowing()) {
+							runOnUiThread(new Runnable() {
+
+								@Override
+								public void run() {
+									submitReview();
+								}
+
+							});
+						}
+					}
+
+				});
+	}
+
+	@Override
+	public void onImageLoadingError() {
+		Toast.makeText(getBaseContext(),
+				"An error has occurred", Toast.LENGTH_LONG)
+				.show();
 	}
 
 }

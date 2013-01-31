@@ -2,20 +2,19 @@ package com.bazaarvoice.intentexample;
 
 import java.io.File;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.bazaarvoice.Action;
-import com.bazaarvoice.ApiVersion;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.RequestType;
 import com.bazaarvoice.SubmissionMediaParams;
 import com.bazaarvoice.SubmissionParams;
-import com.bazaarvoice.intentexample.MainActivity;
+import com.bazaarvoice.types.Action;
+import com.bazaarvoice.types.ApiVersion;
+import com.bazaarvoice.types.MediaParamsContentType;
+import com.bazaarvoice.types.RequestType;
 
 /**
  * BazaarFunctions.java <br>
@@ -61,8 +60,7 @@ public class BazaarFunctions {
 	 *            a file holding a photo
 	 */
 	public static void doPhotoSubmission(File file) {
-		SubmissionMediaParams submissionMediaParams = new SubmissionMediaParams(
-				"story");
+		SubmissionMediaParams submissionMediaParams = new SubmissionMediaParams(MediaParamsContentType.STORY);
 
 		// This can be done more easily by enabling anonymous submission
 		USER_ID = java.util.UUID.randomUUID().toString().substring(0, 8);
@@ -153,7 +151,7 @@ public class BazaarFunctions {
 		submissionParams.setCategoryId("Yellow");
 
 		submissionParams.addPhotoUrl(submittedPhotoUrl);
-		submissionParams.setAction(Action.submit);
+		submissionParams.setAction(Action.SUBMIT);
 		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
 		request.postSubmission(RequestType.STORIES, submissionParams,
 				submissionListener);
@@ -180,7 +178,7 @@ public class BazaarFunctions {
 		submissionParams.setTitle(title);
 		submissionParams.setStoryText(text);
 		submissionParams.setCategoryId("Yellow");
-		submissionParams.setAction(Action.preview);
+		submissionParams.setAction(Action.PREVIEW);
 
 		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
 		request.postSubmission(RequestType.STORIES, submissionParams, listener);

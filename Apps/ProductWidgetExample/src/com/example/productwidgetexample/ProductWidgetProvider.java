@@ -6,10 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.bazaarvoice.OnBazaarResponse;
-
 import android.app.PendingIntent;
-import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -18,13 +15,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-import android.widget.RemoteViews.RemoteView;
-import android.widget.ViewFlipper;
+
+import com.bazaarvoice.OnBazaarResponse;
 
 /**
  * ProductWidgetProvider.java<br>
@@ -59,6 +54,7 @@ import android.widget.ViewFlipper;
 public class ProductWidgetProvider extends AppWidgetProvider {
 
 	public static final String TRIGGER = "trigger";
+	@SuppressWarnings("unused")
 	private static final String TAG = "Widget";
 
 	private static ArrayList<BazaarProduct> products;
@@ -252,6 +248,7 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 				value = i;
 			}
 
+			@SuppressWarnings("unused")
 			public void increment() {
 				value++;
 			}
@@ -286,13 +283,13 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 
 				@Override
 				public void onException(String message, Throwable exception) {
-					Log.e("Product Query", message);
+					Log.e("Product Query", "ERROR:" + message + exception.getMessage());
 					counter.setValue(0);
 				}
 
 				@Override
 				public void onResponse(JSONObject json) {
-					Log.i("Product Query", json.toString());
+					Log.i("Product Query", "Query:" + json.toString());
 					try {
 						JSONArray results = json.getJSONArray("Results");
 						
@@ -331,7 +328,7 @@ public class ProductWidgetProvider extends AppWidgetProvider {
 									});
 						}
 					} catch (JSONException e) {
-						Log.e("Product Query", e.getStackTrace().toString());
+						Log.e("Product Query", "ERROR:" + e.getMessage() + " : " + e.getStackTrace().toString());
 					}
 				}
 
