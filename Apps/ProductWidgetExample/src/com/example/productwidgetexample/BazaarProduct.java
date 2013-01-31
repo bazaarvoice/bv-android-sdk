@@ -2,25 +2,17 @@ package com.example.productwidgetexample;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.bazaarvoice.BazaarRequest;
-import com.bazaarvoice.DisplayParams;
-import com.bazaarvoice.Equality;
-import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.RequestType;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
-import android.widget.RelativeLayout;
+
+import com.bazaarvoice.OnBazaarResponse;
 
 /**
  * BazaarProduct.java <br>
@@ -132,14 +124,42 @@ public class BazaarProduct implements Parcelable {
 	 *            the json object representing a product
 	 * @throws JSONException
 	 */
-	public BazaarProduct(JSONObject product) throws JSONException {
-		name = product.getString("Name");
-		brand = new Brand(product.getJSONObject("Brand"));
-		description = product.getString("Description").replaceAll("  ", "").replaceAll("\n", "");;
-		catId = product.getString("CategoryId");
-		imgUrl = product.getString("ImageUrl");
-		prodId = product.getString("Id");
-		extractStatistics(product);
+	public BazaarProduct(JSONObject product) {
+		try {
+			name = product.getString("Name");
+		} catch (JSONException e) {
+			name = "";
+		}
+		try {
+			brand = new Brand(product.getJSONObject("Brand"));
+		} catch (JSONException e) {
+			brand = new Brand("", "");
+		}
+		try {
+			description = product.getString("Description").replaceAll("  ", "").replaceAll("\n", "");
+		} catch (JSONException e) {
+			description = "";
+		};
+		try {
+			catId = product.getString("CategoryId");
+		} catch (JSONException e) {
+			catId = "";
+		}
+		try {
+			imgUrl = product.getString("ImageUrl");
+		} catch (JSONException e) {
+			imgUrl = "";
+		}
+		try {
+			prodId = product.getString("Id");
+		} catch (JSONException e) {
+			prodId = "";
+		}
+		try {
+			extractStatistics(product);
+		} catch (JSONException e) {
+			numReviews = 0;
+		}
 		reviews = new ArrayList<BazaarReview>();
 	}
 

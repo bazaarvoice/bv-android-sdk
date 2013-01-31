@@ -1,23 +1,19 @@
 package com.bazaarvoice.example.reviewsubmission;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.bazaarvoice.Action;
-import com.bazaarvoice.ApiVersion;
+import com.bazaarvoice.types.*;
 import com.bazaarvoice.BazaarRequest;
-import com.bazaarvoice.DisplayParams;
-import com.bazaarvoice.Equality;
 import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.RequestType;
 import com.bazaarvoice.SubmissionMediaParams;
 import com.bazaarvoice.SubmissionParams;
+import com.bazaarvoice.types.ApiVersion;
 
 /**
  * BazaarFunctions.java <br>
@@ -38,7 +34,9 @@ public class BazaarFunctions {
 	private static final String TAG = "BazaarFunctions";
 	private static final String API_URL = "reviews.apitestcustomer.bazaarvoice.com/bvstaging";
 	private static final String API_KEY = "2cpdrhohmgmwfz8vqyo48f52g";
-	private static final ApiVersion API_VERSION = ApiVersion.FIVE_TWO;
+	private static final ApiVersion API_VERSION = ApiVersion.FIVE_THREE;
+	private static final int MIN_IMAGE_DIMENSIONS = 600;
+
 
 	public static String photoUrl = "";
 
@@ -54,6 +52,46 @@ public class BazaarFunctions {
 	}
 
 	/**
+	 * Actually sends the photo upload request -- this is a helper function for uploadPhoto.
+	 * 
+	 * @param params
+	 *            the params of the request
+	 * @param listener
+	 *            an <code>OnImageUploadComplete</code> object
+	 */
+	private static void sendPhotoRequest(SubmissionMediaParams params, final OnImageUploadComplete listener){
+		OnBazaarResponse response = new OnBazaarResponse() {
+
+			@Override
+			public void onException(String message, Throwable exception) {
+				Log.e(TAG,
+						"Error = " + message + "\n"
+								+ Log.getStackTraceString(exception));
+			}
+
+			@Override
+			public void onResponse(JSONObject json) {
+				Log.i(TAG, "Response = \n" + json);
+				if (listener != null) {
+					listener.onFinish();
+				}
+				try {
+					photoUrl = json.getJSONObject("Photo")
+							.getJSONObject("Sizes").getJSONObject("normal")
+							.getString("Url");
+				} catch (JSONException exception) {
+					Log.e(TAG, Log.getStackTraceString(exception));
+				}
+			}
+
+		};
+
+		BazaarRequest submitMedia = new BazaarRequest(API_URL, API_KEY,
+				API_VERSION);
+		submitMedia.queueSubmission(RequestType.PHOTOS, params, response);
+	}
+	
+	/**
 	 * Creates a request to upload a photo to the Bazaarvoice image store for
 	 * use with a review. This function also allows you to pass a callback
 	 * function to be called when the upload completes.
@@ -66,45 +104,45 @@ public class BazaarFunctions {
 	public static void uploadPhoto(File file,
 			final OnImageUploadComplete listener) {
 		try {
-			SubmissionMediaParams params = new SubmissionMediaParams("review");
+			SubmissionMediaParams params = new SubmissionMediaParams(MediaParamsContentType.REVIEW);
 			params.setPhoto(file);
 			params.setUserId("test1");
 
-			OnBazaarResponse response = new OnBazaarResponse() {
-
-				@Override
-				public void onException(String message, Throwable exception) {
-					Log.e(TAG,
-							"Error = " + message + "\n"
-									+ Log.getStackTraceString(exception));
-				}
-
-				@Override
-				public void onResponse(JSONObject json) {
-					Log.i(TAG, "Response = \n" + json);
-					if (listener != null) {
-						listener.onFinish();
-					}
-					try {
-						photoUrl = json.getJSONObject("Photo")
-								.getJSONObject("Sizes").getJSONObject("normal")
-								.getString("Url");
-					} catch (JSONException exception) {
-						Log.e(TAG, Log.getStackTraceString(exception));
-					}
-				}
-
-			};
-
-			BazaarRequest submitMedia = new BazaarRequest(API_URL, API_KEY,
-					API_VERSION);
-			submitMedia.queueSubmission(RequestType.PHOTOS, params, response);
+			sendPhotoRequest(params, listener);
 
 		} catch (Exception exception) {
 			Log.e(TAG, Log.getStackTraceString(exception));
 		}
 	}
 
+	/**
+	 * Creates a request to upload a photo to the Bazaarvoice image store for
+	 * use with a review. This function also allows you to pass a callback
+	 * function to be called when the upload completes.
+	 * 
+	 * @param bitmap
+	 *            the bitmap representation of the image to upload
+	 * @param filename
+	 *            the filename of the photo to upload -- this is necessary to determine mime type
+	 */
+	public static void uploadPhoto(Bitmap bitmap, String filenname, final OnImageUploadComplete listener) {
+		try {
+			SubmissionMediaParams params = new SubmissionMediaParams(MediaParamsContentType.REVIEW);
+			if(bitmap.getHeight() < MIN_IMAGE_DIMENSIONS || bitmap.getWidth() < MIN_IMAGE_DIMENSIONS){
+				float scale = Math.max(MIN_IMAGE_DIMENSIONS / (float)  bitmap.getHeight(), MIN_IMAGE_DIMENSIONS / (float) bitmap.getWidth());
+				bitmap = Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth() * scale), (int)(bitmap.getHeight() * scale), true);
+			}
+			
+			params.setPhoto(bitmap, filenname);
+			params.setUserId("test1");
+
+			sendPhotoRequest(params, listener);
+		} catch (Exception exception) {
+			Log.e(TAG, Log.getStackTraceString(exception));
+		}
+	}
+
+	
 	/**
 	 * Submits the given review for the given product as a preview. This means
 	 * that it will not actually be submitted but will be tested against the API
@@ -156,9 +194,9 @@ public class BazaarFunctions {
 			OnBazaarResponse listener, boolean submit) {
 		SubmissionParams params = new SubmissionParams();
 		if (submit)
-			params.setAction(Action.submit);
+			params.setAction(Action.SUBMIT);
 		else
-			params.setAction(Action.preview);
+			params.setAction(Action.PREVIEW);
 
 		params.setProductId(prodId);
 		params.setRating(review.getRating());

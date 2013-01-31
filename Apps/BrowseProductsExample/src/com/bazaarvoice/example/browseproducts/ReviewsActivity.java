@@ -4,9 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.OnUiBazaarResponse;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -180,8 +177,8 @@ public class ReviewsActivity extends Activity {
 	 * Sends off a request for reviews and displays them on response.
 	 */
 	private void downloadReviews() {
-		selectedProduct.downloadReviews(new OnUiBazaarResponse() {
-
+		selectedProduct.downloadReviews(new BazaarUIThreadResponse(this) {
+			
 			@Override
 			public void onUiResponse(JSONObject json) {
 				Log.i(TAG, "Response = \n" + json);

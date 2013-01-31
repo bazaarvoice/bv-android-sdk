@@ -2,8 +2,6 @@ package com.bazaarvoice.example.browseproducts;
 
 import java.util.ArrayList;
 
-import com.bazaarvoice.example.browseproducts.ProductAdapter.ViewHolder;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.Html;
@@ -14,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 /**
  * ReviewAdapter.java <br>

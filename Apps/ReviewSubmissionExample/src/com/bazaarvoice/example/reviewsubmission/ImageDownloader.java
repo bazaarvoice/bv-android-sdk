@@ -9,7 +9,6 @@ import java.net.URLConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import android.widget.ImageView;
 
 /**
  * ImageDownloader.java <br>

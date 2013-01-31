@@ -8,8 +8,6 @@
     <string name="submitButton">Submit</string>
     <string name="titleHint">Title</string>
     <string name="nicknameHint">Nickname</string>
-    <string name="reviewHint">Type a review...</string>
+    <string name="reviewHint">Type a review&#8230;</string>
     <string name="thankYou">Thank You!</string>
-    
-
 </resources>

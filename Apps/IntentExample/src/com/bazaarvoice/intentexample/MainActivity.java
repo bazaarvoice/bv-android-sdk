@@ -1,5 +1,10 @@
 package com.bazaarvoice.intentexample;
 
+import java.io.File;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,24 +15,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import com.bazaarvoice.*;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
+import android.widget.Toast;
 
 /**
  * MainActivity.java <br>
@@ -134,7 +131,7 @@ public class MainActivity extends Activity {
 				EditText caption = (EditText) findViewById(R.id.caption);
 				caption.setEnabled(false);
 				BazaarFunctions.setStoryCaption(caption.getText().toString());
-				BazaarFunctions.setSubmissionResponse(new SubmissionResponseHandler());
+				BazaarFunctions.setSubmissionResponse(new SubmissionResponseHandler(MainActivity.this));
 				BazaarFunctions.doStorySubmission();
 
 				if (uploadType == NOTIFICATION) {
@@ -240,8 +237,7 @@ public class MainActivity extends Activity {
 			verifyDialog.show();
 
 			BazaarFunctions.doStoryPreview(story.getText().toString(), title
-					.getText().toString(), new OnUiBazaarResponse() {
-
+					.getText().toString(), new BazaarUIThreadResponse(this) {
 				@Override
 				public void onUiResponse(JSONObject json) {
 					/*
@@ -324,7 +320,12 @@ public class MainActivity extends Activity {
 	 * them. If there are no errors, it closes the Activity.
 	 * 
 	 */
-	private class SubmissionResponseHandler extends OnUiBazaarResponse {
+	private class SubmissionResponseHandler extends BazaarUIThreadResponse {
+		
+		public SubmissionResponseHandler(Activity context) {
+			super(context);
+		}
+
 		private String TAG = "Submission response";
 
 		@SuppressWarnings("deprecation")

@@ -1,11 +1,9 @@
 package com.example.productwidgetexample;
 
-import com.bazaarvoice.ApiVersion;
+import com.bazaarvoice.types.*;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.DisplayParams;
-import com.bazaarvoice.Equality;
 import com.bazaarvoice.OnBazaarResponse;
-import com.bazaarvoice.RequestType;
 
 /**
  * BazaarFunctions.java <br>
@@ -41,7 +39,7 @@ public class BazaarFunctions {
 		DisplayParams params = new DisplayParams();
 
 		params.addSort("AverageOverallRating", false);
-		params.addStats("Reviews");
+		params.addStats(IncludeStatsType.REVIEWS);
 
 		request.sendDisplayRequest(RequestType.PRODUCTS, params, listener);
 	}

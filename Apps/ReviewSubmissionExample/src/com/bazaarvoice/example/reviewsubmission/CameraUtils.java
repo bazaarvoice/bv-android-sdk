@@ -2,13 +2,9 @@ package com.bazaarvoice.example.reviewsubmission;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,10 +12,8 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.util.Log;
-import android.widget.ImageView;
 
 /**
  * CameraUtils.java <br>

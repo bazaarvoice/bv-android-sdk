@@ -77,22 +77,24 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="150dp"
-                    android:src="@drawable/dryer" />
+                    android:src="@drawable/dryer" 
+                    android:contentDescription="@string/productTitle"/>
 
             </LinearLayout>
 
             <ScrollView
                 android:id="@+id/scrollView1"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/scroll_back"
                 android:padding="10dp" >
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:text="@string/productDescription"
                     android:textColor="#000000" />
 
