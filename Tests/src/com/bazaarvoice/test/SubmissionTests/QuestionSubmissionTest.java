@@ -30,7 +30,7 @@ public class QuestionSubmissionTest extends BaseTest {
         submit = new BazaarRequest(
                         "answers.apitestcustomer.bazaarvoice.com/bvstaging",
                         "1wtp4lx7aww42x4154oly21ae",
-                        ApiVersion.FIVE_THREE);
+                        ApiVersion.FIVE_FOUR);
 
         SubmissionParams submissionParams = new SubmissionParams();
 //        //Log.e(TAG,submissionParams.getEncryptedUser());

@@ -28,7 +28,7 @@ public class VideoSubmissionTest extends BaseTest {
     private final String tag = getClass().getSimpleName();
     private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
             "2cpdrhohmgmwfz8vqyo48f52g",
-            ApiVersion.FIVE_THREE);
+            ApiVersion.FIVE_FOUR);
     public void testVideoSubmit() {
 
         //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets

@@ -28,6 +28,8 @@ public class SubmissionMediaParams extends BazaarParams {
 	private MediaParamsContentType contentType;
 	private String locale;
 	private String userId;
+	private String photoUrl;
+
 
 	/**
 	 * Create a new instance of SubmissionMediaParams with a given
@@ -142,6 +144,25 @@ public class SubmissionMediaParams extends BazaarParams {
 	}
 
 	/**
+	 * Get the "PhotoUrl" parameter for the submission.
+	 * 
+	 * @return the photo url
+	 */
+	public String getPhotoUrl() {
+		return userId;
+	}
+	
+	/**
+	 * User's external ID.
+	 * 
+	 * @param photoUrl
+	 *            a user id
+	 */
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	
+	/**
 	 * Set a video as the media object.
 	 * 
 	 * @param bytes
@@ -202,6 +223,7 @@ public class SubmissionMediaParams extends BazaarParams {
 		}
 		url = addURLParameter(url, "locale", locale);
 		url = addURLParameter(url, "userId", userId);
+		url = addURLParameter(url, "photoUrl", photoUrl);
 		return url;
 	}
 	

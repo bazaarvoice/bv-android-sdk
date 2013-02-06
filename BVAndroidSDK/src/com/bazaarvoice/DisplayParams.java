@@ -25,6 +25,8 @@ public class DisplayParams extends BazaarParams {
 	private String locale;
 	private Integer limit;
 	private Integer offset;
+	private Boolean excludeFamily;
+
 
 	private List<String> includes;
 	private List<String> attributes;
@@ -121,6 +123,26 @@ public class DisplayParams extends BazaarParams {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
+	
+	/**
+	 * Boolean flag indicating whether to exclude content (reviews, questions, etc.) from other products in the same family as the requested product. This setting only affects any nested content that is returned. For example, "&filter=productid:eq:1101&include=reviews&excludeFamily=true" limits returned review content to just that of product 1101 and not any of the products in the same family. If a value is not defined, content on all products in the family is returned.
+	 * 
+	 * @return excludeFamily parameter
+	 */
+	public Boolean getExcludeFamily() {
+		return this.excludeFamily;
+	}
+	
+	/**
+	 * Changes the index at which to begin returning results.  Useful for paging, for instance.
+	 * 
+	 * @param offset
+	 *            new offset
+	 */
+	public void setExcludeFamily(Boolean excludeFamily) {
+		this.excludeFamily = excludeFamily;
+	}
+	
 	
 	/**
 	 * Related subjects to be included (e.g. Products, Categories, Authors, Reviews...).
@@ -366,6 +388,8 @@ public class DisplayParams extends BazaarParams {
 		}
 		url = addURLParameter(url, "offset", offset);
 		url = addURLParameter(url, "limit", limit);
+		url = addURLParameter(url, "excludeFamily", excludeFamily);
+
 		
 		url = addURLParamsFromList(url, "include", includes);
 		url = addURLParamsFromList(url, "attributes", attributes);

@@ -21,11 +21,11 @@ public class BaseTest extends TestCase {
         request = new BazaarRequest(
                 "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
                 "kuy3zj9pr3n7i0wxajrzj04xo",
-                 ApiVersion.FIVE_THREE);
+                 ApiVersion.FIVE_FOUR);
 
         submit = new BazaarRequest(
                 "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
                 "1wtp4lx7aww42x4154oly21ae",
-                ApiVersion.FIVE_THREE);
+                ApiVersion.FIVE_FOUR);
     }
 }

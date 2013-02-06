@@ -22,7 +22,9 @@ public enum ApiVersion {
 	/**
 	 * Use version 5.3.
 	 */
-	FIVE_THREE("5.3");
+	FIVE_THREE("5.3"),
+	
+	FIVE_FOUR("5.4");
 	
 	private String apiString;
 	

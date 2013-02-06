@@ -42,7 +42,7 @@ import java.util.LinkedList;
  */
 public class BazaarRequest {
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
-	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V131";
+	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V201";
 
 	private String passKey;
 	private String apiVersion;
