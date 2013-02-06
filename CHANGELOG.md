@@ -1,4 +1,7 @@
-## 2.0.0 (Feb 1, 2013
+## 2.0.1 (Feb 6, 2013)
+* API Version 5.4 support
+
+## 2.0.0 (Feb 1, 2013)
 * Major SDK Overhaul -- Adds com.bazaarvoice.types, parameter structure simplified
 
 ## 1.2.1 (Oct 1, 2012)

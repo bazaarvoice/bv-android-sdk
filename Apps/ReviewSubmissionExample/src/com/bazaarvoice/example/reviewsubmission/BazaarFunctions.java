@@ -34,7 +34,7 @@ public class BazaarFunctions {
 	private static final String TAG = "BazaarFunctions";
 	private static final String API_URL = "reviews.apitestcustomer.bazaarvoice.com/bvstaging";
 	private static final String API_KEY = "2cpdrhohmgmwfz8vqyo48f52g";
-	private static final ApiVersion API_VERSION = ApiVersion.FIVE_THREE;
+	private static final ApiVersion API_VERSION = ApiVersion.FIVE_FOUR;
 	private static final int MIN_IMAGE_DIMENSIONS = 600;
 
 

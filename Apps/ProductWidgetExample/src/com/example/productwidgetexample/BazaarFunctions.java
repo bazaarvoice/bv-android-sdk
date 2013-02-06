@@ -35,7 +35,7 @@ public class BazaarFunctions {
 	 *            the response listener
 	 */
 	public static void runProductQuery(OnBazaarResponse listener) {
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, ApiVersion.FIVE_TWO);
+		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, ApiVersion.FIVE_FOUR);
 		DisplayParams params = new DisplayParams();
 
 		params.addSort("AverageOverallRating", false);
@@ -54,7 +54,7 @@ public class BazaarFunctions {
 	 *            the response listener
 	 */
 	public static void runReviewQuery(String prodId, OnBazaarResponse listener) {
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, ApiVersion.FIVE_TWO);
+		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, ApiVersion.FIVE_FOUR);
 		DisplayParams params = new DisplayParams();
 
 		params.addFilter("ProductId", Equality.EQUAL, prodId);
