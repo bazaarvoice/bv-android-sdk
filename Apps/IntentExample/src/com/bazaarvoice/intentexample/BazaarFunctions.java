@@ -37,7 +37,7 @@ public class BazaarFunctions {
 
 	public static final String API_URL = "stories.apitestcustomer.bazaarvoice.com/bvstaging";
 	public static final String API_KEY = "2cpdrhohmgmwfz8vqyo48f52g";
-	public static final ApiVersion API_VERSION = ApiVersion.FIVE_TWO;
+	public static final ApiVersion API_VERSION = ApiVersion.FIVE_FOUR;
 	protected static final String TAG = "BazaarFunctions";
 
 	public static String USER_ID = "";
