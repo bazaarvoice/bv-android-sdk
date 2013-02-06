@@ -100,6 +100,7 @@ public class AnswerDisplayTest extends BaseTest {
         ArrayList<String> includes = new ArrayList<String>();
             includes.add("Questions");
             params.addInclude(IncludeType.QUESTIONS);
+            params.setExcludeFamily(true);
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override

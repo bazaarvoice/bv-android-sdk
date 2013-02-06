@@ -29,7 +29,7 @@ public class PhotoSubmissionTest extends BaseTest {
     private final String tag = getClass().getSimpleName();
     private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
             "2cpdrhohmgmwfz8vqyo48f52g",
-            ApiVersion.FIVE_THREE);
+            ApiVersion.FIVE_FOUR);
     public void testPhotoSubmit() {
 
         //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets
@@ -77,6 +77,24 @@ public class PhotoSubmissionTest extends BaseTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        bazaarResponse.waitForTestToFinish();
+    }
+    
+    public void testPhotoSubmit2() {
+
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response) throws JSONException {
+                Log.i(tag, "Response = \n" + response);
+                assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
+                assertNotNull(response.getJSONObject("Photo"));
+            }
+        };
+
+        SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
+        mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
+        mediaParams.setPhotoUrl("http://fc04.deviantart.net/images/i/2002/26/9/1/Misconstrue_-_Image_1.jpg");
+        submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
 }
