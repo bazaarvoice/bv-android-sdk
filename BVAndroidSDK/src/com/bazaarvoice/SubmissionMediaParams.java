@@ -153,10 +153,10 @@ public class SubmissionMediaParams extends BazaarParams {
 	}
 	
 	/**
-	 * User's external ID.
+	 * URL of the photo to be uploaded. Use either the photo or photoUrl parameter to define the photo to upload. An error is returned if both parameters are defined. HTTP and HTTPS are the only protocols supported for the photoUrl parameter.
 	 * 
 	 * @param photoUrl
-	 *            a user id
+	 *            a photo url
 	 */
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;

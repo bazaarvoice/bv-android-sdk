@@ -125,7 +125,7 @@ public class DisplayParams extends BazaarParams {
 	}
 	
 	/**
-	 * Boolean flag indicating whether to exclude content (reviews, questions, etc.) from other products in the same family as the requested product. This setting only affects any nested content that is returned. For example, "&filter=productid:eq:1101&include=reviews&excludeFamily=true" limits returned review content to just that of product 1101 and not any of the products in the same family. If a value is not defined, content on all products in the family is returned.
+	 * Get the excludeFamily parameter
 	 * 
 	 * @return excludeFamily parameter
 	 */
@@ -134,7 +134,7 @@ public class DisplayParams extends BazaarParams {
 	}
 	
 	/**
-	 * Changes the index at which to begin returning results.  Useful for paging, for instance.
+	 * 	Boolean flag indicating whether to exclude content (reviews, questions, etc.) from other products in the same family as the requested product. This setting only affects any nested content that is returned. For example, "&filter=productid:eq:1101&include=reviews&excludeFamily=true" limits returned review content to just that of product 1101 and not any of the products in the same family. If a value is not defined, content on all products in the family is returned.
 	 * 
 	 * @param offset
 	 *            new offset
