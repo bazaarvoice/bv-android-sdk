@@ -4,10 +4,11 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="lib" path="assets/bazaarandroidsdk.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/Users/alex.medearis/Desktop/bv-android-sdk/doc/"/>
+			<attribute name="javadoc_location" value="file:../../doc/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
