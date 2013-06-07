@@ -1,12 +1,9 @@
 package com.bazaarvoice.test.SubmissionTests;
 
-import android.util.Log;
-
-import com.bazaarvoice.BazaarException;
-import com.bazaarvoice.BazaarRequest;
-import com.bazaarvoice.SubmissionMediaParams;
-import com.bazaarvoice.test.*;
-import com.bazaarvoice.types.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,6 +15,18 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.res.AssetManager;
+import android.util.Log;
+
+import com.bazaarvoice.BazaarException;
+import com.bazaarvoice.BazaarRequest;
+import com.bazaarvoice.SubmissionMediaParams;
+import com.bazaarvoice.test.BaseTest;
+import com.bazaarvoice.test.OnBazaarResponseHelper;
+import com.bazaarvoice.types.ApiVersion;
+import com.bazaarvoice.types.MediaParamsContentType;
+import com.bazaarvoice.types.RequestType;
 
 /**
  * Author: Gary Pezza
@@ -78,6 +87,61 @@ public class VideoSubmissionTest extends BaseTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        bazaarResponse.waitForTestToFinish();
+    }
+    
+    public void testVideoSubmit2() {
+
+        //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets
+        //download a well know video that we don't think is going anywhere so the tests will successfully complete.  If
+        //this fails just change the url to something that works
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response) throws JSONException {
+
+                Log.i(tag, "Response = \n" + response);
+
+                assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
+                assertNotNull(response.getJSONObject("Video").getString("VideoUrl"));
+            }
+        };
+
+        SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW);
+        mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
+        
+        AssetManager assets = this.mContext.getAssets();
+        File dir = this.mContext.getDir("TEMP", 0);
+        File file = new File(dir, "video.mp4");
+
+        InputStream in = null;
+        FileOutputStream out = null;
+        try {
+			in = assets.open("video.mp4");
+			out = new FileOutputStream(file);
+			  
+			byte[] buffer = new byte[1024];
+			int read;
+			while((read = in.read(buffer)) != -1){
+			    out.write(buffer, 0, read);
+			}
+			  
+			in.close();
+			in = null;
+			out.flush();
+			out.close();
+			out = null;
+        } catch(IOException e) {
+            e.printStackTrace();
+        }       
+
+        try {
+			mediaParams.setVideo(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
+        
+        submitMedia.queueSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
 }

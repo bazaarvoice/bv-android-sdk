@@ -1,6 +1,7 @@
 package com.bazaarvoice;
 
-import android.util.Log;
+import java.util.LinkedList;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -10,20 +11,21 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import org.apache.http.entity.mime.MultipartEntity;
+
+import android.util.Log;
 
 import com.bazaarvoice.types.ApiVersion;
 import com.bazaarvoice.types.RequestType;
-
-import java.util.LinkedList;
 
 /**
  *
@@ -77,7 +79,7 @@ public class BazaarRequest {
 		this.apiVersion = apiVersion.getVersionName();
 
 		requestHeader = "http://" + domainName + "/data/";
-		reusableClient = getThreadSafeClient();
+		reusableClient = getThreadSafeClient();		
 	}
 
 	/**
@@ -216,9 +218,12 @@ public class BazaarRequest {
 				// httpRequest.setHeader("Content-Type", "multipart/form-data");
 				httpRequest.setHeader(SDK_HEADER_NAME, SDK_HEADER_VALUE);
 				MultipartEntity mpEntity = new MultipartEntity();
-				ContentBody body = new ByteArrayBody(mediaEntity.getBytes(),
-						mediaEntity.getFilename());
-
+				ContentBody body = null;
+				if (mediaEntity.getFile() != null) {
+					body = new FileBody(mediaEntity.getFile(), mediaEntity.getFilename(), mediaEntity.getMimeType(), "UTF-8");
+				} else {
+					body = new ByteArrayBody(mediaEntity.getBytes(), mediaEntity.getFilename());
+				}
 				mpEntity.addPart(mediaEntity.getName(), body);
 				((HttpPost) httpRequest).setEntity(mpEntity);
 			}
@@ -265,26 +270,6 @@ public class BazaarRequest {
 	}
 
 	/**
-	 * Create a clone of the media entity.
-	 * 
-	 * @param entity
-	 *            the entity to clone from
-	 * @return the new entity
-	 */
-	private Media cloneMedia(Media entity) {
-		// clone the media entity for the same reason
-		if (entity != null) {
-			try {
-				entity = (Media) entity.clone();
-			} catch (CloneNotSupportedException e) {
-				throw new RuntimeException(
-						"ByteArrayBody Clone is not supported!", e);
-			}
-		}
-		return entity;
-	}
-
-	/**
 	 * Send a request, spawn a thread, and return the result via the listener.
 	 * (non-blocking)
 	 * 
@@ -299,8 +284,8 @@ public class BazaarRequest {
 			final OnBazaarResponse listener, final RequestMethod method) {
 		// get the request string before we thread in case other calls modify it
 		final String requestString = getRequestString(type, params);
-		// clone the media for the same reason
-		final Media media = cloneMedia(params == null ? null : params
+
+		final Media media = (params == null ? null : params
 				.getMedia());
 
 		Log.d(tag, requestString);
@@ -345,7 +330,7 @@ public class BazaarRequest {
 			requestQueue = new RequestQueue();
 		}
 		requestQueue.addRequest(requestString, listener, method,
-				cloneMedia(params == null ? null : params.getMedia()));
+				(params == null ? null : params.getMedia()));
 	}
 
 	/**

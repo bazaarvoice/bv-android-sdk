@@ -1,8 +1,9 @@
 package com.bazaarvoice.test;
 
+import android.test.AndroidTestCase;
+
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.types.ApiVersion;
-import junit.framework.TestCase;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +11,7 @@ import junit.framework.TestCase;
  * Date: 4/26/12
  * Time: 10:51 PM
  */
-public class BaseTest extends TestCase {
+public class BaseTest extends AndroidTestCase {
 
     public BazaarRequest request;
     public BazaarRequest submit;
