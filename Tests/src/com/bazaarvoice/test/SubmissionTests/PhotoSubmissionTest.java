@@ -1,5 +1,10 @@
 package com.bazaarvoice.test.SubmissionTests;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -11,14 +16,17 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.bazaarvoice.BazaarException;
 import com.bazaarvoice.BazaarRequest;
-import com.bazaarvoice.types.*;
 import com.bazaarvoice.SubmissionMediaParams;
 import com.bazaarvoice.test.BaseTest;
 import com.bazaarvoice.test.OnBazaarResponseHelper;
+import com.bazaarvoice.types.ApiVersion;
+import com.bazaarvoice.types.MediaParamsContentType;
+import com.bazaarvoice.types.RequestType;
 
 /**
  * Author: Gary Pezza
@@ -94,6 +102,55 @@ public class PhotoSubmissionTest extends BaseTest {
         SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         mediaParams.setPhotoUrl("http://fc04.deviantart.net/images/i/2002/26/9/1/Misconstrue_-_Image_1.jpg");
+        submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+        bazaarResponse.waitForTestToFinish();
+    }
+    
+    public void testPhotoSubmit3() {
+
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response) throws JSONException {
+                Log.i(tag, "Response = \n" + response);
+                assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
+                assertNotNull(response.getJSONObject("Photo"));
+            }
+        };
+
+        SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
+        mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
+        
+        AssetManager assets = this.mContext.getAssets();
+        File dir = this.mContext.getDir("TEMP", 0);
+        File file = new File(dir, "RalphRocks.jpg");
+
+        InputStream in = null;
+        FileOutputStream out = null;
+        try {
+			in = assets.open("RalphRocks.jpg");
+			out = new FileOutputStream(file);
+			  
+			byte[] buffer = new byte[1024];
+			int read;
+			while((read = in.read(buffer)) != -1){
+			    out.write(buffer, 0, read);
+			}
+			  
+			in.close();
+			in = null;
+			out.flush();
+			out.close();
+			out = null;
+        } catch(IOException e) {
+            e.printStackTrace();
+        }       
+
+        try {
+			mediaParams.setPhoto(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+        
         submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }

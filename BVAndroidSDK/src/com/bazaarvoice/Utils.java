@@ -1,7 +1,5 @@
 package com.bazaarvoice;
 
-import android.os.Environment;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.security.MessageDigest;
@@ -9,6 +7,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import android.os.Environment;
+
 
 /**
  * Contains various utilities; some are used within the SDK, others

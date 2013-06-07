@@ -1,12 +1,11 @@
 package com.bazaarvoice;
 
-import android.graphics.Bitmap;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+
+import android.graphics.Bitmap;
 
 import com.bazaarvoice.types.MediaParamsContentType;
 
@@ -99,20 +98,6 @@ public class SubmissionMediaParams extends BazaarParams {
 		this.userId = userId;
 	}
 	
-	
-	/**
-	 * Set a photo as the media object.
-	 * 
-	 * @param bytes
-	 *            the raw photo data (jpeg, png etc)
-	 * @param filename
-	 *            the filename of the object. This is important for determining
-	 *            the MIME type. Make sure you use the right extension for the
-	 *            data, ie .jpg .avi etc
-	 */
-	public void setPhoto(byte[] bytes, String filename) {
-		media = new Media(bytes, Media.MediaType.PHOTO, filename);
-	}
 
 	/**
 	 * Read a file and set it as the media object.
@@ -129,13 +114,27 @@ public class SubmissionMediaParams extends BazaarParams {
 	}
 	
 	/**
-	 * Sets photo directly from a bitmap
-	 * 
-	 * @param bitmap
-	 *            the bitmap representation of the image to upload
-	 * @param filename
-	 *            the filename of the photo to upload -- this is necessary to determine mime type
-	 */
+	* Set a photo as the media object.
+	* 
+	* @param bytes
+	*            the raw photo data (jpeg, png etc)
+	* @param filename
+	*            the filename of the object. This is important for determining
+	*            the MIME type. Make sure you use the right extension for the
+	*            data, ie .jpg .avi etc
+	*/
+	public void setPhoto(byte[] bytes, String filename) {
+		media = new Media(bytes, Media.MediaType.PHOTO, filename);
+	}
+	
+	/**
+	* Sets photo directly from a bitmap
+	* 
+	* @param bitmap
+	*            the bitmap representation of the image to upload
+	* @param filename
+	*            the filename of the photo to upload -- this is necessary to determine mime type
+	*/
 	public void setPhoto(Bitmap bitmap, String filename)  {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 		bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);  
@@ -161,20 +160,6 @@ public class SubmissionMediaParams extends BazaarParams {
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
 	}
-	
-	/**
-	 * Set a video as the media object.
-	 * 
-	 * @param bytes
-	 *            the raw video data (avi, etc)
-	 * @param filename
-	 *            the filename of the object. This is important for determining
-	 *            the MIME type. Make sure you use the right extension for the
-	 *            data, ie .jpg .avi etc
-	 */
-	public void setVideo(byte[] bytes, String filename) {
-		media = new Media(bytes, Media.MediaType.VIDEO, filename);
-	}
 
 	/**
 	 * Read a file and set it as the media object.
@@ -191,6 +176,21 @@ public class SubmissionMediaParams extends BazaarParams {
 	}
 
 	/**
+	* Set a video as the media object.
+	* 
+	* @param bytes
+	*            the raw video data (avi, etc)
+	* @param filename
+	*            the filename of the object. This is important for determining
+	*            the MIME type. Make sure you use the right extension for the
+	*            data, ie .jpg .avi etc
+	*/
+	public void setVideo(byte[] bytes, String filename) {
+		media = new Media(bytes, Media.MediaType.VIDEO, filename);
+	}
+	
+	
+	/**
 	 * Reads the file into a Media object.
 	 * 
 	 * @param file
@@ -204,10 +204,7 @@ public class SubmissionMediaParams extends BazaarParams {
 	 */
 	private void setMedia(File file, Media.MediaType mediaType)
 			throws FileNotFoundException, IOException {
-		RandomAccessFile f = new RandomAccessFile(file, "r");
-		byte[] b = new byte[(int) f.length()];
-		f.read(b);
-		media = new Media(b, mediaType, file.getName());
+		media = new Media(file, mediaType, file.getName());
 	}
 	
 	/**
