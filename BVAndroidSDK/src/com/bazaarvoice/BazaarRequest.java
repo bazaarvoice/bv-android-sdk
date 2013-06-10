@@ -44,7 +44,7 @@ import com.bazaarvoice.types.RequestType;
  */
 public class BazaarRequest {
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
-	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V201";
+	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V202";
 
 	private String passKey;
 	private String apiVersion;
@@ -211,12 +211,12 @@ public class BazaarRequest {
 			// create an HTTP request to a protected resource
 			HttpRequestBase httpRequest = method == RequestMethod.SUBMIT ? new HttpPost(
 					URL) : new HttpGet(URL);
+			// httpRequest.setHeader("Content-Type", "multipart/form-data");
+			httpRequest.setHeader(SDK_HEADER_NAME, SDK_HEADER_VALUE);
 			if (mediaEntity != null && method == RequestMethod.SUBMIT) {
 				reusableClient.getParams().setParameter(
 						CoreProtocolPNames.PROTOCOL_VERSION,
 						HttpVersion.HTTP_1_1);
-				// httpRequest.setHeader("Content-Type", "multipart/form-data");
-				httpRequest.setHeader(SDK_HEADER_NAME, SDK_HEADER_VALUE);
 				MultipartEntity mpEntity = new MultipartEntity();
 				ContentBody body = null;
 				if (mediaEntity.getFile() != null) {

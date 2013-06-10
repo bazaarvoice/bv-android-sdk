@@ -2,7 +2,6 @@ package com.bazaarvoice;
 
 import java.io.File;
 
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 /**
@@ -97,7 +96,7 @@ public class Media implements Cloneable {
 	}
 	
 	/**
-	 * Get the File representing the media object.
+	 * Get the byte array representing the media object.
 	 * 
 	 * @return the media
 	 */
