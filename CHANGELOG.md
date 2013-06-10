@@ -1,3 +1,7 @@
+## 2.0.2 (Jun 10, 2013)
+* Added the option to upload a file without using a byte array
+* Stopped cloning the byte array during async uploads.
+
 ## 2.0.1 (Feb 6, 2013)
 * API Version 5.4 support
 
