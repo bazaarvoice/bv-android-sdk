@@ -927,8 +927,8 @@ public class SubmissionParams extends BazaarParams {
 		url = addURLParameter(url, "productId", productId);
 		
 		// TODO: test tag_ and tagid_
-		url = addURLParameter(url, "tag_", tagDim);
-		url = addURLParameter(url, "tagid_", tagIdDim);
+		url = addURLParameter(url, "tag", tagDim);
+		url = addURLParameter(url, "tagid", tagIdDim);
 		
 		url = addURLParameter(url, "title", title);
 		
