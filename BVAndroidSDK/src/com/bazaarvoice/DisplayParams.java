@@ -372,13 +372,16 @@ public class DisplayParams extends BazaarParams {
 	 *            the base url to append to
 	 * @return the full url
 	 */
-	public String toURL(String url) {
+	public String toURL() {
+		
+		char separator = '&';
+		String url = new String();
 
 		if (filters != null) {
-			char separator = url.contains("?") ? '&' : '?';
+			//char separator = url.contains("?") ? '&' : '?';
 			for (String filter : filters) {
 				url += separator + filter;
-				separator = '&';
+				//separator = '&';
 			}
 		}
 
@@ -396,7 +399,7 @@ public class DisplayParams extends BazaarParams {
 		url = addURLParamsFromList(url, "stats", stats);
 		url = addURLParamsFromList(url, "sort", sort);
 
-		char separator = url.contains("?") ? '&' : '?';
+		//char separator = url.contains("?") ? '&' : '?';
 		if (sortType != null) {
 			for (String s : sortType) {
 				url += separator + s;

@@ -214,7 +214,9 @@ public class SubmissionMediaParams extends BazaarParams {
 	 *            the base url to append to
 	 * @return the url with the parameter list on it
 	 */
-	public String toURL(String url) {
+	public String toURL() {
+		String url = new String();
+		
 		if(contentType != null){
 			url = addURLParameter(url, "contentType", contentType.getTypeString());			
 		}

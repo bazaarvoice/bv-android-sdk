@@ -2,6 +2,8 @@ package com.bazaarvoice;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,9 @@ import java.util.Map;
 public abstract class BazaarParams {
 
 	protected Media media;
+	private String encryptedUser;
+	
+	
 
 	/**
 	 * Convert the class into a url parameters string.
@@ -28,7 +33,7 @@ public abstract class BazaarParams {
 	 *            the base url to append to
 	 * @return the url with parameters
 	 */
-	public abstract String toURL(String url);
+	public abstract String toURL();
 
 	/**
 	 * Get the media file associated with these parameters.
@@ -37,6 +42,47 @@ public abstract class BazaarParams {
 	 */
 	public Media getMedia() {
 		return media;
+	}
+	
+	/**
+	* Encrypt the user based on the authentication key, the user ID, and a
+	* date.
+	* 
+	* @param userAuthKey
+	*            the user authentication key
+	* @param date
+	*            the date used to encode the user
+	* @param userId
+	*            the user ID
+	*/
+	public void setEncryptUser(String userAuthKey, Date date, String userId) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String userStr = "date=" + sdf.format(date) + "&userid=" + userId;
+
+		String md5 = Utils.getMD5(userAuthKey + userStr);
+		encryptedUser = md5 + new String(Utils.encodeHex(userStr.getBytes()));
+	}
+
+	/**
+	* Encrypt the user based on the authentication key, user ID and today's
+	* date.
+	* 
+	* @param userAuthKey
+	*            the user authentication key
+	* @param userId
+	*            the user ID
+	*/
+	public void setEncryptUser(String userAuthKey, String userId) {
+		setEncryptUser(userAuthKey, new Date(), userId);
+	}
+	
+	/**
+	* Gets the previously set user ID string.
+	* 
+	* @return the encrypted user ID
+	*/
+	public String getEncryptedUser() {
+		return encryptedUser;
 	}
 
 	/**
@@ -86,8 +132,9 @@ public abstract class BazaarParams {
 	public static String addURLParameter(String url, String name, String value) {
 		if (value != null && value.length() > 0) {
 			value = encode(value);
-			char separator = url.contains("?") ? '&' : '?';
-			url += separator + name + '=' + value;
+			//char separator = url.contains("?") ? '&' : '?';
+			//url += separator + name + '=' + value;
+			url += "&" + name + '=' + value;
 		}
 		return url;
 	}

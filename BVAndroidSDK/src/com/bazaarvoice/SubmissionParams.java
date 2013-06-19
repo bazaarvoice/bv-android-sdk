@@ -898,7 +898,9 @@ public class SubmissionParams extends BazaarParams {
 	 * @return the url with parameters
 	 */
 	@Override
-	public String toURL(String url) {
+	public String toURL() {
+		
+		String url = new String();
 		
 		if (action != null) {
 			url = addURLParameter(url, "action", action.getActionName());

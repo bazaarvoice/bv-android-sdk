@@ -144,7 +144,7 @@ public class AnswerDisplayTest extends BaseTest {
                 for(int i = 0; i < results.length(); i++)
                 {
                     JSONObject answerResult = results.getJSONObject(i);
-                    assertEquals(answerResult.getString("AuthorId"), "5jrptijda8");
+                    assertEquals("5jrptijda8", answerResult.getString("AuthorId"));
                 }
              }
          };
