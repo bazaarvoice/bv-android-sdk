@@ -82,5 +82,47 @@ public class Utils {
 		}
 		return files;
 	}
+	
+	/**
+	* MD5 encode a string.
+	* 
+	* @param inString
+	*            the string to encode
+	* @return the string encoded in MD5 as a 32 character hex string
+	*/
+	public static String getMD5(String inString) {
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			md5.update(inString.getBytes());
+			return new String(encodeHex(md5.digest()));
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("NO MD5?!?!", e);
+		}
+
+	}
+
+	private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6',
+			'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
+	/**
+	 * Encodes a data array as hexadecimal.
+	 * 
+	 * @param data
+	 *            some data
+	 * @return hexadecimal array of chars
+	 */
+	public static char[] encodeHex(byte[] data) {
+		int l = data.length;
+		char[] out = new char[l << 1];
+
+	// two characters form the hex value.
+		for (int i = 0, j = 0; i < l; i++) {
+			out[j++] = DIGITS[(0xF0 & data[i]) >>> 4];
+			out[j++] = DIGITS[0x0F & data[i]];
+		}
+
+		return out;
+	}
+
 
 }

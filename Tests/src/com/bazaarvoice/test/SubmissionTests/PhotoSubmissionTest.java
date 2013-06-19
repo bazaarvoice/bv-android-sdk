@@ -80,7 +80,8 @@ public class PhotoSubmissionTest extends BaseTest {
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         try {
             mediaParams.setPhoto(imageBytes, "Misconstrue_-_Image_1.jpg");
-            submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+            submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+            
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -102,7 +103,8 @@ public class PhotoSubmissionTest extends BaseTest {
         SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         mediaParams.setPhotoUrl("http://fc04.deviantart.net/images/i/2002/26/9/1/Misconstrue_-_Image_1.jpg");
-        submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+        
+        submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
     
@@ -151,7 +153,7 @@ public class PhotoSubmissionTest extends BaseTest {
 			e.printStackTrace();
 		} 
         
-        submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+        submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
 }

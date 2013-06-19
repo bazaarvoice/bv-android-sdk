@@ -1,15 +1,11 @@
 package com.bazaarvoice;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -19,28 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.ByteArrayBuffer;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.os.UserManager;
-import android.util.Base64;
 import android.util.Log;
 
 import com.bazaarvoice.types.ApiVersion;
@@ -79,7 +59,6 @@ public class BazaarRequest {
     protected URL url;
     protected String httpMethod;
     private String param;
-    private List<ArrayList<String>> requestParams;
     private List<ArrayList<String>> fileParams;
     private String serverResponseMessage = null;
     protected int serverResponseCode;
@@ -109,7 +88,6 @@ public class BazaarRequest {
 
 		requestUrl = "http://" + domainName + "/data/";
 		
-		requestParams = new ArrayList<ArrayList<String>>();
     	fileParams = new ArrayList<ArrayList<String>>();
     	receivedData = null;
     	mediaEntity = null;
@@ -134,7 +112,7 @@ public class BazaarRequest {
 	 * @throws BazaarException 
 	 */
 	public void sendDisplayRequest(final RequestType type,
-			DisplayParams params, final OnBazaarResponse listener) throws BazaarException {
+			DisplayParams params, final OnBazaarResponse listener) {
 		send(type.getDisplayName(), RequestMethod.DISPLAY, params, listener);
 	}
 
@@ -151,7 +129,7 @@ public class BazaarRequest {
 	 * @throws BazaarException 
 	 */
 	public void postSubmission(final RequestType type, BazaarParams params,
-			final OnBazaarResponse listener) throws BazaarException {
+			final OnBazaarResponse listener) {
 		send(type.getSubmissionName(), RequestMethod.SUBMIT, params, listener);
 	}
 
@@ -173,18 +151,39 @@ public class BazaarRequest {
 	 * @return the JSON result
 	 * @throws BazaarException
 	 *             on any JSON or communication errors
+	 * @throws URISyntaxException 
+	 * @throws MalformedURLException 
+	 * @throws IOException 
 	 */
-	public void send(String url, RequestMethod method, BazaarParams params, OnBazaarResponse listener)
-			throws BazaarException {
+	public void send(String url, RequestMethod method, BazaarParams params, OnBazaarResponse listener) {
 		
-		this.param = (params == null ? null : params.getPostParams);
-		this.requestParams = (params == null ? null : params.getMultipartParams);
-		this.fileParams = (params == null ? null : params.getFileParams);
+		//gets the url to make the post or get request
+		if (method == RequestMethod.SUBMIT) {
+			this.url = getRequestString(url);
+			Log.e(TAG, "request url = " + this.url);
+				
+			//adds all the parameters after that used to be thrown in with the url
+			if (params != null) {
+				addPostParameters(params.toURL());
+				Log.e(TAG, "param = " + param);
+			}
+		} else {
+			this.url = getTestRequestString(url, params.toURL()); 
+		}
+		
+		//get the media
 		this.mediaEntity = (params == null ? null : params.getMedia());
-		this.multipart = params.multipart;
-		this.url = getRequestString(url);
+		
+		if (this.mediaEntity != null) {
+			if (this.mediaEntity.getFile() != null) {
+				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile(), null);
+			} else {
+				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), null, mediaEntity.getBytes());
+			}
+			
+		}
+		
 		this.listener = listener;
-		this.contentLength = params.contentLength();
 		
 		new AsyncTransaction().execute(method == RequestMethod.SUBMIT ? "POST" : "GET"); 
 		
@@ -241,36 +240,74 @@ public class BazaarRequest {
 	 * @throws URISyntaxException 
 	 * @throws MalformedURLException 
 	 */
-	private URL getRequestString(final String type) throws URISyntaxException, MalformedURLException {
+	private URL getRequestString(final String type) {
+		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
 		String requestString = requestUrl + type + ".json";
-		requestString = DisplayParams.addURLParameter(requestString,
-				"apiversion", apiVersion);
-		requestString = DisplayParams.addURLParameter(requestString, "passkey",
-				passKey);
-		URI uri = new URI(requestString.replace(" ", "%20"));
-
-		return new URL(uri.toASCIIString());
+		//add api version
+		requestString = requestString + "?" + "apiversion=" + apiVersion;
+		//add API Key
+		requestString = requestString + "&" + "passkey=" + passKey;
+		URI uri = null;
+		try {
+			uri = new URI(requestString.replace(" ", "%20"));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		URL url = null;
+		try {
+			url = new URL(uri.toASCIIString());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return url;
 	}
 	
-	public void addMultipartParameter(String name, String value) {
-    	
-        if ((name != null) && (value != null)) {
-        	ArrayList<String> item = new ArrayList<String>();
-        	String header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"\r\n\r\n", boundary, name); 
-        	String body = String.format("%s\r\n", value);		
-			
-        	item.add(header);
-        	item.add(body);
-        	requestParams.add(item);
-        	
-        	contentLength = contentLength + header.getBytes().length + body.getBytes().length;
-        	multipart = true;
-        }
+	//TODO delete
+	private URL getTestRequestString(final String type, String params) {
+		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
+		String requestString = requestUrl + type + ".json";
+		//add api version
+		requestString = requestString + "?" + "apiversion=" + apiVersion;
+		//add API Key
+		requestString = requestString + "&" + "passkey=" + passKey;
+		requestString = requestString + params;
+		URI uri = null;
+		try {
+			uri = new URI(requestString.replace(" ", "%20"));
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		URL url = null;
+		try {
+			url = new URL(uri.toASCIIString());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	
+	
+	public void addPostParameters(String params) {
+   	 if (params != null) {
+   		 param = params;
+   		 //remove the first &
+		 param = param.substring(1);
+		 //TODO figure out this
+   		 contentLength = contentLength + params.getBytes().length - 1;
+    	}
     }
+
     
-    public void addMultipartParameter(String name, String fileName, String contentType) {
+    public void addMultipartParameter(String name, String fileName, String contentType, File mediaFile, byte[] mediaFileBytes) {
     	
         if ((name != null) && (fileName != null) && (contentType != null)) {
+        	
         	ArrayList<String> item = new ArrayList<String>();
         	
         	String header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
@@ -280,11 +317,12 @@ public class BazaarRequest {
         	item.add(fileName);
         	fileParams.add(item);
         	
-        	//TODO get bytes from media entity
-        	//File dir = context.getDir(taskEmail, 0);
-        	//File file = new File(dir, fileName);
+        	if (mediaFile != null) {
+        		contentLength = contentLength + header.getBytes().length + (int) mediaFile.length()  + ("\r\n").getBytes().length;
+        	} else {
+        		contentLength = contentLength + header.getBytes().length + mediaFileBytes.length  + ("\r\n").getBytes().length;
+        	}
         	
-        	//contentLength = contentLength + header.getBytes().length + (int) file.length()  + ("\r\n").getBytes().length;
         	multipart = true;
         }
     }
@@ -296,6 +334,8 @@ public class BazaarRequest {
 		protected String doInBackground(String... args) {
 			
 			String httpMethod = args[0];
+			//String httpMethod = "POST";
+			Log.e(TAG, "httpMethod = " + httpMethod);
 			
 			try {
 				//accept no cookies
@@ -305,6 +345,8 @@ public class BazaarRequest {
 				cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_NONE);
 				CookieHandler.setDefault(cookieManager);
 				*/
+				
+				Log.e(TAG, "url = " + url);
 				
 				connection = (HttpURLConnection) url.openConnection();
 	            
@@ -330,6 +372,7 @@ public class BazaarRequest {
 				
 				if ( httpMethod.equals("POST")) {
 					//open stream and start writting
+					Log.e(TAG, "write to server");
 					writeToServer(connection);
 				}
 					
@@ -387,11 +430,7 @@ public class BazaarRequest {
 			int maxBufferSize = 1*1024*1024;
 			
 			if (multipart) {
-				
-				for (ArrayList<String> part : requestParams) {
-					outputStream.writeBytes(part.get(0));
-					outputStream.writeBytes(part.get(1));
-				}
+				Log.e(TAG, "multipart = " + true);
 				
 				if (fileParams.size() > 0) {
 					
@@ -401,25 +440,47 @@ public class BazaarRequest {
 						outputStream.writeBytes(part.get(0));		
 						
 						//File I/O
-						FileInputStream fileInputStream = new FileInputStream(mediaEntity.getFile());
+						if (mediaEntity.getFile() != null) {
+							FileInputStream fileInputStream = new FileInputStream(mediaEntity.getFile());
 						
-						bytesAvailable = fileInputStream.available();
-						bufferSize = Math.min(bytesAvailable, maxBufferSize);
-						buffer = new byte[bufferSize];
-						
-						// Read file
-						bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-						
-						while (bytesRead > 0)
-						{
-			                outputStream.write(buffer, 0, bufferSize);
-			                bytesAvailable = fileInputStream.available();
-			                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-			                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+							bytesAvailable = fileInputStream.available();
+							bufferSize = Math.min(bytesAvailable, maxBufferSize);
+							buffer = new byte[bufferSize];
+							
+							// Read file
+							bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+							
+							while (bytesRead > 0)
+							{
+				                outputStream.write(buffer, 0, bufferSize);
+				                bytesAvailable = fileInputStream.available();
+				                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+							}
+							
+							fileInputStream.close();
+						} else {
+							ByteArrayInputStream fileInputStream = new ByteArrayInputStream(mediaEntity.getBytes());
+							
+							bytesAvailable = fileInputStream.available();
+							bufferSize = Math.min(bytesAvailable, maxBufferSize);
+							buffer = new byte[bufferSize];
+							
+							// Read file
+							bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+							
+							while (bytesRead > 0)
+							{
+				                outputStream.write(buffer, 0, bufferSize);
+				                bytesAvailable = fileInputStream.available();
+				                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+							}
+							
+							fileInputStream.close();
 						}
 						
 						outputStream.writeBytes("\r\n");
-						fileInputStream.close();
 					
 					}
 				}
@@ -427,7 +488,7 @@ public class BazaarRequest {
 				outputStream.writeBytes(twoHyphens + boundary + twoHyphens + "\r\n");				
 			
 			} else {
-
+				Log.e(TAG, "sending out param : " + param);
 				outputStream.writeBytes(param);
 			}
 			

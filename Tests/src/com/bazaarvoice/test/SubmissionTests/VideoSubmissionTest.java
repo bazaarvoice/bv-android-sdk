@@ -82,7 +82,7 @@ public class VideoSubmissionTest extends BaseTest {
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         try {
             mediaParams.setVideo(imageBytes, "androids.avi");
-            submitMedia.queueSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
+            submitMedia.postSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -141,7 +141,7 @@ public class VideoSubmissionTest extends BaseTest {
 		}
         
         
-        submitMedia.queueSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
+        submitMedia.postSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
 }
