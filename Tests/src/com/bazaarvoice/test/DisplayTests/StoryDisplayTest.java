@@ -51,7 +51,7 @@ public class StoryDisplayTest extends BaseTest {
                 //assert that each result has the correct product Id
                 for(int i = 0; i < results.length(); i++)
                 {
-                    JSONObject storyResult = results.getJSONObject(0);
+                    JSONObject storyResult = results.getJSONObject(i);
                     //assert the result has the correct ID
                     assertEquals(storyResult.getString("ProductId"), "1000001");
                 }
@@ -81,7 +81,7 @@ public class StoryDisplayTest extends BaseTest {
                 //assert that each result has the correct product Id
                 for(int i = 0; i < results.length(); i++)
                 {
-                    JSONObject storyResult = results.getJSONObject(0);
+                    JSONObject storyResult = results.getJSONObject(i);
                     //assert the result has the correct ID
                     assertEquals(storyResult.getString("CategoryId"), "1020");
                 }
