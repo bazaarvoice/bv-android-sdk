@@ -203,6 +203,7 @@ public class BazaarFunctions {
 		params.setReviewText(review.getReviewText());
 		params.setTitle(review.getTitle());
 		params.setUserNickname(review.getNickname());
+		params.setUserEmail("bv@bv.com");
 
 		if (!photoUrl.equals(""))
 			params.addPhotoUrl(photoUrl);
