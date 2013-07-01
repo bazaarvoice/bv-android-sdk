@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,18 +58,15 @@ public class BazaarRequest {
     protected URL url;
     protected String httpMethod;
     private String param;
+    private List<ArrayList<String>> requestParams;
     private List<ArrayList<String>> fileParams;
     private String serverResponseMessage = null;
     protected int serverResponseCode;
-    protected int contentLength = 0;
     protected Object receivedData;
     private String boundary;
     private boolean multipart = false;
     private String twoHyphens = "--";
 
-	private enum RequestMethod {
-		DISPLAY, SUBMIT
-	}
 
 	/**
 	 * Initialize the request with the necessary parameters.
@@ -88,6 +84,7 @@ public class BazaarRequest {
 
 		requestUrl = "http://" + domainName + "/data/";
 		
+		requestParams = new ArrayList<ArrayList<String>>();
     	fileParams = new ArrayList<ArrayList<String>>();
     	receivedData = null;
     	mediaEntity = null;
@@ -113,7 +110,12 @@ public class BazaarRequest {
 	 */
 	public void sendDisplayRequest(final RequestType type,
 			DisplayParams params, final OnBazaarResponse listener) {
-		send(type.getDisplayName(), RequestMethod.DISPLAY, params, listener);
+		
+		url = getRequestString(type.getDisplayName(), params);	
+		
+		this.listener = listener;
+		
+		new AsyncTransaction().execute("GET"); 
 	}
 
 	/**
@@ -130,49 +132,16 @@ public class BazaarRequest {
 	 */
 	public void postSubmission(final RequestType type, BazaarParams params,
 			final OnBazaarResponse listener) {
-		send(type.getSubmissionName(), RequestMethod.SUBMIT, params, listener);
-	}
-
-	
-
-	/**
-	 * Send a blocking request to the server with a simple string url and
-	 * optional byte array.
-	 * 
-	 * <p><b>Usage:</b><br> This method is wrapped by each of the send/post/queue methods and
-	 *        should not be called itself unless needed.
-	 * 
-	 * @param URL
-	 *            the url to send the request/submit to
-	 * @param method
-	 *            display or submit
-	 * @param mediaEntity
-	 *            a file to send to the server
-	 * @return the JSON result
-	 * @throws BazaarException
-	 *             on any JSON or communication errors
-	 * @throws URISyntaxException 
-	 * @throws MalformedURLException 
-	 * @throws IOException 
-	 */
-	public void send(String url, RequestMethod method, BazaarParams params, OnBazaarResponse listener) {
 		
-		//gets the url to make the post or get request
-		if (method == RequestMethod.SUBMIT) {
-			this.url = getRequestString(url);
-			Log.e(TAG, "request url = " + this.url);
-				
-			//adds all the parameters after that used to be thrown in with the url
-			if (params != null) {
-				addPostParameters(params.toURL());
-				Log.e(TAG, "param = " + param);
-			}
+		url = getRequestString(type.getDisplayName(), null);
+		
+		if (params != null) {
+			params.addPostParameters(this);
+			//get the media
+			this.mediaEntity = params.getMedia();
 		} else {
-			this.url = getTestRequestString(url, params.toURL()); 
+			this.mediaEntity = null;
 		}
-		
-		//get the media
-		this.mediaEntity = (params == null ? null : params.getMedia());
 		
 		if (this.mediaEntity != null) {
 			if (this.mediaEntity.getFile() != null) {
@@ -185,49 +154,9 @@ public class BazaarRequest {
 		
 		this.listener = listener;
 		
-		new AsyncTransaction().execute(method == RequestMethod.SUBMIT ? "POST" : "GET"); 
-		
-		/*
-		try {
-			// create an HTTP request to a protected resource
-			HttpRequestBase httpRequest = method == RequestMethod.SUBMIT ? new HttpPost(
-					URL) : new HttpGet(URL);
-			// httpRequest.setHeader("Content-Type", "multipart/form-data");
-			httpRequest.setHeader(SDK_HEADER_NAME, SDK_HEADER_VALUE);
-			if (mediaEntity != null && method == RequestMethod.SUBMIT) {
-				reusableClient.getParams().setParameter(
-						CoreProtocolPNames.PROTOCOL_VERSION,
-						HttpVersion.HTTP_1_1);
-				MultipartEntity mpEntity = new MultipartEntity();
-				ContentBody body = null;
-				if (mediaEntity.getFile() != null) {
-					body = new FileBody(mediaEntity.getFile(), mediaEntity.getFilename(), mediaEntity.getMimeType(), "UTF-8");
-				} else {
-					body = new ByteArrayBody(mediaEntity.getBytes(), mediaEntity.getFilename());
-				}
-				mpEntity.addPart(mediaEntity.getName(), body);
-				((HttpPost) httpRequest).setEntity(mpEntity);
-			}
-
-			HttpClient httpClient = reusableClient;
-
-			HttpResponse response = httpClient.execute(httpRequest);
-			StatusLine statusLine = response.getStatusLine();
-			int status = statusLine.getStatusCode();
-
-			if (status < 200 || status > 299) {
-				throw new BazaarException("Error communicating with server. "
-						+ statusLine.getReasonPhrase() + " " + status);
-			} else {
-				HttpEntity entity = response.getEntity();
-				String result = EntityUtils.toString(entity);
-				return new JSONObject(result);
-			}
-		} catch (Exception e) {
-			throw new BazaarException("Error handling results from server!", e);
-		}
-		*/
+		new AsyncTransaction().execute("POST"); 
 	}
+
 
 	/**
 	 * Get the request url as a string.
@@ -240,67 +169,46 @@ public class BazaarRequest {
 	 * @throws URISyntaxException 
 	 * @throws MalformedURLException 
 	 */
-	private URL getRequestString(final String type) {
+	private URL getRequestString(final String type, BazaarParams params) {
 		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
-		String requestString = requestUrl + type + ".json";
-		//add api version
-		requestString = requestString + "?" + "apiversion=" + apiVersion;
-		//add API Key
-		requestString = requestString + "&" + "passkey=" + passKey;
-		URI uri = null;
-		try {
-			uri = new URI(requestString.replace(" ", "%20"));
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		String requestString = requestUrl + type + ".json?" + "apiversion=" + apiVersion + "&" + "passkey=" + passKey;
+
+		if (params != null) {
+			requestString = requestString + params.toURL();
 		}
+		
 		URL url = null;
 		try {
-			url = new URL(uri.toASCIIString());
+			url = new URL(requestString);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return url;
-	}
+	}	
 	
-	//TODO delete
-	private URL getTestRequestString(final String type, String params) {
-		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
-		String requestString = requestUrl + type + ".json";
-		//add api version
-		requestString = requestString + "?" + "apiversion=" + apiVersion;
-		//add API Key
-		requestString = requestString + "&" + "passkey=" + passKey;
-		requestString = requestString + params;
-		URI uri = null;
-		try {
-			uri = new URI(requestString.replace(" ", "%20"));
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		URL url = null;
-		try {
-			url = new URL(uri.toASCIIString());
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return url;
-	}
-	
-	
+	/*
 	public void addPostParameters(String params) {
    	 if (params != null) {
    		 param = params;
    		 //remove the first &
 		 param = param.substring(1);
-		 //TODO figure out this
-   		 contentLength = contentLength + params.getBytes().length - 1;
     	}
+    }
+    */
+	
+	public void addMultipartParameter(String name, String value) {
+    	
+        if ((name != null) && (value != null)) {
+        	ArrayList<String> item = new ArrayList<String>();
+        	String header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"\r\n\r\n", boundary, name); 
+        	String body = String.format("%s\r\n", value);		
+
+        	item.add(header);
+        	item.add(body);
+        	requestParams.add(item);
+        	multipart = true;
+        }
     }
 
     
@@ -315,14 +223,7 @@ public class BazaarRequest {
         	
         	item.add(header);
         	item.add(fileName);
-        	fileParams.add(item);
-        	
-        	if (mediaFile != null) {
-        		contentLength = contentLength + header.getBytes().length + (int) mediaFile.length()  + ("\r\n").getBytes().length;
-        	} else {
-        		contentLength = contentLength + header.getBytes().length + mediaFileBytes.length  + ("\r\n").getBytes().length;
-        	}
-        	
+        	fileParams.add(item);        	
         	multipart = true;
         }
     }
@@ -334,7 +235,6 @@ public class BazaarRequest {
 		protected String doInBackground(String... args) {
 			
 			String httpMethod = args[0];
-			//String httpMethod = "POST";
 			Log.e(TAG, "httpMethod = " + httpMethod);
 			
 			try {
@@ -356,20 +256,14 @@ public class BazaarRequest {
 				connection.setUseCaches(false);			
 				if (httpMethod.equals("POST")) {
 					connection.setDoOutput(true);
-					if (multipart) {
-						contentLength = contentLength + (twoHyphens + boundary + twoHyphens + "\r\n").getBytes().length;
-					}
-					if (contentLength != 0) {
-						connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
-					}
 				}
 	            			
 				//Headers
 				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-				connection.setRequestProperty("Accept", "application/xml");		
+				connection.setRequestProperty("Accept", "application/xml");	
 				// httpRequest.setHeader("Content-Type", "multipart/form-data");
 				connection.setRequestProperty(SDK_HEADER_NAME, SDK_HEADER_VALUE);
-				
+				connection.setChunkedStreamingMode(0);
 				if ( httpMethod.equals("POST")) {
 					//open stream and start writting
 					Log.e(TAG, "write to server");
@@ -431,6 +325,12 @@ public class BazaarRequest {
 			
 			if (multipart) {
 				Log.e(TAG, "multipart = " + true);
+				Log.e(TAG, "requestParams = " + requestParams);
+				
+				for (ArrayList<String> part : requestParams) {
+					outputStream.writeBytes(part.get(0));
+					outputStream.writeBytes(part.get(1));
+				}
 				
 				if (fileParams.size() > 0) {
 					
@@ -479,9 +379,8 @@ public class BazaarRequest {
 							
 							fileInputStream.close();
 						}
-						
+
 						outputStream.writeBytes("\r\n");
-					
 					}
 				}
 					
