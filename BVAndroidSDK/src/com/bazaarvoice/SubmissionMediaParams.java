@@ -225,5 +225,16 @@ public class SubmissionMediaParams extends BazaarParams {
 		url = addURLParameter(url, "photoUrl", photoUrl);
 		return url;
 	}
+
+	@Override
+	public void addPostParameters(BazaarRequest request) {
+		
+		if(contentType != null){
+			request.addMultipartParameter("contentType", contentType.getTypeString());			
+		}
+		request.addMultipartParameter("locale", locale);
+		request.addMultipartParameter("userId", userId);
+		request.addMultipartParameter("photoUrl", photoUrl);
+	}
 	
 }

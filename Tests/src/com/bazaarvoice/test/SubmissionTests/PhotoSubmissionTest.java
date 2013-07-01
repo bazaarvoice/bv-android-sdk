@@ -32,12 +32,16 @@ import com.bazaarvoice.types.RequestType;
  * Author: Gary Pezza
  * Created: 5/13/12 8:55 PM
  */
+
+
 public class PhotoSubmissionTest extends BaseTest {
 
     private final String tag = getClass().getSimpleName();
     private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
             "2cpdrhohmgmwfz8vqyo48f52g",
             ApiVersion.FIVE_FOUR);
+    
+    /*
     public void testPhotoSubmit() {
 
         //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets
@@ -108,6 +112,7 @@ public class PhotoSubmissionTest extends BaseTest {
         bazaarResponse.waitForTestToFinish();
     }
     
+    */
     public void testPhotoSubmit3() {
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {

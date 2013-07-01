@@ -16,4 +16,4 @@ gen/
 local.properties
 
 #OSX directory files
-.DS_Store
+*.DS_Store

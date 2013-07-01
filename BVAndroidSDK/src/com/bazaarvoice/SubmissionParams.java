@@ -973,4 +973,10 @@ public class SubmissionParams extends BazaarParams {
 		return url;
 	}
 
+	@Override
+	public void addPostParameters(BazaarRequest request) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
