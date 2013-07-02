@@ -41,7 +41,7 @@ public class PhotoSubmissionTest extends BaseTest {
             "2cpdrhohmgmwfz8vqyo48f52g",
             ApiVersion.FIVE_FOUR);
     
-    /*
+    
     public void testPhotoSubmit() {
 
         //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets
@@ -112,7 +112,7 @@ public class PhotoSubmissionTest extends BaseTest {
         bazaarResponse.waitForTestToFinish();
     }
     
-    */
+   
     public void testPhotoSubmit3() {
 
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
