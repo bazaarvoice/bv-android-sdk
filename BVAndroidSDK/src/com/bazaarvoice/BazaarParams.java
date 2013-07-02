@@ -220,7 +220,7 @@ public abstract class BazaarParams {
 	 *            the list of values that will be separated by commas
 	 * @return the new url
 	 */
-	public static String addURLParamsFromList(String url, String name,
+	public static String addURLParameter(String url, String name,
 			List<String> values) {
 		if (values != null) {
 			String paramList = "";

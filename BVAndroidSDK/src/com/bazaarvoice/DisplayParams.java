@@ -394,10 +394,10 @@ public class DisplayParams extends BazaarParams {
 		url = addURLParameter(url, "excludeFamily", excludeFamily);
 
 		
-		url = addURLParamsFromList(url, "include", includes);
-		url = addURLParamsFromList(url, "attributes", attributes);
-		url = addURLParamsFromList(url, "stats", stats);
-		url = addURLParamsFromList(url, "sort", sort);
+		url = addURLParameter(url, "include", includes);
+		url = addURLParameter(url, "attributes", attributes);
+		url = addURLParameter(url, "stats", stats);
+		url = addURLParameter(url, "sort", sort);
 
 		//char separator = url.contains("?") ? '&' : '?';
 		if (sortType != null) {
