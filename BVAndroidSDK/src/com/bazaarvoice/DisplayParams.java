@@ -157,6 +157,10 @@ public class DisplayParams extends BazaarParams {
 		this.includes.add(encode(type.getTypeString()));
 	}
 	
+	public List<String> getIncludes() {
+		return includes;
+	}
+	
 	/**
 	 * Attributes to be included when returning content. For example, if includes 
 	 * are requested along with the ModeratorCodes attribute, both the includes and
@@ -171,6 +175,10 @@ public class DisplayParams extends BazaarParams {
 			attributes = new ArrayList<String>();
 		}
 		this.attributes.add(encode(attribute));
+	}
+	
+	public List<String> getAttributes() {
+		return attributes;
 	}
 
 	/**
@@ -188,6 +196,10 @@ public class DisplayParams extends BazaarParams {
 		}
 		sort.add(attribute + ":" + (asc ? "asc" : "desc"));
 	}
+	
+	public List<String> getSort() {
+		return sort;
+	}
 
 	/**
 	 * Add a content type to the "Stats" parameter. Retrieves statistics for
@@ -201,6 +213,10 @@ public class DisplayParams extends BazaarParams {
 			stats = new ArrayList<String>();
 		}
 		this.stats.add(encode(type.getTypeString()));
+	}
+	
+	public List<String> getStats() {
+		return stats;
 	}
 	
 	/**
@@ -225,6 +241,10 @@ public class DisplayParams extends BazaarParams {
 		searchType.add("search_" + type.getTypeString() + "=" + encode(searchString));
 	}
 
+	public List<String> getSearchType() {
+		return searchType;
+	}
+	
 	/**
 	 * Add a "Sort_[TYPE]" parameter to the request. Sorts any included content of the
 	 * provided type by the schema of the given attribute.
@@ -241,6 +261,10 @@ public class DisplayParams extends BazaarParams {
 			sortType = new ArrayList<String>();
 		}
 		sortType.add("sort_" + type.getTypeString() + "=" + attribute + ":" + asc);
+	}
+	
+	public List<String> getSortType() {
+		return sortType;
 	}
 
 	/**
@@ -259,6 +283,10 @@ public class DisplayParams extends BazaarParams {
 		sortType.add("limit_" + type.getTypeString() + "=" + limitVal);
 	}
 	
+	public List<String> getLimitType() {
+		return limitType;
+	}
+	
 	// Adds a filter with a single value
 	private void addFilterHelper(String filterName, String attribute, 
 			Equality equality, String value) {
@@ -270,6 +298,10 @@ public class DisplayParams extends BazaarParams {
 				.append(equality.getEquality()).append(":")
 				.append(encode(value));
 		filters.add(filterString.toString());
+	}
+	
+	public List<String> getFilters() {
+		return filters;
 	}
 	
 	// Adds a filter with multiple values
@@ -365,67 +397,4 @@ public class DisplayParams extends BazaarParams {
 		addFilterHelper(filterName, attribute, equality, values);
 	}
 
-	/**
-	 * Add the parameters set in this instance to the given url string.
-	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the full url
-	 */
-	public String toURL() {
-		
-		char separator = '&';
-		String url = new String();
-
-		if (filters != null) {
-			//char separator = url.contains("?") ? '&' : '?';
-			for (String filter : filters) {
-				url += separator + filter;
-				//separator = '&';
-			}
-		}
-
-		url = addURLParameter(url, "search", search);
-		if (locale != null) {
-			url = addURLParameter(url, "locale", locale + "");
-		}
-		url = addURLParameter(url, "offset", offset);
-		url = addURLParameter(url, "limit", limit);
-		url = addURLParameter(url, "excludeFamily", excludeFamily);
-
-		
-		url = addURLParameter(url, "include", includes);
-		url = addURLParameter(url, "attributes", attributes);
-		url = addURLParameter(url, "stats", stats);
-		url = addURLParameter(url, "sort", sort);
-
-		//char separator = url.contains("?") ? '&' : '?';
-		if (sortType != null) {
-			for (String s : sortType) {
-				url += separator + s;
-				separator = '&';
-			}
-		}
-		
-		if (searchType != null) {
-			for (String s : searchType) {
-				url += separator + s;
-				separator = '&';
-			}
-		}
-
-		if (limitType != null) {
-			for (String limit : limitType) {
-				url += separator + limit;
-				separator = '&';
-			}
-		}
-		return url;
-	}
-
-	@Override
-	public void addPostParameters(BazaarRequest request) {
-		// TODO Auto-generated method stub
-		
-	}
 }

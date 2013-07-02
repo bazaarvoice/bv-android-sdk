@@ -148,7 +148,7 @@ public class SubmissionMediaParams extends BazaarParams {
 	 * @return the photo url
 	 */
 	public String getPhotoUrl() {
-		return userId;
+		return photoUrl;
 	}
 	
 	/**
@@ -205,36 +205,6 @@ public class SubmissionMediaParams extends BazaarParams {
 	private void setMedia(File file, Media.MediaType mediaType)
 			throws FileNotFoundException, IOException {
 		media = new Media(file, mediaType, file.getName());
-	}
-	
-	/**
-	 * Add the parameters set in this instance to the given url string.
-	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the url with the parameter list on it
-	 */
-	public String toURL() {
-		String url = new String();
-		
-		if(contentType != null){
-			url = addURLParameter(url, "contentType", contentType.getTypeString());			
-		}
-		url = addURLParameter(url, "locale", locale);
-		url = addURLParameter(url, "userId", userId);
-		url = addURLParameter(url, "photoUrl", photoUrl);
-		return url;
-	}
-
-	@Override
-	public void addPostParameters(BazaarRequest request) {
-		
-		if(contentType != null){
-			request.addMultipartParameter("contentType", contentType.getTypeString());			
-		}
-		request.addMultipartParameter("locale", locale);
-		request.addMultipartParameter("userId", userId);
-		request.addMultipartParameter("photoUrl", photoUrl);
 	}
 	
 }
