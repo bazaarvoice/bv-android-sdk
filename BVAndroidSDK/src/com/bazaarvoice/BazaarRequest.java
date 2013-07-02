@@ -57,11 +57,11 @@ public class BazaarRequest {
 	private HttpURLConnection connection;
     protected URL url;
     protected String httpMethod;
-    private String param;
     private List<ArrayList<String>> requestParams;
     private List<ArrayList<String>> fileParams;
     private String serverResponseMessage = null;
     protected int serverResponseCode;
+    protected int contentLength = 0;
     protected Object receivedData;
     private String boundary;
     private boolean multipart = false;
@@ -133,7 +133,7 @@ public class BazaarRequest {
 	public void postSubmission(final RequestType type, BazaarParams params,
 			final OnBazaarResponse listener) {
 		
-		url = getRequestString(type.getDisplayName(), null);
+		url = getRequestString(type.getSubmissionName(), null);
 		
 		if (params != null) {
 			params.addPostParameters(this);
@@ -187,15 +187,6 @@ public class BazaarRequest {
 		return url;
 	}	
 	
-	/*
-	public void addPostParameters(String params) {
-   	 if (params != null) {
-   		 param = params;
-   		 //remove the first &
-		 param = param.substring(1);
-    	}
-    }
-    */
 	
 	public void addMultipartParameter(String name, String value) {
     	
@@ -207,6 +198,9 @@ public class BazaarRequest {
         	item.add(header);
         	item.add(body);
         	requestParams.add(item);
+        	
+        	contentLength = contentLength + header.getBytes().length + body.getBytes().length;
+        			
         	multipart = true;
         }
     }
@@ -223,7 +217,13 @@ public class BazaarRequest {
         	
         	item.add(header);
         	item.add(fileName);
-        	fileParams.add(item);        	
+        	fileParams.add(item); 
+        	
+        	if (mediaFile != null) {
+        			contentLength = contentLength + header.getBytes().length + (int) mediaFile.length()  + ("\r\n").getBytes().length;
+        	} else {
+        			contentLength = contentLength + header.getBytes().length + mediaFileBytes.length  + ("\r\n").getBytes().length;
+        	}      	
         	multipart = true;
         }
     }
@@ -235,7 +235,6 @@ public class BazaarRequest {
 		protected String doInBackground(String... args) {
 			
 			String httpMethod = args[0];
-			Log.e(TAG, "httpMethod = " + httpMethod);
 			
 			try {
 				//accept no cookies
@@ -245,9 +244,8 @@ public class BazaarRequest {
 				cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_NONE);
 				CookieHandler.setDefault(cookieManager);
 				*/
-				
-				Log.e(TAG, "url = " + url);
-				
+
+				System.setProperty("http.keepAlive", "false");
 				connection = (HttpURLConnection) url.openConnection();
 	            
 				// Allow Inputs & Outputs
@@ -256,6 +254,12 @@ public class BazaarRequest {
 				connection.setUseCaches(false);			
 				if (httpMethod.equals("POST")) {
 					connection.setDoOutput(true);
+					if (multipart) {
+						contentLength = contentLength + (twoHyphens + boundary + twoHyphens + "\r\n").getBytes().length;
+					}
+					if (contentLength != 0) {
+						connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
+					}
 				}
 	            			
 				//Headers
@@ -263,10 +267,10 @@ public class BazaarRequest {
 				connection.setRequestProperty("Accept", "application/xml");	
 				// httpRequest.setHeader("Content-Type", "multipart/form-data");
 				connection.setRequestProperty(SDK_HEADER_NAME, SDK_HEADER_VALUE);
-				connection.setChunkedStreamingMode(0);
+				//connection.setChunkedStreamingMode(0);
+				
 				if ( httpMethod.equals("POST")) {
 					//open stream and start writting
-					Log.e(TAG, "write to server");
 					writeToServer(connection);
 				}
 					
@@ -314,6 +318,8 @@ public class BazaarRequest {
 			
 		    if (multipart) {
 		    	connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+		    	//connection.setRequestProperty("contentType", "review_comment; boundary=" + boundary);
+		    	//connection.setRequestProperty("userId", "2cpdrhohmgmwfz8vqyo48f52g&contentType=review_comment+&userId=735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234; boundary=" + boundary);
 		    }
 			
 		    DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
@@ -324,8 +330,6 @@ public class BazaarRequest {
 			int maxBufferSize = 1*1024*1024;
 			
 			if (multipart) {
-				Log.e(TAG, "multipart = " + true);
-				Log.e(TAG, "requestParams = " + requestParams);
 				
 				for (ArrayList<String> part : requestParams) {
 					outputStream.writeBytes(part.get(0));
@@ -358,7 +362,9 @@ public class BazaarRequest {
 				                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 							}
 							
+							outputStream.writeBytes("\r\n");
 							fileInputStream.close();
+							
 						} else {
 							ByteArrayInputStream fileInputStream = new ByteArrayInputStream(mediaEntity.getBytes());
 							
@@ -377,19 +383,16 @@ public class BazaarRequest {
 				                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 							}
 							
-							fileInputStream.close();
+							outputStream.writeBytes("\r\n");
+							fileInputStream.close();							
 						}
-
-						outputStream.writeBytes("\r\n");
+						
 					}
 				}
 					
 				outputStream.writeBytes(twoHyphens + boundary + twoHyphens + "\r\n");				
 			
-			} else {
-				Log.e(TAG, "sending out param : " + param);
-				outputStream.writeBytes(param);
-			}
+			} 
 			
 			outputStream.flush();
 			outputStream.close();	
