@@ -56,9 +56,9 @@ public class BazaarRequest {
 	
 	private HttpURLConnection connection;
     protected URL url;
+    private String header;
     protected String httpMethod;
     private List<ArrayList<String>> requestParams;
-    private List<ArrayList<String>> fileParams;
     private String serverResponseMessage = null;
     protected int serverResponseCode;
     protected int contentLength = 0;
@@ -85,7 +85,6 @@ public class BazaarRequest {
 		requestUrl = "http://" + domainName + "/data/";
 		
 		requestParams = new ArrayList<ArrayList<String>>();
-    	fileParams = new ArrayList<ArrayList<String>>();
     	receivedData = null;
     	mediaEntity = null;
     	
@@ -93,7 +92,7 @@ public class BazaarRequest {
     	Random random = new Random();
 	    int min = 1;
 	    int max = 10000;
-    	boundary = Long.valueOf(System.currentTimeMillis()).toString() + (random.nextInt(max - min + 1) + min); 
+    	setBoundary(Long.valueOf(System.currentTimeMillis()).toString() + (random.nextInt(max - min + 1) + min)); 
 	}
 
 	/**
@@ -135,6 +134,7 @@ public class BazaarRequest {
 		
 		url = getRequestString(type.getSubmissionName(), null);
 		
+		Log.e(TAG, "params = " + params);
 		if (params != null) {
 			params.addPostParameters(this);
 			//get the media
@@ -147,6 +147,9 @@ public class BazaarRequest {
 			if (this.mediaEntity.getFile() != null) {
 				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile(), null);
 			} else {
+				Log.e(TAG, "mediaEntity.getName() = " + mediaEntity.getName());
+				Log.e(TAG, "mediaEntity.getFilename() = " + mediaEntity.getFilename());
+				Log.e(TAG, "mediaEntity.getMimeType() = " + mediaEntity.getMimeType());
 				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), null, mediaEntity.getBytes());
 			}
 			
@@ -192,7 +195,7 @@ public class BazaarRequest {
     	
         if ((name != null) && (value != null)) {
         	ArrayList<String> item = new ArrayList<String>();
-        	String header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"\r\n\r\n", boundary, name); 
+        	String header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"\r\n\r\n", getBoundary(), name); 
         	String body = String.format("%s\r\n", value);		
 
         	item.add(header);
@@ -200,7 +203,7 @@ public class BazaarRequest {
         	requestParams.add(item);
         	
         	contentLength = contentLength + header.getBytes().length + body.getBytes().length;
-        			
+       
         	multipart = true;
         }
     }
@@ -210,31 +213,35 @@ public class BazaarRequest {
     	
         if ((name != null) && (fileName != null) && (contentType != null)) {
         	
-        	ArrayList<String> item = new ArrayList<String>();
-        	
-        	String header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
-        				boundary, name, fileName, contentType);
-        	
-        	item.add(header);
-        	item.add(fileName);
-        	fileParams.add(item); 
+        	header = String.format("--%s\r\nContent-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
+        				getBoundary(), name, fileName, contentType);
         	
         	if (mediaFile != null) {
         			contentLength = contentLength + header.getBytes().length + (int) mediaFile.length()  + ("\r\n").getBytes().length;
         	} else {
         			contentLength = contentLength + header.getBytes().length + mediaFileBytes.length  + ("\r\n").getBytes().length;
-        	}      	
+        	} 
+        	
         	multipart = true;
         }
     }
     
-    @SuppressLint("NewApi")
+    public String getBoundary() {
+		return boundary;
+	}
+
+	public void setBoundary(String boundary) {
+		this.boundary = boundary;
+	}
+
+	@SuppressLint("NewApi")
 	private class AsyncTransaction extends AsyncTask<String, Integer, String> {
 		
 		@Override
 		protected String doInBackground(String... args) {
 			
 			String httpMethod = args[0];
+			Log.e(TAG, "httpMethod = " + httpMethod);
 			
 			try {
 				//accept no cookies
@@ -244,7 +251,8 @@ public class BazaarRequest {
 				cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_NONE);
 				CookieHandler.setDefault(cookieManager);
 				*/
-
+				
+				Log.e(TAG, "url = " + url);
 				System.setProperty("http.keepAlive", "false");
 				connection = (HttpURLConnection) url.openConnection();
 	            
@@ -255,7 +263,7 @@ public class BazaarRequest {
 				if (httpMethod.equals("POST")) {
 					connection.setDoOutput(true);
 					if (multipart) {
-						contentLength = contentLength + (twoHyphens + boundary + twoHyphens + "\r\n").getBytes().length;
+						contentLength = contentLength + (twoHyphens + getBoundary() + twoHyphens + "\r\n").getBytes().length;
 					}
 					if (contentLength != 0) {
 						connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
@@ -271,6 +279,7 @@ public class BazaarRequest {
 				
 				if ( httpMethod.equals("POST")) {
 					//open stream and start writting
+					Log.e(TAG, "write to server");
 					writeToServer(connection);
 				}
 					
@@ -316,11 +325,7 @@ public class BazaarRequest {
 		
 		private void writeToServer(HttpURLConnection connection) throws IOException {
 			
-		    if (multipart) {
-		    	connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-		    	//connection.setRequestProperty("contentType", "review_comment; boundary=" + boundary);
-		    	//connection.setRequestProperty("userId", "2cpdrhohmgmwfz8vqyo48f52g&contentType=review_comment+&userId=735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234; boundary=" + boundary);
-		    }
+		    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + getBoundary());
 			
 		    DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
 		    
@@ -329,70 +334,66 @@ public class BazaarRequest {
 			byte[] buffer;
 			int maxBufferSize = 1*1024*1024;
 			
-			if (multipart) {
-				
-				for (ArrayList<String> part : requestParams) {
-					outputStream.writeBytes(part.get(0));
-					outputStream.writeBytes(part.get(1));
-				}
-				
-				if (fileParams.size() > 0) {
-					
-					for (int i = 0; i < fileParams.size(); i++) {
-						ArrayList<String> part = fileParams.get(i);
-					
-						outputStream.writeBytes(part.get(0));		
-						
-						//File I/O
-						if (mediaEntity.getFile() != null) {
-							FileInputStream fileInputStream = new FileInputStream(mediaEntity.getFile());
-						
-							bytesAvailable = fileInputStream.available();
-							bufferSize = Math.min(bytesAvailable, maxBufferSize);
-							buffer = new byte[bufferSize];
-							
-							// Read file
-							bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-							
-							while (bytesRead > 0)
-							{
-				                outputStream.write(buffer, 0, bufferSize);
-				                bytesAvailable = fileInputStream.available();
-				                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-							}
-							
-							outputStream.writeBytes("\r\n");
-							fileInputStream.close();
-							
-						} else {
-							ByteArrayInputStream fileInputStream = new ByteArrayInputStream(mediaEntity.getBytes());
-							
-							bytesAvailable = fileInputStream.available();
-							bufferSize = Math.min(bytesAvailable, maxBufferSize);
-							buffer = new byte[bufferSize];
-							
-							// Read file
-							bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-							
-							while (bytesRead > 0)
-							{
-				                outputStream.write(buffer, 0, bufferSize);
-				                bytesAvailable = fileInputStream.available();
-				                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-							}
-							
-							outputStream.writeBytes("\r\n");
-							fileInputStream.close();							
-						}
-						
-					}
-				}
-					
-				outputStream.writeBytes(twoHyphens + boundary + twoHyphens + "\r\n");				
+			Log.e(TAG, "multipart = " + true);
+			Log.e(TAG, "requestParams = " + requestParams);
 			
-			} 
+			for (ArrayList<String> part : requestParams) {
+				outputStream.writeBytes(part.get(0));
+				outputStream.writeBytes(part.get(1));
+			}
+					
+			Log.e(TAG, "header = " + header);
+			
+			outputStream.writeBytes(header);		
+			
+			//File I/O
+			if (mediaEntity.getFile() != null) {
+				Log.e(TAG, "sending out file");
+				FileInputStream fileInputStream = new FileInputStream(mediaEntity.getFile());
+			
+				bytesAvailable = fileInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				buffer = new byte[bufferSize];
+				
+				// Read file
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				
+				while (bytesRead > 0)
+				{
+	                outputStream.write(buffer, 0, bufferSize);
+	                bytesAvailable = fileInputStream.available();
+	                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+	                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				}
+				
+				outputStream.writeBytes("\r\n");
+				fileInputStream.close();
+				
+			} else {
+				Log.e(TAG, "mediaEntity.getBytes().length = " + mediaEntity.getBytes().length);
+				
+				ByteArrayInputStream fileInputStream = new ByteArrayInputStream(mediaEntity.getBytes());
+				
+				bytesAvailable = fileInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				buffer = new byte[bufferSize];
+				
+				// Read file
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				
+				while (bytesRead > 0)
+				{
+	                outputStream.write(buffer, 0, bufferSize);
+	                bytesAvailable = fileInputStream.available();
+	                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+	                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				}
+				
+				outputStream.writeBytes("\r\n");
+				fileInputStream.close();							
+			}
+				
+			outputStream.writeBytes(twoHyphens + getBoundary() + twoHyphens + "\r\n");				
 			
 			outputStream.flush();
 			outputStream.close();	
