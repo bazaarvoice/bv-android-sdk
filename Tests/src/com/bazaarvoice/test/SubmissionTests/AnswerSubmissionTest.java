@@ -18,7 +18,7 @@ public class AnswerSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-//                assertFalse(""+response, response.getBoolean("HasErrors"));
+                assertFalse(""+response, response.getBoolean("HasErrors"));
 
                 JSONObject review = response.getJSONObject("Answer");
                 Log.i(tag, "Response = \n" + review);
@@ -35,12 +35,12 @@ public class AnswerSubmissionTest extends BaseTest {
 
 
         SubmissionParams submissionParams = new SubmissionParams();
-//        //Log.e(TAG,submissionParams.getEncryptedUser());
         submissionParams.setCategoryId("1000001");
         submissionParams.setQuestionId("6104");
         submissionParams.setAction(Action.PREVIEW);
         submissionParams.setAnswerText(answerText);
         submissionParams.setUserId("gpezz");
+        submissionParams.setUserNickname(Long.toString(System.currentTimeMillis()));
 
         submit.postSubmission(RequestType.ANSWERS, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
