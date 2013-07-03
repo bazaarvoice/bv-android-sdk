@@ -176,6 +176,7 @@ public class BazaarRequest {
 		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
 		String requestString = requestUrl + type + ".json?" + "apiversion=" + apiVersion + "&" + "passkey=" + passKey;
 		
+		//requestString = requestString + "&questionId=6104&userId=719738";
 		
 		if (params != null) {
 			requestString = requestString + displayParamsToURL((DisplayParams) params);
@@ -256,7 +257,7 @@ public class BazaarRequest {
 		//Process after transaction is complete
 		@Override
 		protected void onPostExecute(String result) {
-			//Log.i(TAG, result);
+			Log.i(TAG, result = result);
 			if (serverResponseCode < 200 || serverResponseCode > 299) {
 				listener.onException("Error communicating with server.", new BazaarException("Message : "
 						+ result + " Error :  " + serverResponseCode));
@@ -297,9 +298,7 @@ public class BazaarRequest {
 			
 			for (ArrayList<String> part : requestParams) {
 				outputStream.writeBytes(part.get(0));
-				Log.e(TAG, "writing " + part.get(0));
 				outputStream.writeBytes(part.get(1));
-				Log.e(TAG, "writing " + part.get(1));
 			}
 					
 			Log.e(TAG, "media = " + media);
@@ -626,7 +625,7 @@ public class BazaarRequest {
 		url = addURLParameter(url, "questionDetails", params.getQuestionDetails());
 		
 		url = addURLParameter(url, "answerText", params.getAnswerText());
-		url = addURLParameter(url, "questionId", params.getQuestionId());
+		//url = addURLParameter(url, "questionId", params.getQuestionId());
 		
 		url = addURLParameter(url, "sendEmailAlertWhenCommented",
 				params.getSendEmailAlertWhenCommented());
@@ -701,7 +700,7 @@ public class BazaarRequest {
 		addMultipartParameter("questionDetails", params.getQuestionDetails());
 		
 		addMultipartParameter("answerText", params.getAnswerText());
-		addMultipartParameter("questionId", params.getQuestionId());
+		//addMultipartParameter("questionId", params.getQuestionId());
 		
 		addMultipartParameter("sendEmailAlertWhenCommented",
 				params.getSendEmailAlertWhenCommented());

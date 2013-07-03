@@ -40,7 +40,7 @@ public class AnswerSubmissionTest extends BaseTest {
         submissionParams.setAction(Action.PREVIEW);
         submissionParams.setAnswerText(answerText);
         submissionParams.setUserId("gpezz");
-        submissionParams.setUserNickname(Long.toString(System.currentTimeMillis()));
+        //submissionParams.setUserNickname(Long.toString(System.currentTimeMillis()));
 
         submit.postSubmission(RequestType.ANSWERS, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
