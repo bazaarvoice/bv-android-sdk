@@ -138,7 +138,8 @@ public class BazaarRequest {
 			final OnBazaarResponse listener) {
 		
 		url = getRequestString(type.getSubmissionName(), null);
-		
+		//url = getRequestString(type.getSubmissionName(), params);	
+	
 		Log.e(TAG, "params = " + params);	
 		if (params != null) {
 			if (params.getClass().equals(SubmissionMediaParams.class)) {
@@ -152,6 +153,7 @@ public class BazaarRequest {
 			this.mediaEntity = null;
 		}
 		
+		
 		if (this.mediaEntity != null) {
 			if (this.mediaEntity.getFile() != null) {
 				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile());
@@ -163,7 +165,7 @@ public class BazaarRequest {
 			}
 			
 		}
-		
+
 		this.listener = listener;
 		
 		new AsyncTransaction().execute("POST"); 
@@ -173,10 +175,13 @@ public class BazaarRequest {
 	private URL getRequestString(final String type, BazaarParams params) {
 		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
 		String requestString = requestUrl + type + ".json?" + "apiversion=" + apiVersion + "&" + "passkey=" + passKey;
-
+		
+		
 		if (params != null) {
 			requestString = requestString + displayParamsToURL((DisplayParams) params);
 		}
+		
+		//requestString = requestString + submissionParamsToURL((SubmissionParams) params);
 		
 		URL url = null;
 		try {
@@ -251,13 +256,13 @@ public class BazaarRequest {
 		//Process after transaction is complete
 		@Override
 		protected void onPostExecute(String result) {
-			
+			//Log.i(TAG, result);
 			if (serverResponseCode < 200 || serverResponseCode > 299) {
 				listener.onException("Error communicating with server.", new BazaarException("Message : "
-						+ serverResponseMessage + " Error :  " + serverResponseCode));
+						+ result + " Error :  " + serverResponseCode));
 			} else {
 				try {
-					listener.onResponse(new JSONObject(serverResponseMessage));
+					listener.onResponse(new JSONObject(result));
 				} catch (JSONException e) {
 					listener.onException("Error reading JSON response.", e);
 				}
@@ -292,7 +297,9 @@ public class BazaarRequest {
 			
 			for (ArrayList<String> part : requestParams) {
 				outputStream.writeBytes(part.get(0));
+				Log.e(TAG, "writing " + part.get(0));
 				outputStream.writeBytes(part.get(1));
+				Log.e(TAG, "writing " + part.get(1));
 			}
 					
 			Log.e(TAG, "media = " + media);
@@ -649,6 +656,7 @@ public class BazaarRequest {
 		if (params.getAction() != null) {
 			addMultipartParameter("action", params.getAction().getActionName());
 		}
+		
 		addMultipartParameter("agreedToTermsAndConditions",
 				params.getAgreedToTermsAndConditions());
 		addMultipartParameter("campaignId", params.getCampaignId());

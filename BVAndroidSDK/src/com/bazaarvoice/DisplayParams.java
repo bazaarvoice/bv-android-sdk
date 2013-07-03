@@ -91,7 +91,7 @@ public class DisplayParams extends BazaarParams {
 	 * 
 	 * @return limit parameter
 	 */
-	public int getLimit() {
+	public Integer getLimit() {
 		return this.limit;
 	}
 
@@ -110,8 +110,8 @@ public class DisplayParams extends BazaarParams {
 	 * 
 	 * @return offset parameter
 	 */
-	public int getOffset() {
-		return this.offset;
+	public Integer getOffset() {
+		return offset;
 	}
 	
 	/**
