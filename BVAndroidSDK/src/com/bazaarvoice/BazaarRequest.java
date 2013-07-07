@@ -6,14 +6,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -50,6 +46,8 @@ public class BazaarRequest {
 	
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
 	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V202";
+	public static final int DEFAULT_READ_TIMEOUT = 10000;
+	public static final int DEFAULT_CONNECT_TIMEOUT = 15000;
 
 	private String passKey;
 	private String apiVersion;
@@ -63,6 +61,7 @@ public class BazaarRequest {
     private String header;
     protected String httpMethod;
     private List<ArrayList<String>> requestParams;
+    private String paramString;
     private String serverResponseMessage = null;
     protected int serverResponseCode;
     protected int contentLength = 0;
@@ -115,7 +114,23 @@ public class BazaarRequest {
 	public void sendDisplayRequest(final RequestType type,
 			DisplayParams params, final OnBazaarResponse listener) {
 		
-		url = getRequestString(type.getDisplayName(), params);	
+		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
+		String requestString = requestUrl + type.getDisplayName() + ".json";
+		
+		//add API key and version
+		requestString = requestString + "?" + "apiversion=" + apiVersion + "&" + "passkey=" + passKey;
+		
+		//if any, add params to request string
+		if (params != null) {
+			requestString = requestString + displayParamsToURL((DisplayParams) params);
+		}
+		
+		this.url = null;
+		try {
+			url = new URL(requestString);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
 		this.listener = listener;
 		
@@ -136,62 +151,45 @@ public class BazaarRequest {
 	 */
 	public void postSubmission(final RequestType type, BazaarParams params,
 			final OnBazaarResponse listener) {
+
+		String requestString = requestUrl + type.getSubmissionName() + ".json";
 		
-		url = getRequestString(type.getSubmissionName(), null);
-		//url = getRequestString(type.getSubmissionName(), params);	
+		try {
+			this.url = new URL(requestString);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	
 		Log.e(TAG, "params = " + params);	
 		if (params != null) {
-			if (params.getClass().equals(SubmissionMediaParams.class)) {
-				submissionMediaParamsAddPostParameters((SubmissionMediaParams) params);
-			}
-			else { 
-				submissionParamsAddPostParameters((SubmissionParams) params);
-			}
 			this.mediaEntity = params.getMedia();
-		} else {
-			this.mediaEntity = null;
-		}
-		
-		
-		if (this.mediaEntity != null) {
-			if (this.mediaEntity.getFile() != null) {
-				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile());
-			} else {
-				Log.e(TAG, "mediaEntity.getName() = " + mediaEntity.getName());
-				Log.e(TAG, "mediaEntity.getFilename() = " + mediaEntity.getFilename());
-				Log.e(TAG, "mediaEntity.getMimeType() = " + mediaEntity.getMimeType());
-				addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getBytes());
-			}
 			
-		}
+			if (this.mediaEntity != null) {
+				if (this.mediaEntity.getFile() != null) {
+					Log.e(TAG, "mediaEntity.getName() = " + mediaEntity.getName());
+					Log.e(TAG, "mediaEntity.getFilename() = " + mediaEntity.getFilename());
+					Log.e(TAG, "mediaEntity.getMimeType() = " + mediaEntity.getMimeType());
+					addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile());
+				} else {
+					Log.e(TAG, "mediaEntity.getName() = " + mediaEntity.getName());
+					Log.e(TAG, "mediaEntity.getFilename() = " + mediaEntity.getFilename());
+					Log.e(TAG, "mediaEntity.getMimeType() = " + mediaEntity.getMimeType());
+					addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getBytes());
+				}
+				submissionMediaParamsAddPostParameters((SubmissionMediaParams) params);
+			} else { 
+				if (params.getClass().equals(SubmissionMediaParams.class)) {
+					paramString = submissionMediaParamsToURL((SubmissionMediaParams) params);
+				} else { 
+					paramString = submissionParamsToURL((SubmissionParams) params);
+				}
+				contentLength = paramString.getBytes().length;
+			}
+		} 
 
 		this.listener = listener;
 		
 		new AsyncTransaction().execute("POST"); 
-	}
-
-	
-	private URL getRequestString(final String type, BazaarParams params) {
-		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
-		String requestString = requestUrl + type + ".json?" + "apiversion=" + apiVersion + "&" + "passkey=" + passKey;
-		
-		//requestString = requestString + "&questionId=6104&userId=719738";
-		
-		if (params != null) {
-			requestString = requestString + displayParamsToURL((DisplayParams) params);
-		}
-		
-		//requestString = requestString + submissionParamsToURL((SubmissionParams) params);
-		
-		URL url = null;
-		try {
-			url = new URL(requestString);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		
-		return url;
 	}
 
 
@@ -205,13 +203,6 @@ public class BazaarRequest {
 			Log.e(TAG, "httpMethod = " + httpMethod);
 			
 			try {
-				//accept no cookies
-				//TODO requires Gingerbread and up, we'll need to decide on this.
-				/*
-				CookieManager cookieManager = new CookieManager();
-				cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_NONE);
-				CookieHandler.setDefault(cookieManager);
-				*/
 				
 				Log.e(TAG, "url = " + url);
 				System.setProperty("http.keepAlive", "false");
@@ -227,15 +218,18 @@ public class BazaarRequest {
 						contentLength = contentLength + (twoHyphens + boundary + twoHyphens + "\r\n").getBytes().length;
 					}
 					if (contentLength != 0) {
-						connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
+						//connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
 					}
+					Log.e(TAG, "contentLength = " + contentLength);
+					connection.setFixedLengthStreamingMode(contentLength);
 				}
 	            			
 				//Headers
 				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 				connection.setRequestProperty("Accept", "application/xml");	
-				// httpRequest.setHeader("Content-Type", "multipart/form-data");
 				connection.setRequestProperty(SDK_HEADER_NAME, SDK_HEADER_VALUE);
+				connection.setReadTimeout(DEFAULT_READ_TIMEOUT);
+				connection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT);
 				
 				if ( httpMethod.equals("POST")) {
 					//open stream and start writting
@@ -257,7 +251,7 @@ public class BazaarRequest {
 		//Process after transaction is complete
 		@Override
 		protected void onPostExecute(String result) {
-			Log.i(TAG, result = result);
+			Log.i(TAG, "result = " + result);
 			if (serverResponseCode < 200 || serverResponseCode > 299) {
 				listener.onException("Error communicating with server.", new BazaarException("Message : "
 						+ result + " Error :  " + serverResponseCode));
@@ -285,25 +279,30 @@ public class BazaarRequest {
 		
 		private void writeToServer(HttpURLConnection connection) throws IOException {
 			
-		    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-			
-		    DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+		    DataOutputStream outputStream;
 		    
 			//buffer for file transfers
 			int bytesRead, bytesAvailable, bufferSize;
 			byte[] buffer;
 			int maxBufferSize = 1*1024*1024;
 			
-			Log.e(TAG, "requestParams = " + requestParams);
-			
-			for (ArrayList<String> part : requestParams) {
-				outputStream.writeBytes(part.get(0));
-				outputStream.writeBytes(part.get(1));
-			}
-					
+			Log.e(TAG, "requestParams = " + requestParams);			
+			Log.e(TAG, "paramString = " + paramString);
 			Log.e(TAG, "media = " + media);
 			
+			//if we are sending a picture of video
 			if (media) {
+				//change the content type to multipart
+				connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);				
+				outputStream = new DataOutputStream(connection.getOutputStream());
+				
+				//write out key/value pairs
+				for (ArrayList<String> part : requestParams) {
+					outputStream.writeBytes(part.get(0));
+					outputStream.writeBytes(part.get(1));
+				}
+				
+				//write out header with media name, etc
 				outputStream.writeBytes(header);		
 			
 				//File I/O
@@ -350,14 +349,23 @@ public class BazaarRequest {
 					}
 					
 					outputStream.writeBytes("\r\n");
+					outputStream.writeBytes(twoHyphens + boundary + twoHyphens + "\r\n");	
 					fileInputStream.close();							
 				}	
-			}
-			
-			outputStream.writeBytes(twoHyphens + boundary + twoHyphens + "\r\n");				
+				
+			} else {
+				
+				outputStream = new DataOutputStream(connection.getOutputStream());
+				outputStream.writeBytes(paramString);
+				
+			}			
 			
 			outputStream.flush();
-			outputStream.close();
+			try {
+				outputStream.close();
+			} catch (IOException e) {
+				
+			}
 		}		
 	}
 
@@ -411,7 +419,7 @@ public class BazaarRequest {
 	}
 	
 	
-	
+	/*
 	private void addMultipartParameter(String name, Map<String, String> map) {
 		if (map != null) {
 			for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -422,7 +430,8 @@ public class BazaarRequest {
 			}
 		}
 	}
-
+	*/
+	
 	
 	private String addURLParameter(String url, String name,
 			List<String> values) {
@@ -443,7 +452,8 @@ public class BazaarRequest {
 		return url;
 	}
 	
-	
+
+	/*
 	private void addMultipartParameter(String name, List<String> values) {
 		if (values != null) {
 			String paramList = "";
@@ -460,6 +470,7 @@ public class BazaarRequest {
 			addMultipartParameter(name, paramList);
 		}
 	}
+	*/
 
 	
 	private String addNthURLParamsFromList(String url, String name,
@@ -476,7 +487,7 @@ public class BazaarRequest {
 		return url;
 	}
 	
-	
+	/*
 	private void addNthMultipartParameter(String name, List<String> values) {
 		if (values != null) {
 			for (int i = 0; i < values.size(); i++) {
@@ -488,6 +499,7 @@ public class BazaarRequest {
 			}
 		}
 	}
+	*/
 	
 	//adding a file object to request
 	private void addMultipartParameter(String name, String fileName, String contentType, File mediaFile) {
@@ -578,6 +590,9 @@ public class BazaarRequest {
 		
 		String url = new String();
 		
+		url = addURLParameter(url, "apiversion", apiVersion);
+		url = addURLParameter(url, "passkey", passKey);
+		
 		if (params.getAction() != null) {
 			url = addURLParameter(url, "action", params.getAction().getActionName());
 		}
@@ -625,7 +640,7 @@ public class BazaarRequest {
 		url = addURLParameter(url, "questionDetails", params.getQuestionDetails());
 		
 		url = addURLParameter(url, "answerText", params.getAnswerText());
-		//url = addURLParameter(url, "questionId", params.getQuestionId());
+		url = addURLParameter(url, "questionId", params.getQuestionId());
 		
 		url = addURLParameter(url, "sendEmailAlertWhenCommented",
 				params.getSendEmailAlertWhenCommented());
@@ -648,100 +663,29 @@ public class BazaarRequest {
 		}
 		return url;
 	}
-
-
-	private void submissionParamsAddPostParameters(SubmissionParams params) {
-		
-		if (params.getAction() != null) {
-			addMultipartParameter("action", params.getAction().getActionName());
-		}
-		
-		addMultipartParameter("agreedToTermsAndConditions",
-				params.getAgreedToTermsAndConditions());
-		addMultipartParameter("campaignId", params.getCampaignId());
-		addMultipartParameter("locale", params.getLocale());
-		addMultipartParameter("sendEmailAlertWhenPublished",
-				params.getSendEmailAlertWhenPublished());
-		addMultipartParameter("userEmail", params.getUserEmail());
-		addMultipartParameter("userId", params.getUserId());
-		addMultipartParameter("userLocation", params.getUserLocation());
-		addMultipartParameter("userNickname", params.getUserNickname());
-		
-		addMultipartParameter("contextDataValue", params.getContextDataValue());
-		addNthMultipartParameter("photoCaption", params.getPhotoCaptions());
-		addNthMultipartParameter("photoUrl", params.getPhotoUrls());
-		addNthMultipartParameter("productRecommendationId",
-				params.getProductRecommendationIds());
-		addNthMultipartParameter("videoCaption", params.getVideoCaptions());
-		addNthMultipartParameter("videoUrl", params.getVideoUrls());
-		
-		addMultipartParameter("additionalField", params.getAdditionalField());
-		
-		addMultipartParameter("productId", params.getProductId());
-		
-		// TODO: test tag_ and tagid_
-		addMultipartParameter("tag_", params.getTagForDimensionExternalId());
-		addMultipartParameter("tagid_", params.getTagIdForDimensionExternalId());
-		
-		addMultipartParameter("title", params.getTitle());
-		
-		addMultipartParameter("categoryId", params.getCategoryId());
-		
-		addMultipartParameter("isRecommended", params.getRecommended());
-		addMultipartParameter("netPromoterComment", params.getNetPromoterComment());
-		addMultipartParameter("netPromoterScore", params.getNetPromoterScore());
-		addMultipartParameter("rating", params.getRating());
-		addMultipartParameter("reviewText", params.getReviewText());
-		
-		addMultipartParameter("rating", params.getRatingForDimensionExternalId());
-		
-		addMultipartParameter("isUserAnonymous", params.getIsUserAnonymous());
-		addMultipartParameter("questionSummary", params.getQuestionSummary());
-		addMultipartParameter("questionDetails", params.getQuestionDetails());
-		
-		addMultipartParameter("answerText", params.getAnswerText());
-		//addMultipartParameter("questionId", params.getQuestionId());
-		
-		addMultipartParameter("sendEmailAlertWhenCommented",
-				params.getSendEmailAlertWhenCommented());
-		addMultipartParameter("storyText", params.getStoryText());
-		
-		addMultipartParameter("reviewId", params.getReviewId());
-		addMultipartParameter("storyId", params.getStoryId());
-		addMultipartParameter("CommentText", params.getCommentText());
-		
-		addMultipartParameter("contentId", params.getContentId());
-		if(params.getContentType() != null){
-			addMultipartParameter("contentType", params.getContentType().getTypeString());			
-		}
-		if(params.getFeedbackType() != null){
-			addMultipartParameter("feedbackType", params.getFeedbackType().getTypeString());
-		}
-		addMultipartParameter("reasonText", params.getReasonText());
-		if(params.getVote() != null){
-				addMultipartParameter("vote", params.getVote().getTypeString());
-		}
-		
-	}
 	
 	private String submissionMediaParamsToURL(SubmissionMediaParams params) {
 		String url = new String();
 		
 		if(params.getContentType() != null){
-			url = addURLParameter(url, "contentType", params.getContentType().getTypeString());			
+		url = addURLParameter(url, "contentType", params.getContentType().getTypeString());			
 		}
+		url = addURLParameter(url, "apiversion", apiVersion);
+		url = addURLParameter(url, "passkey", passKey);
 		url = addURLParameter(url, "locale", params.getLocale());
 		url = addURLParameter(url, "userId", params.getUserId());
 		url = addURLParameter(url, "photoUrl", params.getPhotoUrl());
 		return url;
 	}
-
+	
 
 	private void submissionMediaParamsAddPostParameters(SubmissionMediaParams params) {
 		
 		if(params.getContentType() != null){
 			addMultipartParameter("contentType", params.getContentType().getTypeString());			
 		}
+		addMultipartParameter("apiversion", apiVersion);
+		addMultipartParameter("passkey", passKey);
 		addMultipartParameter("locale", params.getLocale());
 		addMultipartParameter("userId", params.getUserId());
 		addMultipartParameter("photoUrl", params.getPhotoUrl());

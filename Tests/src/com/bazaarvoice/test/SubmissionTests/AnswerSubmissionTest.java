@@ -18,6 +18,16 @@ public class AnswerSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
+            	
+            	JSONObject obj = null;
+            	try {
+            	obj = response.getJSONObject("FormErrors");
+            	} catch (JSONException e) {
+            		Log.i(tag, "no FormErrors");
+            	}
+            	if (obj != null) {
+            		Log.e(tag, obj.toString());
+            	}
                 assertFalse(""+response, response.getBoolean("HasErrors"));
 
                 JSONObject review = response.getJSONObject("Answer");
@@ -40,7 +50,7 @@ public class AnswerSubmissionTest extends BaseTest {
         submissionParams.setAction(Action.PREVIEW);
         submissionParams.setAnswerText(answerText);
         submissionParams.setUserId("gpezz");
-        //submissionParams.setUserNickname(Long.toString(System.currentTimeMillis()));
+        submissionParams.setUserNickname(Long.toString(System.currentTimeMillis()));
 
         submit.postSubmission(RequestType.ANSWERS, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
