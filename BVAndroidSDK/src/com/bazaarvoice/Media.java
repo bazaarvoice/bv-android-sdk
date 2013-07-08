@@ -2,7 +2,6 @@ package com.bazaarvoice;
 
 import java.io.File;
 
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 /**
@@ -16,7 +15,7 @@ import android.webkit.MimeTypeMap;
  */
 public class Media {
 	
-	private static final String TAG = "Media";
+	//private static final String TAG = "Media";
 	
 	private byte[] mediaBytes;
 	private File mediaFile;
@@ -49,11 +48,8 @@ public class Media {
 		this.filename = filename;
 		this.mediaBytes = null;
 		
-		Log.e(TAG, "File filename = " + filename);
-		
 		String[] fileParts = media.getName().split("\\.");
 		
-		Log.e(TAG, "fileParts = " + fileParts);
 		mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileParts[fileParts.length - 1]);
 	}
 
@@ -75,14 +71,9 @@ public class Media {
 		this.filename = filename;
 		this.mediaFile = null;
 		
-		Log.e(TAG, "filename = " + filename);
-		
 		String[] fileParts = filename.split("\\.");
 		
-		Log.e(TAG, "fileParts = " + fileParts);
-		
 		mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileParts[fileParts.length - 1]);
-		Log.e(TAG, "mimeType = " + mimeType);
 	}
 	
 	/**

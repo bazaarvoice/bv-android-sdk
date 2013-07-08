@@ -21,7 +21,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.bazaarvoice.types.ApiVersion;
 import com.bazaarvoice.types.RequestType;
@@ -43,7 +42,7 @@ import com.bazaarvoice.types.RequestType;
  */
 public class BazaarRequest {
 	
-	private static final String TAG = "BazaarRequest";
+	//private static final String TAG = "BazaarRequest";
 	
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
 	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V202";
@@ -160,7 +159,7 @@ public class BazaarRequest {
 			e.printStackTrace();
 		}
 	
-		Log.e(TAG, "params = " + params);	
+
 		if (params != null) {
 			this.mediaEntity = params.getMedia();
 			
@@ -249,7 +248,6 @@ public class BazaarRequest {
 		//Process after transaction is complete
 		@Override
 		protected void onPostExecute(String result) {
-			Log.i(TAG, "result = " + result);
 			if (serverResponseCode < 200 || serverResponseCode > 299) {
 				listener.onException("Error communicating with server.", new BazaarException("Message : "
 						+ result + " Error :  " + serverResponseCode));
