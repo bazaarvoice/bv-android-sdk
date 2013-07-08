@@ -212,14 +212,17 @@ public class BazaarRequest {
 				
 				if (httpMethod.equals("POST")) {
 					connection.setDoOutput(true);
-					if (multipart) {
-						contentLength = (int) getContentLength();
-					} else {
-						contentLength = paramString.getBytes().length;
+					
+					if (multipart) {						
+						contentLength = (int) getContentLength();						
+					} else {						
+						contentLength = paramString.getBytes().length;					
 					}
+					
 					if (contentLength != 0) {
 						connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
 					}
+					
 					connection.setFixedLengthStreamingMode(contentLength);
 				}
 	            			
