@@ -116,7 +116,7 @@ public class VideoSubmissionTest extends BaseTest {
         InputStream in = null;
         FileOutputStream out = null;
         try {
-			in = assets.open("video.mp4");
+			in = assets.open("Android_Video.mp4");
 			out = new FileOutputStream(file);
 			  
 			byte[] buffer = new byte[1024];
