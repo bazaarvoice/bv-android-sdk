@@ -575,9 +575,8 @@ public class BazaarRequest {
 		
 		url.append(addURLParameter("productId", params.getProductId()));
 		
-		// TODO: test tag_ and tagid_
-		url.append(addURLParameter("tag_", params.getTagForDimensionExternalId()));
-		url.append(addURLParameter("tagid_", params.getTagIdForDimensionExternalId()));
+		url.append(addURLParameter("tag", params.getTagForDimensionExternalId()));
+		url.append(addURLParameter("tagid", params.getTagIdForDimensionExternalId()));
 		
 		url.append(addURLParameter("title", params.getTitle()));
 		
