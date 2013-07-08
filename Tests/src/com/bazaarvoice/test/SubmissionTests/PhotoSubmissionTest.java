@@ -1,5 +1,6 @@
 package com.bazaarvoice.test.SubmissionTests;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.bazaarvoice.BazaarException;
@@ -157,6 +160,84 @@ public class PhotoSubmissionTest extends BaseTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+        
+        submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+        bazaarResponse.waitForTestToFinish();
+    }
+    
+    public void testPhotoSubmit4() {
+
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response) throws JSONException {
+                Log.i(tag, "Response = \n" + response);
+                assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
+                assertNotNull(response.getJSONObject("Photo"));
+            }
+        };
+
+        SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
+        mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
+        
+        AssetManager assets = this.mContext.getAssets();
+
+        InputStream in = null;
+        ByteArrayOutputStream out = null;
+        
+        try {
+			in = assets.open("RalphRocks.jpg");
+			out = new ByteArrayOutputStream();
+			  
+			byte[] buffer = new byte[1024];
+			int read;
+			while((read = in.read(buffer)) != -1){
+			    out.write(buffer, 0, read);
+			}
+			  
+			mediaParams.setPhoto(out.toByteArray(), "RalphRocks.jpg");
+			
+			in.close();
+			in = null;
+			out.flush();
+			out.close();
+			out = null;
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        
+        submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+        bazaarResponse.waitForTestToFinish();
+    }
+    
+    public void testPhotoSubmit5() {
+
+        OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
+            @Override
+            public void onResponseHelper(JSONObject response) throws JSONException {
+                Log.i(tag, "Response = \n" + response);
+                assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
+                assertNotNull(response.getJSONObject("Photo"));
+            }
+        };
+
+        SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
+        mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
+        
+        AssetManager assets = this.mContext.getAssets();
+
+        InputStream in = null;
+        
+        try {
+			in = assets.open("RalphRocks.jpg");
+			Bitmap bmp = BitmapFactory.decodeStream(in);
+			  
+			mediaParams.setPhoto(bmp, "RalphRocks.jpg");
+			
+			in.close();
+			in = null;
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
         
         submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
