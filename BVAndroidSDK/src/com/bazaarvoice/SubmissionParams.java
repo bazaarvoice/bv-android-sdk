@@ -927,5 +927,4 @@ public class SubmissionParams extends BazaarParams {
 	public void setVote(FeedbackVoteType feedbackVoteType) {
 		this.vote = feedbackVoteType;
 	}
-
 }
