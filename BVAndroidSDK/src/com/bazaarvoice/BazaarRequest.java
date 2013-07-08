@@ -47,8 +47,6 @@ public class BazaarRequest {
 	
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
 	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V202";
-	public static final int DEFAULT_READ_TIMEOUT = 10000;
-	public static final int DEFAULT_CONNECT_TIMEOUT = 15000;
 
 	private String passKey;
 	private String apiVersion;
@@ -64,7 +62,7 @@ public class BazaarRequest {
     private String serverResponseMessage = null;
     private String paramString;
     private ArrayList<String> multiPartParams;
-    private String[] mediaParam;
+    private ArrayList<String> mediaParam;
     protected int contentLength = 0;
     protected Object receivedData;
     private String boundary;
@@ -89,7 +87,7 @@ public class BazaarRequest {
 		requestUrl = "http://" + domainName + "/data/";
 		
 		multiPartParams = new ArrayList<String>();
-		mediaParam = new String[4];
+		mediaParam = new ArrayList<String>();
 		
     	receivedData = null;
     	mediaEntity = null;
@@ -229,8 +227,6 @@ public class BazaarRequest {
 				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 				connection.setRequestProperty("Accept", "application/xml");	
 				connection.setRequestProperty(SDK_HEADER_NAME, SDK_HEADER_VALUE);
-				connection.setReadTimeout(DEFAULT_READ_TIMEOUT);
-				connection.setConnectTimeout(DEFAULT_CONNECT_TIMEOUT);
 				
 				if ( httpMethod.equals("POST")) {
 					writeToServer(connection);
@@ -260,6 +256,8 @@ public class BazaarRequest {
 					listener.onException("Error reading JSON response.", e);
 				}
 			}
+			
+			connection.disconnect();
 		}
 				
 		private String readResponse(InputStream stream) throws IOException {
@@ -290,6 +288,7 @@ public class BazaarRequest {
 				for (String param : multiPartParams) {
 					out.write(param.getBytes());
 				}
+				multiPartParams.clear();
 				
 				
 				//buffer for file transfers
@@ -297,8 +296,8 @@ public class BazaarRequest {
 				byte[] buffer;
 				int maxBufferSize = 1*1024*1024;
 									
-				out.write(mediaParam[0].getBytes());
-				out.write(mediaParam[1].getBytes());
+				out.write(mediaParam.get(0).getBytes());
+				out.write(mediaParam.get(1).getBytes());
 				
 				if (mediaEntity.getFile() != null) {
 					
@@ -342,8 +341,8 @@ public class BazaarRequest {
 					fileInputStream.close();	
 				}
 				
-				out.write(mediaParam[2].getBytes());
-				out.write(mediaParam[3].getBytes());
+				out.write(mediaParam.get(2).getBytes());
+				out.write(mediaParam.get(3).getBytes());
 				
 				
 			} else {	
@@ -353,8 +352,7 @@ public class BazaarRequest {
 			
 			out.flush();
 			out.close();
-			
-			
+					
 		}		
 	}
 
@@ -366,7 +364,7 @@ public class BazaarRequest {
 	private void writeLastBoundary() throws IOException {
 		//out.write(("--" + boundary + "--\r\n").getBytes());
 		if (media) {
-			mediaParam[3] = "--" + boundary + "--\r\n";
+			mediaParam.add("--" + boundary + "--\r\n");
 		} else {
 			multiPartParams.add("--" + boundary + "--\r\n");
 		}
@@ -402,9 +400,9 @@ public class BazaarRequest {
     				name, fileName, contentType);
 			String valueParam = "\r\n";
 			
-			mediaParam[0] = topBoundary;
-			mediaParam[1] = contentDisp;
-			mediaParam[2] = valueParam;			
+			mediaParam.add(topBoundary);
+			mediaParam.add(contentDisp);
+			mediaParam.add(valueParam);			
 			
 			contentLength = contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length + (int) mediaFile.length();
         	
@@ -423,9 +421,9 @@ public class BazaarRequest {
     				name, fileName, contentType);
 			String valueParam = "\r\n";
 			
-			mediaParam[0] = topBoundary;
-			mediaParam[1] = contentDisp;
-			mediaParam[2] = valueParam;			
+			mediaParam.add(topBoundary);
+			mediaParam.add(contentDisp);
+			mediaParam.add(valueParam);			
 			
 			contentLength = contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length + mediaFileBytes.length;
         	

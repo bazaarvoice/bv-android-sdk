@@ -40,9 +40,14 @@ import com.bazaarvoice.types.RequestType;
 public class PhotoSubmissionTest extends BaseTest {
 
     private final String tag = getClass().getSimpleName();
-    private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
-            "2cpdrhohmgmwfz8vqyo48f52g",
-            ApiVersion.FIVE_FOUR);
+    private BazaarRequest submitMedia;
+    
+    @Override
+	protected void setUp() throws Exception {
+    	submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
+                "2cpdrhohmgmwfz8vqyo48f52g",
+                ApiVersion.FIVE_FOUR);
+	}
     
     
     public void testPhotoSubmit() {
