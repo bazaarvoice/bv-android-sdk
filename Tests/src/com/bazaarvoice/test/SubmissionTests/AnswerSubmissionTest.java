@@ -18,16 +18,6 @@ public class AnswerSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-            	
-            	JSONObject obj = null;
-            	try {
-            	obj = response.getJSONObject("FormErrors");
-            	} catch (JSONException e) {
-            		Log.i(tag, "no FormErrors");
-            	}
-            	if (obj != null) {
-            		Log.e(tag, obj.toString());
-            	}
                 assertFalse(""+response, response.getBoolean("HasErrors"));
 
                 JSONObject review = response.getJSONObject("Answer");
