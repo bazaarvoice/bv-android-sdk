@@ -70,6 +70,7 @@ public class PhotoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
+            	Log.e(tag, "End of photo submit transmission : END " + System.currentTimeMillis());
                 Log.i(tag, "Response = \n" + response);
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
                 assertNotNull(response.getJSONObject("Photo"));
@@ -80,6 +81,8 @@ public class PhotoSubmissionTest extends BaseTest {
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         try {
             mediaParams.setPhoto(imageBytes, "Misconstrue_-_Image_1.jpg");
+            
+            Log.e(tag, "Begin of photo submit transmission : BEGIN " + System.currentTimeMillis());
             submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
 
         } catch (Exception e) {
@@ -93,6 +96,7 @@ public class PhotoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
+            	Log.e(tag, "End of photo submit transmission : END " + System.currentTimeMillis());
                 Log.i(tag, "Response = \n" + response);
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
                 assertNotNull(response.getJSONObject("Photo"));
@@ -102,6 +106,8 @@ public class PhotoSubmissionTest extends BaseTest {
         SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW_COMMENT);
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         mediaParams.setPhotoUrl("http://fc04.deviantart.net/images/i/2002/26/9/1/Misconstrue_-_Image_1.jpg");
+        
+        Log.e(tag, "Begin of photo submit transmission : BEGIN " + System.currentTimeMillis());
         submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
@@ -111,6 +117,7 @@ public class PhotoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
+            	Log.e(tag, "End of photo submit transmission : END " + System.currentTimeMillis());
                 Log.i(tag, "Response = \n" + response);
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
                 assertNotNull(response.getJSONObject("Photo"));
@@ -151,6 +158,7 @@ public class PhotoSubmissionTest extends BaseTest {
 			e.printStackTrace();
 		} 
         
+        Log.e(tag, "Begin of photo submit transmission : BEGIN " + System.currentTimeMillis());
         submitMedia.queueSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
