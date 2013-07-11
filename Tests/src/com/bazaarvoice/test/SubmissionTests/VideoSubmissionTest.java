@@ -76,7 +76,8 @@ public class VideoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-
+            	Log.e(tag, "End of video submit transmission : END " + System.currentTimeMillis());
+            	
                 Log.i(tag, "Response = \n" + response);
 
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
@@ -88,6 +89,8 @@ public class VideoSubmissionTest extends BaseTest {
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         try {
             mediaParams.setVideo(imageBytes, "Android_Video.mp4");
+            
+            Log.e(tag, "Begin of video submit transmission : BEGIN " + System.currentTimeMillis());
             submitMedia.postSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
 
         } catch (Exception e) {
@@ -104,7 +107,8 @@ public class VideoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-
+            	Log.e(tag, "End of video submit transmission : END " + System.currentTimeMillis());
+            	
                 Log.i(tag, "Response = \n" + response);
 
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
@@ -146,7 +150,7 @@ public class VideoSubmissionTest extends BaseTest {
 			e.printStackTrace();
 		}
         
-        
+        Log.e(tag, "Begin of video submit transmission : BEGIN " + System.currentTimeMillis());
         submitMedia.postSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
