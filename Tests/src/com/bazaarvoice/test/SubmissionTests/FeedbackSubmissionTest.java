@@ -26,6 +26,7 @@ public class FeedbackSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
+            	Log.e(tag, "End of Feedback Submission submit transmission : END " + System.currentTimeMillis());
                 Log.i(tag, "FeedbackResponse = \n" + response);
                 JSONObject feedback = response.getJSONObject("Feedback");
 
@@ -41,6 +42,7 @@ public class FeedbackSubmissionTest extends BaseTest {
         submissionParams.setFeedbackType(FeedbackType.INAPPROPRIATE);
         submissionParams.setReasonText("This post was not nice.");
 
+        Log.e(tag, "Begin of Feedback Submission submit transmission : BEGIN " + System.currentTimeMillis());
         submit.postSubmission(RequestType.FEEDBACK, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
@@ -49,6 +51,7 @@ public class FeedbackSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
+            	Log.e(tag, "End of Feedback Submission submit transmission : END " + System.currentTimeMillis());
                 Log.i(tag, "FeedbackResponse = \n" + response);
                 boolean errors = response.getBoolean("HasErrors");
                 assertEquals(errors, false);
@@ -62,6 +65,7 @@ public class FeedbackSubmissionTest extends BaseTest {
         submissionParams.setFeedbackType(FeedbackType.HELPFULNESS);
         submissionParams.setVote(FeedbackVoteType.NEGATIVE);
 
+        Log.e(tag, "Begin of Feedback Submission submit transmission : BEGIN " + System.currentTimeMillis());
         submit.postSubmission(RequestType.FEEDBACK, submissionParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
