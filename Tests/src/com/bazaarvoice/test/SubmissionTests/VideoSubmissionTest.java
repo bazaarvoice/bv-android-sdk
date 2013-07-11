@@ -70,7 +70,7 @@ public class VideoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-            	Log.e(tag, "End of video submit transmission : END" + System.currentTimeMillis());
+            	Log.e(tag, "End of video submit transmission : END " + System.currentTimeMillis());
             	
                 Log.i(tag, "Response = \n" + response);
 
@@ -101,7 +101,7 @@ public class VideoSubmissionTest extends BaseTest {
         OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
-            	Log.e(tag, "End of video submit transmission : END" + System.currentTimeMillis());
+            	Log.e(tag, "End of video submit transmission : END " + System.currentTimeMillis());
             	
                 Log.i(tag, "Response = \n" + response);
 
