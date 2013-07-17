@@ -40,15 +40,10 @@ import com.bazaarvoice.types.RequestType;
 public class PhotoSubmissionTest extends BaseTest {
 
     private final String tag = getClass().getSimpleName();
-    private BazaarRequest submitMedia;
-    
-    @Override
-	protected void setUp() throws Exception {
-    	submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
-                "2cpdrhohmgmwfz8vqyo48f52g",
-                ApiVersion.FIVE_FOUR);
-	}
-    
+
+    private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
+            "2cpdrhohmgmwfz8vqyo48f52g",
+            ApiVersion.FIVE_FOUR);
     
     public void testPhotoSubmit() {
 
@@ -83,7 +78,7 @@ public class PhotoSubmissionTest extends BaseTest {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
             	Log.e(tag, "End of photo submit transmission : END " + System.currentTimeMillis());
-            	
+
                 Log.i(tag, "Response = \n" + response);
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
                 assertNotNull(response.getJSONObject("Photo"));
@@ -97,7 +92,7 @@ public class PhotoSubmissionTest extends BaseTest {
             
             Log.e(tag, "Begin of photo submit transmission : BEGIN " + System.currentTimeMillis());
             submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
-            
+     
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -110,7 +105,7 @@ public class PhotoSubmissionTest extends BaseTest {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
             	Log.e(tag, "End of photo submit transmission : END " + System.currentTimeMillis());
-            	
+
                 Log.i(tag, "Response = \n" + response);
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
                 assertNotNull(response.getJSONObject("Photo"));
@@ -122,7 +117,9 @@ public class PhotoSubmissionTest extends BaseTest {
         mediaParams.setPhotoUrl("http://fc04.deviantart.net/images/i/2002/26/9/1/Misconstrue_-_Image_1.jpg");
         
         Log.e(tag, "Begin of photo submit transmission : BEGIN " + System.currentTimeMillis());
+
         submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
+
         bazaarResponse.waitForTestToFinish();
     }
     
@@ -133,7 +130,7 @@ public class PhotoSubmissionTest extends BaseTest {
             @Override
             public void onResponseHelper(JSONObject response) throws JSONException {
             	Log.e(tag, "End of photo submit transmission : END " + System.currentTimeMillis());
-            	
+
                 Log.i(tag, "Response = \n" + response);
                 assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
                 assertNotNull(response.getJSONObject("Photo"));
@@ -175,6 +172,7 @@ public class PhotoSubmissionTest extends BaseTest {
 		} 
         
         Log.e(tag, "Begin of photo submit transmission : BEGIN " + System.currentTimeMillis());
+
         submitMedia.postSubmission(RequestType.PHOTOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
