@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2013 Bazaarvoice
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.bazaarvoice;
 
 import java.util.ArrayList;
@@ -13,12 +28,6 @@ import com.bazaarvoice.types.IncludeType;
  * Use of this class will rely on knowledge of the <a
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You should use
  * this site as a reference for which parameters to pass using this class.
- * 
- * 
- * <p>
- * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
- * 
- * @author Bazaarvoice Engineering
  */
 public class DisplayParams extends BazaarParams {
 	private String search;
@@ -91,7 +100,7 @@ public class DisplayParams extends BazaarParams {
 	 * 
 	 * @return limit parameter
 	 */
-	public int getLimit() {
+	public Integer getLimit() {
 		return this.limit;
 	}
 
@@ -110,8 +119,8 @@ public class DisplayParams extends BazaarParams {
 	 * 
 	 * @return offset parameter
 	 */
-	public int getOffset() {
-		return this.offset;
+	public Integer getOffset() {
+		return offset;
 	}
 	
 	/**
@@ -157,6 +166,10 @@ public class DisplayParams extends BazaarParams {
 		this.includes.add(encode(type.getTypeString()));
 	}
 	
+	public List<String> getIncludes() {
+		return includes;
+	}
+	
 	/**
 	 * Attributes to be included when returning content. For example, if includes 
 	 * are requested along with the ModeratorCodes attribute, both the includes and
@@ -171,6 +184,10 @@ public class DisplayParams extends BazaarParams {
 			attributes = new ArrayList<String>();
 		}
 		this.attributes.add(encode(attribute));
+	}
+	
+	public List<String> getAttributes() {
+		return attributes;
 	}
 
 	/**
@@ -188,6 +205,10 @@ public class DisplayParams extends BazaarParams {
 		}
 		sort.add(attribute + ":" + (asc ? "asc" : "desc"));
 	}
+	
+	public List<String> getSort() {
+		return sort;
+	}
 
 	/**
 	 * Add a content type to the "Stats" parameter. Retrieves statistics for
@@ -201,6 +222,10 @@ public class DisplayParams extends BazaarParams {
 			stats = new ArrayList<String>();
 		}
 		this.stats.add(encode(type.getTypeString()));
+	}
+	
+	public List<String> getStats() {
+		return stats;
 	}
 	
 	/**
@@ -225,6 +250,10 @@ public class DisplayParams extends BazaarParams {
 		searchType.add("search_" + type.getTypeString() + "=" + encode(searchString));
 	}
 
+	public List<String> getSearchType() {
+		return searchType;
+	}
+	
 	/**
 	 * Add a "Sort_[TYPE]" parameter to the request. Sorts any included content of the
 	 * provided type by the schema of the given attribute.
@@ -241,6 +270,10 @@ public class DisplayParams extends BazaarParams {
 			sortType = new ArrayList<String>();
 		}
 		sortType.add("sort_" + type.getTypeString() + "=" + attribute + ":" + asc);
+	}
+	
+	public List<String> getSortType() {
+		return sortType;
 	}
 
 	/**
@@ -259,6 +292,10 @@ public class DisplayParams extends BazaarParams {
 		sortType.add("limit_" + type.getTypeString() + "=" + limitVal);
 	}
 	
+	public List<String> getLimitType() {
+		return limitType;
+	}
+	
 	// Adds a filter with a single value
 	private void addFilterHelper(String filterName, String attribute, 
 			Equality equality, String value) {
@@ -270,6 +307,10 @@ public class DisplayParams extends BazaarParams {
 				.append(equality.getEquality()).append(":")
 				.append(encode(value));
 		filters.add(filterString.toString());
+	}
+	
+	public List<String> getFilters() {
+		return filters;
 	}
 	
 	// Adds a filter with multiple values
@@ -365,58 +406,57 @@ public class DisplayParams extends BazaarParams {
 		addFilterHelper(filterName, attribute, equality, values);
 	}
 
-	/**
-	 * Add the parameters set in this instance to the given url string.
-	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the full url
-	 */
-	public String toURL(String url) {
+	@Override
+	protected String toURL(String apiVersion, String passKey) {
+		char separator = '&';
+		StringBuilder url = new StringBuilder();
 
-		if (filters != null) {
-			char separator = url.contains("?") ? '&' : '?';
-			for (String filter : filters) {
-				url += separator + filter;
-				separator = '&';
+		if (getFilters() != null) {
+			for (String filter : getFilters()) {
+				url.append(separator);
+				url.append(filter);
 			}
 		}
 
-		url = addURLParameter(url, "search", search);
-		if (locale != null) {
-			url = addURLParameter(url, "locale", locale + "");
+		url.append(addURLParameter("search", getSearch()));
+		if (getLocale() != null) {
+			url.append(addURLParameter("locale", getLocale()));
 		}
-		url = addURLParameter(url, "offset", offset);
-		url = addURLParameter(url, "limit", limit);
-		url = addURLParameter(url, "excludeFamily", excludeFamily);
+		url.append(addURLParameter("offset", getOffset()));
+		url.append(addURLParameter("limit", getLimit()));
+		url.append(addURLParameter("excludeFamily", getExcludeFamily()));
 
 		
-		url = addURLParamsFromList(url, "include", includes);
-		url = addURLParamsFromList(url, "attributes", attributes);
-		url = addURLParamsFromList(url, "stats", stats);
-		url = addURLParamsFromList(url, "sort", sort);
+		url.append(addURLParameter("include", getIncludes()));
+		url.append(addURLParameter("attributes", getAttributes()));
+		url.append(addURLParameter("stats", getStats()));
+		url.append(addURLParameter("sort", getSort()));
 
-		char separator = url.contains("?") ? '&' : '?';
-		if (sortType != null) {
-			for (String s : sortType) {
-				url += separator + s;
-				separator = '&';
+		//char separator = url.contains("?") ? '&' : '?';
+		if (getSortType() != null) {
+			for (String s : getSortType()) {
+				url.append(separator + s);
 			}
 		}
 		
-		if (searchType != null) {
-			for (String s : searchType) {
-				url += separator + s;
-				separator = '&';
+		if (getSearchType() != null) {
+			for (String s : getSearchType()) {
+				url.append(separator + s);
 			}
 		}
 
-		if (limitType != null) {
-			for (String limit : limitType) {
-				url += separator + limit;
-				separator = '&';
+		if (getLimitType() != null) {
+			for (String limit : getLimitType()) {
+				url.append(separator + limit);
 			}
 		}
-		return url;
+		return url.toString();
 	}
+
+	@Override
+	protected void addPostParameters(String apiVersion, String passKey,
+			BazaarRequest request) {
+		// just a method stub
+	}
+
 }
