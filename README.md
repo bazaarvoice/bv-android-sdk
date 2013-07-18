@@ -3,9 +3,7 @@ bv-android-sdk-dev
 
 Bazaarvoice Android SDK Source Code Development Repo
 
-The Android version is currently set to API 7 (2.1). The var is in project.properties.
-
-The android-sdk directory is currently set to my path (Andy). The var is in local.properties. 
+The Android version is currently set to API Level 3. The var is in project.properties.
 
 
 System Requirements
@@ -64,4 +62,9 @@ With Eclipse:
 2. Under "Select types for which Javadoc will be generated", highlight only src/com.bazaarvoice and src/com.bazaarvoice.types.  Within com.bazaarvoice, exclude Utils.java and Media.java, since these are not client-facing.
 3. Note the output directory.
 4. Click finish and output javadoc.
+
+License
+-
+
+Our SDK is distributed under the Apache 2.0 license, so go nuts. The SDK shall be used for Good, not Evil.
 
