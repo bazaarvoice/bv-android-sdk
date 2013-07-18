@@ -5,6 +5,13 @@ Bazaarvoice Android SDK Source Code Development Repo
 
 The Android version is currently set to API Level 3. The var is in project.properties.
 
+#How to contribute to the project
+
+- ** Fork this repo **
+- ** Make your edits **
+- ** Do a pull request **
+	- Please make sure to discribe in your comments what was changed and why.
+	- ** If you are doing something, code wise, which is not intuitive to a majority of developers, please properly comment your code for ease of maintenance. **
 
 System Requirements
 -
