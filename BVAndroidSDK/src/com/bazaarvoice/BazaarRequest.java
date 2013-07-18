@@ -1,28 +1,39 @@
+/*******************************************************************************
+ * Copyright 2013 Bazaarvoice
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.bazaarvoice;
 
-import java.util.LinkedList;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Random;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.util.ByteArrayBuffer;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 
 import com.bazaarvoice.types.ApiVersion;
 import com.bazaarvoice.types.RequestType;
@@ -36,33 +47,35 @@ import com.bazaarvoice.types.RequestType;
  * <p>
  * There are options for both display and submission using asynchronous
  * requests, queued requests, and blocking requests.
- * 
- * <p>
- * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
- * 
- * @author Bazaarvoice Engineering
  */
 public class BazaarRequest {
+	
+	//private static final String TAG = "BazaarRequest";
+	
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
 	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V202";
 
 	private String passKey;
 	private String apiVersion;
-	private RequestQueue requestQueue;
+	private String requestUrl;
+	
+	private Media mediaEntity;
+	private OnBazaarResponse listener;
+	
+	private HttpURLConnection connection;
+    protected URL url;
+    protected String httpMethod;
+    protected int serverResponseCode;
+    private String serverResponseMessage = null;
+    private String paramString;
+    protected ArrayList<String> multiPartParams;
+    protected ArrayList<String> mediaParam;
+    protected int contentLength = 0;
+    protected Object receivedData;
+    protected String boundary;
+    protected boolean multipart = false;
+    protected boolean media = false;
 
-	private String requestHeader;
-
-	private final String tag = getClass().getSimpleName();
-	private final Object lock = new Object();
-	private final Object lockThread = new Object();
-
-	private enum RequestMethod {
-		DISPLAY, SUBMIT
-	}
-
-	// attempt to reuse old http client to avoid having to reopen the socket
-	// every time
-	private HttpClient reusableClient;
 
 	/**
 	 * Initialize the request with the necessary parameters.
@@ -78,8 +91,19 @@ public class BazaarRequest {
 		this.passKey = passKey;
 		this.apiVersion = apiVersion.getVersionName();
 
-		requestHeader = "http://" + domainName + "/data/";
-		reusableClient = getThreadSafeClient();		
+		requestUrl = "http://" + domainName + "/data/";
+		
+		multiPartParams = new ArrayList<String>();
+		mediaParam = new ArrayList<String>();
+		
+    	receivedData = null;
+    	mediaEntity = null;
+    	
+    	//make a random boundary for the HTTP requests
+    	Random random = new Random();
+	    int min = 1;
+	    int max = 10000;
+    	boundary = (Long.valueOf(System.currentTimeMillis()).toString() + (random.nextInt(max - min + 1) + min)); 
 	}
 
 	/**
@@ -92,11 +116,32 @@ public class BazaarRequest {
 	 *            the parameters for the request
 	 * @param listener
 	 *            the listener to handle the results on
+	 * @throws BazaarException 
 	 */
 	public void sendDisplayRequest(final RequestType type,
 			DisplayParams params, final OnBazaarResponse listener) {
-		sendThreaded(type.getDisplayName(), params, listener,
-				RequestMethod.DISPLAY);
+		
+		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
+		String requestString = requestUrl + type.getDisplayName() + ".json";
+		
+		//add API key and version
+		requestString = requestString + "?" + "apiversion=" + apiVersion + "&" + "passkey=" + passKey;
+		
+		//if any, add params to request string
+		if (params != null) {
+			requestString = requestString + params.toURL(apiVersion, passKey);
+		}
+		
+		this.url = null;
+		try {
+			url = new URL(requestString);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		this.listener = listener;
+		
+		new AsyncTransaction().execute("GET"); 
 	}
 
 	/**
@@ -109,351 +154,221 @@ public class BazaarRequest {
 	 *            the parameters for the request
 	 * @param listener
 	 *            the listener to handle the results on
+	 * @throws BazaarException 
 	 */
 	public void postSubmission(final RequestType type, BazaarParams params,
 			final OnBazaarResponse listener) {
-		sendThreaded(type.getSubmissionName(), params, listener,
-				RequestMethod.SUBMIT);
-	}
 
-	/**
-	 * Add a new request to the request queue, and return the result via the
-	 * listener. This will keep the order that the requests are made in.
-	 * (non-blocking)
-	 * 
-	 * @param type
-	 *            the type of request
-	 * @param params
-	 *            the parameters for the request
-	 * @param listener
-	 *            the listener to handle the results on
-	 */
-	public void queueDisplayRequest(final RequestType type,
-			DisplayParams params, final OnBazaarResponse listener) {
-		addToQueue(type.getDisplayName(), params, listener,
-				RequestMethod.DISPLAY);
-	}
-
-	/**
-	 * Add a new submission to the request queue, and return the response via
-	 * the listener. This will keep the order that the requests are made in.
-	 * (non-blocking)
-	 * 
-	 * @param type
-	 *            the type of request
-	 * @param params
-	 *            the parameters for the request
-	 * @param listener
-	 *            the listener to handle the results on
-	 */
-	public void queueSubmission(final RequestType type, BazaarParams params,
-			final OnBazaarResponse listener) {
-		addToQueue(type.getSubmissionName(), params, listener,
-				RequestMethod.SUBMIT);
-	}
-
-	/**
-	 * Send a non-threaded request. (blocking)
-	 * 
-	 * @param type
-	 *            the type of request
-	 * @param params
-	 *            the parameters for the request
-	 * @return the JSON result
-	 * @throws BazaarException
-	 *             on any JSON or communication errors
-	 */
-	public JSONObject sendBlockingDisplayRequest(RequestType type,
-			DisplayParams params) throws BazaarException {
-		return send(getRequestString(type.getDisplayName(), params),
-				RequestMethod.DISPLAY,
-				params == null ? null : params.getMedia());
-	}
-
-	/**
-	 * Post a non-threaded submission. (blocking)
-	 * 
-	 * @param type
-	 *            the type of submit
-	 * @param params
-	 *            the parameters for the request
-	 * @return the JSON result
-	 * @throws BazaarException
-	 *             on any JSON or communication errors
-	 */
-	public JSONObject postBlockingSubmission(RequestType type,
-			BazaarParams params) throws BazaarException {
-		return send(getRequestString(type.getSubmissionName(), params),
-				RequestMethod.DISPLAY,
-				params == null ? null : params.getMedia());
-	}
-
-	/**
-	 * Send a blocking request to the server with a simple string url and
-	 * optional byte array.
-	 * 
-	 * <p><b>Usage:</b><br> This method is wrapped by each of the send/post/queue methods and
-	 *        should not be called itself unless needed.
-	 * 
-	 * @param URL
-	 *            the url to send the request/submit to
-	 * @param method
-	 *            display or submit
-	 * @param mediaEntity
-	 *            a file to send to the server
-	 * @return the JSON result
-	 * @throws BazaarException
-	 *             on any JSON or communication errors
-	 */
-	public JSONObject send(String URL, RequestMethod method, Media mediaEntity)
-			throws BazaarException {
+		String requestString = requestUrl + type.getSubmissionName() + ".json";
+		
 		try {
-			// create an HTTP request to a protected resource
-			HttpRequestBase httpRequest = method == RequestMethod.SUBMIT ? new HttpPost(
-					URL) : new HttpGet(URL);
-			// httpRequest.setHeader("Content-Type", "multipart/form-data");
-			httpRequest.setHeader(SDK_HEADER_NAME, SDK_HEADER_VALUE);
-			if (mediaEntity != null && method == RequestMethod.SUBMIT) {
-				reusableClient.getParams().setParameter(
-						CoreProtocolPNames.PROTOCOL_VERSION,
-						HttpVersion.HTTP_1_1);
-				MultipartEntity mpEntity = new MultipartEntity();
-				ContentBody body = null;
-				if (mediaEntity.getFile() != null) {
-					body = new FileBody(mediaEntity.getFile(), mediaEntity.getFilename(), mediaEntity.getMimeType(), "UTF-8");
-				} else {
-					body = new ByteArrayBody(mediaEntity.getBytes(), mediaEntity.getFilename());
-				}
-				mpEntity.addPart(mediaEntity.getName(), body);
-				((HttpPost) httpRequest).setEntity(mpEntity);
-			}
-
-			HttpClient httpClient = reusableClient;
-
-			HttpResponse response = httpClient.execute(httpRequest);
-			StatusLine statusLine = response.getStatusLine();
-			int status = statusLine.getStatusCode();
-
-			if (status < 200 || status > 299) {
-				throw new BazaarException("Error communicating with server. "
-						+ statusLine.getReasonPhrase() + " " + status);
-			} else {
-				HttpEntity entity = response.getEntity();
-				String result = EntityUtils.toString(entity);
-				return new JSONObject(result);
-			}
-		} catch (Exception e) {
-			throw new BazaarException("Error handling results from server!", e);
+			this.url = new URL(requestString);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		}
-	}
+	
 
-	/**
-	 * Get the request url as a string.
-	 * 
-	 * @param type
-	 *            the request type
-	 * @param params
-	 *            the parameters of the request
-	 * @return the request url
-	 */
-	private String getRequestString(final String type, BazaarParams params) {
-		String requestString = requestHeader + type + ".json";
-		requestString = DisplayParams.addURLParameter(requestString,
-				"apiversion", apiVersion);
-		requestString = DisplayParams.addURLParameter(requestString, "passkey",
-				passKey);
 		if (params != null) {
-			requestString = params.toURL(requestString);
-		}
+			this.mediaEntity = params.getMedia();
+			
+			if (this.mediaEntity != null) {
+				params.addPostParameters(apiVersion, passKey, this);
+				if (this.mediaEntity.getFile() != null) {
 
-		return requestString;
+					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile(), this);
+	
+				} else {
+
+					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getBytes(), this);
+
+				}
+			} else { 
+				paramString = params.toURL(apiVersion, passKey);
+			}
+		} 
+
+		this.listener = listener;
+		
+		new AsyncTransaction().execute("POST"); 
 	}
 
-	/**
-	 * Send a request, spawn a thread, and return the result via the listener.
-	 * (non-blocking)
-	 * 
-	 * @param type
-	 *            the type of request
-	 * @param params
-	 *            the parameters for the request
-	 * @param listener
-	 *            the listener to handle the results on
-	 */
-	private void sendThreaded(final String type, BazaarParams params,
-			final OnBazaarResponse listener, final RequestMethod method) {
-		// get the request string before we thread in case other calls modify it
-		final String requestString = getRequestString(type, params);
 
-		final Media media = (params == null ? null : params
-				.getMedia());
+	@SuppressLint("NewApi")
+	private class AsyncTransaction extends AsyncTask<String, Integer, String> {
+		
+		@Override
+		protected String doInBackground(String... args) {
+			
+			String httpMethod = args[0];
+			
+			try {
+				connection = (HttpURLConnection) url.openConnection();
+	            
+				// Allow Inputs & Outputs
+				connection.setRequestMethod(httpMethod);
+				connection.setDoInput(true);
+				connection.setUseCaches(false);		
+				
+				if (httpMethod.equals("POST")) {
+					connection.setDoOutput(true);
+					
+					if (multipart) {						
+						contentLength = getContentLength();						
+					} else {						
+						contentLength = paramString.getBytes().length;					
+					}
+					
+					if (contentLength != 0) {
+						connection.setRequestProperty("Content-length", (Integer.valueOf(contentLength).toString()));
+						connection.setFixedLengthStreamingMode(contentLength);
+					}					
+				}
+	            			
+				//Headers
+				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+				connection.setRequestProperty(SDK_HEADER_NAME, SDK_HEADER_VALUE);
+				
+				if ( httpMethod.equals("POST")) {
+					writeToServer(connection);
+				}
+					
+				serverResponseMessage = readResponse(new BufferedInputStream(connection.getInputStream()));									
+				serverResponseCode = connection.getResponseCode();
 
-		Log.d(tag, requestString);
-
-		new Thread() {
-			public void run() {
+			} catch (IOException e) {	
+				e.printStackTrace();
+				listener.onException("There was an error in the network connection", e);
+			} 
+			
+			return serverResponseMessage;
+		}
+	    
+		//Process after transaction is complete
+		@Override
+		protected void onPostExecute(String result) {
+			if (serverResponseCode < 200 || serverResponseCode > 299) {
+				listener.onException("Error communicating with server.", new BazaarException("Message : "
+						+ result + " Error :  " + serverResponseCode));
+			} else {
 				try {
-					JSONObject response = send(requestString, method, media);
-
-					// lets synchronize the use of the listener in case the user
-					// does not
-					synchronized (lock) {
-						listener.onResponse(response);
-					}
-				} catch (Exception e) {
-					synchronized (lock) {
-						listener.onException(e.getMessage(), e);
-					}
+					listener.onResponse(new JSONObject(result));
+				} catch (JSONException e) {
+					listener.onException("Error reading JSON response.", e);
 				}
 			}
-		}.start();
-	}
-
-	/**
-	 * Add a new request to the request queue, and return the result via the
-	 * listener. This will keep the order that the requests are made in.
-	 * (non-blocking)
-	 * 
-	 * @param type
-	 *            the type of request
-	 * @param params
-	 *            the parameters for the request
-	 * @param listener
-	 *            the listener to handle the results on
-	 */
-	private void addToQueue(final String type, BazaarParams params,
-			final OnBazaarResponse listener, RequestMethod method) {
-		final String requestString = getRequestString(type, params);
-		Log.d(tag, requestString);
-
-		if (requestQueue == null) {
-			requestQueue = new RequestQueue();
+			
+			connection.disconnect();
 		}
-		requestQueue.addRequest(requestString, listener, method,
-				(params == null ? null : params.getMedia()));
-	}
-
-	/**
-	 * Gets a DefaultHttpClient in a thread safe manner.
-	 * 
-	 * @return the Http client
-	 */
-	public static DefaultHttpClient getThreadSafeClient() {
-		DefaultHttpClient client = new DefaultHttpClient();
-		ClientConnectionManager mgr = client.getConnectionManager();
-		HttpParams params = client.getParams();
-
-		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
-				mgr.getSchemeRegistry()), params);
-
-		return client;
-	}
-
-	/**
-	 * Inner class for handling queued requests.
-	 */
-	class RequestQueue {
-		private Thread requestThread;
-
-		/**
-		 * Inner inner class to hold request information.
-		 */
-		private class RequestData {
-			public String request;
-			public OnBazaarResponse listener;
-			public RequestMethod method;
-			public Media media;
-
-			private RequestData(String request, OnBazaarResponse listener,
-					RequestMethod method, Media media) {
-				this.request = request;
-				this.listener = listener;
-				this.method = method;
-				this.media = media;
+				
+		private String readResponse(InputStream stream) throws IOException {
+			ByteArrayBuffer baf = new ByteArrayBuffer(50);
+			
+			int bytesRead = -1;
+			byte[] buffer = new byte[1024];
+			while ((bytesRead = stream.read(buffer)) >= 0) {
+				// process the buffer, "bytesRead" have been read, no more, no less
+				baf.append(buffer, 0, bytesRead);
 			}
+			stream.close();
+			return new String(baf.toByteArray());
 		}
-
-		private LinkedList<RequestData> requestQueue = new LinkedList<RequestData>();
-		private final Object lock = new Object();
-
-		public RequestQueue() {
-		}
-
-		/**
-		 * Adds a request to the request queue and then checks to see if we are
-		 * ready to send.
-		 * 
-		 * @param request
-		 *            the full request string
-		 * @param listener
-		 *            the callback for the response
-		 * @param method
-		 *            the type of submission
-		 * @param media
-		 *            the media to attach if needed
-		 */
-		public void addRequest(String request, OnBazaarResponse listener,
-				RequestMethod method, Media media) {
-			synchronized (lock) {
-				requestQueue.addFirst(new RequestData(request, listener,
-						method, media));
-			}
-
-			checkThread();
-		}
-
-		/**
-		 * Checks to see if we are currently sending from the queue and dequeues
-		 * if we are not.
-		 */
-		public void checkThread() {
-			if (requestThread == null) {
-				boolean startThread = false;
-				// synchronize here so we don't create 2 threads
-				synchronized (lockThread) {
-					if (requestThread == null) {
-						startThread = true;
-						requestThread = new Thread() {
-							public void run() {
-								dequeRequests();
-							}
-						};
+		
+		private void writeToServer(HttpURLConnection connection) throws IOException {
+			
+			OutputStream out;
+			
+			if (media) {
+				
+				//change the content type to multipart
+				connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+				
+				out = new BufferedOutputStream(connection.getOutputStream());
+				
+				
+				for (String param : multiPartParams) {
+					out.write(param.getBytes());
+				}
+				multiPartParams.clear();
+				
+				
+				//buffer for file transfers
+				int bytesRead, bytesAvailable, bufferSize;
+				byte[] buffer;
+				int maxBufferSize = 1*1024*1024;
+									
+				out.write(mediaParam.get(0).getBytes());
+				out.write(mediaParam.get(1).getBytes());
+				
+				if (mediaEntity.getFile() != null) {
+					
+					FileInputStream fileInputStream = new FileInputStream(mediaEntity.getFile());
+					
+					bytesAvailable = fileInputStream.available();
+					bufferSize = Math.min(bytesAvailable, maxBufferSize);
+					buffer = new byte[bufferSize];
+					
+					// Read file
+					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+					
+					while (bytesRead > 0)
+					{
+						out.write(buffer, 0, bufferSize);
+						bytesAvailable = fileInputStream.available();
+						bufferSize = Math.min(bytesAvailable, maxBufferSize);
+						bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 					}
-				}
-
-				if (startThread) {
-					requestThread.start();
-				}
-			}
-		}
-
-		/**
-		 * Pulls a request off of the queue, sends it, and calls the listener
-		 * callback when it returns.
-		 */
-		private void dequeRequests() {
-			while (true) {
-				synchronized (lock) {
-					if (requestQueue.size() > 0) {
-						RequestData requestData = requestQueue.removeLast();
-						try {
-							JSONObject response = send(requestData.request,
-									requestData.method, requestData.media);
-							requestData.listener.onResponse(response);
-
-						} catch (Exception e) {
-							synchronized (lock) {
-								requestData.listener.onException(
-										e.getMessage(), e);
-							}
-						}
-					} else {
-						// this thread is dead
-						requestThread = null;
-						break;
+					
+					fileInputStream.close();
+					
+				} else {				
+					InputStream fileInputStream = new ByteArrayInputStream(mediaEntity.getBytes());
+							
+					bytesAvailable = fileInputStream.available();
+					bufferSize = Math.min(bytesAvailable, maxBufferSize);
+					buffer = new byte[bufferSize];
+					
+					// Read file
+					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+					
+					while (bytesRead > 0)
+					{
+						out.write(buffer, 0, bufferSize);
+						bytesAvailable = fileInputStream.available();
+						bufferSize = Math.min(bytesAvailable, maxBufferSize);
+						bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 					}
+
+					fileInputStream.close();	
 				}
+				
+				out.write(mediaParam.get(2).getBytes());
+				out.write(mediaParam.get(3).getBytes());
+				
+				
+			} else {	
+				out = new BufferedOutputStream(connection.getOutputStream());
+				out.write(paramString.getBytes());
 			}
-		}
+			
+			out.flush();
+			out.close();
+					
+		}		
 	}
+	
+	private int getContentLength() throws IOException {
+		writeLastBoundary();
+		return contentLength;
+	}
+
+	private void writeLastBoundary() throws IOException {
+		//out.write(("--" + boundary + "--\r\n").getBytes());
+		if (media) {
+			mediaParam.add("--" + boundary + "--\r\n");
+		} else {
+			multiPartParams.add("--" + boundary + "--\r\n");
+		}
+		contentLength = contentLength + ("--" + boundary + "--\r\n").getBytes().length;
+	}
+
 }

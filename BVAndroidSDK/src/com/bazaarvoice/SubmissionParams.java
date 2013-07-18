@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2013 Bazaarvoice
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.bazaarvoice;
 
 import java.util.ArrayList;
@@ -15,11 +30,6 @@ import com.bazaarvoice.types.FeedbackVoteType;
  * Use of this class will rely on knowledge of the <a
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You should use
  * this site as a reference for which parameters to pass using this class.
- * 
- * <p>
- * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
- * 
- * @author Bazaarvoice Engineering
  */
 public class SubmissionParams extends BazaarParams {
 
@@ -290,6 +300,10 @@ public class SubmissionParams extends BazaarParams {
 		contextDataValue = addToMap(contextDataValue, dimensionExternalId, value);
 	}
 
+	public Map<String, String> getContextDataValue() {
+		return contextDataValue;
+	}
+	
 	/**
 	 * Associates a photo caption with this submission.
 	 * 
@@ -311,6 +325,10 @@ public class SubmissionParams extends BazaarParams {
 		}
 		photoCaptions.add(photoCaption);
 	}
+	
+	public List<String> getPhotoCaptions() {
+		return photoCaptions;
+	}
 
 	/**
 	 * Associates a photo url with this submission.
@@ -325,6 +343,10 @@ public class SubmissionParams extends BazaarParams {
 		}
 		photoUrls.add(photoUrl);
 	}
+	
+	public List<String> getPhotoUrls() {
+		return photoUrls;
+	}
 
 	/**
 	 * Add a product id to the list of "ProductRecommendationId_{@literal <n>}"
@@ -338,6 +360,10 @@ public class SubmissionParams extends BazaarParams {
 			productRecommendationIds = new ArrayList<String>();
 		}
 		productRecommendationIds.add(productId);
+	}
+	
+	public List<String> getProductRecommendationIds() {
+		return productRecommendationIds;
 	}
 
 	/**
@@ -362,6 +388,9 @@ public class SubmissionParams extends BazaarParams {
 		videoCaptions.add(videoCaption);
 	}
 
+	public List<String> getVideoCaptions() {
+		return videoCaptions;
+	}
 	/**
 	 * Associates a video url with this submission.
 	 * 
@@ -374,6 +403,10 @@ public class SubmissionParams extends BazaarParams {
 			videoUrls = new ArrayList<String>();
 		}
 		videoUrls.add(videoUrl);
+	}
+	
+	public List<String> getVideoUrls() {
+		return videoUrls;
 	}
 
 	/***** Used by Review, Question, Answer, Story *******/
@@ -390,6 +423,10 @@ public class SubmissionParams extends BazaarParams {
 	 */
 	public void addAdditionalField(String id, String value) {
 		additionalField = addToMap(additionalField, id, value);
+	}
+	
+	public Map<String, String> getAdditionalField() {
+		return additionalField;
 	}
 
 	/***** Used by Review, Question, Story *******/
@@ -424,6 +461,10 @@ public class SubmissionParams extends BazaarParams {
 	public void addTagForDimensionExternalId(String dimensionExternalId, String value) {
 		tagDim = addToMap(tagDim, dimensionExternalId, value);
 	}
+	
+	public Map<String, String> getTagForDimensionExternalId() {
+		return tagDim;
+	}
 
 	/**
 	 * Adds a tag with a particular dimensionExternalId and value.  For example, a client might add the value 
@@ -436,6 +477,10 @@ public class SubmissionParams extends BazaarParams {
 	 */
 	public void addTagIdForDimensionExternalId(String dimensionExternalId, Boolean value) {
 		tagIdDim = addToMap(tagIdDim, dimensionExternalId, value.toString());
+	}
+	
+	public Map<String, String> getTagIdForDimensionExternalId() {
+		return tagIdDim;
 	}
 
 	/***** Used by Review, Story, Comment *******/
@@ -593,6 +638,9 @@ public class SubmissionParams extends BazaarParams {
 		ratingDim = addToMap(ratingDim, dimensionExternalId, value);
 	}
 
+	public Map<String, String> getRatingForDimensionExternalId() {
+		return ratingDim;
+	}
 	/***** Used by Question *******/
 
 	/**
@@ -890,85 +938,86 @@ public class SubmissionParams extends BazaarParams {
 		this.vote = feedbackVoteType;
 	}
 
-	/**
-	 * Add the parameters set in this instance to the given url string.
-	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the url with parameters
-	 */
 	@Override
-	public String toURL(String url) {
+	protected String toURL(String apiVersion, String passKey) {
+StringBuilder url = new StringBuilder();
 		
-		if (action != null) {
-			url = addURLParameter(url, "action", action.getActionName());
+		url.append(addURLParameter("apiversion", apiVersion));
+		url.append(addURLParameter("passkey", passKey));
+		
+		if (getAction() != null) {
+			url.append(addURLParameter("action", getAction().getActionName()));
 		}
-		url = addURLParameter(url, "agreedToTermsAndConditions",
-				agreedToTermsAndConditions);
-		url = addURLParameter(url, "campaignId", campaignId);
-		url = addURLParameter(url, "locale", locale);
-		url = addURLParameter(url, "sendEmailAlertWhenPublished",
-				sendEmailAlertWhenPublished);
-		url = addURLParameter(url, "userEmail", userEmail);
-		url = addURLParameter(url, "userId", userId);
-		url = addURLParameter(url, "userLocation", userLocation);
-		url = addURLParameter(url, "userNickname", userNickname);
+		url.append(addURLParameter("agreedToTermsAndConditions",
+				getAgreedToTermsAndConditions()));
+		url.append(addURLParameter("campaignId", getCampaignId()));
+		url.append(addURLParameter("locale", getLocale()));
+		url.append(addURLParameter("sendEmailAlertWhenPublished",
+				getSendEmailAlertWhenPublished()));
+		url.append(addURLParameter("userEmail", getUserEmail()));
+		url.append(addURLParameter("userId", getUserId()));
+		url.append(addURLParameter("userLocation", getUserLocation()));
+		url.append(addURLParameter("userNickname", getUserNickname()));
 		
-		url = addURLParameter(url, "contextDataValue", contextDataValue);
-		url = addNthURLParamsFromList(url, "photoCaption", photoCaptions);
-		url = addNthURLParamsFromList(url, "photoUrl", photoUrls);
-		url = addNthURLParamsFromList(url, "productRecommendationId",
-				productRecommendationIds);
-		url = addNthURLParamsFromList(url, "videoCaption", videoCaptions);
-		url = addNthURLParamsFromList(url, "videoUrl", videoUrls);
+		url.append(addURLParameter("contextDataValue", getContextDataValue()));
+		url.append(addNthURLParamsFromList("photoCaption", getPhotoCaptions()));
+		url.append(addNthURLParamsFromList("photoUrl", getPhotoUrls()));
+		url.append(addNthURLParamsFromList("productRecommendationId",
+				getProductRecommendationIds()));
+		url.append(addNthURLParamsFromList("videoCaption", getVideoCaptions()));
+		url.append(addNthURLParamsFromList("videoUrl", getVideoUrls()));
 		
-		url = addURLParameter(url, "additionalField", additionalField);
+		url.append(addURLParameter("additionalField", getAdditionalField()));
 		
-		url = addURLParameter(url, "productId", productId);
+		url.append(addURLParameter("productId", getProductId()));
 		
-		// TODO: test tag_ and tagid_
-		url = addURLParameter(url, "tag", tagDim);
-		url = addURLParameter(url, "tagid", tagIdDim);
+		url.append(addURLParameter("tag", getTagForDimensionExternalId()));
+		url.append(addURLParameter("tagid", getTagIdForDimensionExternalId()));
 		
-		url = addURLParameter(url, "title", title);
+		url.append(addURLParameter("title", getTitle()));
 		
-		url = addURLParameter(url, "categoryId", categoryId);
+		url.append(addURLParameter("categoryId", getCategoryId()));
 		
-		url = addURLParameter(url, "isRecommended", isRecommended);
-		url = addURLParameter(url, "netPromoterComment", netPromoterComment);
-		url = addURLParameter(url, "netPromoterScore", netPromoterScore);
-		url = addURLParameter(url, "rating", rating);
-		url = addURLParameter(url, "reviewText", reviewText);
+		url.append(addURLParameter("isRecommended", getRecommended()));
+		url.append(addURLParameter("netPromoterComment", getNetPromoterComment()));
+		url.append(addURLParameter("netPromoterScore", getNetPromoterScore()));
+		url.append(addURLParameter("rating", getRating()));
+		url.append(addURLParameter("reviewText", getReviewText()));
 		
-		url = addURLParameter(url, "rating", ratingDim);
+		url.append(addURLParameter("rating", getRatingForDimensionExternalId()));
 		
-		url = addURLParameter(url, "isUserAnonymous", isUserAnonymous);
-		url = addURLParameter(url, "questionSummary", questionSummary);
-		url = addURLParameter(url, "questionDetails", questionDetails);
+		url.append(addURLParameter("isUserAnonymous", getIsUserAnonymous()));
+		url.append(addURLParameter("questionSummary", getQuestionSummary()));
+		url.append(addURLParameter("questionDetails", getQuestionDetails()));
 		
-		url = addURLParameter(url, "answerText", answerText);
-		url = addURLParameter(url, "questionId", questionId);
+		url.append(addURLParameter("answerText", getAnswerText()));
+		url.append(addURLParameter("questionId", getQuestionId()));
 		
-		url = addURLParameter(url, "sendEmailAlertWhenCommented",
-				sendEmailAlertWhenCommented);
-		url = addURLParameter(url, "storyText", storyText);
+		url.append(addURLParameter("sendEmailAlertWhenCommented",
+				getSendEmailAlertWhenCommented()));
+		url.append(addURLParameter("storyText", getStoryText()));
 		
-		url = addURLParameter(url, "reviewId", reviewId);
-		url = addURLParameter(url, "storyId", storyId);
-		url = addURLParameter(url, "CommentText", commentText);
+		url.append(addURLParameter("reviewId", getReviewId()));
+		url.append(addURLParameter("storyId", getStoryId()));
+		url.append(addURLParameter("CommentText", getCommentText()));
 		
-		url = addURLParameter(url, "contentId", contentId);
-		if(contentType != null){
-			url = addURLParameter(url, "contentType", contentType.getTypeString());			
+		url.append(addURLParameter("contentId", getContentId()));
+		if(getContentType() != null){
+			url.append(addURLParameter("contentType", getContentType().getTypeString()));			
 		}
-		if(feedbackType != null){
-			url = addURLParameter(url, "feedbackType", feedbackType.getTypeString());
+		if(getFeedbackType() != null){
+			url.append(addURLParameter("feedbackType", getFeedbackType().getTypeString()));
 		}
-		url = addURLParameter(url, "reasonText", reasonText);
-		if(vote != null){
-				url = addURLParameter(url, "vote", vote.getTypeString());
+		url.append(addURLParameter("reasonText", getReasonText()));
+		if(getVote() != null){
+			url.append(addURLParameter("vote", getVote().getTypeString()));
 		}
-		return url;
+		return url.toString();
 	}
 
+	@Override
+	protected void addPostParameters(String apiVersion, String passKey,
+			BazaarRequest request) {
+		// just a method stub		
+	}
 }

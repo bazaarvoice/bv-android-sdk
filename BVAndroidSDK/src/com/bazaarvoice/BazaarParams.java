@@ -1,38 +1,38 @@
+/*******************************************************************************
+ * Copyright 2013 Bazaarvoice
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.bazaarvoice;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * 
  * The base class for adding parameters to a BazaarRequest. This
  * class should not be used to add parameters. Instead, use one of the derived
  * classes: {@link DisplayParams}, {@link SubmissionParams}, {@link SubmissionMediaParams}.
- * 
- * <p>
- * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
- * 
- * @author Bazaarvoice Engineering
  */
 public abstract class BazaarParams {
 
 	protected Media media;
-	private String encryptedUser;
-
-	/**
-	 * Convert the class into a url parameters string.
-	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the url with parameters
-	 */
-	public abstract String toURL(String url);
-
+	
 	/**
 	 * Get the media file associated with these parameters.
 	 * 
@@ -41,48 +41,44 @@ public abstract class BazaarParams {
 	public Media getMedia() {
 		return media;
 	}
-
+	
 	/**
-	 * Encrypt the user based on the authentication key, the user ID, and a
-	 * date.
+	 * Convert the class into a url parameters string.
 	 * 
-	 * @param userAuthKey
-	 *            the user authentication key
-	 * @param date
-	 *            the date used to encode the user
-	 * @param userId
-	 *            the user ID
+	 * @param url
+	 *            the base url to append to
+	 * @return the url with parameters
 	 */
-	public void setEncryptUser(String userAuthKey, Date date, String userId) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String userStr = "date=" + sdf.format(date) + "&userid=" + userId;
-
-		String md5 = Utils.getMD5(userAuthKey + userStr);
-		encryptedUser = md5 + new String(Utils.encodeHex(userStr.getBytes()));
-	}
-
+	protected abstract String toURL(String apiVersion, String passKey);
+	
+	
 	/**
-	 * Encrypt the user based on the authentication key, user ID and today's
-	 * date.
+	 * Add multipart parameters to the Http request
 	 * 
-	 * @param userAuthKey
-	 *            the user authentication key
-	 * @param userId
-	 *            the user ID
+	 * @param name
+	 *            the name of the parameter being added
+	 * @param val
+	 * 				The value of the parameter
 	 */
-	public void setEncryptUser(String userAuthKey, String userId) {
-		setEncryptUser(userAuthKey, new Date(), userId);
-	}
-
+	protected abstract void addPostParameters(String apiVersion, String passKey, BazaarRequest request);
+	
 	/**
-	 * Gets the previously set user ID string.
+	 * URL encode the value
 	 * 
-	 * @return the encrypted user ID
+	 * @param value
+	 *            the value to encode
+	 * @return encoded value
 	 */
-	public String getEncryptedUser() {
-		return encryptedUser;
+	@SuppressWarnings("deprecation")
+	protected static String encode(String value) {
+		try {
+			return URLEncoder.encode(value, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			return URLEncoder.encode(value);
+		}
 	}
-
+	
+	
 	/**
 	 * Helper method for ensuring a map exists and adding a value to it.
 	 * 
@@ -107,201 +103,127 @@ public abstract class BazaarParams {
 		map.put(type, value);
 		return map;
 	}
-
-	/**
-	 * Add a parameter to the current url.
-	 * 
-	 * <p>
-	 * <b>Usage:</b><br>
-	 * This is called internally by subclasses of BazaarParams and by
-	 * BazaarRequest. This may be able to be used to add additional parameters,
-	 * but is not recommended. For additional fields, see
-	 * {@link SubmissionParams#addAdditionalField
-	 * SubmissionParams.addAdditionalField()}.
-	 * 
-	 * @param url
-	 *            the current url with or without parameters
-	 * @param name
-	 *            the name of the parameter to add
-	 * @param value
-	 *            the value
-	 * @return the url with the parameter added
-	 */
-	public static String addURLParameter(String url, String name, String value) {
-		if (value != null && value.length() > 0) {
-			value = encode(value);
-			char separator = url.contains("?") ? '&' : '?';
-			url += separator + name + '=' + value;
+	
+	
+	protected void addMultipartParameter(String name, Object val, BazaarRequest request) {
+		if (name != null && val != null) {
+			String value = val.toString();
+			
+			String topBoundary = "--" + request.boundary + "\r\n";
+			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"\r\n\r\n", name);
+			String valueParam = String.format("%s\r\n", value);
+			
+			request.multiPartParams.add(topBoundary);
+			request.multiPartParams.add(contentDisp);
+			request.multiPartParams.add(valueParam);
+			
+			request.contentLength = request.contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length;
+        	
+			request.multipart = true;    
 		}
-		return url;
-	}
-
-	/**
-	 * Add a boolean parameter to the current url as long as the value is not
-	 * null.
-	 * 
-	 * <p>
-	 * <b>Usage:</b><br>
-	 * This is called internally by subclasses of BazaarParams and by
-	 * BazaarRequest. This may be able to be used to add additional parameters,
-	 * but is not recommended. For additional fields, see
-	 * {@link SubmissionParams#addAdditionalField
-	 * SubmissionParams.addAdditionalField()}.
-	 * 
-	 * @param url
-	 *            the current url with or without parameters
-	 * @param name
-	 *            the name of the parameter to add
-	 * @param value
-	 *            the value
-	 * @return the url with the parameter added
-	 */
-	public static String addURLParameter(String url, String name, Boolean value) {
-		if (value != null) {
-			return addURLParameter(url, name, value.toString());
+    }
+	
+	//adding a file object to request
+	protected void addMultipartParameter(String name, String fileName, String contentType, File mediaFile, BazaarRequest request) {
+    	
+        if ((name != null) && (fileName != null) && (contentType != null)) {
+        	
+        	String topBoundary = "--" + request.boundary + "\r\n";
+			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
+    				name, fileName, contentType);
+			String valueParam = "\r\n";
+			
+			request.mediaParam.add(topBoundary);
+			request.mediaParam.add(contentDisp);
+			request.mediaParam.add(valueParam);			
+			
+			request.contentLength = request.contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length + (int) mediaFile.length();
+        	
+			request.multipart = true;
+			request.media = true;
+        }
+    }
+	
+	//adding byte array to the request
+	protected void addMultipartParameter(String name, String fileName, String contentType, byte[] mediaFileBytes, BazaarRequest request) {
+    	
+        if ((name != null) && (fileName != null) && (contentType != null)) {
+        	
+        	String topBoundary = "--" + request.boundary + "\r\n";
+			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
+    				name, fileName, contentType);
+			String valueParam = "\r\n";
+			
+			request.mediaParam.add(topBoundary);
+			request.mediaParam.add(contentDisp);
+			request.mediaParam.add(valueParam);			
+			
+			request.contentLength = request.contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length + mediaFileBytes.length;
+        	
+			request.multipart = true;
+			request.media = true;
+        }
+    }
+	
+	
+	protected String addURLParameter(String name, Object val) {
+		if (val != null) {
+			String value = val.toString();
+			
+			if (value.length() > 0) {
+				value = BazaarParams.encode(value);
+				return "&" + name + '=' + value;
+			}
 		}
-		return url;
-	}
-
-	/**
-	 * Add an integer parameter to the current url as long as the value is not
-	 * null.
-	 * 
-	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
-	 *        BazaarRequest. This may be able to be used to add additional
-	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField
-	 *        SubmissionParams.addAdditionalField()}.
-	 * 
-	 * @param url
-	 *            the current url with or without parameters
-	 * @param name
-	 *            the name of the parameter to add
-	 * @param value
-	 *            the value
-	 * @return the url with the parameter added
-	 */
-	public static String addURLParameter(String url, String name, Integer value) {
-		if (value != null) {
-			return addURLParameter(url, name, value.toString());
-		}
-		return url;
-	}
-
-	/**
-	 * Add a map of parameters to the current url in the form
-	 * "name_key1=value1&name_key2=value2".
-	 * 
-	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
-	 *        BazaarRequest. This may be able to be used to add additional
-	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField
-	 *        SubmissionParams.addAdditionalField()}.
-	 * 
-	 * @param url
-	 *            the current url with or without parameters
-	 * @param name
-	 *            the name of the parameter to add
-	 * @param map
-	 *            the map of values to add
-	 * @return the url with the parameter added
-	 */
-	public static String addURLParameter(String url, String name,
-			Map<String, String> map) {
+		return "";
+	}	
+	
+	
+	protected String addURLParameter(String name, Map<String, String> map) {
+		StringBuilder url = new StringBuilder();
 		if (map != null) {
 			for (Map.Entry<String, String> entry : map.entrySet()) {
 				String key = entry.getKey();
 				String value = entry.getValue();
 
-				url = addURLParameter(url, name + "_" + key, value);
+				url.append(addURLParameter(name + "_" + key, value));
 			}
 		}
-		return url;
+		return url.toString();
 	}
-
-	/**
-	 * URL encode the value
-	 * 
-	 * @param value
-	 *            the value to encode
-	 * @return encoded value
-	 */
-	@SuppressWarnings("deprecation")
-	protected static String encode(String value) {
-		try {
-			return URLEncoder.encode(value, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			return URLEncoder.encode(value);
-		}
-	}
-
-	/**
-	 * Add a list parameters to the url from a list in the form
-	 * "name=value1,value2,value3".
-	 * 
-	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
-	 *        BazaarRequest. This may be able to be used to add additional
-	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField
-	 *        SubmissionParams.addAdditionalField()}.
-	 * 
-	 * @param url
-	 *            the current url with or without parameters
-	 * @param name
-	 *            the name of the parameter to add
-	 * @param values
-	 *            the list of values that will be separated by commas
-	 * @return the new url
-	 */
-	public static String addURLParamsFromList(String url, String name,
-			List<String> values) {
+	
+	
+	protected String addURLParameter(String name, List<String> values) {
 		if (values != null) {
-			String paramList = "";
+			StringBuilder paramList = new StringBuilder();
 			boolean first = true;
 			for (String value : values) {
 				if (first) {
 					first = false;
 				} else {
-					paramList += ",";
+					paramList.append(",");
 				}
 
-				paramList += value;
+				paramList.append(value);
 			}
-			return addURLParameter(url, name, paramList);
+			return addURLParameter(name, paramList);
 		}
-		return url;
+		return "";
 	}
 
-	/**
-	 * Add a list parameters to the url from a list in the form
-	 * "name_1=value1&name_2=value2&name_3=value3".
-	 * 
-	 * <p><b>Usage:</b><br> This is called internally by subclasses of BazaarParams and by
-	 *        BazaarRequest. This may be able to be used to add additional
-	 *        parameters, but is not recommended. For additional fields, see
-	 *        {@link SubmissionParams#addAdditionalField
-	 *        SubmissionParams.addAdditionalField()}.
-	 * 
-	 * @param url
-	 *            the current url with or without parameters
-	 * @param name
-	 *            the name of the parameter to add
-	 * @param values
-	 *            the list of values that will be separated by commas
-	 * @return the new url
-	 */
-	public static String addNthURLParamsFromList(String url, String name,
-			List<String> values) {
+	
+	protected String addNthURLParamsFromList(String name, List<String> values) {
+		StringBuilder url = new StringBuilder();
 		if (values != null) {
 			for (int i = 0; i < values.size(); i++) {
 				// Start with param_1
 				int key = i + 1;
 				String value = values.get(i);
 
-				url = addURLParameter(url, name + "_" + key, value);
+				url.append(addURLParameter(name + "_" + key, value));
 			}
 		}
-		return url;
+		return url.toString();
 	}
 
 }

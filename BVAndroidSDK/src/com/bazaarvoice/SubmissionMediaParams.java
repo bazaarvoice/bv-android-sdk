@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2013 Bazaarvoice
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.bazaarvoice;
 
 import java.io.ByteArrayOutputStream;
@@ -17,11 +32,6 @@ import com.bazaarvoice.types.MediaParamsContentType;
  * href="http://developer.bazaarvoice.com/">Bazaarvoice API</a>. You might want
  * to use this site as a reference for which parameters to pass using this
  * class.
- * 
- * <p>
- * Created on 7/9/12. Copyright (c) 2012 BazaarVoice. All rights reserved.
- * 
- * @author Bazaarvoice Engineering
  */
 public class SubmissionMediaParams extends BazaarParams {
 	private MediaParamsContentType contentType;
@@ -148,7 +158,7 @@ public class SubmissionMediaParams extends BazaarParams {
 	 * @return the photo url
 	 */
 	public String getPhotoUrl() {
-		return userId;
+		return photoUrl;
 	}
 	
 	/**
@@ -206,22 +216,31 @@ public class SubmissionMediaParams extends BazaarParams {
 			throws FileNotFoundException, IOException {
 		media = new Media(file, mediaType, file.getName());
 	}
-	
-	/**
-	 * Add the parameters set in this instance to the given url string.
-	 * 
-	 * @param url
-	 *            the base url to append to
-	 * @return the url with the parameter list on it
-	 */
-	public String toURL(String url) {
-		if(contentType != null){
-			url = addURLParameter(url, "contentType", contentType.getTypeString());			
+
+	@Override
+	protected String toURL(String apiVersion, String passKey) {
+		StringBuilder url = new StringBuilder();
+		
+		if(getContentType() != null){
+			url.append(addURLParameter("contentType", getContentType().getTypeString()));			
 		}
-		url = addURLParameter(url, "locale", locale);
-		url = addURLParameter(url, "userId", userId);
-		url = addURLParameter(url, "photoUrl", photoUrl);
-		return url;
+		url.append(addURLParameter("apiversion", apiVersion));
+		url.append(addURLParameter("passkey", passKey));
+		url.append(addURLParameter("locale", getLocale()));
+		url.append(addURLParameter("userId", getUserId()));
+		url.append(addURLParameter("photoUrl", getPhotoUrl()));
+		return url.toString();
 	}
-	
+
+	@Override
+	protected void addPostParameters(String apiVersion, String passKey, BazaarRequest request) {
+		if(getContentType() != null){
+			addMultipartParameter("contentType", getContentType().getTypeString(), request);			
+		}
+		addMultipartParameter("apiversion", apiVersion, request);
+		addMultipartParameter("passkey", passKey, request);
+		addMultipartParameter("locale", getLocale(), request);
+		addMultipartParameter("userId", getUserId(), request);
+		addMultipartParameter("photoUrl", getPhotoUrl(), request);		
+	}
 }

@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2013 Bazaarvoice
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.bazaarvoice.test.SubmissionTests;
 
 import java.io.File;
@@ -28,16 +43,18 @@ import com.bazaarvoice.types.ApiVersion;
 import com.bazaarvoice.types.MediaParamsContentType;
 import com.bazaarvoice.types.RequestType;
 
-/**
- * Author: Gary Pezza
- * Created: 5/13/12 8:55 PM
- */
 public class VideoSubmissionTest extends BaseTest {
 
     private final String tag = getClass().getSimpleName();
-    private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
-            "2cpdrhohmgmwfz8vqyo48f52g",
-            ApiVersion.FIVE_FOUR);
+    private BazaarRequest submitMedia;
+    
+    @Override
+	protected void setUp() throws Exception {
+    	submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging",
+                "2cpdrhohmgmwfz8vqyo48f52g",
+                ApiVersion.FIVE_FOUR);
+	}
+    
     public void testVideoSubmit() {
 
         //Your PC can't communicate with your device and access your sd card at the same time.  So for this test, lets
@@ -82,10 +99,11 @@ public class VideoSubmissionTest extends BaseTest {
         SubmissionMediaParams mediaParams = new SubmissionMediaParams(MediaParamsContentType.REVIEW);
         mediaParams.setUserId("735688f97b74996e214f5df79bff9e8b7573657269643d393274796630666f793026646174653d3230313130353234");
         try {
-            mediaParams.setVideo(imageBytes, "androids.avi");
-            //Log time for request
+        	
+            mediaParams.setVideo(imageBytes, "Android_Video.mp4");
+            
             Log.e(tag, "Begin of video submit transmission : BEGIN " + System.currentTimeMillis());
-            submitMedia.queueSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
+            submitMedia.postSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -145,7 +163,7 @@ public class VideoSubmissionTest extends BaseTest {
 		}
         
         Log.e(tag, "Begin of video submit transmission : BEGIN " + System.currentTimeMillis());
-        submitMedia.queueSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
+        submitMedia.postSubmission(RequestType.VIDEOS, mediaParams, bazaarResponse);
         bazaarResponse.waitForTestToFinish();
     }
 }
