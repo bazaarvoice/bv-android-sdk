@@ -397,4 +397,57 @@ public class DisplayParams extends BazaarParams {
 		addFilterHelper(filterName, attribute, equality, values);
 	}
 
+	@Override
+	protected String toURL(String apiVersion, String passKey) {
+		char separator = '&';
+		StringBuilder url = new StringBuilder();
+
+		if (getFilters() != null) {
+			for (String filter : getFilters()) {
+				url.append(separator);
+				url.append(filter);
+			}
+		}
+
+		url.append(addURLParameter("search", getSearch()));
+		if (getLocale() != null) {
+			url.append(addURLParameter("locale", getLocale()));
+		}
+		url.append(addURLParameter("offset", getOffset()));
+		url.append(addURLParameter("limit", getLimit()));
+		url.append(addURLParameter("excludeFamily", getExcludeFamily()));
+
+		
+		url.append(addURLParameter("include", getIncludes()));
+		url.append(addURLParameter("attributes", getAttributes()));
+		url.append(addURLParameter("stats", getStats()));
+		url.append(addURLParameter("sort", getSort()));
+
+		//char separator = url.contains("?") ? '&' : '?';
+		if (getSortType() != null) {
+			for (String s : getSortType()) {
+				url.append(separator + s);
+			}
+		}
+		
+		if (getSearchType() != null) {
+			for (String s : getSearchType()) {
+				url.append(separator + s);
+			}
+		}
+
+		if (getLimitType() != null) {
+			for (String limit : getLimitType()) {
+				url.append(separator + limit);
+			}
+		}
+		return url.toString();
+	}
+
+	@Override
+	protected void addPostParameters(String apiVersion, String passKey,
+			BazaarRequest request) {
+		// just a method stub
+	}
+
 }
