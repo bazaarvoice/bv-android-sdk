@@ -927,4 +927,87 @@ public class SubmissionParams extends BazaarParams {
 	public void setVote(FeedbackVoteType feedbackVoteType) {
 		this.vote = feedbackVoteType;
 	}
+
+	@Override
+	protected String toURL(String apiVersion, String passKey) {
+StringBuilder url = new StringBuilder();
+		
+		url.append(addURLParameter("apiversion", apiVersion));
+		url.append(addURLParameter("passkey", passKey));
+		
+		if (getAction() != null) {
+			url.append(addURLParameter("action", getAction().getActionName()));
+		}
+		url.append(addURLParameter("agreedToTermsAndConditions",
+				getAgreedToTermsAndConditions()));
+		url.append(addURLParameter("campaignId", getCampaignId()));
+		url.append(addURLParameter("locale", getLocale()));
+		url.append(addURLParameter("sendEmailAlertWhenPublished",
+				getSendEmailAlertWhenPublished()));
+		url.append(addURLParameter("userEmail", getUserEmail()));
+		url.append(addURLParameter("userId", getUserId()));
+		url.append(addURLParameter("userLocation", getUserLocation()));
+		url.append(addURLParameter("userNickname", getUserNickname()));
+		
+		url.append(addURLParameter("contextDataValue", getContextDataValue()));
+		url.append(addNthURLParamsFromList("photoCaption", getPhotoCaptions()));
+		url.append(addNthURLParamsFromList("photoUrl", getPhotoUrls()));
+		url.append(addNthURLParamsFromList("productRecommendationId",
+				getProductRecommendationIds()));
+		url.append(addNthURLParamsFromList("videoCaption", getVideoCaptions()));
+		url.append(addNthURLParamsFromList("videoUrl", getVideoUrls()));
+		
+		url.append(addURLParameter("additionalField", getAdditionalField()));
+		
+		url.append(addURLParameter("productId", getProductId()));
+		
+		url.append(addURLParameter("tag", getTagForDimensionExternalId()));
+		url.append(addURLParameter("tagid", getTagIdForDimensionExternalId()));
+		
+		url.append(addURLParameter("title", getTitle()));
+		
+		url.append(addURLParameter("categoryId", getCategoryId()));
+		
+		url.append(addURLParameter("isRecommended", getRecommended()));
+		url.append(addURLParameter("netPromoterComment", getNetPromoterComment()));
+		url.append(addURLParameter("netPromoterScore", getNetPromoterScore()));
+		url.append(addURLParameter("rating", getRating()));
+		url.append(addURLParameter("reviewText", getReviewText()));
+		
+		url.append(addURLParameter("rating", getRatingForDimensionExternalId()));
+		
+		url.append(addURLParameter("isUserAnonymous", getIsUserAnonymous()));
+		url.append(addURLParameter("questionSummary", getQuestionSummary()));
+		url.append(addURLParameter("questionDetails", getQuestionDetails()));
+		
+		url.append(addURLParameter("answerText", getAnswerText()));
+		url.append(addURLParameter("questionId", getQuestionId()));
+		
+		url.append(addURLParameter("sendEmailAlertWhenCommented",
+				getSendEmailAlertWhenCommented()));
+		url.append(addURLParameter("storyText", getStoryText()));
+		
+		url.append(addURLParameter("reviewId", getReviewId()));
+		url.append(addURLParameter("storyId", getStoryId()));
+		url.append(addURLParameter("CommentText", getCommentText()));
+		
+		url.append(addURLParameter("contentId", getContentId()));
+		if(getContentType() != null){
+			url.append(addURLParameter("contentType", getContentType().getTypeString()));			
+		}
+		if(getFeedbackType() != null){
+			url.append(addURLParameter("feedbackType", getFeedbackType().getTypeString()));
+		}
+		url.append(addURLParameter("reasonText", getReasonText()));
+		if(getVote() != null){
+			url.append(addURLParameter("vote", getVote().getTypeString()));
+		}
+		return url.toString();
+	}
+
+	@Override
+	protected void addPostParameters(String apiVersion, String passKey,
+			BazaarRequest request) {
+		// just a method stub		
+	}
 }

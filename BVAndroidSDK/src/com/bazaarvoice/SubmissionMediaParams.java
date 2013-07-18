@@ -206,5 +206,31 @@ public class SubmissionMediaParams extends BazaarParams {
 			throws FileNotFoundException, IOException {
 		media = new Media(file, mediaType, file.getName());
 	}
-	
+
+	@Override
+	protected String toURL(String apiVersion, String passKey) {
+		StringBuilder url = new StringBuilder();
+		
+		if(getContentType() != null){
+			url.append(addURLParameter("contentType", getContentType().getTypeString()));			
+		}
+		url.append(addURLParameter("apiversion", apiVersion));
+		url.append(addURLParameter("passkey", passKey));
+		url.append(addURLParameter("locale", getLocale()));
+		url.append(addURLParameter("userId", getUserId()));
+		url.append(addURLParameter("photoUrl", getPhotoUrl()));
+		return url.toString();
+	}
+
+	@Override
+	protected void addPostParameters(String apiVersion, String passKey, BazaarRequest request) {
+		if(getContentType() != null){
+			addMultipartParameter("contentType", getContentType().getTypeString(), request);			
+		}
+		addMultipartParameter("apiversion", apiVersion, request);
+		addMultipartParameter("passkey", passKey, request);
+		addMultipartParameter("locale", getLocale(), request);
+		addMultipartParameter("userId", getUserId(), request);
+		addMultipartParameter("photoUrl", getPhotoUrl(), request);		
+	}
 }

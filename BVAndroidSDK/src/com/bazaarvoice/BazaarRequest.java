@@ -3,7 +3,6 @@ package com.bazaarvoice;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import org.apache.http.util.ByteArrayBuffer;
@@ -61,13 +58,13 @@ public class BazaarRequest {
     protected int serverResponseCode;
     private String serverResponseMessage = null;
     private String paramString;
-    private ArrayList<String> multiPartParams;
-    private ArrayList<String> mediaParam;
+    protected ArrayList<String> multiPartParams;
+    protected ArrayList<String> mediaParam;
     protected int contentLength = 0;
     protected Object receivedData;
-    private String boundary;
-    private boolean multipart = false;
-    private boolean media = false;
+    protected String boundary;
+    protected boolean multipart = false;
+    protected boolean media = false;
 
 
 	/**
@@ -122,7 +119,7 @@ public class BazaarRequest {
 		
 		//if any, add params to request string
 		if (params != null) {
-			requestString = requestString + displayParamsToURL((DisplayParams) params);
+			requestString = requestString + params.toURL(apiVersion, passKey);
 		}
 		
 		this.url = null;
@@ -165,23 +162,18 @@ public class BazaarRequest {
 			this.mediaEntity = params.getMedia();
 			
 			if (this.mediaEntity != null) {
-				submissionMediaParamsAddPostParameters((SubmissionMediaParams) params);
+				params.addPostParameters(apiVersion, passKey, this);
 				if (this.mediaEntity.getFile() != null) {
 
-					addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile());
+					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile(), this);
 	
 				} else {
 
-					addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getBytes());
+					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getBytes(), this);
 
 				}
 			} else { 
-				
-				if (params.getClass().equals(SubmissionMediaParams.class)) {
-					paramString = submissionMediaParamsToURL((SubmissionMediaParams) params);
-				} else { 
-					paramString = submissionParamsToURL((SubmissionParams) params);
-				}
+				paramString = params.toURL(apiVersion, passKey);
 			}
 		} 
 
@@ -200,7 +192,6 @@ public class BazaarRequest {
 			String httpMethod = args[0];
 			
 			try {
-				System.setProperty("http.keepAlive", "false");
 				connection = (HttpURLConnection) url.openConnection();
 	            
 				// Allow Inputs & Outputs
@@ -225,7 +216,6 @@ public class BazaarRequest {
 	            			
 				//Headers
 				connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-				connection.setRequestProperty("Accept", "application/xml");	
 				connection.setRequestProperty(SDK_HEADER_NAME, SDK_HEADER_VALUE);
 				
 				if ( httpMethod.equals("POST")) {
@@ -355,7 +345,7 @@ public class BazaarRequest {
 					
 		}		
 	}
-
+	
 	private int getContentLength() throws IOException {
 		writeLastBoundary();
 		return contentLength;
@@ -369,281 +359,6 @@ public class BazaarRequest {
 			multiPartParams.add("--" + boundary + "--\r\n");
 		}
 		contentLength = contentLength + ("--" + boundary + "--\r\n").getBytes().length;
-		
-	}
-	
-	private void addMultipartParameter(String name, Object val) {
-		if (name != null && val != null) {
-			String value = val.toString();
-			
-			String topBoundary = "--" + boundary + "\r\n";
-			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"\r\n\r\n", name);
-			String valueParam = String.format("%s\r\n", value);
-			
-			multiPartParams.add(topBoundary);
-			multiPartParams.add(contentDisp);
-			multiPartParams.add(valueParam);
-			
-			contentLength = contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length;
-        	
-        	multipart = true;    
-		}
-    }
-	
-	//adding a file object to request
-	private void addMultipartParameter(String name, String fileName, String contentType, File mediaFile) {
-    	
-        if ((name != null) && (fileName != null) && (contentType != null)) {
-        	
-        	String topBoundary = "--" + boundary + "\r\n";
-			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
-    				name, fileName, contentType);
-			String valueParam = "\r\n";
-			
-			mediaParam.add(topBoundary);
-			mediaParam.add(contentDisp);
-			mediaParam.add(valueParam);			
-			
-			contentLength = contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length + (int) mediaFile.length();
-        	
-            multipart = true;
-        	media = true;
-        }
-    }
-	
-	//adding byte array to the request
-	private void addMultipartParameter(String name, String fileName, String contentType, byte[] mediaFileBytes) {
-    	
-        if ((name != null) && (fileName != null) && (contentType != null)) {
-        	
-        	String topBoundary = "--" + boundary + "\r\n";
-			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
-    				name, fileName, contentType);
-			String valueParam = "\r\n";
-			
-			mediaParam.add(topBoundary);
-			mediaParam.add(contentDisp);
-			mediaParam.add(valueParam);			
-			
-			contentLength = contentLength + topBoundary.getBytes().length + contentDisp.getBytes().length + valueParam.getBytes().length + mediaFileBytes.length;
-        	
-        	multipart = true;
-        	media = true;
-        }
-    }
-	
-	
-	private String addURLParameter(String name, Object val) {
-		if (val != null) {
-			String value = val.toString();
-			
-			if (value.length() > 0) {
-				value = BazaarParams.encode(value);
-				return "&" + name + '=' + value;
-			}
-		}
-		return "";
-	}	
-	
-	
-	private String addURLParameter(String name, Map<String, String> map) {
-		StringBuilder url = new StringBuilder();
-		if (map != null) {
-			for (Map.Entry<String, String> entry : map.entrySet()) {
-				String key = entry.getKey();
-				String value = entry.getValue();
-
-				url.append(addURLParameter(name + "_" + key, value));
-			}
-		}
-		return url.toString();
-	}
-	
-	
-	private String addURLParameter(String name, List<String> values) {
-		if (values != null) {
-			StringBuilder paramList = new StringBuilder();
-			boolean first = true;
-			for (String value : values) {
-				if (first) {
-					first = false;
-				} else {
-					paramList.append(",");
-				}
-
-				paramList.append(value);
-			}
-			return addURLParameter(name, paramList);
-		}
-		return "";
-	}
-
-	
-	private String addNthURLParamsFromList(String name, List<String> values) {
-		StringBuilder url = new StringBuilder();
-		if (values != null) {
-			for (int i = 0; i < values.size(); i++) {
-				// Start with param_1
-				int key = i + 1;
-				String value = values.get(i);
-
-				url.append(addURLParameter(name + "_" + key, value));
-			}
-		}
-		return url.toString();
-	}
-	
-	
-	private String displayParamsToURL(DisplayParams params) {
-		
-		char separator = '&';
-		StringBuilder url = new StringBuilder();
-
-		if (params.getFilters() != null) {
-			for (String filter : params.getFilters()) {
-				url.append(separator);
-				url.append(filter);
-			}
-		}
-
-		url.append(addURLParameter("search", params.getSearch()));
-		if (params.getLocale() != null) {
-			url.append(addURLParameter("locale", params.getLocale()));
-		}
-		url.append(addURLParameter("offset", params.getOffset()));
-		url.append(addURLParameter("limit", params.getLimit()));
-		url.append(addURLParameter("excludeFamily", params.getExcludeFamily()));
-
-		
-		url.append(addURLParameter("include", params.getIncludes()));
-		url.append(addURLParameter("attributes", params.getAttributes()));
-		url.append(addURLParameter("stats", params.getStats()));
-		url.append(addURLParameter("sort", params.getSort()));
-
-		//char separator = url.contains("?") ? '&' : '?';
-		if (params.getSortType() != null) {
-			for (String s : params.getSortType()) {
-				url.append(separator + s);
-			}
-		}
-		
-		if (params.getSearchType() != null) {
-			for (String s : params.getSearchType()) {
-				url.append(separator + s);
-			}
-		}
-
-		if (params.getLimitType() != null) {
-			for (String limit : params.getLimitType()) {
-				url.append(separator + limit);
-			}
-		}
-		return url.toString();
-	}
-
-	
-	private String submissionParamsToURL(SubmissionParams params) {
-		
-		StringBuilder url = new StringBuilder();
-		
-		url.append(addURLParameter("apiversion", apiVersion));
-		url.append(addURLParameter("passkey", passKey));
-		
-		if (params.getAction() != null) {
-			url.append(addURLParameter("action", params.getAction().getActionName()));
-		}
-		url.append(addURLParameter("agreedToTermsAndConditions",
-				params.getAgreedToTermsAndConditions()));
-		url.append(addURLParameter("campaignId", params.getCampaignId()));
-		url.append(addURLParameter("locale", params.getLocale()));
-		url.append(addURLParameter("sendEmailAlertWhenPublished",
-				params.getSendEmailAlertWhenPublished()));
-		url.append(addURLParameter("userEmail", params.getUserEmail()));
-		url.append(addURLParameter("userId", params.getUserId()));
-		url.append(addURLParameter("userLocation", params.getUserLocation()));
-		url.append(addURLParameter("userNickname", params.getUserNickname()));
-		
-		url.append(addURLParameter("contextDataValue", params.getContextDataValue()));
-		url.append(addNthURLParamsFromList("photoCaption", params.getPhotoCaptions()));
-		url.append(addNthURLParamsFromList("photoUrl", params.getPhotoUrls()));
-		url.append(addNthURLParamsFromList("productRecommendationId",
-				params.getProductRecommendationIds()));
-		url.append(addNthURLParamsFromList("videoCaption", params.getVideoCaptions()));
-		url.append(addNthURLParamsFromList("videoUrl", params.getVideoUrls()));
-		
-		url.append(addURLParameter("additionalField", params.getAdditionalField()));
-		
-		url.append(addURLParameter("productId", params.getProductId()));
-		
-		url.append(addURLParameter("tag", params.getTagForDimensionExternalId()));
-		url.append(addURLParameter("tagid", params.getTagIdForDimensionExternalId()));
-		
-		url.append(addURLParameter("title", params.getTitle()));
-		
-		url.append(addURLParameter("categoryId", params.getCategoryId()));
-		
-		url.append(addURLParameter("isRecommended", params.getRecommended()));
-		url.append(addURLParameter("netPromoterComment", params.getNetPromoterComment()));
-		url.append(addURLParameter("netPromoterScore", params.getNetPromoterScore()));
-		url.append(addURLParameter("rating", params.getRating()));
-		url.append(addURLParameter("reviewText", params.getReviewText()));
-		
-		url.append(addURLParameter("rating", params.getRatingForDimensionExternalId()));
-		
-		url.append(addURLParameter("isUserAnonymous", params.getIsUserAnonymous()));
-		url.append(addURLParameter("questionSummary", params.getQuestionSummary()));
-		url.append(addURLParameter("questionDetails", params.getQuestionDetails()));
-		
-		url.append(addURLParameter("answerText", params.getAnswerText()));
-		url.append(addURLParameter("questionId", params.getQuestionId()));
-		
-		url.append(addURLParameter("sendEmailAlertWhenCommented",
-				params.getSendEmailAlertWhenCommented()));
-		url.append(addURLParameter("storyText", params.getStoryText()));
-		
-		url.append(addURLParameter("reviewId", params.getReviewId()));
-		url.append(addURLParameter("storyId", params.getStoryId()));
-		url.append(addURLParameter("CommentText", params.getCommentText()));
-		
-		url.append(addURLParameter("contentId", params.getContentId()));
-		if(params.getContentType() != null){
-			url.append(addURLParameter("contentType", params.getContentType().getTypeString()));			
-		}
-		if(params.getFeedbackType() != null){
-			url.append(addURLParameter("feedbackType", params.getFeedbackType().getTypeString()));
-		}
-		url.append(addURLParameter("reasonText", params.getReasonText()));
-		if(params.getVote() != null){
-			url.append(addURLParameter("vote", params.getVote().getTypeString()));
-		}
-		return url.toString();
-	}
-	
-	private String submissionMediaParamsToURL(SubmissionMediaParams params) {
-		StringBuilder url = new StringBuilder();
-		
-		if(params.getContentType() != null){
-			url.append(addURLParameter("contentType", params.getContentType().getTypeString()));			
-		}
-		url.append(addURLParameter("apiversion", apiVersion));
-		url.append(addURLParameter("passkey", passKey));
-		url.append(addURLParameter("locale", params.getLocale()));
-		url.append(addURLParameter("userId", params.getUserId()));
-		url.append(addURLParameter("photoUrl", params.getPhotoUrl()));
-		return url.toString();
-	}
-	
-
-	private void submissionMediaParamsAddPostParameters(SubmissionMediaParams params) {
-		
-		if(params.getContentType() != null){
-			addMultipartParameter("contentType", params.getContentType().getTypeString());			
-		}
-		addMultipartParameter("apiversion", apiVersion);
-		addMultipartParameter("passkey", passKey);
-		addMultipartParameter("locale", params.getLocale());
-		addMultipartParameter("userId", params.getUserId());
-		addMultipartParameter("photoUrl", params.getPhotoUrl());
 	}
 
 }
