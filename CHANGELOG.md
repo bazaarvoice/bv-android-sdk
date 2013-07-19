@@ -1,11 +1,11 @@
-## 2.5 (July 19, 2013)
+## 2.0.3 (July 19, 2013)
 * Changed http from Apache HttpClient to HttpUrlConnection.
-# fixed post requests to send all the data in the body
-# removed mimetype related code, now sending everything using Octet-Stream
-# no longer an option to send blocking http requests
-# changed any method not needed by user to protected to hide it behind API 
-# when building parameter strings for URL, we now use StringBuilder as opposed to concatenating strings
-# simplified logic by spliting code used to build GET and POST requests in their appropriate method, as opposed to the send method of BazaarRequest
+* fixed post requests to send all the data in the body
+* removed mimetype related code, now sending everything using Octet-Stream
+* no longer an option to send blocking http requests
+* changed any method not needed by user to protected to hide it behind API 
+* when building parameter strings for URL, we now use StringBuilder as opposed to concatenating strings
+* simplified logic by spliting code used to build GET and POST requests in their appropriate method, as opposed to the send method of BazaarRequest
 
 ## 2.0.2 (Jun 10, 2013)
 * Added the option to upload a file without using a byte array
