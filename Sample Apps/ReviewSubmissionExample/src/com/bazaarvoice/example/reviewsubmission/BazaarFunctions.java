@@ -88,7 +88,7 @@ public class BazaarFunctions {
 
 		BazaarRequest submitMedia = new BazaarRequest(API_URL, API_KEY,
 				API_VERSION);
-		submitMedia.queueSubmission(RequestType.PHOTOS, params, response);
+		submitMedia.postSubmission(RequestType.PHOTOS, params, response);
 	}
 	
 	/**
