@@ -1,5 +1,5 @@
 # Bazaarvoice Android SDK
-### *Version: 2.0.2 (Beta)
+### *Version: 2.5
 
 ## Introduction
 The Bazaarvoice software development kit (SDK) for Android is an Android static library that provides an easy way to generate REST calls to the Bazaarvoice Developer API. Using this SDK, mobile developers can quickly integrate Bazaarvoice content into their native Android apps for phones and tablets on API Level 3 and above.
