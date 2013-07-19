@@ -53,7 +53,7 @@ public class BazaarRequest {
 	//private static final String TAG = "BazaarRequest";
 	
 	private final String SDK_HEADER_NAME = "X-UA-BV-SDK";
-	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V202";
+	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V25";
 
 	private String passKey;
 	private String apiVersion;
@@ -175,11 +175,11 @@ public class BazaarRequest {
 				params.addPostParameters(apiVersion, passKey, this);
 				if (this.mediaEntity.getFile() != null) {
 
-					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getFile(), this);
+					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getFile(), this);
 	
 				} else {
 
-					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getMimeType(), mediaEntity.getBytes(), this);
+					params.addMultipartParameter(mediaEntity.getName(), mediaEntity.getFilename(), mediaEntity.getBytes(), this);
 
 				}
 			} else { 
@@ -204,12 +204,13 @@ public class BazaarRequest {
 			try {
 				connection = (HttpURLConnection) url.openConnection();
 	            
-				// Allow Inputs & Outputs
+				// Allow Inputs
 				connection.setRequestMethod(httpMethod);
 				connection.setDoInput(true);
 				connection.setUseCaches(false);		
 				
 				if (httpMethod.equals("POST")) {
+				    //allows outputs
 					connection.setDoOutput(true);
 					
 					if (multipart) {						
@@ -296,7 +297,9 @@ public class BazaarRequest {
 				byte[] buffer;
 				int maxBufferSize = 1*1024*1024;
 									
+				// stream the top boundary
 				out.write(mediaParam.get(0).getBytes());
+				// stream content disposition, key name, filename
 				out.write(mediaParam.get(1).getBytes());
 				
 				if (mediaEntity.getFile() != null) {
@@ -341,7 +344,9 @@ public class BazaarRequest {
 					fileInputStream.close();	
 				}
 				
+				//stream \r\n
 				out.write(mediaParam.get(2).getBytes());
+				//stream boundary
 				out.write(mediaParam.get(3).getBytes());
 				
 				

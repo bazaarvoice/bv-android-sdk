@@ -124,13 +124,13 @@ public abstract class BazaarParams {
     }
 	
 	//adding a file object to request
-	protected void addMultipartParameter(String name, String fileName, String contentType, File mediaFile, BazaarRequest request) {
-    	
-        if ((name != null) && (fileName != null) && (contentType != null)) {
+	protected void addMultipartParameter(String name, String fileName, File mediaFile, BazaarRequest request) {
+	    
+        if ((name != null) && (fileName != null)) {
         	
         	String topBoundary = "--" + request.boundary + "\r\n";
-			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
-    				name, fileName, contentType);
+			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: application/octet-stream\r\n\r\n", 
+    				name, fileName);
 			String valueParam = "\r\n";
 			
 			request.mediaParam.add(topBoundary);
@@ -145,13 +145,13 @@ public abstract class BazaarParams {
     }
 	
 	//adding byte array to the request
-	protected void addMultipartParameter(String name, String fileName, String contentType, byte[] mediaFileBytes, BazaarRequest request) {
+	protected void addMultipartParameter(String name, String fileName, byte[] mediaFileBytes, BazaarRequest request) {
     	
-        if ((name != null) && (fileName != null) && (contentType != null)) {
+        if ((name != null) && (fileName != null)) {
         	
         	String topBoundary = "--" + request.boundary + "\r\n";
-			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: %s\r\n\r\n", 
-    				name, fileName, contentType);
+			String contentDisp = String.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s\"\r\nContent-Type: application/octet-stream\r\n\r\n", 
+    				name, fileName);
 			String valueParam = "\r\n";
 			
 			request.mediaParam.add(topBoundary);
