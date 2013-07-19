@@ -1,0 +1,1100 @@
+#-------------------------------------------------------------------------------
+# Copyright 2013 Bazaarvoice
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+{
+    "Includes": {},
+    "HasErrors": false,
+    "Offset": 0,
+    "TotalResults": 795,
+    "Locale": "en_US",
+    "Errors": [],
+    "Results": [
+        {
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": null,
+            "IsRatingsOnly": false,
+            "UserNickname": "Test12345",
+            "Pros": null,
+            "Photos": [],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-28T19:09:31.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "2t60niux2p3q072frpo00mwgh",
+            "IsFeatured": false,
+            "SecondaryRatingsOrder": [
+                "Value",
+                "Quality"
+            ],
+            "ProductRecommendationIds": [],
+            "Title": "This is a test review.",
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-22T07:41:21.000-05:00",
+            "Rating": 3,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "This is a test review. This is a test review. This is a test review. This is a test review. This is a test review. This is a test review. This is a test review.",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192612",
+            "CommentIds": [],
+            "SecondaryRatings": {
+                "Value": {
+                    "Value": 4,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Value",
+                    "Id": "Value",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                    "Value": 5,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Quality",
+                    "Id": "Quality",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                }
+            },
+            "LastModeratedTime": "2011-06-28T19:09:31.000-05:00"
+        },
+        {
+            "TagDimensions": {
+                "Pro": {
+                    "Values": [
+                        "Pro 2",
+                        "Example of wordy Pro value",
+                        "Pro 1"
+                    ],
+                    "Label": "Pros",
+                    "Id": "Pro"
+                },
+                "Con": {
+                    "Values": [
+                        "Example of wordy Con value",
+                        "Con 1",
+                        "Con 2"
+                    ],
+                    "Label": "Cons",
+                    "Id": "Con"
+                }
+            },
+            "TagDimensionsOrder": [
+                "Pro",
+                "Con"
+            ],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": true,
+            "IsRatingsOnly": false,
+            "UserNickname": "hju78",
+            "Pros": null,
+            "Photos": [],
+            "ContextDataValues": {
+                "Age": {
+                    "Value": "65orOver",
+                    "ValueLabel": "65 or over",
+                    "DimensionLabel": "Age",
+                    "Id": "Age"
+                },
+                "FrequencyOfUse": {
+                    "Value": "Daily",
+                    "ValueLabel": "Daily",
+                    "DimensionLabel": "Frequency of use",
+                    "Id": "FrequencyOfUse"
+                },
+                "LengthOfOwnership": {
+                    "Value": "3months",
+                    "ValueLabel": "3 months",
+                    "DimensionLabel": "Length of ownership",
+                    "Id": "LengthOfOwnership"
+                },
+                "Gender": {
+                    "Value": "Male",
+                    "ValueLabel": "Male",
+                    "DimensionLabel": "Gender",
+                    "Id": "Gender"
+                },
+                "Expertise": {
+                    "Value": "Intermediate",
+                    "ValueLabel": "Intermediate",
+                    "DimensionLabel": "Expertise",
+                    "Id": "Expertise"
+                }
+            },
+            "Videos": [],
+            "ContextDataValuesOrder": [
+                "Gender",
+                "Age",
+                "LengthOfOwnership",
+                "FrequencyOfUse",
+                "Expertise"
+            ],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-28T19:09:31.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "g0mur8h1z54",
+            "IsFeatured": false,
+            "SecondaryRatingsOrder": [
+                "Value",
+                "Quality"
+            ],
+            "ProductRecommendationIds": [],
+            "Title": "TESTING>>>>>TESTING>>>>>TESTING",
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-13T13:53:57.000-05:00",
+            "Rating": 3,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "TESTING>>>>>TESTING>>>>>TESTING TESTING>>>>>TESTING>>>>>TESTING TESTING>>>>>TESTING>>>>>TESTING",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192613",
+            "CommentIds": [],
+            "SecondaryRatings": {
+                "Value": {
+                    "Value": 3,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Value",
+                    "Id": "Value",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                    "Value": 2,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Quality",
+                    "Id": "Quality",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                }
+            },
+            "LastModeratedTime": "2011-06-28T19:09:31.000-05:00"
+        },
+        {
+            "TagDimensions": {
+                "Pro": {
+                    "Values": [
+                        "Pro 2",
+                        "Pro 1"
+                    ],
+                    "Label": "Pros",
+                    "Id": "Pro"
+                },
+                "Con": {
+                    "Values": [
+                        "Con 1",
+                        "Con 2"
+                    ],
+                    "Label": "Cons",
+                    "Id": "Con"
+                }
+            },
+            "TagDimensionsOrder": [
+                "Pro",
+                "Con"
+            ],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": true,
+            "IsRatingsOnly": false,
+            "UserNickname": "la45",
+            "Pros": null,
+            "Photos": [
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80500/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80500/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80500"
+                }
+            ],
+            "ContextDataValues": {
+                "Age": {
+                    "Value": "17orUnder",
+                    "ValueLabel": "17 or under",
+                    "DimensionLabel": "Age",
+                    "Id": "Age"
+                },
+                "FrequencyOfUse": {
+                    "Value": "Yearly",
+                    "ValueLabel": "Yearly",
+                    "DimensionLabel": "Frequency of use",
+                    "Id": "FrequencyOfUse"
+                },
+                "LengthOfOwnership": {
+                    "Value": "1year",
+                    "ValueLabel": "1 year or longer",
+                    "DimensionLabel": "Length of ownership",
+                    "Id": "LengthOfOwnership"
+                },
+                "Gender": {
+                    "Value": "Male",
+                    "ValueLabel": "Male",
+                    "DimensionLabel": "Gender",
+                    "Id": "Gender"
+                },
+                "Expertise": {
+                    "Value": "Beginner",
+                    "ValueLabel": "Beginner",
+                    "DimensionLabel": "Expertise",
+                    "Id": "Expertise"
+                }
+            },
+            "Videos": [],
+            "ContextDataValuesOrder": [
+                "Gender",
+                "Age",
+                "LengthOfOwnership",
+                "FrequencyOfUse",
+                "Expertise"
+            ],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-30T16:18:41.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "test location",
+            "Badges": {},
+            "AuthorId": "dpdmeklx9dk",
+            "IsFeatured": false,
+            "SecondaryRatingsOrder": [
+                "Value",
+                "Quality"
+            ],
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "Title": "TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-13T13:41:50.000-05:00",
+            "Rating": 3,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192601",
+            "CommentIds": [],
+            "SecondaryRatings": {
+                "Value": {
+                    "Value": 3,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Value",
+                    "Id": "Value",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                    "Value": 2,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Quality",
+                    "Id": "Quality",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                }
+            },
+            "LastModeratedTime": "2011-06-30T16:18:41.000-05:00"
+        },
+        {
+            "TagDimensions": {
+                "Pro": {
+                    "Values": [
+                        "Pro 2",
+                        "Example of wordy Pro value"
+                    ],
+                    "Label": "Pros",
+                    "Id": "Pro"
+                },
+                "Con": {
+                    "Values": [
+                        "Example of wordy Con value",
+                        "mauris iaculis pretiu"
+                    ],
+                    "Label": "Cons",
+                    "Id": "Con"
+                }
+            },
+            "TagDimensionsOrder": [
+                "Pro",
+                "Con"
+            ],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": true,
+            "IsRatingsOnly": false,
+            "UserNickname": "6BVMeqHfxMAiEI4b",
+            "Pros": null,
+            "Photos": [
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80663/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80663/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80663"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80664/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80664/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80664"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80665/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80665/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80665"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80666/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80666/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80666"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80667/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80667/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80667"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80668/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80668/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "80668"
+                }
+            ],
+            "ContextDataValues": {
+                "FrequencyOfUse": {
+                    "Value": "Weekly",
+                    "ValueLabel": "Weekly",
+                    "DimensionLabel": "Frequency of use",
+                    "Id": "FrequencyOfUse"
+                },
+                "LengthOfOwnership": {
+                    "Value": "1month",
+                    "ValueLabel": "1 month",
+                    "DimensionLabel": "Length of ownership",
+                    "Id": "LengthOfOwnership"
+                },
+                "Expertise": {
+                    "Value": "Intermediate",
+                    "ValueLabel": "Intermediate",
+                    "DimensionLabel": "Expertise",
+                    "Id": "Expertise"
+                }
+            },
+            "Videos": [],
+            "ContextDataValuesOrder": [
+                "LengthOfOwnership",
+                "FrequencyOfUse",
+                "Expertise"
+            ],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-30T16:19:38.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "Curabitur sit amet orci",
+            "Badges": {},
+            "AuthorId": "hxjd58q6yv4",
+            "IsFeatured": false,
+            "SecondaryRatingsOrder": [
+                "Value"
+            ],
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "Title": "Cr",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-13T10:55:29.000-05:00",
+            "Rating": 5,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "The only plus is you can buy a coffee and make it in this coffee machine. I tried to use it as a blender and it did not work out very well :( Realignment of the astrolabe to be corrected with additional input from the rear sensors, but other than that it operates at about 300% of the original precision by the latest changes. Very difficult with this plow and the horse was bucking all the way to the barn, and the resulting series were not very clean so I responsibly to had on the older model, not to disturb the plants.",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192661",
+            "CommentIds": [],
+            "SecondaryRatings": {
+                "Value": {
+                    "Value": 1,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Value",
+                    "Id": "Value",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                }
+            },
+            "LastModeratedTime": "2011-06-30T16:19:38.000-05:00"
+        },
+        {
+            "TagDimensions": {
+                "Pro": {
+                    "Values": [
+                        "Example of wordy Pro value"
+                    ],
+                    "Label": "Pros",
+                    "Id": "Pro"
+                },
+                "Con": {
+                    "Values": [
+                        "Example of wordy Con value",
+                        "praesent sit amet",
+                        "maecenas males"
+                    ],
+                    "Label": "Cons",
+                    "Id": "Con"
+                }
+            },
+            "TagDimensionsOrder": [
+                "Pro",
+                "Con"
+            ],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": null,
+            "IsRatingsOnly": false,
+            "UserNickname": "psg1r5xeUyzIZ3bVQt",
+            "Pros": null,
+            "Photos": [
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79913/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79913/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79913"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79914/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79914/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79914"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79915/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79915/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79915"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79916/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79916/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79916"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79917/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79917/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79917"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79918/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79918/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79918"
+                }
+            ],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-30T16:15:50.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "M",
+            "Badges": {},
+            "AuthorId": "7i7sa0ys2yo",
+            "IsFeatured": false,
+            "SecondaryRatingsOrder": [
+                "Quality"
+            ],
+            "ProductRecommendationIds": [],
+            "Title": "Caum sociis natoque penatibus et magnis dis pa",
+            "ProductId": "test1",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-09T14:39:02.000-05:00",
+            "Rating": 5,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "In volutpat pretium leo, a ornare purus ultricieset. Phasellus quis ultricieslacus. Fusce tristique feugiat elit velviverra. Ut quam sapien, tempor at elementum a, ornare egetmi.\n\nVivamus orci nibh, vulputate et malesuada eu, commodo nonest. Morbi semper facilisistincidunt. Caum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculusmus. Nunc iaculis porta dolor, et aliquam urna hendreritvel.\n\nDuis ut nibh ut mi tincidunt ornare nec necneque. Etiam ac volutpatmi. Praesent a scelerisquearcu. Sed fringilla malesuadarutrum.\n\nIn accumsan temporscelerisque. Sed ac interdumlectus. Mauris mollis turpis sit amet neque porttitor ac venenatis mimollis. Pellentesque eget odioorci. Praesent sit amet turpis ullamcorper risus laciniaaliquet.\n\nNam ut feliselit. Etiam feugiat sempervestibulum. Aliquam eratvolutpat.",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192444",
+            "CommentIds": [],
+            "SecondaryRatings": {
+                "Quality": {
+                    "Value": 2,
+                    "ValueLabel": null,
+                    "MaxLabel": null,
+                    "Label": "Quality",
+                    "Id": "Quality",
+                    "ValueRange": 5,
+                    "MinLabel": null,
+                    "DisplayType": "NORMAL"
+                }
+            },
+            "LastModeratedTime": "2011-06-30T16:15:50.000-05:00"
+        },
+        {
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": null,
+            "IsRatingsOnly": false,
+            "UserNickname": "Phdidisi",
+            "Pros": null,
+            "Photos": [],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-28T19:08:46.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "c7v1d0i7w1s",
+            "SecondaryRatingsOrder": [],
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "Title": "Phdodogdogxi dohdogdotskdohdod",
+            "ProductId": "test1",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-09T09:14:00.000-05:00",
+            "Rating": 5,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "oydodiysopydfff johdogdifsigxogitdiotxogxocogxogxigxigxhoxoxohxox",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192477",
+            "SecondaryRatings": {},
+            "CommentIds": [],
+            "LastModeratedTime": "2011-06-28T19:08:46.000-05:00"
+        },
+        {
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": null,
+            "IsRatingsOnly": false,
+            "UserNickname": "Fhghmbb",
+            "Pros": null,
+            "Photos": [],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-28T19:08:45.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "c6evrwek0zk",
+            "SecondaryRatingsOrder": [],
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "Title": "Fhjbbkvkbn",
+            "ProductId": "test1",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-09T09:09:32.000-05:00",
+            "Rating": 5,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "fjfjfjgjgkgkghcjfjgjg jjfjgjghdjgjcjcjvkfjfhgfgggghgh hjgjvbnchgjlhgv. Hhjfjvjvn",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192474",
+            "SecondaryRatings": {},
+            "CommentIds": [],
+            "LastModeratedTime": "2011-06-28T19:08:45.000-05:00"
+        },
+        {
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": null,
+            "IsRatingsOnly": false,
+            "UserNickname": "kjsdflkjdfkldsj",
+            "Pros": null,
+            "Photos": [],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-28T19:09:34.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "4eszghej2zs",
+            "SecondaryRatingsOrder": [],
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "Title": "lkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdja",
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-08T17:31:36.000-05:00",
+            "Rating": 5,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "lkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdja",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192631",
+            "SecondaryRatings": {},
+            "CommentIds": [],
+            "LastModeratedTime": "2011-06-28T19:09:34.000-05:00"
+        },
+        {
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": null,
+            "IsRatingsOnly": false,
+            "UserNickname": "hkjhkjhjk",
+            "Pros": null,
+            "Photos": [],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-28T19:09:34.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "2tpwpvzywhc",
+            "SecondaryRatingsOrder": [],
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "Title": "lkajd flkajsd flkjsd flkasdj fklsdja",
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-08T17:30:33.000-05:00",
+            "Rating": 5,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "lkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdjalkajd flkajsd flkjsd flkasdj fklsdja",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192633",
+            "SecondaryRatings": {},
+            "CommentIds": [],
+            "LastModeratedTime": "2011-06-28T19:09:34.000-05:00"
+        },
+        {
+            "TagDimensions": {
+                "Pro": {
+                    "Values": [
+                        "Pro 2",
+                        "Pro 1"
+                    ],
+                    "Label": "Pros",
+                    "Id": "Pro"
+                },
+                "Con": {
+                    "Values": [
+                        "Con 2",
+                        "aliquam eratvolutpat.",
+                        "cutscenes are pretty too"
+                    ],
+                    "Label": "Cons",
+                    "Id": "Con"
+                }
+            },
+            "TagDimensionsOrder": [
+                "Pro",
+                "Con"
+            ],
+            "AdditionalFieldsOrder": [],
+            "Cons": null,
+            "IsRecommended": true,
+            "IsRatingsOnly": false,
+            "UserNickname": "WmSpr",
+            "Pros": null,
+            "Photos": [
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79931/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79931/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79931"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79932/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79932/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79932"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79933/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79933/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79933"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79934/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79934/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79934"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79935/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79935/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79935"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79936/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/79936/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "79936"
+                }
+            ],
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "SubmissionId": null,
+            "LastModificationTime": "2011-06-30T16:15:55.000-05:00",
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "Mauris vestibulum risu",
+            "Badges": {},
+            "AuthorId": "1t4um5dkpog",
+            "SecondaryRatingsOrder": [],
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "Title": "Phasellus quis ultricieslacus. Fu",
+            "ProductId": "test1",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "Helpfulness": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-03T10:12:39.000-05:00",
+            "Rating": 2,
+            "ContentLocale": "en_US",
+            "RatingRange": 5,
+            "TotalCommentCount": 0,
+            "ReviewText": "In quis risus magna, nec blanditrisus. Nullam tempor eleifend nisi egetconsequat. Morbi laoreet pellentesque libero, at tristique velit conguemalesuada. Fusce tristique venenatis metus acsemper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptoshimenaeos. Morbi a sapien non lectus fringillamolestie. In faucibus dui quis nisl egestas a convallis liberovarius. Duis ut purus lobortis purus ornare scelerisque quis nonjusto.\n\nNullam nec mi non ipsum tristiqueposuere. Aenean interdum aliquamiaculis. Aenean at tortor libero, quis posuererisus.",
+            "ModerationStatus": "APPROVED",
+            "ClientResponses": [],
+            "Id": "192455",
+            "SecondaryRatings": {},
+            "CommentIds": [],
+            "LastModeratedTime": "2011-06-30T16:15:55.000-05:00"
+        }
+    ],
+    "Limit": 10
+}
