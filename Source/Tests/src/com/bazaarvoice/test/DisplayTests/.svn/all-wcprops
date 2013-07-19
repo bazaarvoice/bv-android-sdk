@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/rsl/!svn/ver/100/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests
+END
+StatisticsDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/StatisticsDisplayTest.java
+END
+CategoryDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/CategoryDisplayTest.java
+END
+AnswerDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/AnswerDisplayTest.java
+END
+ProductDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/ProductDisplayTest.java
+END
+ProfileDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/ProfileDisplayTest.java
+END
+StoryDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/rsl/!svn/ver/100/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/StoryDisplayTest.java
+END
+ReviewDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/ReviewDisplayTest.java
+END
+CommentDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/CommentDisplayTest.java
+END
+QuestionDisplayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/rsl/!svn/ver/95/trunk/BazaarExampleSimple/tests/src/com/requiem/bazaarexample/DisplayTests/QuestionDisplayTest.java
+END

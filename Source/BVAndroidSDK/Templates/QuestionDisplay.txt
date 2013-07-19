@@ -1,0 +1,857 @@
+#-------------------------------------------------------------------------------
+# Copyright 2013 Bazaarvoice
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+{
+    "Includes": {},
+    "HasErrors": false,
+    "Offset": 0,
+    "TotalResults": 253,
+    "Locale": "en_US",
+    "Errors": [],
+    "Results": [
+        {
+            "QuestionSummary": "test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": null,
+            "UserNickname": "sdftgyhuj",
+            "Photos": [],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "ow63n4vvk8gfd4hzoc9f0kfcc",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-27T06:52:02.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14902",
+            "LastModeratedTime": "2011-06-28T19:10:10.000-05:00"
+        },
+        {
+            "QuestionSummary": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the right dress. After this dress, I tried on 4 other ones, but decided on buying this one. It fits sooooo perfectly, and it gives your body a wonderful shape.test\nI love this dress sooooooo much!!",
+            "UserNickname": "test323232",
+            "Photos": [],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "pdmy06da64u1kaq39152pdvhb",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-27T06:43:23.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14901",
+            "LastModeratedTime": "2011-06-28T19:10:10.000-05:00"
+        },
+        {
+            "QuestionSummary": "Slower production for tables must be the re",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": null,
+            "UserNickname": "UG2sk",
+            "Photos": [
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81063/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81063/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81063"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81064/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81064/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81064"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81065/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81065/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81065"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81066/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81066/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81066"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81067/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81067/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81067"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81068/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81068/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81068"
+                }
+            ],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "Etiam ferme",
+            "Badges": {},
+            "AuthorId": "8g90d8ea70g",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-06-03T10:13:19.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14900",
+            "LastModeratedTime": "2011-06-30T16:21:37.000-05:00"
+        },
+        {
+            "QuestionSummary": "Donec vitae mi nec mass",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 1,
+            "QuestionDetails": "Pellentesque faucibus nunc vitae lectus luctus euismod fringilla arcu gravida. Curabitur tempor, metus a commodo lobortis, dui nunc pulvinar diam, ac lacinia velit magna a arcu. Aliquam erat volutpat. Curabitur sed luctus leo. Aliquam lobortis metus.",
+            "UserNickname": "kjnomnoimk",
+            "Photos": [],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "5lxezf3dcao",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-05-19T12:47:35.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14899",
+            "LastModeratedTime": "2011-06-28T19:10:10.000-05:00"
+        },
+        {
+            "QuestionSummary": "Test question >> Test question >> Test question >> Test question >> Test question >> Test question >> Test question >>",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 3,
+            "QuestionDetails": null,
+            "UserNickname": "Testerpaul",
+            "Photos": [],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "byl8zsjs2mo",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-05-06T10:18:22.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14898",
+            "LastModeratedTime": "2011-06-28T19:10:10.000-05:00"
+        },
+        {
+            "QuestionSummary": "Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test q",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": "Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test q Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test q Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test qTest question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test q Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test q Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test question staging >>Test q",
+            "UserNickname": "Testermax",
+            "Photos": [
+                {
+                    "Caption": "test caption test caption 1",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81045/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81045/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81045"
+                },
+                {
+                    "Caption": "test caption test caption 2",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81046/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81046/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81046"
+                },
+                {
+                    "Caption": "test caption test caption 3",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81047/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81047/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81047"
+                },
+                {
+                    "Caption": "test caption test caption 4",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81048/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81048/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81048"
+                },
+                {
+                    "Caption": "test caption test caption 5",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81049/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81049/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81049"
+                },
+                {
+                    "Caption": "test caption test caption 6",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81050/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81050/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81050"
+                }
+            ],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [
+                {
+                    "VideoHost": "www.youtube.com",
+                    "Caption": "test caption test caption test caption test caption test caption test caption test caption test caption test caption test caption test caption test ca",
+                    "VideoThumbnailUrl": "http://img.youtube.com/vi/SX6xQIqzk2o/0.jpg",
+                    "VideoId": "SX6xQIqzk2o",
+                    "VideoUrl": "http://www.youtube.com/v/SX6xQIqzk2o&rel=0",
+                    "VideoIframeUrl": null
+                }
+            ],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "Test location >> Test location >> Test location >Test location >> Test location >> Test location >Test location >> Test location >> Test location >Test location >> Test location >> Test location >Test location >> Test location >> Test loTest location >> T",
+            "Badges": {},
+            "AuthorId": "1scqo4llr6g",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-05-06T07:23:53.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14897",
+            "LastModeratedTime": "2011-06-30T16:21:33.000-05:00"
+        },
+        {
+            "QuestionSummary": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the right dress. After this dress, I tried on 4 other ones, but decided on buying this one. It fits sooooo perfectly, and it gives your body a wonderful shape.test\nI love this dress sooooooo much!!",
+            "UserNickname": "sdfghuj",
+            "Photos": [
+                {
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81039/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81039/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81039"
+                },
+                {
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81040/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81040/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81040"
+                },
+                {
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81041/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81041/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81041"
+                },
+                {
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81042/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81042/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81042"
+                },
+                {
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81043/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81043/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81043"
+                },
+                {
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81044/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81044/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81044"
+                }
+            ],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [
+                {
+                    "VideoHost": "BAZAARVOICE",
+                    "Caption": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught",
+                    "VideoThumbnailUrl": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/7732/videoThumb.jpg",
+                    "VideoId": "933195636001",
+                    "VideoUrl": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/7732/video.swf",
+                    "VideoIframeUrl": null
+                }
+            ],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "TEST>> I came in the store wanting to try 4 other dresses, and didnt even notice this one. I walked by a huge poster, and this beautiful dress caught my eye! It ended up being the first dress I tried on, and it was right then, that I knew this was the rig",
+            "Badges": {},
+            "AuthorId": "4176zxbg4jo",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-05-06T06:00:37.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14896",
+            "LastModeratedTime": "2011-06-30T16:21:32.000-05:00"
+        },
+        {
+            "QuestionSummary": "lslsalñksañ apòas`sapñ p",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": "ñlfdspñsd´l ´re´p sd ´we ´we´rñ s-lsl ´ps ´sd´p ñí sñlkdl kdf",
+            "UserNickname": "tester0934",
+            "Photos": [],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [
+                {
+                    "VideoHost": "BAZAARVOICE",
+                    "Caption": "Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Caption Captio",
+                    "VideoThumbnailUrl": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/7731/videoThumb.jpg",
+                    "VideoId": "932792865001",
+                    "VideoUrl": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/7731/video.swf",
+                    "VideoIframeUrl": null
+                }
+            ],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "f4cyf87eqcg",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-05-05T16:58:48.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14895",
+            "LastModeratedTime": "2011-06-28T19:10:09.000-05:00"
+        },
+        {
+            "QuestionSummary": "Vestibulum luctus facilisis massa vest",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": "Ut porttitor erat sit amet enim elementumdictum. Sed ultricies ultricies erat, quis blandit augue convallisnec.",
+            "UserNickname": "CalmCali",
+            "Photos": [
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81033/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81033/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81033"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81034/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81034/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81034"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81035/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81035/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81035"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81036/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81036/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81036"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81037/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81037/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81037"
+                },
+                {
+                    "Caption": null,
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81038/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81038/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81038"
+                }
+            ],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": null,
+            "Badges": {},
+            "AuthorId": "hlm8f73jz7s",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-04-20T19:45:07.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14894",
+            "LastModeratedTime": "2011-06-30T16:21:30.000-05:00"
+        },
+        {
+            "QuestionSummary": "How well will this hold up for laundry soaked in saltwater?",
+            "TagDimensions": {},
+            "TagDimensionsOrder": [],
+            "AdditionalFieldsOrder": [],
+            "TotalAnswerCount": 0,
+            "QuestionDetails": "My yoga studio is near the ocean, and I need a dryer that will hold up even when my laundry has been soaked in saltwater from the ocean.",
+            "UserNickname": "CalmCali",
+            "Photos": [
+                {
+                    "Caption": "Seaside view near my yoga studio",
+                    "Sizes": {
+                        "thumbnail": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81032/photoThumb.jpg",
+                            "Id": "thumbnail"
+                        },
+                        "normal": {
+                            "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81032/photo.jpg",
+                            "Id": "normal"
+                        }
+                    },
+                    "SizesOrder": [
+                        "thumbnail",
+                        "normal"
+                    ],
+                    "Id": "81032"
+                }
+            ],
+            "CategoryId": null,
+            "ContextDataValues": {},
+            "Videos": [
+                {
+                    "VideoHost": "www.youtube.com",
+                    "Caption": "Meditation music",
+                    "VideoThumbnailUrl": "http://img.youtube.com/vi/FShJt54nbNQ/0.jpg",
+                    "VideoId": "FShJt54nbNQ",
+                    "VideoUrl": "http://www.youtube.com/v/FShJt54nbNQ&rel=0",
+                    "VideoIframeUrl": null
+                }
+            ],
+            "ContextDataValuesOrder": [],
+            "LastModificationTime": "2011-08-25T10:56:50.000-05:00",
+            "SubmissionId": null,
+            "AnswerIds": [],
+            "TotalFeedbackCount": 0,
+            "TotalPositiveFeedbackCount": 0,
+            "BadgesOrder": [],
+            "UserLocation": "San Diego, CA",
+            "Badges": {},
+            "AuthorId": "hlm8f73jz7s",
+            "IsFeatured": false,
+            "ProductRecommendationIds": [],
+            "ProductId": "1000001",
+            "AdditionalFields": {},
+            "CampaignId": null,
+            "TotalNegativeFeedbackCount": 0,
+            "SubmissionTime": "2011-04-20T17:13:54.000-05:00",
+            "ContentLocale": "en_US",
+            "ModerationStatus": "APPROVED",
+            "Id": "14893",
+            "LastModeratedTime": "2011-06-30T16:21:29.000-05:00"
+        }
+    ],
+    "Limit": 10
+}

@@ -1,0 +1,196 @@
+#-------------------------------------------------------------------------------
+# Copyright 2013 Bazaarvoice
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#   http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#-------------------------------------------------------------------------------
+{
+    "Includes": {},
+    "HasErrors": false,
+    "Offset": 0,
+    "TotalResults": 18,
+    "Locale": "en_US",
+    "Errors": [],
+    "Results": [
+        {
+            "Name": "Service-Learning Experience in the Highlands of Guatemala",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "The Office of International Education and the Department of Art Education at Virginia Commonwealth University are pleased to offer a unique opportunity for students to engage\n                in arts based service-learning experience in Quetzaltenango, Guatemala. Students will be enrolled in a 3 credit Art Education course on campus at VCU during the spring semester.\n                Students will then travel to Guatemala for the one-week on-site portion of the program from March 7-14, 2009.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1022",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/guatemala.jpg",
+            "Id": "test7",
+            "StoryIds": []
+        },
+        {
+            "Name": "GE Cafe 30\" Free Standing Gas Range",
+            "Brand": {
+                "Name": "GE",
+                "Id": "otttwtzo9imo28ssfm58x1hm"
+            },
+            "Attributes": [],
+            "Description": "PreciseAir Convection System ?Delivers even air and heat circulation for superior baking and roasting results. Extra-Large Oven Capacity provides a large oven interior ideal\n                for cooking more items at once. Self-Clean Oven conveniently cleans the oven cavity without need of scrubbing.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1011",
+            "BrandExternalId": "otttwtzo9imo28ssfm58x1hm",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/cafe.png",
+            "Id": "test6",
+            "StoryIds": []
+        },
+        {
+            "Name": "14K White Gold Diamond Teardrop Necklace",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "Increase your potential to shine with this beautiful Diamond necklace. A 16\" chain holds a White Gold teardrop studded with beautiful and shiny Diamonds. The smooth, shiny\n                bail adds texture and contrast to this piece. Wear alone or complete this look with the matching ring and earrings.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1052",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/teardrop.jpg",
+            "Id": "test5",
+            "StoryIds": []
+        },
+        {
+            "Name": "Shakespeare in the Park",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "This summer was one of MYSH U's best as visiting students from universities across the country collaborated on an outdoor, contemporary rendition of Shakespeare? A Midsummer\n                Night? Dream. Poetry readings in garden settings, lectures at the museum, film screenings, and madrigal style dining are just a few of the summer? highlights.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1021",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/images/heroEduShakes.jpg",
+            "Id": "test4",
+            "StoryIds": []
+        },
+        {
+            "Name": "Komarov Ombré Print Dress",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "Sheer flutter sleeves and inset lace at the hem lend whimsical style to a dress highlighted with an oversized floral print and ombré shading",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1032",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/dress.jpg",
+            "Id": "test3",
+            "StoryIds": []
+        },
+        {
+            "Name": "GE Profile 7.5 Cu. Ft. Colossal Capacity Electric Dryer",
+            "Brand": {
+                "Name": "GE",
+                "Id": "otttwtzo9imo28ssfm58x1hm"
+            },
+            "Attributes": [],
+            "Description": "This extra-large capacity dryer lets you choose between 8 dry cycles, so you can use the proper settings for your clothes. The auto dry function uses thermostats to tell when\n                your laundry is dry, reducing wear and tear.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1011",
+            "BrandExternalId": "otttwtzo9imo28ssfm58x1hm",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/profile.png",
+            "Id": "test2",
+            "StoryIds": []
+        },
+        {
+            "Name": "Dress Shirt",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "Our pinpoint oxford is crafted from only the finest 80's two-ply cotton fibers.Single-needle stitching on all seams for a smooth flat appearance. Tailored with our Traditional\n                straight collar and button cuffs. Machine wash. Imported.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1031",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/shirt.jpg",
+            "Id": "test1",
+            "StoryIds": []
+        },
+        {
+            "Name": "Titus.AH0306",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "Chronograph with steel case, anthracite dial with diamond point motif, polished satin finish steel bracelet. Automatic movement.",
+            "QuestionIds": [],
+            "ProductPageUrl": null,
+            "CategoryId": "testCategory1051",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/titus.jpg",
+            "Id": "test0",
+            "StoryIds": []
+        },
+        {
+            "Name": "14K White Gold Diamond Teardrop Necklace",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "Increase your potential to shine with this beautiful diamond necklace. A 16\" chain holds a white gold teardrop studded with beautiful and shiny diamonds. The smooth, shiny bail adds texture and contrast to this piece. Wear alone or complete this look with the matching ring and earrings.",
+            "QuestionIds": [],
+            "ProductPageUrl": "http://myshco.com/luxury/necklaces/teardrop.php",
+            "CategoryId": "1052",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/teardrop.jpg",
+            "Id": "5000002",
+            "StoryIds": []
+        },
+        {
+            "Name": "Titus.AH0306",
+            "Brand": {
+                "Name": "mysh",
+                "Id": "cskg0snv1x3chrqlde0zklodb"
+            },
+            "Attributes": [],
+            "Description": "Chronograph with steel case, anthracite dial with diamond point motif, polished satin finish steel bracelet. Automatic movement.",
+            "QuestionIds": [],
+            "ProductPageUrl": "http://myshco.com/luxury/watches/titus.php",
+            "CategoryId": "1051",
+            "BrandExternalId": "cskg0snv1x3chrqlde0zklodb",
+            "ReviewIds": [],
+            "ImageUrl": "http://myshco.com/productImages/titus.jpg",
+            "Id": "5000001",
+            "StoryIds": []
+        }
+    ],
+    "Limit": 10
+}
