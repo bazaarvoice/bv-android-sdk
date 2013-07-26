@@ -159,7 +159,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 *  Arbitrary text that may be saved alongside content to indicate vehicle by which content was captured, e.g. Òpost-purchase emailÓ.
+	 *  Arbitrary text that may be saved alongside content to indicate vehicle by which content was captured, e.g. ï¿½post-purchase emailï¿½.
 	 * 
 	 * @param campaignId
 	 *            a campaign id
@@ -578,7 +578,7 @@ public class SubmissionParams extends BazaarParams {
 	}
 
 	/**
-	 * Value is a positive integer between 1 and 10 representing a numerical rating in response to ÒHow would you rate this company?Ó
+	 * Value is a positive integer between 1 and 10 representing a numerical rating in response to ï¿½How would you rate this company?ï¿½
 	 * 
 	 * @param netPromoterScore
 	 *            a net promoter score
@@ -940,7 +940,7 @@ public class SubmissionParams extends BazaarParams {
 
 	@Override
 	protected String toURL(String apiVersion, String passKey) {
-StringBuilder url = new StringBuilder();
+		StringBuilder url = new StringBuilder();
 		
 		url.append(addURLParameter("apiversion", apiVersion));
 		url.append(addURLParameter("passkey", passKey));
