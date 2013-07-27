@@ -63,18 +63,18 @@ public class BazaarRequest {
 	private OnBazaarResponse listener;
 	
 	private HttpURLConnection connection;
-    protected URL url;
-    protected String httpMethod;
-    protected int serverResponseCode;
-    private String serverResponseMessage = null;
-    private String paramString;
-    protected ArrayList<String> multiPartParams;
-    protected ArrayList<String> mediaParam;
-    protected int contentLength = 0;
-    protected Object receivedData;
-    protected String boundary;
-    protected boolean multipart = false;
-    protected boolean media = false;
+    	protected URL url;
+    	protected String httpMethod;
+    	protected int serverResponseCode;
+    	private String serverResponseMessage = null;
+    	private String paramString;
+    	protected ArrayList<String> multiPartParams;
+    	protected ArrayList<String> mediaParam;
+    	protected int contentLength = 0;
+    	protected Object receivedData;
+    	protected String boundary;
+    	protected boolean multipart = false;
+    	protected boolean media = false;
 
 
 	/**
