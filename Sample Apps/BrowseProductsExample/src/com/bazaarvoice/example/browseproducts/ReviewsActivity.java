@@ -143,31 +143,28 @@ public class ReviewsActivity extends Activity {
 
 			@Override
 			public void onFinish(final Bitmap image) {
-				// Protect from image download errors
-				if (image == null) {
-					downloadProductImage();
-					return;
-				}
-				runOnUiThread(new Runnable() {
-
-					@Override
-					public void run() {
-						ImageView productImage = (ImageView) findViewById(R.id.productImage);
-						Bitmap scaledImage = Bitmap.createScaledBitmap(image,
-								250, 250, true);
-						productImage.setImageBitmap(scaledImage);
-						listAdapter.notifyDataSetChanged();
-
-						/*
-						 * If there are no reviews, there is nothing more to
-						 * wait for.
-						 */
-						if (selectedProduct.getNumReviews() == 0) {
-							progDialog.dismiss();
-						}
-					}
-
-				});
+			    // Protect from image download errors
+                if (image != null) {
+    			    runOnUiThread(new Runnable() {
+    					@Override
+    					public void run() {
+    						ImageView productImage = (ImageView) findViewById(R.id.productImage);
+    						Bitmap scaledImage = Bitmap.createScaledBitmap(image,
+    								250, 250, true);
+    						productImage.setImageBitmap(scaledImage);
+    						listAdapter.notifyDataSetChanged();
+    
+    						/*
+    						 * If there are no reviews, there is nothing more to
+    						 * wait for.
+    						 */
+    						if (selectedProduct.getNumReviews() == 0) {
+    							progDialog.dismiss();
+    						}
+    					}
+    
+    				});
+                }
 			}
 
 		});
