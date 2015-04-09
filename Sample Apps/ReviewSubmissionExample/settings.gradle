@@ -1,0 +1,3 @@
+include ':bazaarAndroidSDK'
+include ':photoPicker'
+include ':reviewSubmissionExample'

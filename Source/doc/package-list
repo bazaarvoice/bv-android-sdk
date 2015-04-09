@@ -1,2 +1,5 @@
 com.bazaarvoice
+com.bazaarvoice.DisplayTests
+com.bazaarvoice.SubmissionTests
+com.bazaarvoice.jackson.rison
 com.bazaarvoice.types
