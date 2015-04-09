@@ -1,0 +1,2 @@
+include ':bazaarAndroidSDK'
+include ':browseProductsExample'

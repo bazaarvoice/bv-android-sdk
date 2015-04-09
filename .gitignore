@@ -20,3 +20,10 @@ local.properties
 
 # Dev update aids
 update.sh
+
+# Android-Studio gitignore
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+**/build

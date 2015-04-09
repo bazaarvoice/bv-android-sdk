@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BrowseProductsExample.iml" filepath="$PROJECT_DIR$/BrowseProductsExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" filepath="$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/browseProductsExample/browseProductsExample.iml" filepath="$PROJECT_DIR$/browseProductsExample/browseProductsExample.iml" />
+    </modules>
+  </component>
+</project>
+

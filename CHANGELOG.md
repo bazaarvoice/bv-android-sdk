@@ -1,3 +1,7 @@
+## 2.1.0 (April 7, 2015)
+* Migrated project from Eclipse based to Android Studio based.
+* Added Bazaarvoice-internal analytics
+
 ## 2.0.3 (July 19, 2013)
 * Changed http from Apache HttpClient to HttpUrlConnection.
 * fixed post requests to send all the data in the body

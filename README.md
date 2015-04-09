@@ -1,15 +1,12 @@
 # Bazaarvoice Android SDK
-### *Version: 2.0.3
-
-## Introduction
-The Bazaarvoice software development kit (SDK) for Android is an Android static library that provides an easy way to generate REST calls to the Bazaarvoice Developer API. Using this SDK, mobile developers can quickly integrate Bazaarvoice content into their native Android apps for phones and tablets on API Level 3 and above.
+*Version: 2.1.0*
+***
+The Bazaarvoice software development kit (SDK) for Android is an Android static library that provides an easy way to generate REST calls to the Bazaarvoice Developer API. Using this SDK, mobile developers can quickly integrate Bazaarvoice content into their native Android apps.
 
 Developers can display content as well as submit content such as Ratings & Reviews, Ask & Answer and Stories, including text and photo. Included reference apps and a Quick Start Guide will allow developers to integrate Bazaarvoice quickly, with little overhead.
 
-
 **Where To Start:**
-
-1.  Read the Quick Start guide to get familiar with installation and building a bare-bones, simple application that uses the SDK.
+1.  Read the Quick Start guide (provided for Eclipse and Android Studio projects) to get familiar with installation and building a bare-bones, simple application that uses the SDK.
 2.  The documentation, located in the docs folder, provides additional information into the capabilities of the SDK itself.
 3.  Sample applications, located in the apps folder, provide example uses of the SDK and implementation best practices.
 
@@ -19,14 +16,7 @@ Developers can display content as well as submit content such as Ratings & Revie
  * API configured and enabled by Bazaarvoice
  * API key to access client's staging and production data
  * Go to the [Bazaarvoice Developer Portal](http://developer.bazaarvoice.com) to get the above completed
-- Eclipse IDE http://www.eclipse.org/downloads/ 
-  - Make sure your Java Compiler is set to 1.6 or greater
-- Android SDK http://developer.android.com/sdk/index.html 
-  - Make sure you have Android 2.2+
-- ADT Plugin for Eclipse http://developer.android.com/sdk/installing/installing-adt.html
-  - Don't forget to create an AVD for your target platform if you are not using a phone to debug
-
-**Note:** IntelliJ IDEA should also work, but Eclipse is explicitly supported.
+- [Android Studio IDE](https://developer.android.com/sdk/index.html) or [Eclipse IDE with Android Developer Tools](https://developer.android.com/tools/help/adt.html)
 
 ## What's Included
 This package includes the following:
@@ -40,7 +30,6 @@ This package includes the following:
  * **Product browse widget:** Illustrates using the Bazaarvoice Android SDK to make a widget that displays products and launches a brower app that shows reviews.
 
 
- License
--
+ ## License
 
-Distributed under the Apache 2.0 license, so go nuts. The SDK shall be used for Good, not Evil.
+Bazaarvoice's Android SDK is available under the Apache 2.0 License. See the LICENSE file for more info.
