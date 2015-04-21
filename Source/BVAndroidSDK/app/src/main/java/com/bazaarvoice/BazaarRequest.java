@@ -56,6 +56,7 @@ public class BazaarRequest {
 	private final String SDK_HEADER_VALUE = "ANDROID_SDK_V25";
 
     static private String clientName;
+    private BazaarEnvironment environment;
 	private String passKey;
 	private String apiVersion;
 	private String requestUrl;
@@ -83,15 +84,21 @@ public class BazaarRequest {
 	 *
      * @param clientName
      *       your client name
-     * @param domainName
-     *       your client domain name
      * @param passKey
-*            your api test key
+     *       your api test key
+     * @param environment
+     *       the environment: staging or production, that this request is intended for
      * @param apiVersion
      */
-	public BazaarRequest(String clientName, String domainName, String passKey, ApiVersion apiVersion) {
+	public BazaarRequest(String clientName, String passKey, BazaarEnvironment environment, ApiVersion apiVersion) {
+        this.environment = environment;
         this.clientName = clientName;
-        this.requestUrl = "http://" + domainName + "/data/";
+
+        if(this.environment == BazaarEnvironment.production)
+            this.requestUrl = "http://api.bazaarvoice.com/data/";
+        else
+            this.requestUrl = "http://stg.api.bazaarvoice.com/data/";
+
         this.passKey = passKey;
         this.apiVersion = apiVersion.getVersionName();
 
@@ -122,7 +129,7 @@ public class BazaarRequest {
 	 */
 	public void sendDisplayRequest(final RequestType type, DisplayParams params, final OnBazaarResponse listener) {
 		
-		//build url xxxx.ugc.bazaarvoice.com/data/xxx.json
+		//build url [stg.]api.bazaarvoice.com/data/xxx.json
         //
 		String requestString = requestUrl + type.getDisplayName() + ".json";
 		
@@ -256,7 +263,7 @@ public class BazaarRequest {
 						+ result + " Error :  " + serverResponseCode));
 			} else {
 				try {
-                    BazaarAnalytics instance = new BazaarAnalytics(BazaarRequest.clientName, BazaarAnalytics.Environment.production);
+                    BazaarAnalytics instance = new BazaarAnalytics(BazaarRequest.clientName, BazaarEnvironment.production);
                     instance.sendAnalyticsEvent(url.toString(), new JSONObject(result), null);
 
 					listener.onResponse(url.toString(), new JSONObject(result));

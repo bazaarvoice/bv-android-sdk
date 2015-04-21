@@ -32,14 +32,14 @@ public class BaseTest extends InstrumentationTestCase {
         super.setUp();
         request = new BazaarRequest(
                 "apitestcustomer",
-                "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
                 "kuy3zj9pr3n7i0wxajrzj04xo",
+                BazaarEnvironment.staging,
                  ApiVersion.FIVE_FOUR);
 
         submit = new BazaarRequest(
                 "apitestcustomer",
-                "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
                 "1wtp4lx7aww42x4154oly21ae",
+                BazaarEnvironment.staging,
                 ApiVersion.FIVE_FOUR);
         
         mContext = this.getInstrumentation().getContext();

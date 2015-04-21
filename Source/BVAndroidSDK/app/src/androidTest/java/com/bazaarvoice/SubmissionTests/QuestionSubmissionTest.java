@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.bazaarvoice.BaseTest;
+import com.bazaarvoice.BazaarEnvironment;
 import com.bazaarvoice.OnBazaarResponseHelper;
 
 import com.bazaarvoice.BazaarRequest;
@@ -50,9 +51,10 @@ import com.bazaarvoice.types.RequestType;
 		};
 
 		submit = new BazaarRequest(
-                "reviews.apitestcustomer.bazaarvoice.com/bvstaging", "answers.apitestcustomer.bazaarvoice.com/bvstaging",
+                "apitestcustomer",
 				"1wtp4lx7aww42x4154oly21ae",
-				ApiVersion.FIVE_FOUR);
+                BazaarEnvironment.staging,
+                ApiVersion.FIVE_FOUR);
 
 		final SubmissionParams submissionParams = new SubmissionParams();
 		// //Log.e(TAG,submissionParams.getEncryptedUser());

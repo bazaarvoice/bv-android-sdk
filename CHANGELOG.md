@@ -1,3 +1,6 @@
+## 2.1.1 (April 7, 2015)
+* Supported universal api endpoint. This means all api calls will hit api.bazaarvoice.com, instead of domain specific requests like reviews.<customer_name>.bazaarvoice.com. See https://developer.bazaarvoice.com/apis/conversations/upgrading/upgrade_guide.
+
 ## 2.1.0 (April 7, 2015)
 * Migrated project from Eclipse based to Android Studio based.
 * Added Bazaarvoice-internal analytics
