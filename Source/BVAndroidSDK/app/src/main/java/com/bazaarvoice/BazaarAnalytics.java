@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.bazaarvoice.jackson.rison.RisonFactory;
 import com.bazaarvoice.types.RequestType;
@@ -47,15 +47,16 @@ public class BazaarAnalytics {
 
 	private final Uri baseUri;
 
-	BazaarAnalytics(String clientId, Environment environment) {
+	public BazaarAnalytics(String clientId, BazaarEnvironment environment) {
 
-		this.baseUri = environment.getBaseUri()
+		this.baseUri = BazaarAnalytics.getBaseUri(environment)
 				.buildUpon()
 				.appendQueryParameter("source", SOURCE)
 				.appendQueryParameter("client", clientId)
 				.appendQueryParameter("environment", environment.toString())
                 .appendQueryParameter("bvProduct", PRODUCT)
 				.build();
+        Log.d("help", "help");
 	}
 
 	/**
@@ -174,12 +175,12 @@ public class BazaarAnalytics {
 
 	public static class AsyncGet extends AsyncTask<Void, Void, Void> {
 		//the size of a.gif is 43 bytes, give some extra bytes just in case
-		final static byte[] IGNORE_BUFFER = new byte[50];
+		public final static byte[] IGNORE_BUFFER = new byte[50];
 		private final URL url;
 		private final SendEventCallback callback;
 		private BazaarException exception;
 
-		AsyncGet(URL url, SendEventCallback callback) {
+		public AsyncGet(URL url, SendEventCallback callback) {
 			this.url = url;
 			this.callback = callback;
 		}
@@ -215,18 +216,19 @@ public class BazaarAnalytics {
 		}
 	}
 
-	public static enum Environment {
-		staging {
-			Uri getBaseUri() {
-				return new Uri.Builder().scheme("https").path("//network-stg-a.bazaarvoice.com/a.gif").build();
-			}
-		},
-		production {
-			Uri getBaseUri() {
-				return new Uri.Builder().scheme("https").path("//network-a.bazaarvoice.com/a.gif").build();
-			}
-		};
 
-		abstract Uri getBaseUri();
-	}
+    /**
+     * Get the Bazaarvoice base URL for specific environment.
+     *
+     * @param environment
+     *            The desired environment for the Analytics event (production or staging)
+     */
+    public static Uri getBaseUri(BazaarEnvironment environment) {
+        if(environment == BazaarEnvironment.production) {
+            return new Uri.Builder().scheme("https").path("//network-a.bazaarvoice.com/a.gif").build();
+        }
+        else {
+            return new Uri.Builder().scheme("https").path("//network-stg-a.bazaarvoice.com/a.gif").build();
+        }
+    }
 }

@@ -37,6 +37,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.bazaarvoice.BaseTest;
+import com.bazaarvoice.BazaarEnvironment;
 import com.bazaarvoice.OnBazaarResponseHelper;
 
 import com.bazaarvoice.BazaarException;
@@ -54,9 +55,11 @@ public class VideoSubmissionTest extends BaseTest {
 
 	@Override
 	protected void setUp() throws Exception {
-		submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging", "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
+		submitMedia = new BazaarRequest(
+                "apitestcustomer",
 				"2cpdrhohmgmwfz8vqyo48f52g",
-				ApiVersion.FIVE_FOUR);
+                BazaarEnvironment.staging,
+                ApiVersion.FIVE_FOUR);
 	}
 
 	public void testVideoSubmit() throws Throwable {
@@ -91,12 +94,11 @@ public class VideoSubmissionTest extends BaseTest {
 		final OnBazaarResponseHelper bazaarResponse = new OnBazaarResponseHelper() {
 			@Override
 			public void onResponseHelper(JSONObject response) throws JSONException {
-				Log.e(tag, "End of video submit transmission : END " + System.currentTimeMillis());
+            Log.e(tag, "End of video submit transmission : END " + System.currentTimeMillis());
+            Log.i(tag, "Response = \n" + response);
 
-				Log.i(tag, "Response = \n" + response);
-
-				assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
-				assertNotNull(response.getJSONObject("Video").getString("VideoUrl"));
+            assertFalse("The test returned errors! ", response.getBoolean("HasErrors"));
+            assertNotNull(response.getJSONObject("Video").getString("VideoUrl"));
 			}
 		};
 

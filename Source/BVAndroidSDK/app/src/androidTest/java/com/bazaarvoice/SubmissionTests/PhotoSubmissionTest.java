@@ -39,6 +39,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.bazaarvoice.BaseTest;
+import com.bazaarvoice.BazaarEnvironment;
 import com.bazaarvoice.OnBazaarResponseHelper;
 
 import com.bazaarvoice.BazaarException;
@@ -53,9 +54,11 @@ public class PhotoSubmissionTest extends BaseTest {
 
 	private final String tag = getClass().getSimpleName();
 
-	private BazaarRequest submitMedia = new BazaarRequest("reviews.apitestcustomer.bazaarvoice.com/bvstaging", "reviews.apitestcustomer.bazaarvoice.com/bvstaging",
+	private BazaarRequest submitMedia = new BazaarRequest(
+            "apitestcustomer",
 			"2cpdrhohmgmwfz8vqyo48f52g",
-			ApiVersion.FIVE_FOUR);
+            BazaarEnvironment.staging,
+            ApiVersion.FIVE_FOUR);
 
 	public void testPhotoSubmit() throws Throwable {
 
