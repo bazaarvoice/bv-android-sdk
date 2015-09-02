@@ -1,5 +1,6 @@
 package com.bazaarvoice.example.browseproducts;
 
+import com.bazaarvoice.BazaarEnvironment;
 import com.bazaarvoice.types.*;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.DisplayParams;
@@ -22,7 +23,6 @@ import com.bazaarvoice.OnBazaarResponse;
  */
 public class BazaarFunctions {
 
-	public static final String API_URL = "reviews.apitestcustomer.bazaarvoice.com/bvstaging";
 	public static final String API_KEY = "kuy3zj9pr3n7i0wxajrzj04xo";
 	public static final ApiVersion API_VERSION = ApiVersion.FIVE_FOUR;
 
@@ -36,7 +36,8 @@ public class BazaarFunctions {
 	 */
 	public static void runProductSearchQuery(String searchPhrase,
 			OnBazaarResponse listener) {
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+
+		BazaarRequest request = new BazaarRequest("apitestcustomer", API_KEY, BazaarEnvironment.staging, API_VERSION);
 		DisplayParams params = new DisplayParams();
 
 		if (!"".equals(searchPhrase.trim())) {
@@ -61,7 +62,8 @@ public class BazaarFunctions {
 	 *            the response listener
 	 */
 	public static void runReviewQuery(String prodId, OnBazaarResponse listener) {
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+
+		BazaarRequest request = new BazaarRequest("apitestcustomer", API_KEY, BazaarEnvironment.staging, API_VERSION);
 		DisplayParams params = new DisplayParams();
 
 		params.addFilter("ProductId", Equality.EQUAL, prodId);

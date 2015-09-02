@@ -239,18 +239,16 @@ public class MainActivity extends Activity {
 			BazaarFunctions.doStoryPreview(story.getText().toString(), title
 					.getText().toString(), new BazaarUIThreadResponse(this) {
 				@Override
-				public void onUiResponse(JSONObject json) {
+				public void onResponse(String url, JSONObject response) {
 					/*
 					 * Basic error checking for form errors. This does not
 					 * consider any other kinds of errors and should be more
 					 * robust.
 					 */
 					try {
-						if (json.getBoolean("HasErrors")) {
-							JSONObject formErrors = json
-									.getJSONObject("FormErrors");
-							String error = formErrors.getJSONArray(
-									"FieldErrorsOrder").getString(0);
+						if (response.getBoolean("HasErrors")) {
+							JSONObject formErrors = response.getJSONObject("FormErrors");
+							String error = formErrors.getJSONArray("FieldErrorsOrder").getString(0);
 							String message = formErrors
 									.getJSONObject("FieldErrors")
 									.getJSONObject(error).getString("Message");
@@ -272,6 +270,11 @@ public class MainActivity extends Activity {
 								+ "/n" + Log.getStackTraceString(e));
 					}
 					verifyDialog.dismiss();
+				}
+
+				@Override
+				public void onUiResponse(JSONObject json) {
+
 				}
 
 			});
@@ -330,9 +333,14 @@ public class MainActivity extends Activity {
 
 		@SuppressWarnings("deprecation")
 		public void onUiResponse(JSONObject json) {
-			Log.i(TAG, json.toString());
+
+		}
+
+		@Override
+		public void onResponse(String url, JSONObject response) {
+			Log.i(TAG, response.toString());
 			try {
-				if (json.getBoolean("HasErrors")) {
+				if (response.getBoolean("HasErrors")) {
 
 					/*
 					 * Do further error checking here but note that when this

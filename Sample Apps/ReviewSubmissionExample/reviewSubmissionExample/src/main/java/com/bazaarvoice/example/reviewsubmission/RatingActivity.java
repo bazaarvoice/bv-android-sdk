@@ -245,7 +245,7 @@ public class RatingActivity extends Activity implements ImageLoaderListener {
 						}
 
 						@Override
-						public void onResponse(JSONObject json) {
+						public void onResponse(String url, JSONObject json) {
 							Log.i(TAG, "Response = \n" + json);
 
 							try {

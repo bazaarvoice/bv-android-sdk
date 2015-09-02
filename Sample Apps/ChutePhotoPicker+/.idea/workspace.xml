@@ -1,25 +1,278 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AndroidConfiguredLogFilters">
-    <filters>
-      <filter>
-        <option name="name" value="app: com.chute.android.photopickerplus" />
-        <option name="packageNamePattern" value="com.chute.android.photopickerplus" />
-      </filter>
-    </filters>
-  </component>
-  <component name="AndroidLayouts">
-    <shared>
-      <config />
-    </shared>
-  </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.chute.android.photopickerplus" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a436d6a1-6539-4e8c-95c7-6f060e92c10d" name="Default" comment="" />
+    <list default="true" id="3dfc69bb-ddd7-4010-80cf-f8a21759aac0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/main/AndroidManifest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../LICENSE" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/bv-android-sdk.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/libraries/jackson_annotations_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../IntentExample/.idea/libraries/jackson_annotations_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/libraries/jackson_annotations_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/libraries/jackson_core_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../IntentExample/.idea/libraries/jackson_core_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/libraries/jackson_core_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/libraries/jackson_databind_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../IntentExample/.idea/libraries/jackson_databind_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/libraries/jackson_databind_2_1_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/proguard-rules.pro" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/runConfigurations.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../IntentExample/.idea/runConfigurations.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/runConfigurations.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/runConfigurations.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../CHANGELOG.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../LICENSE.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../BrowseProductsExample/bazaarAndroidSDK/bazaarAndroidSDK.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IntentExample/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../IntentExample/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/gradle.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/build.gradle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/BazaarParams.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/BazaarRequest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/DisplayParams.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/OnBazaarResponse.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/SubmissionMediaParams.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/SubmissionParams.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/Action.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/ApiVersion.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/Equality.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/FeedbackContentType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/FeedbackType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/FeedbackVoteType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/IncludeStatsType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/IncludeType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/MediaParamsContentType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/types/RequestType.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/res/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/build.gradle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/gradle/wrapper/gradle-wrapper.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/gradle/wrapper/gradle-wrapper.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/gradlew" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/gradlew.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/import-summary.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/productWidgetExample.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/BazaarFunctions.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/BazaarProduct.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/BazaarReview.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/BazaarUIThreadResponse.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/ImageDownloader.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/OnImageDownloadComplete.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/ProductWidgetProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/ReviewAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/java/com/example/productwidgetexample/ReviewsActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/app_background2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/bv_icon.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/five_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/four_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/graphic_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/graphic_star_filled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/graphic_star_half.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/graphic_star_white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/one_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/three_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-hdpi/two_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-land/app_background2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/app_background2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/bv_icon.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/five_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/four_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/graphic_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/graphic_star_filled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/graphic_star_half.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/graphic_star_white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/one_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/three_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-ldpi/two_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/app_background2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/bv_icon.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/five_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/four_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/graphic_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/graphic_star_filled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/graphic_star_half.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/graphic_star_white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/one_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/three_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-mdpi/two_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-nodpi/camera_icon.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/app_background2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/bv_icon.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/five_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/four_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/graphic_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/graphic_star_filled.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/graphic_star_half.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/graphic_star_white.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/ic_launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/one_star.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/three_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable-xhdpi/two_star.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/back.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/bv_ratingbar.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/bv_star_empty.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/bv_star_filled.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/bv_star_half.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/disclosure.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/drop_shadow_down.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/fore.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/list_back.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/normal.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/drawable/pressed.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/layout-land/reviews.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/layout/browse_widget.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/layout/review_item.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/layout/reviews.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/values-v11/styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/values-v14/dimen.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/values-v14/styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/values/dimen.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/values/strings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/values/styles.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/src/main/res/xml/browse_widget_info.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/settings.gradle" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/BazaarException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/Media.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../../V2UpdateGuide.pdf" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../../.idea/compiler.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/../../.idea/copyright/profiles_settings.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../../.idea/vcs.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/ProductWidgetExample.iml" afterPath="$PROJECT_DIR$/../IntentExample/IntentExample.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/bazaarAndroidSDK.iml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/BazaarException.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/BazaarException.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/bazaarAndroidSDK/src/main/java/com/bazaarvoice/Media.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/Media.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../ProductWidgetExample/productWidgetExample/build.gradle" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/build.gradle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/app.iml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/tests.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/build.gradle" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/build.gradle" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/assets/android_video.mp4" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/assets/android_video.mp4" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/assets/ralphrocks.jpg" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/assets/ralphrocks.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/AnalyticsTests/BazaarAnalyticsTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/AnalyticsTests/BazaarAnalyticsTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/BaseTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/BaseTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/AnswerDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/AnswerDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/CategoryDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/CategoryDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/CommentDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/CommentDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/ProductDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/ProductDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/ProfileDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/ProfileDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/QuestionDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/QuestionDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/ReviewDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/ReviewDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/StatisticsDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/StatisticsDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/DisplayTests/StoryDisplayTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/DisplayTests/StoryDisplayTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/OnBazaarResponseHelper.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/OnBazaarResponseHelper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/AnswerSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/AnswerSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/CommentsSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/CommentsSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/FeedbackSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/FeedbackSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/PhotoSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/PhotoSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/QuestionSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/QuestionSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/ReviewSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/ReviewSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/StorySubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/StorySubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/androidTest/java/com/bazaarvoice/SubmissionTests/VideoSubmissionTest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/tests/src/androidTest/java/com/bazaarvoice/androidTests/SubmissionTests/VideoSubmissionTest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/AndroidManifest.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/BazaarAnalytics.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/BazaarAnalytics.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/BazaarEnvironment.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/BazaarEnvironment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/BazaarParams.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/BazaarParams.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/BazaarRequest.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/BazaarRequest.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/DisplayParams.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/DisplayParams.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/OnBazaarResponse.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/OnBazaarResponse.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/SubmissionMediaParams.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/SubmissionMediaParams.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/SubmissionParams.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/SubmissionParams.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/jackson/rison/IdentifierUtils.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/jackson/rison/IdentifierUtils.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/jackson/rison/ModuleVersion.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/jackson/rison/ModuleVersion.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/jackson/rison/RisonFactory.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/jackson/rison/RisonFactory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/jackson/rison/RisonGenerator.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/jackson/rison/RisonGenerator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/jackson/rison/RisonParser.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/jackson/rison/RisonParser.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/Action.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/Action.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/ApiVersion.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/ApiVersion.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/Equality.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/Equality.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/FeedbackContentType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/FeedbackContentType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/FeedbackType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/FeedbackType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/FeedbackVoteType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/FeedbackVoteType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/IncludeStatsType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/IncludeStatsType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/IncludeType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/IncludeType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/MediaParamsContentType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/MediaParamsContentType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/app/src/main/java/com/bazaarvoice/types/RequestType.java" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/src/main/java/com/bazaarvoice/types/RequestType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/BVAndroidSDK.iml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/BVAndroidSDK.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/src/main/java/com/bazaarvoice/example/browseproducts/BazaarFunctions.java" afterPath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/src/main/java/com/bazaarvoice/example/browseproducts/BazaarFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/intentExample/src/main/java/com/bazaarvoice/intentexample/BazaarFunctions.java" afterPath="$PROJECT_DIR$/../IntentExample/intentExample/src/main/java/com/bazaarvoice/intentexample/BazaarFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/src/main/java/com/bazaarvoice/example/reviewsubmission/BazaarFunctions.java" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/src/main/java/com/bazaarvoice/example/reviewsubmission/BazaarFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/BrowseProductsExample.iml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/BrowseProductsExample.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChutePhotoPicker+.iml" afterPath="$PROJECT_DIR$/ChutePhotoPicker+.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/intentExample/src/main/java/com/bazaarvoice/intentexample/MainActivity.java" afterPath="$PROJECT_DIR$/../IntentExample/intentExample/src/main/java/com/bazaarvoice/intentexample/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/src/main/java/com/bazaarvoice/example/browseproducts/ProductsActivity.java" afterPath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/src/main/java/com/bazaarvoice/example/browseproducts/ProductsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../README.md" afterPath="$PROJECT_DIR$/../../README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/src/main/java/com/bazaarvoice/example/reviewsubmission/RatingActivity.java" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/src/main/java/com/bazaarvoice/example/reviewsubmission/RatingActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/ReviewSubmissionExample.iml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/ReviewSubmissionExample.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/src/main/java/com/bazaarvoice/example/browseproducts/ReviewsActivity.java" afterPath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/src/main/java/com/bazaarvoice/example/browseproducts/ReviewsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/bazaarAndroidSDK/bazaarAndroidSDK.iml" afterPath="$PROJECT_DIR$/../IntentExample/bazaarAndroidSDK/bazaarAndroidSDK.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/bazaarAndroidSDK/bazaarAndroidSDK.iml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/bazaarAndroidSDK/bazaarAndroidSDK.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/browseProductsExample.iml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/browseProductsExample.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/build.gradle" afterPath="$PROJECT_DIR$/../BrowseProductsExample/browseProductsExample/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/intentExample/build.gradle" afterPath="$PROJECT_DIR$/../IntentExample/intentExample/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/build.gradle" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/libraries/chutesdk.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/libraries/chutesdk.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../IntentExample/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../IntentExample/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/gradle.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/intentExample/intentExample.iml" afterPath="$PROJECT_DIR$/../IntentExample/intentExample/intentExample.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/misc.xml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/.idea/misc.xml" afterPath="$PROJECT_DIR$/../IntentExample/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/misc.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/modules.xml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/.idea/modules.xml" afterPath="$PROJECT_DIR$/../IntentExample/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/modules.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/modules.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/photoPicker/photoPicker.iml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/photoPicker/photoPicker.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/reviewSubmissionExample.iml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/reviewSubmissionExample/reviewSubmissionExample.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/settings.gradle" afterPath="$PROJECT_DIR$/../BrowseProductsExample/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/settings.gradle" afterPath="$PROJECT_DIR$/../IntentExample/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/settings.gradle" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/settings.gradle" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../IntentExample/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../BrowseProductsExample/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../BrowseProductsExample/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../IntentExample/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../IntentExample/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ReviewSubmissionExample/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Source/BVAndroidSDK/.idea/workspace.xml" />
+    </list>
     <ignored path="ChutePhotoPicker+.iws" />
     <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,98 +283,34 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <PATH>
+              <PATH_ELEMENT>
+                <option name="myItemId" value="" />
+                <option name="myItemType" value="com.intellij.openapi.externalSystem.view.ExternalProjectsStructure$RootNode" />
+              </PATH_ELEMENT>
+              <PATH_ELEMENT>
+                <option name="myItemId" value="ChutePhotoPicker+" />
+                <option name="myItemType" value="com.intellij.openapi.externalSystem.view.ProjectNode" />
+              </PATH_ELEMENT>
+            </PATH>
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="ChutePhotoPicker+" />
   </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="PhotoPickerPlusApp.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/PhotoPickerPlusApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GridActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/GridActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3225">
-              <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChooseServiceActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/ChooseServiceActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4935">
-              <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlbumsActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/AlbumsActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29867256" vertical-offset="0" max-vertical-offset="1650">
-              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="253" max-vertical-offset="900">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-              <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="FindManager">
-    <FindUsagesManager>
-      <setting name="OPEN_NEW_TAB" value="true" />
-    </FindUsagesManager>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="GradleLocalSettings">
-    <option name="tasksExpandState">
-      <map>
-        <entry key="" value="true" />
-      </map>
-    </option>
     <option name="availableProjects">
       <map>
         <entry>
@@ -148,6 +337,455 @@
     </option>
     <option name="availableTasks">
       <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the Android dependencies of the project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="androidDependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles all variants of all applications and secondary packages." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles all the Test applications." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles all Debug builds." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the android (on device) tests for the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the unit tests for the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleDebugUnitTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles all Release builds." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the unit tests for the Release build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assembleReleaseUnitTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="checkDebugManifest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="checkReleaseManifest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugAidl" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugAndroidTestAidl" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugAndroidTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugAndroidTestNdk" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugAndroidTestRenderscript" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugAndroidTestSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugNdk" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugRenderscript" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugUnitTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileDebugUnitTestSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileLint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseAidl" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseNdk" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseRenderscript" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseUnitTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileReleaseUnitTestSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Installs and runs the tests for Debug build on connected devices." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="connectedAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all device checks on currently connected devices." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="connectedCheck" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all device checks using Device Providers and Test Servers." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="deviceCheck" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dexDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dexDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dexRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugAndroidTestAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugAndroidTestBuildConfig" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugAndroidTestResValues" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugAndroidTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugAndroidTestSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugBuildConfig" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugResValues" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateDebugSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateReleaseAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateReleaseBuildConfig" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateReleaseResValues" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateReleaseResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="generateReleaseSources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Installs the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="installDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Installs the android (on device) tests for the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="installDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs lint on all variants." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="lint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs lint on the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="lintDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs lint on the Release build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="lintRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs lint on just the fatal issues in the Release build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="lintVitalRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeDebugAndroidTestAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeDebugAndroidTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeDebugAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeDebugResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeReleaseAssets" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mergeReleaseResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Creates a version of android.jar that's suitable for unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="mockableAndroidJar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="packageRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preCompileDebugUnitTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preCompileReleaseUnitTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preDebugAndroidTestBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preDebugBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preDexDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preDexDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preDexRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="preReleaseBuild" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareDebugAndroidTestDependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareDebugDependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareReleaseDependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processDebugAndroidTestJavaRes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processDebugAndroidTestManifest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processDebugAndroidTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processDebugJavaRes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processDebugManifest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processDebugResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processReleaseJavaRes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processReleaseManifest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processReleaseResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the signing info for each variant." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="signingReport" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run all unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run unit tests for the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Run unit tests for the Release build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uninstall all applications." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="uninstallAll" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uninstalls the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="uninstallDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uninstalls the android (on device) tests for the Debug build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="uninstallDebugAndroidTest" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uninstalls the Release build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="uninstallRelease" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="validateDebugSigning" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="zipalignDebug" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app">
           <value>
             <list>
@@ -601,7 +1239,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4285577026000" />
+        <entry key="$PROJECT_DIR$" value="4288695744000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -890,20 +1528,19 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="changedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-      </list>
+    <option name="externalProjectsViewState">
+      <projects_view />
     </option>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="830" />
+    <option name="height" value="820" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -913,11 +1550,8 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
-  </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -929,6 +1563,10 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -936,291 +1574,18 @@
               <option name="myItemId" value="ChutePhotoPicker+" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photopickerplus" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photopickerplus" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photopickerplus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChutePhotoPicker+" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photopickerplus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToClass.includeLibraries" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
-    <property name="restartRequiresConfirmation" value="true" />
   </component>
   <component name="RunManager" selected="Android Application.app">
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -1239,12 +1604,93 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
+      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
+      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
+      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
       <method />
     </configuration>
     <configuration default="false" name="app" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="app" />
-      <option name="ACTIVITY_CLASS" value="com.chute.android.photopickerplus.app.GridActivity" />
-      <option name="MODE" value="specific_activity" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
@@ -1259,8 +1705,15 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <RunnerSettings RunnerId="AndroidDebugRunner" />
-      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
+      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
+      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
+      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
       <method />
     </configuration>
     <list size="1">
@@ -1278,10 +1731,6 @@
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
-    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
-      <Host>localhost</Host>
-      <Port>5050</Port>
-    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
@@ -1289,43 +1738,43 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a436d6a1-6539-4e8c-95c7-6f060e92c10d" name="Default" comment="" />
-      <created>1428523771697</created>
-      <updated>1428523771697</updated>
+      <changelist id="3dfc69bb-ddd7-4010-80cf-f8a21759aac0" name="Default" comment="" />
+      <created>1441230706360</created>
+      <option name="number" value="Default" />
+      <updated>1441230706360</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="830" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="820" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32913166" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32913166" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1339,79 +1788,8 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="687">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="662">
-          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/PhotoPickerPlusApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="615">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/GridActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3225">
-          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/ChooseServiceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4935">
-          <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/import-summary.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5641593" vertical-offset="0" max-vertical-offset="750">
-          <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="253" max-vertical-offset="900">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/chute/android/photopickerplus/app/AlbumsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29867256" vertical-offset="0" max-vertical-offset="1650">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <watches-manager />
   </component>
 </project>
-

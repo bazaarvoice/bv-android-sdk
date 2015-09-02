@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.bazaarvoice.BazaarEnvironment;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.OnBazaarResponse;
 import com.bazaarvoice.SubmissionMediaParams;
@@ -35,7 +36,6 @@ import com.bazaarvoice.types.RequestType;
  */
 public class BazaarFunctions {
 
-	public static final String API_URL = "stories.apitestcustomer.bazaarvoice.com/bvstaging";
 	public static final String API_KEY = "2cpdrhohmgmwfz8vqyo48f52g";
 	public static final ApiVersion API_VERSION = ApiVersion.FIVE_FOUR;
 	protected static final String TAG = "BazaarFunctions";
@@ -73,14 +73,16 @@ public class BazaarFunctions {
 			Log.e(TAG, ex.getMessage());
 		}
 
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+		BazaarRequest request = new BazaarRequest("apitestcustomer", API_KEY, BazaarEnvironment.staging, API_VERSION);
 		request.postSubmission(RequestType.PHOTOS, submissionMediaParams,
 				new OnBazaarResponse() {
-					public void onResponse(JSONObject jsonObject) {
+
+					@Override
+					public void onResponse(String url, JSONObject response) {
 						JSONObject photo, sizes, normal;
-						Log.i("Photo response", jsonObject.toString());
+						Log.i("Photo response", response.toString());
 						try {
-							photo = jsonObject.getJSONObject("Photo");
+							photo = response.getJSONObject("Photo");
 							sizes = photo.getJSONObject("Sizes");
 							normal = sizes.getJSONObject("normal");
 
@@ -92,7 +94,6 @@ public class BazaarFunctions {
 						} catch (JSONException ex) {
 							Log.e(TAG, ex.getMessage());
 						}
-
 					}
 
 					public void onException(String message, Throwable exception) {
@@ -152,7 +153,8 @@ public class BazaarFunctions {
 
 		submissionParams.addPhotoUrl(submittedPhotoUrl);
 		submissionParams.setAction(Action.SUBMIT);
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+
+		BazaarRequest request = new BazaarRequest("apitestcustomer", API_KEY, BazaarEnvironment.staging, API_VERSION);
 		request.postSubmission(RequestType.STORIES, submissionParams,
 				submissionListener);
 	}
@@ -180,7 +182,7 @@ public class BazaarFunctions {
 		submissionParams.setCategoryId("Yellow");
 		submissionParams.setAction(Action.PREVIEW);
 
-		BazaarRequest request = new BazaarRequest(API_URL, API_KEY, API_VERSION);
+		BazaarRequest request = new BazaarRequest("apitestcustomer", API_KEY, BazaarEnvironment.staging, API_VERSION);
 		request.postSubmission(RequestType.STORIES, submissionParams, listener);
 	}
 

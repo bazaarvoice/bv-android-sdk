@@ -175,17 +175,22 @@ public class ReviewsActivity extends Activity {
 	 */
 	private void downloadReviews() {
 		selectedProduct.downloadReviews(new BazaarUIThreadResponse(this) {
-			
+
 			@Override
-			public void onUiResponse(JSONObject json) {
-				Log.i(TAG, "Response = \n" + json);
+			public void onResponse(String url, JSONObject response) {
+				Log.i(TAG, "Response = \n" + response);
 				try {
-					displayReviews(json);
+					displayReviews(response);
 				} catch (JSONException exception) {
 					Log.e(TAG,
 							"Error = " + exception.getMessage() + "\n"
 									+ Log.getStackTraceString(exception));
 				}
+			}
+
+			@Override
+			public void onUiResponse(JSONObject json) {
+
 			}
 
 		});

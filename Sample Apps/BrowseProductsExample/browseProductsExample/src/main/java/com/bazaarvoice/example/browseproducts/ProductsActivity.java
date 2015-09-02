@@ -107,10 +107,15 @@ public class ProductsActivity extends Activity {
 				new BazaarUIThreadResponse(this) {
 
 					@Override
-					public void onUiResponse(JSONObject json) {
-						Log.i(TAG, "Response = \n" + json);
+					public void onUiResponse(JSONObject response) {
+
+					}
+
+					@Override
+					public void onResponse(String url, JSONObject response) {
+						Log.i(TAG, "Response = \n" + response);
 						try {
-							JSONArray results = json.getJSONArray("Results");
+							JSONArray results = response.getJSONArray("Results");
 
 							if (results.length() == 0) {
 								noResult.setVisibility(View.VISIBLE);
@@ -135,7 +140,6 @@ public class ProductsActivity extends Activity {
 							Log.e(TAG, "Error = " + exception.getMessage()
 									+ "\n" + Log.getStackTraceString(exception));
 						}
-
 					}
 
 				});
