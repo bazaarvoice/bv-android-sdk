@@ -5,10 +5,10 @@ The Bazaarvoice software development kit (SDK) for Android is an Android static 
 
 Developers can display content as well as submit content such as Ratings & Reviews, Ask & Answer and Stories, including text and photo. Included reference apps and a Quick Start Guide will allow developers to integrate Bazaarvoice quickly, with little overhead.
 
-**Where To Start:**
-1.  Read the Quick Start guide (provided for Eclipse and Android Studio projects) to get familiar with installation and building a bare-bones, simple application that uses the SDK.
-2.  The documentation, located in the docs folder, provides additional information into the capabilities of the SDK itself.
-3.  Sample applications, located in the apps folder, provide example uses of the SDK and implementation best practices.  
+**Where To Start:**  
+1.  Read the Quick Start guide (provided for Eclipse and Android Studio projects) to get familiar with installation and building a bare-bones, simple application that uses the SDK.  
+2.  The documentation, located in the docs folder, provides additional information into the capabilities of the SDK itself.  
+3.  Sample applications, located in the apps folder, provide example uses of the SDK and implementation best practices.    
 
 **A note on universal API requirement:**  
 As per the [API Upgrading guide](https://developer.bazaarvoice.com/apis/conversations/upgrading/upgrade_guide), Bazaarvoice is moving to a universal api endpoint, `api.bazaarvoice.com`, instead of `reviews.<customer_name>.bazaarvoice.com` or similar. Therefore, forming a `BazaarRequest` has changed slightly (it's gotten easier!), and an example is available in the Quick Start Guide. 
@@ -35,4 +35,5 @@ This package includes the following:
 
 ## License
 
-Bazaarvoice's Android SDK is available under the Apache 2.0 License. See the LICENSE file for more info.
+## License
+See [Bazaarvoice's API Terms of Use](https://developer.bazaarvoice.com/legal/terms_of_use). Except as otherwise noted, the Bazaarvoice Android SDK licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).

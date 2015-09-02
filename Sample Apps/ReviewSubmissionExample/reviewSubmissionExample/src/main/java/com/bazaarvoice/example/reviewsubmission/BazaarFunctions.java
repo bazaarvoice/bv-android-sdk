@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.bazaarvoice.BazaarEnvironment;
 import com.bazaarvoice.types.*;
 import com.bazaarvoice.BazaarRequest;
 import com.bazaarvoice.OnBazaarResponse;
@@ -70,13 +71,13 @@ public class BazaarFunctions {
 			}
 
 			@Override
-			public void onResponse(JSONObject json) {
-				Log.i(TAG, "Response = \n" + json);
+			public void onResponse(String url, JSONObject response) {
+				Log.i(TAG, "Response = \n" + response);
 				if (listener != null) {
 					listener.onFinish();
 				}
 				try {
-					photoUrl = json.getJSONObject("Photo")
+					photoUrl = response.getJSONObject("Photo")
 							.getJSONObject("Sizes").getJSONObject("normal")
 							.getString("Url");
 				} catch (JSONException exception) {
@@ -86,7 +87,7 @@ public class BazaarFunctions {
 
 		};
 
-		BazaarRequest submitMedia = new BazaarRequest(API_URL, API_KEY,
+		BazaarRequest submitMedia = new BazaarRequest("apitestcustomer", API_KEY, BazaarEnvironment.staging,
 				API_VERSION);
 		submitMedia.postSubmission(RequestType.PHOTOS, params, response);
 	}
@@ -122,8 +123,6 @@ public class BazaarFunctions {
 	 * 
 	 * @param bitmap
 	 *            the bitmap representation of the image to upload
-	 * @param filename
-	 *            the filename of the photo to upload -- this is necessary to determine mime type
 	 */
 	public static void uploadPhoto(Bitmap bitmap, String filenname, final OnImageUploadComplete listener) {
 		try {
@@ -215,8 +214,7 @@ public class BazaarFunctions {
 		else
 			params.setUserId("Anonymous");
 
-		BazaarRequest submission = new BazaarRequest(API_URL, API_KEY,
-				API_VERSION);
+		BazaarRequest submission = new BazaarRequest("clientname", API_KEY, BazaarEnvironment.staging, API_VERSION);
 		submission.postSubmission(RequestType.REVIEWS, params, listener);
 	}
 

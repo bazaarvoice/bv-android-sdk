@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BrowseProductsExample.iml" filepath="$PROJECT_DIR$/BrowseProductsExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" filepath="$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/browseProductsExample/browseProductsExample.iml" filepath="$PROJECT_DIR$/browseProductsExample/browseProductsExample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" filepath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" />
     </modules>
   </component>
 </project>
-

@@ -1,2 +1,3 @@
-include ':bazaarAndroidSDK'
-include ':intentExample'
+include ':intentExample', ':bvsdk'
+project(':bvsdk').projectDir = new File('../../Source/BVAndroidSDK/bvsdk')
+

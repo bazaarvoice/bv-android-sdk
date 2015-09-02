@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="chutesdk">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/chutesdk.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

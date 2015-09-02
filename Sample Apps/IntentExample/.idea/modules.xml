@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IntentExample.iml" filepath="$PROJECT_DIR$/IntentExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" filepath="$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" filepath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/intentExample/intentExample.iml" filepath="$PROJECT_DIR$/intentExample/intentExample.iml" />
     </modules>
   </component>
 </project>
-

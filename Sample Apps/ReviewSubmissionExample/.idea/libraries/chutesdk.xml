@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="chutesdk">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/reviewSubmissionExample/libs/chutesdk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/photoPicker/libs/chutesdk.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

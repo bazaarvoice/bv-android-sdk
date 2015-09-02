@@ -1,2 +1,2 @@
-include ':bazaarAndroidSDK'
-include ':browseProductsExample'
+include ':browseProductsExample', ':bvsdk'
+project(':bvsdk').projectDir = new File('../../Source/BVAndroidSDK/bvsdk')

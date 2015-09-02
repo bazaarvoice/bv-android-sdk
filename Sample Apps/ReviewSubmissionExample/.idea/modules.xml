@@ -3,10 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ReviewSubmissionExample.iml" filepath="$PROJECT_DIR$/ReviewSubmissionExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" filepath="$PROJECT_DIR$/bazaarAndroidSDK/bazaarAndroidSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" filepath="$PROJECT_DIR$/../../Source/BVAndroidSDK/bvsdk/bvsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/photoPicker/photoPicker.iml" filepath="$PROJECT_DIR$/photoPicker/photoPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/reviewSubmissionExample/reviewSubmissionExample.iml" filepath="$PROJECT_DIR$/reviewSubmissionExample/reviewSubmissionExample.iml" />
     </modules>
   </component>
 </project>
-
