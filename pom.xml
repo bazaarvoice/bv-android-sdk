@@ -10,7 +10,7 @@
 
     <groupId>com.bazaarvoice.bvandroidsdk</groupId>
     <artifactId>bvandroidsdk-parent</artifactId>
-    <version>3.0.1-RC1-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>

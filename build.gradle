@@ -51,7 +51,7 @@ ext {
     espressoVersion = '2.2.1'
     robolectricVersion = '2.2'
 
-    bvsdkVersion = '3.0.1-RC1-SNAPSHOT'
+    bvsdkVersion = '3.0.1-SNAPSHOT'
 
     travisBuild = System.getenv("TRAVIS") == "true"
     // allows for -Dpre-dex=false to be set
