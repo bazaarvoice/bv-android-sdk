@@ -10,14 +10,14 @@
 
     <groupId>com.bazaarvoice.bvandroidsdk</groupId>
     <artifactId>bvandroidsdk-parent</artifactId>
-    <version>3.0.1</version>
+    <version>3.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
         <url>https://github.com/bazaarvoice/bv-android-sdk-dev</url>
         <connection>scm:git:git@github.com:bazaarvoice/bv-android-sdk-dev.git</connection>
         <developerConnection>scm:git:git@github.com:bazaarvoice/bv-android-sdk-dev.git</developerConnection>
-        <tag>bvandroidsdk-parent-3.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <modules>
