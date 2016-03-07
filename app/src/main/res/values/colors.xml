@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/bv_green_1</color>
+    <color name="colorPrimaryDark">@color/bv_green_3</color>
+    <color name="colorAccent">@color/bv_blue_1</color>
+    
+    <color name="bv_green_1">#2dac9a</color>
+    <color name="bv_green_2">#00ab8e</color>
+    <color name="bv_green_3">#336470</color>
+    <color name="bv_green_4">#336470</color>
+    <color name="bv_blue_1">#09baca</color>
+    <color name="bv_blue_2">#114884</color>
+    <color name="bv_white_1">#e7e6e0</color>
+    <color name="bv_gray_1">#c3c3c3</color>
+    <color name="bv_gray_2">#888b8d</color>
+    <color name="bv_orange_1">#f09c43</color>
+    <color name="bv_orange_2">#ee7e08</color>
+    <color name="bv_black_1">#222222</color>
+</resources>
