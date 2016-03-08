@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="bvRatingBar" parent="@android:style/Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/bv_ratingbar</item>
-        <item name="android:minHeight">23dp</item>
-        <item name="android:maxHeight">23dp</item>
-    </style>
-</resources>

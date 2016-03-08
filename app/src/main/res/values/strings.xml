@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">BV Sample</string>
+    <string name="info_circle">&#xf05a;</string>
+    <string name="title_activity_bvconversation_detail">BVConversationDetailActivity</string>
+
+    <string name="greeting_message">Welcome to the Bazaarvoice Android. Explore the menu to view example implementions of each component of the modularized SDK.\n\nBe
+        sure to visit our wiki at <a href="https://github.com/bazaarvoice/bv-android-sdk/wiki">https://github.com/bazaarvoice/bv-android-sdk/wiki</a> for full documentation</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_banner_ad">BannerAdActivity</string>
+    <string name="title_activity_native_ad">NativeAdActivity</string>
+    <string name="title_activity_interstitial_ad">InterstitialAdActivity</string>
+    <string name="title_activity_location_example_activty">LocationExampleActivty</string>
+    <string name="title_activity_gimbal_example">GimbalExampleActivity</string>
+
+    <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
+    <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
+    to register and download the Gimbal Android SDK. You will need to include their SDK into this app in order to compile the demo code found in GimbalExample.java. Refer to GimbalExample.java
+    for examples on how to tie the Ads SDK into your Gimbal beacon implementation.</string>
+
+    <string name="view_demo_error_message">"Set %s in UserConfigurationImpl.java in order to view demo"</string>
+</resources>

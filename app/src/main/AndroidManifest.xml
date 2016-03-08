@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.bazaarvoice.bv_android_sdk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name=".BVApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/bv_sample_image"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".recommendations.BvProductDetailActivity" />
+        <activity
+            android:name=".conversations.kitchensink.BVConversationDetailActivity"
+            android:label="@string/title_activity_bvconversation_detail"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ads.BannerAdActivity"
+            android:label="@string/title_activity_banner_ad"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ads.NativeAdActivity"
+            android:label="@string/title_activity_native_ad"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ads.InterstitialAdActivity"
+            android:label="@string/title_activity_interstitial_ad"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".conversations.browseproducts.ProductsActivity"/>
+        <activity android:name=".conversations.browseproducts.ReviewsActivity"/>
+        <activity android:name=".conversations.browseproducts.ReviewDisplayActivity" />
+    </application>
+
+</manifest>
