@@ -1,2 +1,0 @@
-include ':photoPicker', ':reviewSubmissionExample', ':bvsdk'
-project(':bvsdk').projectDir = new File('../../Source/BVAndroidSDK/bvsdk')
