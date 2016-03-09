@@ -39,7 +39,7 @@ public class BVSDK {
     private static final String IMMEDIATE_BV_THREAD_NAME = "BV-ImmediateThread";
     private static BVSDK instance;
 
-    static final String SDK_VERSION = "3.0.1";
+    static final String SDK_VERSION = "3.1.0";
 
     final Application application;
     final ExecutorService scheduledExecutorService;

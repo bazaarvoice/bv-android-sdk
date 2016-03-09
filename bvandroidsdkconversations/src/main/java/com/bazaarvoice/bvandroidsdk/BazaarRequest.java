@@ -145,7 +145,7 @@ public class BazaarRequest {
 
         this.listener = listener;
 
-        RequestData requestData = new RequestData(HTTP_METHOD_GET, url, type);
+        RequestData requestData = new RequestData(HTTP_METHOD_GET, url, type, params);
         new AsyncTransaction().execute(requestData);
     }
 
@@ -179,8 +179,7 @@ public class BazaarRequest {
      * @param listener
      *            the listener to handle the results on
      */
-    public void postSubmission(final RequestType type, BazaarParams params,
-            final OnBazaarResponse listener) {
+    public void postSubmission(final RequestType type, BazaarParams params, final OnBazaarResponse listener) {
 
         String requestString = requestUrl + type.getSubmissionName() + ".json";
 
@@ -192,6 +191,12 @@ public class BazaarRequest {
             return;
         }
 
+        boolean isFingerprintUsed = false;
+        if (params instanceof SubmissionParams) {
+            SubmissionParams submissionParams = (SubmissionParams) params;
+            String fingerprint = submissionParams.getFingerprint();
+            isFingerprintUsed = fingerprint != null && !fingerprint.isEmpty();
+        }
 
         if (params != null) {
             this.mediaEntity = params.getMedia();
@@ -214,7 +219,7 @@ public class BazaarRequest {
 
         this.listener = listener;
 
-        RequestData requestData = new RequestData(HTTP_METHOD_POST, url, type);
+        RequestData requestData = new RequestData(HTTP_METHOD_POST, url, type, params);
         new AsyncTransaction().execute(requestData);
     }
 
@@ -222,11 +227,13 @@ public class BazaarRequest {
         private String httpMethod;
         private URL url;
         private RequestType requestType;
+        private BazaarParams bazaarParams;
 
-        public RequestData(String httpMethod, URL url, RequestType requestType) {
+        public RequestData(String httpMethod, URL url, RequestType requestType, BazaarParams bazaarParams) {
             this.httpMethod = httpMethod;
             this.url = url;
             this.requestType = requestType;
+            this.bazaarParams = bazaarParams;
         }
 
         public String getHttpMethod() {
@@ -240,6 +247,10 @@ public class BazaarRequest {
         public RequestType getRequestType() {
             return requestType;
         }
+
+        public BazaarParams getBazaarParams() {
+            return bazaarParams;
+        }
     }
 
     private static final class ResponseData {
@@ -250,8 +261,9 @@ public class BazaarRequest {
         private JSONObject successJsonObject;
         private RequestType requestType;
         private String httpMethod;
+        private BazaarParams bazaarParams;
 
-        public ResponseData(boolean didSucceed, String errorMessage, Throwable errorThrowable, String successUrl, JSONObject successJsonObject, RequestType requestType, String httpMethod) {
+        public ResponseData(boolean didSucceed, String errorMessage, Throwable errorThrowable, String successUrl, JSONObject successJsonObject, RequestType requestType, String httpMethod, BazaarParams bazaarParams) {
             this.didSucceed = didSucceed;
             this.errorMessage = errorMessage;
             this.errorThrowable = errorThrowable;
@@ -259,6 +271,7 @@ public class BazaarRequest {
             this.successJsonObject = successJsonObject;
             this.requestType = requestType;
             this.httpMethod = httpMethod;
+            this.bazaarParams = bazaarParams;
         }
 
         public boolean isDidSucceed() {
@@ -287,6 +300,10 @@ public class BazaarRequest {
 
         public String getHttpMethod() {
             return httpMethod;
+        }
+
+        public BazaarParams getBazaarParams() {
+            return bazaarParams;
         }
     }
 
@@ -365,7 +382,7 @@ public class BazaarRequest {
                 }
             }
 
-            return new ResponseData(didSucceed, errorMessage, errorThrowable, successUrl, successJsonObject, requestType, httpMethod);
+            return new ResponseData(didSucceed, errorMessage, errorThrowable, successUrl, successJsonObject, requestType, httpMethod, requestData.getBazaarParams());
         }
 
         //Process after transaction is complete
@@ -375,7 +392,9 @@ public class BazaarRequest {
                 listener.onResponse(responseData.getSuccessUrl(), responseData.getSuccessJsonObject());
 
                 if (responseData.getHttpMethod().equals(HTTP_METHOD_GET)) {
-                    ConversationsAnalyticsManager.sendAnalyticsEvent(responseData.getRequestType(), responseData.getSuccessJsonObject());
+                    ConversationsAnalyticsManager.sendDisplayAnalyticsEvent(responseData.getRequestType(), responseData.getSuccessJsonObject());
+                } else if (responseData.getHttpMethod().equals(HTTP_METHOD_POST)) {
+                    ConversationsAnalyticsManager.sendSubmissionAnalyticsEvent(responseData.getRequestType(), responseData.getBazaarParams());
                 }
             } else {
                 listener.onException(responseData.getErrorMessage(), responseData.getErrorThrowable());

@@ -92,6 +92,11 @@ public class SubmissionParams extends BazaarParams {
 	private FeedbackType feedbackType;
 	private String reasonText;
 	private FeedbackVoteType vote;
+
+	/**
+	 * Iovation authenticity fingerpring
+	 */
+	private String fingerprint;
 	
 	/**
 	 * Creates a SubmissionParams instance.
@@ -880,6 +885,16 @@ public class SubmissionParams extends BazaarParams {
 	public FeedbackType getFeedbackType() {
 		return feedbackType;
 	}
+
+	/**
+	 * Gets the fingerprint provided by iovation to add authenticity
+	 * to a Bazaarvoice Conversations Submission request
+	 *
+	 * @return Iovation authenticity fingerprint
+     */
+	public String getFingerprint() {
+		return fingerprint;
+	}
 	
 	/**
 	 * Sets the type of feedback with which a feedback request is associated. (inappropriate or helpfulness)
@@ -890,7 +905,17 @@ public class SubmissionParams extends BazaarParams {
 	public void setFeedbackType(FeedbackType feedbackType) {
 		this.feedbackType = feedbackType;
 	}
-	
+
+	/**
+	 * Sets the fingerprint provided by iovation to add authenticity
+	 * to a Bazaarvoice Conversations Submission request
+	 *
+	 * @param fingerprint Iovation authenticity fingerprint
+     */
+	public void setFingerprint(String fingerprint) {
+		this.fingerprint = fingerprint;
+	}
+
 	/**
 	 * Get the "ReasonText" parameter for this submission if it has been set
 	 * 
@@ -1031,6 +1056,7 @@ StringBuilder url = new StringBuilder();
 		if(getFeedbackType() != null){
 			url.append(addURLParameter("feedbackType", getFeedbackType().getTypeString()));
 		}
+		url.append(addURLParameter("fp", getFingerprint()));
 		url.append(addURLParameter("reasonText", getReasonText()));
 		if(getVote() != null){
 			url.append(addURLParameter("vote", getVote().getTypeString()));
