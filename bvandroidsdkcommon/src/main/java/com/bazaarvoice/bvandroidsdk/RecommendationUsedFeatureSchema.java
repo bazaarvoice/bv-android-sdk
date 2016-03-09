@@ -4,18 +4,12 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-class RecommendationUsedFeatureSchema extends BvAnalyticsSchema {
+/**
+ * Internal API: Custom schema for recommendation used feature events
+ */
+class RecommendationUsedFeatureSchema extends UsedFeatureCanonicalSchema {
 
-    private static final String KEY_BV_PRODUCT = "bvProduct";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_DETAIL1 = "detail1";
-    private static final String KEY_PRODUCT_ID = "productId";
-    private static final String eventClass = "Feature";
-    private static final String eventType = "Used";
     private static final String source = "recommendation-mob";
-
-    private static final String bvProduct = "Recommendations";
-
     private static final String name = "conversion";
 
     public enum RecommendationFeature {
@@ -35,13 +29,11 @@ class RecommendationUsedFeatureSchema extends BvAnalyticsSchema {
     }
 
     public RecommendationUsedFeatureSchema(String productId, RecommendationFeature feature, MagpieMobileAppPartialSchema magpieMobileAppPartialSchema, RecommendationAttributesPartialSchema recommendationAttributesPartialSchema) {
-        super(eventClass, eventType, source);
-        addKeyVal(KEY_BV_PRODUCT, bvProduct);
-        addKeyVal(KEY_NAME, name);
+        super(source, name);
         if (feature != null) {
-            addKeyVal(KEY_DETAIL1, feature.getValue());
+            addDetail1(feature.getValue());
         }
-        addKeyVal(KEY_PRODUCT_ID, productId);
+        addProductId(productId);
         addPartialSchema(magpieMobileAppPartialSchema);
         addPartialSchema(recommendationAttributesPartialSchema);
     }

@@ -23,7 +23,7 @@ import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
  */
 class ConversationsAnalyticsManager {
 
-    public static void sendAnalyticsEvent(RequestType requestType, JSONObject response) {
+    public static void sendDisplayAnalyticsEvent(RequestType requestType, JSONObject response) {
         Set<String> productIdSet = new HashSet<>();
 
         try {
@@ -50,9 +50,73 @@ class ConversationsAnalyticsManager {
             }
 
         } catch (Exception e) {
-            BazaarException bazaarException = new BazaarException("Error sending impression event", e);
+            BazaarException bazaarException = new BazaarException("Error sending display event", e);
             bazaarException.printStackTrace();
         }
+    }
+
+    public static void sendSubmissionAnalyticsEvent(RequestType requestType, BazaarParams bazaarParams) {
+        SubmitUsedFeatureSchema.SubmitFeature submitFeature = getSubmitFeatureFromRequestType(requestType);
+
+        if (submitFeature == null) {
+            return;
+        }
+
+        boolean isFingerprintUsed = false;
+        String productId = null;
+        String categoryId = null;
+        if (bazaarParams != null) {
+            if (bazaarParams instanceof SubmissionParams) {
+                SubmissionParams submissionParams = (SubmissionParams) bazaarParams;
+                String fingerprint = submissionParams.getFingerprint();
+                isFingerprintUsed = fingerprint != null && !fingerprint.isEmpty();
+
+                productId = submissionParams.getProductId();
+                categoryId = submissionParams.getCategoryId();
+            }
+        }
+
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(submitFeature, magpieMobileAppPartialSchema)
+                .fingerprint(isFingerprintUsed)
+                .build();
+
+        Map<String, Object> dataMap = schema.getDataMap();
+        mapPutSafe(dataMap, "productId", productId);
+        mapPutSafe(dataMap, "categoryId", categoryId);
+
+        analyticsManager.enqueueEvent(dataMap);
+    }
+
+    private static SubmitUsedFeatureSchema.SubmitFeature getSubmitFeatureFromRequestType(RequestType requestType) {
+        SubmitUsedFeatureSchema.SubmitFeature submitFeature = null;
+
+        switch (requestType) {
+            case ANSWERS:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.ANSWER;
+                break;
+            case REVIEW_COMMENTS:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.COMMENT;
+                break;
+            case STORY_COMMENTS:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.STORY_COMMENT;
+                break;
+            case FEEDBACK:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.FEEDBACK;
+                break;
+            case QUESTIONS:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.ASK;
+                break;
+            case REVIEWS:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.WRITE;
+                break;
+            case STORIES:
+                submitFeature = SubmitUsedFeatureSchema.SubmitFeature.STORY;
+                break;
+        }
+
+        return submitFeature;
     }
 
     private static Map<String, Object> getResultInfo(RequestType requestType, JSONObject response) throws JSONException {
@@ -109,7 +173,7 @@ class ConversationsAnalyticsManager {
         BVSDK bvsdk = BVSDK.getInstance();
         mapPutSafe(dataMap, "cl", "Impression");
         mapPutSafe(dataMap, "type", "UGC");
-        mapPutSafe(dataMap, "source", "bv-android-sdk");
+        mapPutSafe(dataMap, "source", "native-mobile-sdk");
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         magpieMobileAppPartialSchema.addPartialData(dataMap);
@@ -122,7 +186,7 @@ class ConversationsAnalyticsManager {
         mapPutSafe(dataMap, "productId", productId);
         mapPutSafe(dataMap, "cl", "PageView");
         mapPutSafe(dataMap, "type", "Product");
-        mapPutSafe(dataMap, "source", "bv-android-sdk");
+        mapPutSafe(dataMap, "source", "native-mobile-sdk");
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         magpieMobileAppPartialSchema.addPartialData(dataMap);

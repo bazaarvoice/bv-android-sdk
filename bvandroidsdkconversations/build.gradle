@@ -32,10 +32,6 @@ dependencies {
 
     compile project(':bvandroidsdkcommon')
 
-    provided "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
-    provided "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
-    provided "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
-
     testCompile "junit:junit:$rootProject.junitVersion"
 }
 

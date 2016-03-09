@@ -1,5 +1,10 @@
 # Changelog
 
+# 3.1.0
+
+## Conversations
+* Added iovation support to BazaarRequest#postSubmission(RequestType type, BazaarParams params, OnBazaarResponse listener)
+
 # 3.0.1
 
 ## Product Recommendations

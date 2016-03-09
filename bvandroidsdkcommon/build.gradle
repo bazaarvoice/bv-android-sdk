@@ -31,9 +31,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "com.fasterxml.jackson.core:jackson-core:$rootProject.jacksonVersion"
-    compile "com.fasterxml.jackson.core:jackson-databind:$rootProject.jacksonVersion"
-    compile "com.fasterxml.jackson.core:jackson-annotations:$rootProject.jacksonVersion"
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"
     compile "com.google.guava:guava:$rootProject.guavaVersion"
     compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"

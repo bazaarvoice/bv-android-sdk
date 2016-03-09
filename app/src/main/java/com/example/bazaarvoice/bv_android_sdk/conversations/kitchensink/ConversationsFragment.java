@@ -19,6 +19,7 @@ import com.bazaarvoice.bvandroidsdk.DisplayParams;
 import com.bazaarvoice.bvandroidsdk.OnBazaarResponse;
 import com.bazaarvoice.bvandroidsdk.SubmissionMediaParams;
 import com.bazaarvoice.bvandroidsdk.SubmissionParams;
+import com.bazaarvoice.bvandroidsdk.types.Action;
 import com.bazaarvoice.bvandroidsdk.types.Equality;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
@@ -259,13 +260,20 @@ public class ConversationsFragment extends Fragment {
         BazaarRequest request = new BazaarRequest();
         SubmissionParams params = new SubmissionParams();
         params.setProductId(String.valueOf(new Random().nextLong()));
+        params.setCategoryId(String.valueOf(new Random().nextLong()));
         params.setUserId("123abcd");
         params.setRating(5);
         params.setTitle("Test Title" + (new Random()).nextLong());
         params.setReviewText("Lorem ipsum dolor sit amet, vim at harum molestie, ne vim posse senserit. Quas animal utroque ei duo. Has ne animal omittam maluisset. Te est dicat scaevola invidunt, eum eu maiongorum scripserit. Eos ei nibh ignota, ex has oratio suscipiantur." + (new Random()).nextLong());
         params.setUserNickname("testnickname");
+        params.setAction(Action.SUBMIT);
         params.addPhotoUrl("http://apitestcustomer.ugc.bazaarvoice.com/bvstaging/5555/ps_amazon_s3_3rgg6s4xvev0zhzbnabyneo21/photo.jpg");
         params.addVideoUrl("http://www.youtube.com");
+
+        // Add iovation fingerprint to Bazaarvoice Request
+        // String blackbox = getBlackbox(getContext().getApplicationContext());
+        // params.setFingerprint(blackbox);
+
         request.postSubmission(RequestType.REVIEWS, params, listener);
     }
 
