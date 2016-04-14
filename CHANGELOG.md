@@ -1,5 +1,13 @@
 # Changelog
 
+# 3.2.0
+
+## Product Recommendations
+* Added ```RecommendationView``` to wrap a view displaying a single ```BVProduct``` and provide better ROI reporting and recommendations
+without the need to manually send off analytic events to Bazaarvoice
+* Added ```RecommendationsContainerView```, ```RecommendationsListView```, ```RecommendationsGridView```, and ```RecommendationsRecyclerView``` 
+to display many ```RecommendationView```s, and provide additional ROI reporting and better recommendations
+
 # 3.1.0
 
 ## Conversations

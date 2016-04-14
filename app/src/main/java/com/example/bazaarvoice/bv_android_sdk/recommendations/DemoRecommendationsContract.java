@@ -11,13 +11,12 @@ import java.util.List;
 /**
  * TODO: Description Here
  */
-public interface RecommendationsContract {
+public interface DemoRecommendationsContract {
 
     interface View {
         void showRecommendations(List<BVProduct> recommendationProducts);
         void showLoading(boolean isLoading);
         void showMessage(String message);
-        void showNoRecommendations(String message);
     }
 
     interface UserActionsListener {

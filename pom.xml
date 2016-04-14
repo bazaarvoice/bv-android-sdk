@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -10,7 +13,7 @@
 
     <groupId>com.bazaarvoice.bvandroidsdk</groupId>
     <artifactId>bvandroidsdk-parent</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>3.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -44,9 +47,9 @@
         <dependencies>
             <!-- Project dependencies -->
             <dependency>
-                <groupId>com.google.android</groupId>
+                <groupId>android</groupId>
                 <artifactId>android</artifactId>
-                <version>4.1.1.4</version>
+                <version>6.0_r3</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -78,7 +81,7 @@
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
-                <version>3.1.2</version>
+                <version>3.2.0</version>
             </dependency>
 
             <dependency>
@@ -102,7 +105,7 @@
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>mockwebserver</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

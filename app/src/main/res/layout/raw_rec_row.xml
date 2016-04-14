@@ -9,7 +9,6 @@
 
     <ImageView
         android:id="@+id/prodImage"
-        android:transitionName="prod_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/product_image_height_row"
         android:padding="8dp"

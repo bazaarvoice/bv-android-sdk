@@ -9,36 +9,34 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
-import com.example.bazaarvoice.bv_android_sdk.MainActivity;
+import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
+import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.recommendations.data.BvRepository;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.utils.DividerItemDecoration;
 
 import java.util.List;
 
 /**
  * TODO: Description Here
  */
-public class RecommendationsFragment extends Fragment implements RecommendationsContract.View {
+public class DemoRecommendationsFragment extends Fragment implements DemoRecommendationsContract.View {
 
-    private RecommendationsContract.UserActionsListener userActionsListener;
+    private DemoRecommendationsContract.UserActionsListener userActionsListener;
 
-    private BvProductAdapter bvProductAdapter;
-    private RecyclerView recyclerView;
-    private TextView failMessage;
+    private DemoProductAdapter demoProductAdapter;
+    private RecommendationsRecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    public static RecommendationsFragment newInstance() {
-        return new RecommendationsFragment();
+    public static DemoRecommendationsFragment newInstance() {
+        return new DemoRecommendationsFragment();
     }
 
     @Nullable
@@ -48,20 +46,18 @@ public class RecommendationsFragment extends Fragment implements Recommendations
 
         checkForDemoInput();
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recommendations_custom_list);
-        bvProductAdapter = new BvProductAdapter();
-        bvProductAdapter.setOnItemClickListener(new BvProductAdapter.OnBvProductClickListener() {
+        recyclerView = (RecommendationsRecyclerView) view.findViewById(R.id.recommendations_custom_list);
+        demoProductAdapter = new DemoProductAdapter();
+        demoProductAdapter.setOnItemClickListener(new DemoProductAdapter.OnBvProductClickListener() {
             @Override
             public void onBvProductClickListener(BVProduct bvProduct, View rowView) {
                 userActionsListener.onRecommendationProductTapped(bvProduct);
-                showDetailScreen(bvProduct.getProductId());
+                showDetailScreen(bvProduct);
             }
         });
-        recyclerView.setAdapter(bvProductAdapter);
+        recyclerView.setAdapter(demoProductAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        failMessage = (TextView) view.findViewById(R.id.recommendations_fail_message);
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -74,9 +70,9 @@ public class RecommendationsFragment extends Fragment implements Recommendations
     }
 
     private void checkForDemoInput() {
-        UserConfiguration userConfiguration = AppConfigurationImpl.getInstance().provideBvUserComponent();
-        String shopperAdKey = userConfiguration.provideApiKeyShopperAdvertising();
-        String clientId = userConfiguration.provideBvClientId();
+        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
+        String shopperAdKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
+        String clientId = demoUserConfiguration.provideBvClientId();
 
         String errorVal = null;
         if (shopperAdKey.equals("REPLACE_ME")) {
@@ -95,8 +91,7 @@ public class RecommendationsFragment extends Fragment implements Recommendations
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        BvRepository bvRepository = AppConfigurationImpl.getInstance().provideBvRepository();
-        userActionsListener = new RecommendationsPresenter(this, bvRepository);
+        userActionsListener = new DemoRecommendationsPresenter(this);
     }
 
     @Override
@@ -112,26 +107,12 @@ public class RecommendationsFragment extends Fragment implements Recommendations
 
     @Override
     public void showRecommendations(List<BVProduct> recommendationProducts) {
-        bvProductAdapter.setBvProducts(recommendationProducts);
-        recyclerView.setVisibility(View.VISIBLE);
-        failMessage.setVisibility(View.GONE);
+        demoProductAdapter.setBvProducts(recommendationProducts);
     }
 
     @Override
     public void showLoading(final boolean isLoading) {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(isLoading);
-            }
-        });
-    }
-
-    @Override
-    public void showNoRecommendations(String message) {
-        failMessage.setText(message);
-        recyclerView.setVisibility(View.GONE);
-        failMessage.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(isLoading);
     }
 
     @Override
@@ -139,7 +120,7 @@ public class RecommendationsFragment extends Fragment implements Recommendations
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
-    private void showDetailScreen(String bvProductId) {
-        ((MainActivity) getActivity()).transitionToBvProductDetail(bvProductId);
+    private void showDetailScreen(BVProduct bvProduct) {
+        ((DemoMainActivity) getActivity()).transitionToBvProductDetail(bvProduct);
     }
 }

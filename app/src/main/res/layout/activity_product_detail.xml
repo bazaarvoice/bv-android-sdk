@@ -6,21 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
+    <com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView
+        android:id="@+id/bvRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/raw_rec_row"
-        android:layout_above="@+id/productLink"/>
-
-    <TextView
-        android:id="@+id/productLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textSize="14sp"
-        android:text="View In Browser"
-        tools:background="#99f" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

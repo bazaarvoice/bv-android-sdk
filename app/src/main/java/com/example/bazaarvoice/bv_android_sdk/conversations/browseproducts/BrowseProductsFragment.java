@@ -19,10 +19,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bazaarvoice.bv_android_sdk.MainActivity;
+import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 
 /**
  * TODO: Description Here
@@ -76,9 +76,9 @@ public class BrowseProductsFragment extends Fragment {
     }
 
     private void checkForDemoInput() {
-        UserConfiguration userConfiguration = AppConfigurationImpl.getInstance().provideBvUserComponent();
-        String conversationsKey = userConfiguration.provideApiKeyConversations();
-        String clientId = userConfiguration.provideBvClientId();
+        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
+        String conversationsKey = demoUserConfiguration.provideApiKeyConversations();
+        String clientId = demoUserConfiguration.provideBvClientId();
 
         String errorVal = null;
         if (conversationsKey.equals("REPLACE_ME")) {
@@ -98,6 +98,6 @@ public class BrowseProductsFragment extends Fragment {
      * Launches the next activity and passes along the search term.
      */
     protected void performSearch() {
-        ((MainActivity)getActivity()).transitionToProductSearch(searchField.getText().toString());
+        ((DemoMainActivity)getActivity()).transitionToProductSearch(searchField.getText().toString());
     }
 }

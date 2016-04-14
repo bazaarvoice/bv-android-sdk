@@ -9,13 +9,13 @@ import android.app.Application;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 
 /**
  * TODO: Description Here
  */
-public class BVApplication extends Application {
+public class DemoApplication extends Application {
 
     @Override
     public void onCreate() {
@@ -36,12 +36,12 @@ public class BVApplication extends Application {
      * </ul>
      */
     private void setupBVSDK() {
-        UserConfiguration userConfiguration = AppConfigurationImpl.getInstance().provideBvUserComponent();
+        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
 
-        BazaarEnvironment bazaarEnvironment = userConfiguration.provideBazaarEnvironment();
-        String clientId = userConfiguration.provideBvClientId();
-        String shopperAdvertisingApiKey = userConfiguration.provideApiKeyShopperAdvertising();
-        String conversationsApiKey = userConfiguration.provideApiKeyConversations();
+        BazaarEnvironment bazaarEnvironment = demoUserConfiguration.provideBazaarEnvironment();
+        String clientId = demoUserConfiguration.provideBvClientId();
+        String shopperAdvertisingApiKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
+        String conversationsApiKey = demoUserConfiguration.provideApiKeyConversations();
 
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, clientId)

@@ -14,9 +14,9 @@ import android.widget.Toast;
 import com.bazaarvoice.bvandroidsdk.BVAdListener;
 import com.bazaarvoice.bvandroidsdk.BVAds;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
 
@@ -37,10 +37,10 @@ public class InterstitialAdActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         interstitialButton = (Button) findViewById(R.id.interstitial_button);
 
-        AppConfiguration appConfiguration = AppConfigurationImpl.getInstance();
-        BVAds bvAds = appConfiguration.provideBvAds();
-        UserConfiguration userConfiguration = appConfiguration.provideBvUserComponent();
-        String bvAdUnitId = userConfiguration.provideInterstitialAdUnitId();
+        DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
+        BVAds bvAds = demoAppConfiguration.provideBvAds();
+        DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
+        String bvAdUnitId = demoUserConfiguration.provideInterstitialAdUnitId();
 
         // get a PublisherAdView object from the BVAdsSDK
         publisherInterstitialAd = bvAds.getTargetedInterstitialAd(getApplicationContext(), bvAdUnitId);
@@ -57,7 +57,7 @@ public class InterstitialAdActivity extends AppCompatActivity {
         // provided as the Builder, to allow interacting with it further to set other information
         // like gender, birthday, etc.
         targetedAdRequest = bvAds.getTargetedAdRequest();
-        String testDeviceId = userConfiguration.provideTestDeviceId();
+        String testDeviceId = demoUserConfiguration.provideTestDeviceId();
         if (testDeviceId != null && !testDeviceId.equals("REPLACE_ME")) {
             targetedAdRequest.addTestDevice(testDeviceId);
         }

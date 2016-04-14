@@ -27,10 +27,10 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvandroidsdk.types.IncludeStatsType;
 import com.bazaarvoice.bvandroidsdk.types.MediaParamsContentType;
 import com.bazaarvoice.bvandroidsdk.types.RequestType;
-import com.example.bazaarvoice.bv_android_sdk.MainActivity;
+import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,10 +43,10 @@ import java.util.Random;
 /**
  * TODO: Description Here
  */
-public class ConversationsFragment extends Fragment {
+public class DemoConversationsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
 
-    public ConversationsFragment() {
+    public DemoConversationsFragment() {
         // Required empty public constructor
     }
 
@@ -54,11 +54,11 @@ public class ConversationsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment ConversationsFragment.
+     * @return A new instance of fragment DemoConversationsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ConversationsFragment newInstance() {
-        ConversationsFragment fragment = new ConversationsFragment();
+    public static DemoConversationsFragment newInstance() {
+        DemoConversationsFragment fragment = new DemoConversationsFragment();
         return fragment;
     }
 
@@ -95,9 +95,9 @@ public class ConversationsFragment extends Fragment {
     }
 
     private void checkForDemoInput() {
-        UserConfiguration userConfiguration = AppConfigurationImpl.getInstance().provideBvUserComponent();
-        String conversationsKey = userConfiguration.provideApiKeyConversations();
-        String clientId = userConfiguration.provideBvClientId();
+        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
+        String conversationsKey = demoUserConfiguration.provideApiKeyConversations();
+        String clientId = demoUserConfiguration.provideBvClientId();
 
         String errorVal = null;
         if (conversationsKey.equals("REPLACE_ME")) {
@@ -185,7 +185,7 @@ public class ConversationsFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            MainActivity activity = (MainActivity) getActivity();
+            DemoMainActivity activity = (DemoMainActivity) getActivity();
             activity.transitionToBVConversationDetail(url, deserializedResponse);
         }
 

@@ -17,21 +17,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.example.bazaarvoice.bv_android_sdk.ads.AdsFragment;
 import com.example.bazaarvoice.bv_android_sdk.ads.BannerAdActivity;
 import com.example.bazaarvoice.bv_android_sdk.ads.InterstitialAdActivity;
 import com.example.bazaarvoice.bv_android_sdk.ads.NativeAdActivity;
 import com.example.bazaarvoice.bv_android_sdk.conversations.browseproducts.BrowseProductsFragment;
 import com.example.bazaarvoice.bv_android_sdk.conversations.browseproducts.ProductsActivity;
-import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.BVConversationDetailActivity;
-import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.ConversationsFragment;
-import com.example.bazaarvoice.bv_android_sdk.recommendations.BvProductDetailActivity;
-import com.example.bazaarvoice.bv_android_sdk.recommendations.RecommendationsFragment;
+import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.DemoConversationDetailActivity;
+import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.DemoConversationsFragment;
+import com.example.bazaarvoice.bv_android_sdk.recommendations.detail.DemoProductDetailActivity;
+import com.example.bazaarvoice.bv_android_sdk.recommendations.DemoRecommendationsFragment;
 
 /**
  * TODO: Description Here
  */
-public class MainActivity extends AppCompatActivity {
+public class DemoMainActivity extends AppCompatActivity {
     @IdRes
     private int fragContainerId;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         fragContainerId = R.id.main_content;
 
         if (savedInstanceState == null) {
-            transitionTo(HomePageFragment.newInstance());
+            transitionTo(DemoHomePageFragment.newInstance());
         }
     }
 
@@ -82,16 +83,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home_page:
-                        transitionTo(HomePageFragment.newInstance());
+                        transitionTo(DemoHomePageFragment.newInstance());
                         break;
                     case R.id.recommendations:
-                        transitionTo(RecommendationsFragment.newInstance());
+                        transitionTo(DemoRecommendationsFragment.newInstance());
                         break;
                     case R.id.advertising:
                         transitionTo(AdsFragment.newInstance());
                         break;
                     case R.id.conversations:
-                        transitionTo(ConversationsFragment.newInstance());
+                        transitionTo(DemoConversationsFragment.newInstance());
                         break;
                     case R.id.browse_products:
                         transitionTo(BrowseProductsFragment.getInstance());
@@ -113,16 +114,14 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public void transitionToBvProductDetail(String bvProductId) {
-        Intent intent = new Intent(this, BvProductDetailActivity.class);
-        intent.putExtra(BvProductDetailActivity.BV_PRODUCT_ID, bvProductId);
-        startActivity(intent);
+    public void transitionToBvProductDetail(BVProduct bvProduct) {
+        DemoProductDetailActivity.start(this, bvProduct);
     }
 
     public void transitionToBVConversationDetail(String url, String response) {
-        Intent intent = new Intent(this, BVConversationDetailActivity.class);
-        intent.putExtra(BVConversationDetailActivity.URL_EXTRA_KEY, url);
-        intent.putExtra(BVConversationDetailActivity.RESPONSE_EXTRA_KEY, response);
+        Intent intent = new Intent(this, DemoConversationDetailActivity.class);
+        intent.putExtra(DemoConversationDetailActivity.URL_EXTRA_KEY, url);
+        intent.putExtra(DemoConversationDetailActivity.RESPONSE_EXTRA_KEY, response);
         startActivity(intent);
     }
 

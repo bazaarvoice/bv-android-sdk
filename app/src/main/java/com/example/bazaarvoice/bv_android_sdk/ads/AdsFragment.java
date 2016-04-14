@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.bazaarvoice.bv_android_sdk.MainActivity;
+import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 
 /**
  * TODO: Description Here
@@ -46,7 +46,7 @@ public class AdsFragment extends Fragment {
         nativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).transitionToNativeAd();
+                ((DemoMainActivity)getActivity()).transitionToNativeAd();
             }
         });
 
@@ -54,7 +54,7 @@ public class AdsFragment extends Fragment {
         interstitialBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).transitionToInterstitialAd();
+                ((DemoMainActivity)getActivity()).transitionToInterstitialAd();
             }
         });
 
@@ -62,7 +62,7 @@ public class AdsFragment extends Fragment {
         bannerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).transitionToBannerAd();
+                ((DemoMainActivity)getActivity()).transitionToBannerAd();
             }
         });
 
@@ -70,9 +70,9 @@ public class AdsFragment extends Fragment {
     }
 
     private void checkForDemoInput() {
-        UserConfiguration userConfiguration = AppConfigurationImpl.getInstance().provideBvUserComponent();
-        String shopperAdKey = userConfiguration.provideApiKeyShopperAdvertising();
-        String clientId = userConfiguration.provideBvClientId();
+        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
+        String shopperAdKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
+        String clientId = demoUserConfiguration.provideBvClientId();
 
         String errorVal = null;
         if (shopperAdKey.equals("REPLACE_ME")) {

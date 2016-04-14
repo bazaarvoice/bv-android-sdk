@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.bazaarvoice.bvandroidsdk</groupId>
         <artifactId>bvandroidsdk-parent</artifactId>
-        <version>3.1.1-SNAPSHOT</version>
+        <version>3.2.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -20,7 +20,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.android</groupId>
+            <groupId>android</groupId>
             <artifactId>android</artifactId>
             <scope>provided</scope>
         </dependency>
