@@ -1,5 +1,10 @@
 # Changelog
 
+# 3.2.1
+
+# General Changes
+* Fix for closing out all OkHttp ResponseBody objects
+
 # 3.2.0
 
 ## Product Recommendations

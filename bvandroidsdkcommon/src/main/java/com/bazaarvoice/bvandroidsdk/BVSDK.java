@@ -41,7 +41,7 @@ public class BVSDK {
     private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com";
     private static BVSDK instance;
 
-    static final String SDK_VERSION = "3.2.0";
+    static final String SDK_VERSION = "3.2.1";
 
     final Application application;
     final ExecutorService scheduledExecutorService;

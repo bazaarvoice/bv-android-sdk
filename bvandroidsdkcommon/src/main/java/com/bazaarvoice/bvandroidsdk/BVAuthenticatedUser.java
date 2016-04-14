@@ -129,6 +129,7 @@ class BVAuthenticatedUser {
         @Override
         public void run() {
             synchronized (BVAuthenticatedUser.this) {
+                Response response = null;
                 try {
                     HttpUrl httpUrl = new HttpUrl.Builder()
                             .scheme("https")
@@ -145,7 +146,7 @@ class BVAuthenticatedUser {
                             .get()
                             .build();
 
-                    Response response = okHttpClient.newCall(request).execute();
+                    response = okHttpClient.newCall(request).execute();
 
                     Logger.d(TAG, "Profile response:\n" + response);
 
@@ -162,6 +163,10 @@ class BVAuthenticatedUser {
                     }
                 } catch (IOException e) {
                     Logger.e("Profile", "Failed to update profile", e);
+                } finally {
+                    if (response != null && response.body() != null) {
+                        response.body().close();
+                    }
                 }
             }
         }

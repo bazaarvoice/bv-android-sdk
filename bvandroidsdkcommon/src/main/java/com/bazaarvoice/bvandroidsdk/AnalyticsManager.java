@@ -95,6 +95,7 @@ class AnalyticsManager {
         @Override
         public void run() {
             synchronized (AnalyticsManager.this) {
+                Response response = null;
                 try {
                     if (eventQueue.isEmpty()) {
                         return;
@@ -116,7 +117,7 @@ class AnalyticsManager {
                             .post(body)
                             .build();
 
-                    Response response = okHttpClient.newCall(request).execute();
+                    response = okHttpClient.newCall(request).execute();
 
                     if (response.isSuccessful()) {
                         Logger.d("Analytics", "Successfully posted " + numEvents + " events");
@@ -128,6 +129,9 @@ class AnalyticsManager {
                 } finally {
                     if (!eventQueue.isEmpty()) {
                         eventQueue.clear();
+                    }
+                    if (response != null && response.body() != null) {
+                        response.body().close();
                     }
                 }
             }
