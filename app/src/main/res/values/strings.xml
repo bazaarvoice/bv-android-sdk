@@ -19,5 +19,5 @@
     to register and download the Gimbal Android SDK. You will need to include their SDK into this app in order to compile the demo code found in GimbalExample.java. Refer to GimbalExample.java
     for examples on how to tie the Ads SDK into your Gimbal beacon implementation.</string>
 
-    <string name="view_demo_error_message">"Set %s in UserConfigurationImpl.java in order to view demo"</string>
+    <string name="view_demo_error_message">"Set %s in DemoUserConfigurationImpl.java in order to view demo"</string>
 </resources>

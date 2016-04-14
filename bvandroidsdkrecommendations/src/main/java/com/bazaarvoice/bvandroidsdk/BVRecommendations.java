@@ -5,27 +5,30 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.os.AsyncTask;
+import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Bazaarvoice Recommendations API for getting custom product recommendations
  */
-public class BVRecommendations implements Recommendations{
+public class BVRecommendations {
 
+    private static final String TAG = BVRecommendations.class.getSimpleName();
     private String apiKeyShopperAdvertising;
     private String adID;
-    private boolean isStaging = false;
 
     private WeakReference<BVRecommendationsCallback> bvRecommendationsCallback;
 
@@ -36,16 +39,12 @@ public class BVRecommendations implements Recommendations{
         if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
             throw new IllegalStateException("BVRecommendations SDK requires a shopper advertising api key");
         }
-
-        this.isStaging = Utils.isStagingEnvironment(bvsdk.getEnvironment());
     }
 
-    private String getRootUrl() {
-        return isStaging ? "https://my.network-stg.bazaarvoice.com" : "https://my.network.bazaarvoice.com";
-    }
+    private void getRecommendedProducts(final int limit, final String productId, final String categoryId, final BVRecommendationsCallback callback) {
+        BVSDK bvsdk = BVSDK.getInstance();
 
-    void getRecommendedProducts(final int limit, final String productId, final String categoryId, final BVRecommendationsCallback callback) {
-        BVSDK.getInstance().getAdvertisingIdClient().getAdInfo(new BVSDK.GetAdInfoCompleteAction() {
+        bvsdk.getAdvertisingIdClient().getAdInfo(new BVSDK.GetAdInfoCompleteAction() {
             @Override
             public void completionAction(AdInfo adInfo) {
                 bvRecommendationsCallback = new WeakReference<BVRecommendationsCallback>(callback);
@@ -61,42 +60,80 @@ public class BVRecommendations implements Recommendations{
                 params.productId = productId;
                 params.limit = validatedLimit;
 
-                new AsyncRecsGet().execute(getRecommendationsUrlString(params));
+                URL requestUrl;
+                try {
+                     requestUrl = new URL(getRecommendationsUrlString(params));
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                    callback.onFailure(e);
+                    return;
+                }
 
-
+                RequestData requestData = new RequestData(requestUrl);
+                new GetRecommendationsTask().execute(requestData);
             }
         });
     }
 
-    @Override
-    public void getRecommendedProductsWithCategoryId(final int limit, String categoryId, BVRecommendationsCallback callback)
-    {
-        getRecommendedProducts(limit,null, categoryId, callback);
+    /**
+     *  @param limit max number of recommended products default is 20
+     *              valid limits 1...50; will use default if out of range
+     * @param categoryId used to filter recommended products within a
+     *                   category. Mutually exclusive with productId. if
+     *                   productId and categoryId are set, productId will
+     *                   be used
+     * @param callback callback to provide list of Products or handle errors
+     */
+    public void getRecommendedProductsWithCategoryId(final int limit, String categoryId, BVRecommendationsCallback callback) {
+        getRecommendedProducts(limit, null, categoryId, callback);
     }
 
-    @Override
-    public void getRecommendedProductsWithProductId(final int limit, String productId, BVRecommendationsCallback callback)
-    {
+    /**
+     *  @param limit max number of recommended products default is 20 valid
+     *              limits 1...50; will use default if out of range
+     * @param productId used to filter recommended products to similar products
+     * @param callback callback to provide list of Products or handle errors
+     */
+    public void getRecommendedProductsWithProductId(final int limit, String productId, BVRecommendationsCallback callback) {
         getRecommendedProducts(limit, productId, null, callback);
     }
 
-
-    @Override
+    /**
+     *  @param limit max number of recommended products
+     * @param callback callback to provide list of Products or handle errors
+     */
     public void getRecommendedProducts(int limit, BVRecommendationsCallback callback) {
         getRecommendedProducts(limit, null, null, callback);
+    }
+
+    /**
+     * Callback used to asynchronously receive the Bazaarvoice product recommendations
+     */
+    public interface BVRecommendationsCallback {
+        void onSuccess(List<BVProduct> recommendedProducts);
+        void onFailure(Throwable throwable);
+    }
+
+    private void validateBvViewGroup(ViewGroup bvViewGroup) {
+        if (bvViewGroup == null) {
+            throw new IllegalStateException("bvViewGroup must be non-null");
+        }
+        boolean isBvViewGroup = (bvViewGroup instanceof RecommendationsListView) || (bvViewGroup instanceof RecommendationsContainerView) || (bvViewGroup instanceof RecommendationsRecyclerView);
+        if (!isBvViewGroup) {
+            throw new IllegalStateException("bvViewGroup must be one of the BVSDK provided ViewGroups that is wrapping your BvViews");
+        }
     }
 
     //Helper Classes
 //*****************************************************************************
 
-    private class RecommendationParams
-    {
+    private class RecommendationParams {
         protected int limit;
         protected String productId;
         protected String categoryId;
     }
 
-    protected String getRecommendationsUrlString( RecommendationParams params) {
+    protected String getRecommendationsUrlString(RecommendationParams params) {
         BVSDK bvsdk = BVSDK.getInstance();
 
         /**
@@ -105,115 +142,106 @@ public class BVRecommendations implements Recommendations{
         String userIdentifier = adID;
         String similarityParams = "";
         //mutually exclusive productId and categoryId. productId before categoryId
-        if (params.productId != null)
-        {
+        if (params.productId != null) {
             similarityParams = "&product=" + bvsdk.getClientId()+"/"+params.productId;
-        }else if (params.categoryId != null)
-        {
+        } else if (params.categoryId != null) {
             similarityParams = "&category=" + bvsdk.getClientId()+"/"+params.categoryId;
         }
 
-        String urlString = String.format("%s/recommendations/magpie_idfa_%s?passKey=%s%s&limit=%d",getRootUrl(),userIdentifier, apiKeyShopperAdvertising,similarityParams,params.limit);
-        if (bvsdk.getClientId() != null && bvsdk.getClientId().length() != 0)
-        {
+        String urlString = String.format("%s/recommendations/magpie_idfa_%s?passKey=%s%s&limit=%d",bvsdk.getShopperMarketingApiRootUrl(),userIdentifier, apiKeyShopperAdvertising,similarityParams,params.limit);
+        if (bvsdk.getClientId() != null && bvsdk.getClientId().length() != 0) {
             urlString += "&client="+ bvsdk.getClientId();
         }
         return urlString;
 
     }
 
-    private class AsyncRecsGet extends AsyncTask<String, Integer, String> {
-        @Override
-        protected String doInBackground(String... args) {
+    private static final class RequestData {
+        private URL requestUrl;
 
-            String response = "";
-            HttpURLConnection connection = null;
-            try {
-                URL url = new URL(args[0]);
-
-                connection = (HttpURLConnection) url.openConnection();
-
-                // Allow Inputs
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true);
-                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                connection.connect();
-
-
-                int responseCode =connection.getResponseCode();
-
-                if (responseCode >= 200 && responseCode < 300) {
-                    response = readInputStreamToString(connection);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                if (bvRecommendationsCallback.get() != null) {
-                    bvRecommendationsCallback.get().onFailure(e);
-                }
-            }finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-
-            return response;
+        public RequestData(URL requestUrl) {
+            this.requestUrl = requestUrl;
         }
 
-        @Override
-        protected void onPostExecute(String result) {
-            List<BVProduct> recommendedProducts = null;
-
-            try {
-                Gson gson = BVSDK.getInstance().getGson();
-                ShopperProfile profile = gson.fromJson(result, ShopperProfile.class);
-                recommendedProducts = profile.getProfile().getRecommendedProducts();
-            } catch (Exception e) {
-                e.printStackTrace();
-                if (bvRecommendationsCallback.get() != null) {
-                    bvRecommendationsCallback.get().onFailure(e);
-                }
-                return;
-            }
-
-            if (bvRecommendationsCallback.get() != null) {
-                bvRecommendationsCallback.get().onSuccess(recommendedProducts);
-            }
-        }
-
-        private String readInputStreamToString(HttpURLConnection connection) throws Exception {
-            String result = null;
-            StringBuffer sb = new StringBuffer();
-            InputStream is = null;
-
-            try {
-                is = new BufferedInputStream(connection.getInputStream());
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                String inputLine = "";
-                while ((inputLine = br.readLine()) != null) {
-                    sb.append(inputLine);
-                }
-                result = sb.toString();
-            }
-            catch (Exception e) {
-                result = null;
-                e.printStackTrace();
-                throw e;
-            }
-            finally {
-                if (is != null) {
-                    try {
-                        is.close();
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                        throw e;
-                    }
-                }
-            }
-
-            return result;
+        public URL getRequestUrl() {
+            return requestUrl;
         }
     }
-//*****************************************************************************
+
+    private static final class ResponseData {
+        private boolean didSucceed;
+        private Throwable errorThrowable;
+        private List<BVProduct> recommendedProducts;
+
+        public ResponseData(boolean didSucceed, Throwable errorThrowable, List<BVProduct> recommendedProducts) {
+            this.didSucceed = didSucceed;
+            this.errorThrowable = errorThrowable;
+            this.recommendedProducts = recommendedProducts;
+        }
+
+        public boolean isDidSucceed() {
+            return didSucceed;
+        }
+
+        public Throwable getErrorThrowable() {
+            return errorThrowable;
+        }
+
+        public List<BVProduct> getRecommendedProducts() {
+            return recommendedProducts;
+        }
+    }
+
+    private class GetRecommendationsTask extends AsyncTask<RequestData, Void, ResponseData> {
+
+        @Override
+        protected ResponseData doInBackground(RequestData... params) {
+            RequestData requestData = params[0];
+            OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
+            Gson gson = BVSDK.getInstance().getGson();
+            boolean didSucceed = false;
+            Throwable errorThrowable = null;
+            List<BVProduct> recommendedProducts = null;
+            Request request = new Request.Builder()
+                    .url(requestData.getRequestUrl())
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .build();
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                if (!response.isSuccessful()) {
+                    errorThrowable = new Exception("Unsuccessful response for recommendations with error code: " + response.code());
+                } else {
+                    ShopperProfile shopperProfile = gson.fromJson(response.body().charStream(), ShopperProfile.class);
+                    recommendedProducts = shopperProfile.getProfile().getRecommendedProducts();
+                    didSucceed = true;
+                }
+            } catch (IOException e) {
+                errorThrowable = new IOException("Request for recommendations failed", e);
+            } catch (JsonIOException | JsonSyntaxException e) {
+                errorThrowable = new Exception("Failed to parse recommendations");
+            } catch (Exception e) {
+                errorThrowable = new Exception("Exception while getting recommendations");
+            }
+
+            return new ResponseData(didSucceed, errorThrowable, recommendedProducts);
+        }
+
+        @Override
+        protected void onPostExecute(ResponseData responseData) {
+            super.onPostExecute(responseData);
+            BVRecommendationsCallback recommendationsCallback = bvRecommendationsCallback.get();
+            if (recommendationsCallback == null) {
+                return;
+            }
+            if (responseData.isDidSucceed()) {
+                Logger.d(TAG, "Succesfully received the following recommendations:\n" + responseData.getRecommendedProducts().toString());
+                recommendationsCallback.onSuccess(responseData.getRecommendedProducts());
+            } else {
+                responseData.getErrorThrowable().printStackTrace();
+                recommendationsCallback.onFailure(responseData.getErrorThrowable());
+            }
+        }
+
+    }
 
 }

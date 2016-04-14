@@ -14,7 +14,7 @@ import com.example.bazaarvoice.bv_android_sdk.R;
 /**
  * TODO: Description Here
  */
-public class BVConversationDetailActivity extends AppCompatActivity {
+public class DemoConversationDetailActivity extends AppCompatActivity {
 
     public final static String URL_EXTRA_KEY = "urlextrakey";
     public final static String RESPONSE_EXTRA_KEY = "responseextrakey";

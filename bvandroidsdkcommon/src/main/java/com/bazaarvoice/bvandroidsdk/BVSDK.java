@@ -37,9 +37,11 @@ public class BVSDK {
     private static final String SCHEDULED_BV_THREAD_NAME = "BV-ScheduledThread";
     private static final String SCHEDULED_BV_PROFILE_THREAD_NAME = "BV-Profile-ScheduledThread";
     private static final String IMMEDIATE_BV_THREAD_NAME = "BV-ImmediateThread";
+    private static final String SHOPPER_MARKETING_API_ROOT_URL_STAGING = "https://my.network-stg.bazaarvoice.com";
+    private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com";
     private static BVSDK instance;
 
-    static final String SDK_VERSION = "3.1.0";
+    static final String SDK_VERSION = "3.2.0";
 
     final Application application;
     final ExecutorService scheduledExecutorService;
@@ -54,12 +56,13 @@ public class BVSDK {
     final String apiKeyConversations;
     final BVAuthenticatedUser bvAuthenticatedUser;
     final Gson gson;
+    final String shopperMarketingApiRootUrl;
 
     interface GetAdInfoCompleteAction {
         void completionAction(AdInfo adInfo);
     }
 
-    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, BVLogLevel logLevel, ExecutorService scheduledExecutorService, ExecutorService immediateExecutorService, OkHttpClient okHttpClient, AdvertisingIdClient advertisingIdClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson) {
+    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, BVLogLevel logLevel, ExecutorService scheduledExecutorService, ExecutorService immediateExecutorService, OkHttpClient okHttpClient, AdvertisingIdClient advertisingIdClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, String shopperMarketingApiRootUrl) {
         this.application = application;
         this.scheduledExecutorService = scheduledExecutorService;
         this.immediateExecutorService = immediateExecutorService;
@@ -73,6 +76,9 @@ public class BVSDK {
         this.apiKeyConversations = apiKeyConversations;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
         this.gson = gson;
+        this.shopperMarketingApiRootUrl = shopperMarketingApiRootUrl;
+
+        updateUser();
 
         /**
          * Register with ActivityLifeCycleCallbacks for App lifecycle analaytics, and
@@ -205,8 +211,9 @@ public class BVSDK {
             UUID uuid = Utils.getUuid(application.getApplicationContext());
             AnalyticsManager analyticsManager = new AnalyticsManager(versionName, versionCode, clientId, bazaarEnvironment, advertisingIdClient, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
+            String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
 
-            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, logLevel, scheduledExecutorService, immediateExecutorService, okHttpClient, advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson);
+            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, logLevel, scheduledExecutorService, immediateExecutorService, okHttpClient, advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl);
             return instance;
         }
     }
@@ -235,6 +242,14 @@ public class BVSDK {
 
     Gson getGson() {
         return gson;
+    }
+
+    String getShopperMarketingApiRootUrl() {
+        return shopperMarketingApiRootUrl;
+    }
+
+    OkHttpClient getOkHttpClient() {
+        return okHttpClient;
     }
 
     void registerLifecycleListener(Application.ActivityLifecycleCallbacks lifecycleCallbacks) {

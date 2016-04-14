@@ -5,17 +5,14 @@
 package com.example.bazaarvoice.bv_android_sdk.di;
 
 import com.bazaarvoice.bvandroidsdk.BVAds;
-import com.example.bazaarvoice.bv_android_sdk.recommendations.data.BvRepository;
 
 /**
  * TODO: Description Here
  */
-public interface AppConfiguration {
-
-    BvRepository provideBvRepository();
+public interface DemoAppConfiguration {
 
     BVAds provideBvAds();
 
-    UserConfiguration provideBvUserComponent();
+    DemoUserConfiguration provideBvUserComponent();
 
 }

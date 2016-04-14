@@ -12,30 +12,44 @@ class RecommendationUsedFeatureSchema extends UsedFeatureCanonicalSchema {
     private static final String source = "recommendation-mob";
     private static final String name = "conversion";
 
-    public enum RecommendationFeature {
-        CAROUSEL("carousel"), STATIC_VIEW("staticview"),
-        TABLE_VIEW("tableview"), CUSTOM("custom"),
-        UNKNOWN("unknown");
+    public enum Feature {
+        CONVERSION("conversion"), INVIEW("inview"), SCROLLED("scrolled"), SWIPE("swipe");
 
         private String value;
 
-        RecommendationFeature(String value) {
+        Feature(String value) {
             this.value = value;
         }
 
-        public String getValue() {
+        @Override
+        public String toString() {
             return value;
         }
     }
 
-    public RecommendationUsedFeatureSchema(String productId, RecommendationFeature feature, MagpieMobileAppPartialSchema magpieMobileAppPartialSchema, RecommendationAttributesPartialSchema recommendationAttributesPartialSchema) {
-        super(source, name);
-        if (feature != null) {
-            addDetail1(feature.getValue());
+    public enum Component {
+        RECYCLERVIEW("recyclerView"), LISTVIEW("listView"), GRIDVIEW("gridView"), CUSTOM("custom");
+
+        private String value;
+
+        Component(String value) {
+            this.value = value;
         }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
+
+    public RecommendationUsedFeatureSchema(Feature feature, String productId, Component component, MagpieMobileAppPartialSchema magpieMobileAppPartialSchema, RecommendationAttributesPartialSchema recommendationAttributesPartialSchema) {
+        super(source, feature.toString());
         addProductId(productId);
         addPartialSchema(magpieMobileAppPartialSchema);
         addPartialSchema(recommendationAttributesPartialSchema);
+        if (component != null) {
+            addComponent(component.toString());
+        }
     }
 
 }

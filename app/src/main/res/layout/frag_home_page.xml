@@ -1,47 +1,40 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomePageFragment">
+    android:layout_height="wrap_content"
+    tools:context=".DemoHomePageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Bazaarvoice Android SDK"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textAlignment="center"
-        android:textColor="#00ab8e" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Bazaarvoice Android SDK"
+            android:textColor="#00ab8e"
+            android:layout_gravity="center"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/greeting_message"
-        android:id="@+id/greetingText"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="26dp"
-        android:layout_marginLeft="5dp"
-        android:textColor="#003d4c"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp" />
+        <TextView
+            android:id="@+id/greetingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/greeting_message"
+            android:layout_marginTop="26dp"
+            android:textColor="#003d4c" />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/bvLogoImageView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/bvLogoImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/bazaarvoice_logo" />
+    </LinearLayout>
+
+</ScrollView>

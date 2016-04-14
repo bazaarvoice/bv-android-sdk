@@ -6,38 +6,35 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".BVApplication"
+        android:name=".DemoApplication"
         android:allowBackup="true"
         android:icon="@drawable/bv_sample_image"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".DemoMainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recommendations.BvProductDetailActivity" />
+        <activity android:name=".recommendations.detail.DemoProductDetailActivity" />
         <activity
-            android:name=".conversations.kitchensink.BVConversationDetailActivity"
-            android:label="@string/title_activity_bvconversation_detail"
-            android:theme="@style/AppTheme" />
+            android:name=".conversations.kitchensink.DemoConversationDetailActivity"
+            android:label="@string/title_activity_bvconversation_detail" />
         <activity
             android:name=".ads.BannerAdActivity"
-            android:label="@string/title_activity_banner_ad"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_banner_ad" />
         <activity
             android:name=".ads.NativeAdActivity"
-            android:label="@string/title_activity_native_ad"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_native_ad" />
         <activity
             android:name=".ads.InterstitialAdActivity"
-            android:label="@string/title_activity_interstitial_ad"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_interstitial_ad" />
         <activity android:name=".conversations.browseproducts.ProductsActivity"/>
         <activity android:name=".conversations.browseproducts.ReviewsActivity"/>
         <activity android:name=".conversations.browseproducts.ReviewDisplayActivity" />

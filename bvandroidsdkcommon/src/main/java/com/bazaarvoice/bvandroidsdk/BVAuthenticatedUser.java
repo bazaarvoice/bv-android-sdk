@@ -88,7 +88,6 @@ class BVAuthenticatedUser {
      * @return
      */
     protected String getUserAdvertisingId() {
-        Logger.d(TAG, "getUserAdvertisingId - fetched: " + fetched + ", userAdvertisingId: " + userAdvertisingId);
         if (!fetched) {
             return PENDING_TOKEN;
         } else if (userAdvertisingId == null) {

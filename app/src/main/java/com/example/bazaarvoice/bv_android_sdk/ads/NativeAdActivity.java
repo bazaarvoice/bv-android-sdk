@@ -22,9 +22,9 @@ import com.bazaarvoice.bvandroidsdk.BVAdListener;
 import com.bazaarvoice.bvandroidsdk.BVAds;
 import com.bazaarvoice.bvandroidsdk.BVContentAdLoadedListener;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.AppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.UserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.formats.NativeAd;
@@ -59,10 +59,10 @@ public class NativeAdActivity extends AppCompatActivity {
         final TextView description = (TextView) findViewById(R.id.nativeAdDescription);
         final TextView link = (TextView) findViewById(R.id.nativeAdLink);
 
-        AppConfiguration appConfiguration = AppConfigurationImpl.getInstance();
-        BVAds bvAds = appConfiguration.provideBvAds();
-        UserConfiguration userConfiguration = appConfiguration.provideBvUserComponent();
-        String adUnitId = userConfiguration.provideNativeContentAdUnitId();
+        DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
+        BVAds bvAds = demoAppConfiguration.provideBvAds();
+        DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
+        String adUnitId = demoUserConfiguration.provideNativeContentAdUnitId();
 
         AdLoader.Builder targetedAdBuilder = bvAds.getTargetedAdLoader(getApplicationContext(), adUnitId);
 
@@ -108,7 +108,7 @@ public class NativeAdActivity extends AppCompatActivity {
         // Add deviceId for emulator
         // You can also add your own for a specific hardware device
         publisherAdRequest.addTestDevice(PublisherAdRequest.DEVICE_ID_EMULATOR);
-        String testDeviceId = userConfiguration.provideTestDeviceId();
+        String testDeviceId = demoUserConfiguration.provideTestDeviceId();
         if (testDeviceId != null && !testDeviceId.equals("REPLACE_ME")) {
             publisherAdRequest.addTestDevice(testDeviceId);
         }

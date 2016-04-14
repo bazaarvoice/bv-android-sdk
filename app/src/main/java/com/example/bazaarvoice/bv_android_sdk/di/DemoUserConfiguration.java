@@ -10,7 +10,7 @@ import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 /**
  * TODO: Description Here
  */
-public interface UserConfiguration {
+public interface DemoUserConfiguration {
 
     String provideApiKeyShopperAdvertising();
 

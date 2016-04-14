@@ -11,7 +11,7 @@ import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 /**
  * TODO: Description Here
  */
-public class UserConfigurationImpl implements UserConfiguration {
+public class DemoUserConfigurationImpl implements DemoUserConfiguration {
 
     /**
      * Replace the following values depending on what demo you want to see

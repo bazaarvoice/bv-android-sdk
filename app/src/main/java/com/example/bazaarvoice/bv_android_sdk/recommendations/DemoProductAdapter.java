@@ -12,20 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
-import com.bazaarvoice.bvandroidsdk.BVSDK;
+import com.bazaarvoice.bvandroidsdk.RecommendationView;
 import com.example.bazaarvoice.bv_android_sdk.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TODO: Description Here
- */
-public class BvProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<BVProduct> bvProducts = new ArrayList<>();
     private OnBvProductClickListener onItemClickListener;
+    private static final int ROW_BV_PRODUCT = 0;
+    private static final int ROW_NO_RECS_FOUND = 1;
 
     public interface OnBvProductClickListener {
         void onBvProductClickListener(BVProduct bvProduct, View row);
@@ -33,22 +32,44 @@ public class BvProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rawRecRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_rec_adapter_row, parent, false);
-        return new BvViewHolder(rawRecRow);
+        RecyclerView.ViewHolder viewHolder;
+
+        switch (viewType) {
+            case ROW_BV_PRODUCT:
+                View rawRecRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_rec_adapter_row, parent, false);
+                viewHolder = new BvViewHolder(rawRecRow);
+                break;
+            case ROW_NO_RECS_FOUND:
+            default:
+                View noRecsRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_no_recs, parent, false);
+                viewHolder = new BvEmptyViewHOlder(noRecsRow);
+                break;
+        }
+
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        int itemViewType = getItemViewType(position);
+        switch (itemViewType) {
+            case ROW_BV_PRODUCT:
+                bindBvProductRow(position, holder);
+                break;
+        }
+
+    }
+
+    private void bindBvProductRow(int position, RecyclerView.ViewHolder holder) {
         final BVProduct bvProduct = bvProducts.get(position);
         BvViewHolder bvViewHolder = (BvViewHolder) holder;
 
         Picasso.with(bvViewHolder.prodImage.getContext())
                 .load(bvProduct.getImageUrl())
+                .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(bvViewHolder.prodImage);
 
         bvViewHolder.productName.setText(bvProduct.getProductName());
-
-        BVSDK.getInstance().sendProductImpressionEvent(bvProduct);
 
         if (bvProduct.getNumReviews() > 0) {
             String reviews = "Average Rating: ";
@@ -61,6 +82,7 @@ public class BvProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             bvViewHolder.productRating.setVisibility(View.GONE);
         }
 
+        bvViewHolder.row.setBvProduct(bvProduct);
         bvViewHolder.row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,22 +94,40 @@ public class BvProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (bvProducts.isEmpty()) {
+            return ROW_NO_RECS_FOUND;
+        } else {
+            return ROW_BV_PRODUCT;
+        }
+    }
+
+    @Override
     public int getItemCount() {
-        return bvProducts.size();
+        return bvProducts.isEmpty() ? 1 : bvProducts.size();
     }
 
     private class BvViewHolder extends RecyclerView.ViewHolder {
-        public ViewGroup row;
+        public RecommendationView row;
         public ImageView prodImage;
         public TextView productName;
         public TextView productRating;
 
         public BvViewHolder(View itemView) {
             super(itemView);
-            row = (ViewGroup) itemView;
+            row = (RecommendationView) itemView;
             prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
             productName = (TextView) itemView.findViewById(R.id.productName);
             productRating = (TextView) itemView.findViewById(R.id.productRating);
+        }
+    }
+
+    private class BvEmptyViewHOlder extends RecyclerView.ViewHolder {
+        public TextView noRecsFound;
+
+        public BvEmptyViewHOlder(View rowView) {
+            super(rowView);
+            noRecsFound = (TextView) rowView;
         }
     }
 

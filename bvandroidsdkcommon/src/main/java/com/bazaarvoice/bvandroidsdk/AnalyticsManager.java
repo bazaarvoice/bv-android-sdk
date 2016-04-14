@@ -236,9 +236,20 @@ class AnalyticsManager {
 
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
         RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
-        RecommendationUsedFeatureSchema.RecommendationFeature feature = RecommendationUsedFeatureSchema.RecommendationFeature.CUSTOM;
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(bvProduct.getProductId(), feature, magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
+        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(RecommendationUsedFeatureSchema.Feature.CONVERSION, bvProduct.getProductId(), null, magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
 
+        enqueueEvent(schema.getDataMap());
+    }
+
+    public void sendBvViewGroupAddedToHierarchyEvent(RecommendationUsedFeatureSchema.Component component) {
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
+        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(RecommendationUsedFeatureSchema.Feature.INVIEW, null, component, magpieMobileAppPartialSchema, null);
+        enqueueEvent(schema.getDataMap());
+    }
+
+    public void sendBvViewGroupInteractedWithEvent(RecommendationUsedFeatureSchema.Component component) {
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
+        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(RecommendationUsedFeatureSchema.Feature.SCROLLED, null, component, magpieMobileAppPartialSchema, null);
         enqueueEvent(schema.getDataMap());
     }
 

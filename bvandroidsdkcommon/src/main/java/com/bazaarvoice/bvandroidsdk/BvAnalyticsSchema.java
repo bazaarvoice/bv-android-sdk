@@ -40,7 +40,9 @@ abstract class BvAnalyticsSchema {
     }
 
     protected void addPartialSchema(BvPartialSchema bvPartialSchema) {
-        bvPartialSchemas.add(bvPartialSchema);
+        if (bvPartialSchema != null) {
+            bvPartialSchemas.add(bvPartialSchema);
+        }
     }
 
     public Map<String, Object> getDataMap() {

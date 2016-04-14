@@ -11,6 +11,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class BVProduct {
 
+    private boolean impressed = false;
+
     @SerializedName("product")
     private String productId;
 
@@ -80,6 +82,14 @@ public class BVProduct {
 
     RecommendationStats getRecommendationStats() {
         return recommendationStats;
+    }
+
+
+    public void recordImpression() {
+        if (!impressed) {
+            BVSDK.getInstance().sendProductImpressionEvent(this);
+            impressed = true;
+        }
     }
 
     @Override

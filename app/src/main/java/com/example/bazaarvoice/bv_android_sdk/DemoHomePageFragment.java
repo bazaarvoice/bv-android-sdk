@@ -9,35 +9,34 @@ package com.example.bazaarvoice.bv_android_sdk;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
+import android.widget.TextView;
 
 /**
  * TODO: Description Here
  */
-public class HomePageFragment extends Fragment {
+public class DemoHomePageFragment extends Fragment {
 
+    TextView bvsdkWiki;
 
-    public HomePageFragment() {
+    public DemoHomePageFragment() {
         // Required empty public constructor
     }
 
-    public static HomePageFragment newInstance() {
-        HomePageFragment fragment = new HomePageFragment();
+    public static DemoHomePageFragment newInstance() {
+        DemoHomePageFragment fragment = new DemoHomePageFragment();
         return fragment;
     }
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag_home_page, container, false);
 
-        ImageView logo = (ImageView) view.findViewById(R.id.bvLogoImageView);
-        Picasso.with(getActivity()).load(R.drawable.bazaarvoicelogo).into(logo);
+        bvsdkWiki = (TextView) view.findViewById(R.id.greetingText);
+        Linkify.addLinks(bvsdkWiki, Linkify.WEB_URLS);
 
         return view;
     }

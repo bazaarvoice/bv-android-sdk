@@ -29,6 +29,7 @@ public class BVSDKTest {
     String shopperAdvertisingApiKey;
     String conversationsApiKey;
     BVLogLevel bvLogLevel;
+    String shopperMarketingApiBaseUrl;
 
     ExecutorService executorService = mock(ExecutorService.class);
     AdvertisingIdClient advertisingIdClient = mock(AdvertisingIdClient.class);
@@ -45,6 +46,7 @@ public class BVSDKTest {
         conversationsApiKey = "bazquux-bvtestconversationsid";
         bvLogLevel = BVLogLevel.WARNING;
         gson = new Gson();
+        shopperAdvertisingApiKey = "/";
 
         executorService = mock(ExecutorService.class);
         advertisingIdClient = mock(AdvertisingIdClient.class);
@@ -160,28 +162,28 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkConstructorShouldSendAppLaunchedEvent() {
-        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson);
+        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl);
 
         verify(analyticsManager, times(1)).sendAppStateEvent(MobileAppLifecycleSchema.AppState.LAUNCHED);
     }
 
     @Test
     public void bvSdkConstructorShouldSetupBvAuthenticatedUser() {
-        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson);
+        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl);
 
         assertEquals(bvAuthenticatedUser, bvsdk.getAuthenticatedUser());
     }
 
     @Test
     public void bvSdkConstructorShouldSetupAdvertisingIdClient() {
-        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson);
+        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl);
 
         assertEquals(advertisingIdClient, bvsdk.getAdvertisingIdClient());
     }
 
     @Test
     public void bvSdkSetNewUserAuth() {
-        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson);
+        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl);
 
         bvsdk.setUserAuthString("newuserauthstr");
 
@@ -191,7 +193,7 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkSetNullUserAuthString() {
-        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson);
+        BVSDK bvsdk = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, BVLogLevel.VERBOSE, executorService, executorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl);
 
         bvsdk.setUserAuthString(null);
 

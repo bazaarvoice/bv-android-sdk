@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bazaarvoice.bvandroidsdk.RecommendationsContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bvContainerView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.bazaarvoice.bvandroidsdk.RecommendationView
+        android:id="@+id/bvView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/raw_rec_row"
+            android:layout_above="@+id/productLink"/>
+
+    </com.bazaarvoice.bvandroidsdk.RecommendationView>
+
+</com.bazaarvoice.bvandroidsdk.RecommendationsContainerView>
