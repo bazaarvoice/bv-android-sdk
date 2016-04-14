@@ -206,8 +206,9 @@ public class BVRecommendations {
                     .url(requestData.getRequestUrl())
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .build();
+            Response response = null;
             try {
-                Response response = okHttpClient.newCall(request).execute();
+                response = okHttpClient.newCall(request).execute();
                 if (!response.isSuccessful()) {
                     errorThrowable = new Exception("Unsuccessful response for recommendations with error code: " + response.code());
                 } else {
@@ -221,6 +222,10 @@ public class BVRecommendations {
                 errorThrowable = new Exception("Failed to parse recommendations");
             } catch (Exception e) {
                 errorThrowable = new Exception("Exception while getting recommendations");
+            } finally {
+                if (response != null && response.body() != null) {
+                    response.body().close();
+                }
             }
 
             return new ResponseData(didSucceed, errorThrowable, recommendedProducts);
