@@ -10,7 +10,7 @@
 
     <groupId>com.bazaarvoice.bvandroidsdk</groupId>
     <artifactId>bvandroidsdk-parent</artifactId>
-    <version>3.2.2-SNAPSHOT</version>
+    <version>4.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
@@ -25,6 +25,7 @@
         <module>bvandroidsdkadvertising</module>
         <module>bvandroidsdkconversations</module>
         <module>bvandroidsdkrecommendations</module>
+        <module>bvandroidsdkcurations</module>
     </modules>
 
     <properties>
@@ -64,15 +65,16 @@
             </dependency>
 
             <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.5</version>
+                <groupId>com.android.support</groupId>
+                <artifactId>recyclerview-v7</artifactId>
+                <version>23.2.1</version>
+                <type>aar</type>
             </dependency>
 
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>18.0</version>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.5</version>
             </dependency>
 
             <dependency>
@@ -135,15 +137,17 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>${it-plugin.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+
         </plugins>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>com.simpligility.maven.plugins</groupId>
-                    <artifactId>android-maven-plugin</artifactId>
-                    <version>${it-plugin.version}</version>
-                    <extensions>true</extensions>
-                </plugin>
 
                 <!-- Make sure we always turn all warnings on during compilation. -->
                 <plugin>

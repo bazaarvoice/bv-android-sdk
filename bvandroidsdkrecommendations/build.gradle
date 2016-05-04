@@ -31,7 +31,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile project(':bvandroidsdkcommon')
-    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    provided "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
 
     provided "com.google.code.gson:gson:$rootProject.gsonVersion"
 

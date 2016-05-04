@@ -18,9 +18,7 @@ abstract class UsedFeatureCanonicalSchema extends BvAnalyticsSchema {
     private static final String eventClass = "Feature";
     private static final String eventType = "Used";
 
-    private static final String bvProduct = "Recommendations";
-
-    public UsedFeatureCanonicalSchema(String source, String name) {
+    public UsedFeatureCanonicalSchema(String source, String name, String bvProduct) {
         super(eventClass, eventType, source);
         addKeyVal(KEY_NAME, name);
         addKeyVal(KEY_BV_PRODUCT, bvProduct);

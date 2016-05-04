@@ -9,7 +9,7 @@ import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
  */
 class MagpieMobileAppPartialSchema extends BvPartialSchema {
 
-    private static final String KEY_ADVERTISING_ID = "advertisingId";
+    protected static final String KEY_ADVERTISING_ID = "advertisingId";
     private static final String KEY_MOBILE_SOURCE = "mobileSource";
     private static final String KEY_CLIENT = "client";
 

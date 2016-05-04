@@ -12,15 +12,18 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.bazaarvoice.bvandroidsdk.BVAdListener;
 import com.bazaarvoice.bvandroidsdk.BVAds;
 import com.example.bazaarvoice.bv_android_sdk.R;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherAdView;
+
+import java.util.Map;
 
 /**
  * TODO: Description Here
@@ -41,12 +44,11 @@ public class BannerAdActivity extends AppCompatActivity {
         bannerAdFailure = (TextView) findViewById(R.id.banner_ad_failure);
 
         DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
-        BVAds bvAds = demoAppConfiguration.provideBvAds();
         DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
         String bvAdUnitId = demoUserConfiguration.provideBannerAdUnitId();
 
         // get a PublisherAdView object from the BVAdsSDK
-        publisherAdView = bvAds.getTargetedAdView(getApplicationContext());
+        publisherAdView = new PublisherAdView(this);
 
         // setup the PublisherAdView as you normally would - setting the adUnitId and desired ad size.
         // in this case, a 320x100 Large Banner ad is requested from DFP
@@ -56,28 +58,32 @@ public class BannerAdActivity extends AppCompatActivity {
         publisherAdView.setLayoutParams(layoutParams);
 
         // optional: set a BVAdListener to track the lifecycle of the ad
-        publisherAdView.setAdListener(new BVAdListener(bvAds, publisherAdView) {
+        publisherAdView.setAdListener(new AdListener() {
             @Override
-            public void bvOnAdLoaded() {
+            public void onAdLoaded() {
+                super.onAdLoaded();
                 showSuccess();
             }
 
             @Override
-            public void bvOnAdFailedToLoad(int errorCode) {
+            public void onAdFailedToLoad(int errorCode) {
+                super.onAdFailedToLoad(errorCode);
                 showFailure();
             }
         });
 
-        // get the PublisherAdRequest that BVAdsSDK has set targeting information on.
-        // provided as the Builder, to allow interacting with it further to set other information
-        // like gender, birthday, etc.
-        targetedAdRequest = bvAds.getTargetedAdRequest();
+        // Add Bazaarvoice targeting keywords
+        targetedAdRequest = new PublisherAdRequest.Builder();
+        Map<String, String> targetingKeywords = BVAds.getCustomTargeting();
+        for (Map.Entry<String, String> entry : targetingKeywords.entrySet()) {
+            targetedAdRequest.addCustomTargeting(entry.getKey(), entry.getValue());
+        }
 
         // Add deviceId for emulator
         // You can also add your own for a specific hardware device
         targetedAdRequest.addTestDevice(PublisherAdRequest.DEVICE_ID_EMULATOR);
         String testDeviceId = demoUserConfiguration.provideTestDeviceId();
-        if (testDeviceId != null && !testDeviceId.equals("REPLACE_ME")) {
+        if (testDeviceId != null && !testDeviceId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
             targetedAdRequest.addTestDevice(testDeviceId);
         }
 

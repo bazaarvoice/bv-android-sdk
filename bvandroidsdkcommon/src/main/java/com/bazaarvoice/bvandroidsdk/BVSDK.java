@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
@@ -39,9 +40,13 @@ public class BVSDK {
     private static final String IMMEDIATE_BV_THREAD_NAME = "BV-ImmediateThread";
     private static final String SHOPPER_MARKETING_API_ROOT_URL_STAGING = "https://my.network-stg.bazaarvoice.com";
     private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com";
-    private static BVSDK instance;
+    private static final String CURATIONS_DISPLAY_API_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/curations/content/get?";
+    private static final String CURATIONS_DISPLAY_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/get?";
+    private static final String CURATIONS_POST_API_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/curations/content/add/";
+    private static final String CURATIONS_POST_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/add/";
+    static BVSDK instance;
 
-    static final String SDK_VERSION = "3.2.1";
+    static final String SDK_VERSION = "4.0.0";
 
     final Application application;
     final ExecutorService scheduledExecutorService;
@@ -54,15 +59,18 @@ public class BVSDK {
     final BazaarEnvironment environment;
     final String apiKeyShopperAdvertising;
     final String apiKeyConversations;
+    final String apiKeyCurations;
     final BVAuthenticatedUser bvAuthenticatedUser;
     final Gson gson;
     final String shopperMarketingApiRootUrl;
+    final String curationsDisplayApiRootUrl;
+    final String curationsPostApiRootUrl;
 
     interface GetAdInfoCompleteAction {
         void completionAction(AdInfo adInfo);
     }
 
-    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, BVLogLevel logLevel, ExecutorService scheduledExecutorService, ExecutorService immediateExecutorService, OkHttpClient okHttpClient, AdvertisingIdClient advertisingIdClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, String shopperMarketingApiRootUrl) {
+    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations, BVLogLevel logLevel, ExecutorService scheduledExecutorService, ExecutorService immediateExecutorService, OkHttpClient okHttpClient, AdvertisingIdClient advertisingIdClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, String shopperMarketingApiRootUrl, String curationsDisplayApiRootUrl, String curationsPostApiRootUrl) {
         this.application = application;
         this.scheduledExecutorService = scheduledExecutorService;
         this.immediateExecutorService = immediateExecutorService;
@@ -74,10 +82,14 @@ public class BVSDK {
         this.environment = environment;
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
         this.apiKeyConversations = apiKeyConversations;
+        this.apiKeyCurations = apiKeyCurations;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
         this.gson = gson;
         this.shopperMarketingApiRootUrl = shopperMarketingApiRootUrl;
+        this.curationsDisplayApiRootUrl = curationsDisplayApiRootUrl;
+        this.curationsPostApiRootUrl = curationsPostApiRootUrl;
 
+        Logger.d(TAG, "Updating user upon BVSDK initialization");
         updateUser();
 
         /**
@@ -134,6 +146,7 @@ public class BVSDK {
         private BazaarEnvironment bazaarEnvironment;
         private String apiKeyShopperAdvertising;
         private String apiKeyConversations;
+        private String apiKeyCurations;
         private BVLogLevel logLevel;
 
         private Builder() {}
@@ -174,6 +187,15 @@ public class BVSDK {
             return this;
         }
 
+        /**
+         * @param apiKeyCurations API Key required to access Curations SDK
+         * @return
+         */
+        public Builder apiKeyCurations(String apiKeyCurations) {
+            this.apiKeyCurations = apiKeyCurations;
+            return this;
+        }
+
         public Builder logLevel(BVLogLevel logLevel) {
             this.logLevel = logLevel;
             return this;
@@ -201,7 +223,7 @@ public class BVSDK {
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
             ScheduledExecutorService profileExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_PROFILE_THREAD_NAME));
             ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
-            OkHttpClient okHttpClient = new OkHttpClient();
+            OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).build();
             Gson gson = new Gson();
             AdvertisingIdClient advertisingIdClient = new AdvertisingIdClient(application.getApplicationContext());
             BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(Utils.isStagingEnvironment(bazaarEnvironment), apiKeyShopperAdvertising, immediateExecutorService, profileExecutorService, okHttpClient, gson);
@@ -212,8 +234,10 @@ public class BVSDK {
             AnalyticsManager analyticsManager = new AnalyticsManager(versionName, versionCode, clientId, bazaarEnvironment, advertisingIdClient, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
+            String curationsDisplayApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_DISPLAY_API_ROOT_URL_STAGING : CURATIONS_DISPLAY_API_ROOT_URL_PRODUCTION;
+            String curationsPostApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_POST_API_ROOT_URL_STAGING : CURATIONS_POST_API_ROOT_URL_PRODUCTION;
 
-            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, logLevel, scheduledExecutorService, immediateExecutorService, okHttpClient, advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl);
+            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, logLevel, scheduledExecutorService, immediateExecutorService, okHttpClient, advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl);
             return instance;
         }
     }
@@ -246,6 +270,14 @@ public class BVSDK {
 
     String getShopperMarketingApiRootUrl() {
         return shopperMarketingApiRootUrl;
+    }
+
+    String getCurationsDisplayApiRootUrl(){
+        return curationsDisplayApiRootUrl;
+    }
+
+    String getCurationsPostApiRootUrl(){
+        return curationsPostApiRootUrl;
     }
 
     OkHttpClient getOkHttpClient() {
@@ -282,25 +314,30 @@ public class BVSDK {
         bvAuthenticatedUser.setUserAuthString(userAuthString);
         analyticsManager.sendPersonalizationEvent();
 
+        Logger.d(TAG, "Updating user upon user auth string update");
         updateUser();
     }
 
     /**
-     * Event when a single product recommendation appears on screen
+     * Event when a transaction occurs
      *
-     * @param product
+     * @param transaction
      */
-    public void sendProductImpressionEvent(BVProduct product) {
-        analyticsManager.sendProductImpressionEvent(product);
+    public void sendConversionTransactionEvent(Transaction transaction) {
+        if (transaction.getItems() == null || transaction.getItems().size() == 0){
+            Logger.w("BVSDK", "Could not track Transaction. Transaction items are required");
+            return;
+        }
+        analyticsManager.sendConversionTransactionEvent(transaction);
     }
 
     /**
-     * Event when a product is tapped (i.e. conversion)
+     * Event when a transaction occurs
      *
-     * @param product
+     * @param conversion
      */
-    public void sendProductConversionEvent(BVProduct product) {
-        analyticsManager.sendProductConversionEvent(product);
+    public void sendNonCommerceConversionEvent(Conversion conversion) {
+        analyticsManager.sendNonCommerceConversionEvent(conversion);
     }
 
     private void updateUser() {
@@ -327,6 +364,10 @@ public class BVSDK {
 
     String getApiKeyConversations() {
         return apiKeyConversations;
+    }
+
+    String getApiKeyCurations() {
+        return apiKeyCurations;
     }
 
 }

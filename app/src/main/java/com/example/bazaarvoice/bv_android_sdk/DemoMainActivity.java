@@ -15,9 +15,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.CurationsPostCallback;
+import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.example.bazaarvoice.bv_android_sdk.ads.AdsFragment;
 import com.example.bazaarvoice.bv_android_sdk.ads.BannerAdActivity;
 import com.example.bazaarvoice.bv_android_sdk.ads.InterstitialAdActivity;
@@ -26,17 +29,22 @@ import com.example.bazaarvoice.bv_android_sdk.conversations.browseproducts.Brows
 import com.example.bazaarvoice.bv_android_sdk.conversations.browseproducts.ProductsActivity;
 import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.DemoConversationDetailActivity;
 import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.DemoConversationsFragment;
-import com.example.bazaarvoice.bv_android_sdk.recommendations.detail.DemoProductDetailActivity;
+import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsFeedActivity;
+import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsFragment;
+import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsPostActivity;
 import com.example.bazaarvoice.bv_android_sdk.recommendations.DemoRecommendationsFragment;
+import com.example.bazaarvoice.bv_android_sdk.recommendations.detail.DemoProductDetailActivity;
 
 /**
  * TODO: Description Here
  */
-public class DemoMainActivity extends AppCompatActivity {
+public class DemoMainActivity extends AppCompatActivity implements CurationsPostCallback {
     @IdRes
     private int fragContainerId;
 
     private DrawerLayout mDrawerLayout;
+
+    private MenuItem prevItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +85,19 @@ public class DemoMainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(final NavigationView navigationView) {
+
+        MenuItem item = navigationView.getMenu().getItem(0);
+        item.setChecked(true);
+        prevItem = item;
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+
+                prevItem.setChecked(false);
+                prevItem = item;
+
                 switch (item.getItemId()) {
                     case R.id.home_page:
                         transitionTo(DemoHomePageFragment.newInstance());
@@ -96,6 +113,9 @@ public class DemoMainActivity extends AppCompatActivity {
                         break;
                     case R.id.browse_products:
                         transitionTo(BrowseProductsFragment.getInstance());
+                        break;
+                    case R.id.curations:
+                        transitionTo(DemoCurationsFragment.newInstance());
                         break;
                 }
 
@@ -144,6 +164,26 @@ public class DemoMainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProductsActivity.class);
         intent.putExtra("searchTerm", query);
         startActivity(intent);
+    }
+
+    public void transitionToCurationsFeed(){
+        Intent intent = new Intent(this, DemoCurationsFeedActivity.class);
+        startActivity(intent);
+    }
+
+    public void transitionToCurationsPost(){
+        Intent intent = new Intent(this, DemoCurationsPostActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess(CurationsPostResponse response) {
+        Log.d("success", response.getRemoteUrl());
+    }
+
+    @Override
+    public void onFailure(Throwable throwable) {
+        Log.d("asd", throwable.getMessage());
     }
 }
 

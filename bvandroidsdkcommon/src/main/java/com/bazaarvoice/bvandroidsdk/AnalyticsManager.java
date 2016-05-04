@@ -60,7 +60,7 @@ class AnalyticsManager {
         this.packageName = packageName;
         this.okHttpClient = okHttpClient;
         this.clientId = clientId;
-        this.bazaarEnvironment = bazaarEnvironment;
+        this.bazaarEnvironment = environment;
         this.url = getAnalyticsUrl(environment);
         scheduledExecutorService.scheduleWithFixedDelay(new BvAnalyticsTask(), ANALYTICS_START_DELAY_SECONDS, ANALYTICS_DELAY_SECONDS, TimeUnit.SECONDS);
         this.immediateExecutorService = immediateExecutorService;
@@ -109,7 +109,7 @@ class AnalyticsManager {
                     JSONObject batchToSend = new JSONObject(batch);
 
                     RequestBody body = RequestBody.create(JSON, batchToSend.toString());
-
+                    Logger.v(TAG, url.toString() + "\n" + batchToSend.toString());
                     Request request = new Request.Builder()
                             .url(url)
                             .header("Content-Type", "application/json")
@@ -184,77 +184,34 @@ class AnalyticsManager {
         immediateExecutorService.execute(new BvAnalyticsTask());
     }
 
-    private RecommendationAttributesPartialSchema getRecommendationAttributesPartialSchema(BVProduct product) {
-        RecommendationAttributesPartialSchema.Builder builder = new RecommendationAttributesPartialSchema.Builder();
+    /**
+     * Event when a transaction occurs
+     *
+     * @param transaction
+     */
+    public void sendConversionTransactionEvent(Transaction transaction) {
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
+        ConversionTransactionSchema transactionSchema = new ConversionTransactionSchema(magpieMobileAppPartialSchema, transaction);
 
-        RecommendationStats stats = product.getRecommendationStats();
-        if (stats != null) {
-            builder.rkb(stats.getRkb()).rkc(stats.getRkc()).rki(stats.getRki()).rkp(stats.getRkp()).rkt(stats.getRkt());
-        }
-
-        builder.rs(product.getRs()).sponsored(product.isSponsored());
-
-        return builder.build();
-    }
-
-    private boolean isProductValid(BVProduct bvProduct) {
-        return bvProduct != null && bvProduct.getProductId() != null;
-    }
-
-    private boolean shouldSendProductEvent(BVProduct bvProduct) {
-        String productId = bvProduct == null ? "null_product" : bvProduct.getProductId();
-        if (!isProductValid(bvProduct)) {
-            Logger.w(TAG, "Product impression not sent for invalid product: " + productId);
-            return false;
-        } else {
-            return true;
+        enqueueEvent(transactionSchema.getDataMap());
+        if (transactionSchema.getPIIEvent() != null){
+            enqueueEvent(transactionSchema.getPIIEvent());
         }
     }
 
     /**
-     * Event when a single product recommendation appears on screen
+     * Event when a transaction occurs
      *
-     * @param bvProduct
+     * @param conversion
      */
-    public void sendProductImpressionEvent(BVProduct bvProduct) {
-        if (!shouldSendProductEvent(bvProduct)) {
-            return;
+    public void sendNonCommerceConversionEvent(Conversion conversion) {
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
+        ConversionNonCommerceSchema conversionSchema = new ConversionNonCommerceSchema(magpieMobileAppPartialSchema, conversion);
+
+        enqueueEvent(conversionSchema.getDataMap());
+        if (conversionSchema.getPIIEvent() != null){
+            enqueueEvent(conversionSchema.getPIIEvent());
         }
-
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
-        RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
-        RecommendationImpressionSchema schema = new RecommendationImpressionSchema(bvProduct.getProductId(), magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
-
-        enqueueEvent(schema.getDataMap());
-    }
-
-    /**
-     * Event when a product is tapped (i.e. conversion)
-     *
-     * @param bvProduct
-     */
-    public void sendProductConversionEvent(BVProduct bvProduct) {
-        if (!shouldSendProductEvent(bvProduct)) {
-            return;
-        }
-
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
-        RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(RecommendationUsedFeatureSchema.Feature.CONVERSION, bvProduct.getProductId(), null, magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
-
-        enqueueEvent(schema.getDataMap());
-    }
-
-    public void sendBvViewGroupAddedToHierarchyEvent(RecommendationUsedFeatureSchema.Component component) {
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(RecommendationUsedFeatureSchema.Feature.INVIEW, null, component, magpieMobileAppPartialSchema, null);
-        enqueueEvent(schema.getDataMap());
-    }
-
-    public void sendBvViewGroupInteractedWithEvent(RecommendationUsedFeatureSchema.Component component) {
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(RecommendationUsedFeatureSchema.Feature.SCROLLED, null, component, magpieMobileAppPartialSchema, null);
-        enqueueEvent(schema.getDataMap());
     }
 
     /**

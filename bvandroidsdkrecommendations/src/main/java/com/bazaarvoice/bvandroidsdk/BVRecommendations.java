@@ -30,7 +30,7 @@ public class BVRecommendations {
     private String apiKeyShopperAdvertising;
     private String adID;
 
-    private WeakReference<BVRecommendationsCallback> bvRecommendationsCallback;
+    private WeakReference<BVRecommendationsCallback> bvRecCbWeakRef;
 
     public BVRecommendations() {
         BVSDK bvsdk = BVSDK.getInstance();
@@ -43,11 +43,11 @@ public class BVRecommendations {
 
     private void getRecommendedProducts(final int limit, final String productId, final String categoryId, final BVRecommendationsCallback callback) {
         BVSDK bvsdk = BVSDK.getInstance();
+        bvRecCbWeakRef = new WeakReference<BVRecommendationsCallback>(callback);
 
         bvsdk.getAdvertisingIdClient().getAdInfo(new BVSDK.GetAdInfoCompleteAction() {
             @Override
             public void completionAction(AdInfo adInfo) {
-                bvRecommendationsCallback = new WeakReference<BVRecommendationsCallback>(callback);
                 int validatedLimit = limit;
                 if (limit < 0 || limit > 50) {
                     validatedLimit = 20;
@@ -65,7 +65,10 @@ public class BVRecommendations {
                      requestUrl = new URL(getRecommendationsUrlString(params));
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
-                    callback.onFailure(e);
+                    BVRecommendationsCallback cb = bvRecCbWeakRef.get();
+                    if (cb != null) {
+                        cb.onFailure(e);
+                    }
                     return;
                 }
 
@@ -234,8 +237,9 @@ public class BVRecommendations {
         @Override
         protected void onPostExecute(ResponseData responseData) {
             super.onPostExecute(responseData);
-            BVRecommendationsCallback recommendationsCallback = bvRecommendationsCallback.get();
+            BVRecommendationsCallback recommendationsCallback = bvRecCbWeakRef.get();
             if (recommendationsCallback == null) {
+                Logger.w(TAG, "Your Recommendations callback was recycled.");
                 return;
             }
             if (responseData.isDidSucceed()) {

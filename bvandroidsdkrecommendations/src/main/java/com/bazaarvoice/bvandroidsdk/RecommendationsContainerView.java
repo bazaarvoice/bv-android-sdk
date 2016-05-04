@@ -5,7 +5,6 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -17,61 +16,46 @@ import java.util.List;
 /**
  * Bazaarvoice Provided {@link FrameLayout} to display {@link RecommendationView} objects
  */
-public class RecommendationsContainerView extends FrameLayout implements View.OnAttachStateChangeListener {
+public class RecommendationsContainerView extends BVContainerView implements View.OnAttachStateChangeListener, BVViewGroupEventListener {
     private static final String TAG = RecommendationsContainerView.class.getSimpleName();
 
-    private boolean seen = false;
     private List<BVProduct> bvProducts = Collections.emptyList();
 
     public RecommendationsContainerView(Context context) {
         super(context);
-        init();
     }
 
     public RecommendationsContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public RecommendationsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RecommendationsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
     }
 
-    private void init() {
-        super.addOnAttachStateChangeListener(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void onViewAttachedToWindow(View v) {
-        RecommendationsAnalyticsManager.sendEmbeddedPageView(EmbeddedPageViewSchema.ReportingGroup.CUSTOM);
+    void init() {
+        super.init();
+        setEventListener(this);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void onViewDetachedFromWindow(View v) {}
+    public void onViewGroupInteractedWith() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onDraw(Canvas c) {
-        super.onDraw(c);
-        if (!seen && bvProducts.size() > 0) {
-            seen = true;
-            BVSDK.getInstance().getAnalyticsManager().sendBvViewGroupAddedToHierarchyEvent(RecommendationUsedFeatureSchema.Component.CUSTOM);
-        }
     }
 
+    @Override
+    public void onEmbeddedPageView() {
+        RecommendationsAnalyticsManager.sendEmbeddedPageView(ReportingGroup.CUSTOM);
+    }
+
+    @Override
+    public void onViewGroupAddedToHierarchy() {
+        RecommendationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(ReportingGroup.CUSTOM);
+    }
 }

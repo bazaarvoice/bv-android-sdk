@@ -1,5 +1,18 @@
 # Changelog
 
+# 4.0.0
+
+## Advertising
+* New changes to the BVAds class that require some minor code changes to migrate from 3.x to 4.x
+  * Ads interface removed, instead simply use the BVAds class directly
+  * ```Map<String, String> getCustomTargeting()``` is the only method available now through ```BVAds.getCustomTargeting()```\
+  * The methods creating Google DFP ad objects can now just be called by directly invoking the Google DFP API,
+  e.g. ```getTargetedInterstitialAd(Context context, String adUnitId)``` becomes ```PublisherInterstitialAd interstitialAd = new PublisherInterstitialAd(context); interstitialAd.setAdUnitId(adUnitId);```
+* New Support for Bazaarvoice Curations: Ability to display custom social media feeds and post photos from your mobile app. Checkout the example project
+* New BVPixel - Analytics for tracking purchase and non-transaction events for ROI reporting and omnichannel profile
+* Added usage pattern for BVRecommendations for fetching and displaying product recommendations
+* Removed SDK dependency on Google DFP SDK. Existing clients can now more easily add 1st party data to DFP add requests.
+
 # 3.2.1
 
 # General Changes

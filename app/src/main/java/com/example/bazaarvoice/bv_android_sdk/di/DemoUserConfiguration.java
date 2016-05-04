@@ -4,7 +4,6 @@
 
 package com.example.bazaarvoice.bv_android_sdk.di;
 
-import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 
 /**
@@ -13,6 +12,8 @@ import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 public interface DemoUserConfiguration {
 
     String provideApiKeyShopperAdvertising();
+
+    String provideApiKeyCurations();
 
     String provideApiKeyConversations();
 
@@ -25,8 +26,6 @@ public interface DemoUserConfiguration {
     BazaarEnvironment provideBazaarEnvironment();
 
     String provideBvClientId();
-
-    BVRecommendations provideBvRecommendations();
 
     String provideTestDeviceId();
 

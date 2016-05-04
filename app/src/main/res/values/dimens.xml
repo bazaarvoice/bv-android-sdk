@@ -7,4 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="product_image_height_row">200dp</dimen>
     <dimen name="product_image_height_detail">400dp</dimen>
+    <dimen name="link_text_size">16sp</dimen>
+    <dimen name="default_text_size">16sp</dimen>
 </resources>

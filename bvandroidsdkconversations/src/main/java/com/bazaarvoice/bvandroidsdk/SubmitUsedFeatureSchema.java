@@ -11,9 +11,10 @@ class SubmitUsedFeatureSchema extends UsedFeatureCanonicalSchema {
 
     private static final String KEY_FINGERPRINT = "fingerprinting";
     private static final String source = "native-mobile-sdk";
+    private static final String bvProduct = "Recommendations";
 
     private SubmitUsedFeatureSchema(Builder builder) {
-        super(source, builder.submitFeature.toString());
+        super(source, builder.submitFeature.toString(), bvProduct);
         addCategoryId(builder.categoryId);
         addProductId(builder.productId);
         addKeyVal(KEY_FINGERPRINT, builder.fingerprint);

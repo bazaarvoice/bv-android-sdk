@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView
-        android:id="@+id/recommendations_custom_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"/>
+        android:layout_height="wrap_content">
 
-</android.support.v4.widget.SwipeRefreshLayout>
+        <com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView
+            android:id="@+id/recommendations_custom_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/get_recs_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/no_recs_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Recommendations Found"
+        android:textSize="@dimen/link_text_size"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</FrameLayout>
 

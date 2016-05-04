@@ -24,7 +24,6 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<BVProduct> bvProducts = new ArrayList<>();
     private OnBvProductClickListener onItemClickListener;
     private static final int ROW_BV_PRODUCT = 0;
-    private static final int ROW_NO_RECS_FOUND = 1;
 
     public interface OnBvProductClickListener {
         void onBvProductClickListener(BVProduct bvProduct, View row);
@@ -36,13 +35,9 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case ROW_BV_PRODUCT:
+            default:
                 View rawRecRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_rec_adapter_row, parent, false);
                 viewHolder = new BvViewHolder(rawRecRow);
-                break;
-            case ROW_NO_RECS_FOUND:
-            default:
-                View noRecsRow = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_no_recs, parent, false);
-                viewHolder = new BvEmptyViewHOlder(noRecsRow);
                 break;
         }
 
@@ -95,16 +90,12 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (bvProducts.isEmpty()) {
-            return ROW_NO_RECS_FOUND;
-        } else {
-            return ROW_BV_PRODUCT;
-        }
+        return ROW_BV_PRODUCT;
     }
 
     @Override
     public int getItemCount() {
-        return bvProducts.isEmpty() ? 1 : bvProducts.size();
+        return bvProducts.size();
     }
 
     private class BvViewHolder extends RecyclerView.ViewHolder {
@@ -119,15 +110,6 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
             productName = (TextView) itemView.findViewById(R.id.productName);
             productRating = (TextView) itemView.findViewById(R.id.productRating);
-        }
-    }
-
-    private class BvEmptyViewHOlder extends RecyclerView.ViewHolder {
-        public TextView noRecsFound;
-
-        public BvEmptyViewHOlder(View rowView) {
-            super(rowView);
-            noRecsFound = (TextView) rowView;
         }
     }
 
