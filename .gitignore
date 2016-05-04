@@ -10,3 +10,8 @@
 # Maven stuff
 target
 
+# Ignore Jekyll generated docs
+_site/
+
+# Ignore generated docs
+misc/assets/

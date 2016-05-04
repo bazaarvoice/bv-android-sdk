@@ -60,6 +60,7 @@ public class AnalyticsManagerTest {
                 .bazaarEnvironment(BazaarEnvironment.STAGING)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
+
     }
 
     ArgumentCaptor<Long> initialDelayCaptor = ArgumentCaptor.forClass(Long.class);

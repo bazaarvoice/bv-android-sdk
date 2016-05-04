@@ -4,8 +4,6 @@
 
 package com.example.bazaarvoice.bv_android_sdk.ads;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -17,20 +15,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bazaarvoice.bvandroidsdk.AdTracker;
-import com.bazaarvoice.bvandroidsdk.BVAdListener;
 import com.bazaarvoice.bvandroidsdk.BVAds;
-import com.bazaarvoice.bvandroidsdk.BVContentAdLoadedListener;
 import com.example.bazaarvoice.bv_android_sdk.R;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
+import com.google.android.gms.ads.AdListener;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.ads.formats.NativeContentAd;
+import com.google.android.gms.ads.formats.NativeContentAdView;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: Description Here
@@ -54,62 +53,64 @@ public class NativeAdActivity extends AppCompatActivity {
 
         showLoading();
 
+        final NativeContentAdView nativeContentAdView = (NativeContentAdView) findViewById(R.id.native_content_ad_view);
         final ImageView imageView = (ImageView) findViewById(R.id.nativeAdImage);
         final TextView title = (TextView) findViewById(R.id.nativeAdTitle);
         final TextView description = (TextView) findViewById(R.id.nativeAdDescription);
         final TextView link = (TextView) findViewById(R.id.nativeAdLink);
 
         DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
-        BVAds bvAds = demoAppConfiguration.provideBvAds();
         DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
         String adUnitId = demoUserConfiguration.provideNativeContentAdUnitId();
 
-        AdLoader.Builder targetedAdBuilder = bvAds.getTargetedAdLoader(getApplicationContext(), adUnitId);
+        AdLoader.Builder targetedAdBuilder = new AdLoader.Builder(this, adUnitId);
 
-        targetedAdBuilder.forContentAd(new BVContentAdLoadedListener(bvAds, adUnitId) {
+        targetedAdBuilder.forContentAd(new NativeContentAd.OnContentAdLoadedListener() {
             @Override
-            public void bvOnContentAdLoaded(NativeContentAd nativeContentAd) {
-                super.bvOnContentAdLoaded(nativeContentAd);
-
+            public void onContentAdLoaded(NativeContentAd nativeContentAd) {
                 List<NativeAd.Image> images = nativeContentAd.getImages();
 
                 if(images != null && images.size() > 0) {
                     imageView.setImageDrawable(images.get(0).getDrawable());
                 }
 
+                nativeContentAdView.setHeadlineView(title);
                 title.setText(nativeContentAd.getHeadline());
+
+                nativeContentAdView.setBodyView(description);
                 description.setText(nativeContentAd.getBody());
+
+                nativeContentAdView.setCallToActionView(link);
                 link.setText(nativeContentAd.getCallToAction());
 
-                final String advertUrl = "http://" + String.valueOf(nativeContentAd.getAdvertiser());
-
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        conversionEvent(advertUrl);
-                    }
-                });
+                nativeContentAdView.setNativeAd(nativeContentAd);
 
                 showLoadSucceeded();
             }
         });
 
-        AdLoader adLoader = targetedAdBuilder.withAdListener(new BVAdListener(bvAds, adUnitId, AdTracker.AdTrackerType.NATIVE) {
+        AdLoader adLoader = targetedAdBuilder.withAdListener(new AdListener() {
             @Override
-            public void bvOnAdFailedToLoad(int errorCode) {
+            public void onAdFailedToLoad(int errorCode) {
+                super.onAdFailedToLoad(errorCode);
                 Log.e("error", "ad failed to load");
                 showToast("Ad failed to load");
                 showLoadFailed();
             }
         }).build();
 
-        PublisherAdRequest.Builder publisherAdRequest = bvAds.getTargetedAdRequest();
+        // Add Bazaarvoice targeting keywords
+        PublisherAdRequest.Builder publisherAdRequest = new PublisherAdRequest.Builder();
+        Map<String, String> targetingKeywords = BVAds.getCustomTargeting();
+        for (Map.Entry<String, String> entry : targetingKeywords.entrySet()) {
+            publisherAdRequest.addCustomTargeting(entry.getKey(), entry.getValue());
+        }
 
         // Add deviceId for emulator
         // You can also add your own for a specific hardware device
         publisherAdRequest.addTestDevice(PublisherAdRequest.DEVICE_ID_EMULATOR);
         String testDeviceId = demoUserConfiguration.provideTestDeviceId();
-        if (testDeviceId != null && !testDeviceId.equals("REPLACE_ME")) {
+        if (testDeviceId != null && !testDeviceId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
             publisherAdRequest.addTestDevice(testDeviceId);
         }
 
@@ -132,24 +133,6 @@ public class NativeAdActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         loadFailed.setVisibility(View.GONE);
         cardView.setVisibility(View.VISIBLE);
-    }
-
-    private void conversionEvent(String conversionUriStr) {
-        Uri conversionUri;
-
-        try {
-            conversionUri = Uri.parse(conversionUriStr);
-        } catch (Exception e) {
-            showToast("Invalid conversion uri");
-            return;
-        }
-
-        Intent conversionIntent = new Intent(Intent.ACTION_VIEW, conversionUri);
-        if (conversionIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(conversionIntent);
-        }   else  {
-            showToast("No Intent available to handle action");
-        }
     }
 
     private void showToast(String message) {

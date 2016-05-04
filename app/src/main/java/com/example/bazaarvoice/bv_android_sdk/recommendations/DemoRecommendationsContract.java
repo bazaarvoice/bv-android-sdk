@@ -15,6 +15,8 @@ public interface DemoRecommendationsContract {
 
     interface View {
         void showRecommendations(List<BVProduct> recommendationProducts);
+        void showNoRecommendationsFound();
+        void showSwipeRefreshLoading(boolean isLoading);
         void showLoading(boolean isLoading);
         void showMessage(String message);
     }

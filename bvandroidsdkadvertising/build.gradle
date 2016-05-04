@@ -32,9 +32,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile project(':bvandroidsdkcommon')
-    compile "com.google.android.gms:play-services-ads:$rootProject.playServicesAdsVersion"
-
-    provided "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
     testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"

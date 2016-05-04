@@ -5,11 +5,12 @@
     <parent>
         <groupId>com.bazaarvoice.bvandroidsdk</groupId>
         <artifactId>bvandroidsdk-parent</artifactId>
-        <version>3.2.2-SNAPSHOT</version>
+        <version>4.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>conversations</artifactId>
+    <packaging>aar</packaging>
     <name>BVSDK Android Conversations</name>
 
     <dependencies>
@@ -17,6 +18,7 @@
             <groupId>com.bazaarvoice.bvandroidsdk</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
+            <type>aar</type>
         </dependency>
 
         <dependency>

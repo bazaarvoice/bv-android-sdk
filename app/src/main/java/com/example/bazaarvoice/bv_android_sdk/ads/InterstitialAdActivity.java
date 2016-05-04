@@ -11,14 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.bazaarvoice.bvandroidsdk.BVAdListener;
 import com.bazaarvoice.bvandroidsdk.BVAds;
 import com.example.bazaarvoice.bv_android_sdk.R;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
+
+import java.util.Map;
 
 /**
  * TODO: Description Here
@@ -38,27 +41,30 @@ public class InterstitialAdActivity extends AppCompatActivity {
         interstitialButton = (Button) findViewById(R.id.interstitial_button);
 
         DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
-        BVAds bvAds = demoAppConfiguration.provideBvAds();
         DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
-        String bvAdUnitId = demoUserConfiguration.provideInterstitialAdUnitId();
+        String demoAdUnitId = demoUserConfiguration.provideInterstitialAdUnitId();
 
         // get a PublisherAdView object from the BVAdsSDK
-        publisherInterstitialAd = bvAds.getTargetedInterstitialAd(getApplicationContext(), bvAdUnitId);
+        publisherInterstitialAd = new PublisherInterstitialAd(this);
+        publisherInterstitialAd.setAdUnitId(demoAdUnitId);
 
         // optional: set a BVAdListener to track the lifecycle of the ad
-        publisherInterstitialAd.setAdListener(new BVAdListener(bvAds, publisherInterstitialAd) {
+        publisherInterstitialAd.setAdListener(new AdListener() {
             @Override
-            public void bvOnAdOpened() {
+            public void onAdOpened() {
+                super.onAdOpened();
                 Toast.makeText(getApplication(), "BV Ad Opened", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // get the PublisherAdRequest that BVAdsSDK has set targeting information on.
-        // provided as the Builder, to allow interacting with it further to set other information
-        // like gender, birthday, etc.
-        targetedAdRequest = bvAds.getTargetedAdRequest();
+        // Add Bazaarvoice targeting keywords
+        targetedAdRequest = new PublisherAdRequest.Builder();
+        Map<String, String> targetingKeywords = BVAds.getCustomTargeting();
+        for (Map.Entry<String, String> entry : targetingKeywords.entrySet()) {
+            targetedAdRequest.addCustomTargeting(entry.getKey(), entry.getValue());
+        }
         String testDeviceId = demoUserConfiguration.provideTestDeviceId();
-        if (testDeviceId != null && !testDeviceId.equals("REPLACE_ME")) {
+        if (testDeviceId != null && !testDeviceId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
             targetedAdRequest.addTestDevice(testDeviceId);
         }
 

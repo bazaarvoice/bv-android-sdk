@@ -5,7 +5,6 @@
 package com.example.bazaarvoice.bv_android_sdk.di;
 
 import com.bazaarvoice.bvandroidsdk.BVAds;
-import com.bazaarvoice.bvandroidsdk.BVSDK;
 
 /**
  * TODO: Description Here
@@ -29,7 +28,6 @@ public class DemoAppConfigurationImpl implements DemoAppConfiguration {
     public BVAds provideBvAds() {
         if (bvAds == null) {
             bvAds = new BVAds();
-            BVSDK.getInstance().setUserAuthString(DemoUserConfigurationImpl.BV_USER_AUTH_STRING);
         }
 
         return bvAds;

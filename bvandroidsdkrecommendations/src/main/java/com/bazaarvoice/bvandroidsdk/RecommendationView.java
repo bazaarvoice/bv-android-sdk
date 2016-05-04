@@ -5,10 +5,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
 /**
@@ -17,7 +15,7 @@ import android.widget.FrameLayout;
  * about the users interaction with the Product in order to help influence
  * future recommendations.
  */
-public final class RecommendationView extends FrameLayout {
+public final class RecommendationView extends BVView implements BVViewEventListener {
 
     private static final String TAG = RecommendationView.class.getSimpleName();
 
@@ -25,28 +23,26 @@ public final class RecommendationView extends FrameLayout {
 
     public RecommendationView(Context context) {
         super(context);
-        init();
     }
 
     public RecommendationView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public RecommendationView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RecommendationView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
     }
 
 
-    private void init() {
-        setWillNotDraw(false);
+    @Override
+    void init() {
+        super.init();
+        super.setEventListener(this);
     }
 
     /**
@@ -56,28 +52,18 @@ public final class RecommendationView extends FrameLayout {
         this.bvProduct = bvProduct;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    public void onImpression() {
         if (bvProduct != null) {
-            bvProduct.recordImpression();
+            RecommendationsAnalyticsManager.sendProductImpressionEvent(bvProduct);
         }
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_UP:
-                if (bvProduct != null) {
-                    BVSDK.getInstance().sendProductConversionEvent(bvProduct);
-                }
-                break;
+    public void onConversion() {
+        if (bvProduct != null) {
+            RecommendationsAnalyticsManager.sendProductConversionEvent(bvProduct);
         }
-
-        return super.dispatchTouchEvent(ev);
     }
-
 }

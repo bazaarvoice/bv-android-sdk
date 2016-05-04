@@ -4,8 +4,6 @@
 
 package com.example.bazaarvoice.bv_android_sdk.di;
 
-import com.bazaarvoice.bvandroidsdk.BVRecommendations;
-import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 
 /**
@@ -14,8 +12,10 @@ import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 public class DemoUserConfigurationImpl implements DemoUserConfiguration {
 
     /**
-     * Replace the following values depending on what demo you want to see
+     *Anything assigned to REPLACE_ME in this file should be replaced with your corresponding values
      */
+    public static final String REPLACE_ME = "REPLACE_ME";
+
 
     /**
      *  Ads/Recommendations
@@ -25,7 +25,8 @@ public class DemoUserConfigurationImpl implements DemoUserConfiguration {
     // interested in men's and women's apparel -- for testing and demonstration purposes
     public static final String BV_USER_AUTH_STRING = "0ce436b29697d6bc74f30f724b9b0bb6646174653d31323334267573657269643d5265636f6d6d656e646174696f6e7353646b54657374";
 
-    private static final String SHOPPER_ADVERTISING_API_KEY = "REPLACE_ME";
+
+    private static final String SHOPPER_ADVERTISING_API_KEY = REPLACE_ME;
 
     /**
      * If using a physical test device Google DFP requires this test device id, and
@@ -33,7 +34,7 @@ public class DemoUserConfigurationImpl implements DemoUserConfiguration {
      * This is not necessary for emulator testing.
      * @see <a href="https://developers.google.com/android/reference/com/google/android/gms/ads/AdRequest.Builder#addTestDevice(java.lang.String)">https://developers.google.com/android/reference/com/google/android/gms/ads/AdRequest.Builder#addTestDevice(java.lang.String)</a>
      */
-    private static final String BV_TEST_DEVICE_ID = "REPLACE_ME";
+    private static final String BV_TEST_DEVICE_ID = REPLACE_ME;
 
     /**
      * Ads
@@ -48,13 +49,20 @@ public class DemoUserConfigurationImpl implements DemoUserConfiguration {
      * Conversations
       */
 
-    private static final String BV_CONVERSATIONS_API_KEY = "REPLACE_ME";
+    private static final String BV_CONVERSATIONS_API_KEY = REPLACE_ME;
+
+
+    /**
+     * Curations
+     */
+
+    private static final String BV_CURATIONS_API_KEY = REPLACE_ME;
 
     /**
      * Ads/Recommendations/Conversations
      */
 
-    private static final String BV_CLIENT_ID = "REPLACE_ME";
+    private static final String BV_CLIENT_ID = REPLACE_ME;
     private static final BazaarEnvironment BV_ENVIRONMENT = BazaarEnvironment.STAGING; // BazaarEnvironment.PRODUCTION;
 
     @Override
@@ -65,6 +73,11 @@ public class DemoUserConfigurationImpl implements DemoUserConfiguration {
     @Override
     public String provideApiKeyConversations() {
         return BV_CONVERSATIONS_API_KEY;
+    }
+
+    @Override
+    public String provideApiKeyCurations() {
+        return BV_CURATIONS_API_KEY;
     }
 
     @Override
@@ -90,14 +103,6 @@ public class DemoUserConfigurationImpl implements DemoUserConfiguration {
     @Override
     public String provideBvClientId() {
         return BV_CLIENT_ID;
-    }
-
-    @Override
-    public BVRecommendations provideBvRecommendations() {
-        BVRecommendations recommendations = new BVRecommendations();
-        BVSDK.getInstance().setUserAuthString(BV_USER_AUTH_STRING);
-
-        return recommendations;
     }
 
     @Override

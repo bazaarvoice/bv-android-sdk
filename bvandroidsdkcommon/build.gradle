@@ -33,6 +33,7 @@ dependencies {
 
     compile "com.google.code.gson:gson:$rootProject.gsonVersion"
     compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.ext.junitVersion"

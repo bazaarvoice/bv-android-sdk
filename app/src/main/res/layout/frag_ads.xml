@@ -6,7 +6,7 @@
     android:gravity="center"
     tools:context="com.example.bazaarvoice.bv_android_sdk.ads.AdsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: CurationsFeedItem blank fragment layout -->
 
     <Button
         android:layout_width="wrap_content"

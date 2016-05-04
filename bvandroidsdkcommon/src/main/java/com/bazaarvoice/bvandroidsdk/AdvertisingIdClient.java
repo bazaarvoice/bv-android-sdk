@@ -27,7 +27,7 @@ class AdvertisingIdClient {
     private AdInfo adInfo;
     private ArrayList<BVSDK.GetAdInfoCompleteAction> adInfoQueue = new ArrayList<>();
     //google play services no installed or limited tracking used
-    private final String noAdIdDefault = "nontracking";
+    static final String noAdIdDefault = "nontracking";
 
     AdvertisingIdClient(Context context) {
         requestAdvertisingIdInfo(context, null);

@@ -18,7 +18,7 @@ import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
  * and to build the data map.
  */
 abstract class BvAnalyticsSchema {
-    private static final String KEY_EVENT_CLASS = "cl";
+    protected static final String KEY_EVENT_CLASS = "cl";
     private static final String KEY_EVENT_TYPE = "type";
     private static final String KEY_SOURCE = "source";
 

@@ -13,11 +13,11 @@ android:
         - extra-google-admob_ads_sdk 
         - extra-google-m2repository
 
-cache:
-  directories:
-    - $HOME/.gradle
+#cache:
+#  directories:
+#    - $HOME/.gradle
 
 script: TERM=dumb ./gradlew --stacktrace build
 
-sudo: false
+sudo: true
 

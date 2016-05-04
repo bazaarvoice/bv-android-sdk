@@ -1,0 +1,58 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".curations.CurationsFeedFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/curations_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
+            android:id="@+id/curations_custom_list"
+            android:layout_width="match_parent"
+            android:layout_height="345dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView5"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Curations"
+            android:id="@+id/textView4"
+            android:layout_marginTop="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#265674" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textView5"
+            android:layout_below="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:text="Harness the wealth of social media content tailored for your marketing needs and display it right where it can go to work delivering engagement, trust, and conversation: your mobile experience.\n\nOur new social media curations platform allows you to build engaging experiences on your site with high-quality, relavant, social content backed by Bazaarvoice&apos;s experience in moderation."
+            android:textAlignment="center"
+            android:layout_marginTop="8dp"
+            android:textColor="#265674" />
+
+
+    </RelativeLayout>
+</ScrollView>

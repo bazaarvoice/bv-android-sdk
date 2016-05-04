@@ -131,6 +131,13 @@ class BVAuthenticatedUser {
             synchronized (BVAuthenticatedUser.this) {
                 Response response = null;
                 try {
+                    String userAdId = getUserAdvertisingId();
+
+                    if (userAdId.equals(PENDING_TOKEN) || userAdId.equals(NONTRACKING_TOKEN)) {
+                        Logger.d("Profile", "Not sending shopper profile request because userAdId is " + userAdId);
+                        return;
+                    }
+
                     HttpUrl httpUrl = new HttpUrl.Builder()
                             .scheme("https")
                             .host(getBaseProfileApiUrl())
@@ -158,8 +165,9 @@ class BVAuthenticatedUser {
                         }
 
                         Logger.d("Profile", "Succesfully updated profile");
+                        Logger.d("Profile", shopperProfile.toString());
                     } else {
-                        Logger.d("Profile", "Unsuccesfully updated profile, response code " + response.code());
+                        Logger.d("Profile", "Unsuccesfully updated profile, response code " + response.code() + "\nDid you forget to set a valid shopper advertising passkey?");
                     }
                 } catch (IOException e) {
                     Logger.e("Profile", "Failed to update profile", e);

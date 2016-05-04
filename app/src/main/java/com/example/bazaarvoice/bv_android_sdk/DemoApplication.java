@@ -11,6 +11,7 @@ import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
 import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
+import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
 
 /**
  * TODO: Description Here
@@ -42,13 +43,18 @@ public class DemoApplication extends Application {
         String clientId = demoUserConfiguration.provideBvClientId();
         String shopperAdvertisingApiKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
         String conversationsApiKey = demoUserConfiguration.provideApiKeyConversations();
+        String curationsApiKey = demoUserConfiguration.provideApiKeyCurations();
 
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, clientId)
                 .bazaarEnvironment(bazaarEnvironment)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .apiKeyConversations(conversationsApiKey)
+                .apiKeyCurations(curationsApiKey)
                 .logLevel(BVLogLevel.VERBOSE)
                 .build();
+
+        // Set user auth string which you may not have until after a user signs in
+        BVSDK.getInstance().setUserAuthString(DemoUserConfigurationImpl.BV_USER_AUTH_STRING);
     }
 }

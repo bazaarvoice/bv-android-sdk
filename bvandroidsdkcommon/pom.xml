@@ -5,11 +5,12 @@
     <parent>
         <groupId>com.bazaarvoice.bvandroidsdk</groupId>
         <artifactId>bvandroidsdk-parent</artifactId>
-        <version>3.2.2-SNAPSHOT</version>
+        <version>4.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>common</artifactId>
+    <packaging>aar</packaging>
     <name>BVSDK Android Common</name>
 
     <dependencies>
@@ -25,13 +26,14 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
+            <groupId>com.android.support</groupId>
+            <artifactId>recyclerview-v7</artifactId>
+            <type>aar</type>
         </dependency>
 
         <dependency>
