@@ -1,0 +1,99 @@
+
+$(function(){
+
+	// Number all tabs and tab content areas so that we can switch all code areas between swift and objective-c
+	var index = 0;
+	$('a[href*="swift"]').each(function (e) {
+		// number the href
+	  $(this).attr('href', $(this).attr('href') + index);
+	  // also number the id of the content element
+	  var content = $(this).parent().parent().next().find('#swift');
+	  content.attr('id', content.attr('id') + index);
+
+	  index += 1
+	});
+
+	// Do the same for objective-c
+	index = 0;
+	$('a[href*="objc"]').each(function (e) {
+		// number the href
+	  $(this).attr('href', $(this).attr('href') + index);
+	  // also number the id of the content element
+	  var content = $(this).parent().parent().next().find('#objc');
+	  content.attr('id', content.attr('id') + index);
+	  
+	  index += 1
+	});
+
+	// when swift/objective-c tab clicked, swap tabs on each element on screen
+	$('a[href*="objc"]').click(function (e) {
+	  e.preventDefault()
+	  $('a[href*="objc"]').each(function(){
+		$(this).tab('show');
+	  });
+	});
+
+	$('a[href*="swift"]').click(function (e) {
+	  e.preventDefault()
+	  $('a[href*="swift"]').each(function(){
+		$(this).tab('show');
+	  });
+	});
+
+	// Listen for collapsing elements, to animate their arrow
+	function listenForCollapseAndRotate(collapsable_element, arrow_element, closed_start, closed_end, open_start, open_end) {
+		collapsable_element.on('hide.bs.collapse', function () {
+			
+			arrow_element.rotate({
+			    angle:open_start,
+			    animateTo:open_end,
+			    duration:500,
+			    easing: $.easing.easeInOutExpo
+			  });
+
+		});
+		collapsable_element.on('show.bs.collapse', function () {
+			
+			arrow_element.rotate({
+			    angle:closed_start,
+			    animateTo:closed_end,
+			    duration:500,
+			    easing: $.easing.easeInOutExpo
+			  });
+
+		});
+	}
+
+	listenForCollapseAndRotate($('#installationCollapse'), $('#installationArrow'), 0, 90, 90, 360);
+	listenForCollapseAndRotate($('#configurationCollapse'), $('#configurationArrow'), 0, 90, 90, 360);
+	listenForCollapseAndRotate($('#curationsDropdown'), $('#curationsDropdownArrow'), 270, 0, 0, 270);
+	listenForCollapseAndRotate($('#conversationsDropdown'), $('#conversationsDropdownArrow'), 270, 0, 0, 270);
+
+	
+});
+
+function setInstallationText(module) {
+
+	var text = "pod 'BVSDK'\n";
+	switch(module) {
+		case "recommendations":
+			text += "pod 'BVSDK/BVRecommendations"
+			break;
+		case "advertising":
+			text += "pod 'BVSDK/BVAdvertising"
+			break;
+		case "curations":
+			text += "pod 'BVSDK/BVCurations'\n"
+			text += "pod 'SDWebImage' # Used to load images asynchronously"
+			break;
+		case 'conversations':
+			break;
+		case 'bv_pixel':
+			break;
+	}
+	$('#installation_placeholder').text(text);
+
+	$('pre code').each(function(i, block) {
+		hljs.highlightBlock(block);
+	});
+}

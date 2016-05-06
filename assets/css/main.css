@@ -1,0 +1,113 @@
+@font-face {
+    font-family: Foral;
+    src: url('fonts/foralpro-regularwebfont.woff');
+}
+
+@font-face {
+    font-family: Gibson;
+    src: url('fonts/gibson-regularwebfont.woff');
+    
+}
+
+#bv_logo {
+	font-family: Foral;
+	font-size: 34px;
+	color:#ffffff;
+	text-align: center;
+	padding-top: 12px;
+}
+#bv_logo a:hover {
+	text-decoration: none;
+}
+.nav-link {
+	color: #FFFFFF;
+}
+a.nav-link:hover {
+	color: #00AB8E;
+	background-color: #eee
+}
+#portal_sidebar .fa {
+	display:inherit;
+}
+.bv_teal {
+	color:#00AB8E;
+}
+.bv_white {
+	color:#fff;
+}
+#application_container {
+	background-color:#FFFFF5;
+}
+#content_title {
+	font-size: 44px;
+	color:#444;
+	font-family: Gibson;
+}
+.page-container {
+	padding: 0px;
+	margin: 20px 40px;
+}
+.gray {
+	color: #777;
+}
+.right-border {
+	border-right: 1px solid #888;
+}
+.h5link {
+	color: rgb(21, 157, 123);
+}
+a {
+	color: rgb(21, 157, 123);
+}
+.code-switcher {
+	background-color: #fff;
+}
+.tab-pane {
+	 padding:12px;
+	 border-left: 1px solid rgb(213, 213, 213);
+	 border-right: 1px solid rgb(213, 213, 213);
+	 border-bottom: 1px solid rgb(213, 213, 213);
+}
+blockquote {
+	font-size: 14px;
+}
+.page-container {
+	margin-bottom: 100px;
+}
+#footer {
+	padding-bottom: 14px;
+	padding-top: 14px;
+}
+#portal_nav, #portal_sidebar, .nav-include {
+	height:100%;
+}
+.question {
+	/*color:#666;*/
+}
+.answer {
+	color:#777;
+}
+.index-banner {
+    
+}
+a.index-banner:hover {
+	text-decoration: none;
+}
+.tutorial-carousel {
+	padding: 20px 120px;
+}
+a.left.carousel-control, a.right.carousel-control {
+	background-image: none;
+}
+#carousel-example-generic {
+	background-color: #fff;
+	border: 1px solid #666;
+	border-radius: 10px;
+}
+.carousel-inner {
+	height: 360px;
+}
+img {
+	/*padding-top: 4px;*/
+	padding-bottom:10px;
+}
