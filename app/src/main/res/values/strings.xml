@@ -3,8 +3,8 @@
     <string name="info_circle">&#xf05a;</string>
     <string name="title_activity_bvconversation_detail">BVConversationDetailActivity</string>
 
-    <string name="greeting_message">Welcome to the Bazaarvoice Android. Explore the menu to view example implementions of each component of the modularized SDK.\n\nBe
-        sure to visit our wiki at <a href="https://github.com/bazaarvoice/bv-android-sdk/wiki">https://github.com/bazaarvoice/bv-android-sdk/wiki</a> for full documentation</string>
+    <string name="greeting_message">Welcome to the Bazaarvoice Android SDK demo app. Explore the menu above to see example implementions of each component of the modularized SDK.\n\nBe
+        sure to visit <a href="https://bazaarvoice.github.io/bv-android-sdk">https://bazaarvoice.github.io/bv-android-sdk</a> for full documentation.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
