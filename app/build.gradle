@@ -28,6 +28,21 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/DEPENDENCIES'
     }
+
+    signingConfigs {
+        release {
+            if (hasProperty('BVSDK_DEMOAPP_STORE_FILE')
+                    && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD')
+                    && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS')
+                    && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD')) {
+                storeFile file(BVSDK_DEMOAPP_STORE_FILE)
+                storePassword BVSDK_DEMOAPP_STORE_PASSWORD
+                keyAlias BVSDK_DEMOAPP_KEY_ALIAS
+                keyPassword BVSDK_DEMOAPP_KEY_PASSWORD
+            }
+        }
+    }
+
     defaultConfig {
         applicationId "com.bazaarvoice.bv_android_sdk"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -39,11 +54,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             debuggable true
         }
     }
+
+    productFlavors {
+        appdemo {} // App Demo Flavor which avoids hitting the network needlessly
+        sdk {} // SDK Flavor which hits network as expected for the public releases
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -56,10 +78,15 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':bvandroidsdkadvertising')
-    compile project(':bvandroidsdkrecommendations')
-    compile project(':bvandroidsdkconversations')
-    compile project(':bvandroidsdkcurations')
+    appdemoCompile project(path: ':bvandroidsdkadvertising', configuration: 'appdemoRelease')
+    appdemoCompile project(path: ':bvandroidsdkrecommendations', configuration: 'appdemoRelease')
+    appdemoCompile project(path: ':bvandroidsdkconversations', configuration: 'appdemoRelease')
+    appdemoCompile project(path: ':bvandroidsdkcurations', configuration: 'appdemoRelease')
+
+    sdkCompile project(path: ':bvandroidsdkadvertising', configuration: 'sdkRelease')
+    sdkCompile project(path: ':bvandroidsdkrecommendations', configuration: 'sdkRelease')
+    sdkCompile project(path: ':bvandroidsdkconversations', configuration: 'sdkRelease')
+    sdkCompile project(path: ':bvandroidsdkcurations', configuration: 'sdkRelease')
 
     compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     compile "org.ocpsoft.prettytime:prettytime:$rootProject.prettyTimeVersion"
@@ -67,7 +94,10 @@ dependencies {
     compile "com.android.support:design:$rootProject.supportLibraryVersion"
     compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:preference-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:preference-v14:$rootProject.supportLibraryVersion"
     compile "com.google.android.gms:play-services-ads:$rootProject.playServicesAdsVersion"
+    compile "com.googlecode.plist:dd-plist:$rootProject.ddPlistVersion"
 
     // iovation aar dependency
     // compile(name:'deviceprint-release-2.3.0', ext:'aar')

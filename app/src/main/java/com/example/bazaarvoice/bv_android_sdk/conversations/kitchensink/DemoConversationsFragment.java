@@ -27,11 +27,11 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvandroidsdk.types.IncludeStatsType;
 import com.bazaarvoice.bvandroidsdk.types.MediaParamsContentType;
 import com.bazaarvoice.bvandroidsdk.types.RequestType;
+import com.example.bazaarvoice.bv_android_sdk.DemoConstants;
 import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfig;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,8 +74,6 @@ public class DemoConversationsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag_conversations, container, false);
 
-        readyForDemo();
-
         int[] btnIds = new int[]{R.id.reviewBtn, R.id.storiesBtn, R.id.answerBtn,R.id.categoriesBtn, R.id.commentsBtn,
                 R.id.profileBtn, R.id.productBtn,R.id.questionBtn, R.id.cmtStoryBtn, R.id.statsBtn, R.id.reviewSubBtn,
                 R.id.cmtSubBtn, R.id.questionSubBtn, R.id.photoSubBtn, R.id.answerSubBtn, R.id.videoSubBtn,
@@ -97,26 +95,25 @@ public class DemoConversationsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        readyForDemo();
+    }
+
     private boolean readyForDemo() {
-        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
-        String conversationsKey = demoUserConfiguration.provideApiKeyConversations();
-        String clientId = demoUserConfiguration.provideBvClientId();
+        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        String conversationsKey = currentConfig.apiKeyConversations;
+        String displayName = currentConfig.displayName;
 
-        String errorVal = null;
-        if (conversationsKey.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CONVERSATIONS_API_KEY";
-        } else if (clientId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CLIENT_ID";
-        }
-
-        if (errorVal != null) {
-            String errorMessage = String.format(getResources().getString(R.string.view_demo_error_message), errorVal);
+        if (!DemoConstants.isSet(conversationsKey)) {
+            String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_conversations));
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(errorMessage);
             builder.setNegativeButton("Ok", null).create().show();
-
             return false;
         }
+
         return true;
     }
 

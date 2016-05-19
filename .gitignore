@@ -15,3 +15,6 @@ _site/
 
 # Ignore generated docs
 misc/assets/
+
+# ignore internal testing files
+/app/src/main/assets/demoAppConfigs.plist

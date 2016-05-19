@@ -19,11 +19,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bazaarvoice.bv_android_sdk.DemoConstants;
 import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfig;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
 
 /**
  * TODO: Description Here
@@ -46,8 +46,6 @@ public class BrowseProductsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag_browse_products, container, false);
 
-        readyForDemo();
-
         searchField = (EditText) view.findViewById(R.id.searchField);
         searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
@@ -68,7 +66,7 @@ public class BrowseProductsFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if (readyForDemo()){
+                if (readyForDemo()) {
                     performSearch();
                 }
             }
@@ -78,34 +76,33 @@ public class BrowseProductsFragment extends Fragment {
         return view;
     }
 
-    private boolean readyForDemo() {
-        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
-        String conversationsKey = demoUserConfiguration.provideApiKeyConversations();
-        String clientId = demoUserConfiguration.provideBvClientId();
-
-        String errorVal = null;
-        if (conversationsKey.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CONVERSATIONS_API_KEY";
-        } else if (clientId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CLIENT_ID";
-        }
-
-        if (errorVal != null) {
-            String errorMessage = String.format(getResources().getString(R.string.view_demo_error_message), errorVal);
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(errorMessage);
-            builder.setNegativeButton("Ok", null).create().show();
-
-            return false;
-        }
-        return true;
-    }
-
-
     /**
      * Launches the next activity and passes along the search term.
      */
     protected void performSearch() {
         ((DemoMainActivity)getActivity()).transitionToProductSearch(searchField.getText().toString());
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        readyForDemo();
+    }
+
+    private boolean readyForDemo() {
+        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        String conversationsKey = currentConfig.apiKeyConversations;
+        String displayName = currentConfig.displayName;
+
+        if (!DemoConstants.isSet(conversationsKey)) {
+            String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_conversations));
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(errorMessage);
+            builder.setNegativeButton("Ok", null).create().show();
+            return false;
+        }
+
+        return true;
+    }
+
 }

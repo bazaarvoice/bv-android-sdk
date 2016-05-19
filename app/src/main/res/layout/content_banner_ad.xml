@@ -39,6 +39,6 @@
         android:textColor="#F44336"
         android:textSize="24sp"
         android:visibility="gone"
-        android:text="Banner ad is failed to load"/>
+        android:text="Banner ad failed to load"/>
 
 </FrameLayout>

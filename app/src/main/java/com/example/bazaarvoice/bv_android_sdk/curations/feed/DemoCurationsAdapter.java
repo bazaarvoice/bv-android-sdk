@@ -1,4 +1,4 @@
-package com.example.bazaarvoice.bv_android_sdk.curations;
+package com.example.bazaarvoice.bv_android_sdk.curations.feed;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

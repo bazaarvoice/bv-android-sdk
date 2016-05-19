@@ -1,4 +1,4 @@
-package com.example.bazaarvoice.bv_android_sdk.curations;
+package com.example.bazaarvoice.bv_android_sdk.curations.detail;
 
 
 import android.content.Intent;

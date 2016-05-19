@@ -8,16 +8,33 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_banner_ad">BannerAdActivity</string>
-    <string name="title_activity_native_ad">NativeAdActivity</string>
-    <string name="title_activity_interstitial_ad">InterstitialAdActivity</string>
-    <string name="title_activity_location_example_activty">LocationExampleActivty</string>
-    <string name="title_activity_gimbal_example">GimbalExampleActivity</string>
+    <string name="title_activity_banner_ad">Banner Ad Example</string>
+    <string name="title_activity_native_ad">Native Ad Example</string>
+    <string name="title_activity_interstitial_ad">Interstitial Ad Example</string>
+    <string name="title_activity_location_example_activty">Location Example</string>
+    <string name="title_activity_gimbal_example">Gimbal Example</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
     to register and download the Gimbal Android SDK. You will need to include their SDK into this app in order to compile the demo code found in GimbalExample.java. Refer to GimbalExample.java
     for examples on how to tie the Ads SDK into your Gimbal beacon implementation.</string>
 
-    <string name="view_demo_error_message">"Set %s in DemoUserConfigurationImpl.java in order to view demo"</string>
+    <string name="view_demo_error_message">"%1$s is not configured to view %2$s"</string>
+    <string name="demo_recommendations">Recommendations</string>
+    <string name="demo_conversations">Conversations</string>
+    <string name="demo_curations">Curations</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+
+    <string name="key_selected_config">key_selected_config</string>
+    <string name="key_client_id">key_client_id</string>
+    <string name="key_user_auth_string">key_user_auth_string</string>
+    <string name="key_shopper_ad_passkey">key_shopper_ad_passkey</string>
+    <string name="key_conversations_passkey">key_conversations_passkey</string>
+    <string name="key_curations_passkey">key_curations_passkey</string>
+    <string name="key_staging_enabled">key_staging_enabled</string>
+
+    <string name="product_not_setup">This product is not setup for this client.</string>
+
 </resources>

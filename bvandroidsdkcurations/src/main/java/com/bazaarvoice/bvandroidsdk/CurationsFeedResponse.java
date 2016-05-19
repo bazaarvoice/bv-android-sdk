@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Bazaarvoice on 3/31/16.
  */
-class CurationsFeedResponse {
+public class CurationsFeedResponse {
 
     protected Integer code;
     protected List<CurationsUpdateContainer> updates;
@@ -17,7 +17,7 @@ class CurationsFeedResponse {
 
     private List<CurationsFeedItem> rawUpdates;
 
-    protected List<CurationsFeedItem> getUpdates(){
+    public List<CurationsFeedItem> getUpdates(){
 
         if (rawUpdates == null) {
             rawUpdates = new ArrayList<>();

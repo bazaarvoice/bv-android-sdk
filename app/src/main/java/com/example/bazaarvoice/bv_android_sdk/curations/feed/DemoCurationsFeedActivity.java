@@ -1,4 +1,4 @@
-package com.example.bazaarvoice.bv_android_sdk.curations;
+package com.example.bazaarvoice.bv_android_sdk.curations.feed;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
 import com.example.bazaarvoice.bv_android_sdk.R;
+import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsCache;
+import com.example.bazaarvoice.bv_android_sdk.curations.detail.DemoCurationsDetailActivity;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoDataUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -54,6 +58,14 @@ public class DemoCurationsFeedActivity extends AppCompatActivity implements Cura
     }
 
     private void loadCurationsFeed(CurationsRecyclerView recyclerView) {
+        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
+        if (demoConfigUtils.isDemoClient()) {
+            curationsFeedItems = DemoDataUtil.getInstance(this).getCurationsFeedItems();
+            curationsAdapter.setValues(curationsFeedItems);
+            dismissLoading();
+            return;
+        }
+
         boolean haveLocalCache = !DemoCurationsCache.getFeedItems().isEmpty();
         boolean shouldHitNetwork = !haveLocalCache;
 

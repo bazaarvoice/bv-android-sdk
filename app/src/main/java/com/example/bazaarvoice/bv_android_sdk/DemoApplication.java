@@ -6,12 +6,12 @@ package com.example.bazaarvoice.bv_android_sdk;
 
 import android.app.Application;
 
-import com.bazaarvoice.bvandroidsdk.BVLogLevel;
+import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
-import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.recommendations.DemoProductsCache;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
+
+import java.util.Collections;
 
 /**
  * TODO: Description Here
@@ -37,24 +37,26 @@ public class DemoApplication extends Application {
      * </ul>
      */
     private void setupBVSDK() {
-        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
-
-        BazaarEnvironment bazaarEnvironment = demoUserConfiguration.provideBazaarEnvironment();
-        String clientId = demoUserConfiguration.provideBvClientId();
-        String shopperAdvertisingApiKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
-        String conversationsApiKey = demoUserConfiguration.provideApiKeyConversations();
-        String curationsApiKey = demoUserConfiguration.provideApiKeyCurations();
+        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
+        String clientId = demoConfigUtils.getClientId();
+        String shopperAdvertisingApiKey = demoConfigUtils.getShopperAdPasskey();
+        String conversationsApiKey = demoConfigUtils.getConversationsPasskey();
+        String curationsApiKey = demoConfigUtils.getCurationsPasskey();
 
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, clientId)
-                .bazaarEnvironment(bazaarEnvironment)
+                .bazaarEnvironment(DemoConstants.ENVIRONMENT)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .apiKeyConversations(conversationsApiKey)
                 .apiKeyCurations(curationsApiKey)
-                .logLevel(BVLogLevel.VERBOSE)
+                .logLevel(DemoConstants.LOG_LEVEL)
                 .build();
 
         // Set user auth string which you may not have until after a user signs in
-        BVSDK.getInstance().setUserAuthString(DemoUserConfigurationImpl.BV_USER_AUTH_STRING);
+        BVSDK.getInstance().setUserAuthString(DemoConstants.BV_USER_AUTH_STRING);
+    }
+
+    public static void cleanUp() {
+        DemoProductsCache.putBvProducts(Collections.<BVProduct>emptyList());
     }
 }

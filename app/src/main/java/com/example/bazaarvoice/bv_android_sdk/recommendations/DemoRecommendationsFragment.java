@@ -22,16 +22,13 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoDataUtil;
 import com.example.bazaarvoice.bv_android_sdk.utils.DividerItemDecoration;
 
+import java.util.Collections;
 import java.util.List;
 
-/**
- * TODO: Description Here
- */
 public class DemoRecommendationsFragment extends Fragment implements DemoRecommendationsContract.View {
 
     private static final String TAG = DemoRecommendationsFragment.class.getSimpleName();
@@ -52,7 +49,6 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_recommendations_raw, container, false);
 
-        readyForDemo();
         recyclerView = (RecommendationsRecyclerView) view.findViewById(R.id.recommendations_custom_list);
         demoProductAdapter = new DemoProductAdapter();
         demoProductAdapter.setOnItemClickListener(new DemoProductAdapter.OnBvProductClickListener() {
@@ -78,34 +74,11 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
         return view;
     }
 
-    private boolean readyForDemo() {
-        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
-        String shopperAdKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
-        String clientId = demoUserConfiguration.provideBvClientId();
-
-        String errorVal = null;
-        if (shopperAdKey.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "SHOPPER_ADVERTISING_API_KEY";
-        } else if (clientId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CLIENT_ID";
-        }
-
-        if (errorVal != null) {
-            String errorMessage = String.format(getResources().getString(R.string.view_demo_error_message), errorVal);
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(errorMessage);
-            builder.setNegativeButton("Ok", null).create().show();
-            return false;
-        }
-
-        return true;
-    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        userActionsListener = new DemoRecommendationsPresenter(this);
+        userActionsListener = new DemoRecommendationsPresenter(this, DemoConfigUtils.getInstance(getContext()), DemoDataUtil.getInstance(getContext()));
     }
 
     @Override
@@ -116,6 +89,7 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     @Override
     public void onResume() {
         super.onResume();
+        userActionsListener.onResume();
         userActionsListener.loadRecommendationProducts(false);
     }
 
@@ -128,6 +102,7 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
 
     @Override
     public void showNoRecommendationsFound() {
+        demoProductAdapter.setBvProducts(Collections.<BVProduct>emptyList());
         getRecsProgressBar.setVisibility(View.GONE);
         noRecsFoundTextView.setVisibility(View.VISIBLE);
     }
@@ -146,6 +121,15 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     @Override
     public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNotConfiguredDialog(String displayName) {
+        String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_recommendations));
+        String acceptButton = "Ok";
+        new AlertDialog.Builder(getActivity())
+            .setMessage(errorMessage)
+            .setPositiveButton(acceptButton, null).create().show();
     }
 
     private void showDetailScreen(BVProduct bvProduct) {

@@ -19,10 +19,12 @@ public interface DemoRecommendationsContract {
         void showSwipeRefreshLoading(boolean isLoading);
         void showLoading(boolean isLoading);
         void showMessage(String message);
+        void showNotConfiguredDialog(String displayName);
     }
 
     interface UserActionsListener {
         void onRecommendationProductTapped(BVProduct recommendationProduct);
         void loadRecommendationProducts(boolean forceRefresh);
+        void onResume();
     }
 }
