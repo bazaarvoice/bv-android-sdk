@@ -1,0 +1,102 @@
+{
+  "profile": {
+    "interests": {
+      "uncategorized": "MED",
+      "apparelaccessories": "HIGH",
+      "sports": "MED",
+      "womensshoes": "LOW"
+    },
+    "brands": {
+      "bikeco1": "MED",
+      "acmesports": "MED"
+    },
+    "recommendations": ["endurance/en5005151849", "endurance/en5005330514", "endurance/en5005740457", "endurance/en5005730143", "en1429666508", "en1429666522"],
+    "recommendationStats": {
+      "RKI": 4,
+      "RKB": 2,
+      "RKP": 5,
+      "RKC": 1,
+      "RKT": 0
+    },
+    "products": {
+      "endurance/en5005151849": {
+        "client": "endurance",
+        "product": "en5005151849",
+        "name": "Endurance Apex 1",
+        "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/products/Endurance_Apex_1_THUMB_large.png?v=1428930597",
+        "product_page_url": "http://www.endurancecycles.com/products/endurance-apex-1",
+        "num_reviews": 30,
+        "avg_rating": 3.50,
+        "price" : "$699.00",
+        "interests": ["Sports"],
+        "category_ids": ["endurance/cat1006520021"],
+        "RS": "vab",
+        "sponsored": false
+      },
+      "endurance/en5005330514": {
+        "client": "endurance",
+        "product": "en5005330514",
+        "name": "Endurance Apex 2",
+        "image_url": "http://www.endurancecycles.com/products/endurance-apex-2",
+        "product_page_url": "http://endurance.com/retail/womensfashion/dress.php",
+        "num_reviews": 98,
+        "avg_rating": 4.5,
+        "price" : "$799.00",
+        "interests": ["Sports"],
+        "category_ids": ["endurance/cat1003710016", "endurance/cat100250195", "endurance/cat1004610017"],
+        "RS": "vab",
+        "sponsored": false
+      },
+      "endurance/en5005740457": {
+        "client": "endurance",
+        "product": "en5005740457",
+        "name": "Endurance Challenger 1",
+        "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/products/Endurance_Challenger_1_THUMB_large.png?v=1462214303",
+        "product_page_url": "http://www.endurancecycles.com/products/endurance-challenger-1",
+        "num_reviews": 5,
+        "avg_rating": 4.8,
+        "price" : "$699.00",
+        "interests": ["Sports"],
+        "category_ids": ["endurance/cat1003230043", "endurance/cat1003230044"],
+        "RS": "vab",
+        "sponsored": false
+      },
+      "endurance/en5005730143": {
+        "client": "endurance",
+        "product": "en5005730143",
+        "name": "Endurance Challenger 2",
+        "price" : "$699.00",
+        "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/products/Endurance_Challenger_2_THUMB_large.png?v=1428931130",
+        "product_page_url": "http://www.endurancecycles.com/products/endurance-challenger-1",
+        "interests": ["Sports"],
+        "category_ids": ["endurance/cat1006240038"],
+        "RS": "vab",
+        "sponsored": false
+      },
+      "endurance/en1429666508": {
+        "client": "endurance",
+        "product": "en1429666508",
+        "name": "Endurance Aero",
+        "price" : "$135.00",
+        "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/products/helmet4_medium.jpg?v=1429666508",
+        "product_page_url": "http://www.endurancecycles.com/products/endurance-aero",
+        "interests": ["Sports"],
+        "category_ids": ["endurance/cat1006240038"],
+        "RS": "vab",
+        "sponsored": false
+      },
+      "endurance/en1429666522": {
+        "client": "endurance",
+        "product": "en1429666522",
+        "name": "Endurance Stride",
+        "price" : "$169.00",
+        "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/products/shoes1_medium.jpg?v=1429666197",
+        "product_page_url": "http://www.endurancecycles.com/products/endurance-stride",
+        "interests": ["Sports"],
+        "category_ids": ["endurance/cat1006240038"],
+        "RS": "vab",
+        "sponsored": false
+      }
+    }
+  }
+}

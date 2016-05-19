@@ -18,7 +18,6 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,9 +37,18 @@
         <activity android:name=".conversations.browseproducts.ProductsActivity" />
         <activity android:name=".conversations.browseproducts.ReviewsActivity" />
         <activity android:name=".conversations.browseproducts.ReviewDisplayActivity" />
-        <activity android:name=".curations.DemoCurationsDetailActivity" />
-        <activity android:name=".curations.DemoCurationsFeedActivity" />
+        <activity android:name=".curations.detail.DemoCurationsDetailActivity" />
+        <activity android:name=".curations.feed.DemoCurationsFeedActivity" />
         <activity android:name=".curations.DemoCurationsPostActivity" />
+
+        <activity
+            android:name=".settings.DemoSettingsActivity"
+            android:label="@string/title_activity_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

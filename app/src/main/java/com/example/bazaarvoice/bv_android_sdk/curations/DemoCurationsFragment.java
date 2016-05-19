@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.bazaarvoice.bv_android_sdk.DemoConstants;
 import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfig;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,12 +37,9 @@ public class DemoCurationsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_curations, container, false);
 
-        readyForDemo();
         Button feedBtn = (Button) view.findViewById(R.id.viewCurationsBtn);
         feedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,20 +62,23 @@ public class DemoCurationsFragment extends Fragment {
         return view;
     }
 
-    private boolean readyForDemo() {
-        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
-        String curationsKey = demoUserConfiguration.provideApiKeyCurations();
-        String clientId = demoUserConfiguration.provideBvClientId();
+    @Override
+    public void onResume() {
+        super.onResume();
+        readyForDemo();
+    }
 
-        String errorVal = null;
-        if (curationsKey.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CURATIONS_API_KEY";
-        } else if (clientId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CLIENT_ID";
+    private boolean readyForDemo() {
+        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        if (currentConfig.isDemoClient()) {
+            return true;
         }
 
-        if (errorVal != null) {
-            String errorMessage = String.format(getResources().getString(R.string.view_demo_error_message), errorVal);
+        String curationsKey = currentConfig.apiKeyCurations;
+        String displayName = currentConfig.displayName;
+
+        if (!DemoConstants.isSet(curationsKey)) {
+            String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_curations));
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(errorMessage);
             builder.setNegativeButton("Ok", null).create().show();
@@ -87,4 +87,5 @@ public class DemoCurationsFragment extends Fragment {
 
         return true;
     }
+
 }

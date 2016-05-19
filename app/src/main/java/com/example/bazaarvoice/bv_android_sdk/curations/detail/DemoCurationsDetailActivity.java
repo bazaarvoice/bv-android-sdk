@@ -1,4 +1,4 @@
-package com.example.bazaarvoice.bv_android_sdk.curations;
+package com.example.bazaarvoice.bv_android_sdk.curations.detail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * TODO: Describe file here.
  */
-class DemoCurationsCache {
+public class DemoCurationsCache {
 
     private static long timeMillisAdded = 0l;
     private static List<CurationsFeedItem> feedItems = Collections.emptyList();

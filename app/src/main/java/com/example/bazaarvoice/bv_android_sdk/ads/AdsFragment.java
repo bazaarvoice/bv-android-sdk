@@ -14,11 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.bazaarvoice.bv_android_sdk.DemoConstants;
 import com.example.bazaarvoice.bv_android_sdk.DemoMainActivity;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfig;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
 
 /**
  * TODO: Description Here
@@ -41,7 +41,6 @@ public class AdsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag_ads, container, false);
 
-        readyForDemo();
 
         Button nativeBtn = (Button) view.findViewById(R.id.nativeAdBtn);
         nativeBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,26 +75,26 @@ public class AdsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        readyForDemo();
+    }
+
     private boolean readyForDemo() {
-        DemoUserConfiguration demoUserConfiguration = DemoAppConfigurationImpl.getInstance().provideBvUserComponent();
-        String shopperAdKey = demoUserConfiguration.provideApiKeyShopperAdvertising();
-        String clientId = demoUserConfiguration.provideBvClientId();
+        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        String shopperAdKey = currentConfig.apiKeyShopperAdvertising;
+        String displayName = currentConfig.displayName;
 
-        String errorVal = null;
-        if (shopperAdKey.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "SHOPPER_ADVERTISING_API_KEY";
-        } else if (clientId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
-            errorVal = "BV_CLIENT_ID";
-        }
-
-        if (errorVal != null) {
-            String errorMessage = String.format(getResources().getString(R.string.view_demo_error_message), errorVal);
+        if (!DemoConstants.isSet(shopperAdKey)) {
+            String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_recommendations));
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(errorMessage);
-            builder.setNegativeButton("Ok",null).create().show();
+            builder.setNegativeButton("Ok", null).create().show();
             return false;
         }
 
         return true;
     }
+
 }

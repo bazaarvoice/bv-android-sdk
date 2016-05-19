@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".curations.DemoCurationsDetailActivity">
+    tools:context=".curations.detail.DemoCurationsDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:id="@+id/socialPic" />
-            <com.example.bazaarvoice.bv_android_sdk.curations.DemoCustomVideoView
+            <com.example.bazaarvoice.bv_android_sdk.curations.detail.DemoCustomVideoView
                 android:layout_width="wrap_content"
                 android:layout_height="250dp"
                 android:layout_centerInParent="true"

@@ -49,6 +49,7 @@ ext {
     espressoVersion = '2.2.1'
     robolectricVersion = '2.2'
     prettyTimeVersion = '3.2.7.Final'
+    ddPlistVersion = '1.16'
 
     bvsdkVersion = '4.0.0-SNAPSHOT'
 

@@ -17,6 +17,12 @@ android {
         }
     }
 
+    publishNonDefault true // Tell Android Gradle Plugin to allow flavors for library
+    productFlavors {
+        appdemo {} // App Demo Flavor which avoids hitting the network needlessly
+        sdk {} // SDK Flavor which hits network as expected for the public NEXUS_USERs
+    }
+
     lintOptions {
         abortOnError false
     }
@@ -25,7 +31,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(':bvandroidsdkcommon')
+    appdemoCompile project(path: ':bvandroidsdkcommon', configuration: 'appdemoRelease')
+    sdkCompile project(path: ':bvandroidsdkcommon', configuration: 'sdkRelease')
     provided "com.google.code.gson:gson:$rootProject.gsonVersion"
 
     testCompile "junit:junit:$rootProject.junitVersion"
@@ -35,7 +42,7 @@ dependencies {
     testCompile "org.robolectric:robolectric:$rootProject.robolectricVersion"
 }
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply from: '../gradle-mvn-push.gradle'
 
 afterEvaluate { project ->
     android.libraryVariants.all { variant ->

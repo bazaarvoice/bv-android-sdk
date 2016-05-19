@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Shopper Marketing Profile
  */
-class Profile {
+public class Profile {
 
     private static final String TARGETING_KEY_INTERESTS = "interests";
     private static final String TARGETING_KEY_BRANDS = "brands";
@@ -41,14 +41,6 @@ class Profile {
         }
 
         return targetingKeywords;
-    }
-
-    public String getFlattenedInterests() {
-        return (shouldFlattenKeywords(interests)) ? getFlattenedValue(interests) : "";
-    }
-
-    public String getFlattenedBrands() {
-        return (shouldFlattenKeywords(brands)) ? getFlattenedValue(brands) : "";
     }
 
     private boolean shouldFlattenKeywords(Map<String, Interest> keywords) {

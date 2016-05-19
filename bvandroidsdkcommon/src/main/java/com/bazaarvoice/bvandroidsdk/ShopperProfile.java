@@ -4,7 +4,7 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-class ShopperProfile {
+public class ShopperProfile {
 
     private Profile profile;
 

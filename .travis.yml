@@ -17,7 +17,10 @@ android:
 #  directories:
 #    - $HOME/.gradle
 
-script: TERM=dumb ./gradlew --stacktrace build
+git:
+  depth: 1
+
+script: TERM=dumb ./gradlew --stacktrace assembleDebug test
 
 sudo: true
 

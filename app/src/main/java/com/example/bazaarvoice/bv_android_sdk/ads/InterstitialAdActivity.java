@@ -12,11 +12,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVAds;
+import com.example.bazaarvoice.bv_android_sdk.DemoConstants;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.doubleclick.PublisherInterstitialAd;
@@ -40,9 +37,7 @@ public class InterstitialAdActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         interstitialButton = (Button) findViewById(R.id.interstitial_button);
 
-        DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
-        DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
-        String demoAdUnitId = demoUserConfiguration.provideInterstitialAdUnitId();
+        String demoAdUnitId = DemoConstants.INTERSTITIAL_AD_UNIT_ID;
 
         // get a PublisherAdView object from the BVAdsSDK
         publisherInterstitialAd = new PublisherInterstitialAd(this);
@@ -63,8 +58,8 @@ public class InterstitialAdActivity extends AppCompatActivity {
         for (Map.Entry<String, String> entry : targetingKeywords.entrySet()) {
             targetedAdRequest.addCustomTargeting(entry.getKey(), entry.getValue());
         }
-        String testDeviceId = demoUserConfiguration.provideTestDeviceId();
-        if (testDeviceId != null && !testDeviceId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
+        String testDeviceId = DemoConstants.DFP_TEST_DEVICE_ID;
+        if (DemoConstants.isSet(testDeviceId)) {
             targetedAdRequest.addTestDevice(testDeviceId);
         }
 

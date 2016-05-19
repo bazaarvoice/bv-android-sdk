@@ -27,5 +27,6 @@
         <item name="android:windowSharedElementExitTransition">
             @transition/change_image_transform
         </item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 </resources>

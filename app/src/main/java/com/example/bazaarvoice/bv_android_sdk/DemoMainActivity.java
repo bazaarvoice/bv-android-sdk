@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
@@ -29,15 +30,14 @@ import com.example.bazaarvoice.bv_android_sdk.conversations.browseproducts.Brows
 import com.example.bazaarvoice.bv_android_sdk.conversations.browseproducts.ProductsActivity;
 import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.DemoConversationDetailActivity;
 import com.example.bazaarvoice.bv_android_sdk.conversations.kitchensink.DemoConversationsFragment;
-import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsFeedActivity;
 import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsFragment;
 import com.example.bazaarvoice.bv_android_sdk.curations.DemoCurationsPostActivity;
+import com.example.bazaarvoice.bv_android_sdk.curations.feed.DemoCurationsFeedActivity;
 import com.example.bazaarvoice.bv_android_sdk.recommendations.DemoRecommendationsFragment;
 import com.example.bazaarvoice.bv_android_sdk.recommendations.detail.DemoProductDetailActivity;
+import com.example.bazaarvoice.bv_android_sdk.settings.DemoSettingsActivity;
+import com.example.bazaarvoice.bv_android_sdk.utils.DemoConfigUtils;
 
-/**
- * TODO: Description Here
- */
 public class DemoMainActivity extends AppCompatActivity implements CurationsPostCallback {
     @IdRes
     private int fragContainerId;
@@ -46,14 +46,18 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     private MenuItem prevItem;
 
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Set up the toolbar.
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Welcome");
         setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(onToolbarMenuItemClickListener);
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
@@ -85,6 +89,26 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (DemoConfigUtils.getInstance(this).configFileExists()) {
+            getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private Toolbar.OnMenuItemClickListener onToolbarMenuItemClickListener = new Toolbar.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.settings_action:
+                    DemoSettingsActivity.transitionTo(DemoMainActivity.this);
+                    break;
+            }
+            return false;
+        }
+    };
+
     private void setupDrawerContent(final NavigationView navigationView) {
 
         MenuItem item = navigationView.getMenu().getItem(0);
@@ -100,21 +124,27 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
                 switch (item.getItemId()) {
                     case R.id.home_page:
+                        toolbar.setTitle("Welcome");
                         transitionTo(DemoHomePageFragment.newInstance());
                         break;
                     case R.id.recommendations:
+                        toolbar.setTitle(getString(R.string.demo_recommendations));
                         transitionTo(DemoRecommendationsFragment.newInstance());
                         break;
                     case R.id.advertising:
+                        toolbar.setTitle("Advertising");
                         transitionTo(AdsFragment.newInstance());
                         break;
                     case R.id.conversations:
+                        toolbar.setTitle(getString(R.string.demo_conversations) + ": Kitchen Sink");
                         transitionTo(DemoConversationsFragment.newInstance());
                         break;
                     case R.id.browse_products:
+                        toolbar.setTitle(getString(R.string.demo_conversations) + ": Browse");
                         transitionTo(BrowseProductsFragment.getInstance());
                         break;
                     case R.id.curations:
+                        toolbar.setTitle(getString(R.string.demo_curations));
                         transitionTo(DemoCurationsFragment.newInstance());
                         break;
                 }
@@ -129,7 +159,6 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     private void transitionTo(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         transaction.replace(fragContainerId, fragment);
         transaction.commit();
     }

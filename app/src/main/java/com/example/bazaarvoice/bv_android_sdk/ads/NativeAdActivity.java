@@ -16,12 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVAds;
+import com.example.bazaarvoice.bv_android_sdk.DemoConstants;
 import com.example.bazaarvoice.bv_android_sdk.R;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfiguration;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoAppConfigurationImpl;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfiguration;
 import com.google.android.gms.ads.AdListener;
-import com.example.bazaarvoice.bv_android_sdk.di.DemoUserConfigurationImpl;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
 import com.google.android.gms.ads.formats.NativeAd;
@@ -59,9 +56,7 @@ public class NativeAdActivity extends AppCompatActivity {
         final TextView description = (TextView) findViewById(R.id.nativeAdDescription);
         final TextView link = (TextView) findViewById(R.id.nativeAdLink);
 
-        DemoAppConfiguration demoAppConfiguration = DemoAppConfigurationImpl.getInstance();
-        DemoUserConfiguration demoUserConfiguration = demoAppConfiguration.provideBvUserComponent();
-        String adUnitId = demoUserConfiguration.provideNativeContentAdUnitId();
+        String adUnitId = DemoConstants.NATIVE_CONTENT_AD_UNIT_ID;
 
         AdLoader.Builder targetedAdBuilder = new AdLoader.Builder(this, adUnitId);
 
@@ -109,8 +104,8 @@ public class NativeAdActivity extends AppCompatActivity {
         // Add deviceId for emulator
         // You can also add your own for a specific hardware device
         publisherAdRequest.addTestDevice(PublisherAdRequest.DEVICE_ID_EMULATOR);
-        String testDeviceId = demoUserConfiguration.provideTestDeviceId();
-        if (testDeviceId != null && !testDeviceId.equals(DemoUserConfigurationImpl.REPLACE_ME)) {
+        String testDeviceId = DemoConstants.DFP_TEST_DEVICE_ID;
+        if (DemoConstants.isSet(testDeviceId)) {
             publisherAdRequest.addTestDevice(testDeviceId);
         }
 
