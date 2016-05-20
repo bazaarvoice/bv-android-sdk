@@ -76,108 +76,130 @@ $(function(){
 
       
 
-      <div id="portal_sidebar">
-	<div id="portal_nav">
-		
-		<div id="bv_logo">
-			<a href="/">
-				<font class="bv_teal">bazaar</font><font class="bv_white">voice</font><font class="bv_teal">:</font>				
-			</a>
-		</div>
+      <nav class="navbar-fixed-top">
+    <div class="navbar-header">
+        <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+             aria-expanded="false">
+            <i class="fa fa-bars fa-3"
+               style="color:#fffff5; background-color: #00AB8E; padding:7px; border-radius: 3px;"></i>
 
-		<div>
-			<ul id="task_nav" class="nav nav-pills nav-stacked">
-				<li class="nav-item">
-					<a class="nav-link active" href="index.html">
-						<span><i class="m-r-1 fa fa-file-text-o"></i>Getting Started</span>     
-					</a>
-					<ul>
-						<li class="nav-item">
-							<a class="nav-link" href="installation.html">
-								<span>Installation</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item">
-					<span class="nav-link" href="modules.html">
-						<span><i class="m-r-1 fa fa-cogs"></i>Modules</span>     
-					</span>
-					<ul>
-						<li class="nav-item">
-							<a class="nav-link" href="product_recommendations.html"><span>Product Recommendations</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="advertising.html"><span>Advertising</span></a>
-						</li>
-						<li class="nav-item">
-							
-							<a class="nav-link" role="button" data-toggle="collapse" href="#curationsDropdown" aria-expanded="false" aria-controls="curationsDropdown">
-								<span><span>Curations</span><span style="float:right;"><i id="curationsDropdownArrow" class="fa fa-sort-desc  fa-rotate-270"></i></span></span>
-							</a>
-							<div class="collapse in" id="curationsDropdown">
-								<ul>
-									<li class="nav-item"><a class="nav-link" href="curations_display.html">Curations Display</a></li>
-									<li class="nav-item"><a class="nav-link" href="curations_custom_posts.html">Curations Custom Posts</a></li>
-									<li class="nav-item"><a class="nav-link" href="curations_example_app.html">Curations Example App</a></li>
-								</ul>
-							</div>
+            <a href="/" class="bv_logo" style="font-size: 22px;">
+                <span class="bv_teal">&nbsp;bazaar</span><span class="bv_white">voice</span><span
+                    class="bv_teal">:</span>
+            </a>
+        </div>
 
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav side-nav nav-stacked nav-pills">
+            <div class="bv_logo">
+                <a href="/">
+                    <span class="bv_teal">bazaar</span><span class="bv_white">voice</span><span class="bv_teal">:</span>
+                </a>
+            </div>
+            <li class="nav-item">
+                <a class="nav-link active" href="index.html">
+                    <span><i class="m-r-1 fa fa-file-text-o"></i>Getting Started</span>
+                </a>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="installation.html">
+                            <span>Installation and Configuration</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link" href="modules.html">
+                    <span><i class="m-r-1 fa fa-cogs"></i>Modules</span>
+                </span>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
+                    </li>
+                    <li class="nav-item">
 
-						</li>
-						<li class="nav-item">
-							
-							<a class="nav-link" role="button" data-toggle="collapse" href="#conversationsDropdown" aria-expanded="false" aria-controls="conversationsDropdown">
-								<span><span>Conversations</span><span style="float:right;"><i id="conversationsDropdownArrow" class="fa fa-sort-desc fa-rotate-270"></i></span></span>
-							</a>
-							<div class="collapse " id="conversationsDropdown">
-								<ul>
-									<li class="nav-item"><a class="nav-link" href="using_conversations.html">Using Conversations</a></li>
-									<li class="nav-item"><a class="nav-link" href="conversations_iovation.html">Authenticity with iovation</a></li>
-								</ul>
-							</div>
+                        <a class="nav-link" role="button" data-toggle="collapse" href="#curationsDropdown"
+                           aria-expanded="false" aria-controls="curationsDropdown">
+                                <span><span>Curations</span><span style="float:right;"><i id="curationsDropdownArrow"
+                                                                                          class="fa fa-sort-desc  fa-rotate-270"></i></span></span>
+                        </a>
+                        <div class="collapse in"
+                             id="curationsDropdown">
+                            <ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="curations_display.html"><span>Curations Display</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="curations_custom_posts.html"><span>Curations Custom Posts</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="curations_example_app.html"><span>Curations Example App</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsDropdown"
+                           aria-expanded="false" aria-controls="conversationsDropdown">
+                                <span><span>Conversations</span><span style="float:right;"><i
+                                        id="conversationsDropdownArrow"
+                                        class="fa fa-sort-desc fa-rotate-270"></i></span></span>
+                        </a>
+                        <div class="collapse "
+                             id="conversationsDropdown">
+                            <ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="using_conversations.html"><span>Using Conversations</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
+                                </li>
+                            </ul>
+                        </div>
 
-						</li>
-					</ul>
-				</li>
-
-			 
-				<li class="nav-item">
-					<a class="nav-link" href="bv_pixel.html">
-						<span><i class="m-r-1 fa fa-dot-circle-o"></i>BV Pixel</span>     
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="user_authentication_token.html">
-						<span><i class="m-r-1 fa fa-lock"></i>User Authentication Token</span>     
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="example_projects.html">
-						<span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>     
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="faq_support.html">
-						<span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>     
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="api_reference.html">
-						<span><i class="m-r-1 fa fa-book"></i>API Reference</span>     
-					</a>
-				</li>
-				<br>
-				<li class="nav-item">
-					<a class="nav-link" href="mailto:mobilecoreteam@bazaarvoice.com?subject=Android SDK documentation feedback" style="border: 1px #fff solid;">
-						<span><i class="m-r-1 fa fa-envelope"></i>Feedback</span>     
-					</a>
-				</li>	
-						
-			</ul>
-		</div>
-	</div>
-</div>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="bv_pixel.html">
+                    <span><i class="m-r-1 fa fa-dot-circle-o"></i>BV Pixel</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="user_authentication_token.html">
+                    <span><i class="m-r-1 fa fa-lock"></i>User Authentication Token</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="example_projects.html">
+                    <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="faq_support.html">
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./assets/api_reference/index.html">
+                    <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="mailto:mobilecoreteam@bazaarvoice.com?subject=Android SDK documentation feedback"
+                   style="border: 1px #fff solid;">
+                    <span><i class="m-r-1 fa fa-envelope"></i>Feedback</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
       <div id="application_container">
         <div id="task_container">
@@ -197,22 +219,21 @@ $(function(){
 
 
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-        
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#installationCollapse" aria-expanded="true" aria-controls="installationCollapse">
-          <div style="float: left;"><i id="installationArrow" class="fa fa-chevron-right" style="color:#777;"></i></div>
-          <div style="float: left; padding-left:10px">
-            <h5>Installation Instructions</h5>
-            <p style="color:#444; margin-bottom: 6px;">Click here to see how to install and configure the BVSDK.</p>
-          </div>
-          <div style="clear:both;"></div>
-        </a>
-        
-    </div>
-    <div id="installationCollapse" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-installationCollapse">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#installationCollapse" aria-expanded="false" aria-controls="installationCollapse" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="installationArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;">Installation Instructions</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Click here to see how to install and configure the BVSDK.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="installationCollapse" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
 
 <h3>Installation with Gradle</h3>
 <p>Include the Maven Central repository and add Bazaarvoice's modules to your dependencies:</p>
@@ -264,7 +285,6 @@ repositories {
 		</div>
     </div>
   </div>
-</div>
 <br>
 
 
