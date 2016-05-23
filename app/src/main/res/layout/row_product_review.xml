@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_3">
+
+        <RelativeLayout
+            android:id="@+id/review_header_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/review_header_info_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/review_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_2"
+                    android:textSize="@dimen/text_size_title"
+                    android:textColor="@color/bv_green_2"
+                    tools:text="Review Title Here (With some extra words to test long titles)"/>
+
+                <TextView
+                    android:id="@+id/review_time_ago"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/review_title"
+                    android:layout_marginBottom="@dimen/margin_2"
+                    android:textSize="@dimen/text_size_caption"
+                    tools:text="X Days Ago by User Name"/>
+
+                <TextView
+                    android:id="@+id/review_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/review_time_ago"
+                    android:layout_marginBottom="@dimen/margin_2"
+                    android:textSize="@dimen/text_size_caption"
+                    tools:text="from Austin, TX"/>
+
+                <RatingBar
+                    android:id="@+id/review_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/review_location"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    tools:rating="4.3"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/review_header_info_image"
+                android:layout_width="@dimen/snippet_prod_image_side"
+                android:layout_height="@dimen/snippet_prod_image_side"
+                android:layout_alignRight="@id/review_header_info_text"
+                android:layout_alignParentRight="true"
+                tools:background="@color/bv_green_1"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/review_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/review_header_info"
+            android:layout_marginTop="@dimen/margin_2"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="@string/bacon_ipsum"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

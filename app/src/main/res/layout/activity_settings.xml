@@ -35,7 +35,7 @@
 
             <fragment
                 android:id="@+id/frag_preloaded"
-                android:name="com.example.bazaarvoice.bv_android_sdk.settings.DemoPreferencesFragment"
+                android:name="com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -51,7 +51,7 @@
 
             <fragment
                 android:id="@+id/frag_selected"
-                android:name="com.example.bazaarvoice.bv_android_sdk.settings.DemoPreferencesSelectedFragment"
+                android:name="com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/selected_values_tv"/>

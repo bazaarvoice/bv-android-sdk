@@ -11,7 +11,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:colorBackground">@color/background</item>
 
         <!-- enable window content transitions -->
         <item name="android:windowContentTransitions">true</item>
@@ -28,5 +28,8 @@
             @transition/change_image_transform
         </item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 </resources>

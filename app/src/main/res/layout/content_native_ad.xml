@@ -8,7 +8,7 @@
     android:background="#eee"
     android:padding="@dimen/activity_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.bazaarvoice.bv_android_sdk.ads.NativeAdActivity"
+    tools:context="com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity"
     tools:showIn="@layout/activity_native_ad">
 
     <ProgressBar

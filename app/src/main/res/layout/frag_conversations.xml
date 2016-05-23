@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
-    tools:context=".conversations.kitchensink.DemoConversationsFragment">
+    tools:context="com.bazaarvoice.bvsdkdemoandroid.conversations.kitchensink.DemoConversationsFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

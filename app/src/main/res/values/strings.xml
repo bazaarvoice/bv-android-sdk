@@ -13,7 +13,12 @@
     <string name="title_activity_interstitial_ad">Interstitial Ad Example</string>
     <string name="title_activity_location_example_activty">Location Example</string>
     <string name="title_activity_gimbal_example">Gimbal Example</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Demo Settings</string>
+    <string name="title_activity_fancy_product_detail">Product Detail</string>
+    <string name="title_activity_demo_app">BVSDK Demo</string>
+    <string name="title_activity_reviews">Product Reviews</string>
+    <string name="title_activity_questions">Product Questions</string>
+    <string name="title_activity_answers">Product Answers</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
@@ -37,4 +42,22 @@
 
     <string name="product_not_setup">This product is not setup for this client.</string>
 
+    <string name="bacon_ipsum">Bacon ipsum dolor amet cupim frankfurter tongue pork loin ham bacon, pancetta capicola shank. Meatloaf prosciutto spare ribs pig beef, ground round tri-tip hamburger alcatra landjaeger pastrami meatball porchetta tail. Sirloin pork belly landjaeger, pig doner short loin shank beef shoulder ground round tenderloin. Andouille landjaeger pork shoulder.</string>
+
+    <string name="submit_review">Submit</string>
+    <string name="cancel_review">Cancel</string>
+    <string name="okay">OK</string>
+    <string name="review_body_hint">Write a review</string>
+    <string name="question_body_hint">Ask a question</string>
+    <string name="answer_body_hint">Answer a question</string>
+
+    <string name="conv_reviews_photos">"%1$s Reviews</string>
+    <string name="conv_questions">"%1$s Questions, %2$s Answers"</string>
+    <string name="conv_answers">"Read %s Answers"</string>
+    <string name="conv_answer">"Read %s Answer</string>
+    <string name="answer_action_text">Give your answer!</string>
+    <string name="no_curations_found">No social content to show - upload your own photo</string>
+    <string name="demo_sdk_not_configured">BVSDK not configured!</string>
+    <string name="demo_need_curations_key">You need to add your Curations API key and Client ID to test this feature.</string>
+    <string name="answer_found_helpful">"%1$s of %2$s users found this answer helpful"</string>
 </resources>

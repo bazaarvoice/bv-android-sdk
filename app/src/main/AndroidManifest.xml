@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bazaarvoice.bv_android_sdk">
+    package="com.bazaarvoice.bvsdkdemoandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".DemoApplication"
+        android:name="com.bazaarvoice.bvsdkdemoandroid.DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DemoMainActivity"
+            android:name="com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -21,34 +21,55 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".recommendations.detail.DemoProductDetailActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity" />
         <activity
-            android:name=".conversations.kitchensink.DemoConversationDetailActivity"
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.kitchensink.DemoConversationDetailActivity"
             android:label="@string/title_activity_bvconversation_detail" />
         <activity
-            android:name=".ads.BannerAdActivity"
+            android:name="com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity"
             android:label="@string/title_activity_banner_ad" />
         <activity
-            android:name=".ads.NativeAdActivity"
+            android:name="com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity"
             android:label="@string/title_activity_native_ad" />
         <activity
-            android:name=".ads.InterstitialAdActivity"
+            android:name="com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity"
             android:label="@string/title_activity_interstitial_ad" />
-        <activity android:name=".conversations.browseproducts.ProductsActivity" />
-        <activity android:name=".conversations.browseproducts.ReviewsActivity" />
-        <activity android:name=".conversations.browseproducts.ReviewDisplayActivity" />
-        <activity android:name=".curations.detail.DemoCurationsDetailActivity" />
-        <activity android:name=".curations.feed.DemoCurationsFeedActivity" />
-        <activity android:name=".curations.DemoCurationsPostActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ProductsActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ReviewsActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ReviewDisplayActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity" />
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity" />
 
         <activity
-            android:name=".settings.DemoSettingsActivity"
-            android:label="@string/title_activity_settings">
+            android:name="com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity"
+            android:label="@string/title_activity_settings"/>
+
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity"
+            android:label="@string/title_activity_fancy_product_detail"/>
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHomeActivity"
+            android:label="@string/title_activity_demo_app"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity"
+            android:label="@string/title_activity_reviews" />
+
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity"
+            android:label="@string/title_activity_questions" />
+
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity"
+            android:label="@string/title_activity_answers" />
+
     </application>
 
 </manifest>
