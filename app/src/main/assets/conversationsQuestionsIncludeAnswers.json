@@ -1,0 +1,447 @@
+{
+  "HasErrors": false,
+  "Includes": {
+    "Answers": {
+      "16390": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "Kanye South",
+        "IsBrandAnswer": false,
+        "Photos": [
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81051/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81051/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81051"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81052/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81052/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81052"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81053/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81053/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81053"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81054/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81054/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81054"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81055/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81055/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81055"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81056/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81056/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81056"
+          }
+        ],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2011-06-30T21:21:34.000+00:00",
+        "QuestionId": "14898",
+        "SubmissionId": null,
+        "TotalFeedbackCount": 3,
+        "TotalPositiveFeedbackCount": 3,
+        "UserLocation": "In porta sapi",
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "5jrptijda8",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2011-06-14T15:53:07.000+00:00",
+        "IPAddress": null,
+        "ContentLocale": "en_US",
+        "ModerationStatus": "APPROVED",
+        "Id": "16390",
+        "AnswerText": "I don't know but they're painted black.",
+        "LastModeratedTime": "2011-06-30T21:21:34.000+00:00"
+      },
+      "16392": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "Mr. Gatsby",
+        "IsBrandAnswer": false,
+        "Photos": [],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2011-06-29T00:10:10.000+00:00",
+        "QuestionId": "14899",
+        "SubmissionId": null,
+        "TotalFeedbackCount": 3,
+        "TotalPositiveFeedbackCount": 3,
+        "UserLocation": null,
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "6zpdakali0g",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2011-06-03T15:14:44.000+00:00",
+        "ContentLocale": "en_US",
+        "IPAddress": null,
+        "ModerationStatus": "APPROVED",
+        "Id": "16392",
+        "AnswerText": "Dude are you serious? This isn't the tour de france.",
+        "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
+      },
+      "16391": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "Jason S. Jasonson",
+        "IsBrandAnswer": false,
+        "Photos": [
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81057/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81057/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81057"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81058/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81058/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81058"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81059/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81059/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81059"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81060/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81060/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81060"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81061/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81061/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81061"
+          },
+          {
+            "Caption": null,
+            "Sizes": {
+              "thumbnail": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81062/photoThumb.jpg",
+                "Id": "thumbnail"
+              },
+              "normal": {
+                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81062/photo.jpg",
+                "Id": "normal"
+              }
+            },
+            "SizesOrder": [
+              "thumbnail",
+              "normal"
+            ],
+            "Id": "81062"
+          }
+        ],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2011-06-30T21:21:35.000+00:00",
+        "QuestionId": "14898",
+        "SubmissionId": null,
+        "TotalFeedbackCount": 3,
+        "TotalPositiveFeedbackCount": 3,
+        "UserLocation": "Pellentesque habitant",
+        "BadgesOrder": [
+          "top250Contributor"
+        ],
+        "Badges": {
+          "top250Contributor": {
+            "BadgeType": "Merit",
+            "Id": "top250Contributor",
+            "ContentType": "ANSWER"
+          }
+        },
+        "AuthorId": "7kz3prwv9xc",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2011-06-14T20:07:31.000+00:00",
+        "IPAddress": null,
+        "ContentLocale": "en_US",
+        "ModerationStatus": "APPROVED",
+        "Id": "16391",
+        "AnswerText": "Great question, have always wondered the same thing! I went and checked and it's carbon fiber through-and-through.",
+        "LastModeratedTime": "2011-06-30T21:21:35.000+00:00"
+      },
+      "16389": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "Ollie Sykes",
+        "IsBrandAnswer": false,
+        "Photos": [],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2011-06-29T00:10:10.000+00:00",
+        "QuestionId": "14898",
+        "SubmissionId": null,
+        "TotalFeedbackCount": 3,
+        "TotalPositiveFeedbackCount": 3,
+        "UserLocation": "Proin nec conguerisus",
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "8g90d8ea70g",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2011-06-03T15:13:44.000+00:00",
+        "ContentLocale": "en_US",
+        "IPAddress": null,
+        "ModerationStatus": "APPROVED",
+        "Id": "16389",
+        "AnswerText": "Up until 2012, it was a lightweight aluminum alloy but since 2012 they have used carbon fiber.",
+        "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
+      }
+    },
+    "AnswersOrder": [
+      "16392",
+      "16391",
+      "16390",
+      "16389"
+    ]
+  },
+  "Offset": 3,
+  "TotalResults": 257,
+  "Locale": "en_US",
+  "Errors": [],
+  "Results": [
+    {
+      "QuestionSummary": "Specs?",
+      "TagDimensions": {},
+      "TagDimensionsOrder": [],
+      "AdditionalFieldsOrder": [],
+      "TotalAnswerCount": 1,
+      "QuestionDetails": "What is the rolling resistance of the stock tires on this bike, and what is the stand-alone air drag coefficient of the bike in racing position?",
+      "Photos": [],
+      "ContextDataValues": {},
+      "CategoryId": null,
+      "Videos": [],
+      "ContextDataValuesOrder": [],
+      "SubmissionId": null,
+      "LastModificationTime": "2011-08-25T15:56:50.000+00:00",
+      "AnswerIds": [
+        "16392"
+      ],
+      "TotalFeedbackCount": 3,
+      "TotalPositiveFeedbackCount": 3,
+      "BadgesOrder": [],
+      "UserLocation": null,
+      "Badges": {},
+      "AuthorId": "5lxezf3dcao",
+      "IsFeatured": false,
+      "IsSyndicated": null,
+      "ProductRecommendationIds": [],
+      "ProductId": "1000001",
+      "AdditionalFields": {},
+      "CampaignId": null,
+      "TotalNegativeFeedbackCount": 0,
+      "SubmissionTime": "2011-05-19T17:47:35.000+00:00",
+      "IPAddress": null,
+      "ContentLocale": "en_US",
+      "ModerationStatus": "APPROVED",
+      "Id": "14899",
+      "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
+    },
+    {
+      "QuestionSummary": "What material is this bike's handlebars made from?",
+      "TagDimensions": {},
+      "TagDimensionsOrder": [],
+      "AdditionalFieldsOrder": [],
+      "TotalAnswerCount": 3,
+      "QuestionDetails": null,
+      "UserNickname": "Paul McCartney",
+      "Photos": [],
+      "ContextDataValues": {},
+      "CategoryId": null,
+      "Videos": [],
+      "ContextDataValuesOrder": [],
+      "SubmissionId": null,
+      "LastModificationTime": "2011-08-25T15:56:50.000+00:00",
+      "AnswerIds": [
+        "16391",
+        "16390",
+        "16389"
+      ],
+      "TotalFeedbackCount": 3,
+      "TotalPositiveFeedbackCount": 3,
+      "BadgesOrder": [],
+      "UserLocation": null,
+      "Badges": {},
+      "AuthorId": "byl8zsjs2mo",
+      "IsFeatured": false,
+      "IsSyndicated": null,
+      "ProductRecommendationIds": [],
+      "ProductId": "1000001",
+      "AdditionalFields": {},
+      "CampaignId": null,
+      "TotalNegativeFeedbackCount": 0,
+      "SubmissionTime": "2011-05-06T15:18:22.000+00:00",
+      "ContentLocale": "en_US",
+      "IPAddress": null,
+      "ModerationStatus": "APPROVED",
+      "Id": "14898",
+      "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
+    }
+  ],
+  "Limit": 2
+}

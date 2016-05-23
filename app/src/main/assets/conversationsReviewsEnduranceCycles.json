@@ -1,0 +1,987 @@
+{
+    "HasErrors": false,
+    "Includes": {
+        "Products": {
+            "en5006620376": {
+                "Brand": {
+                    "Name": "Endurance Apex",
+                    "Id": "100353"
+                },
+                "ISBNs": [],
+                "UPCs": [],
+                "Attributes": {},
+                "Description": "Dreaming of the epic mountain passes and fan lined promenades of the big European stage races has inspired you to throw caution to the wind and give this whole bike racing thing a shot. The Endurance Apex 2 exudes the spirit of racing. The Advanced SL carbon construction with our signature Resin Compound creates a sub-800 gram frame that is built for competition. The Continuous Fiber Technology fork and tapered head tube provide unbeatable steering precision delivering you confidently through a nervous peloton or high speed corners, and the light weight will always help you finish on top. A full EPS kit and HED Stinger carbon tubular wheels live only in that top shelf domain so there’s no reason your podium shouldn’t be there too.",
+                "ManufacturerPartNumbers": [],
+                "QuestionIds": [],
+                "BrandExternalId": "100353",
+                "ProductPageUrl": "http://www.endurancecycles.com/products/endurance-apex-2",
+                "FamilyIds": [],
+                "AttributesOrder": [],
+                "ImageUrl": "http://cdn.shopify.com/s/files/1/0796/3917/products/Endurance_Apex_2_THUMB_1024x1024.png?v=1428931041",
+                "EANs": [],
+                "Name": "Endurance Apex 2",
+                "CategoryId": "cat1003840009",
+                "TotalReviewCount": 8,
+                "ReviewIds": [],
+                "Id": "en5006620376",
+                "StoryIds": [],
+                "ReviewStatistics": {
+                    "ContextDataDistributionOrder": ["Age", "Gender", "ShopFrequency"],
+                    "HelpfulVoteCount": 12,
+                    "NotRecommendedCount": 0,
+                    "AverageOverallRating": 4.625,
+                    "SecondaryRatingsAveragesOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                    "FeaturedReviewCount": 0,
+                    "TagDistributionOrder": [],
+                    "NotHelpfulVoteCount": 0,
+                    "OverallRatingRange": 5,
+                    "SecondaryRatingsAverages": {
+                        "Durability": {
+                            "Id": "Durability",
+                            "AverageRating": 4.125
+                        },
+                        "Value": {
+                            "Id": "Value",
+                            "AverageRating": 4.75
+                        },
+                        "Quality": {
+                            "Id": "Quality",
+                            "AverageRating": 4.5
+                        },
+                        "MeetsExpectations": {
+                            "Id": "MeetsExpectations",
+                            "AverageRating": 4.625
+                        }
+                    },
+                    "RatingDistribution": [{
+                                           "Count": 1,
+                                           "RatingValue": 3
+                                           }, {
+                                           "Count": 1,
+                                           "RatingValue": 4
+                                           }, {
+                                           "Count": 6,
+                                           "RatingValue": 5
+                                           }],
+                    "TotalReviewCount": 8,
+                    "RatingsOnlyReviewCount": 0,
+                    "RecommendedCount": 8,
+                    "TagDistribution": {},
+                    "ContextDataDistribution": {
+                        "Age": {
+                            "Values": [{
+                                       "Value": "30to39",
+                                       "Count": 1
+                                       }, {
+                                       "Value": "40to49",
+                                       "Count": 1
+                                       }, {
+                                       "Value": "50to60",
+                                       "Count": 1
+                                       }, {
+                                       "Value": "over60",
+                                       "Count": 5
+                                       }],
+                            "Label": "Age:",
+                            "Id": "Age"
+                        },
+                        "ShopFrequency": {
+                            "Values": [{
+                                       "Value": "occasionally",
+                                       "Count": 4
+                                       }, {
+                                       "Value": "frequently",
+                                       "Count": 4
+                                       }],
+                            "Label": "How often do you shop at Endurance Cycles?",
+                            "Id": "ShopFrequency"
+                        },
+                        "Gender": {
+                            "Values": [{
+                                       "Value": "male",
+                                       "Count": 3
+                                       }, {
+                                       "Value": "female",
+                                       "Count": 5
+                                       }],
+                            "Label": "Gender:",
+                            "Id": "Gender"
+                        }
+                    },
+                    "FirstSubmissionTime": "2016-03-30T17:30:00.000+00:00",
+                    "LastSubmissionTime": "2016-05-11T18:01:48.000+00:00"
+                },
+                "ModelNumbers": []
+            }
+        },
+        "ProductsOrder": ["en5006620376"]
+    },
+    "Offset": 0,
+    "TotalResults": 8,
+    "Locale": "en_US",
+    "Errors": [],
+    "Results": [{
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "Grandma",
+                "Pros": null,
+                "Photos": [],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "over60",
+                "ValueLabel": "Over 60",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "frequently",
+                "ValueLabel": "Frequently",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "female",
+                "ValueLabel": "Female",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "LastModificationTime": "2016-05-11T18:31:26.000+00:00",
+                "SubmissionId": "hwxoduj3tdlq6zofi4y0bir3q",
+                "TotalFeedbackCount": 0,
+                "TotalPositiveFeedbackCount": 0,
+                "BadgesOrder": [],
+                "UserLocation": "Los Angeles, CA, USA",
+                "Badges": {},
+                "AuthorId": "81C6FBDF7D5338144CCF2E88E8523F0F",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Perfect Geomentry",
+                "AdditionalFields": {},
+                "Helpfulness": null,
+                "CampaignId": "END_PPE",
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-05-11T18:01:48.000+00:00",
+                "Rating": 5,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "I love the handling, the weight, and the speed. The geometry fits my body well (I am 1.7m tall) . Changing gears is feels nice and crisp. The seat however, is a little uncomfortable and takes getting use to it. I can take the high grade hills with minimal effort. Normally I ride about 40km daily and don't feel exhausted. The price is a bargain. I find the manual lacking. I took it to a professional for assembly and adjustment. Since I ride every day in the spring thru fall, I take it every three month for tune-up.",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "110181580",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-05-11T18:31:26.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "grandma",
+                "Pros": null,
+                "Photos": [
+                  {
+                    "Caption":null,
+                    "Sizes": {
+                      "thumbnail": {
+                        "Url":"https://curations-imaging-b.nexus.bazaarvoice.com/?url=https%3A%2F%2Fscontent.cdninstagram.com%2Fhphotos-xfa1%2Ft51.2885-15%2Fe15%2F11226830_1619214364957727_860770625_n.jpg&checksum=dea1c5da&width=600&height=600&exact=true",
+                        "Id":"thumbnail"
+                      },
+                      "normal": {
+                        "Url":"https://curations-imaging-b.nexus.bazaarvoice.com/?url=https%3A%2F%2Fscontent.cdninstagram.com%2Fhphotos-xfa1%2Ft51.2885-15%2Fe15%2F11226830_1619214364957727_860770625_n.jpg&checksum=dea1c5da&width=600&height=600&exact=true",
+                        "Id":"normal"
+                      }
+                    },
+                    "SizesOrder": [
+                      "thumbnail",
+                      "normal"
+                    ],
+                    "Id": null
+                  }
+                ],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "50to60",
+                "ValueLabel": "50-60",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "frequently",
+                "ValueLabel": "Frequently",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "female",
+                "ValueLabel": "Female",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "LastModificationTime": "2016-05-09T17:46:21.000+00:00",
+                "SubmissionId": "et1bjbr0p1vr8av5mc7qmjman",
+                "TotalFeedbackCount": 0,
+                "TotalPositiveFeedbackCount": 0,
+                "BadgesOrder": [],
+                "UserLocation": "Jackson, NJ, USA",
+                "Badges": {},
+                "AuthorId": "90299B93381B8FCA2FEDD9F9DBC49D2B",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "This bike is a steal",
+                "AdditionalFields": {},
+                "Helpfulness": null,
+                "CampaignId": "END_PPE",
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-05-06T14:16:47.000+00:00",
+                "Rating": 5,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "500 Mile review. Local bike store agreed this bike was a steal at under $600. My husband ordered the Storm 2 and he said the same about it. The bike rides well, really well. The fork does a nice job of reducing road chatter and the Shimano 105 group set is smooth. I wouldn't say this bike kills hills, but they also don't stand in its way. The double chain ring serves its purpose, and from what I've read a triple wouldn't be any huge benefit unless you're really climbing. I swapped pedals from the provided wellgo to Shimano M530 SPD. I've found the seat adequate with no neat to change for now. All in all, I couldn't be more satisfied.",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "109756910",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 3,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 3,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 3,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-05-09T17:46:20.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "poohbear66",
+                "Pros": null,
+                "Photos": [],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "over60",
+                "ValueLabel": "Over 60",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "frequently",
+                "ValueLabel": "Frequently",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "female",
+                "ValueLabel": "Female",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "LastModificationTime": "2016-05-05T22:31:37.000+00:00",
+                "SubmissionId": "p9ow0xd8bm8pze68do1uzrvw2",
+                "TotalFeedbackCount": 0,
+                "TotalPositiveFeedbackCount": 0,
+                "BadgesOrder": [],
+                "UserLocation": "Conway, AR, USA",
+                "Badges": {},
+                "AuthorId": "B48588C6B4499EEFDC0DBC454362D149",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Torturous seat",
+                "AdditionalFields": {},
+                "Helpfulness": null,
+                "CampaignId": "END_PPE",
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-05-05T22:01:55.000+00:00",
+                "Rating": 3,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "This bike is awesome - big EXCEPT. The seat will kill you! :) It is my first road bike, but I have already ridden it successfully for a few long rides (20 to 50K)! The only thing I would change about it are the seat (it is an instrument of torture). The seat made me so crazy I had to bump it from 5 stars down to 3. Invest in a new seat and you'll be happy.",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "109739211",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-05-05T22:31:37.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "mcdski",
+                "Pros": null,
+                "Photos": [
+                  {
+                    "Caption":null,
+                    "Sizes": {
+                      "thumbnail": {
+                        "Url":"https://curations-imaging.nexus.bazaarvoice.com/?url=https%3A%2F%2Fscontent.cdninstagram.com%2Fhphotos-xaf1%2Ft51.2885-15%2Fe15%2F11386449_1613048222276225_595963246_n.jpg&checksum=47e05ee8&width=600&height=600&exact=true",
+                        "Id":"thumbnail"
+                      },
+                      "normal": {
+                        "Url":"https://curations-imaging.nexus.bazaarvoice.com/?url=https%3A%2F%2Fscontent.cdninstagram.com%2Fhphotos-xaf1%2Ft51.2885-15%2Fe15%2F11386449_1613048222276225_595963246_n.jpg&checksum=47e05ee8&width=600&height=600&exact=true",
+                        "Id":"normal"
+                      }
+                    },
+                    "SizesOrder": [
+                      "thumbnail",
+                      "normal"
+                    ],
+                    "Id": null
+                  }
+                ],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "over60",
+                "ValueLabel": "Over 60",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "occasionally",
+                "ValueLabel": "Occasionally",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "male",
+                "ValueLabel": "Male",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "SubmissionId": "u1lh2qrvyjp97tujcvves5car",
+                "LastModificationTime": "2016-05-07T04:28:12.000+00:00",
+                "TotalFeedbackCount": 1,
+                "TotalPositiveFeedbackCount": 1,
+                "BadgesOrder": [],
+                "UserLocation": "Detroit, MI, USA",
+                "Badges": {},
+                "AuthorId": "5519835699B79428C9C7E417C1241E7E",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Love aluminum",
+                "AdditionalFields": {},
+                "CampaignId": "EN_PPE",
+                "Helpfulness": 1.0,
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-04-28T04:17:52.000+00:00",
+                "Rating": 5,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "I'm in my second season of triathlon and decided to ditch my old steel-framed road bike ( Cannondale). This bike is a tremendous step-up! Fit and finish are beautiful and I can certainly tell the difference in geometry/weight/position on the road. Just completed my first olympic distance race using this bike and it performed admirably. Lots of adjusment/position options available to set it up like you want. Supplied tires appeared kinda weak (Some Chinese off-brand of slicks), so I immediately replaced them with Continentals. Other than that no issues and I'm looking forward to using this bike for many seasons to come!",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "109121246",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 3,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-04-30T04:15:24.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "Elina",
+                "Pros": null,
+                "Photos": [],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "40to49",
+                "ValueLabel": "40-49",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "occasionally",
+                "ValueLabel": "Occasionally",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "female",
+                "ValueLabel": "Female",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "LastModificationTime": "2016-04-21T00:15:34.000+00:00",
+                "SubmissionId": "arfkc78n0oppgyuaew6rwcdjt",
+                "TotalFeedbackCount": 0,
+                "TotalPositiveFeedbackCount": 0,
+                "BadgesOrder": [],
+                "UserLocation": "Glendale, CA",
+                "Badges": {},
+                "AuthorId": "E68CEACAA7987B05B55732B3747CBF7C",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Great technology",
+                "AdditionalFields": {},
+                "Helpfulness": null,
+                "CampaignId": "END_PPE",
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-04-20T23:44:25.000+00:00",
+                "Rating": 5,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "Having never seen this before, all I can say is Wow! There are so many things on this bike I don't recognize...and I ride. Alot. This leads me to believe only one thing. Endurance clearly has some new biking technology that they are just now bestowing on the rest of the biking world. spokes. This is superb! And a 11 speed drive train? I new I wasting all sorts of efficiency on my Shimano 20 speed. And by the looks of the break levers, this bike will no doubt usher in a new age of ergo-comfort cycling. And all of this on Endurance's classic Apex platform. And let's not forget the most space-age of aluminum alloys.",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "108587770",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-04-21T00:15:34.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "vjtheshopper",
+                "Pros": null,
+                "Photos": [],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "30to39",
+                "ValueLabel": "30-39",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "frequently",
+                "ValueLabel": "Frequently",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "male",
+                "ValueLabel": "Male",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "SubmissionId": "skv9t2i4l7dpj0kha1lxdvjug",
+                "LastModificationTime": "2016-05-11T19:38:18.000+00:00",
+                "TotalFeedbackCount": 3,
+                "TotalPositiveFeedbackCount": 3,
+                "BadgesOrder": [],
+                "UserLocation": "Atlanta, ga",
+                "Badges": {},
+                "AuthorId": "C1357E6CA331B83967F322672ADCDD45",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Love the Apex 2",
+                "AdditionalFields": {},
+                "CampaignId": "BV_RATING_SUMMARY",
+                "Helpfulness": 1.0,
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-04-05T17:24:28.000+00:00",
+                "Rating": 5,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "I ended up getting the Apex 2 from a local dealer since they were the only one who had my size. I absolutely love this bike. It is comfortable, fast and you can actually tell how aerodynamic it is. I just completed my first half century and if I was riding with people as soon as I went to the lower bar on the hills I would immediately pull away from people without even trying. My top speed on the decents was 49.2 mph vs my riding partners being 45 and 42. It rides great and is simply a great bike all round. For the price you really can't beat it. And it really does look sharp. My husband can hardly keep up. :)",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "106576927",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-04-05T17:46:34.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": "none",
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "goodshopping",
+                "Pros": "looks good and is comfortable",
+                "Photos": [],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "over60",
+                "ValueLabel": "Over 60",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "occasionally",
+                "ValueLabel": "Occasionally",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "female",
+                "ValueLabel": "Female",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "SubmissionId": "66le1uu9pz6mkluf7ih6da62z",
+                "LastModificationTime": "2016-05-07T04:28:12.000+00:00",
+                "TotalFeedbackCount": 4,
+                "TotalPositiveFeedbackCount": 4,
+                "BadgesOrder": [],
+                "UserLocation": "Phoenix, AZ",
+                "Badges": {},
+                "AuthorId": "E8064782B4C7AE0AC8E854B5A3579849",
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsFeatured": false,
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Excellent Build Quality",
+                "AdditionalFields": {},
+                "CampaignId": "END_PPE",
+                "Helpfulness": 1.0,
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-03-30T20:36:02.000+00:00",
+                "Rating": 5,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "When this bike first arrived, I got a friend from the gym to help me carry the box from my front porch to the living room, where we unpacked it. 11 days later, after a few quick trips to the local bike shop for a some extra screws, new calipers and cables and a new bottom bracket, my baby was born.. I call her Apex. I don't have any complaints, but if I did have one it might be that the head tube seems to be separating from the down tube above the front fork, and kind of wiggles a bit. I'm not sure if that's bad or not, but so far there have been no problems beyond a broken seat clamp and a snapped pedal.",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "106168737",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 4,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-04-01T21:15:28.000+00:00"
+                }, {
+                "TagDimensions": {},
+                "TagDimensionsOrder": [],
+                "AdditionalFieldsOrder": [],
+                "Cons": null,
+                "IsRecommended": true,
+                "IsRatingsOnly": false,
+                "UserNickname": "BigBob",
+                "Pros": null,
+                "Photos": [],
+                "ContextDataValues": {
+                "Age": {
+                "Value": "over60",
+                "ValueLabel": "Over 60",
+                "DimensionLabel": "Age:",
+                "Id": "Age"
+                },
+                "ShopFrequency": {
+                "Value": "occasionally",
+                "ValueLabel": "Occasionally",
+                "DimensionLabel": "How often do you shop at Endurance Cycles?",
+                "Id": "ShopFrequency"
+                },
+                "Gender": {
+                "Value": "male",
+                "ValueLabel": "Male",
+                "DimensionLabel": "Gender:",
+                "Id": "Gender"
+                }
+                },
+                "Videos": [],
+                "ContextDataValuesOrder": ["Age", "Gender", "ShopFrequency"],
+                "SubmissionId": "m1jypll2zfyn5pk313aajuxlt",
+                "LastModificationTime": "2016-04-15T00:17:14.000+00:00",
+                "TotalFeedbackCount": 4,
+                "TotalPositiveFeedbackCount": 4,
+                "BadgesOrder": [],
+                "UserLocation": "Jeffersonville, IN",
+                "Badges": {},
+                "AuthorId": "DCB01A5210FB9C1463EF154BC95A35D6",
+                "IsFeatured": false,
+                "SecondaryRatingsOrder": ["Quality", "Value", "MeetsExpectations", "Durability"],
+                "IsSyndicated": false,
+                "ProductRecommendationIds": [],
+                "ProductId": "en5006620376",
+                "Title": "Not a good choice if you",
+                "AdditionalFields": {},
+                "CampaignId": "END_PPE",
+                "Helpfulness": 1.0,
+                "TotalNegativeFeedbackCount": 0,
+                "SubmissionTime": "2016-03-30T17:30:00.000+00:00",
+                "Rating": 2,
+                "ContentLocale": "en_US",
+                "RatingRange": 5,
+                "TotalCommentCount": 0,
+                "ReviewText": "First bike owner, first bike I bought. Believe everything they say about the bike in the reviews - it's touch and go. Two things I would recommend: MAKE SURE YOU GET FITTED! I had to saw off a bit of the seatpost in order to have it lowered enough for my frame, and I had the handlebars adjusted. It was extremely close to not being the right fit, but the authorized Endurance dealer I went to helped a ton. If there had been more information about the fit I would have figured out that it just wasn't the right choice for someone who is only 5' lke me.",
+                "ModerationStatus": "APPROVED",
+                "ClientResponses": [],
+                "Id": "106147868",
+                "CommentIds": [],
+                "SecondaryRatings": {
+                "Durability": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Durability",
+                "Id": "Durability",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Value": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Value",
+                "Id": "Value",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "Quality": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Quality",
+                "Id": "Quality",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                },
+                "MeetsExpectations": {
+                "Value": 5,
+                "ValueLabel": null,
+                "MaxLabel": null,
+                "Label": "Meets Expectations",
+                "Id": "MeetsExpectations",
+                "ValueRange": 5,
+                "MinLabel": null,
+                "DisplayType": "NORMAL"
+                }
+                },
+                "LastModeratedTime": "2016-03-30T18:01:52.000+00:00"
+                }],
+    "Limit": 20
+}

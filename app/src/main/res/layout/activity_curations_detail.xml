@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.bazaarvoice.bv_android_sdk.ads.InterstitialAdActivity">
+    tools:context="com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity">
     <FrameLayout
         android:id="@+id/curations_main_content"
         android:layout_width="match_parent"

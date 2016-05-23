@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.bazaarvoice.bv_android_sdk.ads.NativeAdActivity">
+    tools:context="com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

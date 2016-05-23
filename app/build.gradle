@@ -1,17 +1,14 @@
-apply plugin: 'com.android.application'
-
-buildscript {
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
-    }
+def hasCrashlyticsKey() {
+    return file('fabric.properties').exists()
 }
 
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
+apply plugin: 'com.android.application'
+if (hasCrashlyticsKey()) {
+    apply plugin: 'io.fabric'
+}
+
+def hasAppdemoBuildSettings() {
+    return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
 }
 
 android {
@@ -31,10 +28,7 @@ android {
 
     signingConfigs {
         release {
-            if (hasProperty('BVSDK_DEMOAPP_STORE_FILE')
-                    && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD')
-                    && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS')
-                    && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD')) {
+            if (hasAppdemoBuildSettings()) {
                 storeFile file(BVSDK_DEMOAPP_STORE_FILE)
                 storePassword BVSDK_DEMOAPP_STORE_PASSWORD
                 keyAlias BVSDK_DEMOAPP_KEY_ALIAS
@@ -44,7 +38,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.bazaarvoice.bv_android_sdk"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -57,13 +50,22 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            applicationIdSuffix '.debug'
             debuggable true
         }
     }
 
+    buildTypes.each {
+        it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY',  String.valueOf(hasCrashlyticsKey())
+    }
+
     productFlavors {
-        appdemo {} // App Demo Flavor which avoids hitting the network needlessly
-        sdk {} // SDK Flavor which hits network as expected for the public releases
+        appdemo {
+            applicationId 'com.bazaarvoice.bvsdkdemoandroid.appdemo'
+        } // App Demo Flavor which avoids hitting the network needlessly
+        sdk {
+            applicationId 'com.bazaarvoice.bvsdkdemoandroid'
+        } // SDK Flavor which hits network as expected for the public releases
     }
 
     testOptions {
@@ -98,15 +100,18 @@ dependencies {
     compile "com.android.support:preference-v14:$rootProject.supportLibraryVersion"
     compile "com.google.android.gms:play-services-ads:$rootProject.playServicesAdsVersion"
     compile "com.googlecode.plist:dd-plist:$rootProject.ddPlistVersion"
+    compile "me.relex:circleindicator:$rootProject.circleIndicatorVersion"
 
     // iovation aar dependency
     // compile(name:'deviceprint-release-2.3.0', ext:'aar')
 
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:23.2.1'
+    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion") {
+        transitive = true;
+    }
 }
 
 

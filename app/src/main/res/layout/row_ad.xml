@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.formats.NativeContentAdView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ad_row_image_height"
+        android:layout_margin="@dimen/margin_3"
+        android:background="@drawable/ad_gradient">
+
+        <ImageView
+            android:id="@+id/image"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ad_row_image_height"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_shopping_basket_black_24dp"/>
+
+        <TextView
+            android:id="@+id/headline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/margin_2"
+            android:layout_marginTop="@dimen/margin_2"
+            tools:text="Advertiser Name Here"
+            android:textColor="@color/bv_white_1"
+            android:textSize="@dimen/text_size_title"
+            tools:background="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/body_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="220dp"
+            android:layout_below="@id/headline_text"
+            android:layout_marginLeft="@dimen/margin_2"
+            android:layout_marginTop="@dimen/margin_2"
+            tools:text="Call to action to discover product here!"
+            android:textColor="@color/bv_white_1"
+            android:textSize="@dimen/text_size_body_1"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:background="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/sponsored_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/margin_2"
+            android:layout_marginBottom="@dimen/margin_2"
+            android:text="Sponsored"
+            android:textColor="@color/bv_white_1"
+            android:textSize="@dimen/text_size_caption"
+            tools:background="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/call_to_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="220dp"
+            android:layout_marginRight="@dimen/margin_2"
+            android:layout_marginBottom="@dimen/margin_2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            tools:text="Call to action to discover product here!"
+            android:textStyle="bold"
+            android:textColor="@color/bv_white_1"
+            android:textSize="@dimen/text_size_subheading"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:background="@android:color/black"/>
+
+    </RelativeLayout>
+
+</com.google.android.gms.ads.formats.NativeContentAdView>

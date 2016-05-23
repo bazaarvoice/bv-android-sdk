@@ -20,6 +20,8 @@ public class CurationsProduct {
     protected String productName;
     @SerializedName("ReviewStatistics")
     protected ReviewStatistics productReviewStatistics;
+    @SerializedName("Id")
+    protected String id;
 
     public String getProductDescription() {
         return productDescription;
@@ -35,6 +37,10 @@ public class CurationsProduct {
 
     public String getProductName() {
         return productName;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public ReviewStatistics getProductReviewStatistics() {

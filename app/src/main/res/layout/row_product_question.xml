@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/question_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_3"
+            android:paddingRight="@dimen/margin_3"
+            android:paddingTop="@dimen/margin_3">
+
+            <TextView
+                android:id="@+id/question_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_2"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/bv_green_2"
+                tools:text="Question Title Here (With some extra words to test long titles)"/>
+
+            <TextView
+                android:id="@+id/question_time_ago"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question_title"
+                android:layout_marginBottom="@dimen/margin_2"
+                android:textSize="@dimen/text_size_caption"
+                android:textStyle="bold"
+                tools:text="X Days Ago by User Name"/>
+
+            <TextView
+                android:id="@+id/question_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question_time_ago"
+                android:layout_marginBottom="@dimen/margin_2"
+                android:textSize="@dimen/text_size_body_1"
+                tools:text="@string/bacon_ipsum"/>
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/spacer_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bv_gray_1"
+            android:layout_margin="@dimen/margin_1"
+            android:layout_below="@id/question_content_container"/>
+
+        <RelativeLayout
+            android:id="@+id/answers_buttons_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spacer_1"
+            android:paddingBottom="@dimen/margin_3">
+
+            <RelativeLayout
+                android:id="@+id/num_answers_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/call_to_action_button_height"
+                android:paddingTop="@dimen/margin_1"
+                android:paddingRight="@dimen/margin_1"
+                android:paddingBottom="@dimen/margin_1"
+                android:paddingLeft="@dimen/margin_3"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+                <TextView
+                    android:id="@+id/num_answers_icon"
+                    android:layout_width="@dimen/call_to_action_image_side"
+                    android:layout_height="@dimen/call_to_action_image_side"
+                    android:textSize="@dimen/text_size_headline"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="#d3d3d3"
+                    android:text="@string/fa_icon_comments" />
+                <TextView
+                    android:id="@+id/num_answer_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_button"
+                    android:textAllCaps="true"
+                    tools:text="17 Answers"
+                    android:layout_toRightOf="@id/num_answers_icon"
+                    android:layout_marginLeft="@dimen/margin_3"
+                    android:layout_centerVertical="true"/>
+                <ProgressBar
+                    android:id="@+id/num_answers_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/num_answers_icon"
+                    android:layout_marginLeft="@dimen/margin_3"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/spacer_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bv_gray_1"
+                android:layout_margin="@dimen/margin_1"
+                android:layout_below="@id/num_answers_container"/>
+
+            <RelativeLayout
+                android:id="@+id/answer_action_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/call_to_action_button_height"
+                android:layout_below="@id/spacer_2"
+                android:paddingTop="@dimen/margin_1"
+                android:paddingRight="@dimen/margin_1"
+                android:paddingBottom="@dimen/margin_1"
+                android:paddingLeft="@dimen/margin_3"
+                android:clickable="true"
+                android:background="?android:attr/selectableItemBackground">
+                <TextView
+                    android:id="@+id/answer_action_icon"
+                    android:layout_width="@dimen/call_to_action_image_side"
+                    android:layout_height="@dimen/call_to_action_image_side"
+                    android:textSize="@dimen/text_size_headline"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="#d3d3d3"
+                    android:text="@string/fa_icon_plus" />
+                <TextView
+                    android:id="@+id/answer_action_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_button"
+                    android:text="@string/answer_action_text"
+                    android:textAllCaps="true"
+                    android:layout_toRightOf="@id/answer_action_icon"
+                    android:layout_marginLeft="@dimen/margin_3"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

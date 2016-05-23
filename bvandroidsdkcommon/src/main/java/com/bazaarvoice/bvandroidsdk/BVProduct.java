@@ -31,6 +31,9 @@ public class BVProduct {
     @SerializedName("name")
     private String productName;
 
+    @SerializedName("price")
+    private String price;
+
     private boolean sponsored;
 
     private BVReview review;
@@ -63,6 +66,8 @@ public class BVProduct {
     public String getProductName() {
         return productName;
     }
+
+    public String getPrice() { return price; }
 
     public boolean isSponsored() {
         return sponsored;

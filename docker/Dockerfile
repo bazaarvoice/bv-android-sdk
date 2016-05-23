@@ -51,7 +51,7 @@ RUN ls $ANDROID_HOME/tools
 RUN chmod +x android_accept_license.sh
 RUN which android
 RUN ls $ANDROID_HOME/tools
-RUN ./android_accept_license.sh "android update sdk --no-ui --all --filter platform-tools,tools,build-tools-23.0.2,doc-23,android-23,android-22,android-21,android-19,android-17,android-16,android-15,source-23,source-22,source-21,source-19,source-17,source-16,source-15,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository,extra-google-market_apk_expansion,extra-google-market_licensing,extra-google-play_billing" "android-sdk-license-c81a61d9"
+RUN ./android_accept_license.sh "android update sdk --no-ui --all --filter platform-tools,tools,build-tools-23.0.3,doc-23,android-23,android-22,android-21,android-19,android-17,android-16,android-15,source-23,source-22,source-21,source-19,source-17,source-16,source-15,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository,extra-google-market_apk_expansion,extra-google-market_licensing,extra-google-play_billing" "android-sdk-license-c81a61d9"
 
 RUN which adb
 RUN echo $PATH

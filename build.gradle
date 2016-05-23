@@ -3,9 +3,11 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'io.fabric.tools:gradle:1.21.6'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,6 +21,7 @@ allprojects {
             url "https://oss.sonatype.org/content/repositories/snapshots"
         }
         mavenLocal()
+        maven { url 'https://maven.fabric.io/public' }
     }
 }
 
@@ -32,7 +35,7 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 23
     compileSdkVersion = 23
-    buildToolsVersion = '23.0.2'
+    buildToolsVersion = '23.0.3'
 
     // App dependencies
     supportLibraryVersion = '23.2.1'
@@ -50,6 +53,8 @@ ext {
     robolectricVersion = '2.2'
     prettyTimeVersion = '3.2.7.Final'
     ddPlistVersion = '1.16'
+    circleIndicatorVersion = '1.2.1@aar'
+    crashlyticsVersion = '2.5.6@aar'
 
     bvsdkVersion = '4.0.0-SNAPSHOT'
 

@@ -16,4 +16,6 @@
     <color name="bv_orange_1">#f09c43</color>
     <color name="bv_orange_2">#ee7e08</color>
     <color name="bv_black_1">#222222</color>
+
+    <color name="background">#f7f7f7</color>
 </resources>
