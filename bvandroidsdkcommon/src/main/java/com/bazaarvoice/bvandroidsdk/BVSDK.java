@@ -169,6 +169,7 @@ public class BVSDK{
         private String apiKeyShopperAdvertising;
         private String apiKeyConversations;
         private String apiKeyCurations;
+        private String apiKeyLocation;
         private BVLogLevel logLevel;
         private OkHttpClient okHttpClient;
 
@@ -229,6 +230,15 @@ public class BVSDK{
                 throw new IllegalArgumentException("apiKeyCurations must be valid");
             }
             this.apiKeyCurations = apiKeyCurations;
+            return this;
+        }
+
+        /**
+         * @param apiKeyLocation API Key required to access Location SDK
+         * @return
+         */
+        public Builder apiKeyLocation(String apiKeyLocation) {
+            this.apiKeyLocation = apiKeyLocation;
             return this;
         }
 
@@ -293,7 +303,7 @@ public class BVSDK{
             BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, gson, profilePollTimes);
             AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), versionName, versionCode, clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
-            BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations);
+            BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, apiKeyLocation);
 
             Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
                 @Override
@@ -429,4 +439,11 @@ public class BVSDK{
         return BVSDK_USER_AGENT;
     }
 
+    String getApiKeyLocation() {
+        return apiKeys.getApiKeyLocations();
+    }
+
+    Application getApplication() {
+        return application;
+    }
 }

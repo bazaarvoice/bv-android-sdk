@@ -19,7 +19,8 @@ ext {
 
     sdkBuildDep = [
             androidPlugin       : 'com.android.tools.build:gradle:2.1.2',
-            credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1'
+            credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
+            playServicesPlugin  : 'com.google.gms:google-services:3.0.0'
     ]
 
     sdkDep = [
@@ -30,6 +31,11 @@ ext {
             recyclerview        : "com.android.support:recyclerview-v7:$sdkSharedVersions.supportLibraryVersion",
             appCompatV7         : "com.android.support:appcompat-v7:$sdkSharedVersions.supportLibraryVersion",
             designCompat        : "com.android.support:design:$sdkSharedVersions.supportLibraryVersion"
+            firebaseCore        : "com.google.firebase:firebase-core:$playServicesVersion",
+            bvSdk               : '4.0.0-SNAPSHOT',
+            gimbal              : "com.gimbal.android.v2:gimbal-sdk:$gimbalVersion",
+            gimbalSLF4J         : "com.gimbal.android.v2:gimbal-slf4j-impl:$gimbalVersion",
+            slf4jApi            : 'org.slf4j:slf4j-api:1.7.21'
     ]
 
     sdkTestDep = [

@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.utils;
 public class DemoConfig {
     public String apiKeyConversations;
     public String apiKeyCurations;
+    public String apiKeyLocation;
     public String apiKeyShopperAdvertising;
     public String clientId;
     public String displayName;
@@ -13,12 +14,13 @@ public class DemoConfig {
     public DemoConfig() {
     }
 
-    public DemoConfig(String apiKeyConversations, String apiKeyCurations, String apiKeyShopperAdvertising, String clientId, String displayName) {
+    public DemoConfig(String apiKeyConversations, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocation, String clientId, String displayName) {
         this.apiKeyConversations = apiKeyConversations;
         this.apiKeyCurations = apiKeyCurations;
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
         this.clientId = clientId;
         this.displayName = displayName;
+        this.apiKeyLocation = apiKeyLocation;
     }
 
     public boolean hasConversations() {
@@ -31,6 +33,10 @@ public class DemoConfig {
 
     public boolean hasShopperAds() {
         return apiKeyShopperAdvertising != null && !apiKeyShopperAdvertising.equals("REPLACE_ME");
+    }
+
+    public boolean hasLocation() {
+        return apiKeyLocation != null && !apiKeyLocation.equals("REPLACE_ME");
     }
 
     public boolean isDemoClient() {
@@ -49,6 +55,9 @@ public class DemoConfig {
         }
         if (hasShopperAds()) {
             summary.append("shopper advertising, ");
+        }
+        if (hasLocation()) {
+            summary.append("location, ");
         }
 
         summary.delete(summary.length() - 2, summary.length());

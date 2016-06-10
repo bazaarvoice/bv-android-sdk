@@ -50,6 +50,7 @@ public abstract class BVBaseTest {
     String curationsApiBaseUrl;
     String curationsPostApiBaseUrl;
     String shopperMarketingApiBaseUrl;
+    String locationsApiBaseUrl;
 
     BazaarEnvironment environment;
     BVLogLevel bvLogLevel;
@@ -76,7 +77,7 @@ public abstract class BVBaseTest {
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs
         Logger.setLogLevel(bvLogLevel);
-        BVApiKeys keys = new BVApiKeys(shopperAdvertisingApiKey, conversationApiKey, curationsApiKey);
+        BVApiKeys keys = new BVApiKeys(shopperAdvertisingApiKey, conversationApiKey, curationsApiKey, locationsApiBaseUrl);
         BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl, conversationsApiBaseUrl);
         BVSDK.singleton = new BVSDK(RuntimeEnvironment.application, clientId, environment, keys, bvLogLevel, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, rootApiUrls, handler);
     }
