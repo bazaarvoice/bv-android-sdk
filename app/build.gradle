@@ -108,6 +108,7 @@ dependencies {
     compile project(':bvandroidsdkrecommendations')
     compile project(':bvandroidsdkconversations')
     compile project(':bvandroidsdkcurations')
+    compile project(':bvandroidsdklocation')
 
 //    compile demoAppDep.bvSdkAds
 //    compile demoAppDep.bvSdkRecommendations
@@ -147,6 +148,7 @@ dependencies {
         transitive = true;
     }
 }
+
 
 
 

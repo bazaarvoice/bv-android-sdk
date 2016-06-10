@@ -10,11 +10,13 @@ class BVApiKeys {
     final String apiKeyShopperAdvertising;
     final String apiKeyConversations;
     final String apiKeyCurations;
+    final String apiKeyLocations;
 
-    public BVApiKeys(String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations) {
+    public BVApiKeys(String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations, String apiKeyLocations) {
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
         this.apiKeyConversations = apiKeyConversations;
         this.apiKeyCurations = apiKeyCurations;
+        this.apiKeyLocations = apiKeyLocations;
     }
 
     public String getApiKeyShopperAdvertising() {
@@ -27,5 +29,9 @@ class BVApiKeys {
 
     public String getApiKeyCurations() {
         return apiKeyCurations;
+    }
+
+    public String getApiKeyLocations() {
+        return apiKeyLocations;
     }
 }

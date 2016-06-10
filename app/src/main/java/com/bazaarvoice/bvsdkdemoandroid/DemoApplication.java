@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid;
 
 import android.app.Application;
 
+import com.bazaarvoice.bvandroidsdk.BVLogLevel;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
@@ -60,6 +61,7 @@ public class DemoApplication extends Application {
         String shopperAdvertisingApiKey = demoConfigUtils.getShopperAdPasskey();
         String conversationsApiKey = demoConfigUtils.getConversationsPasskey();
         String curationsApiKey = demoConfigUtils.getCurationsPasskey();
+        String locationApiKey = demoConfigUtils.getLocationPasskey();
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -72,7 +74,8 @@ public class DemoApplication extends Application {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .apiKeyConversations(conversationsApiKey)
                 .apiKeyCurations(curationsApiKey)
-                .logLevel(DemoConstants.LOG_LEVEL)
+                .apiKeyLocation(locationApiKey)
+                .logLevel(BVLogLevel.VERBOSE)
                 .okHttpClient(okHttpClient)
                 .build();
 

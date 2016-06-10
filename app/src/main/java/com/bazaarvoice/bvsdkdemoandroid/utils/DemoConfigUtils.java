@@ -65,6 +65,11 @@ public class DemoConfigUtils {
         return config.apiKeyCurations;
     }
 
+    public String getLocationPasskey() {
+        DemoConfig config = DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
+        return config.apiKeyLocation;
+    }
+
     public DemoConfig getCurrentConfig() {
         return DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
     }

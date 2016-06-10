@@ -6,6 +6,11 @@
     <string name="greeting_message">Welcome to the Bazaarvoice Android SDK demo app. Explore the menu above to see example implementions of each component of the modularized SDK.\n\nBe
         sure to visit <a href="https://bazaarvoice.github.io/bv-android-sdk">https://bazaarvoice.github.io/bv-android-sdk</a> for full documentation.</string>
 
+     <string name="greeting_message_location">The Location module of the BVSDK allows your mobile app to receive notifications when a user enters and/or exits your physical store location.
+         Use of this module requires a Location API and Client ID, which are provided by Bazaarvoice.\n\n
+         For example implementation details, please refer to the DemoLocationFragment class.</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_banner_ad">Banner Ad Example</string>
@@ -32,6 +37,7 @@
     <string name="demo_ads">Advertisements</string>
     <string name="demo_conversations">Conversations</string>
     <string name="demo_curations">Curations</string>
+    <string name="demo_location">Location</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 

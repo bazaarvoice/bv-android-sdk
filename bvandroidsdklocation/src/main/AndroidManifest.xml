@@ -1,0 +1,36 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bazaarvoice.bvandroidsdk">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+    <service
+        android:name="com.gimbal.internal.service.GimbalService"
+        android:exported="false" >
+        <intent-filter>
+            <action android:name="com.bazaarvoice.bvandroidsdk.service.GIMBAL_SERVICE" />
+        </intent-filter>
+    </service>
+
+    <receiver
+        android:name="com.gimbal.internal.service.GimbalServiceStartStopReceiver"
+        android:enabled="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+        </intent-filter>
+    </receiver>
+
+</manifest>

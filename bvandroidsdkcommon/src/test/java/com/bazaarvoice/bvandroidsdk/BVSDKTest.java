@@ -40,6 +40,7 @@ public class BVSDKTest {
     String curationsApiBaseUrl;
     String curationsPostApiBaseUrl;
     String curationsApiKey;
+    String locationApiKey;
 
     @Mock ExecutorService executorService;
     @Mock AnalyticsManager analyticsManager;
@@ -59,6 +60,7 @@ public class BVSDKTest {
         shopperAdvertisingApiKey = "foobar-bvtestshopperadvertisingid";
         conversationsApiKey = "bazquux-bvtestconversationsid";
         curationsApiKey = "bazquux-bvtestcurationsid";
+        locationApiKey = "bazquux-bvtestlocationid";
 
         bvLogLevel = BVLogLevel.WARNING;
         gson = new Gson();
@@ -68,7 +70,7 @@ public class BVSDKTest {
         analyticsManager = mock(AnalyticsManager.class);
         bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
         bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
-        keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, curationsApiKey);
+        keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, curationsApiKey, locationApiKey);
         rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl, conversationsApiBaseUrl);
 
         RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");

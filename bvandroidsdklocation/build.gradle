@@ -1,0 +1,56 @@
+buildscript {
+    dependencies {
+        classpath dep.androidPlugin
+        classpath dep.credentialsPlugin
+        classpath dep.playServicesPlugin
+        classpath dep.credentialsPlugin
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+    buildTypes {
+        NEXUS_USER {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile project(':bvandroidsdkcommon')
+    compile dep.gimbal
+    compile dep.gimbalSLF4J
+    compile dep.slf4jApi
+    compile dep.playServiceAds
+    compile dep.appCompatV7
+    compile dep.firebaseCore
+
+    testCompile dep.junit
+}
+
+apply from: rootProject.file('gradle/setup-signing.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+apply plugin: 'com.google.gms.google-services'

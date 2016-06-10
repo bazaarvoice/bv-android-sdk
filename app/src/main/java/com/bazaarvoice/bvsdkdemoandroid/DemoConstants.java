@@ -18,6 +18,7 @@ public class DemoConstants {
     public static final String PASSKEY_SHOPPER_AD = "REPLACE_ME";
     public static final String PASSKEY_CONVERSATIONS = "REPLACE_ME";
     public static final String PASSKEY_CURATIONS = "REPLACE_ME";
+    public static final String PASSKEY_LOCATION = "REPLACE_ME";
 
     // Bazaarvoice environments, NOTE! Turn to PRODUCTION for production apps
     public static final BazaarEnvironment ENVIRONMENT = BazaarEnvironment.STAGING;
