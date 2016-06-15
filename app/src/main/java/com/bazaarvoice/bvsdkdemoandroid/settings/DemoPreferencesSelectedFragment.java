@@ -24,7 +24,19 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preferences_selected);
         updateNewConfig(DemoConfigUtils.getInstance(getContext()).getCurrentConfig());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getContext().getSharedPreferences(DemoConfigUtils.CONFIG_SHARED_PREFS, Context.MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this);
+
+    }
+
+    @Override
+    public void onPause() {
+        getContext().getSharedPreferences(DemoConfigUtils.CONFIG_SHARED_PREFS, Context.MODE_PRIVATE).unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
     }
 
     @Override
