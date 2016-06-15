@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsPostCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
-import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.ads.AdsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;

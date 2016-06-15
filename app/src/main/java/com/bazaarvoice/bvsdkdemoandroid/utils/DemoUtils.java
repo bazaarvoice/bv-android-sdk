@@ -15,8 +15,8 @@ public class DemoUtils {
 
     private static DemoUtils instance;
 
-    public static int MAX_IMAGE_WIDTH = 1440;
-    public static int MAX_IMAGE_HEIGHT = 2560;
+    public static final int MAX_IMAGE_WIDTH = 1440;
+    public static final int MAX_IMAGE_HEIGHT = 2560;
 
     private Picasso picasso;
     private Context applicationContext;

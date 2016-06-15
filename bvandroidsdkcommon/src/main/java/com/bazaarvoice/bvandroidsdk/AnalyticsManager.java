@@ -6,6 +6,11 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.os.Build;
 
+import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -18,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
 
@@ -55,7 +63,7 @@ class AnalyticsManager {
         this.okHttpClient = okHttpClient;
         this.clientId = clientId;
         this.bazaarEnvironment = environment;
-        this.url = getAnalyticsUrlAppDemo(environment);
+        this.url = getAnalyticsUrl(environment);
         scheduledExecutorService.scheduleWithFixedDelay(new BvAnalyticsTask(), ANALYTICS_START_DELAY_SECONDS, ANALYTICS_DELAY_SECONDS, TimeUnit.SECONDS);
         this.immediateExecutorService = immediateExecutorService;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
@@ -74,7 +82,7 @@ class AnalyticsManager {
         });
     }
 
-    private URL getAnalyticsUrlAppDemo(BazaarEnvironment environment) {
+    private URL getAnalyticsUrl(BazaarEnvironment environment) {
         URL url = null;
         try {
             url = new URL(environment == BazaarEnvironment.STAGING ? BASEURLSTAGING : BASEURL);
@@ -89,20 +97,63 @@ class AnalyticsManager {
         @Override
         public void run() {
             synchronized (AnalyticsManager.this) {
-                if (eventQueue.isEmpty()) {
-                    return;
-                }
+                if (!BuildConfig.ANALYTICS_ENABLED) {
+                    if (eventQueue.isEmpty()) {
+                        return;
+                    }
 
-                Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
-                batch.put("batch", eventQueue);
+                    Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
+                    batch.put("batch", eventQueue);
 
-                int numEvents = eventQueue.size();
+                    int numEvents = eventQueue.size();
 
-                Utils.printAnalytics(eventQueue);
+                    Utils.printAnalytics(eventQueue);
 
-                Logger.d("Analytics", "Successfully saw " + numEvents + " events. Not sending for demo app.");
-                if (!eventQueue.isEmpty()) {
-                    eventQueue.clear();
+                    Logger.d("Analytics", "Successfully saw " + numEvents + " events. Not sending for demo app.");
+                    if (!eventQueue.isEmpty()) {
+                        eventQueue.clear();
+                    }
+                } else {
+
+                    Response response = null;
+                    try {
+                        if (eventQueue.isEmpty()) {
+                            return;
+                        }
+
+                        Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
+                        batch.put("batch", eventQueue);
+
+                        int numEvents = eventQueue.size();
+
+                        JSONObject batchToSend = new JSONObject(batch);
+
+                        RequestBody body = RequestBody.create(JSON, batchToSend.toString());
+                        Logger.v(TAG, url.toString() + "\n" + batchToSend.toString());
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .header("Content-Type", "application/json")
+                                .header("X-Requested-With", "XMLHttpRequest")
+                                .post(body)
+                                .build();
+
+                        response = okHttpClient.newCall(request).execute();
+
+                        if (response.isSuccessful()) {
+                            Logger.d("Analytics", "Successfully posted " + numEvents + " events");
+                        } else {
+                            Logger.d("Analytics", "Unsuccessfully posted Events: " + response.code());
+                        }
+                    } catch (IOException e) {
+                        Logger.e(TAG, "Failed to send analytics event", e);
+                    } finally {
+                        if (!eventQueue.isEmpty()) {
+                            eventQueue.clear();
+                        }
+                        if (response != null && response.body() != null) {
+                            response.body().close();
+                        }
+                    }
                 }
             }
         }

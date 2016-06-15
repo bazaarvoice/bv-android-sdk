@@ -32,8 +32,8 @@ import android.widget.ViewSwitcher;
  */
 class ProductAdapter extends BaseAdapter {
 
-	private final int RATING_BAR = 0;
-	private final int NO_RATING = 1;
+	private static final int RATING_BAR = 0;
+	private static final int NO_RATING = 1;
 
 	private ArrayList<BazaarProduct> products;
 	private LayoutInflater inflater;

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVCurations;
+import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsAuthor;
 import com.bazaarvoice.bvandroidsdk.CurationsLink;
 import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
@@ -22,6 +23,9 @@ import com.bazaarvoice.bvandroidsdk.CurationsPostRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -30,7 +34,7 @@ import java.util.List;
 
 public class DemoCurationsPostActivity extends AppCompatActivity implements CurationsPostCallback, Target {
     private static final int SELECT_PICTURE = 1;
-
+    private static final int IMAGE_HEIGHT = DemoUtils.MAX_IMAGE_HEIGHT/3;
     private TextView commentText;
     private TextView aliasTokenText;
     private ImageView chosenImageView;
@@ -47,11 +51,17 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
         progressBar.setVisibility(View.GONE);
         commentText = (TextView) findViewById(R.id.curationsCommentText);
         aliasTokenText = (TextView) findViewById(R.id.curationsNicknameText);
+        chosenImageView = (ImageView) findViewById(R.id.curationsPostImageView);
 
         postBtn = (Button) findViewById(R.id.curationsPostBtn);
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (DemoConfigUtils.getInstance(DemoCurationsPostActivity.this).isDemoClient()) {
+                    DemoCurationsPostActivity.this.onSuccess(DemoDataUtil.getInstance(DemoCurationsPostActivity.this).getCurationsPostResponse());
+                    return;
+                }
+
                 postCurationsContent();
             }
         });
@@ -103,17 +113,21 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
 
         long timestampInSeconds = System.currentTimeMillis() / 1000;
 
-        CurationsPostRequest request = new CurationsPostRequest.Builder(author, DemoConstants.CURATIONS_GROUPS, text, chosenBmp) //required params
-                //Optional Params
-                .timestampInSeconds(timestampInSeconds)
-                //                .place("HUMAN READABLE PLACE HERE such as 'Austin, TX'")
-                //                .tags(tags)
-                //                .teaser("YOU TEASER HERE")
-                //                .permalink("DESIRED PERMALINK HERE")
-                //                .links(links)
-                .build();
+        if (DemoConstants.ENVIRONMENT == BazaarEnvironment.STAGING) {
+            CurationsPostRequest request = new CurationsPostRequest.Builder(author, DemoConstants.CURATIONS_GROUPS, text, chosenBmp) //required params
+                    //Optional Params
+                    .timestampInSeconds(timestampInSeconds)
+                    //                .place("HUMAN READABLE PLACE HERE such as 'Austin, TX'")
+                    //                .tags(tags)
+                    //                .teaser("YOU TEASER HERE")
+                    //                .permalink("DESIRED PERMALINK HERE")
+                    //                .links(links)
+                    .build();
 
-        curations.postContentToCurations(request, this);
+            // curations.postContentToCurations(request, this);
+        } else {
+            onSuccess(DemoDataUtil.getInstance(this).getCurationsPostResponse());
+        }
     }
 
     @Override
@@ -136,7 +150,6 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
         chosenBmp = bitmap;
 
         if (chosenBmp != null){
-            chosenImageView = (ImageView) findViewById(R.id.curationsPostImageView);
             chosenImageView.setImageBitmap(chosenBmp);
         }
     }
@@ -158,9 +171,12 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
                 imageUri = selectedImageUri;
 
                 try {
-                    Picasso.with(this).load(imageUri).into(this);
-                } catch (Exception e) {e.printStackTrace();
-
+                    Picasso.with(this)
+                            .load(imageUri)
+                            .resize(0, IMAGE_HEIGHT)
+                            .into(this);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }

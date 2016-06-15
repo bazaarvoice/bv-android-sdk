@@ -39,7 +39,7 @@ import java.util.ArrayList;
  * TODO: Description Here
  */
 public class ProductsActivity extends Activity {
-	protected final String TAG = "ProductsActivity";
+	protected static final String TAG = "ProductsActivity";
 
     private ListView productList;
 	private ProductAdapter listAdapter;

@@ -10,6 +10,7 @@ public interface DemoProductRecContract {
         void showRecommendations(List<BVProduct> bvProducts);
         void showLoadingRecs(boolean show);
         void showNoRecommendations();
+        void showError();
         void showRecMessage(String message);
     }
 

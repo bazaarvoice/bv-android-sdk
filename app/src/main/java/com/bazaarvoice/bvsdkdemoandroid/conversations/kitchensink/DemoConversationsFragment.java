@@ -360,7 +360,8 @@ public class DemoConversationsFragment extends Fragment {
     public static byte[] toByteArray(InputStream is) throws IOException{
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int reads = is.read();
-        while(reads != -1){ baos.write(reads);
+        while(reads != -1) {
+            baos.write(reads);
             reads = is.read();
         }
         return baos.toByteArray();

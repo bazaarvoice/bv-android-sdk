@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.bazaarvoice.bvsdkdemoandroid.BuildConfig;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 
 /**
@@ -27,6 +30,9 @@ public class DemoSettingsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_action_navigation_arrow_back);
+
+        ViewGroup selectedFragContainer = (ViewGroup) findViewById(R.id.frag_selected_container);
+        selectedFragContainer.setVisibility(BuildConfig.DEBUG ? View.VISIBLE : View.GONE);
     }
 
     public static void transitionTo(Activity activity) {

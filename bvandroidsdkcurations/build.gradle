@@ -1,8 +1,24 @@
+buildscript {
+    dependencies {
+        classpath dep.androidPlugin
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
+    }
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -17,32 +33,23 @@ android {
         }
     }
 
-    publishNonDefault true // Tell Android Gradle Plugin to allow flavors for library
-    productFlavors {
-        appdemo {} // App Demo Flavor which avoids hitting the network needlessly
-        sdk {} // SDK Flavor which hits network as expected for the public NEXUS_USERs
-    }
-
     lintOptions {
         abortOnError false
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':bvandroidsdkcommon')
+    provided dep.gson
 
-    appdemoCompile project(path: ':bvandroidsdkcommon', configuration: 'appdemoRelease')
-    sdkCompile project(path: ':bvandroidsdkcommon', configuration: 'sdkRelease')
-    provided "com.google.code.gson:gson:$rootProject.gsonVersion"
-
-    testCompile "junit:junit:$rootProject.junitVersion"
-    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
-    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
-    testCompile "com.squareup.okhttp3:mockwebserver:$rootProject.mockWebServerVersion"
-    testCompile "org.robolectric:robolectric:$rootProject.robolectricVersion"
+    testCompile dep.junit
+    testCompile dep.mockito
+    testCompile dep.hamcrest
+    testCompile dep.mockWebServer
+    testCompile dep.robolectric
 }
 
-apply from: '../gradle-mvn-push.gradle'
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
 afterEvaluate { project ->
     android.libraryVariants.all { variant ->

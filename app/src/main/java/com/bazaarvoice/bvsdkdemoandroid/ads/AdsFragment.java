@@ -87,7 +87,7 @@ public class AdsFragment extends Fragment {
         String displayName = currentConfig.displayName;
 
         if (!DemoConstants.isSet(shopperAdKey)) {
-            String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_recommendations));
+            String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_ads));
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(errorMessage);
             builder.setNegativeButton("Ok", null).create().show();

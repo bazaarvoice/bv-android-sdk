@@ -33,11 +33,6 @@ public class DemoAdPresenter implements DemoAdContract.UserActionsListener, Nati
 
     @Override
     public void loadAd(boolean forceRefresh) {
-        if (demoConfigUtils.isDemoClient()) {
-            view.showAd(null);
-            return;
-        }
-
         if (nativeContentAd != null) {
             view.showAd(nativeContentAd);
             return;

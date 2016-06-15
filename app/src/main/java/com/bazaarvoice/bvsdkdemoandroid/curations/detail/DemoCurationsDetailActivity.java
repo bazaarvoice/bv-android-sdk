@@ -1,8 +1,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.curations.detail;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
@@ -19,10 +18,9 @@ public class DemoCurationsDetailActivity extends AppCompatActivity {
     public static final String CURRATIONS_UPDATE_KEY = "currationsupdatebundlekey";
     public static final String CURRATIONS_UPDATE_IDX_KEY = "currationsupdateidxbundlekey";
 
-    private final int fragContainerId = R.id.curations_main_content;
-    private int currentUpdateIdx = 0;
+    private ViewPager viewPager;
+    private DemoCurationsDetailPagerAdapter pagerAdapter;
 
-    private List<CurationsFeedItem> updates;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,37 +29,22 @@ public class DemoCurationsDetailActivity extends AppCompatActivity {
         Type listType = new TypeToken<List<CurationsFeedItem>>() {
         }.getType();
 
-        updates = gson.fromJson(getIntent().getStringExtra(CURRATIONS_UPDATE_KEY), listType);
-        currentUpdateIdx = getIntent().getIntExtra(CURRATIONS_UPDATE_IDX_KEY, 0);
-        transitionToUpdate();
-    }
+        List<CurationsFeedItem> curationsFeedItems = gson.fromJson(getIntent().getStringExtra(CURRATIONS_UPDATE_KEY), listType);
 
-    private void transitionToUpdate() {
-        CurationsFeedItem curationsUpdate = updates.get(currentUpdateIdx);
-        Fragment fragment = DemoCurationsDetailFragment.newInstance(curationsUpdate, (currentUpdateIdx != updates.size() -1)? currentUpdateIdx : Integer.MAX_VALUE);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(fragContainerId, fragment);
-        transaction.commit();
+        viewPager = (ViewPager) findViewById(R.id.curations_view_pager);
+        pagerAdapter = new DemoCurationsDetailPagerAdapter(getSupportFragmentManager(), curationsFeedItems);
+        viewPager.setAdapter(pagerAdapter);
+
+        int currentUpdateIdx = getIntent().getIntExtra(CURRATIONS_UPDATE_IDX_KEY, 0);
+        viewPager.setCurrentItem(currentUpdateIdx, false);
     }
 
     public void goBackUpdate(){
-
-        currentUpdateIdx--;
-        if (currentUpdateIdx < 0){
-            currentUpdateIdx = 0;
-        }else {
-            transitionToUpdate();
-        }
+        viewPager.setCurrentItem(viewPager.getCurrentItem()-1, true);
     }
 
     public void goForwardUpdate(){
-
-        currentUpdateIdx++;
-        if (currentUpdateIdx > updates.size() - 1){
-            currentUpdateIdx = updates.size();
-        }else {
-            transitionToUpdate();
-        }
+        viewPager.setCurrentItem(viewPager.getCurrentItem()+1, true);
     }
 
 }

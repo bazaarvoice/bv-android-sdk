@@ -3,8 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.detail;
 
-import android.util.Log;
-
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
@@ -50,7 +48,7 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
         DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
         List<BVProduct> demoBvProds = demoDataUtil.getRecommendedProducts();
         if (currentConfig.isDemoClient()) {
-            showRecommendedProducts(demoBvProds);
+            showRecommendedProducts(demoBvProds, true);
             return;
         }
 
@@ -70,33 +68,37 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
                 recs.getRecommendedProducts(NUM_RECS, this);
             }
         } else {
-            showRecommendedProducts(DemoProductsCache.getInstance().getData());
+            showRecommendedProducts(DemoProductsCache.getInstance().getData(), true);
         }
     }
 
     @Override
     public void onSuccess(List<BVProduct> recommendedProducts) {
-        showRecommendedProducts(recommendedProducts);
+        showRecommendedProducts(recommendedProducts, true);
     }
 
     @Override
     public void onFailure(Throwable throwable) {
         throwable.printStackTrace();
         view.showRecMessage("Failed to get recommended products");
-        showRecommendedProducts(Collections.<BVProduct>emptyList());
+        showRecommendedProducts(Collections.<BVProduct>emptyList(), false);
     }
 
-    private void showRecommendedProducts(List<BVProduct> recommendedProducts) {
+    private void showRecommendedProducts(List<BVProduct> recommendedProducts, boolean success) {
         view.showLoadingRecs(false);
         if (isHomePage) {
             DemoProductsCache.getInstance().clear();
         }
         DemoProductsCache.getInstance().putData(recommendedProducts);
 
-        if (recommendedProducts.size() > 0) {
-            view.showRecommendations(recommendedProducts);
+        if (success) {
+            if (recommendedProducts.size() > 0) {
+                view.showRecommendations(recommendedProducts);
+            } else {
+                view.showNoRecommendations();
+            }
         } else {
-            view.showNoRecommendations();
+            view.showError();
         }
     }
 
