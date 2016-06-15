@@ -8,6 +8,7 @@ import android.content.Context;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
+import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.bazaarvoice.bvandroidsdk.ShopperProfile;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarAnswer;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarProduct;
@@ -37,6 +38,7 @@ public class DemoDataUtil {
     private List<BazaarReview> savedConversationsReviews;
     private List<BazaarQuestion> savedConversationsQuestions;
     private Gson gson;
+    private CurationsPostResponse curationsPostResponse;
 
     private DemoDataUtil(Context context) {
         applicationContext = context.getApplicationContext();
@@ -198,5 +200,17 @@ public class DemoDataUtil {
         JSONArray resultsJsonArray = response.getJSONArray("Results");
         JSONObject productJsonObj = resultsJsonArray.getJSONObject(0);
         return new BazaarProduct(productJsonObj);
+    }
+
+    public CurationsPostResponse getCurationsPostResponse() {
+        CurationsPostResponse curationsPostResponse = null;
+        try {
+            InputStream inputStream = applicationContext.getAssets().open("post_successfulCreation.json");
+            Reader reader = new InputStreamReader(inputStream);
+            curationsPostResponse = gson.fromJson(reader, CurationsPostResponse.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return curationsPostResponse;
     }
 }

@@ -37,7 +37,6 @@ import com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActi
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoInfoDialogFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
@@ -210,13 +209,6 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     private View.OnClickListener curationsSubmitClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (DemoConfigUtils.getInstance(DemoFancyProductDetailActivity.this).isDemoClient()) {
-                DemoInfoDialogFragment
-                        .newInstance(getString(R.string.demo_sdk_not_configured), getString(R.string.demo_need_curations_key))
-                        .show(getSupportFragmentManager(), "PostCurationsDemoFrag");
-                return;
-            }
-
             Intent intent = new Intent(DemoFancyProductDetailActivity.this, DemoCurationsPostActivity.class);
             startActivity(intent);
         }
@@ -274,6 +266,11 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         noRecsFoundTextView.setVisibility(View.VISIBLE);
         getRecsProgressBar.setVisibility(View.GONE);
         recAdapter.refreshRecs(Collections.<BVProduct>emptyList());
+    }
+
+    @Override
+    public void showError() {
+
     }
 
     @Override

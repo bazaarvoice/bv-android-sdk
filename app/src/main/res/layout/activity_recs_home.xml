@@ -24,11 +24,13 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@android:color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/pager_container"
@@ -50,7 +52,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/content_container"
+                android:id="@+id/content_title_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/pager_container">
@@ -59,7 +61,7 @@
                     android:id="@+id/prod_rec_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Product Recommendations"
+                    android:text="Recommendations"
                     android:layout_marginLeft="@dimen/margin_3"
                     android:layout_marginTop="@dimen/margin_3"
                     android:textSize="@dimen/text_size_title"
@@ -68,14 +70,34 @@
                 <com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView
                     android:id="@+id/rec_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/prod_rec_title"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/content_title_container"
+                android:layout_alignParentBottom="true">
 
                 <TextView
                     android:id="@+id/no_recs_found"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No Recommendations Found"
+                    android:textSize="@dimen/text_size_body_1"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/error_recs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="An Error Occurred"
+                    android:textSize="@dimen/text_size_body_1"
+                    android:layout_centerInParent="true"
                     android:visibility="gone"/>
 
                 <ProgressBar

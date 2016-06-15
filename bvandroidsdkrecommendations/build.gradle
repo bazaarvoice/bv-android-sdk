@@ -1,12 +1,23 @@
+buildscript {
+    dependencies {
+        classpath dep.androidPlugin
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
     dexOptions {
-        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
-        preDexLibraries = preDexEnabled && !travisBuild
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
     }
 
     defaultConfig {
@@ -22,32 +33,22 @@ android {
         }
     }
 
-    publishNonDefault true // Tell Android Gradle Plugin to allow flavors for library
-    productFlavors {
-        appdemo {} // App Demo Flavor which avoids hitting the network needlessly
-        sdk {} // SDK Flavor which hits network as expected for the public releases
-    }
-
     lintOptions {
         abortOnError false
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':bvandroidsdkcommon')
+    provided dep.recyclerview
+    provided dep.gson
 
-    appdemoCompile project(path: ':bvandroidsdkcommon', configuration: 'appdemoRelease')
-    sdkCompile project(path: ':bvandroidsdkcommon', configuration: 'sdkRelease')
-    provided "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-
-    provided "com.google.code.gson:gson:$rootProject.gsonVersion"
-
-    testCompile "junit:junit:$rootProject.junitVersion"
-    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
-    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+    testCompile dep.junit
+    testCompile dep.mockito
+    testCompile dep.hamcrest
 }
 
-apply from: '../gradle-mvn-push.gradle'
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
 afterEvaluate { project ->
     android.libraryVariants.all { variant ->

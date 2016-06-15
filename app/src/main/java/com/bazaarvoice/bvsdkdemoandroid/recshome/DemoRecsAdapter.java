@@ -146,9 +146,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
         Picasso picasso = demoUtils.picassoThumbnailLoader();
 
         RequestCreator requestCreator = null;
-        if (demoConfigUtils.isDemoClient()) {
-            requestCreator = picasso.load(R.drawable.endurance_ad_3);
-        } else if (nativeContentAd != null) {
+        if (nativeContentAd != null) {
             List<NativeAd.Image> images = nativeContentAd.getImages();
             if (images != null && images.size() > 0) {
                 Uri adViewImageUri = images.get(0).getUri();

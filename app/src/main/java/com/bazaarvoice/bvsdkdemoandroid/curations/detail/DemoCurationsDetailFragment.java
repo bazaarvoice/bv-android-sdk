@@ -30,6 +30,7 @@ import com.bazaarvoice.bvandroidsdk.CurationsVideo;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -50,21 +51,26 @@ public class DemoCurationsDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     private static final String ITEM_PARAM = "param1";
     private static final String IDX_PARAM = "param2";
+    private static final String ARG_SHOW_LEFT_ARROW = "arg_show_left_arrow";
+    private static final String ARG_SHOW_RIGHT_ARROW = "arg_show_right_arrow";
 
     private CurationsFeedItem feedItem;
     private DemoCurationsProductsAdapter adapter;
     private int itemIDX;
+    private boolean showLeftArrow, showRightArrow;
 
     public DemoCurationsDetailFragment() {
         // Required empty public constructor
     }
 
-    public static DemoCurationsDetailFragment newInstance(CurationsFeedItem update, int itemIDX) {
+    public static DemoCurationsDetailFragment newInstance(CurationsFeedItem update, int itemIDX, boolean showLeftArrow, boolean showRightArrow) {
         DemoCurationsDetailFragment fragment = new DemoCurationsDetailFragment();
         Bundle args = new Bundle();
         args.putInt(IDX_PARAM, itemIDX);
         Gson gson = new GsonBuilder().create();
         args.putString(ITEM_PARAM, gson.toJson(update));
+        args.putBoolean(ARG_SHOW_LEFT_ARROW, showLeftArrow);
+        args.putBoolean(ARG_SHOW_RIGHT_ARROW, showRightArrow);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,6 +82,8 @@ public class DemoCurationsDetailFragment extends Fragment {
             Gson gson = new GsonBuilder().create();
             feedItem = gson.fromJson(getArguments().getString(ITEM_PARAM), CurationsFeedItem.class);
             itemIDX = getArguments().getInt(IDX_PARAM);
+            showLeftArrow = getArguments().getBoolean(ARG_SHOW_LEFT_ARROW);
+            showRightArrow = getArguments().getBoolean(ARG_SHOW_RIGHT_ARROW);
         }
     }
 
@@ -89,31 +97,37 @@ public class DemoCurationsDetailFragment extends Fragment {
         setupSocialPostPreview(view);
 
         ImageButton lBtn = (ImageButton) view.findViewById(R.id.leftBtn);
-        if (itemIDX > 0) {
+        if (showLeftArrow) {
             lBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     goBackUpdate();
                 }
             });
-        }else{
+            lBtn.setVisibility(View.VISIBLE);
+        } else {
             lBtn.setVisibility(View.GONE);
         }
 
         ImageButton rBtn = (ImageButton) view.findViewById(R.id.rightBtn);
-        if (itemIDX != Integer.MAX_VALUE){
+        if (showRightArrow){
             rBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     goForwardUpdate();
                 }
             });
-        }else {
+            rBtn.setVisibility(View.VISIBLE);
+        } else {
             rBtn.setVisibility(View.GONE);
         }
 
         ImageView profPic = (ImageView) view.findViewById(R.id.profPic);
-        Picasso.with(view.getContext()).load(feedItem.getAuthor().getAvatarUrl()).placeholder(R.drawable.placeholder).into(profPic);
+        Picasso picasso = DemoUtils.getInstance(view.getContext()).picassoThumbnailLoader();
+        picasso.load(feedItem.getAuthor().getAvatarUrl())
+                .placeholder(R.drawable.placeholderimg)
+                .resizeDimen(R.dimen.side_not_set, R.dimen.product_image_height_detail)
+                .into(profPic);
 
         TextView name = (TextView) view.findViewById(R.id.curations_name_field);
         name.setText(feedItem.getAuthor().getAlias());
@@ -127,8 +141,7 @@ public class DemoCurationsDetailFragment extends Fragment {
             uName.setText(Html.fromHtml("<a href='" + feedItem.getAuthor().getProfileUrl() + "'>" + feedItem.getAuthor().getUsername() + "</a>"));
             uName.setClickable(true);
             uName.setMovementMethod(LinkMovementMethod.getInstance());
-        }else
-        {
+        } else {
             uName.setText("");
         }
 
@@ -186,11 +199,17 @@ public class DemoCurationsDetailFragment extends Fragment {
     }
 
     private void goBackUpdate(){
-        ((DemoCurationsDetailActivity)getActivity()).goBackUpdate();
+        DemoCurationsDetailActivity demoCurationsDetailActivity = (DemoCurationsDetailActivity) getActivity();
+        if (!demoCurationsDetailActivity.isFinishing()) {
+            ((DemoCurationsDetailActivity) getActivity()).goBackUpdate();
+        }
     }
 
     private void goForwardUpdate(){
-        ((DemoCurationsDetailActivity)getActivity()).goForwardUpdate();
+        DemoCurationsDetailActivity demoCurationsDetailActivity = (DemoCurationsDetailActivity) getActivity();
+        if (!demoCurationsDetailActivity.isFinishing()) {
+            ((DemoCurationsDetailActivity) getActivity()).goForwardUpdate();
+        }
     }
 
     private void setupSocialPostPreview(final View view){
@@ -200,7 +219,12 @@ public class DemoCurationsDetailFragment extends Fragment {
 
         if (feedItem.getPhotos().size() > 0) {
             CurationsPhoto photo = feedItem.getPhotos().get(0);
-            Picasso.with(view.getContext()).load(photo.getLocalUrl()).placeholder(R.drawable.placeholderimg).into(imageView);
+            Picasso picasso = DemoUtils.getInstance(view.getContext()).picassoThumbnailLoader();
+            String curationsPhotoUrl = photo.getImageServiceUrl() + "&width=" + (DemoUtils.MAX_IMAGE_WIDTH/4) + "&height=" + (DemoUtils.MAX_IMAGE_HEIGHT/4);
+            picasso.load(curationsPhotoUrl)
+                    .placeholder(R.drawable.placeholderimg)
+                    .resizeDimen(R.dimen.side_not_set, R.dimen.product_image_height_detail)
+                    .into(imageView);
             videoView.setVisibility(View.GONE);
         }else if (feedItem.getVideos().size() > 0) {
 

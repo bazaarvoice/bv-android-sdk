@@ -45,7 +45,7 @@ public class ReviewsActivity extends Activity {
 	private TextView noReviews;
 	private ReviewAdapter listAdapter;
 	private ProgressDialog progDialog;
-	protected String TAG = "ReviewsActivity";
+	protected static String TAG = "ReviewsActivity";
 	protected int imageCounter;
 
 	/**

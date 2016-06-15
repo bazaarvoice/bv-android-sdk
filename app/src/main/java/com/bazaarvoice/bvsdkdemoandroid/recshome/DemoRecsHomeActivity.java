@@ -50,6 +50,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     private ViewPager headerViewPager;
     private DemoRecsHeaderPagerAdapter headerPagerAdapter;
     private CircleIndicator circleIndicator;
+    private TextView errorTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,6 +130,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         adapter = new DemoRecsAdapter();
         adapter.setRecTapListener(this);
         noRecsTextView = (TextView) findViewById(R.id.no_recs_found);
+        errorTextView = (TextView) findViewById(R.id.error_recs);
         getRecsProgressBar = (ProgressBar) findViewById(R.id.get_recs_progress);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);
@@ -144,20 +146,36 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     @Override
     public void showRecommendations(List<BVProduct> bvProducts) {
         adapter.refreshProducts(bvProducts);
+        recyclerView.setVisibility(View.VISIBLE);
         getRecsProgressBar.setVisibility(View.GONE);
         noRecsTextView.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.GONE);
     }
 
     @Override
     public void showLoadingRecs(boolean show) {
         getRecsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        noRecsTextView.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.GONE);
     }
 
     @Override
     public void showNoRecommendations() {
         adapter.refreshProducts(Collections.<BVProduct>emptyList());
+        recyclerView.setVisibility(View.GONE);
         getRecsProgressBar.setVisibility(View.GONE);
         noRecsTextView.setVisibility(View.VISIBLE);
+        errorTextView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError() {
+        adapter.refreshProducts(Collections.<BVProduct>emptyList());
+        recyclerView.setVisibility(View.GONE);
+        getRecsProgressBar.setVisibility(View.GONE);
+        noRecsTextView.setVisibility(View.GONE);
+        errorTextView.setVisibility(View.VISIBLE);
     }
 
     @Override

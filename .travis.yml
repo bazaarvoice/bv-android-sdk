@@ -1,6 +1,7 @@
 language: android
 
-jdk: oraclejdk7
+jdk:
+  - oraclejdk8
 
 android:
     components:
@@ -13,14 +14,17 @@ android:
         - extra-google-admob_ads_sdk 
         - extra-google-m2repository
 
-#cache:
-#  directories:
-#    - $HOME/.gradle
-
 git:
   depth: 1
 
-script: TERM=dumb ./gradlew --stacktrace assembleDebug test
+script: TERM=dumb ./gradlew --stacktrace clean check
 
-sudo: true
+branches:
+  except:
+    - gh-pages
 
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.gradle

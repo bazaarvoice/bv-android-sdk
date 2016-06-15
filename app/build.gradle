@@ -1,8 +1,16 @@
+buildscript {
+    dependencies {
+        classpath dep.androidPlugin
+        classpath dep.crashlyticsPlugin
+    }
+}
+
+apply plugin: 'com.android.application'
+
 def hasCrashlyticsKey() {
     return file('fabric.properties').exists()
 }
 
-apply plugin: 'com.android.application'
 if (hasCrashlyticsKey()) {
     apply plugin: 'io.fabric'
 }
@@ -15,9 +23,14 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
     dexOptions {
-        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
-        preDexLibraries = preDexEnabled && !travisBuild
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
     }
 
     packagingOptions {
@@ -40,8 +53,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
     }
     buildTypes {
         release {
@@ -59,15 +72,6 @@ android {
         it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY',  String.valueOf(hasCrashlyticsKey())
     }
 
-    productFlavors {
-        appdemo {
-            applicationId 'com.bazaarvoice.bvsdkdemoandroid.appdemo'
-        } // App Demo Flavor which avoids hitting the network needlessly
-        sdk {
-            applicationId 'com.bazaarvoice.bvsdkdemoandroid'
-        } // SDK Flavor which hits network as expected for the public releases
-    }
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -78,38 +82,31 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':bvandroidsdkadvertising')
+    compile project(':bvandroidsdkrecommendations')
+    compile project(':bvandroidsdkconversations')
+    compile project(':bvandroidsdkcurations')
 
-    appdemoCompile project(path: ':bvandroidsdkadvertising', configuration: 'appdemoRelease')
-    appdemoCompile project(path: ':bvandroidsdkrecommendations', configuration: 'appdemoRelease')
-    appdemoCompile project(path: ':bvandroidsdkconversations', configuration: 'appdemoRelease')
-    appdemoCompile project(path: ':bvandroidsdkcurations', configuration: 'appdemoRelease')
-
-    sdkCompile project(path: ':bvandroidsdkadvertising', configuration: 'sdkRelease')
-    sdkCompile project(path: ':bvandroidsdkrecommendations', configuration: 'sdkRelease')
-    sdkCompile project(path: ':bvandroidsdkconversations', configuration: 'sdkRelease')
-    sdkCompile project(path: ':bvandroidsdkcurations', configuration: 'sdkRelease')
-
-    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
-    compile "org.ocpsoft.prettytime:prettytime:$rootProject.prettyTimeVersion"
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:preference-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:preference-v14:$rootProject.supportLibraryVersion"
-    compile "com.google.android.gms:play-services-ads:$rootProject.playServicesAdsVersion"
-    compile "com.googlecode.plist:dd-plist:$rootProject.ddPlistVersion"
-    compile "me.relex:circleindicator:$rootProject.circleIndicatorVersion"
+    compile dep.picasso
+    compile dep.prettyTime
+    compile dep.appCompatV7
+    compile dep.designCompat
+    compile dep.supportV4
+    compile dep.cardview
+    compile dep.preferenceV7
+    compile dep.preferenceV14
+    compile dep.playServiceAds
+    compile dep.ddPlist
+    compile dep.circleIndicator
 
     // iovation aar dependency
     // compile(name:'deviceprint-release-2.3.0', ext:'aar')
 
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    releaseCompile dep.leakCanaryNoOp
 
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    testCompile 'junit:junit:4.12'
-    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion") {
+    debugCompile dep.leakCanary
+    testCompile dep.junit
+    compile(dep.crashlytics) {
         transitive = true;
     }
 }

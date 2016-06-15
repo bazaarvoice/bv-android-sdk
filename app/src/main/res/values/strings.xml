@@ -27,6 +27,7 @@
 
     <string name="view_demo_error_message">"%1$s is not configured to view %2$s"</string>
     <string name="demo_recommendations">Recommendations</string>
+    <string name="demo_ads">Advertisements</string>
     <string name="demo_conversations">Conversations</string>
     <string name="demo_curations">Curations</string>
 
