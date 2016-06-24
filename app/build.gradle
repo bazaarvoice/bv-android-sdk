@@ -19,6 +19,14 @@ def hasAppdemoBuildSettings() {
     return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
 }
 
+gradle.startParameter.getTaskNames().each { task ->
+    if (task.toLowerCase().contains("demo")) {
+        rootProject.ext.analyticsEnabled = false
+    } else if (task.toLowerCase().contains("live")) {
+        rootProject.ext.analyticsEnabled = true
+    }
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -56,6 +64,12 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
     }
+
+    productFlavors {
+        live {}
+        demo {}
+    }
+
     buildTypes {
         release {
             minifyEnabled false

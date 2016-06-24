@@ -16,6 +16,7 @@
 
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'nu.studer.credentials'
 
 def isReleaseBuild() {
     return VERSION_NAME.contains("SNAPSHOT") == false
@@ -32,11 +33,11 @@ def getSnapshotRepositoryUrl() {
 }
 
 def getRepositoryUsername() {
-    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+    return hasProperty('NEXUS_USER') ? NEXUS_USER : ""
 }
 
 def getRepositoryPassword() {
-    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+    return credentials.NEXUS_PASSWORD != null ? credentials.NEXUS_PASSWORD : ""
 }
 
 afterEvaluate { project ->

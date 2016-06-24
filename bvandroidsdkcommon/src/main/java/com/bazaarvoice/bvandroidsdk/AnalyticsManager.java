@@ -6,8 +6,6 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.os.Build;
 
-import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
-
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -97,23 +95,23 @@ class AnalyticsManager {
         @Override
         public void run() {
             synchronized (AnalyticsManager.this) {
-                if (!BuildConfig.ANALYTICS_ENABLED) {
-                    if (eventQueue.isEmpty()) {
-                        return;
-                    }
-
-                    Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
-                    batch.put("batch", eventQueue);
-
-                    int numEvents = eventQueue.size();
-
-                    Utils.printAnalytics(eventQueue);
-
-                    Logger.d("Analytics", "Successfully saw " + numEvents + " events. Not sending for demo app.");
-                    if (!eventQueue.isEmpty()) {
-                        eventQueue.clear();
-                    }
-                } else {
+//                if (!BuildConfig.ANALYTICS_ENABLED) {
+//                    if (eventQueue.isEmpty()) {
+//                        return;
+//                    }
+//
+//                    Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
+//                    batch.put("batch", eventQueue);
+//
+//                    int numEvents = eventQueue.size();
+//
+//                    Utils.printAnalytics(eventQueue);
+//
+//                    Logger.d("Analytics", "Successfully saw " + numEvents + " events. Not sending for demo app.");
+//                    if (!eventQueue.isEmpty()) {
+//                        eventQueue.clear();
+//                    }
+//                } else {
 
                     Response response = null;
                     try {
@@ -154,7 +152,7 @@ class AnalyticsManager {
                             response.body().close();
                         }
                     }
-                }
+//                }
             }
         }
     }
