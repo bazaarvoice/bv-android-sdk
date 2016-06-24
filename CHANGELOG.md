@@ -1,5 +1,23 @@
 # Changelog
 
+# 4.0.3
+
+## Common
+* Added ```BVProduct#getPrice()```
+* Expose the ```Profile``` class
+* Expose the ```ShopperProfile``` class which contains a ```Profile``` object
+
+## Curations
+* Expose the ```CurationsFeedResponse``` class
+* Added ```CurationsProduct#getId()```
+
+## General
+* Added ```AndroidManifest.xml``` to each module with the ```android.permission.INTERNET ```
+permission, so gradle manifest merger should handle implicitly requesting it for 
+users instead of needing to explicitly request it
+* Updated docs with instructions for the new Demo App for best practices, as well as 
+the Code Example App. Also updated typos, etc.
+
 # 4.0.0
 
 ## Advertising
