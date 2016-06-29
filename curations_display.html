@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "Curations Display";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'Curations Display'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,10 +213,10 @@ $(function(){
 	Curations
 </div>
 
-<p>Harness a wealth of social media content tailored for your marketing needs, and display it right where it can go to work delivering engagement, trust, and conversion: your Android app.</p>
+<p>Use the Curations module of the Bazaarvoice Mobile SDKs to harness a wealth of social media content tailored for your marketing needs, and display it where it can deliver engagement, trust, and conversion: your Android app.</p>
 <br>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Contact Bazaarvoice about setting up Curations, and to get your <code>apiKeyCurations</code>.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  You must have Bazaarvoice Curations enabled to use the Curations module. Contact Bazaarvoice to set up Curations and to get your <code>apiKeyCurations</code>.</p>
 
 <hr>
 <br>
@@ -240,11 +242,11 @@ $(function(){
     <div class="panel-body">
 
 <h3>Installation with Gradle</h3>
-<p>Include the Maven Central repository and add Bazaarvoice's modules to your dependencies:</p>
+<p>Include the Maven Central repository and add the appropriate Bazaarvoice Mobile SDK modules to your dependencies:</p>
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:curations:4.0.0'
+    compile 'com.bazaarvoice.bvandroidsdk:curations:'
 }
 repositories {
     mavenCentral()
@@ -254,10 +256,10 @@ repositories {
 
 <br>
 
-<h3>Extend Application</h3>
-<p>Create a class that extends <code>android.app.Application</code> and initialize the SDK using its builder.</p>
-<p>A full list of build options are found in <code>BVSDK.java</code>.</p>
-<p>Below, <code>YOUR_CLIENT_ID</code> represents your client name, e.g. "<strong>bazaarvoice</strong>". If you are unsure of your client ID or API key values, you can request help <a href="https://developer.bazaarvoice.com/support">through the support portal</a> or your implementation team.</p>
+<h3>Extending the Application</h3>
+<p>Create a class that extends <code>android.app.Application</code>, and initialize the Mobile SDK using its builder.</p>
+<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
+<p>in the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure about your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
 
 <pre><code class="java">public class MyApplication extends Application {
 
@@ -293,12 +295,11 @@ repositories {
 
 
 
+<h3>Getting a Curations Feed</h3>
 
-<h3>Getting Curations Feed</h3>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  This page assumes you have a new application with a launch Activity called <code>MainActivity</code>.</p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  This page assumes you have a new application with a launch Activity Called <code>MainActivity</code>.</p>
-
-<p>Let's take a look at MainActivity's XML layout. You'll notice it has a <code>CurationsRecyclerView</code> with id "curations_demo_list". You can learn more about Curations UI Containers below.</p>
+<p>MainActivity's XML layout has a <code>CurationsRecyclerView</code> with the "curations_demo_list" id. The following XML code provides more information about Curations UI Containers.</p>
 
 <pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -322,7 +323,7 @@ repositories {
 
 &lt;/RelativeLayout&gt;</code></pre>
 <br>
-<p>The following code builds a request, sends it via a <code>CurationsRecyclerView</code>, and receives a callback which is either successful and provides a List of <code>CurationsFeedItem</code> or is a failure and provides a <code>Throwable</code> with a descriptive message.</p>
+<p>The following code builds a request, sends it with <code>CurationsRecyclerView</code>, and receives a callback that either successfully provides a List of <code>CurationsFeedItem</code> or fails and provides a <code>Throwable</code> with a descriptive message.</p>
 <pre><code class="java">public class MainActivity extends AppCompatActivity implements CurationsFeedCallback {
 
     @Override
@@ -356,14 +357,14 @@ repositories {
     }</code></pre>
 <br>
 
-<h3>Further Assistance</h3>
-<p>Refer to our <a href="example_projects.html">Example Application</a> for a working example of getting and displaying a Curations feed along with proper use of Curations UI Containers for analytic events.</p>
+<h3>Viewing an Example App</h3>
+<p>Refer to the <a href="example_projects.html">Example Projects</a> page for a working example app that gets and displays a Curations feed, and demonstrates the correct use of Curations UI Containers for analytic events</p>
 <br>
 
-<h3>Curations UI Containers</h3>
-<p>In order to provide Bazaarvoice with feedback about user interaction that can help produce easier Return On Investment reports, you should use one of the provided views to wrap either a single <code>CurationsFeedItem</code> view, or a group of <code>CurationsFeedItem</code> views.</p>
-<h5>Wrap a single CurationsFeedItem view</h5>
-<p>Suppose you had the following layout to display a single <code>CurationsFeedItem</code> after fetching it as described above:</p>
+<h3>Using Curations UI Containers</h3>
+<p>Providing feedback about user interaction helps Bazaarvoice produce useful ROI (return on investment) reports. To send feedback, use one of the provided views to wrap either a single <code>CurationsFeedItem</code> view or a group of <code>CurationsFeedItem</code> views.</p>
+<h4>Wrapping a single CurationsFeedItem view</h4>
+<p>In this example, you would use the following layout to display a single <code>CurationsFeedItem</code> after fetching it with the method explained in the "Getting the Curations Feed" section on this page:</p>
 <pre><code class="xml">&lt;LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
@@ -380,7 +381,7 @@ repositories {
 &lt;/LinearLayout&gt;</code></pre>
 <br>
 
-<p>In order to take this and provide Bazaarvoice with feedback you should wrap the <code>LinearLayout</code> with the provided <code>CurationsView</code>:</p>
+<p>To provide Bazaarvoice with feedback in this layout, wrap the <code>LinearLayout</code> with the provided <code>CurationsView</code>, as shown in the following example:</p>
 <pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/curationsView"
@@ -402,7 +403,7 @@ repositories {
 &lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;</code></pre>
 <br>
 
-<p>Finally, in the code, associate the inflated <code>CurationsView</code> object with the <code>CurationsFeedItem</code> it correlates to. An example of when you would do this is in the getView method of an Adapter:</p>
+<p>In the code, associate the inflated <code>CurationsView</code> object with the correlating <code>CurationsFeedItem</code> it correlates to. The following example uses the <code>getView</code> method of an Adapter:</p>
 <pre><code class="java">class MyAdapter extends ArrayAdapter<CurationsFeedItem> {
     private List<CurationsFeedItem> feedItems;
 
@@ -417,8 +418,8 @@ repositories {
 }</code></pre>
 <br>
 
-<h5>Wrap a group of CurationFeedItem views</h5>
-<p>Suppose you had the following layout to display a group of <code>BVProducts</code> after fetching them as described above</p>
+<h4>Wrapping a group of CurationFeedItem views</h4>
+<p>In this example, you would use the following layout to display a group of <code>BVProducts</code> after fetching them with the method explained in the "Getting the Curations Feed" section on this page:</p>
 <pre><code class="xml">&lt;android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/curationsRecyclerView"
@@ -426,7 +427,7 @@ repositories {
     android:layout_height="wrap_content"/&gt;</code></pre>
 <br>
 
-<p>In order to take this and provide Bazaarvoice with feedback you should swap the <code>RecyclerView</code> with the provided <code>CurationsRecyclerView</code></p>
+<p>To provide Bazaarvoice with feedback in this layout, swap the <code>RecyclerView</code> with the provided <code>CurationsRecyclerView</code>, as shown in the following example:</p>
 <pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/curationsRecyclerView"
@@ -434,8 +435,8 @@ repositories {
     android:layout_height="wrap_content"/&gt;</code></pre>
 <br>
 
-<h5>Extra options to wrap a group of CurationFeedItem views</h5>
-<p>If you wanted to use other <code>ViewGroups</code> in place of a <code>RecyclerView</code> the three other options in the SDK are:</p>
+<h4>Other options for wrapping a group of CurationFeedItem views</h4>
+<p>If you want to use other <code>ViewGroups</code> in place of a <code>RecyclerView</code>, the Mobile SDK offers three options:</p>
 <ul>
 	<li>
 		<p><strong>CurationsListView</strong></p>
@@ -454,8 +455,7 @@ repositories {
     android:layout_height="wrap_content"/&gt;</code></pre>
 	</li>
 	<li>
-		<p><strong>CurationsContainerView</strong></p>
-		<p>If you wish to use a different <code>ViewGroup</code> than <code>ListView</code>, <code>GridView</code>, or <code>RecyclerView</code> (such as a <code>LinearLayout</code>) to display <code>CurationsView</code> objects, than you can simply wrap that with a <code>CurationsContainerView</code>.</p>
+		<p><strong>CurationsContainerView</strong>&#8212;If you want to use a different <code>ViewGroup</code> than <code>ListView</code>, <code>GridView</code>, or <code>RecyclerView</code>&#8212;such as a <code>LinearLayout</code>&#8212; to display <code>CurationsView</code> objects, wrap the ViewGroup with a <code>CurationsContainerView</code>, as shown in the following example.</p>
 <pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsContainerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/curationsContainerView"
@@ -515,9 +515,9 @@ repositories {
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -525,7 +525,7 @@ repositories {
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

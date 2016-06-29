@@ -4359,7 +4359,8 @@ a.bg-info:focus, a.bg-info:hover {
 
 .bg-warning {
   color: #fff !important;
-  background-color: #f0ad4e !important; }
+  background-color: #f0ad4e !important; 
+  }
 
 a.bg-warning:focus, a.bg-warning:hover {
   background-color: #ec971f; }

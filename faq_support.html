@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -17,10 +19,12 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "FAQ & Support";
+	var tabName = "FAQ and Support";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,9 +65,9 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'FAQ & Support'
+      title: 'FAQ and Support'
     });
     ga('send', 'pageview');
   </script>
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -208,49 +210,42 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	FAQ & Support
+	FAQ and Support
 </div>
 <hr>
 <h3>Frequently Asked Questions</h3>
 <br>
-<ul>
-	<li>
-		<h5 class="question">Upgrading from BVSDK V2</h5>
-		<p class="answer">If you were previously using version 2 of this SDK, it only supported the Conversations API. This is now contained as the conversations module, so minimal code change will be required. Follow the instructions listed for installation and configuration in the <a href="using_conversations.html">Conversations Guide</a> and remove the V2 source code.</p>
-	</li>
-	<li>
+
+		<h5 class="question">How do I upgrade from version 2?</h5>
+		<p class="answer">If you were previously using version 2 of the Bazaarvoice Mobile SDK, it only supported the Conversations API. You'll have to make minimal code changes. Follow the installation and configuration instructions on the <a href="using_conversations.html">Conversations</a> page of this guide, and remove the version 2 source code.</p>
+	
 		<h5 class="question">How do I check out older versions of the SDK?</h5>
-    <p class="answer">You can checkout the latest version, as well as older versions since v3.0.1 on <a href="http://search.maven.org/#search%7Cga%7C1%7Ccom.bazaarvoice.bvandroidsdk">Maven Central.</a> We do recommend using the latest version though for the most up to date bug fixes, etc.
-      Also, older versions of the BVSDK are tagged according to version number in the <a href="https://github.com/bazaarvoice/bv-android-sdk">Github Repo</a>. You can list available versions with <code>git tag</code> and switch to a previous release with <code>git checkout [tag]</code>
+    <p class="answer">You can check out the latest version, as well as older versions after v3.0.1, on <a href="http://search.maven.org/#search%7Cga%7C1%7Ccom.bazaarvoice.bvandroidsdk">Maven Central.</a> Bazaarvoice strongly recommends you use the latest version to take advantage of the most up-to-date features and bug fixes. In addition, older versions of the SDK are tagged by to version number in the <a href="https://github.com/bazaarvoice/bv-android-sdk">Github Repo</a>. You can list available versions with <code>git tag</code> and switch to a previous release with <code>git checkout [tag]</code>
     </p>
-	</li>
-	<li>
-		<h5 class="question">Upgrading Advertising</h5>
+	
+		<h5 class="question">How do I upgrade the Advertising module of the SDK?</h5>
 		<p class="answer">Bazaarvoice has removed the need to use DFP bundled with this SDK, to make it easier to implement.
-    For more information, follow the instructions listed for installation and configuration in the <a href="advertising.html">Advertising Guide</a>.</p>
-	</li>
-	<li>
-		<h5 class="question">Does the BVSDK Use the Android Advertising ID?</h5>
-		<p class="answer">Yes, the Android Advertising ID is used for both the Advertising and Recommendations modules. The BVSDK will check if the user has "Limit Ad Tracking" enabled, and respects it if enabled.</p>
-	</li>
-</ul>
+    For more information, follow the instructions listed for installation and configuration on the <a href="advertising.html">Advertising</a> page of this guide.</p>
+	
+		<h5 class="question">Does the Bazaarvoice Mobile SDK for Android use the Android Advertising ID?</h5>
+		<p class="answer">Yes, the SDK uses the <a href="https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient">Android advertising ID</a> for both the Advertising and Product Recommendations modules. The SDK checks whether the user has "Limit Ad Tracking" enabled, and respects the option if enabled.</p>
+	
 <br>
 
 <h3>Support</h3>
-<p>Have problems/questions implementing this SDK? Contact <a href="mailto:mobilecoreteam@bazaarvoice.com">Mobile Development at Bazaarvoice</a>!</p>
-<p>If you have any questions with licensing or general configuration of the Conversations API, please contact <a href="mailto:support@bazaarvoice.com">Bazaarvoice Support</a>.</p>
-<h5>Pull Requests & Issue Tracking</h5>
-<p>If you have any particular enhancements you would like to contribute to the BVSDK, feel free to fork this repository and and create a pull request!</p>
-<p>If you have other general enhancements or requests feel free to drop a request in the Github issue tracker for this repository.</p>
+<p>If you have problems/questions implementing the Bazaarvoice Mobile SDKs, contact <a href="mailto:mobilecoreteam@bazaarvoice.com">Mobile Development at Bazaarvoice</a>.</p>
+<p>If you have questions about licensing or general configuration of the Conversations API, contact <a href="mailto:support@bazaarvoice.com">Bazaarvoice Client Care</a>.</p>
+<h5>Pull Requests and Issue Tracking</h5>
+<p>If you would like to contribute specific enhancements to the Mobile SDKs, feel free to fork this repository and and create a pull request. For general enhancements or requests, you can drop a request in the GitHub issue tracker for this repository.</p>
 <br>
 
 
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -258,7 +253,7 @@ $(function(){
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "Product Recommendations";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'Product Recommendations'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,12 +213,12 @@ $(function(){
 	Product Recommendations
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Product recommendations is currently in a limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The Product Recommendations module is currently in limited beta release. If you'd like to participate, contact Bazaarvoice.</p>
 
-<p>This guide shows how to fetch and display product recommendations in your app using the Bazaarvoice SDK.</p>
+<p>Use the following guide to fetch and display product recommendations in your app with Bazaarvoice Mobile SDKs.</p>
 
 
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: make sure you have your Shopper Advertising API Key and Client ID before proceeding!</p>
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your Shopper Advertising API Key and Client ID to implement and use product recommendations.</p>
 
 <hr>
 <br>
@@ -242,11 +244,11 @@ $(function(){
     <div class="panel-body">
 
 <h3>Installation with Gradle</h3>
-<p>Include the Maven Central repository and add Bazaarvoice's modules to your dependencies:</p>
+<p>Include the Maven Central repository and add the appropriate Bazaarvoice Mobile SDK modules to your dependencies:</p>
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:4.0.0'
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:'
 }
 repositories {
     mavenCentral()
@@ -256,10 +258,10 @@ repositories {
 
 <br>
 
-<h3>Extend Application</h3>
-<p>Create a class that extends <code>android.app.Application</code> and initialize the SDK using its builder.</p>
-<p>A full list of build options are found in <code>BVSDK.java</code>.</p>
-<p>Below, <code>YOUR_CLIENT_ID</code> represents your client name, e.g. "<strong>bazaarvoice</strong>". If you are unsure of your client ID or API key values, you can request help <a href="https://developer.bazaarvoice.com/support">through the support portal</a> or your implementation team.</p>
+<h3>Extending the Application</h3>
+<p>Create a class that extends <code>android.app.Application</code>, and initialize the Mobile SDK using its builder.</p>
+<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
+<p>in the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure about your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
 
 <pre><code class="java">public class MyApplication extends Application {
 
@@ -294,23 +296,22 @@ repositories {
 <br>
 
 
-
 <h3>Set User Information</h3>
 <p>
-	Once a user is authenticated inside your user login workflow, set an authenticated user to enable profile matching. Please refer to <a href="https://github.com/bazaarvoice/bv-android-sdk-dev/wiki/User-Authentication">User Authentication</a> for steps on how to accomplish this.
+	After a user is authenticated inside your user login workflow, set an authenticated user to enable profile matching. Refer to <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> for instructions.
 </p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: the userAuthString created with your existing Bazaarvoice implementation logic needs to be given to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are still applicable even if you are not a Conversations client.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: You must give the userAuthString created with your existing Bazaarvoice implementation logic to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are applicable even if you are not a Conversations client.</p>
 
-<h5>Example Authentication String - for testing purposes</h5>
+<h5>Example Authentication String for Testing</h5>
 <p>
-	If you don't have an authorization token set up yet, please refer to the example in <a href="./user_authentication_token.html">User Authentication Token</a>.
+	If you haven't yet set up an authorization token, use the <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> example.
 </p>
 
 
 <br>
-<h3>Get Recommendations</h3>
-<p>At this point you should be able to fetch some product recommendations:</p>
+<h3>Getting Recommendations</h3>
+<p>After you successfully install and configure the SDK and set user information, you can fetch product recommendations with the following code:</p>
 <pre><code class="java">BVRecommendations recs = new BVRecommendations();
 
 recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback() {
@@ -329,11 +330,11 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
 <p>Refer to <code>BVRecommendations.java</code> methods for getting recommendations based on a <strong>categoryId</strong> or <strong>productId</strong>. Refer to <code>DemoRecommendationsFragment.java</code> in the <code>app</code> module for a demo implementation.</p>
 <br>
 
-<h3>Recommendations UI Containers</h3>
-<p>In order to provide Bazaarvoice with feedback about user interaction that can help produce easier Return On Investment reports, and more accurate future recommendations, you should use one of the provided views to wrap either a single recommended product view, or a group of recommended products views.</p>
+<h3>Wrapping Recommendations UI Containers</h3>
+<p>To provide Bazaarvoice with feedback about user interaction that can help produce useful ROI (return on investment) reports, and more accurate future recommendations, you should use one of the provided views to wrap either a single recommended product view or a group of recommended products views.</p>
 
-<h5>How To: Wrap a single recommended product view</h5>
-<p>Suppose you had the following layout to display a single <code>BVProduct</code> after fetching it as described above:</p>
+<h5>Wrapping a single recommended product view</h5>
+<p>In this example, you would use the following layout to display a single <code>BVProduct</code> after fetching it with the method explained in the "Getting Recommendations" section of this page:</p>
 
 <pre><code>&lt;LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -351,7 +352,7 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
 &lt;/LinearLayout&gt;</code></pre>
 <br>
 
-<p>In order to take this and provide Bazaarvoice with feedback you should wrap the <code>LinearLayout</code> with the provided RecommendationView:</p>
+<p>To provide Bazaarvoice with feedback in this layout, wrap the the <code>LinearLayout</code> with the provided <code>RecommendationView</code>, as shown in the following example:</p>
 <pre><code>&lt;com.bazaarvoice.bvandroidsdk.RecommendationView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recommendationView"
@@ -373,7 +374,7 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
 </com.bazaarvoice.bvandroidsdk.RecommendationView></code></pre>
 <br>
 
-<p>Finally, in the code, associate the inflated RecommendationView object with the BVProduct it correlates to. An example of when you would do this is in the <code>getView</code> method of an Adapter</p>
+<p>In the code, associate the inflated <code>RecommendationView</code> object with the correlating <code>BVProduct</code>. The following example uses the <code>getView</code> method of an Adapter:</p>
 <pre><code class="java">class MyAdapter extends ArrayAdapter<BVProduct> {
     private List<BVProduct> bvProducts;
 
@@ -388,14 +389,14 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
 }</code></pre>
 <br>
 
-<h5>How To: Wrap a group of recommended product views</h5>
-<p>Suppose you had the following layout to display a group of BVProducts after fetching them as described above</p>
+<h5>Wrapping a group of recommended product views</h5>
+<p>In this example, you would use the following layout to display a group of <code>BVProducts</code> after fetching them with the method explained in the "Get Recommendations" section on this page:</p>
 <pre><code class="xml">&lt;android.support.v7.widget.RecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recommendationProdRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/&gt;</code></pre>
-<p>In order to take this and provide Bazaarvoice with feedback you should swap the RecyclerView with the provided <code>RecommendationsRecyclerView</code></p>
+<p>To provide Bazaarvoice with feedback in this layout, swap the <code>RecyclerView</code> with the provided <code>RecommendationsRecyclerView</code>, as shown in the following example:</p>
 <pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recommendationProdRecyclerView"
@@ -403,8 +404,8 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
     android:layout_height="wrap_content"/&gt;</code></pre>
 <br>
 
-<h5>Extra options to wrap a group of recommended product views</h5>
-<p>If you wanted to use other ViewGroups in place of a RecyclerView the three other options in the SDK are:</p>
+<h5>Other options for wrapping a group of recommended product views</h5>
+<p>If you want to use other ViewGroups in place of a RecyclerView, Mobile SDK offers three options:</p>
 <ul>
 	<li>
 		<p>RecommendationsListView</p>
@@ -421,7 +422,7 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/&gt;</code></pre>
 </li>
-	<li><p>RecommendationsContainerView - If you wish to use a different ViewGroup than ListView, GridView, or RecyclerView (such as a LinearLayout) to display RecommendationView objects, than you can simply wrap that with a RecommendationsContainerView.</p>
+	<li><p>RecommendationsContainerView&#8212;If you want to use a different ViewGroup than ListView, GridView, or RecyclerView&#8212;such as a LinearLayout&#8212;to display RecommendationView objects, wrap the ViewGroup with a RecommendationsContainerView. The following example shows how you can use a LinearLayout ViewGroup:</p>
 <pre><code>&lt;com.bazaarvoice.bvandroidsdk.RecommendationsContainerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recommendationProdContainerView"
@@ -479,9 +480,9 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -489,7 +490,7 @@ recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback(
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

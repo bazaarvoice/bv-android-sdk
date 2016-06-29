@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "BV Pixel";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'BV Pixel'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -212,16 +214,13 @@ $(function(){
 </div>
 <hr>
 
-<h3>What is it?</h3>
-<p>The BV Pixel tells Bazaarvoice when a customer converts in your Android app. There are two types of BV Pixel tags:</p>
+<p>The BV Pixel (formerly known as the ROI beacon) tells Bazaarvoice when a customer converts in your Android app. There are two types of BV Pixel tags:</p>
 <ul>
-	<li>Generic (non-commerce) conversion tags capture events such as newsletter signups, product registration, downloads of a PDF, and requests for more information about a product or service. You can generate ROI reports related to key performance indicators.</li>
-	<li>Transaction conversion tags capture purchase data -- when a customer buys a product. The data captured might include SKUs, email addresses, and postal addresses. You can generate ROI reports tied to revenue. After you install the BV Pixel, you can use this measurement dashboard to generate reports that show how users are interacting in your Android app, and to understand the value of your implementation.</li>
+	<li>Generic (non-commerce) conversion tags capture events such as newsletter signups, product registration, downloads of a PDF, and requests for more information about a product or service. You can generate ROI (return on investment) reports related to key performance indicators.</li>
+	<li>Transaction conversion tags capture purchase data&#8212;when a customer buys a product. The data captured might include SKUs, email addresses, and postal addresses. You can generate ROI reports tied to revenue.</li>
 </ul>
 
-<br>
-<h3>Why is it important?</h3>
-<p>After you implement the BV Pixel in your Android app, you can enable other useful features besides reporting. The maintenance-free post-interaction email feature is key to increasing the volume of your user-generated content. In addition, with the BV Pixel you can run A/B tests to evaluate best practices in your Android app, live, before you implement them for all customers. You must install the BV Pixel before you can use these indispensable features.</p>
+<p>After you implement the BV Pixel in your Android app, you can use this measurement dashboard to generate reports that show how users are interacting in your Android app, and to understand the value of your implementation. You can also enable other useful features. The maintenance-free post-interaction email (PIE) feature is key to increasing the volume of your consumer-generated content. In addition, you can run A/B tests to evaluate best practices in your Android app, live, before you implement them for all customers. You must install the BV Pixel before you can use these indispensable features.</p>
 
 <br>
 
@@ -245,11 +244,11 @@ $(function(){
     <div class="panel-body">
 
 <h3>Installation with Gradle</h3>
-<p>Include the Maven Central repository and add Bazaarvoice's modules to your dependencies:</p>
+<p>Include the Maven Central repository and add the appropriate Bazaarvoice Mobile SDK modules to your dependencies:</p>
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:common:4.0.0'
+    compile 'com.bazaarvoice.bvandroidsdk:common:'
 }
 repositories {
     mavenCentral()
@@ -259,10 +258,10 @@ repositories {
 
 <br>
 
-<h3>Extend Application</h3>
-<p>Create a class that extends <code>android.app.Application</code> and initialize the SDK using its builder.</p>
-<p>A full list of build options are found in <code>BVSDK.java</code>.</p>
-<p>Below, <code>YOUR_CLIENT_ID</code> represents your client name, e.g. "<strong>bazaarvoice</strong>". If you are unsure of your client ID or API key values, you can request help <a href="https://developer.bazaarvoice.com/support">through the support portal</a> or your implementation team.</p>
+<h3>Extending the Application</h3>
+<p>Create a class that extends <code>android.app.Application</code>, and initialize the Mobile SDK using its builder.</p>
+<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
+<p>in the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure about your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
 
 <pre><code class="java">public class MyApplication extends Application {
 
@@ -297,11 +296,11 @@ repositories {
 
 
 
-
-<h3>Using BV Pixel to track transaction conversions:</h3>
+<h3>Tracking transaction conversions</h3>
+<p>Implement the following code to use the BV Pixel to track transaction conversions.</p>
 <pre><code class="java">/*
   Build a list of TransactionItem based on the transaction.
-  Sku is required but the more parameters provided the better
+  Sku is required but the more parameters provided the better.
 */
 
 TransactionItem firstItem = new TransactionItem.Builder("123")
@@ -324,9 +323,9 @@ items.add(secondItem);
 
 /*
   Build a Transaction
-  OrderId, orderTotal, and orderItems are required
-  You may include any other key value params you'd like
-  BVTransaction also has convenience builders for commonly used params
+  OrderId, orderTotal, and orderItems are required.
+  Include any other key value params you want.
+  BVTransaction also has convenience builders for commonly used params.
 */
 
 Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
@@ -338,17 +337,18 @@ Transaction transaction = new Transaction.Builder("order id", 33.11, items, para
         .build();
 
 /*
-  Use the BVSDK to track the Conversion Transaction Event
+  Use the Bazaarvoice Mobile SDK to track the Conversion Transaction Event.
 */
 
 BVSDK.getInstance().sendConversionTransactionEvent(transaction);</code></pre>
 <br>
 
-<h3>Using BV Pixel to track generic non-commerce conversions:</h3>
+<h3>Tracking generic non-commerce conversions</h3>
+<p>Implement the following code to use the BV Pixel to track generic non-commerce conversions.</p>
 <pre><code class="java">/*
   Construct a Conversion
-  Type and value are required. Label is recommended
-  You may include any other key value params you'd like
+  Type and value are required. Label is recommended.
+  Include any other key value params you want.
 */
 
 Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
@@ -357,7 +357,7 @@ params.put("email", "some.one@domain.com");
 Conversion conversion = new Conversion("BroucherDownload", "YourDefinedValue", "Model xyz brochure", params);
 
 /*
-  Use the BVSDK to track the Non-commerce Conversion Event
+  Use the BVSDK to track the Non-commerce Conversion Event.
 */
 
 BVSDK.getInstance().sendNonCommerceConversionEvent(conversion);</code></pre>
@@ -368,9 +368,9 @@ BVSDK.getInstance().sendNonCommerceConversionEvent(conversion);</code></pre>
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -378,7 +378,7 @@ BVSDK.getInstance().sendNonCommerceConversionEvent(conversion);</code></pre>
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

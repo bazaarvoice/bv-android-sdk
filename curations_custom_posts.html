@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "Curations Custom Posts";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'Curations Custom Posts'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,7 +213,7 @@ $(function(){
 	Curations Custom Posts
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  This page will only cover building a request with custom parameters. For a detailed working example please refer to our <a href="example_projects.html">Example Application</a>.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The instructions on this page only cover building a request with custom parameters. For a detailed working example app, refer to the <a href="example_projects.html">Example Projects</a> page.</p>
 
 <hr>
 <br>
@@ -236,11 +238,11 @@ $(function(){
     <div class="panel-body">
 
 <h3>Installation with Gradle</h3>
-<p>Include the Maven Central repository and add Bazaarvoice's modules to your dependencies:</p>
+<p>Include the Maven Central repository and add the appropriate Bazaarvoice Mobile SDK modules to your dependencies:</p>
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:curations:4.0.0'
+    compile 'com.bazaarvoice.bvandroidsdk:curations:'
 }
 repositories {
     mavenCentral()
@@ -250,10 +252,10 @@ repositories {
 
 <br>
 
-<h3>Extend Application</h3>
-<p>Create a class that extends <code>android.app.Application</code> and initialize the SDK using its builder.</p>
-<p>A full list of build options are found in <code>BVSDK.java</code>.</p>
-<p>Below, <code>YOUR_CLIENT_ID</code> represents your client name, e.g. "<strong>bazaarvoice</strong>". If you are unsure of your client ID or API key values, you can request help <a href="https://developer.bazaarvoice.com/support">through the support portal</a> or your implementation team.</p>
+<h3>Extending the Application</h3>
+<p>Create a class that extends <code>android.app.Application</code>, and initialize the Mobile SDK using its builder.</p>
+<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
+<p>in the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure about your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
 
 <pre><code class="java">public class MyApplication extends Application {
 
@@ -288,8 +290,7 @@ repositories {
 <br>
 
 
-
-<h3>Example usage of Curations Custom Post</h3>
+<h3>Example: Using Curations Custom Post</h3>
 <pre><code class="java">//Create a BVCurations Instance
 BVCurations curations = new BVCurations();
 
@@ -337,9 +338,9 @@ curations.postContentToCurations(request, this);</code></pre>
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -347,7 +348,7 @@ curations.postContentToCurations(request, this);</code></pre>
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -17,10 +19,12 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "Api Reference";
+	var tabName = "API Reference";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,9 +65,9 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'Api Reference'
+      title: 'API Reference'
     });
     ga('send', 'pageview');
   </script>
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -208,36 +210,36 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-  Api Reference
+  API Reference
 </div>
-<p>Below you'll find javadoc documentation for all modules of the SDK.</p>
+<p>The following pages contain javadoc documentation for all Bazaarvoice Mobile SDK modules.</p>
 <hr>
 <br>
 
 <div class="flex flex-row">
   <div class="col-lg-3 right-border">
-    <a class="index-banner" href="./assets/api_reference/recommendations/index.html">
+    <a class="index-banner" href="./android-assets/api_reference/recommendations/index.html">
         <h5 class="h5link">Product Recommendations <i class="fa fa-chevron-right"></i></h5>
-        <p class="gray">Javadocs for the Product Recommendations module.</p>
+        <p class="gray">Javadocs for the Product Recommendations module</p>
       </a>
   </div>
 
   <div class="col-lg-3 right-border">
-    <a class="index-banner" href="./assets/api_reference/curations/index.html">
+    <a class="index-banner" href="./android-assets/api_reference/curations/index.html">
       <h5 class="h5link">Curations <i class="fa fa-chevron-right"></i></h5>
-      <p class="gray">Javadocs for the Curations module.</p>
+      <p class="gray">Javadocs for the Curations module</p>
     </a>
   </div>
   <div class="col-lg-3 right-border">
-    <a class="index-banner" href="./assets/api_reference/advertising/index.html">
+    <a class="index-banner" href="./android-assets/api_reference/advertising/index.html">
       <h5 class="h5link">Advertising <i class="fa fa-chevron-right"></i></h5>
-      <p class="gray">Javadocs for the Advertising module..</p>
+      <p class="gray">Javadocs for the Advertising module</p>
     </a>
   </div>
   <div class="col-lg-3">
-    <a class="index-banner" href="./assets/api_reference/conversations/index.html">
+    <a class="index-banner" href="./android-assets/api_reference/conversations/index.html">
       <h5 class="h5link">Conversations <i class="fa fa-chevron-right"></i></h5>
-      <p class="gray">Javadocs for the conversations module.</p>
+      <p class="gray">Javadocs for the Conversations module</p>
     </a>
   </div>
 
@@ -249,9 +251,9 @@ $(function(){
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -259,7 +261,7 @@ $(function(){
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

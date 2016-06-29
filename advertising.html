@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "Advertising";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'Advertising'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,10 +213,10 @@ $(function(){
 	Targeted Advertising
 </div>
 
-<p>Targeted advertising is powered by Bazaarvoice's powerful shopper segment data and delivers highly targeted advertisements to your users.</p>
-<p>The BVAdvertising module is architected so that you can implement the DFP (Doubleclick For Publishers) SDK, and pair it with Bazaarvoice's shopper segment functionality easily.</p>
+<p>The Advertising module of the Bazaarvoice Mobile SDKs is powered by Bazaarvoice's powerful shopper segment data and delivers highly targeted ads to your users. You must have Shopper Advertising enabled to use the Advertising module.</p>
+<p>Bazaarvoice creates custom ad markup using <a href="https://developers.google.com/doubleclick-publishers/docs/rel_notes">DoubleClick for Publishers (DFP)</a> based on your specifications. You can use the Bazaarvoice Mobile SDKs to easily pair the DFP SDK with the Advertising module. Contact Bazaarvoice to set up targeted ads in DFP.</p>
 
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Contact Bazaarvoice about setting up targeted ads in DFP, and to get your <code>apiKeyShopperAdvertising</code> (required below) and DFP <code>adUnitId</code>'s.</p>
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyShopperAdvertising</code> and DFP <code>adUnitId</code>s to implement and use the Advertising module.</p>
 
 <hr>
 <br>
@@ -240,12 +242,12 @@ $(function(){
     <div class="panel-body">
 
 <h3>Installation with Gradle</h3>
-<p>Include the Maven Central repository and add Bazaarvoice's modules to your dependencies:</p>
+<p>Include the Maven Central repository and add the appropriate Bazaarvoice Mobile SDK modules to your dependencies:</p>
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:4.0.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:'
+    compile 'com.google.android.gms:play-services-ads:'
 }
 repositories {
     mavenCentral()
@@ -255,10 +257,10 @@ repositories {
 
 <br>
 
-<h3>Extend Application</h3>
-<p>Create a class that extends <code>android.app.Application</code> and initialize the SDK using its builder.</p>
-<p>A full list of build options are found in <code>BVSDK.java</code>.</p>
-<p>Below, <code>YOUR_CLIENT_ID</code> represents your client name, e.g. "<strong>bazaarvoice</strong>". If you are unsure of your client ID or API key values, you can request help <a href="https://developer.bazaarvoice.com/support">through the support portal</a> or your implementation team.</p>
+<h3>Extending the Application</h3>
+<p>Create a class that extends <code>android.app.Application</code>, and initialize the Mobile SDK using its builder.</p>
+<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
+<p>in the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure about your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
 
 <pre><code class="java">public class MyApplication extends Application {
 
@@ -294,24 +296,23 @@ repositories {
 
 
 
-
 <h3>Set User Information</h3>
 <p>
-	Once a user is authenticated inside your user login workflow, set an authenticated user to enable profile matching. Please refer to <a href="https://github.com/bazaarvoice/bv-android-sdk-dev/wiki/User-Authentication">User Authentication</a> for steps on how to accomplish this.
+	After a user is authenticated inside your user login workflow, set an authenticated user to enable profile matching. Refer to <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> for instructions.
 </p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: the userAuthString created with your existing Bazaarvoice implementation logic needs to be given to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are still applicable even if you are not a Conversations client.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: You must give the userAuthString created with your existing Bazaarvoice implementation logic to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are applicable even if you are not a Conversations client.</p>
 
-<h5>Example Authentication String - for testing purposes</h5>
+<h5>Example Authentication String for Testing</h5>
 <p>
-	If you don't have an authorization token set up yet, please refer to the example in <a href="./user_authentication_token.html">User Authentication Token</a>.
+	If you haven't yet set up an authorization token, use the <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> example.
 </p>
 
 
 <br>
-<h3>Implementation</h3>
-<p>Users of this SDK are asked to implement ads using <a href="https://developers.google.com/mobile-ads-sdk/docs/dfp/android/quick-start">DFP's SDK for Android</a>. Contact Bazaarvoice about serving ads in your app to get everything properly set up in DFP. Once ads are implemented, continue on below:</p>
-<p>Adding targeting data to your advertisements is simple. For every <code>PublisherAdRequest.Builder</code> that you use, call the <code>addCustomTargeting</code> method as follows:</p>
+<h3>Implementing Ads</h3>
+<p>Bazaarvoice recommends you implement advertisements using <a href="https://developers.google.com/mobile-ads-sdk/docs/dfp/android/quick-start">DFP's SDK for Android</a>. Contact Bazaarvoice for assistance. After ads are implemented, you can add targeting data to your ads.</p>
+<p>For every <code>PublisherAdRequest.Builder</code> you use, call the <code>addCustomTargeting</code> method with the following code:</p>
 <pre><code class="java">...
 PublisherAdRequest.Builder publisherAdRequest = new PublisherAdRequest.Builder();
 Map<String, String> targetingKeywords = BVAds.getCustomTargeting();
@@ -319,54 +320,51 @@ for (Map.Entry<String, String> entry : targetingKeywords.entrySet()) {
     publisherAdRequest.addCustomTargeting(entry.getKey(), entry.getValue());
 }
 ...</code></pre>
-<p>This sends along necessary information to DFP to properly target ads for that user.</p>
+<p>The above call sends DFP the information necessary to target ads correctly.</p>
 <br>
 
-<h3>Upgrading from old versions of BVSDK</h3>
-<p>Previously, DFP's SDK was included with the BVSDK, and users were asked to use BVSDK methods, like using <code>bvAds.getTargetedAdRequest()</code> instead of <code>new PublisherAdRequest.Builder()</code>. However, we've simplified this process greatly.
-Now, users of Bazaarvoice Advertising are asked to implement DFP ads on their own, following their <a href="https://developers.google.com/mobile-ads-sdk/docs/dfp/android/quick-start">excellent documentation</a>.
-After ads are implemented and working well, adding in targeting information is a one-line change, described above.</p>
+<h3>Upgrading from Older Versions of Bazaarvoice Mobile SDKs</h3>
+<p>In previous versions, the Mobile SDKs included the DFP SDK, and you needed to use methods like <code>bvAds.getTargetedAdRequest()</code> instead of <code>new PublisherAdRequest.Builder()</code>. However, Bazaarvoice has simplified this process greatly with the latest Mobile SDKs. If you want to use the Advertising module of the most up-to-date Mobile SDKs, you must implement DFP ads yourself. Google provides <a href="https://developers.google.com/mobile-ads-sdk/docs/dfp/android/quick-start">excellent documentation</a> to guide you through the process. After ads are implemented and working well, use the call in the "Implementing Ads" section to add targeting information.</p>
 <br>
-<p>Specifically, once you upgrade your BVSDK installation:
+<p>Complete the following steps to finish upgrading your Mobile SDK:</p>
   <ul>
     <li>Change <code>getTargetedAdLoader(context, adUnitId)</code> to <code>new AdLoader.Builder(context, adUnitId)</code></li>
     <li>Change <code>getTargetedAdRequest()</code> to <code>new PublisherAdRequest.Builder()</code></li>
     <li>Change <code>getTargetedInterstitialAd(context, adUnitId)</code> to <code>PublisherInterstitialAd interstitialAd = new PublisherInterstitialAd(context); interstitialAd.setAdUnitId(adUnitId);</code></li>
     <li>Change <code>getTargetedAdView(context, adUnitId)</code> to <code>PublisherAdView bannerAd = new PublisherAdView(context); bannerAd.setAdUnitId(adUnitId);</code></li>
   </ul>
-</p>
+
+
+<h3>Determining Contextual Interests</h3>
+<p>The Advertising module is structured around product categories. You can find a complete list in <code>BVContextualInterests.java</code>. The list is split into two tiers, with about 30 Tier One categories, each of which includes multiple Tier Two subcategories.</p>
+<p>For example, the Women's Dresses section of a department store would correspond to the following product categories:</p>
+<ul>
+	<li>Tier One: <code>tierOneApparelAndAccessories</code></li>
+	<li>Tier Two: <code>tierTwoApparelAndAccessoriesWomensDresses</code></li>
+</ul>
+<p>Similarly, the Television section of an electronics store would correspond to the following product categories:</p>
+<ul>
+	<li>Tier One: <code>tierOneConsumerElectronics</code></li>
+	<li>Tier Two: <code>tierTwoConsumerElectronicsTelevisions</code></li>
+</ul>
+<p>All Tier Two categories are extensions of their Tier One category names.</p><p>Contextual interest categories are used while sending location information to the Advertising module, as defined in the following section.</p>
 <br>
 
-<h3>Contextual Interests</h3>
-<p>BVAdvertising is structured around categories that products belong to. The list is fully defined in <code>BVContextualInterests.java</code>. It is split into two tiers, with about 30 <i>tier one</i> categories, all with multiple sub-categories (<i>tier two</i>).</p>
-<p>For example, the Women's dresses section of a Target store would correspond to:</p>
+<h3>Notes on Advertising and User Location</h3>
+<p>The Advertising module provides many ways to integrate location data into a shopper's profile. You can find all location-related methods in <code>Ads.java</code>. Bear in mind the following information:</p>
 <ul>
-	<li>tier one: <code>tierOneApparelAndAccessories</code></li>
-	<li>tier two: <code>tierTwoApparelAndAccessoriesWomensDresses</code></li>
-</ul>
-<p>Similarly, the Television section of a BestBuy store would correspond to:</p>
-<ul>
-	<li>tier one: <code>tierOneConsumerElectronics</code></li>
-	<li>tier two: <code>tierTwoConsumerElectronicsTelevisions</code></li>
-</ul>
-<p>Note: all tier two categories are extensions of their tier one category names. Contextual Interest categories are used while sending location information to BVAdvertising, as defined below.</p>
-<br>
-
-<h3>BVAdvertising + User Location</h3>
-<p>BVAdvertising provides many ways to integrate location data into a shopper's profile. All location related methods can be found in <code>Ads.java</code>, but a couple notes:</p>
-<ul>
-	<li>All location methods have <code>contextualTier1</code> and <code>contextualTier2</code> parameters. This allows you to send all location->interest mapping information available to BVAdvertising in order to give the shopper the best profile possible. See <code>BVContextualInterests.java</code> for a generated list of Contextual Tier 1 and Tier 2 strings.</li>
-	<li>We define methods that correlate strongly to <code>LocationListener</code> interface methods -- and provide an example usage within <code>LocationManagerExmaple.java</code>.</li>
-	<li>We also define methods that correlate strongly to Gimbal <code>PlaceEventListener</code> interface methods. Similarly, we provide an example usage within <code>GimbalExample.java</code>.</li>
+	<li>All location methods have <code>contextualTier1</code> and <code>contextualTier2</code> parameters. This allows you to send all location->interest mapping information available to the Advertising module to give the shopper the best profile possible. Refer to <code>BVContextualInterests.java</code> for a generated list of Contextual Tier 1 and Tier 2 strings.</li>
+	<li>Bazaarvoice defines methods that correlate strongly to <code>LocationListener</code> interface methods. You can find example usage within <code>LocationManagerExmaple.java</code>.</li>
+	<li>Bazaarvoice also defines methods that correlate strongly to Gimbal <code>PlaceEventListener</code> interface methods. You can find example usage within <code>GimbalExample.java</code>.</li>
 </ul>
 
 
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -374,7 +372,7 @@ After ads are implemented and working well, adding in targeting information is a
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

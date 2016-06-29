@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "Example Projects";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'Example Projects'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,39 +213,129 @@ $(function(){
 	Example Projects
 </div>
 <hr>
-<p>Product Recommendations, Advertising, Curations, and Conversations are all demonstrated in an example app, which shows how to properly implement these modules. Once you have cloned this repository, you can configure and run the example app.</p>
+<p>The BVSDK contains basic example projects for each module as well as a full demo project highlighting a full integration of all the BVSDK components. Preview any of the samples in the SDK to help you get your implementation up and running quickly.</p>
 
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that Google Play Services is installed.</p>
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
 
 <br>
 
-<h3>Configuring the Examples</h3>
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-codeAppSetupId">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#codeAppSetupId" aria-expanded="false" aria-controls="codeAppSetupId" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="codeAppSetupArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;">Configuring the Code Example App</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Click here to see how to configure the code example app.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="codeAppSetupId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
 <ol>
-	<li>
-		<p>Open the example app by selecting <strong>File</strong> > <strong>Open</strong> and choose the repository root.</p>
-		<img src="img/example_app_opened.png" style="height:180px" class="center-block img-fluid" />
-		<br>
-	</li>
-	<li>
-		<p>Open up <code>UserConfigurationImpl.java</code> and add your SDK configuration values in the <code>REPLACE_ME</code> text. Add your client ID and the API keys for your desired modules here.</p>
-	</li>
-	<li>
-		<p>See the value for <code>BV_ENVIRONMENT</code> in <code>UserConfigurationImpl.java</code> and set the evironment for staging or production.</p>
-	</li>
-	<li>
-		<p>You should now be ready to run!</p>
-		<img src="img/example_app_running.png" style="height:300px" class="center-block img-fluid" />
-	</li>
+  <li>
+    <p>Open the <code>DemoConstants.java</code> file, and modify...
+      <ol>
+        <li><code>BV_CLIENT_ID</code> - your Bazaarvoice provided clientId string name</li>
+        <li><code>PASSKEY_SHOPPER_AD</code> - your Bazaarvoice Shopper Advertising api key</li>
+        <li><code>PASSKEY_CONVERSATIONS</code> - your Bazaarvoice Conversations api key</li>
+        <li><code>PASSKEY_CURATIONS</code> - your Bazaarvoice Curations api key</li>
+        <li><code>ENVIRONMENT</code> - the environment you want from the BazaarEnvironment enum</li>
+      </ol>
+    </p>
+    <p><code>BV_CLIENT_ID</code> and <code>ENVIRONMENT</code> are required, and the others may be left as
+      <code>"REPLACE_ME"</code> if not used</p>
+  </li>
+  <br><br>
+  <li>
+    <p>Right click the <code>DemoMainActivity.java</code> file, and select Run.</p>
+    <img src="android-img/code_example_step_2_run_activity.png" style="height:auto; border:1px solid gray" class="center-block img-fluid"/>
+  </li>
+  <br><br>
+  <li>
+    <p>On your device, you should see a home page like this. This app can be used to view example implementations of the different
+    parts of the BVSDK.</p>
+    <img src="android-img/code_example_step_10_home_screen.png" style="max-width:30%" class="center-block img-fluid" />
+  </li>
+  <br><br>
+  <li>
+    <p>There will be a drawer with simple code example for each of the products.</p>
+    <img src="android-img/code_example_step_11_nav_drawer.png" style="max-width: 30%" class="center-block img-fluid" />
+  </li>
 </ol>
+
+		</div>
+    </div>
+  </div>
+
+
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-demoAppSetupId">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#demoAppSetupId" aria-expanded="false" aria-controls="demoAppSetupId" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="demoAppSetupArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;">Configuring the Demo App</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Click here to see how to configure the demo app.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="demoAppSetupId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
+<ol>
+  <li>
+    <p>Open the <code>DemoConstants.java</code> file, and modify...
+      <ol>
+        <li><code>BV_CLIENT_ID</code> - your Bazaarvoice provided clientId string name</li>
+        <li><code>PASSKEY_SHOPPER_AD</code> - your Bazaarvoice Shopper Advertising api key</li>
+        <li><code>PASSKEY_CONVERSATIONS</code> - your Bazaarvoice Conversations api key</li>
+        <li><code>PASSKEY_CURATIONS</code> - your Bazaarvoice Curations api key</li>
+        <li><code>ENVIRONMENT</code> - the environment you want from the BazaarEnvironment enum</li>
+      </ol>
+    </p>
+    <p><code>BV_CLIENT_ID</code> and <code>ENVIRONMENT</code> are required, and the others may be left as
+      <code>"REPLACE_ME"</code> if not used.
+    <p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The demo app is not useable without a Shopper Advertising API Key.</p></p>
+  </li>
+  <br><br>
+  <li>
+    <p>Right click the <code>DemoRecsHomeActivity.java</code> file, and select Run.</p>
+    <img src="android-img/demo_step_2_run_activity.png" style="height:auto; border:1px solid gray"" class="center-block img-fluid" />
+  </li>
+  <br><br>
+  <li>
+    <p>On your device, you should see a home page like this. This app can be used as an example of best practices to use when integrating all parts
+    of the BVSDK into a single app.</p>
+    <img src="android-img/demo_step_10_home_screen.png" style="max-width:30%" class="center-block img-fluid" />
+  </li>
+</ol>
+
+		</div>
+    </div>
+  </div>
+
+
 <br>
 
 
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -251,7 +343,7 @@ $(function(){
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

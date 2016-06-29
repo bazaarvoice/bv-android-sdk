@@ -27,16 +27,18 @@ $(function(){
 
 	// when swift/objective-c tab clicked, swap tabs on each element on screen
 	$('a[href*="objc"]').click(function (e) {
-	  e.preventDefault()
-	  $('a[href*="objc"]').each(function(){
+	  e.preventDefault();
+	  $('a[href*="objc"]').each(function(e){
 		$(this).tab('show');
+		  e.preventDefault()
 	  });
 	});
 
 	$('a[href*="swift"]').click(function (e) {
-	  e.preventDefault()
-	  $('a[href*="swift"]').each(function(){
+	  e.preventDefault();
+	  $('a[href*="swift"]').each(function(e){
 		$(this).tab('show');
+		  e.preventDefault()
 	  });
 	});
 
@@ -64,10 +66,19 @@ $(function(){
 		});
 	}
 
+	// installation / configuration on all pages
 	listenForCollapseAndRotate($('#installationCollapse'), $('#installationArrow'), 0, 90, 90, 360);
 	listenForCollapseAndRotate($('#configurationCollapse'), $('#configurationArrow'), 0, 90, 90, 360);
+
+	// sidebar
 	listenForCollapseAndRotate($('#curationsDropdown'), $('#curationsDropdownArrow'), 270, 0, 0, 270);
 	listenForCollapseAndRotate($('#conversationsDropdown'), $('#conversationsDropdownArrow'), 270, 0, 0, 270);
+
+	// installation page
+	listenForCollapseAndRotate($('#installationCocoaPods'), $('#installationCocoaPodsArrow'), 270, 0, 0, 270);
+	listenForCollapseAndRotate($('#installationHeaderFiles'), $('#installationHeaderFilesArrow'), 270, 0, 0, 270);
+	listenForCollapseAndRotate($('#installationBVSDKManager'), $('#installationBVSDKManagerArrow'), 270, 0, 0, 270);
+	listenForCollapseAndRotate($('#manualInstallation'), $('#manualInstallationArrow'), 270, 0, 0, 270);
 
 	
 });

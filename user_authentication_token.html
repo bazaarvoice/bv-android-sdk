@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "User Authentication Token";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'User Authentication Token'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,26 +213,27 @@ $(function(){
 	User Authentication Token
 </div>
 <hr>
-<p>Both the Advertising and Recommendations modules support adding an authenticated user for shopper profile matching.</p>
-<p>Once a user is authenticated inside your user login workflow, the user authentication token can be set via the <code>BVSDK</code> instance.</p>
+<p>Both the Advertising and Product Recommendations modules sof the Bazaarvoice Mobile SDKs support adding an authenticated user for shopper profile matching.</p>
+<p>After a user is authenticated inside your user login workflow, use the <code>BVSDK</code> instance to set up the user authentication token.</p>
 
 <h3>Example</h3>
 
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The authentication token created with your existing Bazaarvoice implementation logic needs to be provided to the BVSDKManager. However, the steps to encrypt your authentication token are still applicable even if you are not a Conversations client.</p>
 
 <br>
-<h5>Adding information about the user</h5>
-<p>The user auth string is an encrypted query string. In the documentation above, <code>date=2007­0527&userid=ID12345</code> is used as an example. This is then encrypted/signed appropriately, for security. You should add information (such as identity, demographics) in this query string, for example: <code>date=2007­0527&userid=ID12345&facebookId=abc123&age=28&gender=female</code>. Allowed keys include: <code>userid, age, email, facebookId, gender, twitterId</code>. This information can then be safely passed to the <code>BVSDK</code> instance like below:</p>
+<h5>Adding User Information</h5>
+<p>The user auth string is an encrypted query string. In the documentation above, <code>date=2007­0527&userid=ID12345</code> is used as an example. This is then encrypted/signed appropriately for security. Add information such as identity and demographics in this query string, for example:</p><p> <code>date=2007­0527&userid=ID12345&facebookId=abc123&age=28&gender=female</code></p>
+<p>Allowed keys include: <code>userid, age, email, facebookId, gender, twitterId</code>. This information can then be safely passed to the <code>BVSDK</code> instance, as shown in the following example:</p>
 <pre><code class="java">BVSDK.getInstance().setUserAuthString("0ce436b29697d6bc74f30f724b9b0bb6646174653d31323334267573657269643d5265636f6d6d656e646174696f6e7353646b54657374");</code></pre>
-<p>Once <code>setUserAuthString</code> has been called, Bazaarvoice's back-end systems will begin matching data to this user's profile. This process is near real-time, but not instant. The SDK will poll to update the user profile and should reflect the user's interests within seconds.</p>
+<p>After <code>setUserAuthString</code> has been called, Bazaarvoice will begin matching data to this user's profile. The process runs nearly in real-time, but is not instant. The Mobile SDK will poll to update the user profile and should reflect the user's interests within seconds.</p>
 <br>
 
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -238,7 +241,7 @@ $(function(){
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>

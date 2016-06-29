@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="./assets/js/highlight.pack.js"></script>
-  <script type="text/javascript" src="./assets/js/main.js"></script>
+  
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
+  <script type="text/javascript" src="./assets/js/main.js"></script>
   
   <script>
     
@@ -20,7 +22,9 @@ $(function(){
 	var tabName = "Curations Example App";
 
 	$('.nav-link.active').removeClass('active');
+	console.log('active tab: ', tabName);
 	var nav_link = $('.nav-link:contains("' + tabName + '")');
+	console.log('actual nav link:', nav_link);
 	nav_link.addClass('active');
 	
 });
@@ -61,7 +65,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-5', 'auto');
+    ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
       title: 'Curations Example App'
     });
@@ -73,9 +77,7 @@ $(function(){
 
   <body>
     <div id="portal_container">
-
       
-
       <nav class="navbar-fixed-top">
     <div class="navbar-header">
         <div class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -181,11 +183,11 @@ $(function(){
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
-                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ & Support</span>
+                    <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./assets/api_reference/index.html">
+                <a class="nav-link" href="api_reference.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
@@ -211,13 +213,12 @@ $(function(){
 	Curations Example App
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: this tutorial assumes you have created a new project with a single empty Activity <code>MainActivity.java</code> and have successfully installed and configured the BVSDK Curations Module.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: To create this example app yourself, you must create a new project with a single empty Activity <code>MainActivity.java</code>, and successfully install and configure the Curations module of the Bazaarvoice Mobile SDKs.</p>
 
 <br>
 
 <h3>Dependencies</h3>
-<p>This tutorial app has a dependency on <a href="http://square.github.io/picasso/">Picasso</a> for asynchronous image loading and caching.</p>
-<p>This can included by add Picasso to your App's build.gradle file as follows:</p>
+<p>This example app has a dependency on <a href="http://square.github.io/picasso/">Picasso</a> for asynchronous image loading and caching. Use the following code to add Picasso to your App's build.gradle file:</p>
 <pre><code>apply plugin: 'com.android.application'
 
 android {
@@ -232,15 +233,15 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     ...
 }</code></pre>
-<p>This tutorial will take a step-by-step approach to leverage the Curations Module to create a horizontal scrolling <code>RecyclerView</code> that displays Curations content. We will also using the Curations module to easily capture user interactions and other analytic events from the <code>RecyclerView</code>. At the end of this tutorial you will have a working curations feed:</p>
+<p>This step-by-step guide leverages the Curations module of the Bazaarvoice Mobile SDKs so you can create a horizontal scrolling<code>RecyclerView</code> that displays Curations content, as shown in the following screenshot. In addition, the example app uses the Curations module to easily capture user interactions and other analytic events from the <code>RecyclerView</code>. If you complete the instructions on this page, you will have a working Curations feed.</p>
 
 
-<img src="img/curations_example_app/curations_tut_final.png" style="height:340px;" class="center-block img-fluid" />
+<img src="android-img/curations_example_app/curations_tut_final.png" style="height:340px;" class="center-block img-fluid" />
 <br>
 <hr>
 
-<h3>Getting Curations Feed</h3>
-<p>Let's start by adding a <code>CurationsRecyclerView</code> to our MainActivity layout xml. Using the provided <code>CurationsRecyclerView</code> will allow for automatic analytic events to be sent.</p>
+<h3>Getting a Curations Feed</h3>
+<p>Start by adding a <code>CurationsRecyclerView</code> to your MainActivity layout XML. Use the <code>CurationsRecyclerView</code> in the following example to allow automatic analytic events to be sent</p>
 <pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -264,7 +265,7 @@ dependencies {
 &lt;/RelativeLayout&gt;
 </code></pre>
 
-<p>In MainActivity let's set a <code>LinearLayoutManager</code> with Horizontal orientation for our <code>CurationsRecyclerView</code>. We will then use the <code>CurationsRecyclerView</code> to get the Curations feed. We will create a simple request to get up to 20 <code>CurationsFeedItem</code> that contain photos from all groups. We will also have our activity implement <code>CurationsFeedCallback</code> and stub the success/failure callback methods.</p>
+<p>In MainActivity, set a <code>LinearLayoutManager</code> with Horizontal orientation for your <code>CurationsRecyclerView</code>. You can then use the <code>CurationsRecyclerView</code> to get the Curations feed. Create a simple request to get up to 20 <code>CurationsFeedItem</code>s that contain photos from all groups. Your activity also implements <code>CurationsFeedCallback</code> and stubs the success/failure callback methods.</p>
 <pre><code class="java">public class MainActivity extends AppCompatActivity implements CurationsFeedCallback {
 
 private DemoAdapter curationsDemoAdapter;
@@ -306,12 +307,11 @@ public void onFailure(Throwable throwable) {
 
 
 <h3>Creating DemoAdapter and Display Curations Content</h3>
-<p>Next we will create the RecyclerView.Adapter and View that will display the Curations content.</p>
+<p>Follow this procedure to create the RecyclerView.Adapter and View that will display the Curations content.</p>
 <ul>
-	<li>
-		<p>First, create a new java file and let's name it DemoAdapter.</p>
-		<img src="img/curations_example_app/curations_tut_create_adapter.png" style="height:200px;" class="center-block img-fluid" />
-		<p>We'll have it extend RecyclerView.Adapter, stub out the required methods, and add a property with setter to hold the List of <code>CurationFeedItem</code> and update the UI when set.</p>
+	<li>Create a new java file and name it DemoAdapter.<br>
+		<img src="android-img/curations_example_app/curations_tut_create_adapter.png" style="height:200px;" class="center-block img-fluid" />
+		<br><br>Add the following code to this file to extend RecyclerView.Adapter, stub out the required methods, and add a property with setter that holds the List of <code>CurationFeedItem</code> and updates the UI.<br>
 <pre><code class="java">package com.example.bazaarvoice.curationsexample;
 
 import android.support.v7.widget.RecyclerView;
@@ -343,10 +343,9 @@ class DemoAdapter extends  RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt; {
 }</code></pre>
 		<br>
 	</li>
-	<li>
-		<p>Next, let's create a new XML layout file called <code>demo_curations_row.xml</code> for the view that will display a single photo from a <code>CurationsFeedItem</code>.</p>
-		<img src="img/curations_example_app/curations_tut_create_xml.png" style="height:360px;" class="center-block img-fluid" />
-		<p>Go ahead and use the following XML. You'll notice that the top level element is a <code>CurationsView</code>. This works with the <code>CurationsRecyclerView</code> to automatically provide analytic events.</p>
+	<li>Create a new XML layout file called <code>demo_curations_row.xml</code> for the view that will display a single photo from a <code>CurationsFeedItem</code>.<br>
+		<img src="android-img/curations_example_app/curations_tut_create_xml.png" style="height:360px;" class="center-block img-fluid" /><br><br>
+		<p>Use the following XML code in the layout file. Note that the top level element is a <code>CurationsView</code>. This works with the <code>CurationsRecyclerView</code> to automatically provide analytic events.<br>
 <pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;com.bazaarvoice.bvandroidsdk.CurationsView
 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -370,8 +369,7 @@ android:id="@+id/demoCurationsRow"&gt;
 &lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;</code></pre>
 		<br>
 	</li>
-	<li>
-		<p>Back in your DemoAdapter lets define a RecyclerView.ViewHolder subclass and call it DemoViewHolder. This class will be used to implement <code>RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)</code>.</p>
+	<li>In your DemoAdapter, define a RecyclerView.ViewHolder subclass and call it DemoViewHolder. This class is used to implement <code>RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)</code>.<br><br>
 <pre><code class="java">class DemoAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt; {
 
 ...
@@ -386,8 +384,7 @@ android:id="@+id/demoCurationsRow"&gt;
         }</code></pre>
         <br>
 	</li>
-	<li>
-		<p>Next, we will use our newly created view in our DemoAdapter to display curations photos. Still in your DemoAdapter class lets implement the stubbed methods. We will simply inflate a View using demo_curations_row.xml and return a new DemoViewHolder instantiated using the inflated View</p>
+	<li>Use your newly created view in your DemoAdapter to display Curations photos. In your DemoAdapter class, implement the stubbed methods. You can inflate a View using demo_curations_row.xml and return a new DemoViewHolder instantiated using the inflated View.<br><br>
 <pre><code class="java">@Override
 public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -396,8 +393,7 @@ public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType
 }</code></pre>
 		<br>
 	</li>
-	<li>
-		<p>Let's populate the row with the image from the corresponding CurationFeedItem. We will use Picasso to asynchronously load and cache images from a remote URL. <strong>Don't forget</strong> to set the call <code>CurationsView.setCurationsFeedItem</code>. This is required to capture property analytics</p>
+	<li>Populate the row with the image from the corresponding CurationFeedItem. Use Picasso to asynchronously load and cache images from a remote URL. <strong>Don't forget</strong> to set the call <code>CurationsView.setCurationsFeedItem</code>, which is required to capture property analytics.<br><br>
 <pre><code class="java">@Override
 public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 CurationsFeedItem feedItem = feedItems.get(position);
@@ -418,8 +414,7 @@ CurationsFeedItem feedItem = feedItems.get(position);
   }</code></pre>
 		<br>
 	</li>
-	<li>
-		<p>Lastly, we return the size of our feedItems List in <code>getItemCount()</code> to let RecyclerView how many rows to display</p>
+	<li>Finally, return the size of your feedItems List in <code>getItemCount()</code> to let RecyclerView know how many rows to display. <br><br>
 <pre><code class="java"> @Override
 public int getItemCount() {
     return feedItems.size();
@@ -430,8 +425,8 @@ public int getItemCount() {
 
 
 
-<h3>Display Curations Feed with your DemoAdapter</h3>
-<p>The last part is to go back to our MainActivity and give our RecyclerView a new DemoAdapter and give that Adapter the List of <code>CurationsFeedItem</code>.</p>
+<h3>Displaying the Curations Feed with your DemoAdapter</h3>
+<p>The last step in this example app is to return to MainActivity and give your RecyclerView a new DemoAdapter, then give that Adapter the List of <code>CurationsFeedItem</code>.</p>
 <pre><code class="java">public class MainActivity extends AppCompatActivity {
 
     private DemoAdapter curationsDemoAdapter;
@@ -472,16 +467,16 @@ findViewById(R.id.curations_demo_list);
 }</code></pre>
 <br>
 
-<h3>Run it!</h3>
+<h3>Running the example app</h3>
 <p>Run your app and you should have a horizontal carousel loading Curations feed!</p>
 <br>
 
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All right reserved.</p>
+	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of this SDK is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by this SDK or Bazaarvoice’s API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application’s purpose. Except as otherwise noted, the Bazaarvoice iOS SDK licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
@@ -489,7 +484,7 @@ findViewById(R.id.curations_demo_list);
               </div>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
     </div>
   </body>
