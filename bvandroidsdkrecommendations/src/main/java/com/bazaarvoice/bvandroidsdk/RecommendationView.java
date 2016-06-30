@@ -42,7 +42,6 @@ public final class RecommendationView extends BVView implements BVViewEventListe
     @Override
     void init() {
         super.init();
-        super.setEventListener(this);
     }
 
     /**
@@ -52,18 +51,31 @@ public final class RecommendationView extends BVView implements BVViewEventListe
         this.bvProduct = bvProduct;
     }
 
+    @Override
+    String getProductId() {
+        if (bvProduct == null) {
+            throw new IllegalStateException("Must associate BVProduct with RecommendationView");
+        }
+        return bvProduct.getProductId();
+    }
+
+    @Override
+    BVViewEventListener getEventListener() {
+        return this;
+    }
 
     @Override
     public void onImpression() {
-        if (bvProduct != null) {
-            RecommendationsAnalyticsManager.sendProductImpressionEvent(bvProduct);
-        }
+        RecommendationsAnalyticsManager.sendProductImpressionEvent(bvProduct);
     }
 
     @Override
     public void onConversion() {
-        if (bvProduct != null) {
-            RecommendationsAnalyticsManager.sendProductConversionEvent(bvProduct);
-        }
+        RecommendationsAnalyticsManager.sendProductConversionEvent(bvProduct);
+    }
+
+    @Override
+    public void onAddedToViewHeirarchy() {
+        // no-op
     }
 }

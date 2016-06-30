@@ -54,8 +54,6 @@ class ConversionUtils {
         piiEvent.put(BvAnalyticsSchema.KEY_EVENT_CLASS, eventClassPII);
         //all other params including PII
         piiEvent.putAll(params);
-        //override adID to be nontracking.
-        piiEvent.put(MagpieMobileAppPartialSchema.KEY_ADVERTISING_ID, AdvertisingIdClient.noAdIdDefault);
 
         return piiEvent;
     }

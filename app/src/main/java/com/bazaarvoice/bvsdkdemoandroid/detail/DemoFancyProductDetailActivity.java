@@ -116,7 +116,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
         DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
-        recRowActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, false);
+        recRowActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, false, recommendationsRecyclerView);
         curationsRowActionListener = new DemoProductCurationsRowPresenter(this, demoConfigUtils, demoDataUtil, productId);
         productDataActionListener = new DemoProductPresenter(demoConfigUtils, demoDataUtil, this, productId);
     }

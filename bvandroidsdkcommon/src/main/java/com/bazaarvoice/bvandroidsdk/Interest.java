@@ -11,12 +11,12 @@ import com.google.gson.annotations.SerializedName;
  */
 enum Interest {
 
-    @SerializedName("Low")
-    LOW("LOW"),
-    @SerializedName("MED")
-    MEDIUM("MED"),
-    @SerializedName("HIGH")
-    HIGH("HIGH");
+@SerializedName("LOW")
+LOW("LOW"),
+@SerializedName("MED")
+MEDIUM("MED"),
+@SerializedName("HIGH")
+HIGH("HIGH");
 
     private String value;
 

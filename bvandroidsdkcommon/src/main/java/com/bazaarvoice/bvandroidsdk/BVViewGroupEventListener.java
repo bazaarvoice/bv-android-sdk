@@ -5,6 +5,5 @@ package com.bazaarvoice.bvandroidsdk;
  */
 interface BVViewGroupEventListener {
     void onViewGroupInteractedWith();
-    void onEmbeddedPageView();
     void onViewGroupAddedToHierarchy();
 }

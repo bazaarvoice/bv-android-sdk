@@ -5,6 +5,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -19,6 +20,7 @@ public final class CurationsView extends BVView implements BVViewEventListener {
     private static final String TAG = CurationsView.class.getSimpleName();
 
     private CurationsFeedItem curationsFeedItem;
+    private boolean seen = false;
 
     public CurationsView(Context context) {
         super(context);
@@ -41,7 +43,6 @@ public final class CurationsView extends BVView implements BVViewEventListener {
     @Override
     void init() {
         super.init();
-        super.setEventListener(this);
     }
 
     /**
@@ -52,18 +53,48 @@ public final class CurationsView extends BVView implements BVViewEventListener {
         this.curationsFeedItem = curationsFeedItem;
     }
 
+    @Override
+    String getProductId() {
+        if (curationsFeedItem == null) {
+            throw new IllegalStateException("Must associate CurationsFeedItem with CurationsView");
+        }
+        return curationsFeedItem.getProductId();
+    }
+
+    @Override
+    BVViewEventListener getEventListener() {
+        return this;
+    }
 
     @Override
     public void onImpression() {
-        if (curationsFeedItem != null) {
-            CurationsAnalyticsManager.sendUGCImpressionEvent(curationsFeedItem);
-        }
+        // no-op, curations impression is defined differently, and should be sent when a curations
+        // item is added to the view heirarchy
+    }
+
+    @Override
+    public void onAddedToViewHeirarchy() {
+        CurationsAnalyticsManager.sendUGCImpressionEvent(curationsFeedItem);
     }
 
     @Override
     public void onConversion() {
-        if (curationsFeedItem != null) {
-            CurationsAnalyticsManager.sendUsedFeatureEventTapped(curationsFeedItem);
+        if (curationsFeedItem == null) {
+            throw new IllegalStateException("Must associate CurationsFeedItem with CurationsView");
+        }
+        CurationsAnalyticsManager.sendUsedFeatureEventTapped(curationsFeedItem);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDraw(Canvas c) {
+        super.onDraw(c);
+        if (!seen) {
+            seen = true;
+            getEventListener().onAddedToViewHeirarchy();
         }
     }
+
 }

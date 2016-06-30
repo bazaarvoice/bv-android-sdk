@@ -27,7 +27,7 @@ class DemoConfigXmlParser {
 
     private static List<DemoConfig> savedConfigList = null;
 
-    private static final String DEMO_APP_CONFIG_FILE = "demoAppConfigs.plist";
+    private static final String DEMO_APP_CONFIG_FILE = "DemoAppConfigs.plist";
     private static final String demoApiKeyConversations = DemoConstants.PASSKEY_CONVERSATIONS;
     private static final String demoApiKeyCurations = DemoConstants.PASSKEY_CURATIONS;
     private static final String demoApiKeyShopperAdvertising = DemoConstants.PASSKEY_SHOPPER_AD;

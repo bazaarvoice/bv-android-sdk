@@ -8,20 +8,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.AbsListView;
 import android.widget.GridView;
 
 /**
  * Bazaarvoice Provided {@link GridView} to display {@link BVView} objects
  */
-class BVGridView extends GridView implements View.OnAttachStateChangeListener, AbsListView.OnScrollListener {
+abstract class BVGridView extends GridView implements AbsListView.OnScrollListener {
 
     private AbsListView.OnScrollListener theirScrollListener;
 
     private boolean hasInteracted = false;
     private boolean seen = false;
-    private BVViewGroupEventListener eventListener;
 
     public BVGridView(Context context) {
         super(context);
@@ -46,12 +44,9 @@ class BVGridView extends GridView implements View.OnAttachStateChangeListener, A
 
     void init() {
         super.setOnScrollListener(this);
-        addOnAttachStateChangeListener(this);
     }
 
-    void setEventListener(BVViewGroupEventListener eventListener){
-        this.eventListener = eventListener;
-    }
+    abstract BVViewGroupEventListener getEventListener();
 
     /**
      * {@inheritDoc}
@@ -65,27 +60,13 @@ class BVGridView extends GridView implements View.OnAttachStateChangeListener, A
      * {@inheritDoc}
      */
     @Override
-    public void onViewAttachedToWindow(View v) {
-        eventListener.onEmbeddedPageView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onViewDetachedFromWindow(View v) {}
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (hasInteracted && scrollState == SCROLL_STATE_IDLE) {
-            eventListener.onViewGroupInteractedWith();
+            getEventListener().onViewGroupInteractedWith();
         }
 
         if (!hasInteracted && scrollState == SCROLL_STATE_TOUCH_SCROLL) {
-            eventListener.onViewGroupInteractedWith();
+            getEventListener().onViewGroupInteractedWith();
             hasInteracted = true;
         }
 
@@ -112,7 +93,7 @@ class BVGridView extends GridView implements View.OnAttachStateChangeListener, A
         super.onDraw(c);
         if (!seen) {
             seen = true;
-            eventListener.onViewGroupAddedToHierarchy();
+            getEventListener().onViewGroupAddedToHierarchy();
         }
     }
 

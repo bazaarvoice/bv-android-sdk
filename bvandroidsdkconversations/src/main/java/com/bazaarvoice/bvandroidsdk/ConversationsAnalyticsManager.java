@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
-
 /**
  * Internal API wrapper around {@code AnalyticsManger}
  * for sending Conversations analytics events
@@ -43,9 +41,11 @@ class ConversationsAnalyticsManager {
                 sendUgcImpressionEvent(resultInfo);
 
                 String productId = (String) resultInfo.get("productId");
-                if (productId != null && !productIdSet.contains(productId)) {
+                String categoryId = (String) resultInfo.get("categoryId");
+                String brand = (String) resultInfo.get("brand");
+                if (!productIdSet.contains(productId)) {
                     productIdSet.add(productId);
-                    sendProductPageViewEvent(productId);
+                    sendProductPageViewEvent(productId, categoryId, brand);
                 }
             }
 
@@ -82,11 +82,10 @@ class ConversationsAnalyticsManager {
                 .fingerprint(isFingerprintUsed)
                 .build();
 
-        Map<String, Object> dataMap = schema.getDataMap();
-        mapPutSafe(dataMap, "productId", productId);
-        mapPutSafe(dataMap, "categoryId", categoryId);
+        schema.addKeyVal("productId", productId);
+        schema.addKeyVal("categoryId", categoryId);
 
-        analyticsManager.enqueueEvent(dataMap);
+        analyticsManager.enqueueEvent(schema);
     }
 
     private static SubmitUsedFeatureSchema.SubmitFeature getSubmitFeatureFromRequestType(RequestType requestType) {
@@ -140,6 +139,13 @@ class ConversationsAnalyticsManager {
                 eventMap.put("contentId", response.getString("Id"));
                 eventMap.put("productId", response.getString("Id"));
                 eventMap.put("categoryId", response.getString("CategoryId"));
+                JSONObject brandJsonObject = response.getJSONObject("Brand");
+                if (brandJsonObject != null) {
+                    String brand = brandJsonObject.getString("Name");
+                    if (brand != null) {
+                        eventMap.put("brand", brand);
+                    }
+                }
                 break;
             case STATISTICS:
                 eventMap.put("contentType", "Statistic");
@@ -171,26 +177,20 @@ class ConversationsAnalyticsManager {
 
     private static void sendUgcImpressionEvent(Map<String, Object> dataMap) {
         BVSDK bvsdk = BVSDK.getInstance();
-        mapPutSafe(dataMap, "cl", "Impression");
-        mapPutSafe(dataMap, "type", "UGC");
-        mapPutSafe(dataMap, "source", "native-mobile-sdk");
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        magpieMobileAppPartialSchema.addPartialData(dataMap);
-        analyticsManager.enqueueEvent(dataMap);
+        String productId = (String) dataMap.get("productId");
+        String bvProduct = (String) dataMap.get("bvProduct");
+        UgcImpressionSchema schema = new UgcImpressionSchema(magpieMobileAppPartialSchema, productId, bvProduct);
+        analyticsManager.enqueueEvent(schema);
     }
 
-    private static void sendProductPageViewEvent(String productId) {
+    private static void sendProductPageViewEvent(String productId, String categoryId, String brand) {
         BVSDK bvsdk = BVSDK.getInstance();
-        Map<String, Object> dataMap = new HashMap<String, Object>();
-        mapPutSafe(dataMap, "productId", productId);
-        mapPutSafe(dataMap, "cl", "PageView");
-        mapPutSafe(dataMap, "type", "Product");
-        mapPutSafe(dataMap, "source", "native-mobile-sdk");
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        magpieMobileAppPartialSchema.addPartialData(dataMap);
-        analyticsManager.enqueueEvent(dataMap);
+        ProductPageViewSchema schema = new ProductPageViewSchema(productId, categoryId, brand, magpieMobileAppPartialSchema);
+        analyticsManager.enqueueEvent(schema);
     }
 
 }

@@ -45,15 +45,14 @@ public class BVSDK {
     private static final String CURATIONS_DISPLAY_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/get?";
     private static final String CURATIONS_POST_API_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/curations/content/add/";
     private static final String CURATIONS_POST_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/add/";
+    private static final String ANALYTICS_ROOT_URL_PRODUCTION = "https://network.bazaarvoice.com/event";
+    private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/event";
     static BVSDK instance;
 
     static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
 
     final Application application;
-    final ExecutorService scheduledExecutorService;
-    final ExecutorService immediateExecutorService;
     final OkHttpClient okHttpClient;
-    final AdvertisingIdClient advertisingIdClient;
     final AnalyticsManager analyticsManager;
     final BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     final String clientId;
@@ -67,16 +66,9 @@ public class BVSDK {
     final String curationsDisplayApiRootUrl;
     final String curationsPostApiRootUrl;
 
-    interface GetAdInfoCompleteAction {
-        void completionAction(AdInfo adInfo);
-    }
-
-    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations, BVLogLevel logLevel, ExecutorService scheduledExecutorService, ExecutorService immediateExecutorService, OkHttpClient okHttpClient, AdvertisingIdClient advertisingIdClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, String shopperMarketingApiRootUrl, String curationsDisplayApiRootUrl, String curationsPostApiRootUrl) {
+    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations, BVLogLevel logLevel, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, String shopperMarketingApiRootUrl, String curationsDisplayApiRootUrl, String curationsPostApiRootUrl) {
         this.application = application;
-        this.scheduledExecutorService = scheduledExecutorService;
-        this.immediateExecutorService = immediateExecutorService;
         this.okHttpClient = okHttpClient;
-        this.advertisingIdClient = advertisingIdClient;
         this.analyticsManager = analyticsManager;
         this.bvActivityLifecycleCallbacks = bvActivityLifecycleCallbacks;
         this.clientId = clientId;
@@ -90,6 +82,9 @@ public class BVSDK {
         this.curationsDisplayApiRootUrl = curationsDisplayApiRootUrl;
         this.curationsPostApiRootUrl = curationsPostApiRootUrl;
 
+        // Also set here for when the constructor is used during tests
+        Logger.setLogLevel(logLevel);
+
         Logger.d(TAG, "Updating user upon BVSDK initialization");
         updateUser();
 
@@ -102,7 +97,7 @@ public class BVSDK {
         /**
          * Send Magpie lifecycle analytics signalling app launch
          */
-        analyticsManager.sendAppStateEvent(MobileAppLifecycleSchema.AppState.LAUNCHED);
+        analyticsManager.enqueueAppStateEvent(MobileAppLifecycleSchema.AppState.LAUNCHED);
     }
 
     public static BVSDK getInstance() {
@@ -149,6 +144,7 @@ public class BVSDK {
         private String apiKeyConversations;
         private String apiKeyCurations;
         private BVLogLevel logLevel;
+        private OkHttpClient okHttpClient;
 
         private Builder() {}
 
@@ -202,6 +198,17 @@ public class BVSDK {
             return this;
         }
 
+        public Builder okHttpClient(OkHttpClient okHttpClient) {
+            if (okHttpClient == null) {
+                throw new IllegalArgumentException("OkHttpClient must not be null");
+            }
+            if (this.okHttpClient != null) {
+                throw new IllegalStateException("OkHttpClient already set");
+            }
+            this.okHttpClient = okHttpClient;
+            return this;
+        }
+
         public BVSDK build() {
             if (application == null) {
                 throw new IllegalStateException("Must provide an application object");
@@ -219,26 +226,29 @@ public class BVSDK {
                 logLevel = BVLogLevel.ERROR;
             }
 
+            if (okHttpClient == null) {
+                this.okHttpClient = new OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).build();
+            }
+
             Logger.setLogLevel(logLevel);
 
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
             ScheduledExecutorService profileExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_PROFILE_THREAD_NAME));
             ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
-            OkHttpClient okHttpClient = new OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).build();
             Gson gson = new Gson();
-            AdvertisingIdClient advertisingIdClient = new AdvertisingIdClient(application.getApplicationContext());
-            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(Utils.isStagingEnvironment(bazaarEnvironment), apiKeyShopperAdvertising, immediateExecutorService, profileExecutorService, okHttpClient, gson);
             String versionName = Utils.getVersionName(application.getApplicationContext());
             String versionCode = Utils.getVersionCode(application.getApplicationContext());
             String packageName = Utils.getPackageName(application.getApplicationContext());
             UUID uuid = Utils.getUuid(application.getApplicationContext());
-            AnalyticsManager analyticsManager = new AnalyticsManager(versionName, versionCode, clientId, bazaarEnvironment, advertisingIdClient, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
-            BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
             String curationsDisplayApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_DISPLAY_API_ROOT_URL_STAGING : CURATIONS_DISPLAY_API_ROOT_URL_PRODUCTION;
             String curationsPostApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_POST_API_ROOT_URL_STAGING : CURATIONS_POST_API_ROOT_URL_PRODUCTION;
+            String analyticsRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
+            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, immediateExecutorService, profileExecutorService, okHttpClient, gson);
+            AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), versionName, versionCode, clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
+            BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
 
-            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, logLevel, scheduledExecutorService, immediateExecutorService, okHttpClient, advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl);
+            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, logLevel, okHttpClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl);
             return instance;
         }
     }
@@ -247,6 +257,10 @@ public class BVSDK {
 
     Context getApplicationContext() {
         return application.getApplicationContext();
+    }
+
+    AdIdRequestTask getAdIdRequestTask(AdIdRequestTask.AdIdCallback callback) {
+        return new AdIdRequestTask(getApplicationContext(), callback);
     }
 
     String getClientId() {
@@ -259,10 +273,6 @@ public class BVSDK {
 
     AnalyticsManager getAnalyticsManager() {
         return analyticsManager;
-    }
-
-    AdvertisingIdClient getAdvertisingIdClient() {
-        return advertisingIdClient;
     }
 
     Gson getGson() {
@@ -313,7 +323,7 @@ public class BVSDK {
         }
 
         bvAuthenticatedUser.setUserAuthString(userAuthString);
-        analyticsManager.sendPersonalizationEvent();
+        analyticsManager.dispatchSendPersonalizationEvent();
 
         Logger.d(TAG, "Updating user upon user auth string update");
         updateUser();
@@ -329,7 +339,7 @@ public class BVSDK {
             Logger.w("BVSDK", "Could not track Transaction. Transaction items are required");
             return;
         }
-        analyticsManager.sendConversionTransactionEvent(transaction);
+        analyticsManager.enqueueConversionTransactionEvent(transaction);
     }
 
     /**
@@ -338,7 +348,7 @@ public class BVSDK {
      * @param conversion
      */
     public void sendNonCommerceConversionEvent(Conversion conversion) {
-        analyticsManager.sendNonCommerceConversionEvent(conversion);
+        analyticsManager.enqueueNonCommerceConversionEvent(conversion);
     }
 
     private void updateUser() {
@@ -349,7 +359,7 @@ public class BVSDK {
                 @Override
                 public void run() {
                     Logger.d(TAG, "Profile update poll");
-                    bvAuthenticatedUser.updateProfile(true);
+                    bvAuthenticatedUser.updateProfile();
                 }
             }, time);
         }

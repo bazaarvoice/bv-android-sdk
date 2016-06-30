@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.RecommendationView;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -27,6 +29,9 @@ import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -110,7 +115,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
             case ROW_REC:
             default:
                 View recRowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_product_recs, parent, false);
-                viewHolder = new RecsViewHolder(recRowView);
+                viewHolder = new RecRowViewHolder(recRowView);
                 break;
         }
 
@@ -170,24 +175,29 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
     }
 
     private void bindRecRow(RecyclerView.ViewHolder holder, BVProduct leftProduct, BVProduct rightProduct) {
-        RecsViewHolder recsViewHolder = (RecsViewHolder) holder;
+        RecRowViewHolder recRowViewHolder = (RecRowViewHolder) holder;
 
-        DemoUtils demoUtils = DemoUtils.getInstance(recsViewHolder.row.getContext());
+        DemoUtils demoUtils = DemoUtils.getInstance(recRowViewHolder.row.getContext());
+
+        LinearLayout recRowContainer = recRowViewHolder.recRowContainer;
+        recRowContainer.removeAllViews();
+        RecommendationView leftRecView = (RecommendationView) LayoutInflater.from(recRowContainer.getContext()).inflate(R.layout.include_product_rec_snippet_cell, recRowContainer, false);
+        RecItemViewHolder leftRec = new RecItemViewHolder(leftRecView);
 
         demoUtils.picassoThumbnailLoader()
                 .load(leftProduct.getImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
-                .into(recsViewHolder.leftImage);
-        recsViewHolder.leftProdName.setText(leftProduct.getProductName());
+                .into(leftRec.image);
+        leftRec.prodName.setText(leftProduct.getProductName());
         if (TextUtils.isEmpty(leftProduct.getPrice())){
-            recsViewHolder.leftProdPrice.setVisibility(View.GONE);
+            leftRec.prodPrice.setVisibility(View.GONE);
         } else {
-            recsViewHolder.leftProdPrice.setText(leftProduct.getPrice());
+            leftRec.prodName.setText(leftProduct.getPrice());
         }
-        recsViewHolder.leftProdRating.setRating((int)leftProduct.getAverageRating());
-
-        recsViewHolder.leftRec.setTag(leftProduct);
-        recsViewHolder.leftRec.setOnClickListener(new android.view.View.OnClickListener() {
+        leftRec.prodRating.setRating((int)leftProduct.getAverageRating());
+        leftRec.recView.setBvProduct(leftProduct);
+        leftRec.recView.setTag(leftProduct);
+        leftRec.recView.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (recTapListener != null) {
@@ -195,22 +205,26 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                 }
             }
         });
+        recRowContainer.addView(leftRecView);
 
         if (rightProduct != null) {
+            RecommendationView rightRecView = (RecommendationView) LayoutInflater.from(recRowContainer.getContext()).inflate(R.layout.include_product_rec_snippet_cell, recRowContainer, false);
+            RecItemViewHolder rightRec = new RecItemViewHolder(rightRecView);
+
             demoUtils.picassoThumbnailLoader()
                     .load(rightProduct.getImageUrl())
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
-                    .into(recsViewHolder.rightImage);
-            recsViewHolder.rightProdName.setText(rightProduct.getProductName());
+                    .into(rightRec.image);
+            rightRec.prodName.setText(rightProduct.getProductName());
             if (TextUtils.isEmpty(rightProduct.getPrice())){
-                recsViewHolder.rightProdPrice.setVisibility(View.GONE);
+                rightRec.prodPrice.setVisibility(View.GONE);
             } else {
-                recsViewHolder.rightProdPrice.setText(rightProduct.getPrice());
+                rightRec.prodPrice.setText(rightProduct.getPrice());
             }
-            recsViewHolder.rightProdRating.setRating((int)rightProduct.getAverageRating());
-
-            recsViewHolder.rightRec.setTag(rightProduct);
-            recsViewHolder.rightRec.setOnClickListener(new android.view.View.OnClickListener() {
+            rightRec.prodRating.setRating((int)rightProduct.getAverageRating());
+            rightRec.recView.setBvProduct(rightProduct);
+            rightRec.recView.setTag(rightProduct);
+            rightRec.recView.setOnClickListener(new android.view.View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (recTapListener != null) {
@@ -218,19 +232,18 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                     }
                 }
             });
-            recsViewHolder.rightRec.setVisibility(View.VISIBLE);
-        } else {
-            demoUtils.picassoThumbnailLoader()
-                    .load(leftProduct.getImageUrl())
-                    .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
-                    .into(recsViewHolder.rightImage);
-            recsViewHolder.rightRec.setVisibility(View.INVISIBLE);
+            rightRec.recView.setVisibility(View.VISIBLE);
+            recRowContainer.addView(rightRecView);
         }
     }
 
     @Override
     public int getItemCount() {
         return rowDataList.size();
+    }
+
+    public int getRecommendationCount() {
+        return bvProducts.size();
     }
 
     @Override
@@ -271,45 +284,39 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
         this.recTapListener = recTapListener;
     }
 
-    private final class RecsViewHolder extends RecyclerView.ViewHolder {
+    private final class RecRowViewHolder extends RecyclerView.ViewHolder {
         ViewGroup row;
-        ViewGroup leftRec;
-        ImageView leftImage;
-        TextView leftProdName, leftProdPrice;
-        RatingBar leftProdRating;
-        ViewGroup rightRec;
-        ImageView rightImage;
-        TextView rightProdName, rightProdPrice;
-        RatingBar rightProdRating;
+        LinearLayout recRowContainer;
 
-        public RecsViewHolder(View itemView) {
+        public RecRowViewHolder(View itemView) {
             super(itemView);
             this.row = (ViewGroup) itemView;
-            this.leftRec = (ViewGroup) itemView.findViewById(R.id.left_rec);
-            this.leftImage = (ImageView) leftRec.findViewById(R.id.image);
-            this.leftProdName = (TextView) leftRec.findViewById(R.id.product_name);
-            this.leftProdPrice = (TextView) leftRec.findViewById(R.id.product_price);
-            this.leftProdRating = (RatingBar) leftRec.findViewById(R.id.product_rating);
-            this.rightRec = (ViewGroup) itemView.findViewById(R.id.right_rec);
-            this.rightImage = (ImageView) rightRec.findViewById(R.id.image);
-            this.rightProdName = (TextView) rightRec.findViewById(R.id.product_name);
-            this.rightProdPrice = (TextView) rightRec.findViewById(R.id.product_price);
-            this.rightProdRating = (RatingBar) rightRec.findViewById(R.id.product_rating);
+            this.recRowContainer = (LinearLayout) itemView.findViewById(R.id.rec_row_container);
         }
     }
 
-    private final class AdViewHolder extends RecyclerView.ViewHolder {
-        NativeContentAdView nativeContentAdView;
-        ImageView imageView;
-        TextView headlineText, callToActionText, bodyText;
+    static class RecItemViewHolder {
+        RecommendationView recView;
+        @BindView(R.id.image) ImageView image;
+        @BindView(R.id.product_name) TextView prodName;
+        @BindView(R.id.product_price) TextView prodPrice;
+        @BindView(R.id.product_rating) RatingBar prodRating;
+        RecItemViewHolder(RecommendationView recView) {
+            this.recView = recView;
+            ButterKnife.bind(this, recView);
+        }
+    }
 
+    static class AdViewHolder extends RecyclerView.ViewHolder {
+        NativeContentAdView nativeContentAdView;
+        @BindView(R.id.image) ImageView imageView;
+        @BindView(R.id.headline_text) TextView headlineText;
+        @BindView(R.id.call_to_action_text) TextView callToActionText;
+        @BindView(R.id.body_text) TextView bodyText;
         public AdViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             nativeContentAdView = (NativeContentAdView) itemView;
-            imageView = (ImageView) itemView.findViewById(R.id.image);
-            headlineText = (TextView) itemView.findViewById(R.id.headline_text);
-            callToActionText = (TextView) itemView.findViewById(R.id.call_to_action_text);
-            bodyText = (TextView) itemView.findViewById(R.id.body_text);
         }
     }
 }

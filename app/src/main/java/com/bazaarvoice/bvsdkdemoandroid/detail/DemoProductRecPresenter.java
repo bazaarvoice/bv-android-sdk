@@ -5,6 +5,7 @@ package com.bazaarvoice.bvsdkdemoandroid.detail;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -21,12 +22,14 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
     private DemoConfigUtils demoConfigUtils;
     private DemoDataUtil demoDataUtil;
     private boolean isHomePage;
+    private BVRecommendations.BVRecommendationsLoader recommendationsLoader;
 
-    public DemoProductRecPresenter(DemoProductRecContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, boolean isHomePage) {
+    public DemoProductRecPresenter(DemoProductRecContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, boolean isHomePage, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
         this.view = view;
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
         this.isHomePage = isHomePage;
+        this.recommendationsLoader = recommendationsLoader;
     }
 
     @Override
@@ -55,18 +58,19 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
         boolean haveLocalCache = !DemoProductsCache.getInstance().getData().isEmpty();
         boolean productUpdate = productId != null && !productId.isEmpty();
         boolean categoryUpdate = categoryId != null && !categoryId.isEmpty();
-        boolean shouldHitNetwork = forceRefresh || !haveLocalCache || productUpdate || categoryUpdate;
+        boolean shouldHitNetwork = forceRefresh || productUpdate || categoryUpdate;
 
         if (shouldHitNetwork) {
             view.showLoadingRecs(true);
-            BVRecommendations recs = new BVRecommendations();
+            RecommendationsRequest.Builder builder = new RecommendationsRequest.Builder(NUM_RECS);
             if (productUpdate) {
-                recs.getRecommendedProductsWithProductId(NUM_RECS, productId, this);
-            } else if (categoryUpdate) {
-                recs.getRecommendedProductsWithCategoryId(NUM_RECS, categoryId, this);
-            } else {
-                recs.getRecommendedProducts(NUM_RECS, this);
+                builder.productId(productId);
             }
+            if (categoryUpdate) {
+                builder.categoryId(categoryId);
+            }
+            RecommendationsRequest request = builder.build();
+            recommendationsLoader.loadRecommendations(request, this);
         } else {
             showRecommendedProducts(DemoProductsCache.getInstance().getData(), true);
         }
@@ -85,10 +89,10 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
     }
 
     private void showRecommendedProducts(List<BVProduct> recommendedProducts, boolean success) {
-        view.showLoadingRecs(false);
-        if (isHomePage) {
-            DemoProductsCache.getInstance().clear();
-        }
+//        view.showLoadingRecs(false);
+//        if (isHomePage) {
+//            DemoProductsCache.getInstance().clear();
+//        }
         DemoProductsCache.getInstance().putData(recommendedProducts);
 
         if (success) {

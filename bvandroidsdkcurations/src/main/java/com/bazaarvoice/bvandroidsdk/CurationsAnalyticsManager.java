@@ -19,9 +19,9 @@ public class CurationsAnalyticsManager {
         curationsFeedItem.impressed = true;
 
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        CurationsImpressionSchema curationsImpressionSchema = new CurationsImpressionSchema(curationsFeedItem, magpieMobileAppPartialSchema);
+        CurationsImpressionSchema schema = new CurationsImpressionSchema(curationsFeedItem, magpieMobileAppPartialSchema);
 
-        analyticsManager.enqueueEvent(curationsImpressionSchema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     /**
@@ -33,7 +33,7 @@ public class CurationsAnalyticsManager {
     public static void sendBvViewGroupAddedToHierarchyEvent(String externalId, String widgetId, ReportingGroup reportingGroup){
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         CurationsUsedFeatureSchema schema = new CurationsUsedFeatureSchema(Feature.INVIEW, externalId, widgetId, reportingGroup, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     /**
@@ -43,7 +43,7 @@ public class CurationsAnalyticsManager {
     public static void sendUsedFeatureEventTapped(CurationsFeedItem curationsFeedItem){
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         CurationsUsedFeatureSchema schema = new CurationsUsedFeatureSchema(Feature.CONTENT_CLICK, curationsFeedItem, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     /**
@@ -54,7 +54,7 @@ public class CurationsAnalyticsManager {
     public static void sendUsedFeatureEventScrolled(String externalId, ReportingGroup reportingGroup){
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         CurationsUsedFeatureSchema schema = new CurationsUsedFeatureSchema(Feature.SCROLLED, externalId, null, reportingGroup, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     /**
@@ -67,6 +67,6 @@ public class CurationsAnalyticsManager {
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         CurationsEmbeddedPageViewSchema schema = new CurationsEmbeddedPageViewSchema(magpieMobileAppPartialSchema, externalId, reportingGroup);
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 }

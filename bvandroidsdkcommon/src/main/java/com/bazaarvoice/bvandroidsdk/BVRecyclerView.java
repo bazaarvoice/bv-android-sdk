@@ -9,18 +9,16 @@ import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
 
 /**
  * Bazaarvoice Provided {@link RecyclerView} to display {@link BVView} objects
  */
-class BVRecyclerView extends RecyclerView implements View.OnAttachStateChangeListener {
+abstract class BVRecyclerView extends RecyclerView {
 
     private static final String TAG = BVRecyclerView.class.getSimpleName();
 
     private boolean hasInteracted = false;
     private boolean seen = false;
-    private BVViewGroupEventListener eventListener;
 
     public BVRecyclerView(Context context) {
         super(context);
@@ -38,39 +36,24 @@ class BVRecyclerView extends RecyclerView implements View.OnAttachStateChangeLis
     }
 
     void init() {
-        addOnAttachStateChangeListener(this);
-        addOnScrollListener(new OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (hasInteracted && newState == SCROLL_STATE_IDLE) {
-                    eventListener.onViewGroupInteractedWith();
-                }
+        super.addOnScrollListener(onScrollListener);
+    }
 
-                if (!hasInteracted && newState == SCROLL_STATE_DRAGGING) {
-                    eventListener.onViewGroupInteractedWith();
-                    hasInteracted = true;
-                }
+    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            if (hasInteracted && newState == SCROLL_STATE_IDLE) {
+                getEventListener().onViewGroupInteractedWith();
             }
-        });
-    }
 
-    void setEventListener(BVViewGroupEventListener eventListener){
-        this.eventListener = eventListener;
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onViewAttachedToWindow(View v) {
-        eventListener.onEmbeddedPageView();
-    }
+            if (!hasInteracted && newState == SCROLL_STATE_DRAGGING) {
+                getEventListener().onViewGroupInteractedWith();
+                hasInteracted = true;
+            }
+        }
+    };
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onViewDetachedFromWindow(View v) {}
+    abstract BVViewGroupEventListener getEventListener();
 
     /**
      * {@inheritDoc}
@@ -80,7 +63,7 @@ class BVRecyclerView extends RecyclerView implements View.OnAttachStateChangeLis
         super.onDraw(c);
         if (!seen) {
             seen = true;
-            eventListener.onViewGroupAddedToHierarchy();
+            getEventListener().onViewGroupAddedToHierarchy();
         }
     }
 

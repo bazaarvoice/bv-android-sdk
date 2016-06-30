@@ -54,18 +54,13 @@ public final class CurationsListView extends BVListView implements BVViewGroupEv
     }
 
     @Override
-    void init(){
-        super.init();
-        super.setEventListener(this);
+    BVViewGroupEventListener getEventListener() {
+        return this;
     }
 
     @Override
     public void onViewGroupInteractedWith() {
         CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.LISTVIEW);
-    }
-
-    @Override
-    public void onEmbeddedPageView() {
     }
 
     @Override

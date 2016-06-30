@@ -17,4 +17,4 @@ _site/
 misc/assets/
 
 # ignore internal testing files
-/app/src/main/assets/demoAppConfigs.plist
+/app/src/main/assets/DemoAppConfigs.plist

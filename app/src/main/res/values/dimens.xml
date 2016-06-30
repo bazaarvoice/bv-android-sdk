@@ -23,6 +23,7 @@
     <dimen name="snippet_prod_image_side">120dp</dimen>
     <dimen name="snippet_prod_width">160dp</dimen>
     <dimen name="snippet_prod_height">190dp</dimen>
+    <dimen name="snippet_prod_row_of_2_width">320dp</dimen>
 
     <dimen name="clip_full_image_side">180dp</dimen>
     <dimen name="clip_half_image_side">90dp</dimen>

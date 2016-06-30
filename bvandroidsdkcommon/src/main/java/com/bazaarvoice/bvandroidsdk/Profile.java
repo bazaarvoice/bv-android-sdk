@@ -32,12 +32,12 @@ public class Profile {
     public Map<String, String> getTargetingKeywords() {
         Map<String, String> targetingKeywords = new HashMap<>();
 
-        if (shouldFlattenKeywords(interests)) {
-            targetingKeywords.put(TARGETING_KEY_INTERESTS, getFlattenedValue(interests));
+        if (shouldFlattenKeywords(getInterests())) {
+            targetingKeywords.put(TARGETING_KEY_INTERESTS, getFlattenedValue(getInterests()));
         }
 
-        if (shouldFlattenKeywords(brands)) {
-            targetingKeywords.put(TARGETING_KEY_BRANDS, getFlattenedValue(brands));
+        if (shouldFlattenKeywords(getBrands())) {
+            targetingKeywords.put(TARGETING_KEY_BRANDS, getFlattenedValue(getBrands()));
         }
 
         return targetingKeywords;
@@ -55,15 +55,29 @@ public class Profile {
         int numEntries = input.size();
         int currentIndex = 0;
         for (Map.Entry<String, Interest> entry : input.entrySet()) {
-            stringBuilder.append(entry.getKey());
+            String key = entry.getKey();
+            Interest interest = entry.getValue();
+            if (key == null || key.isEmpty() || interest == null || interest.getValue() == null || interest.getValue().isEmpty()) {
+                continue;
+            }
+            String interestStr = interest.getValue();
+            stringBuilder.append(key);
             stringBuilder.append("_");
-            stringBuilder.append(entry.getValue().getValue());
+            stringBuilder.append(interestStr);
             if (currentIndex++ != numEntries - 1) {
                 stringBuilder.append(" ");
             }
         }
 
         return stringBuilder.toString();
+    }
+
+    Map<String, Interest> getInterests() {
+        return interests;
+    }
+
+    Map<String, Interest> getBrands() {
+        return brands;
     }
 
     public List<BVProduct> getRecommendedProducts() {

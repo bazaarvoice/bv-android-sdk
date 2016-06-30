@@ -32,6 +32,7 @@ public class DemoDataUtil {
 
     private static DemoDataUtil instance;
 
+    private static final String AD_UNIT_ID = "/5705/bv-incubator/IncubatorEnduranceCycles";
     private Context applicationContext;
     private List<BVProduct> savedDemoRecProds;
     private List<CurationsFeedItem> savedCurationsFeedItems;
@@ -212,5 +213,9 @@ public class DemoDataUtil {
             e.printStackTrace();
         }
         return curationsPostResponse;
+    }
+
+    public String getAdUnitId() {
+        return AD_UNIT_ID;
     }
 }

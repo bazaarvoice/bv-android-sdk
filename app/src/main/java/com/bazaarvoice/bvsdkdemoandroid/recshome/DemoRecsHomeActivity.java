@@ -6,11 +6,15 @@ package com.bazaarvoice.bvsdkdemoandroid.recshome;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,36 +39,47 @@ import com.google.android.gms.ads.formats.NativeContentAd;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.relex.circleindicator.CircleIndicator;
 
 public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsAdapter.RecTapListener, DemoProductRecContract.View, DemoAdContract.View {
 
     private static final int AUTO_CAROUSEL_DELAY = 8000;
+    private static final String HOME_CLIENT_KEY = "home_screen_client";
 
-    private RecommendationsRecyclerView recyclerView;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.nested_scroll_view) NestedScrollView nestedScrollView;
+    @BindView(R.id.rec_recycler_view) RecommendationsRecyclerView recyclerView;
     private DemoRecsAdapter adapter;
     private DemoProductRecContract.UserActionsListener recsUserActionListener;
     private DemoAdContract.UserActionsListener adUserActionListener;
-    private TextView noRecsTextView;
-    private ProgressBar getRecsProgressBar;
-    private ViewPager headerViewPager;
+    @BindView(R.id.no_recs_found) TextView noRecsTextView;
+    @BindView(R.id.get_recs_progress) ProgressBar getRecsProgressBar;
+    @BindView(R.id.header_pager) ViewPager headerViewPager;
     private DemoRecsHeaderPagerAdapter headerPagerAdapter;
-    private CircleIndicator circleIndicator;
-    private TextView errorTextView;
+    @BindView(R.id.indicator) CircleIndicator circleIndicator;
+    @BindView(R.id.error_recs) TextView errorTextView;
+    private String clientId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
-        recsUserActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, true);
-        AdLoader.Builder adLoaderBuilder = new AdLoader.Builder(this, "/5705/bv-incubator/IncubatorEnduranceCycles");
-        adUserActionListener = new DemoAdPresenter(this, demoConfigUtils, demoDataUtil, adLoaderBuilder);
-
         setContentView(R.layout.activity_recs_home);
+        ButterKnife.bind(this);
         setupToolbar();
         setupHeaderViewPager();
         setupRecsViews();
+
+        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
+        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
+        recsUserActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, true, recyclerView);
+        AdLoader.Builder adLoaderBuilder = new AdLoader.Builder(this, demoDataUtil.getAdUnitId());
+        adUserActionListener = new DemoAdPresenter(this, demoConfigUtils, demoDataUtil, adLoaderBuilder);
+
+        swipeRefreshLayout.setOnRefreshListener(new RecRefreshListener(recsUserActionListener));
+        clientId = savedInstanceState != null ? savedInstanceState.getString(HOME_CLIENT_KEY, "") : "";
     }
 
 
@@ -72,7 +87,20 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     protected void onResume() {
         super.onResume();
         adUserActionListener.loadAd(false);
-        recsUserActionListener.loadRecommendations(false);
+        boolean haveRecs = adapter.getRecommendationCount() > 0;
+        String currentClient = DemoConfigUtils.getInstance(this).getCurrentConfig().clientId;
+        boolean newClient = TextUtils.isEmpty(clientId);
+        boolean clientChanged = !clientId.equals(currentClient);
+        clientId = currentClient;
+        if (!haveRecs || newClient || clientChanged) {
+            recsUserActionListener.loadRecommendations(true);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString(HOME_CLIENT_KEY, clientId);
     }
 
     @Override
@@ -96,7 +124,6 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     };
 
     private void setupToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -104,10 +131,8 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     }
 
     private void setupHeaderViewPager() {
-        headerViewPager = (ViewPager) findViewById(R.id.header_pager);
-        headerPagerAdapter = new DemoRecsHeaderPagerAdapter(getSupportFragmentManager());
+        headerPagerAdapter = new DemoRecsHeaderPagerAdapter();
         headerViewPager.setAdapter(headerPagerAdapter);
-        circleIndicator = (CircleIndicator) findViewById(R.id.indicator);
         circleIndicator.setViewPager(headerViewPager);
 
         headerViewPager.postDelayed(new Runnable() {
@@ -126,16 +151,25 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     }
 
     private void setupRecsViews() {
-        recyclerView = (RecommendationsRecyclerView) findViewById(R.id.rec_recycler_view);
         adapter = new DemoRecsAdapter();
         adapter.setRecTapListener(this);
-        noRecsTextView = (TextView) findViewById(R.id.no_recs_found);
-        errorTextView = (TextView) findViewById(R.id.error_recs);
-        getRecsProgressBar = (ProgressBar) findViewById(R.id.get_recs_progress);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
+    }
+
+    static class RecRefreshListener implements SwipeRefreshLayout.OnRefreshListener {
+        DemoProductRecContract.UserActionsListener userActionsListener;
+
+        RecRefreshListener(DemoProductRecContract.UserActionsListener userActionsListener) {
+            this.userActionsListener = userActionsListener;
+        }
+
+        @Override
+        public void onRefresh() {
+            userActionsListener.loadRecommendations(true);
+        }
     }
 
     @Override
@@ -145,9 +179,10 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
 
     @Override
     public void showRecommendations(List<BVProduct> bvProducts) {
-        adapter.refreshProducts(bvProducts);
         recyclerView.setVisibility(View.VISIBLE);
+        adapter.refreshProducts(bvProducts);
         getRecsProgressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
         noRecsTextView.setVisibility(View.GONE);
         errorTextView.setVisibility(View.GONE);
     }
@@ -155,6 +190,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     @Override
     public void showLoadingRecs(boolean show) {
         getRecsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        swipeRefreshLayout.setRefreshing(show);
         recyclerView.setVisibility(View.GONE);
         noRecsTextView.setVisibility(View.GONE);
         errorTextView.setVisibility(View.GONE);
@@ -165,6 +201,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         adapter.refreshProducts(Collections.<BVProduct>emptyList());
         recyclerView.setVisibility(View.GONE);
         getRecsProgressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
         noRecsTextView.setVisibility(View.VISIBLE);
         errorTextView.setVisibility(View.GONE);
     }
@@ -174,6 +211,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         adapter.refreshProducts(Collections.<BVProduct>emptyList());
         recyclerView.setVisibility(View.GONE);
         getRecsProgressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
         noRecsTextView.setVisibility(View.GONE);
         errorTextView.setVisibility(View.VISIBLE);
     }

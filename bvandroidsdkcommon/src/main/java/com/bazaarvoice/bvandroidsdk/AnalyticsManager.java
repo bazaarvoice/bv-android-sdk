@@ -4,14 +4,16 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.content.Context;
 import android.os.Build;
-
-import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,140 +29,61 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
+import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 
 /**
  * Internal SDK API for sending analytics events
  */
 class AnalyticsManager {
-
     private static final String TAG = AnalyticsManager.class.getSimpleName();
-    private static final String BASEURL = "https://network.bazaarvoice.com/event";
-    private static final String BASEURLSTAGING = "https://network-stg.bazaarvoice.com/event";
+    private static final String ANALYTICS_THREAD_NAME = TAG;
     private static final int ANALYTICS_START_DELAY_SECONDS = 10;
     private static final int ANALYTICS_DELAY_SECONDS = 10;
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String KEY_HASHED_IP = "HashedIP";
     private static final String KEY_USER_AGENT = "UA";
     private static final String HASHED_IP = "default";
+    private static final String KEY_ADVERTISING_ID = "advertisingId";
 
-    private URL url;
-    private LinkedList<Map<String, Object>> eventQueue = new LinkedList<>();
+    static final int ENQUEUE_EVENT = 1;
+    static final int ENQUEUE_APP_STATE_EVENT = 2;
+    static final int ENQUEUE_CONVERSION_TRANSACTION_EVENT = 3;
+    static final int ENQUEUE_NON_COMMERCE_CONVERSION_EVENT = 4;
+    static final int DISPATCH_SEND_PERSONALIZATION_EVENT = 5;
+    static final int DISPATCH_SEND_EVENTS = 6;
 
+    private final AnalyticsThread analyticsThread;
+    private final Handler analyticsHandler;
+    private final URL url;
+    private final AnalyticsBatch analyticsBatch;
+    private final Context applicationContext;
     private final ExecutorService immediateExecutorService;
-    private OkHttpClient okHttpClient;
-    private String clientId;
-    private BVAuthenticatedUser bvAuthenticatedUser;
-    private BazaarEnvironment bazaarEnvironment;
+    private final OkHttpClient okHttpClient;
+    private final String clientId;
+    private final String versionName, versionCode, packageName;
+    private final UUID uuid;
+    private final BVAuthenticatedUser bvAuthenticatedUser;
 
-    private String versionName, versionCode, packageName;
-    private UUID uuid;
-
-    AnalyticsManager(final String versionName, String versionCode, String clientId, BazaarEnvironment environment, AdvertisingIdClient advertisingIdClient, OkHttpClient okHttpClient, ExecutorService immediateExecutorService, ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final String packageName, final UUID uuid) {
+    AnalyticsManager(final Context applicationContext, final String versionName, final String versionCode, final String clientId, final String baseUrl, final OkHttpClient okHttpClient, final ExecutorService immediateExecutorService, final ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final String packageName, final UUID uuid) {
+        this.analyticsBatch = new AnalyticsBatch();
+        this.analyticsThread = new AnalyticsThread();
+        this.analyticsThread.start();
+        this.analyticsHandler = new AnalyticsHandler(analyticsThread.getLooper(), this);
+        this.url = Utils.toUrl(baseUrl);
+        this.applicationContext = applicationContext;
         this.versionName = versionName;
         this.versionCode = versionCode;
         this.packageName = packageName;
         this.okHttpClient = okHttpClient;
         this.clientId = clientId;
-        this.bazaarEnvironment = environment;
-        this.url = getAnalyticsUrl(environment);
-        scheduledExecutorService.scheduleWithFixedDelay(new BvAnalyticsTask(), ANALYTICS_START_DELAY_SECONDS, ANALYTICS_DELAY_SECONDS, TimeUnit.SECONDS);
+        scheduledExecutorService.scheduleWithFixedDelay(new AnalyticsTask(this), ANALYTICS_START_DELAY_SECONDS, ANALYTICS_DELAY_SECONDS, TimeUnit.SECONDS);
         this.immediateExecutorService = immediateExecutorService;
-        this.bvAuthenticatedUser = bvAuthenticatedUser;
         this.uuid = uuid;
-
-        advertisingIdClient.getAdInfo(new BVSDK.GetAdInfoCompleteAction() {
-            @Override
-            public void completionAction(AdInfo adInfo) {
-                bvAuthenticatedUser.setUserAdvertisingId(adInfo.getId());
-                bvAuthenticatedUser.setIsLimitAdTrackingEnabled(adInfo.isLimitAdTrackingEnabled());
-
-                if (bvAuthenticatedUser.getUserAuthString() != null) {
-                    sendPersonalizationEvent();
-                }
-            }
-        });
-    }
-
-    private URL getAnalyticsUrl(BazaarEnvironment environment) {
-        URL url = null;
-        try {
-            url = new URL(environment == BazaarEnvironment.STAGING ? BASEURLSTAGING : BASEURL);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return url;
-    }
-
-    private final class BvAnalyticsTask implements Runnable {
-        @Override
-        public void run() {
-            synchronized (AnalyticsManager.this) {
-                if (!BuildConfig.ANALYTICS_ENABLED) {
-                    if (eventQueue.isEmpty()) {
-                        return;
-                    }
-
-                    Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
-                    batch.put("batch", eventQueue);
-
-                    int numEvents = eventQueue.size();
-
-                    Utils.printAnalytics(eventQueue);
-
-                    Logger.d("Analytics", "Successfully saw " + numEvents + " events. Not sending for demo app.");
-                    if (!eventQueue.isEmpty()) {
-                        eventQueue.clear();
-                    }
-                } else {
-
-                    Response response = null;
-                    try {
-                        if (eventQueue.isEmpty()) {
-                            return;
-                        }
-
-                        Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
-                        batch.put("batch", eventQueue);
-
-                        int numEvents = eventQueue.size();
-
-                        JSONObject batchToSend = new JSONObject(batch);
-
-                        RequestBody body = RequestBody.create(JSON, batchToSend.toString());
-                        Logger.v(TAG, url.toString() + "\n" + batchToSend.toString());
-                        Request request = new Request.Builder()
-                                .url(url)
-                                .header("Content-Type", "application/json")
-                                .header("X-Requested-With", "XMLHttpRequest")
-                                .post(body)
-                                .build();
-
-                        response = okHttpClient.newCall(request).execute();
-
-                        if (response.isSuccessful()) {
-                            Logger.d("Analytics", "Successfully posted " + numEvents + " events");
-                        } else {
-                            Logger.d("Analytics", "Unsuccessfully posted Events: " + response.code());
-                        }
-                    } catch (IOException e) {
-                        Logger.e(TAG, "Failed to send analytics event", e);
-                    } finally {
-                        if (!eventQueue.isEmpty()) {
-                            eventQueue.clear();
-                        }
-                        if (response != null && response.body() != null) {
-                            response.body().close();
-                        }
-                    }
-                }
-            }
-        }
+        this.bvAuthenticatedUser = bvAuthenticatedUser;
     }
 
     MagpieMobileAppPartialSchema getMagpieMobileAppPartialSchema() {
-        return new MagpieMobileAppPartialSchema.Builder().advertisingId(bvAuthenticatedUser.getUserAdvertisingId()).client(clientId).build();
+        return new MagpieMobileAppPartialSchema.Builder().client(clientId).build();
     }
 
     private MobileAppLifecycleSchema getMobileAppLifecycleSchema(MobileAppLifecycleSchema.AppState appState) {
@@ -178,70 +101,226 @@ class AnalyticsManager {
         return new ProfileCommonPartialSchema(bvAuthenticatedUser.getUserAuthString());
     }
 
-    /**
-     * Queues up data to be added to batch analytics
-     * @param eventData
-     */
-    public synchronized void enqueueEvent(Map<String, Object> eventData) {
-        addMagpieData(eventData);
-        eventQueue.add(eventData);
+    // Helper classes to form and send analytics
+
+    static class AnalyticsTask implements Runnable {
+        private final AnalyticsManager analyticsManager;
+
+        AnalyticsTask(AnalyticsManager analyticsManager) {
+            this.analyticsManager = analyticsManager;
+        }
+
+        @Override
+        public void run() {
+            analyticsManager.dispatchSendEvents();
+        }
     }
 
-    private void addMagpieData(Map<String, Object> eventData) {
-        mapPutSafe(eventData, KEY_HASHED_IP, HASHED_IP);
-        mapPutSafe(eventData, KEY_USER_AGENT, uuid);
+    static class AnalyticsBatch {
+        private final LinkedList<Map<String, Object>> eventQueue;
+
+        public AnalyticsBatch() {
+            eventQueue = new LinkedList<>();
+        }
+
+        public void putEvent(BvAnalyticsSchema schema) {
+            eventQueue.add(schema.getDataMap());
+        }
+
+        public void clear() {
+            eventQueue.clear();
+        }
+
+        public boolean isEmpty() {
+            return eventQueue.isEmpty();
+        }
+
+        public int size() {
+            return eventQueue.size();
+        }
+
+        public RequestBody toPostPayload() {
+            Map<String, LinkedList<Map<String, Object>>> batch = new HashMap<>();
+            batch.put("batch", eventQueue);
+
+            JSONObject batchToSend = new JSONObject(batch);
+
+            return RequestBody.create(JSON, batchToSend.toString());
+        }
+
+        public void log(boolean full) {
+            String tag = "BVAnalyticsVerify";
+
+            for (Map<String, Object> event : eventQueue) {
+                if (full) {
+                    Logger.d(tag, "{");
+                    for (Map.Entry<String, Object> entry : event.entrySet()) {
+                        Logger.d(tag, "  " + entry.getKey() + ":" + entry.getValue());
+                    }
+                    Logger.d(tag, "}");
+                } else {
+                    Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source"));
+                }
+            }
+        }
     }
 
-    public void sendAppStateEvent(MobileAppLifecycleSchema.AppState appState) {
+    static class AnalyticsThread extends HandlerThread {
+        AnalyticsThread() {
+            super(Utils.THREAD_PREFIX + ANALYTICS_THREAD_NAME, THREAD_PRIORITY_BACKGROUND);
+        }
+    }
+
+    static class AnalyticsHandler extends Handler {
+        private final AnalyticsManager analyticsManager;
+
+        public AnalyticsHandler(Looper looper, AnalyticsManager analyticsManager) {
+            super(looper);
+            this.analyticsManager = analyticsManager;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case ENQUEUE_EVENT: {
+                    BvAnalyticsSchema schema = (BvAnalyticsSchema) msg.obj;
+                    analyticsManager.addEventToBatch(schema);
+                    break;
+                }
+                case ENQUEUE_APP_STATE_EVENT: {
+                    MobileAppLifecycleSchema.AppState appState = (MobileAppLifecycleSchema.AppState) msg.obj;
+                    analyticsManager.addAppStateEvent(appState);
+                    break;
+                }
+                case ENQUEUE_CONVERSION_TRANSACTION_EVENT: {
+                    Transaction transaction = (Transaction) msg.obj;
+                    analyticsManager.addConversionTransactionEvent(transaction);
+                    break;
+                }
+                case ENQUEUE_NON_COMMERCE_CONVERSION_EVENT: {
+                    Conversion conversion = (Conversion) msg.obj;
+                    analyticsManager.addNonCommerceConversionEvent(conversion);
+                    break;
+                }
+                case DISPATCH_SEND_PERSONALIZATION_EVENT: {
+                    analyticsManager.sendPersonalizationEvent();
+                    break;
+                }
+                case DISPATCH_SEND_EVENTS: {
+                    analyticsManager.sendAnalytics();
+                    break;
+                }
+            }
+        }
+    }
+
+    // Users of AnalyticsManager send analytics through these methods on the main looper
+
+    void dispatchSendPersonalizationEvent() {
+        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(DISPATCH_SEND_PERSONALIZATION_EVENT));
+    }
+
+    void dispatchSendEvents() {
+        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(DISPATCH_SEND_EVENTS));
+    }
+
+    void enqueueEvent(BvAnalyticsSchema analyticsSchema) {
+        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_EVENT, analyticsSchema));
+    }
+
+    void enqueueAppStateEvent(MobileAppLifecycleSchema.AppState appState) {
+        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_APP_STATE_EVENT, appState));
+    }
+
+    void enqueueConversionTransactionEvent(Transaction transaction) {
+        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_CONVERSION_TRANSACTION_EVENT, transaction));
+    }
+
+    void enqueueNonCommerceConversionEvent(Conversion conversion) {
+        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_NON_COMMERCE_CONVERSION_EVENT, conversion));
+    }
+
+    // Internal methods that manage building and sending analytics events on the AnalyticsThread
+
+    void addMagpieData(BvAnalyticsSchema schema) {
+        schema.addKeyVal(KEY_HASHED_IP, HASHED_IP);
+        schema.addKeyVal(KEY_USER_AGENT, uuid);
+        if (schema.allowAdId()) {
+            String adId = AdIdRequestTask.getAdId(applicationContext).getAdId();
+            schema.addKeyVal(KEY_ADVERTISING_ID, adId);
+        }
+    }
+
+    void addEventToBatch(BvAnalyticsSchema schema) {
+        addMagpieData(schema);
+        analyticsBatch.putEvent(schema);
+    }
+
+    void addAppStateEvent(MobileAppLifecycleSchema.AppState appState) {
         MobileAppLifecycleSchema schema = getMobileAppLifecycleSchema(appState);
-        enqueueEvent(schema.getDataMap());
+        addEventToBatch(schema);
     }
 
-    public void sendPersonalizationEvent() {
+    void sendPersonalizationEvent() {
         ProfileMobilePersonalizationSchema schema = new ProfileMobilePersonalizationSchema(getMagpieMobileAppPartialSchema(), getProfileCommonPartialSchema());
-        enqueueEvent(schema.getDataMap());
+        addEventToBatch(schema);
 
         //flush queue, we want to send personalization events right away
-        immediateExecutorService.execute(new BvAnalyticsTask());
+        immediateExecutorService.execute(new AnalyticsTask(this));
     }
 
-    /**
-     * Event when a transaction occurs
-     *
-     * @param transaction
-     */
-    public void sendConversionTransactionEvent(Transaction transaction) {
+    void addConversionTransactionEvent(Transaction transaction) {
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
         ConversionTransactionSchema transactionSchema = new ConversionTransactionSchema(magpieMobileAppPartialSchema, transaction);
 
-        enqueueEvent(transactionSchema.getDataMap());
+        addEventToBatch(transactionSchema);
         if (transactionSchema.getPIIEvent() != null){
-            enqueueEvent(transactionSchema.getPIIEvent());
+            addEventToBatch(transactionSchema);
         }
     }
 
-    /**
-     * Event when a transaction occurs
-     *
-     * @param conversion
-     */
-    public void sendNonCommerceConversionEvent(Conversion conversion) {
+    void addNonCommerceConversionEvent(Conversion conversion) {
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
         ConversionNonCommerceSchema conversionSchema = new ConversionNonCommerceSchema(magpieMobileAppPartialSchema, conversion);
 
-        enqueueEvent(conversionSchema.getDataMap());
+        addEventToBatch(conversionSchema);
         if (conversionSchema.getPIIEvent() != null){
-            enqueueEvent(conversionSchema.getPIIEvent());
+            addEventToBatch(conversionSchema);
         }
     }
 
-    /**
-     * Adds personalization data to an event
-     * @param eventData
-     */
-    void addPersonalizationData(Map<String, Object> eventData) {
-        eventData.put("type","ProfileMobile");
-        eventData.put("cl","Personalization");
-        eventData.put("bvProduct", "PersonalizationProfile");
+    void sendAnalytics() {
+        Response response = null;
+        try {
+            if (analyticsBatch.isEmpty()) {
+                return;
+            }
+
+            analyticsBatch.log(false);
+
+            RequestBody body = analyticsBatch.toPostPayload();
+            Logger.v(TAG, url.toString() + "\n" + analyticsBatch.toString());
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Content-Type", "application/json")
+                    .header("X-Requested-With", "XMLHttpRequest")
+                    .post(body)
+                    .build();
+
+            response = okHttpClient.newCall(request).execute();
+
+            if (response.isSuccessful()) {
+                Logger.d("Analytics", "Successfully posted " + analyticsBatch.size() + " events");
+            } else {
+                Logger.d("Analytics", "Unsuccessfully posted Events: " + response.code());
+            }
+        } catch (IOException e) {
+            Logger.e(TAG, "Failed to send analytics event", e);
+        } finally {
+            analyticsBatch.clear();
+            if (response != null && response.body() != null) {
+                response.body().close();
+            }
+        }
     }
 }

@@ -2,10 +2,12 @@ buildscript {
     dependencies {
         classpath dep.androidPlugin
         classpath dep.crashlyticsPlugin
+        classpath dep.androidAptPlugin
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 def hasCrashlyticsKey() {
     return file('fabric.properties').exists()
@@ -17,14 +19,6 @@ if (hasCrashlyticsKey()) {
 
 def hasAppdemoBuildSettings() {
     return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
-}
-
-gradle.startParameter.getTaskNames().each { task ->
-    if (task.toLowerCase().contains("demo")) {
-        rootProject.ext.analyticsEnabled = false
-    } else if (task.toLowerCase().contains("live")) {
-        rootProject.ext.analyticsEnabled = true
-    }
 }
 
 android {
@@ -117,6 +111,10 @@ dependencies {
     compile dep.playServiceAds
     compile dep.ddPlist
     compile dep.circleIndicator
+    compile dep.stetho
+    compile dep.stethoOkhttp3
+    compile dep.butterknife
+    apt dep.butterknifeCompiler
 
     // iovation aar dependency
     // compile(name:'deviceprint-NEXUS_USER-2.3.0', ext:'aar')

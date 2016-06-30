@@ -79,6 +79,7 @@ class ConversionTransactionSchema extends BvAnalyticsSchema {
         if (hadPII){
             addKeyVal(ConversionTransactionSchema.hadPII, "true");
             this.pIIEvent = ConversionUtils.generatePIIEvent(this, transaction.getOtherParams());
+            setAllowAdId(false);
         }
     }
 

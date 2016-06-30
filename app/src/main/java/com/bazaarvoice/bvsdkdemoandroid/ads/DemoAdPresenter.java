@@ -8,6 +8,7 @@ import android.util.Log;
 import com.bazaarvoice.bvandroidsdk.BVAds;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
@@ -33,11 +34,6 @@ public class DemoAdPresenter implements DemoAdContract.UserActionsListener, Nati
 
     @Override
     public void loadAd(boolean forceRefresh) {
-        if (nativeContentAd != null) {
-            view.showAd(nativeContentAd);
-            return;
-        }
-
         // Add Bazaarvoice targeting keywords
         PublisherAdRequest.Builder publisherAdRequest = new PublisherAdRequest.Builder();
         Map<String, String> targetingKeywords = BVAds.getCustomTargeting();
@@ -65,10 +61,35 @@ public class DemoAdPresenter implements DemoAdContract.UserActionsListener, Nati
     }
 
     private AdListener adListener = new AdListener() {
+
+        @Override
+        public void onAdLoaded() {
+            super.onAdLoaded();
+            Log.e(TAG, "Ad loaded");
+        }
+
+        @Override
+        public void onAdClosed() {
+            super.onAdClosed();
+            Log.e(TAG, "Ad closed");
+        }
+
+        @Override
+        public void onAdLeftApplication() {
+            super.onAdLeftApplication();
+            Log.e(TAG, "Ad left application");
+        }
+
+        @Override
+        public void onAdOpened() {
+            super.onAdOpened();
+            Log.e(TAG, "Ad opened");
+        }
+
         @Override
         public void onAdFailedToLoad(int errorCode) {
             super.onAdFailedToLoad(errorCode);
-            Log.e(TAG, "Add failed to load with errorCode: " + errorCode);
+            Log.e(TAG, "Ad failed to load with errorCode: " + errorCode + ", " + DemoUtils.getDfpAdErrorMessage(errorCode));
         }
     };
 }

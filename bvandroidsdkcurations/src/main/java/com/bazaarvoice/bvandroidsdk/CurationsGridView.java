@@ -7,7 +7,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.AbsListView;
 import android.widget.GridView;
 
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Bazaarvoice Provided {@link GridView} to display {@link CurationsView} objects
  */
-public final class CurationsGridView extends BVGridView implements View.OnAttachStateChangeListener, AbsListView.OnScrollListener, BVViewGroupEventListener, CurationsFeedCallback {
+public final class CurationsGridView extends BVGridView implements AbsListView.OnScrollListener, BVViewGroupEventListener, CurationsFeedCallback {
 
     public CurationsGridView(Context context) {
         super(context);
@@ -60,18 +59,13 @@ public final class CurationsGridView extends BVGridView implements View.OnAttach
     }
 
     @Override
-    void init(){
-        super.init();
-        super.setEventListener(this);
+    BVViewGroupEventListener getEventListener() {
+        return this;
     }
 
     @Override
     public void onViewGroupInteractedWith() {
         CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.GRIDVIEW);
-    }
-
-    @Override
-    public void onEmbeddedPageView() {
     }
 
     @Override
