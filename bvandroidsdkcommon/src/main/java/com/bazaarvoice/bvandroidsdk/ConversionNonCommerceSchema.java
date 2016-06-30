@@ -36,6 +36,7 @@ class ConversionNonCommerceSchema extends BvAnalyticsSchema {
         if (hadPII){
             addKeyVal(ConversionNonCommerceSchema.hadPII, "true");
             this.pIIEvent = ConversionUtils.generatePIIEvent(this, conversion.getOtherParams());
+            setAllowAdId(false);
         }
     }
 

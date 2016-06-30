@@ -23,7 +23,7 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preferences_selected);
-        updateNewConfig(DemoConfigUtils.getInstance(getContext()).getCurrentConfig());
+        updateSettingsUi(DemoConfigUtils.getInstance(getContext()).getCurrentConfig());
     }
 
     @Override
@@ -45,26 +45,35 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
             DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(getContext());
             String newClientId = demoConfigUtils.getClientId();
             DemoConfig newSelectedConfig = demoConfigUtils.getConfigFromClientId(newClientId);
+            updateSettingsUi(newSelectedConfig);
             updateNewConfig(newSelectedConfig);
         }
     }
 
-    private void updateNewConfig(DemoConfig newSelectedConfig) {
+    private void updateSettingsUi(DemoConfig selectedConfig) {
         // Get the ui preference objects
         Preference shopperAdPasskeyPref = findPreference(getString(R.string.key_shopper_ad_passkey));
         Preference conversationsPasskeyPref = findPreference(getString(R.string.key_conversations_passkey));
         Preference curationsPasskeyPref = findPreference(getString(R.string.key_curations_passkey));
 
         // Parse the values from the config
+        String clientId = selectedConfig.clientId;
+        String shopperAdPasskey = selectedConfig.apiKeyShopperAdvertising;
+        String conversationsPasskey = selectedConfig.apiKeyConversations;
+        String curationsPasskey = selectedConfig.apiKeyCurations;
+
+        // Update the ui preference objects
+        shopperAdPasskeyPref.setSummary(selectedConfig.hasShopperAds() ? shopperAdPasskey : getNotSetString());
+        conversationsPasskeyPref.setSummary(selectedConfig.hasConversations() ? conversationsPasskey : getNotSetString());
+        curationsPasskeyPref.setSummary(selectedConfig.hasCurations() ? curationsPasskey : getNotSetString());
+    }
+
+    private void updateNewConfig(DemoConfig newSelectedConfig) {
+        // Parse the values from the config
         String clientId = newSelectedConfig.clientId;
         String shopperAdPasskey = newSelectedConfig.apiKeyShopperAdvertising;
         String conversationsPasskey = newSelectedConfig.apiKeyConversations;
         String curationsPasskey = newSelectedConfig.apiKeyCurations;
-
-        // Update the ui preference objects
-        shopperAdPasskeyPref.setSummary(newSelectedConfig.hasShopperAds() ? shopperAdPasskey : getNotSetString());
-        conversationsPasskeyPref.setSummary(newSelectedConfig.hasConversations() ? conversationsPasskey : getNotSetString());
-        curationsPasskeyPref.setSummary(newSelectedConfig.hasCurations() ? curationsPasskey : getNotSetString());
 
         Log.d("Config", "New client data picked - clientId: " + clientId + ", shopperAdPasskey: " + shopperAdPasskey + ", conversationsPasskey: " + conversationsPasskey + ", curationsPasskey: " + curationsPasskey);
 

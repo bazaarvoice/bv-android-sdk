@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.bazaarvoice.bvandroidsdk.CurationsView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bv_curations_view"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_gravity="center"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="@dimen/snippet_prod_image_side"
-        android:layout_height="@dimen/snippet_prod_image_side"
-        android:scaleType="centerCrop"
-        android:layout_marginLeft="@dimen/margin_3"
-        android:layout_marginRight="@dimen/margin_3"
-        android:layout_centerHorizontal="true"
-        android:background="@color/bv_green_4"/>
+    <RelativeLayout
+        android:id="@+id/curations_snippet_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="?android:attr/selectableItemBackground">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/snippet_prod_image_side"
+            android:layout_height="@dimen/snippet_prod_image_side"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="@dimen/margin_3"
+            android:layout_marginRight="@dimen/margin_3"
+            android:layout_centerHorizontal="true"
+            android:background="@color/bv_green_4"/>
+
+    </RelativeLayout>
+
+</com.bazaarvoice.bvandroidsdk.CurationsView>

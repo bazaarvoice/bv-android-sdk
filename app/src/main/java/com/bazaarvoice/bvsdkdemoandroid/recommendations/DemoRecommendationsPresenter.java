@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.recommendations;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -16,15 +17,19 @@ import java.util.List;
 
 public class DemoRecommendationsPresenter implements DemoRecommendationsContract.UserActionsListener, BVRecommendations.BVRecommendationsCallback {
 
+    private static final int NUM_RECS = 20;
+
     private DemoRecommendationsContract.View view;
     private DemoConfigUtils demoConfigUtils;
     private DemoDataUtil demoDataUtil;
+    private BVRecommendations.BVRecommendationsLoader recommendationsLoader;
 
-    public DemoRecommendationsPresenter(DemoRecommendationsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil) {
+    public DemoRecommendationsPresenter(DemoRecommendationsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
         this.view = view;
         view.showLoading(true);
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
+        this.recommendationsLoader = recommendationsLoader;
     }
 
     @Override
@@ -47,8 +52,8 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
         boolean shouldHitNetwork = forceRefresh || !haveLocalCache;
 
         if (shouldHitNetwork) {
-            BVRecommendations recs = new BVRecommendations();
-            recs.getRecommendedProducts(20, this);
+            RecommendationsRequest request = new RecommendationsRequest.Builder(NUM_RECS).build();
+            recommendationsLoader.loadRecommendations(request, this);
         } else {
             showRecommendedProducts(DemoProductsCache.getInstance().getData());
         }

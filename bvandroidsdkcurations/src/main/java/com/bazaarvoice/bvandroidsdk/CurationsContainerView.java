@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Used to wrap around your custom views used to display Curations content to facilitate analytic events
  */
-public final class CurationsContainerView extends BVContainerView implements  View.OnAttachStateChangeListener, BVViewGroupEventListener, CurationsFeedCallback {
+public final class CurationsContainerView extends BVContainerView implements BVViewGroupEventListener, CurationsFeedCallback {
 
     public CurationsContainerView(Context context) {
         super(context);
@@ -61,18 +60,12 @@ public final class CurationsContainerView extends BVContainerView implements  Vi
     }
 
     @Override
-    void init() {
-        super.init();
-        super.setEventListener(this);
+    BVViewGroupEventListener getEventListener() {
+        return this;
     }
 
     @Override
     public void onViewGroupInteractedWith() {
-
-    }
-
-    @Override
-    public void onEmbeddedPageView() {
 
     }
 

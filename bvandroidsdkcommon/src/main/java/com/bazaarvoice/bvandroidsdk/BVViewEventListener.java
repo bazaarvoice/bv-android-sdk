@@ -6,4 +6,5 @@ package com.bazaarvoice.bvandroidsdk;
 interface BVViewEventListener {
     void onImpression();
     void onConversion();
+    void onAddedToViewHeirarchy();
 }

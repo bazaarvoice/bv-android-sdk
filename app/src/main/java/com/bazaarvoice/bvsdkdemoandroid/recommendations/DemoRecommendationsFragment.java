@@ -78,7 +78,7 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        userActionsListener = new DemoRecommendationsPresenter(this, DemoConfigUtils.getInstance(getContext()), DemoDataUtil.getInstance(getContext()));
+        userActionsListener = new DemoRecommendationsPresenter(this, DemoConfigUtils.getInstance(getContext()), DemoDataUtil.getInstance(getContext()), recyclerView);
     }
 
     @Override

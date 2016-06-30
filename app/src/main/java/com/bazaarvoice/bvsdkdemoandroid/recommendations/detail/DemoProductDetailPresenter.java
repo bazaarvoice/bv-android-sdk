@@ -5,17 +5,22 @@ package com.bazaarvoice.bvsdkdemoandroid.recommendations.detail;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 
 import java.util.List;
 
-class DemoProductDetailPresenter implements DemoRecommendationDetailContract.UserActionsListener {
+class DemoProductDetailPresenter implements DemoRecommendationDetailContract.UserActionsListener, BVRecommendations.BVRecommendationsCallback {
+
+    private static final int NUM_RECS = 20;
 
     private DemoRecommendationDetailContract.View view;
     private String bvProductId;
+    private BVRecommendations.BVRecommendationsLoader recommendationsLoader;
 
-    public DemoProductDetailPresenter(DemoRecommendationDetailContract.View view, String bvProductId) {
+    public DemoProductDetailPresenter(DemoRecommendationDetailContract.View view, String bvProductId, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
         this.view = view;
         this.bvProductId = bvProductId;
+        this.recommendationsLoader = recommendationsLoader;
     }
 
     @Override
@@ -25,18 +30,20 @@ class DemoProductDetailPresenter implements DemoRecommendationDetailContract.Use
 
     @Override
     public void loadRelatedRecommendations(boolean forceRefresh) {
-        BVRecommendations recommendations = new BVRecommendations();
-        recommendations.getRecommendedProductsWithProductId(20, bvProductId, new BVRecommendations.BVRecommendationsCallback() {
-            @Override
-            public void onSuccess(List<BVProduct> recommendedProducts) {
-                view.showRelatedRecommendations(recommendedProducts);
-            }
+        RecommendationsRequest request = new RecommendationsRequest.Builder(NUM_RECS)
+                .productId(bvProductId)
+                .build();
+        recommendationsLoader.loadRecommendations(request, this);
+    }
 
-            @Override
-            public void onFailure(Throwable throwable) {
-                throwable.printStackTrace();
-                view.showMessage(throwable.getMessage());
-            }
-        });
+    @Override
+    public void onSuccess(List<BVProduct> recommendedProducts) {
+        view.showRelatedRecommendations(recommendedProducts);
+    }
+
+    @Override
+    public void onFailure(Throwable throwable) {
+        throwable.printStackTrace();
+        view.showMessage(throwable.getMessage());
     }
 }

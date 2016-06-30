@@ -8,17 +8,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 
 /**
  * Bazaarvoice Provided {@link FrameLayout} to display {@link BVView} objects
  */
-class BVContainerView extends FrameLayout implements View.OnAttachStateChangeListener {
+abstract class BVContainerView extends FrameLayout {
     private static final String TAG = BVContainerView.class.getSimpleName();
 
     private boolean seen = false;
-    private BVViewGroupEventListener eventListener;
 
     public BVContainerView(Context context) {
         super(context);
@@ -42,26 +40,9 @@ class BVContainerView extends FrameLayout implements View.OnAttachStateChangeLis
     }
 
     void init() {
-        super.addOnAttachStateChangeListener(this);
     }
 
-    void setEventListener(BVViewGroupEventListener eventListener){
-        this.eventListener = eventListener;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onViewAttachedToWindow(View v) {
-        eventListener.onEmbeddedPageView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onViewDetachedFromWindow(View v) {}
+    abstract BVViewGroupEventListener getEventListener();
 
     /**
      * {@inheritDoc}
@@ -71,7 +52,7 @@ class BVContainerView extends FrameLayout implements View.OnAttachStateChangeLis
         super.onDraw(c);
         if (!seen) {
             seen = true;
-            eventListener.onViewGroupAddedToHierarchy();
+            getEventListener().onViewGroupAddedToHierarchy();
         }
     }
 

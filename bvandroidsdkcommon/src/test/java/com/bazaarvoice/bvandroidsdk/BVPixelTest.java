@@ -1,8 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -14,9 +16,22 @@ import java.util.Map;
  * Created by Bazaarvoice on 3/30/16.
  */
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
 public class BVPixelTest {
+
+    String clientId = "fooClient";
+    BazaarEnvironment environment = BazaarEnvironment.STAGING;
+    String apiKeyShopperAd = "fooBarApiKey";
+
+    @Before
+    public void setup() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                .bazaarEnvironment(environment)
+                .apiKeyShopperAdvertising(apiKeyShopperAd)
+                .build();
+    }
 
     @Test
     public void conversionTransactionWithoutPII(){

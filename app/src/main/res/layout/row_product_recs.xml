@@ -5,20 +5,17 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white" >
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+    <RelativeLayout
+        android:layout_width="@dimen/snippet_prod_row_of_2_width"
+        android:layout_height="@dimen/snippet_prod_height"
+        android:layout_gravity="center_horizontal">
 
-        <include
-            android:id="@+id/left_rec"
-            layout="@layout/include_product_rec_snippet_cell"/>
+        <LinearLayout
+            android:id="@+id/rec_row_container"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <include
-            android:id="@+id/right_rec"
-            layout="@layout/include_product_rec_snippet_cell"/>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

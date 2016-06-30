@@ -5,7 +5,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.os.AsyncTask;
-import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -27,86 +26,69 @@ import okhttp3.Response;
 public class BVRecommendations {
 
     private static final String TAG = BVRecommendations.class.getSimpleName();
-    private String apiKeyShopperAdvertising;
-    private String adID;
 
-    private WeakReference<BVRecommendationsCallback> bvRecCbWeakRef;
-
-    public BVRecommendations() {
+    BVRecommendations() {
         BVSDK bvsdk = BVSDK.getInstance();
 
-        this.apiKeyShopperAdvertising = bvsdk.getApiKeyShopperAdvertising();
+        String apiKeyShopperAdvertising = bvsdk.getApiKeyShopperAdvertising();
         if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
             throw new IllegalStateException("BVRecommendations SDK requires a shopper advertising api key");
         }
     }
 
-    private void getRecommendedProducts(final int limit, final String productId, final String categoryId, final BVRecommendationsCallback callback) {
+    public void getRecommendedProducts(RecommendationsRequest recommendationsRequest, BVRecommendationsCallback callback) {
+        WeakReference<BVRecommendationsCallback> cbWeakRef = new WeakReference<BVRecommendationsCallback>(callback);
+        RecAdIdCallback recAdIdCallback = new RecAdIdCallback(this, recommendationsRequest, cbWeakRef);
         BVSDK bvsdk = BVSDK.getInstance();
-        bvRecCbWeakRef = new WeakReference<BVRecommendationsCallback>(callback);
+        AdIdRequestTask adIdRequestTask = bvsdk.getAdIdRequestTask(recAdIdCallback);
+        adIdRequestTask.execute();
+    }
 
-        bvsdk.getAdvertisingIdClient().getAdInfo(new BVSDK.GetAdInfoCompleteAction() {
-            @Override
-            public void completionAction(AdInfo adInfo) {
-                int validatedLimit = limit;
-                if (limit < 0 || limit > 50) {
-                    validatedLimit = 20;
+    private static final class RecAdIdCallback implements AdIdRequestTask.AdIdCallback {
+        private RecommendationsRequest request;
+        private WeakReference<BVRecommendationsCallback> bvRecCbWeakRef;
+        private BVRecommendations recs;
+
+        RecAdIdCallback(BVRecommendations recs, RecommendationsRequest request, WeakReference<BVRecommendationsCallback> bvRecCbWeakRef) {
+            this.recs = recs;
+            this.request = request;
+            this.bvRecCbWeakRef = bvRecCbWeakRef;
+        }
+
+        @Override
+        public void onAdInfoComplete(AdIdResult result) {
+            if (result.getAdInfo() != null) {
+                recs.fetchRecommendations(result.getAdId(), request, bvRecCbWeakRef);
+            } else {
+                BVRecommendationsCallback cb = bvRecCbWeakRef.get();
+                if (cb != null) {
+                    cb.onFailure(new Exception(result.getErrorMessage()));
                 }
-
-                adID = adInfo.getId();
-
-                RecommendationParams params = new RecommendationParams();
-                params.categoryId = categoryId;
-                params.productId = productId;
-                params.limit = validatedLimit;
-
-                URL requestUrl;
-                try {
-                     requestUrl = new URL(getRecommendationsUrlString(params));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                    BVRecommendationsCallback cb = bvRecCbWeakRef.get();
-                    if (cb != null) {
-                        cb.onFailure(e);
-                    }
-                    return;
-                }
-
-                RequestData requestData = new RequestData(requestUrl);
-                new GetRecommendationsTask().execute(requestData);
             }
-        });
+        }
     }
 
-    /**
-     *  @param limit max number of recommended products default is 20
-     *              valid limits 1...50; will use default if out of range
-     * @param categoryId used to filter recommended products within a
-     *                   category. Mutually exclusive with productId. if
-     *                   productId and categoryId are set, productId will
-     *                   be used
-     * @param callback callback to provide list of Products or handle errors
-     */
-    public void getRecommendedProductsWithCategoryId(final int limit, String categoryId, BVRecommendationsCallback callback) {
-        getRecommendedProducts(limit, null, categoryId, callback);
-    }
+    private void fetchRecommendations(String adId, RecommendationsRequest request, WeakReference<BVRecommendationsCallback> cbWeakRef) {
+        URL requestUrl;
+        try {
+            BVSDK bvsdk = BVSDK.getInstance();
+            String baseUrlStr = bvsdk.getShopperMarketingApiRootUrl();
+            String apiKey = bvsdk.getApiKeyShopperAdvertising();
+            String clientId = bvsdk.getClientId();
+            String recRequestUrlStr = RecommendationsRequest.toUrlString(baseUrlStr, adId, apiKey, clientId, request);
+            requestUrl = new URL(recRequestUrlStr);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            BVRecommendationsCallback cb = cbWeakRef.get();
+            if (cb != null) {
+                cb.onFailure(e);
+                cbWeakRef.clear();
+            }
+            return;
+        }
 
-    /**
-     *  @param limit max number of recommended products default is 20 valid
-     *              limits 1...50; will use default if out of range
-     * @param productId used to filter recommended products to similar products
-     * @param callback callback to provide list of Products or handle errors
-     */
-    public void getRecommendedProductsWithProductId(final int limit, String productId, BVRecommendationsCallback callback) {
-        getRecommendedProducts(limit, productId, null, callback);
-    }
-
-    /**
-     *  @param limit max number of recommended products
-     * @param callback callback to provide list of Products or handle errors
-     */
-    public void getRecommendedProducts(int limit, BVRecommendationsCallback callback) {
-        getRecommendedProducts(limit, null, null, callback);
+        RequestData requestData = new RequestData(requestUrl);
+        new GetRecommendationsTask(cbWeakRef).execute(requestData);
     }
 
     /**
@@ -117,56 +99,18 @@ public class BVRecommendations {
         void onFailure(Throwable throwable);
     }
 
-    private void validateBvViewGroup(ViewGroup bvViewGroup) {
-        if (bvViewGroup == null) {
-            throw new IllegalStateException("bvViewGroup must be non-null");
-        }
-        boolean isBvViewGroup = (bvViewGroup instanceof RecommendationsListView) || (bvViewGroup instanceof RecommendationsContainerView) || (bvViewGroup instanceof RecommendationsRecyclerView);
-        if (!isBvViewGroup) {
-            throw new IllegalStateException("bvViewGroup must be one of the BVSDK provided ViewGroups that is wrapping your BvViews");
-        }
-    }
-
-    //Helper Classes
-//*****************************************************************************
-
-    private class RecommendationParams {
-        protected int limit;
-        protected String productId;
-        protected String categoryId;
-    }
-
-    protected String getRecommendationsUrlString(RecommendationParams params) {
-        BVSDK bvsdk = BVSDK.getInstance();
-
-        /**
-         * Request statistics.
-         */
-        String userIdentifier = adID;
-        String similarityParams = "";
-        //mutually exclusive productId and categoryId. productId before categoryId
-        if (params.productId != null) {
-            similarityParams = "&product=" + bvsdk.getClientId()+"/"+params.productId;
-        } else if (params.categoryId != null) {
-            similarityParams = "&category=" + bvsdk.getClientId()+"/"+params.categoryId;
-        }
-
-        String urlString = String.format("%s/recommendations/magpie_idfa_%s?passKey=%s%s&limit=%d",bvsdk.getShopperMarketingApiRootUrl(),userIdentifier, apiKeyShopperAdvertising,similarityParams,params.limit);
-        if (bvsdk.getClientId() != null && bvsdk.getClientId().length() != 0) {
-            urlString += "&client="+ bvsdk.getClientId();
-        }
-        return urlString;
-
+    public interface BVRecommendationsLoader {
+        void loadRecommendations(RecommendationsRequest request, BVRecommendations.BVRecommendationsCallback callback);
     }
 
     private static final class RequestData {
         private URL requestUrl;
 
-        public RequestData(URL requestUrl) {
+        RequestData(URL requestUrl) {
             this.requestUrl = requestUrl;
         }
 
-        public URL getRequestUrl() {
+        URL getRequestUrl() {
             return requestUrl;
         }
     }
@@ -176,17 +120,17 @@ public class BVRecommendations {
         private Throwable errorThrowable;
         private List<BVProduct> recommendedProducts;
 
-        public ResponseData(boolean didSucceed, Throwable errorThrowable, List<BVProduct> recommendedProducts) {
+        ResponseData(boolean didSucceed, Throwable errorThrowable, List<BVProduct> recommendedProducts) {
             this.didSucceed = didSucceed;
             this.errorThrowable = errorThrowable;
             this.recommendedProducts = recommendedProducts;
         }
 
-        public boolean isDidSucceed() {
+        boolean isDidSucceed() {
             return didSucceed;
         }
 
-        public Throwable getErrorThrowable() {
+        Throwable getErrorThrowable() {
             return errorThrowable;
         }
 
@@ -195,7 +139,13 @@ public class BVRecommendations {
         }
     }
 
-    private class GetRecommendationsTask extends AsyncTask<RequestData, Void, ResponseData> {
+    private static final class GetRecommendationsTask extends AsyncTask<RequestData, Void, ResponseData> {
+
+        private final WeakReference<BVRecommendationsCallback> cbWeakRef;
+
+        GetRecommendationsTask(WeakReference<BVRecommendationsCallback> cbWeakRef) {
+            this.cbWeakRef = cbWeakRef;
+        }
 
         @Override
         protected ResponseData doInBackground(RequestData... params) {
@@ -237,7 +187,7 @@ public class BVRecommendations {
         @Override
         protected void onPostExecute(ResponseData responseData) {
             super.onPostExecute(responseData);
-            BVRecommendationsCallback recommendationsCallback = bvRecCbWeakRef.get();
+            BVRecommendationsCallback recommendationsCallback = cbWeakRef.get();
             if (recommendationsCallback == null) {
                 Logger.w(TAG, "Your Recommendations callback was recycled.");
                 return;
@@ -249,6 +199,7 @@ public class BVRecommendations {
                 responseData.getErrorThrowable().printStackTrace();
                 recommendationsCallback.onFailure(responseData.getErrorThrowable());
             }
+            cbWeakRef.clear();
         }
 
     }

@@ -79,7 +79,7 @@ public class DemoProductDetailActivity extends AppCompatActivity implements Demo
     @Override
     protected void onStart() {
         super.onStart();
-        userActionsListener = new DemoProductDetailPresenter(this, bvProductId);
+        userActionsListener = new DemoProductDetailPresenter(this, bvProductId, recyclerView);
         userActionsListener.loadRelatedRecommendations(true);
     }
 

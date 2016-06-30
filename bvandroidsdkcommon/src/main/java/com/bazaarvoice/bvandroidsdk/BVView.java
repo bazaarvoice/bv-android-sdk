@@ -5,11 +5,13 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Bazaarvoice provided {@link FrameLayout} to contain a single Bazaarvoice
@@ -17,11 +19,11 @@ import android.widget.FrameLayout;
  * about the users interaction with the Product in order to help influence
  * future recommendations.
  */
-class BVView extends FrameLayout {
+abstract class BVView extends FrameLayout {
 
     private static final String TAG = BVView.class.getSimpleName();
 
-    private BVViewEventListener eventListener;
+    private BvOnScreenListener onScreenListener;
 
     public BVView(Context context) {
         super(context);
@@ -47,30 +49,40 @@ class BVView extends FrameLayout {
 
     void init() {
         setWillNotDraw(false);
+        this.onScreenListener = new BvOnScreenListener(getEventListener());
+        getViewTreeObserver().addOnGlobalLayoutListener(new EventView.GlobalLayoutListener<BVView>(this, onScreenListener));
+        getViewTreeObserver().addOnScrollChangedListener(new EventView.ScrollChangeListener<BVView>(this, onScreenListener));
     }
 
-    public void setEventListener(BVViewEventListener eventListener){
-        this.eventListener = eventListener;
+    private static class BvOnScreenListener implements EventView.OnScreenListener<BVView> {
+        private final Set<String> seenIds = new HashSet<>();
+        private final BVViewEventListener eventListener;
+
+        BvOnScreenListener(BVViewEventListener eventListener) {
+            this.eventListener = eventListener;
+        }
+
+        @Override
+        public void onScreen(BVView bvView) {
+            if (!seenIds.contains(bvView.getProductId())) {
+                eventListener.onImpression();
+                seenIds.add(bvView.getProductId());
+            }
+        }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-         eventListener.onImpression();
-    }
+    abstract BVViewEventListener getEventListener();
+
+    abstract String getProductId();
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_UP:
-                eventListener.onConversion();
+                getEventListener().onConversion();
                 break;
         }
 
         return super.dispatchTouchEvent(ev);
     }
-
 }

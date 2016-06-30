@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.InputStream;
@@ -36,11 +36,9 @@ import static org.mockito.Mockito.mock;
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
 public class CurationsUnitTest {
-
-
 
     String curationsApiKey;
 
@@ -63,7 +61,6 @@ public class CurationsUnitTest {
     BVLogLevel bvLogLevel;
 
     ExecutorService executorService = mock(ExecutorService.class);
-    AdvertisingIdClient advertisingIdClient = mock(AdvertisingIdClient.class);
     AnalyticsManager analyticsManager = mock(AnalyticsManager.class);
     BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
     BVAuthenticatedUser bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
@@ -93,13 +90,12 @@ public class CurationsUnitTest {
 
         // Builder used to initialize the Bazaarvoice SDKs
 
-        Logger.setLogLevel(bvLogLevel);
         curationsApiBaseUrl = server.url("/curations/").toString();
         baseSerializationExpectation = curationsApiBaseUrl + "client=" + clientId +"&passKey=" + curationsApiKey;
 
         curationsPostApiBaseUrl = server.url("/curationspost/").toString();
         curationsPostFullUrl  = curationsPostApiBaseUrl + "?client=" + clientId + "&passkey=" + curationsApiKey;
-        BVSDK.instance = new BVSDK(Robolectric.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, curationsApiKey, bvLogLevel, scheduledExecutorService, immediateExecutorService, new OkHttpClient(), advertisingIdClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl);
+        BVSDK.instance = new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, curationsApiKey, bvLogLevel, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl);
     }
 
     @Test

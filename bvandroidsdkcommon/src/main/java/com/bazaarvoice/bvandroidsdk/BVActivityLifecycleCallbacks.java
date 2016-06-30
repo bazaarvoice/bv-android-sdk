@@ -30,7 +30,7 @@ class BVActivityLifecycleCallbacks implements Application.ActivityLifecycleCallb
         if (activeActivityCount == 0) {
             // application resume
             Logger.v(TAG, "application resume");
-            analyticsManager.sendAppStateEvent(MobileAppLifecycleSchema.AppState.RESUMED);
+            analyticsManager.enqueueAppStateEvent(MobileAppLifecycleSchema.AppState.RESUMED);
         }
         activeActivityCount++;
     }
@@ -48,7 +48,7 @@ class BVActivityLifecycleCallbacks implements Application.ActivityLifecycleCallb
         if (activeActivityCount == 0) {
             // application pause
             Logger.v(TAG, "application pause");
-            analyticsManager.sendAppStateEvent(MobileAppLifecycleSchema.AppState.PAUSED);
+            analyticsManager.enqueueAppStateEvent(MobileAppLifecycleSchema.AppState.PAUSED);
         }
     }
 

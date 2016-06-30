@@ -22,9 +22,6 @@ import okhttp3.Response;
  */
 public class BVCurations {
 
-    private WeakReference<CurationsFeedCallback> feedCallback;
-    private WeakReference<CurationsPostCallback> postCallback;
-
     /**
      * Get curations feed using specified parameters
      * @param request The request is used to specify parameters which will be used in the Curations GET request
@@ -33,10 +30,10 @@ public class BVCurations {
      * garbage collected if you do not keep a strong reference to it. }.
      */
     public void getCurationsFeedItems(CurationsFeedRequest request, CurationsFeedCallback callback){
-        this.feedCallback = new WeakReference(callback);
-        new GetCurationsUpdateTask().execute(request);
+        WeakReference<CurationsFeedCallback> feedCallback = new WeakReference<>(callback);
+        GetCurationsUpdateTask task = new GetCurationsUpdateTask(feedCallback);
+        task.execute(request);
     }
-
 
     /**
      * Post Content to curations
@@ -45,18 +42,23 @@ public class BVCurations {
      * <em>Note:</em> This method keeps a weak reference to the {@link CurationsPostCallback} instance and will be
      * garbage collected if you do not keep a strong reference to it. }.
      */
-    public void postContentToCurations(CurationsPostRequest post, CurationsPostCallback callback){
-        this.postCallback = new WeakReference(callback);
-        new PostCurationsContentTask().execute(post);
-
+    public void postContentToCurations(CurationsPostRequest request, CurationsPostCallback callback){
+        WeakReference<CurationsPostCallback> postCallback = new WeakReference<>(callback);
+        PostCurationsContentTask task = new PostCurationsContentTask(postCallback);
+        task.execute(request);
     }
 
-    private class GetCurationsUpdateTask extends AsyncTask<CurationsFeedRequest, Void, ResponseData> {
+    private static class GetCurationsUpdateTask extends AsyncTask<CurationsFeedRequest, Void, ResponseData> {
+        private WeakReference<CurationsFeedCallback> feedCallback;
+
+        GetCurationsUpdateTask(WeakReference<CurationsFeedCallback> feedCallback) {
+            this.feedCallback = feedCallback;
+        }
 
         @Override
         protected ResponseData doInBackground(CurationsFeedRequest... params) {
             CurationsFeedRequest request = params[0];
-            OkHttpClient okHttpClient = new OkHttpClient();
+            OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
             Gson gson = BVSDK.getInstance().getGson();
 
             Request httpRequest = new Request.Builder()
@@ -105,6 +107,7 @@ public class BVCurations {
             super.onPostExecute(response);
 
             CurationsFeedCallback cb = feedCallback.get();
+            feedCallback.clear();
 
             if (cb == null){
                 return;
@@ -118,11 +121,15 @@ public class BVCurations {
                 response.getErrorThrowable().printStackTrace();
                 cb.onFailure(response.getErrorThrowable());
             }
-
         }
     }
 
-    private class PostCurationsContentTask extends AsyncTask<CurationsPostRequest, Void, ResponseData>{
+    private static class PostCurationsContentTask extends AsyncTask<CurationsPostRequest, Void, ResponseData> {
+        private final WeakReference<CurationsPostCallback> postCallback;
+
+        PostCurationsContentTask(WeakReference<CurationsPostCallback> postCallback) {
+            this.postCallback = postCallback;
+        }
 
         @Override
         protected ResponseData doInBackground(CurationsPostRequest... params) {
@@ -189,8 +196,8 @@ public class BVCurations {
 
         @Override
         protected void onPostExecute(ResponseData response) {
-
             CurationsPostCallback cb = postCallback.get();
+            postCallback.clear();
 
             if (cb == null){
                 return;

@@ -26,6 +26,12 @@ abstract class BvAnalyticsSchema {
     private String eventType;
     private String source;
 
+    /**
+     * Enabled by default, but can be toggled to false.
+     * e.g. PII event with email cannot send AdId
+     */
+    private boolean allowAdId = true;
+
     private List<BvPartialSchema> bvPartialSchemas = new ArrayList<BvPartialSchema>();
     private Map<String, Object> addedKeyVals = new HashMap<String, Object>();
 
@@ -43,6 +49,14 @@ abstract class BvAnalyticsSchema {
         if (bvPartialSchema != null) {
             bvPartialSchemas.add(bvPartialSchema);
         }
+    }
+
+    public void setAllowAdId(boolean allowAdId) {
+        this.allowAdId = allowAdId;
+    }
+
+    public boolean allowAdId() {
+        return allowAdId;
     }
 
     public Map<String, Object> getDataMap() {

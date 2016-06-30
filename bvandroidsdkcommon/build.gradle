@@ -33,7 +33,6 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'boolean', 'ANALYTICS_ENABLED',  String.valueOf(rootProject.ext.analyticsEnabled)
         it.buildConfigField 'String', 'BVSDK_VERSION_NAME', '"' + VERSION_NAME + '"'
     }
 
@@ -46,6 +45,7 @@ dependencies {
     compile dep.gson
     compile dep.okhttp3
     compile dep.recyclerview
+    compile dep.playServiceAds
 
     // Dependencies for local unit tests
     testCompile dep.junit
@@ -53,6 +53,7 @@ dependencies {
     testCompile dep.hamcrest
     testCompile dep.mockWebServer
     testCompile dep.robolectric
+    testCompile dep.roboPlayServices
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

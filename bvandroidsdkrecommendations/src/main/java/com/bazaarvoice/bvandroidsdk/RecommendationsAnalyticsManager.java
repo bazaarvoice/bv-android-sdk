@@ -12,14 +12,17 @@ public class RecommendationsAnalyticsManager {
 
     private static AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
 
-    public static void sendEmbeddedPageView(ReportingGroup reportingGroup) {
+    public static void sendEmbeddedPageView(ReportingGroup reportingGroup, String productId, String categoryId, int numRecommendations) {
         BVSDK bvsdk = BVSDK.getInstance();
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        RecommendationsEmbeddedPageViewSchema schema = new RecommendationsEmbeddedPageViewSchema(magpieMobileAppPartialSchema, reportingGroup, bvsdk.getClientId());
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        RecommendationsEmbeddedPageViewSchema schema = new RecommendationsEmbeddedPageViewSchema.Builder(magpieMobileAppPartialSchema, reportingGroup)
+                .productId(productId)
+                .categoryId(categoryId)
+                .numRecommendations(numRecommendations)
+                .build();
+        analyticsManager.enqueueEvent(schema);
     }
-
 
     /**
      * Event when a single product recommendation appears on screen
@@ -36,7 +39,7 @@ public class RecommendationsAnalyticsManager {
         RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
         RecommendationImpressionSchema schema = new RecommendationImpressionSchema(bvProduct.getProductId(), magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
 
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     /**
@@ -53,7 +56,7 @@ public class RecommendationsAnalyticsManager {
         RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
         RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(Feature.CONTENT_CLICK, bvProduct.getProductId(), null, magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
 
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     private static boolean shouldSendProductEvent(BVProduct bvProduct) {
@@ -70,13 +73,13 @@ public class RecommendationsAnalyticsManager {
 
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(Feature.INVIEW, null, reportingGroup, magpieMobileAppPartialSchema, null);
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
     public static void sendBvViewGroupInteractedWithEvent(ReportingGroup reportingGroup) {
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(Feature.SCROLLED, null, reportingGroup, magpieMobileAppPartialSchema, null);
-        analyticsManager.enqueueEvent(schema.getDataMap());
+        analyticsManager.enqueueEvent(schema);
     }
 
 

@@ -13,9 +13,14 @@ import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.util.concurrent.TimeUnit;
+
 import io.fabric.sdk.android.Fabric;
+import okhttp3.OkHttpClient;
 
 import static com.bazaarvoice.bvsdkdemoandroid.BuildConfig.DEBUG;
 import static com.bazaarvoice.bvsdkdemoandroid.BuildConfig.HAS_CRASHLYTICS_KEY;
@@ -32,6 +37,7 @@ public class DemoApplication extends Application {
             Fabric.with(this, crashlyticsKit);
         }
 
+        Stetho.initializeWithDefaults(this);
         setupBVSDK();
         if (DEBUG) {
             LeakCanary.install(this);
@@ -54,6 +60,11 @@ public class DemoApplication extends Application {
         String shopperAdvertisingApiKey = demoConfigUtils.getShopperAdPasskey();
         String conversationsApiKey = demoConfigUtils.getConversationsPasskey();
         String curationsApiKey = demoConfigUtils.getCurationsPasskey();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .addNetworkInterceptor(new StethoInterceptor())
+                .addInterceptor(new DemoSdkInterceptor())
+                .build();
 
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, clientId)
@@ -62,6 +73,7 @@ public class DemoApplication extends Application {
                 .apiKeyConversations(conversationsApiKey)
                 .apiKeyCurations(curationsApiKey)
                 .logLevel(DemoConstants.LOG_LEVEL)
+                .okHttpClient(okHttpClient)
                 .build();
 
         // Set user auth string which you may not have until after a user signs in

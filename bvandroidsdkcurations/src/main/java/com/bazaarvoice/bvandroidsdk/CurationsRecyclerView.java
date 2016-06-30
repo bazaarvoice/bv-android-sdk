@@ -50,18 +50,13 @@ public final class CurationsRecyclerView extends BVRecyclerView implements BVVie
     }
 
     @Override
-    void init(){
-        super.init();
-        super.setEventListener(this);
+    BVViewGroupEventListener getEventListener() {
+        return this;
     }
 
     @Override
     public void onViewGroupInteractedWith() {
         CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.RECYCLERVIEW);
-    }
-
-    @Override
-    public void onEmbeddedPageView() {
     }
 
     @Override

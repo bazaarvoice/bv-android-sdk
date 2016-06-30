@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import com.google.android.gms.ads.AdRequest;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -65,5 +66,19 @@ public class DemoUtils {
         return value != null ? value : defaultValue;
     }
 
+    public static String getDfpAdErrorMessage(int errorCode) {
+        switch (errorCode) {
+            case AdRequest.ERROR_CODE_INTERNAL_ERROR:
+                return "Something happened internally; for instance, an invalid response was received from the ad server.";
+            case AdRequest.ERROR_CODE_NETWORK_ERROR:
+                return "The ad request was unsuccessful due to network connectivity.";
+            case AdRequest.ERROR_CODE_INVALID_REQUEST:
+                return "The ad request was invalid; for instance, the ad unit ID was incorrect.";
+            case AdRequest.ERROR_CODE_NO_FILL:
+                return "The ad request was successful, but no ad was returned due to lack of ad inventory.";
+            default:
+                return "unknown error code";
+        }
+    }
 
 }

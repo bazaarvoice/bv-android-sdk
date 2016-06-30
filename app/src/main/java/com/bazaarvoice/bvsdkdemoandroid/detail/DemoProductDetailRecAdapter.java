@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.RecommendationView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
@@ -54,6 +55,8 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
             demoViewHolder.productPrice.setText(bvProduct.getPrice());
         }
 
+        demoViewHolder.recommendationView.setBvProduct(bvProduct);
+
         demoViewHolder.row.setTag(bvProduct);
         demoViewHolder.row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +83,7 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     private final class DemoProductDetailViewHolder extends RecyclerView.ViewHolder {
-
+        RecommendationView recommendationView;
         RelativeLayout row;
         ImageView image;
         TextView productName, productPrice;
@@ -88,7 +91,8 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
 
         public DemoProductDetailViewHolder(View itemView) {
             super(itemView);
-            row = (RelativeLayout) itemView;
+            recommendationView = (RecommendationView) itemView;
+            row = (RelativeLayout) itemView.findViewById(R.id.rec_snippet_container);
             image = (ImageView) itemView.findViewById(R.id.image);
             productName = (TextView) itemView.findViewById(R.id.product_name);
             productPrice = (TextView) itemView.findViewById(R.id.product_price);

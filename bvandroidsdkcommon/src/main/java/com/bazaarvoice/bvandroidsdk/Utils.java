@@ -7,8 +7,10 @@ package com.bazaarvoice.bvandroidsdk;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Looper;
 
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 import java.util.UUID;
 
@@ -16,6 +18,8 @@ import java.util.UUID;
  * Internal SDK API for common utility methods
  */
 class Utils {
+
+    public static final String THREAD_PREFIX = "BVSDK-";
 
     static boolean isStagingEnvironment(BazaarEnvironment environment) {
         return environment == BazaarEnvironment.STAGING;
@@ -50,16 +54,15 @@ class Utils {
         }
     }
 
-    static void printAnalytics(List<Map<String, Object>> analyticsBatch) {
-        String tag = "BVAnalayticsVerify";
-
-        for (Map<String, Object> event : analyticsBatch) {
-            Logger.d(tag, "{");
-            for (Map.Entry<String, Object> entry : event.entrySet()) {
-                Logger.d(tag, "  " + entry.getKey() + ":" + entry.getValue());
-            }
-            Logger.d(tag, "}");
+    static URL toUrl(String urlStr) {
+        URL url = null;
+        try {
+            url = new URL(urlStr);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
+
+        return url;
     }
 
     private static final String BV_SHARED_PREFS_FILE_NAME = "_bazaarvoice_shared_prefs_";
@@ -78,5 +81,21 @@ class Utils {
         }
 
         return uuid;
+    }
+
+    static void checkNotMain() {
+        if (isMain()) {
+            throw new IllegalStateException("Method call should not happen from the main thread.");
+        }
+    }
+
+    static void checkMain() {
+        if (!isMain()) {
+            throw new IllegalStateException("Method call should happen from the main thread.");
+        }
+    }
+
+    static boolean isMain() {
+        return Looper.getMainLooper().getThread() == Thread.currentThread();
     }
 }
