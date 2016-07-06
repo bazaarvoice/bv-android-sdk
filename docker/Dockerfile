@@ -19,10 +19,13 @@ FROM ubuntu:14.04
 # 3) $ docker commit -m "What changes I made" -a "Author Name" {container_id} bazaarvoice/android-sdk:{tag}
 # 4) $ docker push bazaarvoice/android-sdk:{tag}
 
-# Install java7
+# Update apt
+RUN apt-get update
+
+# Install java8
 RUN apt-get install -y software-properties-common && add-apt-repository -y ppa:webupd8team/java && apt-get update
-RUN echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN apt-get install -y oracle-java7-installer
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN apt-get install -y oracle-java8-installer
 
 # Install Deps
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y --force-yes expect git wget libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 python curl
@@ -41,7 +44,6 @@ RUN apt-get clean
 RUN mkdir -p /opt/workspace
 WORKDIR /opt/workspace
 
-RUN which android
 RUN ls $ANDROID_HOME/tools
 
 # Install sdk elements
@@ -55,7 +57,6 @@ RUN ./android_accept_license.sh "android update sdk --no-ui --all --filter platf
 
 RUN which adb
 RUN echo $PATH
-RUN which android
 RUN ls $ANDROID_HOME/tools
 
 # get maven 3.3.9

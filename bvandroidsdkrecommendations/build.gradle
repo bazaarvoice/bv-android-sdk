@@ -47,13 +47,5 @@ dependencies {
     testCompile dep.hamcrest
 }
 
+apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
-
-afterEvaluate { project ->
-    android.libraryVariants.all { variant ->
-        tasks.androidJavadocs.doFirst {
-            classpath += files(variant.javaCompile.classpath.files)
-        }
-    }
-}
-

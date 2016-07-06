@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class BVSDK {
     private static final String CURATIONS_POST_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/add/";
     static BVSDK instance;
 
-    static final String SDK_VERSION = "4.0.0";
+    static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
 
     final Application application;
     final ExecutorService scheduledExecutorService;
