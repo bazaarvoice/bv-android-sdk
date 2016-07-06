@@ -1,0 +1,24 @@
+apply plugin: 'nu.studer.credentials'
+apply plugin: 'signing'
+
+def setupSigning() {
+    def hasId = rootProject.hasProperty("signing.keyId") && rootProject."signing.keyId" != null
+    def hasSecringFile = rootProject.hasProperty("signing.secretKeyRingFile") && rootProject."signing.secretKeyRingFile" != null
+    def hasPassword = credentials."signing.password" != null
+
+    logger.debug('Setup Signing: hasId? ' + hasId + ', hasSecringFile?' + hasSecringFile + ', hasPassword? ' + hasPassword)
+    if (!hasId || !hasSecringFile || !hasPassword) {
+        logger.debug('Setup Signing: Not setting signing values because one or more values is missing')
+        return
+    }
+
+    def id = rootProject."signing.keyId"
+    def file = System.getenv('HOME') + '/' + rootProject."signing.secretKeyRingFile"
+    def password = credentials."signing.password"
+
+    allprojects { ext."signing.keyId" = id }
+    allprojects { ext."signing.secretKeyRingFile" = file }
+    allprojects { ext."signing.password" = password }
+}
+
+setupSigning()

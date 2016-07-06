@@ -34,6 +34,7 @@ android {
 
     buildTypes.each {
         it.buildConfigField 'boolean', 'ANALYTICS_ENABLED',  String.valueOf(rootProject.ext.analyticsEnabled)
+        it.buildConfigField 'String', 'BVSDK_VERSION_NAME', '"' + VERSION_NAME + '"'
     }
 
     lintOptions {
@@ -54,12 +55,5 @@ dependencies {
     testCompile dep.robolectric
 }
 
+apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
-
-afterEvaluate { project ->
-    android.libraryVariants.all { variant ->
-        tasks.androidJavadocs.doFirst {
-            classpath += files(variant.javaCompile.classpath.files)
-        }
-    }
-}

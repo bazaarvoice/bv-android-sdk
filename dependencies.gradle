@@ -16,7 +16,7 @@ ext {
     okhttp3Version = '3.2.0'
     supportLibraryVersion = '23.4.0'
     leakCanaryVersion = '1.4-beta2'
-    bvSdkVersion = '4.0.3-SNAPSHOT'
+    bvSdkVersion = '4.0.4-RC3-SNAPSHOT'
 
     dep = [
             androidPlugin       : 'com.android.tools.build:gradle:2.1.2',

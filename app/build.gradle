@@ -101,6 +101,11 @@ dependencies {
     compile project(':bvandroidsdkconversations')
     compile project(':bvandroidsdkcurations')
 
+//    compile dep.bvSdkAds
+//    compile dep.bvSdkRecommendations
+//    compile dep.bvSdkConversations
+//    compile dep.bvSdkCurations
+
     compile dep.picasso
     compile dep.prettyTime
     compile dep.appCompatV7
