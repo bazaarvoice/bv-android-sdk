@@ -323,4 +323,16 @@ class AnalyticsManager {
             }
         }
     }
+
+    String getVersionName() {
+        return versionName;
+    }
+
+    String getVersionCode() {
+        return versionCode;
+    }
+
+    String getPackageName() {
+        return packageName;
+    }
 }

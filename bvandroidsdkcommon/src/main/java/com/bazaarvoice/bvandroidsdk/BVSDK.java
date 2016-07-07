@@ -6,11 +6,15 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +38,7 @@ import okhttp3.OkHttpClient;
  * <p> Your client name and the application object must also be provided when
  * constructing the {@link Builder}</p>
  */
-public class BVSDK {
+public class BVSDK{
 
     private static final String TAG = BVSDK.class.getSimpleName();
     private static final String SCHEDULED_BV_THREAD_NAME = "BV-ScheduledThread";
@@ -47,6 +51,9 @@ public class BVSDK {
     private static final String CURATIONS_POST_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/add/";
     private static final String ANALYTICS_ROOT_URL_PRODUCTION = "https://network.bazaarvoice.com/event";
     private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/event";
+    private static final String CONVERSATIONS_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/data/";
+    private static final String CONVERSATIONS_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/data/";
+    static final int BVHandlePayload = 123;
     static volatile BVSDK singleton;
 
     static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
@@ -57,30 +64,24 @@ public class BVSDK {
     final BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     final String clientId;
     final BazaarEnvironment environment;
-    final String apiKeyShopperAdvertising;
-    final String apiKeyConversations;
-    final String apiKeyCurations;
     final BVAuthenticatedUser bvAuthenticatedUser;
     final Gson gson;
-    final String shopperMarketingApiRootUrl;
-    final String curationsDisplayApiRootUrl;
-    final String curationsPostApiRootUrl;
+    final BVRootApiUrls rootApiUrls;
+    final BVApiKeys apiKeys;
+    private final Handler handler;
 
-    BVSDK(Application application, String clientId, BazaarEnvironment environment, String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations, BVLogLevel logLevel, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, String shopperMarketingApiRootUrl, String curationsDisplayApiRootUrl, String curationsPostApiRootUrl) {
+    BVSDK(Application application, String clientId, BazaarEnvironment environment, BVApiKeys apiKeys, BVLogLevel logLevel, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, BVRootApiUrls rootApiUrls, Handler handler) {
         this.application = application;
         this.okHttpClient = okHttpClient;
         this.analyticsManager = analyticsManager;
         this.bvActivityLifecycleCallbacks = bvActivityLifecycleCallbacks;
         this.clientId = clientId;
         this.environment = environment;
-        this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
-        this.apiKeyConversations = apiKeyConversations;
-        this.apiKeyCurations = apiKeyCurations;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
         this.gson = gson;
-        this.shopperMarketingApiRootUrl = shopperMarketingApiRootUrl;
-        this.curationsDisplayApiRootUrl = curationsDisplayApiRootUrl;
-        this.curationsPostApiRootUrl = curationsPostApiRootUrl;
+        this.rootApiUrls = rootApiUrls;
+        this.apiKeys = apiKeys;
+        this.handler = handler;
 
         // Also set here for when the constructor is used during tests
         Logger.setLogLevel(logLevel);
@@ -146,6 +147,14 @@ public class BVSDK {
             return thread;
         }
     }
+
+    void postPayloadToMainThread(BVHandlerCallbackPayload payload) {
+        Message message = handler.obtainMessage();
+        message.what = BVSDK.BVHandlePayload;
+        message.obj = payload;
+        handler.sendMessage(message);
+    }
+
 
     /**
      * Initialization Builder that must be called in the {@link android.app.Application#onCreate()} method
@@ -268,21 +277,38 @@ public class BVSDK {
 
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
             ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String versionName = Utils.getVersionName(application.getApplicationContext());
             String versionCode = Utils.getVersionCode(application.getApplicationContext());
             String packageName = Utils.getPackageName(application.getApplicationContext());
             UUID uuid = Utils.getUuid(application.getApplicationContext());
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
             String curationsDisplayApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_DISPLAY_API_ROOT_URL_STAGING : CURATIONS_DISPLAY_API_ROOT_URL_PRODUCTION;
-            String curationsPostApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_POST_API_ROOT_URL_STAGING : CURATIONS_POST_API_ROOT_URL_PRODUCTION;
             String analyticsRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
+            String curationsPostApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_POST_API_ROOT_URL_STAGING : CURATIONS_POST_API_ROOT_URL_PRODUCTION;
+            String conversationApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CONVERSATIONS_ROOT_URL_STAGING : CONVERSATIONS_ROOT_URL_PRODUCTION;
+            BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl, conversationApiRootUrl);
             BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, gson, profilePollTimes);
             AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), versionName, versionCode, clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
+            BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations);
 
-            singleton = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, logLevel, okHttpClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl);
+            Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
+                @Override
+                public boolean handleMessage(Message msg) {
+
+                    if (msg.what == BVHandlePayload){
+                        BVHandlerCallbackPayload payload = (BVHandlerCallbackPayload) msg.obj;
+                        payload.getInternalCB().performOnMainThread(payload);
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+
+            singleton = new BVSDK(application, clientId, bazaarEnvironment, apiKeys, logLevel, okHttpClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, endPoints, handler);
             return singleton;
         }
     }
@@ -314,17 +340,20 @@ public class BVSDK {
     }
 
     String getShopperMarketingApiRootUrl() {
-        return shopperMarketingApiRootUrl;
+        return rootApiUrls.getShopperMarketingApiRootUrl();
     }
 
     String getCurationsDisplayApiRootUrl(){
-        return curationsDisplayApiRootUrl;
+        return rootApiUrls.getCurationsDisplayApiRootUrl();
     }
 
     String getCurationsPostApiRootUrl(){
-        return curationsPostApiRootUrl;
+        return rootApiUrls.getCurationsPostApiRootUrl();
     }
 
+    String getConversationsApiRootUrl() {
+        return rootApiUrls.getConversationsApiRootUrl();
+    }
     OkHttpClient getOkHttpClient() {
         return okHttpClient;
     }
@@ -384,15 +413,15 @@ public class BVSDK {
     }
 
     String getApiKeyShopperAdvertising() {
-        return apiKeyShopperAdvertising;
+        return apiKeys.getApiKeyShopperAdvertising();
     }
 
     String getApiKeyConversations() {
-        return apiKeyConversations;
+        return apiKeys.getApiKeyConversations();
     }
 
     String getApiKeyCurations() {
-        return apiKeyCurations;
+        return apiKeys.getApiKeyCurations();
     }
 
 }

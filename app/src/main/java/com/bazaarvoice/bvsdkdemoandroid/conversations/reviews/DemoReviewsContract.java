@@ -3,14 +3,14 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BazaarReview;
+import com.bazaarvoice.bvandroidsdk.Review;
 
 import java.util.List;
 
 public interface DemoReviewsContract {
 
     interface View {
-        void showReviews(List<BazaarReview> bazaarReviews);
+        void showReviews(List<Review> bazaarReviews);
         void showLoadingReviews(boolean show);
         void showNoReviews();
         void showReviewsMessage(String message);

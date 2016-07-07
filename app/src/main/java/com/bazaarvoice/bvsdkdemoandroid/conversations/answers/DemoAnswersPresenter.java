@@ -4,8 +4,8 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 
 
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarAnswer;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarQuestion;
+import com.bazaarvoice.bvandroidsdk.Answer;
+import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -39,11 +39,11 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
         }
 
         DemoQuestionsCache demoQuestionsCache = DemoQuestionsCache.getInstance();
-        List<BazaarQuestion> cachedQuestions = demoQuestionsCache.getDataItem(productId);
-        List<BazaarAnswer> cachedAnswers = new ArrayList<>();
-        for (BazaarQuestion bazaarQuestion : cachedQuestions) {
+        List<Question> cachedQuestions = demoQuestionsCache.getDataItem(productId);
+        List<Answer> cachedAnswers = new ArrayList<>();
+        for (Question bazaarQuestion : cachedQuestions) {
             if (bazaarQuestion.getId().equals(questionId)) {
-                cachedAnswers.addAll(bazaarQuestion.getBazaarAnswers());
+                cachedAnswers.addAll(bazaarQuestion.getAnswers());
                 break;
             }
         }

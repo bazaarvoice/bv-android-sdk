@@ -3,35 +3,27 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
-import android.util.Log;
-
-import com.bazaarvoice.bvandroidsdk.BazaarRequest;
-import com.bazaarvoice.bvandroidsdk.DisplayParams;
-import com.bazaarvoice.bvandroidsdk.OnBazaarResponse;
-import com.bazaarvoice.bvandroidsdk.types.Equality;
-import com.bazaarvoice.bvandroidsdk.types.IncludeStatsType;
-import com.bazaarvoice.bvandroidsdk.types.IncludeType;
-import com.bazaarvoice.bvandroidsdk.types.RequestType;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BazaarReview;
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BazaarException;
+import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.ReviewResponse;
+import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener, OnBazaarResponse {
+public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener {
 
     private DemoReviewsContract.View view;
     private DemoConfigUtils demoConfigUtils;
     private DemoDataUtil demoDataUtil;
     private String productId;
     private boolean fetched = false;
+    private final BVConversationsClient client = new BVConversationsClient();
 
     public DemoReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId) {
         this.view = view;
@@ -49,19 +41,24 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
             return;
         }
 
-        List<BazaarReview> cachedReviews = DemoReviewsCache.getInstance().getDataItem(productId);
+        List<Review> cachedReviews = DemoReviewsCache.getInstance().getDataItem(productId);
         boolean haveLocalCache = cachedReviews!=null;
         boolean shouldHitNetwork = forceRefresh || !haveLocalCache;
 
         if (shouldHitNetwork) {
-            view.showLoadingReviews(true);
-            BazaarRequest bazaarRequest = new BazaarRequest();
-            DisplayParams displayParams = new DisplayParams();
-            displayParams.addFilter("ProductId", Equality.EQUAL, productId);
-            displayParams.addInclude(IncludeType.PRODUCTS);
-            displayParams.addStats(IncludeStatsType.REVIEWS);
-            displayParams.setLimit(50);
-            bazaarRequest.sendDisplayRequest(RequestType.REVIEWS, displayParams, this);
+            ReviewsRequest request = new ReviewsRequest.Builder(productId, 20, 0).build();
+            client.prepareCall(request).loadAsync(new ConversationsCallback<ReviewResponse>() {
+                @Override
+                public void onSuccess(ReviewResponse response) {
+                    showReviews(response.getResults());
+                }
+
+                @Override
+                public void onFailure(BazaarException exception) {
+                    exception.printStackTrace();
+                    showReviews(Collections.<Review>emptyList());
+                }
+            });
         } else {
             showReviews(cachedReviews);
         }
@@ -69,7 +66,7 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
 
     @Override
     public void onReviewsTapped() {
-        List<BazaarReview> cachedReviews = DemoReviewsCache.getInstance().getDataItem(productId);
+        List<Review> cachedReviews = DemoReviewsCache.getInstance().getDataItem(productId);
         int numReviews = cachedReviews != null ? cachedReviews.size() : 0;
         if (fetched && numReviews > 0) {
             view.transitionToReviews();
@@ -78,7 +75,7 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         }
     }
 
-    private void showReviews(List<BazaarReview> bazaarReviews) {
+    private void showReviews(List<Review> bazaarReviews) {
         fetched = true;
         view.showLoadingReviews(false);
         DemoReviewsCache.getInstance().putDataItem(productId, bazaarReviews);
@@ -88,28 +85,5 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         } else {
             view.showNoReviews();
         }
-    }
-
-    @Override
-    public void onResponse(String url, JSONObject response) {
-        Log.d("ReviewsPresent", "url: " + url);
-        List<BazaarReview> bazaarReviewList = new ArrayList<>();
-        try {
-            JSONArray resultsJsonArray = response.getJSONArray("Results");
-            for (int i=0; i<resultsJsonArray.length(); i++) {
-                JSONObject reviewJsonObject = resultsJsonArray.getJSONObject(i);
-                BazaarReview bazaarReview = new BazaarReview(reviewJsonObject);
-                bazaarReviewList.add(bazaarReview);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        showReviews(bazaarReviewList);
-    }
-
-    @Override
-    public void onException(String message, Throwable exception) {
-        exception.printStackTrace();
-        showReviews(Collections.<BazaarReview>emptyList());
     }
 }

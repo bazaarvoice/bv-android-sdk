@@ -1,73 +1,26 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.app.Application;
-
-import com.google.gson.Gson;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-
-import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledExecutorService;
-
-import okhttp3.OkHttpClient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
-public class RecommendationsRequestTest {
+@Config(shadows = {Shadows.ShadowNetwork.class})
+public class RecommendationsRequestTest extends BVBaseTest {
 
-    String versionName;
-    String versionCode;
-    String packageName;
-    String uuidTestStr = "0871bbf6-b73e-4841-99f2-5e3d887eaea2";
-    UUID uuid;
-    OkHttpClient okHttpClient;
-    BazaarEnvironment environment;
-    @Mock ScheduledExecutorService scheduledExecutorService;
-    @Mock ExecutorService immediateExecutorService;
-    @Mock BVAuthenticatedUser bvAuthenticatedUser;
-    @Mock Application application;
-    Gson gson;
-    @Mock AnalyticsManager analyticsManager;
-    @Mock BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     String adId = "testAdId";
     int limit = 13;
     int limitTooBig = 123;
     int limitTooSmall = -123;
-    String shopperAdvertisingApiKey = "fooShopperPasskey";
-    String apiKeyCurations = "curationsApiKey";
-    String clientId = "testClientId";
     String userAuthStr = "123abc";
-    String shopperMarketingApiBaseUrl = "https://example.com";
-    String curationsApiUrl = "testurl";
 
-    @Before
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        // arrange
-        versionName = "3.0.0";
-        versionCode = "56";
-        packageName = "com.mypackagename.app";
-        clientId = "pretendcompany";
-        gson = new Gson();
-        okHttpClient = new OkHttpClient();
-        environment = BazaarEnvironment.STAGING;
-        shopperAdvertisingApiKey = "foobar-bvtestshopperadvertisingid";
-        uuid = UUID.fromString(uuidTestStr);
-
-        BVSDK.singleton = new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, apiKeyCurations, BVLogLevel.WARNING, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiUrl, curationsApiUrl);
-
+    @Override
+    void modifyPropertiesToInitSDK() {
         when(bvAuthenticatedUser.getUserAuthString()).thenReturn(userAuthStr);
     }
 

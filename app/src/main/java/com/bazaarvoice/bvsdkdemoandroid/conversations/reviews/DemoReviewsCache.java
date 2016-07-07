@@ -3,12 +3,12 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BazaarReview;
+import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoCache;
 
 import java.util.List;
 
-public class DemoReviewsCache extends DemoCache<List<BazaarReview>> {
+public class DemoReviewsCache extends DemoCache<List<Review>> {
 
     private static DemoReviewsCache instance;
 
@@ -24,7 +24,7 @@ public class DemoReviewsCache extends DemoCache<List<BazaarReview>> {
     }
 
     @Override
-    protected String getKey(List<BazaarReview> bazaarReviewList) {
+    protected String getKey(List<Review> bazaarReviewList) {
         return null;
     }
 }

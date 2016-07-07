@@ -12,27 +12,22 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BazaarReview;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<BazaarReview> reviews = Collections.emptyList();
+    private List<Review> reviews = Collections.emptyList();
     private PrettyTime prettyTime;
-    private SimpleDateFormat sdf;
 
     public DemoReviewsAdapter() {
         this.prettyTime = new PrettyTime();
-        this.sdf = new SimpleDateFormat("MMM dd, yyyy");
     }
 
     @Override
@@ -43,7 +38,7 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        BazaarReview bazaarReview = reviews.get(position);
+        Review bazaarReview = reviews.get(position);
         ReviewRowViewHolder viewHolder = (ReviewRowViewHolder) holder;
 
         viewHolder.reviewTitle.setText(bazaarReview.getTitle());
@@ -58,28 +53,23 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.reviewLocation.setVisibility(View.GONE);
         }
 
-        boolean hasTimeAgo = !TextUtils.isEmpty(bazaarReview.getDateString());
+        boolean hasTimeAgo = bazaarReview.getSubmissionDate() != null;
         if (hasTimeAgo) {
-            try {
-                Date date = sdf.parse(bazaarReview.getDateString());
-                String timeAgo = prettyTime.format(date);
-                boolean hasUserNickname = !TextUtils.isEmpty(bazaarReview.getUserNickname());
-                String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarReview.getUserNickname() : timeAgo;
-                viewHolder.reviewTimeAgo.setText(timeAgoBy);
-                viewHolder.reviewTimeAgo.setVisibility(View.VISIBLE);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                viewHolder.reviewTimeAgo.setVisibility(View.GONE);
-            }
+            String timeAgo = prettyTime.format(bazaarReview.getSubmissionDate());
+            boolean hasUserNickname = !TextUtils.isEmpty(bazaarReview.getUserNickname());
+            String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarReview.getUserNickname() : timeAgo;
+            viewHolder.reviewTimeAgo.setText(timeAgoBy);
+            viewHolder.reviewTimeAgo.setVisibility(View.VISIBLE);
+
         } else {
             viewHolder.reviewTimeAgo.setVisibility(View.GONE);
         }
 
-        boolean hasImage = !TextUtils.isEmpty(bazaarReview.getImageUrl());
+        boolean hasImage = bazaarReview.getPhotos().size() > 0;
         if (hasImage) {
             viewHolder.reviewImage.setVisibility(View.VISIBLE);
             DemoUtils demoUtils = DemoUtils.getInstance(viewHolder.reviewImage.getContext());
-            demoUtils.picassoThumbnailLoader().load(bazaarReview.getImageUrl()).into(viewHolder.reviewImage);
+            demoUtils.picassoThumbnailLoader().load(bazaarReview.getPhotos().get(0).getContent().getThumbnailUrl()).into(viewHolder.reviewImage);
         } else {
             viewHolder.reviewImage.setVisibility(View.GONE);
         }
@@ -90,7 +80,7 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return reviews.size();
     }
 
-    public void refreshReviews(List<BazaarReview> reviews) {
+    public void refreshReviews(List<Review> reviews) {
         this.reviews = reviews;
         notifyDataSetChanged();
     }

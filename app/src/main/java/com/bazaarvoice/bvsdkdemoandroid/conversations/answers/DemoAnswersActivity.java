@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarAnswer;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
@@ -113,7 +113,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
     }
 
     @Override
-    public void showAnswers(List<BazaarAnswer> answers) {
+    public void showAnswers(List<Answer> answers) {
         answersAdapter.refreshAnswers(answers);
     }
 

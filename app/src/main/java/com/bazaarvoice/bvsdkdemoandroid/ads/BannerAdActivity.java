@@ -88,7 +88,7 @@ public class BannerAdActivity extends AppCompatActivity {
 
         showLoading();
 
-        // load the ad!
+        // prepareCall the ad!
         publisherAdView.loadAd(targetedAdRequest.build());
 
     }

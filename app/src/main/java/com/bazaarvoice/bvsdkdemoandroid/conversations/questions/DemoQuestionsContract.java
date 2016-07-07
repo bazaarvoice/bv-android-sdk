@@ -3,14 +3,14 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarQuestion;
+import com.bazaarvoice.bvandroidsdk.Question;
 
 import java.util.List;
 
 public interface DemoQuestionsContract {
 
     interface View {
-        void showQuestions(List<BazaarQuestion> bazaarQuestions);
+        void showQuestions(List<Question> questions);
         void showLoadingQuestions(boolean show);
         void showNoQuestions();
         void transitionToQandA();

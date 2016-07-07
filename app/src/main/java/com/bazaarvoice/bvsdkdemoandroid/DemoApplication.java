@@ -45,7 +45,7 @@ public class DemoApplication extends Application {
     }
 
     /**
-     * The Builder pattern used here is necessary to prepare the BVSDKs.
+     * The Builder pattern used here is necessary to prepareCall the BVSDKs.
      * The only field required for all SDKs is the application instance passed to
      * the Builder constructor. Other SDKs require api keys to be set here.
      * <ul>

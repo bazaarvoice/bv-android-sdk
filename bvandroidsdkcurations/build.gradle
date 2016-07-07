@@ -46,6 +46,7 @@ dependencies {
     testCompile dep.hamcrest
     testCompile dep.mockWebServer
     testCompile dep.robolectric
+    testCompile project(':bvandroidsdktesting')
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

@@ -1,0 +1,49 @@
+buildscript {
+    dependencies {
+        classpath dep.androidPlugin
+        classpath dep.credentialsPlugin
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile project(':bvandroidsdkcommon')
+    provided dep.gson
+
+    compile dep.junit
+    compile dep.mockito
+    compile dep.hamcrest
+    compile dep.mockWebServer
+    compile dep.robolectric
+}

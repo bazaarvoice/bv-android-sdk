@@ -88,8 +88,8 @@ public class NativeAdActivity extends AppCompatActivity {
             @Override
             public void onAdFailedToLoad(int errorCode) {
                 super.onAdFailedToLoad(errorCode);
-                Log.e("error", "ad failed to load");
-                showToast("Ad failed to load");
+                Log.e("error", "ad failed to prepareCall");
+                showToast("Ad failed to prepareCall");
                 showLoadFailed();
             }
         }).build();

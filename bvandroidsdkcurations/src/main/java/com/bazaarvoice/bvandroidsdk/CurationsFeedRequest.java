@@ -31,7 +31,7 @@ public class CurationsFeedRequest {
             }
             if (object != null){
                 if (f.getName() == "groups" || f.getName() == "tags"){
-                    strBuilder.append("&" + f.getName() + "=" + componentsSeparatedBy((ArrayList)object, "&"+f.getName()+"="));
+                    strBuilder.append("&" + f.getName() + "=" + StringUtils.componentsSeparatedBy((ArrayList)object, "&"+f.getName()+"="));
                 } else if (f.getName() == "media") {
                     String mediaStr = "&media={'" + builder.media.mediaType + "':{'width':" + builder.media.width + ",'height':" + builder.media.height + "}}";
                     strBuilder.append(mediaStr);
@@ -41,22 +41,6 @@ public class CurationsFeedRequest {
             }
         }
         return strBuilder.toString();
-    }
-
-    private String componentsSeparatedBy(ArrayList list, String splitBy){
-        StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i< list.size(); i++){
-
-            Object obj = list.get(i);
-            builder.append(obj.toString());
-
-            if (i < list.size() - 1){
-                builder.append(splitBy);
-            }
-        }
-
-        return builder.toString();
     }
 
     public static final class Builder{

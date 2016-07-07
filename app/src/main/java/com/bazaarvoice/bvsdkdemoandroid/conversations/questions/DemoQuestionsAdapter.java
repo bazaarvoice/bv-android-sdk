@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarQuestion;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoSubmitDialogFragment;
 
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<BazaarQuestion> questionList = Collections.emptyList();
+    private List<Question> questionList = Collections.emptyList();
     private PrettyTime prettyTime;
     private String productId;
 
@@ -44,7 +44,7 @@ public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        BazaarQuestion bazaarQuestion = questionList.get(position);
+        Question bazaarQuestion = questionList.get(position);
         QuestionRowViewHolder viewHolder = (QuestionRowViewHolder) holder;
 
         viewHolder.questionTitle.setText(bazaarQuestion.getQuestionSummary());
@@ -57,13 +57,14 @@ public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.questionBody.setVisibility(View.GONE);
         }
 
-        boolean hasTimeAgo = bazaarQuestion.getSubmissionTime() != null;
+        boolean hasTimeAgo = bazaarQuestion.getSubmissionDate() != null;
         if (hasTimeAgo) {
-            String timeAgo = prettyTime.format(bazaarQuestion.getSubmissionTime());
+            String timeAgo = prettyTime.format(bazaarQuestion.getSubmissionDate());
             boolean hasUserNickname = !TextUtils.isEmpty(bazaarQuestion.getUserNickname());
             String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarQuestion.getUserNickname() : timeAgo;
             viewHolder.questionTimeAgo.setText(timeAgoBy);
             viewHolder.questionTimeAgo.setVisibility(View.VISIBLE);
+
         } else {
             viewHolder.questionTimeAgo.setVisibility(View.GONE);
         }
@@ -93,7 +94,7 @@ public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final View.OnClickListener numAnswersClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            BazaarQuestion bazaarQuestion = (BazaarQuestion) v.getTag();
+            Question bazaarQuestion = (Question) v.getTag();
             // transition to answers activity
             DemoQuestionsActivity questionsActivity = (DemoQuestionsActivity) v.getContext();
             DemoAnswersActivity.transitionTo(questionsActivity, productId, bazaarQuestion.getId());
@@ -103,7 +104,7 @@ public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final View.OnClickListener answerActionClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            BazaarQuestion bazaarQuestion = (BazaarQuestion) v.getTag();
+            Question bazaarQuestion = (Question) v.getTag();
             // show answer question dialog
             showAnswerQuestionDialog((DemoQuestionsActivity) v.getContext());
         }
@@ -120,7 +121,7 @@ public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.View
         return questionList.size();
     }
 
-    public void refreshQuestions(List<BazaarQuestion> questions) {
+    public void refreshQuestions(List<Question> questions) {
         this.questionList = questions;
         notifyDataSetChanged();
     }

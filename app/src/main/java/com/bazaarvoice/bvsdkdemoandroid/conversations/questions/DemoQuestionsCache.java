@@ -3,12 +3,12 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarQuestion;
+import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoCache;
 
 import java.util.List;
 
-public class DemoQuestionsCache extends DemoCache<List<BazaarQuestion>> {
+public class DemoQuestionsCache extends DemoCache<List<Question>> {
 
     private static DemoQuestionsCache instance;
 
@@ -24,7 +24,7 @@ public class DemoQuestionsCache extends DemoCache<List<BazaarQuestion>> {
     }
 
     @Override
-    protected String getKey(List<BazaarQuestion> bazaarQuestions) {
+    protected String getKey(List<Question> questions) {
         return null;
     }
 }
