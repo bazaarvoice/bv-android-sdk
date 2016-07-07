@@ -21,8 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BazaarReview;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
@@ -113,7 +113,7 @@ public class DemoReviewsActivity extends AppCompatActivity implements DemoReview
 
 
     @Override
-    public void showReviews(List<BazaarReview> bazaarReviews) {
+    public void showReviews(List<Review> bazaarReviews) {
         reviewsAdapter.refreshReviews(bazaarReviews);
     }
 

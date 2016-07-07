@@ -25,9 +25,9 @@ import android.widget.Toast;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
+import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarProduct;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductContract;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
@@ -366,10 +366,10 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void showProduct(BazaarProduct bazaarProduct) {
-        int numReviews = bazaarProduct.getNumReviews();
-        int numQuestions = bazaarProduct.getTotalQuestionCount();
-        int numAnswers = bazaarProduct.getTotalAnswerCount();
+    public void showProduct(Product product) {
+        int numReviews = (product.getReviewStatistics().getTotalReviewCount() != null) ? product.getReviewStatistics().getTotalReviewCount() : 0;
+        int numQuestions = (product.getQaStatistics().getTotalQuestionCount() != null) ? product.getQaStatistics().getTotalQuestionCount() : 0;
+        int numAnswers = (product.getQaStatistics().getTotalAnswerCount() != null) ? product.getQaStatistics().getTotalAnswerCount() : 0;
 
         if (numReviews > 0) {
             convReviews.setText(String.format(getString(R.string.conv_reviews_photos), numReviews));

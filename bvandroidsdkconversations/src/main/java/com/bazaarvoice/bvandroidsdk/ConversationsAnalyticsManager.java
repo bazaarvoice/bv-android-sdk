@@ -129,7 +129,7 @@ class ConversationsAnalyticsManager {
                 eventMap.put("productId", response.getString("ProductId"));
                 break;
             case QUESTIONS:
-                eventMap.put("contentType", "Question");
+                eventMap.put("contentType", "IncludeBase");
                 eventMap.put("contentId", response.getString("Id"));
                 eventMap.put("productId", response.getString("ProductId"));
                 eventMap.put("categoryId", response.getString("CategoryId"));
@@ -150,7 +150,7 @@ class ConversationsAnalyticsManager {
             case STATISTICS:
                 eventMap.put("contentType", "Statistic");
                 eventMap.put("contentId", "");
-                eventMap.put("productId", response.getJSONObject("ProductStatistics").getString("ProductId"));
+                eventMap.put("productId", response.getJSONObject("Statistics").getString("ProductId"));
                 break;
             case STORY_COMMENTS:
                 eventMap.put("contentType", "Comment");

@@ -406,7 +406,7 @@ public class SubmissionParams extends BazaarParams {
 		return videoUrls;
 	}
 
-	/***** Used by Review, Question, Answer, Story *******/
+	/***** Used by Review, IncludeBase, Answer, Story *******/
 
 	/**
 	 * Sets AdditionalField for a particular dimensionExternalId.  In general, this parameter is used to attach additional information to a submission.  
@@ -426,7 +426,7 @@ public class SubmissionParams extends BazaarParams {
 		return additionalField;
 	}
 
-	/***** Used by Review, Question, Story *******/
+	/***** Used by Review, IncludeBase, Story *******/
 
 	/**
 	 * Get the "ProductId" parameter for this submission if it has been set.
@@ -501,7 +501,7 @@ public class SubmissionParams extends BazaarParams {
 		this.title = title;
 	}
 
-	/***** Used by Question, Story *******/
+	/***** Used by IncludeBase, Story *******/
 
 	/**
 	 * Get the "CategoryId" parameter for this submission if it has been set.
@@ -638,7 +638,7 @@ public class SubmissionParams extends BazaarParams {
 	public Map<String, String> getRatingForDimensionExternalId() {
 		return ratingDim;
 	}
-	/***** Used by Question *******/
+	/***** Used by IncludeBase *******/
 
 	/**
 	 * Get the value of the "IsUserAnonymous" parameter for this submission if

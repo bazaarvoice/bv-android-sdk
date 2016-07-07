@@ -72,7 +72,7 @@ public class InterstitialAdActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        // load the ad!
+        // prepareCall the ad!
         publisherInterstitialAd.loadAd(targetedAdRequest.build());
 
         // Show the ad when it is loaded, and we click the button

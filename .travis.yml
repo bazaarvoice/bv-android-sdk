@@ -15,7 +15,7 @@ android:
 git:
   depth: 1
 
-script: TERM=dumb ./gradlew --stacktrace clean check
+script: TERM=dumb ./gradlew --stacktrace clean check -x :bvandroidsdktesting:lint
 
 branches:
   except:

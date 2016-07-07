@@ -173,7 +173,7 @@ public class DisplayParams extends BazaarParams {
 	}
 
 	/**
-	 * Add an attribute to the "Sort" parameter list. Sorts by the schema of the
+	 * Add an attribute to the "SortOrder" parameter list. Sorts by the schema of the
 	 * given attribute.
 	 * 
 	 * @param attribute

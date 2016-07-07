@@ -65,15 +65,16 @@ public class BazaarRequest {
     protected boolean media = false;
 
     /**
+     * <p> DEPRECATED: In favor of the {@link BVConversationsClient}</p>
      * Initialize the request
      */
+    @Deprecated
     public BazaarRequest() {
         this(BVSDK.getInstance().getApiKeyConversations(), ApiVersion.FIVE_FOUR);
     }
 
     /**
-     * <p> DEPRECATED: In favor of the {@link BazaarRequest#BazaarRequest()} constructor with no
-     * parameters since it can now pull them from {@link com.bazaarvoice.bvandroidsdk.BVSDK.Builder#apiKeyConversations(String)}, if set. </p>
+     * <p> DEPRECATED: In favor of the {@link BVConversationsClient}</p>
      * <p> Initialize the request with the necessary parameters. </p>
      *
      * @param apiKeyConversations Bazaarvoice Conversations API Key

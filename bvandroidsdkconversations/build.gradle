@@ -39,8 +39,14 @@ android {
 
 dependencies {
     compile project(':bvandroidsdkcommon')
+    provided dep.gson
 
     testCompile dep.junit
+    testCompile dep.mockito
+    testCompile dep.hamcrest
+    testCompile dep.mockWebServer
+    testCompile dep.robolectric
+    testCompile project(':bvandroidsdktesting')
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

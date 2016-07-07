@@ -5,20 +5,21 @@ package com.bazaarvoice.bvsdkdemoandroid.utils;
 
 import android.content.Context;
 
+import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
+import com.bazaarvoice.bvandroidsdk.Product;
+import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
+import com.bazaarvoice.bvandroidsdk.Question;
+import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
+import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ShopperProfile;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarAnswer;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarProduct;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarQuestion;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BazaarReview;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,8 +37,8 @@ public class DemoDataUtil {
     private Context applicationContext;
     private List<BVProduct> savedDemoRecProds;
     private List<CurationsFeedItem> savedCurationsFeedItems;
-    private List<BazaarReview> savedConversationsReviews;
-    private List<BazaarQuestion> savedConversationsQuestions;
+    private List<Review> savedConversationsReviews;
+    private List<Question> savedConversationsQuestions;
     private Gson gson;
     private CurationsPostResponse curationsPostResponse;
 
@@ -90,12 +91,12 @@ public class DemoDataUtil {
         return curationsFeedItems;
     }
 
-    public List<BazaarReview> getConversationsReviews() {
+    public List<Review> getConversationsReviews() {
         if (savedConversationsReviews != null) {
             return savedConversationsReviews;
         }
 
-        List<BazaarReview> conversationsReviews = new ArrayList<>();
+        List<Review> conversationsReviews = new ArrayList<>();
         try {
             InputStream inputStream = applicationContext.getAssets().open("conversationsReviewsEnduranceCycles.json");
             conversationsReviews.addAll(convertResponseToReviews(inputStream));
@@ -121,25 +122,18 @@ public class DemoDataUtil {
         return response.toString();
     }
 
-    private List<BazaarReview> convertResponseToReviews(InputStream inputStream) throws JSONException, IOException {
-        List<BazaarReview> bazaarReviewList = new ArrayList<>();
+    private List<Review> convertResponseToReviews(InputStream inputStream) throws JSONException, IOException {
         String jsonResponseStr = readResponse(inputStream);
-        JSONObject jsonObject = new JSONObject(jsonResponseStr);
-        JSONArray resultsJsonArray = jsonObject.getJSONArray("Results");
-        for (int i=0; i<resultsJsonArray.length(); i++) {
-            JSONObject reviewJsonObject = resultsJsonArray.getJSONObject(i);
-            BazaarReview bazaarReview = new BazaarReview(reviewJsonObject);
-            bazaarReviewList.add(bazaarReview);
-        }
-        return bazaarReviewList;
+        ReviewResponse reviewResponse = gson.fromJson(jsonResponseStr, ReviewResponse.class);
+        return reviewResponse.getResults();
     }
 
-    public List<BazaarQuestion> getConversationsQuestions() {
+    public List<Question> getConversationsQuestions() {
         if (savedConversationsQuestions != null) {
             return savedConversationsQuestions;
         }
 
-        List<BazaarQuestion> conversationQuestions = new ArrayList<>();
+        List<Question> conversationQuestions = new ArrayList<>();
         try {
             InputStream inputStream = applicationContext.getAssets().open("conversationsQuestionsIncludeAnswers.json");
             conversationQuestions = convertResponseToQuestions(inputStream);
@@ -153,37 +147,28 @@ public class DemoDataUtil {
         return conversationQuestions;
     }
 
-    private List<BazaarQuestion> convertResponseToQuestions(InputStream inputStream) throws JSONException, IOException {
-        List<BazaarQuestion> bazaarQuestions = new ArrayList<>();
+    private List<Question> convertResponseToQuestions(InputStream inputStream) throws JSONException, IOException {
         String jsonResponseStr = readResponse(inputStream);
-        JSONObject response = new JSONObject(jsonResponseStr);
-        JSONArray resultsJsonArray = response.getJSONArray("Results");
-        JSONObject includesJSONObj = response.getJSONObject("Includes");
-        JSONObject answersJSONObj = includesJSONObj.getJSONObject("Answers");
-        for (int i=0; i<resultsJsonArray.length(); i++) {
-            JSONObject questionJsonObj = resultsJsonArray.getJSONObject(i);
-            BazaarQuestion bazaarQuestion = new BazaarQuestion(questionJsonObj, answersJSONObj);
-            bazaarQuestions.add(bazaarQuestion);
-        }
-        return bazaarQuestions;
+        QuestionAndAnswerResponse response = gson.fromJson(jsonResponseStr, QuestionAndAnswerResponse.class);
+        return response.getResults();
     }
 
-    public List<BazaarAnswer> getConversationsAnswers(String questionId) {
-        List<BazaarQuestion> conversationsQuestions = getConversationsQuestions();
-        List<BazaarAnswer> conversationsAnswers = new ArrayList<>();
+    public List<Answer> getConversationsAnswers(String questionId) {
+        List<Question> conversationsQuestions = getConversationsQuestions();
+        List<Answer> conversationsAnswers = new ArrayList<>();
 
         for (int i=0; i<conversationsQuestions.size(); i++) {
-            BazaarQuestion currQuestion = conversationsQuestions.get(i);
+            Question currQuestion = conversationsQuestions.get(i);
             if (currQuestion.getId().equals(questionId)) {
-                conversationsAnswers = currQuestion.getBazaarAnswers();
+                conversationsAnswers = currQuestion.getAnswers();
             }
         }
 
         return conversationsAnswers;
     }
 
-    public BazaarProduct getBazaarProductWithStats() {
-        BazaarProduct bazaarProduct = null;
+    public Product getBazaarProductWithStats() {
+        Product bazaarProduct = null;
         try {
             InputStream inputStream = applicationContext.getAssets().open("conversationsProductsIncludeStats.json");
             bazaarProduct = convertResponseToBazaarProduct(inputStream);
@@ -195,12 +180,10 @@ public class DemoDataUtil {
         return bazaarProduct;
     }
 
-    private BazaarProduct convertResponseToBazaarProduct(InputStream inputStream) throws JSONException, IOException {
+    private Product convertResponseToBazaarProduct(InputStream inputStream) throws JSONException, IOException {
         String jsonResponseStr = readResponse(inputStream);
-        JSONObject response = new JSONObject(jsonResponseStr);
-        JSONArray resultsJsonArray = response.getJSONArray("Results");
-        JSONObject productJsonObj = resultsJsonArray.getJSONObject(0);
-        return new BazaarProduct(productJsonObj);
+        ProductDisplayPageResponse response = gson.fromJson(jsonResponseStr, ProductDisplayPageResponse.class);
+        return response.getResults().get(0);
     }
 
     public CurationsPostResponse getCurationsPostResponse() {

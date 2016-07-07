@@ -3,12 +3,12 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts;
 
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarProduct;
+import com.bazaarvoice.bvandroidsdk.Product;
 
 public interface DemoProductContract {
 
     interface View {
-        void showProduct(BazaarProduct bazaarProduct);
+        void showProduct(Product product);
         void showNoProduct();
         void showLoadingProduct(boolean show);
         void showSubmitReviewDialog();

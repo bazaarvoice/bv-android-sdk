@@ -1,5 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.google.gson.Gson;
 
 import org.junit.After;
@@ -31,6 +34,7 @@ public class BVSDKTest {
     BazaarEnvironment environment;
     String shopperAdvertisingApiKey;
     String conversationsApiKey;
+    String conversationsApiBaseUrl;
     BVLogLevel bvLogLevel;
     String shopperMarketingApiBaseUrl;
     String curationsApiBaseUrl;
@@ -43,6 +47,9 @@ public class BVSDKTest {
     @Mock BVAuthenticatedUser bvAuthenticatedUser;
     @Mock AdIdRequestTask adIdRequestTask;
     Gson gson;
+    Handler handler = new Handler(Looper.getMainLooper());
+    BVApiKeys keys;
+    BVRootApiUrls rootApiUrls;
 
     @Before
     public void setup() {
@@ -61,6 +68,8 @@ public class BVSDKTest {
         analyticsManager = mock(AnalyticsManager.class);
         bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
         bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
+        keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, curationsApiKey);
+        rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl, conversationsApiBaseUrl);
 
         RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");
     }
@@ -183,7 +192,7 @@ public class BVSDKTest {
     }
 
     private BVSDK createTestBvSdk() {
-        return new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, curationsApiKey, BVLogLevel.VERBOSE, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl);
+        return new BVSDK(RuntimeEnvironment.application, clientId, environment,keys, BVLogLevel.VERBOSE, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, rootApiUrls, handler);
     }
 
     @Test

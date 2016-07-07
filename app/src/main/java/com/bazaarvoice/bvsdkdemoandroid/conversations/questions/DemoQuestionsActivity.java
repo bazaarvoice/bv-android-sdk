@@ -19,8 +19,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarQuestion;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
@@ -115,8 +115,8 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     }
 
     @Override
-    public void showQuestions(List<BazaarQuestion> bazaarQuestions) {
-        questionsAdapter.refreshQuestions(bazaarQuestions);
+    public void showQuestions(List<Question> questions) {
+        questionsAdapter.refreshQuestions(questions);
     }
 
     @Override

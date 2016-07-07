@@ -3,27 +3,24 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts;
 
-import com.bazaarvoice.bvandroidsdk.BazaarRequest;
-import com.bazaarvoice.bvandroidsdk.DisplayParams;
-import com.bazaarvoice.bvandroidsdk.OnBazaarResponse;
-import com.bazaarvoice.bvandroidsdk.types.Equality;
-import com.bazaarvoice.bvandroidsdk.types.IncludeStatsType;
-import com.bazaarvoice.bvandroidsdk.types.RequestType;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarProduct;
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BazaarException;
+import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.PDPContentType;
+import com.bazaarvoice.bvandroidsdk.Product;
+import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
+import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class DemoProductPresenter implements DemoProductContract.UserActionsListener, OnBazaarResponse {
+public class DemoProductPresenter implements DemoProductContract.UserActionsListener {
 
     private DemoProductContract.View view;
-    private BazaarProduct bazaarProduct;
+    private Product product;
     private String productId;
     private DemoDataUtil demoDataUtil;
     private DemoConfigUtils demoConfigUtils;
+    private BVConversationsClient conversationsClient = new BVConversationsClient();
 
     public DemoProductPresenter(DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, DemoProductContract.View view, String productId) {
         this.view = view;
@@ -35,73 +32,61 @@ public class DemoProductPresenter implements DemoProductContract.UserActionsList
     @Override
     public void loadProduct(boolean forceRefresh) {
         if (demoConfigUtils.isDemoClient()) {
-            bazaarProduct = demoDataUtil.getBazaarProductWithStats();
-            showProduct(bazaarProduct);
+            product = demoDataUtil.getBazaarProductWithStats();
+            showProduct(product);
             return;
         }
 
-        if (bazaarProduct != null) {
-            showProduct(bazaarProduct);
+        if (product != null) {
+            showProduct(product);
             return;
         }
 
         view.showLoadingProduct(true);
-        BazaarRequest bazaarRequest = new BazaarRequest();
-        DisplayParams displayParams = new DisplayParams();
-        displayParams.addFilter("id", Equality.EQUAL, productId);
-        displayParams.addStats(IncludeStatsType.REVIEWS);
-        displayParams.addStats(IncludeStatsType.QUESTIONS);
-        bazaarRequest.sendDisplayRequest(RequestType.PRODUCTS, displayParams, this);
+
+        ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder(productId)
+                .addIncludeStatistics(PDPContentType.Reviews)
+                .addIncludeStatistics(PDPContentType.Questions)
+                .build();
+        conversationsClient.prepareCall(request).loadAsync(new ConversationsCallback<ProductDisplayPageResponse>() {
+            @Override
+            public void onSuccess(ProductDisplayPageResponse response) {
+                showProduct(response.getResults().get(0));
+            }
+
+            @Override
+            public void onFailure(BazaarException exception) {
+                showProduct(null);
+            }
+        });
     }
 
     @Override
     public void onQandATapped() {
-        if (bazaarProduct != null && bazaarProduct.getTotalQuestionCount() > 0) {
+        if (product != null && product.getQaStatistics().getTotalQuestionCount() > 0) {
             view.transitionToQandA();
-        } else if (bazaarProduct != null) {
+        } else if (product != null) {
             view.showAskQuestionDialog();
         }
     }
 
     @Override
     public void onReviewsTapped() {
-        if (bazaarProduct != null && bazaarProduct.getNumReviews() > 0) {
+        if (product != null && product.getReviewStatistics().getTotalReviewCount() > 0) {
             view.transitionToReviews();
-        } else if (bazaarProduct != null) {
+        } else if (product != null) {
             view.showSubmitReviewDialog();
         }
     }
 
-    @Override
-    public void onResponse(String url, JSONObject response) {
-        BazaarProduct bazaarProduct = null;
-        try {
-            JSONArray resultsArray = response.getJSONArray("Results");
-            if (resultsArray != null && resultsArray.length() > 0) {
-                JSONObject productJsonObj = resultsArray.getJSONObject(0);
-                bazaarProduct = new BazaarProduct(productJsonObj);
-                this.bazaarProduct = bazaarProduct;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        showProduct(bazaarProduct);
-    }
-
-    @Override
-    public void onException(String message, Throwable exception) {
-        showProduct(null);
-    }
-
-    private void showProduct(BazaarProduct bazaarProduct) {
-        this.bazaarProduct = bazaarProduct;
+    private void showProduct(Product product) {
+        this.product = product;
         view.showLoadingProduct(false);
 
-        if (bazaarProduct == null) {
+        if (product == null) {
             view.showNoProduct();
         } else {
-            view.showProduct(bazaarProduct);
+            view.showProduct(product);
         }
     }
 }

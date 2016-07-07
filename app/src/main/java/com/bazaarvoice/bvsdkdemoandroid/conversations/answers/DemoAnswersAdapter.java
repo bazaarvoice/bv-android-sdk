@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.BazaarAnswer;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DemoAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<BazaarAnswer> answers = Collections.emptyList();
+    private List<Answer> answers = Collections.emptyList();
     private PrettyTime prettyTime;
 
     public DemoAnswersAdapter() {
@@ -35,26 +35,27 @@ public class DemoAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        BazaarAnswer bazaarAnswer = answers.get(position);
+        Answer bazaarAnswer = answers.get(position);
         AnswerRowViewHolder answerRowViewHolder = (AnswerRowViewHolder) holder;
 
         answerRowViewHolder.answerText.setText(bazaarAnswer.getAnswerText());
 
-        boolean hasTimeAgo = bazaarAnswer.getSubmissionTime() != null;
+        boolean hasTimeAgo = bazaarAnswer.getSubmissionDate() != null;
         if (hasTimeAgo) {
-            String timeAgo = prettyTime.format(bazaarAnswer.getSubmissionTime());
+            String timeAgo = prettyTime.format(bazaarAnswer.getSubmissionDate());
             boolean hasUserNickname = !TextUtils.isEmpty(bazaarAnswer.getUserNickname());
             String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarAnswer.getUserNickname() : timeAgo;
             answerRowViewHolder.answerTimeAgo.setText(timeAgoBy);
             answerRowViewHolder.answerTimeAgo.setVisibility(View.VISIBLE);
+
         } else {
             answerRowViewHolder.answerTimeAgo.setVisibility(View.GONE);
         }
 
-        boolean hasFeedback = bazaarAnswer.getFeedbackCount() > 0;
+        boolean hasFeedback = bazaarAnswer.getTotalFeedbackCount() > 0;
         if (hasFeedback) {
             String foundHelpfulFormatter = answerRowViewHolder.answerFoundHelpful.getResources().getString(R.string.answer_found_helpful);
-            String foundHelpful = String.format(foundHelpfulFormatter, bazaarAnswer.getPositiveFeedbackCount(), bazaarAnswer.getFeedbackCount());
+            String foundHelpful = String.format(foundHelpfulFormatter, bazaarAnswer.getTotalPositiveFeedbackCount(), bazaarAnswer.getTotalFeedbackCount());
             answerRowViewHolder.answerFoundHelpful.setText(foundHelpful);
         }
     }
@@ -64,7 +65,7 @@ public class DemoAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return answers.size();
     }
 
-    public void refreshAnswers(List<BazaarAnswer> answers) {
+    public void refreshAnswers(List<Answer> answers) {
         this.answers = answers;
         notifyDataSetChanged();;
     }
