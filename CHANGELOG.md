@@ -2,7 +2,13 @@
 
 # 4.0.4
 
+## Common
 * Fix version number sending for Analytics
+* Sending Embedded-Pageview with prod/category id
+## Product Recommendations
+* No more pending for advertising id in Recommendations requests
+## General
+* Updated Robolectric and relevant tests
 
 # 4.0.3
 
