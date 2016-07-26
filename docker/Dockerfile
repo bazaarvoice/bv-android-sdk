@@ -31,7 +31,7 @@ RUN apt-get install -y oracle-java8-installer
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y --force-yes expect git wget libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 python curl
 
 # Install Android SDK
-RUN cd /opt && wget --output-document=android-sdk.tgz --quiet http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar xzf android-sdk.tgz && rm -f android-sdk.tgz && chown -R root.root android-sdk-linux
+RUN cd /opt && wget --output-document=android-sdk.tgz --quiet https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && tar xzf android-sdk.tgz --no-same-owner && rm -f android-sdk.tgz && chown -R root.root android-sdk-linux
 
 # Setup environment
 ENV ANDROID_HOME /opt/android-sdk-linux
@@ -53,7 +53,7 @@ RUN ls $ANDROID_HOME/tools
 RUN chmod +x android_accept_license.sh
 RUN which android
 RUN ls $ANDROID_HOME/tools
-RUN ./android_accept_license.sh "android update sdk --no-ui --all --filter platform-tools,tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository" "android-sdk-license-c81a61d9"
+RUN ./android_accept_license.sh "android update sdk --no-ui --all --filter platform-tools,tools,build-tools-24.0.0,android-24,extra-android-m2repository,extra-google-m2repository" "android-sdk-license-c81a61d9"
 
 RUN which adb
 RUN echo $PATH
