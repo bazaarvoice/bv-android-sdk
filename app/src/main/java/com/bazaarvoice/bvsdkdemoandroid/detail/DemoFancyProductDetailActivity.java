@@ -45,6 +45,9 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DemoFancyProductDetailActivity extends AppCompatActivity implements DemoProductRecContract.View, DemoProductCurationsRowContract.View, DemoProductDetailRecAdapter.ProductTapListener, DemoProductDetailCurationsAdapter.CurationFeedItemTapListener, DemoProductContract.View {
 
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
@@ -57,28 +60,29 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     String productPrice;
     float productAverageRating;
 
-    ImageView prodImage;
-    TextView prodName, prodPrice;
-    RatingBar prodRating;
+    @BindView(R.id.product_image) ImageView prodImage;
+    @BindView(R.id.product_name) TextView prodName;
+    @BindView(R.id.product_price) TextView prodPrice;
+    @BindView(R.id.product_rating) RatingBar prodRating;
 
-    RecommendationsRecyclerView recommendationsRecyclerView;
+    @BindView(R.id.product_row_rec_recycler_view) RecommendationsRecyclerView recommendationsRecyclerView;
     DemoProductDetailRecAdapter recAdapter;
-    TextView noRecsFoundTextView;
-    ProgressBar getRecsProgressBar;
+    @BindView(R.id.no_recs_found) TextView noRecsFoundTextView;
+    @BindView(R.id.get_recs_progress) ProgressBar getRecsProgressBar;
 
-    CurationsRecyclerView curationsRecyclerView;
+    @BindView(R.id.product_row_curations_recycler_view) CurationsRecyclerView curationsRecyclerView;
     DemoProductDetailCurationsAdapter curationsAdapter;
-    TextView noCurationsFoundTextView;
-    ProgressBar getCurationsProgressBar;
-    ViewGroup curationsSubmitViewGroup;
-    TextView fontAwesomeCameraIcon;
+    @BindView(R.id.no_curations_found) TextView noCurationsFoundTextView;
+    @BindView(R.id.get_curations_progress) ProgressBar getCurationsProgressBar;
+    @BindView(R.id.curations_submit_container) ViewGroup curationsSubmitViewGroup;
+    @BindView(R.id.curations_submit_image) TextView fontAwesomeCameraIcon;
 
-    TextView convReviews;
-    TextView fontAwesomeQuestionIcon;
-    ProgressBar convReviewsProgressBar;
-    TextView convQuestions;
-    TextView fontAwesomeReviewsIcon;
-    ProgressBar convQuestionsProgressBar;
+    @BindView(R.id.conv_reviews) TextView convReviews;
+    @BindView(R.id.conv_questions_image) TextView fontAwesomeQuestionIcon;
+    @BindView(R.id.conv_reviews_loading) ProgressBar convReviewsProgressBar;
+    @BindView(R.id.conv_questions) TextView convQuestions;
+    @BindView(R.id.conv_reviews_image) TextView fontAwesomeReviewsIcon;
+    @BindView(R.id.conv_questions_loading) ProgressBar convQuestionsProgressBar;
 
     private DemoProductRecContract.UserActionsListener recRowActionListener;
     private DemoProductCurationsRowPresenter curationsRowActionListener;
@@ -88,6 +92,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fancy_product_detail);
+        ButterKnife.bind(this);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(EXTRA_PRODUCT_ID)) {
             productId = savedInstanceState.getString(EXTRA_PRODUCT_ID);
@@ -155,41 +160,29 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupHeader() {
-        prodImage = (ImageView) findViewById(R.id.product_image);
         Picasso.with(this)
                 .load(productImageUrl)
                 .into(prodImage);
 
-        prodName = (TextView) findViewById(R.id.product_name);
         prodName.setText(productName);
-
-        prodPrice = (TextView) findViewById(R.id.product_price);
         prodPrice.setText(productPrice);
         boolean hasPrice = !TextUtils.isEmpty(productPrice);
         prodPrice.setVisibility(hasPrice ? View.VISIBLE : View.GONE);
-
-        prodRating = (RatingBar) findViewById(R.id.product_rating);
         prodRating.setRating((int)productAverageRating);
     }
 
     private void setupConversationsRow() {
         ViewGroup convQuestionsViewGroup = (ViewGroup) findViewById(R.id.conv_questions_container);
         convQuestionsViewGroup.setOnClickListener(convQuestionsRowClickListener);
-        convQuestions = (TextView) findViewById(R.id.conv_questions);
 
         // Add the Font-Awesome icon
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
-        fontAwesomeReviewsIcon = (TextView) findViewById(R.id.conv_reviews_image);
         fontAwesomeReviewsIcon.setTypeface(fontAwesomeFont);
-        convQuestionsProgressBar = (ProgressBar) findViewById(R.id.conv_questions_loading);
 
         ViewGroup convReviewsViewGroup = (ViewGroup) findViewById(R.id.conv_reviews_container);
         convReviewsViewGroup.setOnClickListener(convReviewsRowClickListener);
-        convReviews = (TextView) findViewById(R.id.conv_reviews);
         // Add the Font-Awesome icon
-        fontAwesomeQuestionIcon = (TextView) findViewById(R.id.conv_questions_image);
         fontAwesomeQuestionIcon.setTypeface(fontAwesomeFont);
-        convReviewsProgressBar = (ProgressBar) findViewById(R.id.conv_reviews_loading);
     }
 
     private View.OnClickListener convQuestionsRowClickListener = new View.OnClickListener() {
@@ -215,30 +208,21 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     };
 
     private void setupRecommendationsRow() {
-        recommendationsRecyclerView = (RecommendationsRecyclerView) findViewById(R.id.product_row_rec_recycler_view);
         recommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recAdapter = new DemoProductDetailRecAdapter();
         recAdapter.setProductTapListener(this);
         recommendationsRecyclerView.setAdapter(recAdapter);
         recommendationsRecyclerView.setNestedScrollingEnabled(false);
-        noRecsFoundTextView = (TextView) findViewById(R.id.no_recs_found);
-        getRecsProgressBar = (ProgressBar) findViewById(R.id.get_recs_progress);
     }
 
     private void setupCurationsRow() {
-        curationsRecyclerView = (CurationsRecyclerView) findViewById(R.id.product_row_curations_recycler_view);
         curationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         curationsAdapter = new DemoProductDetailCurationsAdapter();
         curationsAdapter.setCurationFeedItemTapListener(this);
         curationsRecyclerView.setAdapter(curationsAdapter);
         curationsRecyclerView.setNestedScrollingEnabled(false);
-        noCurationsFoundTextView = (TextView) findViewById(R.id.no_curations_found);
-        getCurationsProgressBar = (ProgressBar) findViewById(R.id.get_curations_progress);
-        curationsSubmitViewGroup = (ViewGroup) findViewById(R.id.curations_submit_container);
         curationsSubmitViewGroup.setOnClickListener(curationsSubmitClickListener);
-
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
-        fontAwesomeCameraIcon = (TextView) findViewById(R.id.curations_submit_image);
         fontAwesomeCameraIcon.setTypeface(fontAwesomeFont);
 
     }

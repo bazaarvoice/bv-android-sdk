@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Request used to obtain information and statistics for a particular productId
  */
-public class ProductDisplayPageRequest extends ConversationsRequest {
+public class ProductDisplayPageRequest extends ConversationsDisplayRequest {
 
 
     private ProductDisplayPageRequest(Builder builder) {
@@ -62,7 +62,7 @@ public class ProductDisplayPageRequest extends ConversationsRequest {
         }
     }
 
-    public static final class Builder extends ConversationsRequest.Builder{
+    public static final class Builder extends ConversationsDisplayRequest.Builder{
         private final List<Sort> reviewSorts, questionSorts, answerSorts;
         private final List<Include> includes;
         private final List<PDPContentType> statistics;

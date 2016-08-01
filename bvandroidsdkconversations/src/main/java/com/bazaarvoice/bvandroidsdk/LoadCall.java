@@ -17,40 +17,40 @@ import okhttp3.Response;
 /**
  * TODO: Describe file here.
  */
-abstract class LoadCall<T> {
+abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType extends ConversationsResponse> {
     final Call call;
-    final Class c;
+    final Class responseTypeClass;
     final OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
     final Gson gson = BVSDK.getInstance().getGson();
     final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
-    LoadCall(Class<T> c, Call call) {
+    LoadCall(Class<ResponseType> responseTypeClass, Call call) {
         this.call = call;
-        this.c = c;
+        this.responseTypeClass = responseTypeClass;
     }
 
     /**
      * Will load the request synchronously on the Thread from which this method is call
      *
-     * @return T the Response of type that corresponds to the prepared Request
+     * @return ResponseType the Response of type that corresponds to the prepared Request
      * @throws BazaarException containing detailed message of failure
      */
-    public abstract T loadSync() throws BazaarException;
+    public abstract ResponseType loadSync() throws BazaarException;
 
     /**
      * Will load the request asynchronously and perform ConversationsCallback on Main Thread
      *
      * @param conversationsCallback Callback to be performed
      */
-    public abstract void loadAsync(final ConversationsCallback<T> conversationsCallback);
+    public abstract void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback);
 
-    ConversationsResponseBase deserializeAndCloseResponse(Response response) throws BazaarException {
+    ResponseType deserializeAndCloseResponse(Response response) throws BazaarException {
         Gson gson = BVSDK.getInstance().getGson();
-        ConversationsResponseBase conversationResponse = null;
+        ResponseType conversationResponse = null;
         BazaarException error = null;
         try {
             Reader jsonReader = response.body().charStream();
-            conversationResponse = (ConversationsResponseBase) gson.fromJson(jsonReader, c);
+            conversationResponse = (ResponseType) gson.fromJson(jsonReader, responseTypeClass);
 
         } catch (JsonSyntaxException | JsonIOException e) {
             error = new BazaarException("Unable to parse JSON " + response);
@@ -86,7 +86,7 @@ abstract class LoadCall<T> {
         }
     }
 
-    void successOnMainThread(ConversationsCallback<T> callback, ConversationsResponseBase responseBase) {
+    void successOnMainThread(ConversationsCallback<ResponseType> callback, ConversationsResponse responseBase) {
         final BVHandlerCallback internalCb = new BVHandlerCallback() {
             @Override
             public void performOnMainThread(BVHandlerCallbackPayload payload) {
@@ -97,7 +97,7 @@ abstract class LoadCall<T> {
         BVSDK.getInstance().postPayloadToMainThread(handlerCallbackPayload);
     }
 
-    void errorOnMainThread(ConversationsCallback<T> callback, BazaarException e) {
+    void errorOnMainThread(ConversationsCallback<ResponseType> callback, BazaarException e) {
         final BVHandlerCallback internalCb = new BVHandlerCallback() {
             @Override
             public void performOnMainThread(BVHandlerCallbackPayload payload) {

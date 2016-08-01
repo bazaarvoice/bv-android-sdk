@@ -6,6 +6,6 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response class for ReviewsRequest to obtain Reviews for a particular productId
  */
-public class ReviewResponse extends ConversationsRequestResponseBase.IncludesResponseBase<Review>{
+public class ReviewResponse extends IncludesResponse<Review> {
 
 }

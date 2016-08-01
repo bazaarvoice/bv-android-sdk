@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Request used to obtain statistics such as Ratings on multiple productIds
  */
-public class BulkRatingsRequest extends ConversationsRequest{
+public class BulkRatingsRequest extends ConversationsDisplayRequest {
 
     private BulkRatingsRequest(Builder builder) {
         super(builder);
@@ -38,7 +38,7 @@ public class BulkRatingsRequest extends ConversationsRequest{
         queryParams.put(kSTATS, builder.statsType.getKey());
     }
 
-    public static final class Builder extends ConversationsRequest.Builder {
+    public static final class Builder extends ConversationsDisplayRequest.Builder {
 
         private final BulkRatingOptions.StatsType statsType;
         private final List<String> productIds;

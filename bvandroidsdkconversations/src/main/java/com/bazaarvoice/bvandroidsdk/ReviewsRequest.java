@@ -12,15 +12,23 @@ import java.util.Map;
 /**
  * Request used to obtain Reviews for a particular productId
  */
-public class ReviewsRequest extends ConversationsRequest{
+public class ReviewsRequest extends ConversationsDisplayRequest {
 
+    private static final String REVIEWS_ENDPOINT = "reviews.json";
+    private final String productId;
 
-    public ReviewsRequest(Builder builder) {
+    private ReviewsRequest(Builder builder) {
         super(builder);
+        this.productId = builder.productId;
     }
+
+    String getProductId() {
+        return productId;
+    }
+
     @Override
     String getEndPoint() {
-        return "reviews.json";
+        return REVIEWS_ENDPOINT;
     }
 
     @Override
@@ -51,8 +59,8 @@ public class ReviewsRequest extends ConversationsRequest{
     }
 
 
-    public static final class Builder extends ConversationsRequest.Builder{
-
+    public static final class Builder extends ConversationsDisplayRequest.Builder{
+        private final String productId;
         private final List<Sort> sorts;
         private final List<Filter> filters;
         private final int limit;
@@ -65,7 +73,7 @@ public class ReviewsRequest extends ConversationsRequest{
             this.limit = limit;
             this.offset = offset;
             filters.add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
-
+            this.productId = productId;
         }
 
         public Builder addSort(ReviewOptions.Sort sort, SortOrder sortOrder) {

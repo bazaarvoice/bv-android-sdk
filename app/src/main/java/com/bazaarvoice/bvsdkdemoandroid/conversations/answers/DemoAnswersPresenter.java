@@ -5,6 +5,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 
 
 import com.bazaarvoice.bvandroidsdk.Answer;
+import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
@@ -50,6 +51,22 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
             }
         }
         view.showAnswers(cachedAnswers);
+        if (cachedAnswers.size() > 0) {
+            Answer firstAnswer = cachedAnswers.get(0);
+            Question question = firstAnswer.getQuestion();
+            if (question != null) {
+                Product product = question.getProduct();
+                if (product != null) {
+                    String imageUrl = product.getImageUrl();
+                    String productName = product.getName();
+                    float averageOverallRating = -1;
+                    if (product.getReviewStatistics() != null) {
+                        averageOverallRating = product.getReviewStatistics().getAverageOverallRating();
+                    }
+                    view.showHeaderView(imageUrl, productName, averageOverallRating);
+                }
+            }
+        }
     }
 
 }

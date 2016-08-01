@@ -35,6 +35,7 @@ import butterknife.ButterKnife;
 
 public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final String TAG = DemoRecsAdapter.class.getSimpleName();
     private List<RowData> rowDataList = new ArrayList<>();
     private List<BVProduct> bvProducts = new ArrayList<>();
     private NativeContentAd nativeContentAd;
@@ -188,11 +189,11 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                 .load(leftProduct.getImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(leftRec.image);
-        leftRec.prodName.setText(leftProduct.getProductName());
+        leftRec.prodName.setText(leftProduct.getProductId());
         if (TextUtils.isEmpty(leftProduct.getPrice())){
             leftRec.prodPrice.setVisibility(View.GONE);
         } else {
-            leftRec.prodName.setText(leftProduct.getPrice());
+            leftRec.prodPrice.setText(leftProduct.getPrice());
         }
         leftRec.prodRating.setRating((int)leftProduct.getAverageRating());
         leftRec.recView.setBvProduct(leftProduct);
@@ -215,7 +216,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                     .load(rightProduct.getImageUrl())
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                     .into(rightRec.image);
-            rightRec.prodName.setText(rightProduct.getProductName());
+            rightRec.prodName.setText(rightProduct.getProductId());
             if (TextUtils.isEmpty(rightProduct.getPrice())){
                 rightRec.prodPrice.setVisibility(View.GONE);
             } else {

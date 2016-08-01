@@ -9,31 +9,94 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public final class LoadCallDisplay<T> extends LoadCall<T> {
+import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
+import static com.bazaarvoice.bvandroidsdk.Utils.checkNotMain;
 
-    private final ConversationsRequest request;
+public final class LoadCallDisplay<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends LoadCall<RequestType, ResponseType> {
 
-    LoadCallDisplay(ConversationsRequest request, Class<T> c, Call call) {
-        super(c, call);
+    private final RequestType request;
+    private DisplayDelegateCallback displayDelegateCallback;
+
+    private static class DisplayDelegateCallback<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> implements Callback {
+        private final ConversationsCallback<ResponseType> conversationsCallback;
+        private final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay;
+
+        public DisplayDelegateCallback(final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay, final ConversationsCallback<ResponseType> conversationsCallback) {
+            this.conversationsCallback = conversationsCallback;
+            this.loadCallDisplay = loadCallDisplay;
+        }
+
+        @Override
+        public void onFailure(Call call, IOException e) {
+            BazaarException bazaarException = new BazaarException("Display request failed", e);
+            loadCallDisplay.errorOnMainThread(conversationsCallback, bazaarException);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            try {
+                ConversationsResponse conversationResponse = null;
+                BazaarException error = null;
+                if (!response.isSuccessful()) {
+                    error = new BazaarException("Unsuccessful response for Conversations with error code: " + response.code());
+                } else {
+                    try {
+                        conversationResponse = loadCallDisplay.deserializeAndCloseResponse(response);
+                    } catch (BazaarException t) {
+                        error = t;
+                    }
+                }
+
+                if (error != null) {
+                    loadCallDisplay.errorOnMainThread(conversationsCallback, error);
+                } else {
+                    loadCallDisplay.successOnMainThread(conversationsCallback, conversationResponse);
+                    // Route callbacks to Analytics Manager to handle any analytics that are associated
+                    // with a successful display response
+                    ConversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+                }
+            } finally {
+                if (response != null) {
+                    response.body().close();
+                }
+            }
+        }
+    }
+
+    LoadCallDisplay(RequestType request, Class<ResponseType> responseTypeClass, Call call) {
+        super(responseTypeClass, call);
         this.request = request;
     }
 
-    @Override
-    public T loadSync() throws BazaarException {
-        ConversationsResponseBase conversationResponse;
-        try {
-            Response response = call.execute();
-            conversationResponse = deserializeAndCloseResponse(response);
-        } catch (Throwable t) {
-            throw new BazaarException(t.getMessage());
-        }
-
-        return (T)conversationResponse;
+    RequestType getRequest() {
+        return request;
     }
 
     @Override
-    public void loadAsync(final ConversationsCallback<T> conversationsCallback) {
+    public ResponseType loadSync() throws BazaarException {
+        checkNotMain();
+        ResponseType conversationResponse;
+        Response response = null;
+        try {
+            response = call.execute();
+            conversationResponse = deserializeAndCloseResponse(response);
+            // Route callbacks to Analytics Manager to handle any analytics that are associated
+            // with a successful display response
+            ConversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+        } catch (Throwable t) {
+            throw new BazaarException(t.getMessage());
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
+        }
 
+        return conversationResponse;
+    }
+
+    @Override
+    public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
+        checkMain();
         BazaarException error = request.getError();
 
         if (error != null) {
@@ -41,32 +104,7 @@ public final class LoadCallDisplay<T> extends LoadCall<T> {
             return;
         }
 
-        this.call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, final Response response) {
-                ConversationsResponseBase conversationResponse = null;
-                BazaarException error = null;
-                if (!response.isSuccessful()) {
-                    error = new BazaarException("Unsuccessful response for Conversations with error code: " + response.code());
-                } else {
-                    try {
-                        conversationResponse = deserializeAndCloseResponse(response);
-                    } catch (BazaarException t) {
-                        error = t;
-                    }
-                }
-
-                if (error != null) {
-                    errorOnMainThread(conversationsCallback, error);
-                }else {
-                    successOnMainThread(conversationsCallback, conversationResponse);
-                }
-            }
-        });
+        this.displayDelegateCallback = new DisplayDelegateCallback<RequestType, ResponseType>(this, conversationsCallback);
+        this.call.enqueue(displayDelegateCallback);
     }
 }

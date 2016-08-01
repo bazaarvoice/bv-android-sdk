@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
+
 /**
- * TODO: Describe file here.
+ * TODO: Describe file here. asldkfjalksdjflkasjdflkasjdflkj
  */
-abstract class ConversationsSubmission extends ConversationsBase{
+abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     private static final String kCAMPAIGN_ID = "campaignid";
     private static final String kFINGER_PRINT = "fp";
@@ -33,7 +35,7 @@ abstract class ConversationsSubmission extends ConversationsBase{
     private List<Photo> photos;
     private boolean forcePreview;
 
-    ConversationsSubmission(Builder builder) {
+    ConversationsSubmissionRequest(Builder builder) {
         this.builder = builder;
     }
 
@@ -53,6 +55,11 @@ abstract class ConversationsSubmission extends ConversationsBase{
         return this.forcePreview;
     }
 
+    String getFingerprint() {
+        Map<String, Object> queryParams = makeQueryParams();
+        return queryParams.containsKey(kFINGER_PRINT) ? (String) queryParams.get(kFINGER_PRINT) : "";
+    }
+
     Map<String, Object> makeQueryParams() {
         Map<String, Object> params = makeCommonQueryParams();
         addRequestQueryParams(params);
@@ -60,36 +67,36 @@ abstract class ConversationsSubmission extends ConversationsBase{
     }
     private Map<String, Object> makeCommonQueryParams() {
         Map<String, Object> params = new HashMap<>();
-        params.put(kAPI_VERSION, API_VERSION);
-        params.put(kPASS_KEY, BVSDK.getInstance().getApiKeyConversations());
-        params.put(kAPP_ID, BVSDK.getInstance().analyticsManager.getPackageName());
-        params.put(kAPP_VERSION, BVSDK.getInstance().analyticsManager.getVersionName());
-        params.put(kBUILD_NUM, BVSDK.getInstance().analyticsManager.getVersionCode());
-        params.put(kSDK_VERSION, BVSDK.SDK_VERSION);
-        params.put(kCAMPAIGN_ID, builder.campaignId);
-        params.put(kFINGER_PRINT, builder.fingerPrint);
-        params.put(kHOSTED_AUTH_EMAIL, builder.hostedAuthenticationEmail);
-        params.put(kHOST_AUTH_CALLBACK, builder.hostedAuthenticationCallback);
-        params.put(kLOCALE, builder.locale);
-        params.put(kUSER, builder.user);
-        params.put(kUSER_EMAIL, builder.userEmail);
-        params.put(kUSER_ID, builder.userId);
-        params.put(kUSER_LOCATION, builder.userLocation);
-        params.put(kUSER_NICKNAME, builder.userNickname);
-        params.put(kSEND_EMAIL_PUBLISHED, builder.sendEmailAlertWhenPublished);
-        params.put(kAGREE_TERMS, builder.agreedToTermsAndConditions);
+        mapPutSafe(params, kAPI_VERSION, API_VERSION);
+        mapPutSafe(params, kPASS_KEY, BVSDK.getInstance().getApiKeyConversations());
+        mapPutSafe(params, kAPP_ID, BVSDK.getInstance().analyticsManager.getPackageName());
+        mapPutSafe(params, kAPP_VERSION, BVSDK.getInstance().analyticsManager.getVersionName());
+        mapPutSafe(params, kBUILD_NUM, BVSDK.getInstance().analyticsManager.getVersionCode());
+        mapPutSafe(params, kSDK_VERSION, BVSDK.SDK_VERSION);
+        mapPutSafe(params, kCAMPAIGN_ID, builder.campaignId);
+        mapPutSafe(params, kFINGER_PRINT, builder.fingerPrint);
+        mapPutSafe(params, kHOSTED_AUTH_EMAIL, builder.hostedAuthenticationEmail);
+        mapPutSafe(params, kHOST_AUTH_CALLBACK, builder.hostedAuthenticationCallback);
+        mapPutSafe(params, kLOCALE, builder.locale);
+        mapPutSafe(params, kUSER, builder.user);
+        mapPutSafe(params, kUSER_EMAIL, builder.userEmail);
+        mapPutSafe(params, kUSER_ID, builder.userId);
+        mapPutSafe(params, kUSER_LOCATION, builder.userLocation);
+        mapPutSafe(params, kUSER_NICKNAME, builder.userNickname);
+        mapPutSafe(params, kSEND_EMAIL_PUBLISHED, builder.sendEmailAlertWhenPublished);
+        mapPutSafe(params, kAGREE_TERMS, builder.agreedToTermsAndConditions);
 
         if (forcePreview){
-            params.put(kACTION, Action.Preview.getKey());
+            mapPutSafe(params, kACTION, Action.Preview.getKey());
         }else {
-            params.put(kACTION, builder.getAction().getKey());
+            mapPutSafe(params, kACTION, builder.getAction().getKey());
         }
 
         if (photos != null) {
             int idx = 0;
             for (Photo photo : photos) {
-                params.put("photourl_" + idx, photo.getContent().getNormalUrl());
-                params.put("photocaption_" + idx, photo.getCaption());
+                mapPutSafe(params, "photourl_" + idx, photo.getContent().getNormalUrl());
+                mapPutSafe(params, "photocaption_" + idx, photo.getCaption());
                 idx++;
             }
         }
@@ -119,7 +126,7 @@ abstract class ConversationsSubmission extends ConversationsBase{
         return urlQueryString;
     }
 
-    public abstract static class Builder<T> {
+    public abstract static class Builder<BuilderChildType extends Builder> {
         private String passKey = BVSDK.getInstance().getApiKeyConversations();
         private String campaignId;
         private String fingerPrint;
@@ -142,73 +149,73 @@ abstract class ConversationsSubmission extends ConversationsBase{
             this.action = action;
         }
 
-        public T campaignId(String campaignId) {
+        public BuilderChildType campaignId(String campaignId) {
             this.campaignId = campaignId;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T fingerPrint(String fingerPrint) {
+        public BuilderChildType fingerPrint(String fingerPrint) {
             this.fingerPrint = fingerPrint;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T hostedAuthenticationEmail(String hostedAuthenticationEmail) {
+        public BuilderChildType hostedAuthenticationEmail(String hostedAuthenticationEmail) {
             this.hostedAuthenticationEmail = hostedAuthenticationEmail;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T hostedAuthenticationCallback(String hostedAuthenticationCallback) {
+        public BuilderChildType hostedAuthenticationCallback(String hostedAuthenticationCallback) {
             this.hostedAuthenticationCallback = hostedAuthenticationCallback;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T locale(String locale) {
+        public BuilderChildType locale(String locale) {
             this.locale = locale;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T user(String user) {
+        public BuilderChildType user(String user) {
             this.user = user;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T userEmail(String userEmail) {
+        public BuilderChildType userEmail(String userEmail) {
             this.userEmail = userEmail;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T userId(String userId) {
+        public BuilderChildType userId(String userId) {
             this.userId = userId;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T userLocation(String userLocation) {
+        public BuilderChildType userLocation(String userLocation) {
             this.userLocation = userLocation;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T userNickname(String userNickname) {
+        public BuilderChildType userNickname(String userNickname) {
             this.userNickname = userNickname;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T agreedToTermsAndConditions(Boolean agreedToTermsAndConditions) {
+        public BuilderChildType agreedToTermsAndConditions(Boolean agreedToTermsAndConditions) {
             this.agreedToTermsAndConditions = agreedToTermsAndConditions;
-            return (T)this;
+            return (BuilderChildType)this;
         }
 
-        public T sendEmailAlertWhenPublished(Boolean sendEmailAlertWhenPublished) {
+        public BuilderChildType sendEmailAlertWhenPublished(Boolean sendEmailAlertWhenPublished) {
             this.sendEmailAlertWhenPublished = sendEmailAlertWhenPublished;
-            return (T)this;
+            return (BuilderChildType)this;
         }
         Action getAction() {
             return action;
         }
 
-        public T addPhoto(File photo, String caption) {
+        public BuilderChildType addPhoto(File photo, String caption) {
             PhotoUpload upload = new PhotoUpload(photo, caption, getPhotoContentType());
             photoUploads.add(upload);
-            return (T)this;
+            return (BuilderChildType)this;
         }
     }
 }

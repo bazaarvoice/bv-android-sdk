@@ -12,10 +12,17 @@ import java.util.Map;
 /**
  * Request used to obtain Q&As for a particular productId
  */
-public class QuestionAndAnswerRequest extends ConversationsRequest{
+public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
+
+    private final String productId;
 
     private QuestionAndAnswerRequest(Builder builder) {
         super(builder);
+        this.productId = builder.productId;
+    }
+
+    String getProductId() {
+        return productId;
     }
 
     @Override
@@ -50,17 +57,19 @@ public class QuestionAndAnswerRequest extends ConversationsRequest{
         }
     }
 
-    public static final class Builder extends ConversationsRequest.Builder{
+    public static final class Builder extends ConversationsDisplayRequest.Builder{
 
         private final List<Sort> sorts;
         private final int limit;
         private final int offset;
         private String searchPhrase;
+        private String productId;
 
         public Builder(@NonNull String productId, int limit, int offset) {
             this.sorts = new ArrayList<>();
             this.limit = limit;
             this.offset = offset;
+            this.productId = productId;
             filters.add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
 
         }

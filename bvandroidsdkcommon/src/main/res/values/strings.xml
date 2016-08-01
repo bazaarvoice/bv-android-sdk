@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="bv_sdk_common">BVSDK Common</string>
+    <string name="seen_product_onscreen_with_id_set">seen_product_onscreen_with_id_set</string>
 </resources>

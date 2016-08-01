@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
  * about the users interaction with the Product in order to help influence
  * future recommendations.
  */
-public final class RecommendationView extends BVView implements BVViewEventListener {
+public final class RecommendationView extends BVView {
 
     private static final String TAG = RecommendationView.class.getSimpleName();
 
@@ -38,12 +38,6 @@ public final class RecommendationView extends BVView implements BVViewEventListe
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-
-    @Override
-    void init() {
-        super.init();
-    }
-
     /**
      * @param bvProduct Bazaarvoice recommended product that should be associated with this view
      */
@@ -52,7 +46,7 @@ public final class RecommendationView extends BVView implements BVViewEventListe
     }
 
     @Override
-    String getProductId() {
+    public String getProductId() {
         if (bvProduct == null) {
             throw new IllegalStateException("Must associate BVProduct with RecommendationView");
         }
@@ -60,22 +54,12 @@ public final class RecommendationView extends BVView implements BVViewEventListe
     }
 
     @Override
-    BVViewEventListener getEventListener() {
-        return this;
-    }
-
-    @Override
-    public void onImpression() {
+    public void onFirstTimeOnScreen() {
         RecommendationsAnalyticsManager.sendProductImpressionEvent(bvProduct);
     }
 
     @Override
-    public void onConversion() {
+    public void onTap() {
         RecommendationsAnalyticsManager.sendProductConversionEvent(bvProduct);
-    }
-
-    @Override
-    public void onAddedToViewHeirarchy() {
-        // no-op
     }
 }

@@ -4,6 +4,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.bazaarvoice.bvandroidsdk.types.RequestType;
 
 import org.json.JSONArray;
@@ -12,15 +15,19 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Internal API wrapper around {@code AnalyticsManger}
+ * wrapper around {@code AnalyticsManger}
  * for sending Conversations analytics events
  */
-class ConversationsAnalyticsManager {
+public class ConversationsAnalyticsManager {
 
+    // *** v1 ConversationsAnalyticsManager - DEPRECATED PLEASE USE v2 below ***
+
+    @Deprecated
     public static void sendDisplayAnalyticsEvent(RequestType requestType, JSONObject response) {
         Set<String> productIdSet = new HashSet<>();
 
@@ -55,6 +62,7 @@ class ConversationsAnalyticsManager {
         }
     }
 
+    @Deprecated
     public static void sendSubmissionAnalyticsEvent(RequestType requestType, BazaarParams bazaarParams) {
         SubmitUsedFeatureSchema.SubmitFeature submitFeature = getSubmitFeatureFromRequestType(requestType);
 
@@ -88,6 +96,7 @@ class ConversationsAnalyticsManager {
         analyticsManager.enqueueEvent(schema);
     }
 
+    @Deprecated
     private static SubmitUsedFeatureSchema.SubmitFeature getSubmitFeatureFromRequestType(RequestType requestType) {
         SubmitUsedFeatureSchema.SubmitFeature submitFeature = null;
 
@@ -118,6 +127,7 @@ class ConversationsAnalyticsManager {
         return submitFeature;
     }
 
+    @Deprecated
     private static Map<String, Object> getResultInfo(RequestType requestType, JSONObject response) throws JSONException {
         Map<String, Object> eventMap = new HashMap<String, Object>();
 
@@ -175,6 +185,7 @@ class ConversationsAnalyticsManager {
         return eventMap;
     }
 
+    @Deprecated
     private static void sendUgcImpressionEvent(Map<String, Object> dataMap) {
         BVSDK bvsdk = BVSDK.getInstance();
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
@@ -185,11 +196,168 @@ class ConversationsAnalyticsManager {
         analyticsManager.enqueueEvent(schema);
     }
 
+
+    @Deprecated
     private static void sendProductPageViewEvent(String productId, String categoryId, String brand) {
         BVSDK bvsdk = BVSDK.getInstance();
         AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         ProductPageViewSchema schema = new ProductPageViewSchema(productId, categoryId, brand, magpieMobileAppPartialSchema);
+        analyticsManager.enqueueEvent(schema);
+    }
+
+
+    // *** v2 ConversationsAnalyticsManager ***
+
+    public static void sendUsedFeatureInViewEvent(String productId, MagpieBvProduct magpieBvProduct) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        ConversationSchemas.InViewUsedFeatureSchema schema = new ConversationSchemas.InViewUsedFeatureSchema(productId, magpieBvProduct, magpieMobileAppPartialSchema);
+        analyticsManager.enqueueEvent(schema);
+    }
+
+    public static void sendUgcImpressionEvent(String productId, String contentId, ConversationSchemas.AnalyticsContentType analyticsContentType, MagpieBvProduct magpieBvProduct) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        ConversationSchemas.UgcImpressionSchema schema = new ConversationSchemas.UgcImpressionSchema(magpieMobileAppPartialSchema, productId, contentId, analyticsContentType, magpieBvProduct);
+        analyticsManager.enqueueEvent(schema);
+    }
+
+    public static void sendUgcImpressionEventReviews(List<Review> reviews) {
+        for (Review review : reviews) {
+            String productId = "", contentId = "";
+            if (review != null) {
+                productId = review.getProductId();
+                contentId = review.getId();
+            }
+            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, contentId, ConversationSchemas.AnalyticsContentType.Review, MagpieBvProduct.RATINGS_AND_REVIEWS);
+        }
+    }
+
+    public static void sendUgcImpressionEventQAndA(List<Question> questions) {
+        for (Question question : questions) {
+            String productId = "", questionId = "";
+            if (question != null) {
+                productId = question.getProductId();
+                questionId = question.getId();
+
+                List<Answer> answers = question.getAnswers();
+                if (answers != null) {
+                    for (Answer answer : answers) {
+                        String answerId = "";
+                        if (answer != null) {
+                            answerId = answer.getId();
+                        }
+                        ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, answerId, ConversationSchemas.AnalyticsContentType.Answer, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+                    }
+                }
+            }
+            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, questionId, ConversationSchemas.AnalyticsContentType.Question, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        }
+    }
+
+    public static void sendUsedFeatureScrolledEvent(String productId, MagpieBvProduct magpieBvProduct) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        ConversationSchemas.ScrolledUsedFeatureSchema schema = new ConversationSchemas.ScrolledUsedFeatureSchema(productId, magpieBvProduct, magpieMobileAppPartialSchema);
+        analyticsManager.enqueueEvent(schema);
+    }
+
+    public static void sendProductPageView(@NonNull MagpieBvProduct magpieBvProduct, @Nullable Product product) {
+        if (product != null) {
+            int numQuestions = product.getQaStatistics() != null ? product.getQaStatistics().getTotalQuestionCount() : 0;
+            int numAnswers = product.getQaStatistics() != null ? product.getQaStatistics().getTotalAnswerCount() : 0;
+            int numReviews = product.getReviewStatistics() != null ? product.getReviewStatistics().getTotalReviewCount() : 0;
+            String brand = product.getBrandExternalId();
+            String categoryId = product.getCategoryId();
+
+            AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+            MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+            ProductPageViewSchema schema = new ProductPageViewSchema.Builder(product.getId(), magpieMobileAppPartialSchema)
+                    .numQuestions(numQuestions)
+                    .numAnswers(numAnswers)
+                    .numReviews(numReviews)
+                    .brand(brand)
+                    .categoryId(categoryId)
+                    .magpieBvProduct(magpieBvProduct)
+                    .build();
+            analyticsManager.enqueueEvent(schema);
+        }
+    }
+
+    static void sendSuccessfulConversationsDisplayResponse(ConversationsResponse conversationResponse) {
+        if (conversationResponse instanceof ReviewResponse) {
+            ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
+            ConversationsAnalyticsManager.sendUgcImpressionEventReviews(reviewResponse.getResults());
+        }
+        if (conversationResponse instanceof QuestionAndAnswerResponse) {
+            QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
+            ConversationsAnalyticsManager.sendUgcImpressionEventQAndA(questionAndAnswerResponse.getResults());
+        }
+        if (conversationResponse instanceof ProductDisplayPageResponse) {
+            ProductDisplayPageResponse productDisplayPageResponse = (ProductDisplayPageResponse) conversationResponse;
+            Product product = productDisplayPageResponse.getResults().get(0);
+            sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
+        }
+        if (conversationResponse instanceof ReviewResponse) {
+            ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
+            List<Review> reviews = reviewResponse.getResults();
+            if (reviews != null && reviews.size() > 0) {
+                Review review = reviewResponse.getResults().get(0);
+                if (review != null) {
+                    Product product = review.getProduct();
+                    sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
+                }
+            }
+        }
+        if (conversationResponse instanceof QuestionAndAnswerResponse) {
+            QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
+            List<Question> questions = questionAndAnswerResponse.getResults();
+            if (questions != null && questions.size()>0) {
+                Question question = questions.get(0);
+                if (question != null) {
+                    Product product = question.getProduct();
+                    sendProductPageView(MagpieBvProduct.QUESTIONS_AND_ANSWERS, product);
+                }
+            }
+        }
+    }
+
+    public static void sendUsedFeatureUgcContentSubmission(@NonNull SubmitUsedFeatureSchema.SubmitFeature submitFeature, @Nullable String productId, boolean hasFingerprint) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(submitFeature, magpieMobileAppPartialSchema)
+                .productId(productId)
+                .fingerprint(hasFingerprint)
+                .build();
+        analyticsManager.enqueueEvent(schema);
+    }
+
+    static void sendSuccessfulConversationsSubmitResponse(ConversationsSubmissionRequest request) {
+        boolean hasFingerPrint = request.getFingerprint() != null && !request.getFingerprint().isEmpty();
+
+        if (request instanceof QuestionSubmissionRequest) {
+            QuestionSubmissionRequest questionSubmissionRequest = (QuestionSubmissionRequest) request;
+            String productId = questionSubmissionRequest.getProductId();
+            sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.ASK, productId, hasFingerPrint);
+        }
+        if (request instanceof AnswerSubmissionRequest) {
+            AnswerSubmissionRequest answerSubmissionRequest = (AnswerSubmissionRequest) request;
+            String productId = answerSubmissionRequest.getProductId();
+            sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.ANSWER, productId, hasFingerPrint);
+        }
+        if (request instanceof ReviewSubmissionRequest) {
+            ReviewSubmissionRequest reviewSubmissionRequest = (ReviewSubmissionRequest) request;
+            String productId = reviewSubmissionRequest.getProductId();
+            sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.WRITE, productId, hasFingerPrint);
+        }
+    }
+
+    static void sendSuccessfulConversationsPhotoUpload(PhotoUpload request) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(SubmitUsedFeatureSchema.SubmitFeature.PHOTO, magpieMobileAppPartialSchema)
+                .build();
         analyticsManager.enqueueEvent(schema);
     }
 

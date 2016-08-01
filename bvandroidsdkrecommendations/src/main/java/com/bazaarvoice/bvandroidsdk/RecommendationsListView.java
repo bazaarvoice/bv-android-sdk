@@ -18,7 +18,7 @@ import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
 /**
  * Bazaarvoice Provided {@link ListView} to display {@link RecommendationView} objects
  */
-public final class RecommendationsListView extends BVListView implements AbsListView.OnScrollListener, BVViewGroupEventListener, BVRecommendations.BVRecommendationsLoader {
+public final class RecommendationsListView extends BVListView implements AbsListView.OnScrollListener, BVRecommendations.BVRecommendationsLoader {
 
     private static final String TAG = RecommendationsListView.class.getSimpleName();
 
@@ -40,11 +40,6 @@ public final class RecommendationsListView extends BVListView implements AbsList
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RecommendationsListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
     }
 
     @Override
@@ -92,7 +87,12 @@ public final class RecommendationsListView extends BVListView implements AbsList
     }
 
     @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         RecommendationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(ReportingGroup.LISTVIEW);
+    }
+
+    @Override
+    public String getProductId() {
+        return productId;
     }
 }

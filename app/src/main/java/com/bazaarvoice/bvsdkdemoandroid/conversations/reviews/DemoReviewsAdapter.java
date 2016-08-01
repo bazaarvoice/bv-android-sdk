@@ -43,7 +43,7 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         viewHolder.reviewTitle.setText(bazaarReview.getTitle());
         viewHolder.reviewBody.setText(bazaarReview.getReviewText());
-        viewHolder.reviewRating.setRating(bazaarReview.getRating());
+        viewHolder.reviewRating.setRating(bazaarReview.getRating() == null ? 0 : bazaarReview.getRating());
 
         boolean hasLocation = !TextUtils.isEmpty(bazaarReview.getUserLocation()) && !bazaarReview.getUserLocation().equals("null");
         if (hasLocation) {

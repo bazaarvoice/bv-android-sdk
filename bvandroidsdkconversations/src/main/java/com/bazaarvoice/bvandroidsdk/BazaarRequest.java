@@ -1,4 +1,4 @@
-/**
+    /**
  * Copyright 2016 Bazaarvoice Inc. All rights reserved.
  */
 
@@ -36,6 +36,7 @@ import java.util.Random;
  * There are options for both display and submission using asynchronous
  * requests, queued requests, and blocking requests.
  */
+@Deprecated
 public class BazaarRequest {
 
     //private static final String TAG = "BazaarRequest";

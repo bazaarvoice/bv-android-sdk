@@ -28,6 +28,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswersContract.View {
 
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
@@ -36,9 +38,9 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
     private BVProduct bvProduct;
     private DemoAnswersContract.UserActionsListener answerUserActionListener;
 
-    private ImageView productImageView;
-    private TextView productName;
-    private RatingBar productRating;
+    @BindView(R.id.product_image) ImageView productImageView;
+    @BindView(R.id.product_name) TextView productName;
+    @BindView(R.id.product_rating) RatingBar productRating;
 
     private RecyclerView answersRecyclerView;
     private DemoAnswersAdapter answersAdapter;
@@ -68,7 +70,6 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         }
 
         setupToolbarViews();
-        setupHeaderViews();
         setupRecyclerView();
 
         this.answerUserActionListener = new DemoAnswersPresenter(this, demoConfigUtils, demoDataUtil, productId, questionId, bvProduct == null);
@@ -95,21 +96,6 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setupHeaderViews() {
-        productImageView = (ImageView) findViewById(R.id.product_image);
-        productName = (TextView) findViewById(R.id.product_name);
-        productRating = (RatingBar) findViewById(R.id.product_rating);
-
-        if (bvProduct != null) {
-            Picasso.with(productImageView.getContext()).load(bvProduct.getImageUrl()).into(productImageView);
-            productName.setText(bvProduct.getProductName());
-            productRating.setRating(bvProduct.getAverageRating());
-        } else {
-            productName.setText("Testing Question Id: " + questionId);
-            productRating.setVisibility(View.INVISIBLE);
-        }
-    }
-
     private void setupRecyclerView() {
         answersRecyclerView = (RecyclerView) findViewById(R.id.answers_recycler_view);
         answersAdapter = new DemoAnswersAdapter();
@@ -118,6 +104,18 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         answersRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(spacing));
         answersRecyclerView.setAdapter(answersAdapter);
         answersRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public void showHeaderView(String imageUrl, String productNameStr, float averageRating) {
+        if (bvProduct != null) {
+            Picasso.with(productImageView.getContext()).load(imageUrl).into(productImageView);
+            productName.setText(productNameStr);
+            productRating.setRating(averageRating);
+        } else {
+            productName.setText("Testing Question Id: " + questionId);
+            productRating.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

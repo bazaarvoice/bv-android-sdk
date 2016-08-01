@@ -14,7 +14,7 @@ import android.widget.ListView;
 /**
  * Bazaarvoice Provided {@link ListView} to display {@link BVView} objects
  */
-abstract class BVListView extends ListView implements AbsListView.OnScrollListener {
+abstract class BVListView extends ListView implements AbsListView.OnScrollListener, BVViewGroupEventListener, EventView.EventViewListener<BVListView>, EventView.ProductView {
 
     private static final String TAG = BVListView.class.getSimpleName();
     private AbsListView.OnScrollListener theirScrollListener;
@@ -45,9 +45,9 @@ abstract class BVListView extends ListView implements AbsListView.OnScrollListen
 
     void init() {
         super.setOnScrollListener(this);
+        setWillNotDraw(false);
+        EventView.bind(this, this, this);
     }
-
-    abstract BVViewGroupEventListener getEventListener();
 
     /**
      * {@inheritDoc}
@@ -63,11 +63,11 @@ abstract class BVListView extends ListView implements AbsListView.OnScrollListen
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (hasInteracted && scrollState == SCROLL_STATE_IDLE) {
-            getEventListener().onViewGroupInteractedWith();
+            onViewGroupInteractedWith();
         }
 
         if (!hasInteracted && scrollState == SCROLL_STATE_TOUCH_SCROLL) {
-            getEventListener().onViewGroupInteractedWith();
+            onViewGroupInteractedWith();
             hasInteracted = true;
         }
 
@@ -94,8 +94,32 @@ abstract class BVListView extends ListView implements AbsListView.OnScrollListen
         super.onDraw(c);
         if (!seen) {
             seen = true;
-            getEventListener().onViewGroupAddedToHierarchy();
+            onAddedToViewHierarchy();
         }
     }
 
+    @Override
+    public void onTap() {
+
+    }
+
+    @Override
+    public void onAddedToViewHierarchy() {
+
+    }
+
+    @Override
+    public void onViewGroupInteractedWith() {
+
+    }
+
+    @Override
+    public void onVisibleOnScreenStateChanged(boolean onScreen) {
+
+    }
+
+    @Override
+    public void onFirstTimeOnScreen() {
+
+    }
 }

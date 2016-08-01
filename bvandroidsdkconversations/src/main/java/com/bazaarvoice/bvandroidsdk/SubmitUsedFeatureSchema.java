@@ -24,7 +24,7 @@ class SubmitUsedFeatureSchema extends UsedFeatureCanonicalSchema {
     public enum SubmitFeature {
         ANSWER("Answer"), COMMENT("Comment"), STORY_COMMENT("StoryComment"),
         FEEDBACK("Feedback"), ASK("Ask"), WRITE("Write"),
-        STORY("Story");
+        STORY("Story"), PHOTO("Photo");
 
         private String value;
 

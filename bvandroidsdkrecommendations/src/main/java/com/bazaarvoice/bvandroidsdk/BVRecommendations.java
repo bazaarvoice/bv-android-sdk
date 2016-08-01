@@ -158,6 +158,7 @@ public class BVRecommendations {
             Request request = new Request.Builder()
                     .url(requestData.getRequestUrl())
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                     .build();
             Response response = null;
             try {

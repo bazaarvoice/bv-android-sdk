@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * TODO: Describe file here.
  */
-public class ReviewSubmission extends ConversationsSubmission{
+public class ReviewSubmissionRequest extends ConversationsSubmissionRequest {
 
     private static final String kPRODUCT_ID = "ProductId";
     private static final String kIS_RECOMMENDED = "IsRecommended";
@@ -21,7 +21,7 @@ public class ReviewSubmission extends ConversationsSubmission{
     private static final String kREVIEW_TEXT = "ReviewText";
     private static final String kNET_PROMOTER_COMMENT = "NetPromoterComment";
 
-    ReviewSubmission(Builder builder) {
+    ReviewSubmissionRequest(Builder builder) {
         super(builder);
     }
 
@@ -33,6 +33,11 @@ public class ReviewSubmission extends ConversationsSubmission{
     @Override
     BazaarException getError() {
         return null;
+    }
+
+    String getProductId() {
+        Map<String, Object> queryParams = makeQueryParams();
+        return queryParams.containsKey(kPRODUCT_ID) ? (String) queryParams.get(kPRODUCT_ID) : "";
     }
 
     @Override
@@ -72,7 +77,7 @@ public class ReviewSubmission extends ConversationsSubmission{
         }
     }
 
-    public static final class Builder extends ConversationsSubmission.Builder<Builder>{
+    public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder>{
 
         private final String productId;
         private Boolean isRecommended;
@@ -165,8 +170,8 @@ public class ReviewSubmission extends ConversationsSubmission{
             return this;
         }
 
-        public ReviewSubmission build() {
-            return new ReviewSubmission(this);
+        public ReviewSubmissionRequest build() {
+            return new ReviewSubmissionRequest(this);
         }
 
         @Override

@@ -18,72 +18,145 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-/**
- * TODO: Describe file here.
- */
-public final class LoadCallSubmission<T> extends LoadCall<T> {
+public final class LoadCallSubmission<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends LoadCall<RequestType, ResponseType> {
 
-    private final ConversationsSubmission submission;
+    private final RequestType submissionRequest;
 
-    LoadCallSubmission(ConversationsSubmission submission, Class<T> c, Call call) {
-        super(c, call);
-        this.submission = submission;
+    private static class SubmissionDelegateCallback<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> implements Callback {
+        private final ConversationsCallback<ResponseType> conversationsCallback;
+        private final LoadCallSubmission<RequestType, ResponseType> loadCallSubmission;
+        private final RequestType submissionRequest;
+        private final Class responseTypeClass;
+
+        public SubmissionDelegateCallback(final ConversationsCallback<ResponseType> conversationsCallback, final LoadCallSubmission<RequestType, ResponseType> loadCallDisplay, final RequestType submissionRequest, final Class responseTypeClass) {
+            this.conversationsCallback = conversationsCallback;
+            this.loadCallSubmission = loadCallDisplay;
+            this.submissionRequest = submissionRequest;
+            this.responseTypeClass = responseTypeClass;
+        }
+
+        @Override
+        public void onFailure(Call call, IOException e) {
+            BazaarException bazaarException = new BazaarException("Submission Request Failed", e);
+            loadCallSubmission.errorOnMainThread(conversationsCallback, bazaarException);
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            ConversationsResponse conversationResponse = null;
+            BazaarException error = null;
+            try {
+                if (!response.isSuccessful()) {
+                    error = new BazaarException("Unsuccessful response for Conversations with error code: " + response.code());
+                } else {
+                    try {
+                        conversationResponse = loadCallSubmission.deserializeAndCloseResponse(response);
+                    } catch (BazaarException t) {
+                        error = t;
+                    }
+                }
+
+                if (error != null) {
+                    loadCallSubmission.errorOnMainThread(conversationsCallback, error);
+                } else {
+                    //if User intended to only Preview or if a Submit has already been previewed we are done and can callback
+                    if (submissionRequest.getBuilder().getAction() == Action.Preview || (!submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit)) {
+                        loadCallSubmission.successOnMainThread(conversationsCallback, conversationResponse);
+                        ConversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                    }
+                    //We know that a Submit was succesfully previewed so now we Submit for real
+                    else {
+                        LoadCall newCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest);
+                        newCall.loadAsync(conversationsCallback);
+                    }
+                }
+            } finally {
+                if (response != null) {
+                    response.body().close();
+                }
+            }
+        }
+    }
+
+    LoadCallSubmission(RequestType submissionRequest, Class<ResponseType> responseTypeClass, Call call) {
+        super(responseTypeClass, call);
+        this.submissionRequest = submissionRequest;
+    }
+
+    RequestType getSubmissionRequest() {
+        return submissionRequest;
     }
 
     @Override
-    public T loadSync() throws BazaarException {
-        ConversationsResponseBase conversationResponse = null;
-        BazaarException error = submission.getError();
+    public ResponseType loadSync() throws BazaarException {
+        ConversationsResponse conversationResponse = null;
+        BazaarException error = submissionRequest.getError();
 
         if (error != null) {
             throw error;
         }
 
         try {
-            List<PhotoUpload> photoUploads = submission.getBuilder().photoUploads;
-            if (photoUploads != null && photoUploads.size() > 0 && !submission.getForcePreview() && submission.getBuilder().getAction() == Action.Submit) {
+            List<PhotoUpload> photoUploads = submissionRequest.getBuilder().photoUploads;
+            if (photoUploads != null && photoUploads.size() > 0 && !submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit) {
 
-                return postPhotosAndSubmissionSync(photoUploads, submission);
+                return postPhotosAndSubmissionSync(photoUploads, submissionRequest);
 
             } else {
-                Response response = call.execute();
-                conversationResponse = deserializeAndCloseResponse(response);
-                if (conversationResponse.getHasErrors()) {
-                    throw new BazaarException(gson.toJson(conversationResponse.getErrors()));
-                }
-                if (submission.getForcePreview()) {
-                    LoadCall loadCall = BVConversationsClient.reCreateCallNoPreview(c, submission);
-                    return (T) loadCall.loadSync();
+                Response response = null;
+                try {
+                    response = call.execute();
+                    conversationResponse = deserializeAndCloseResponse(response);
+                    if (conversationResponse.getHasErrors()) {
+                        throw new BazaarException(gson.toJson(conversationResponse.getErrors()));
+                    }
+                    if (submissionRequest.getForcePreview()) {
+                        LoadCall loadCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest);
+                        ResponseType finalResponse = (ResponseType) loadCall.loadSync();
+                        ConversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                        return finalResponse;
+                    }
+                } finally {
+                    if (response != null) {
+                        response.body().close();
+                    }
                 }
             }
 
         } catch (Throwable t) {
             throw new BazaarException(t.getMessage());
         }
-        return (T) conversationResponse;
+        return (ResponseType) conversationResponse;
     }
 
-    private T postPhotosAndSubmissionSync(List<PhotoUpload> photoUploads, ConversationsSubmission submission) throws BazaarException {
+    private ResponseType postPhotosAndSubmissionSync(List<PhotoUpload> photoUploads, ConversationsSubmissionRequest submission) throws BazaarException {
         Log.d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
         final List<Photo> photos = new ArrayList<>();
 
         try {
             for (PhotoUpload upload : photoUploads) {
                 Call photoCall = makePhotoCall(upload);
-                Response response = photoCall.execute();
-                Photo photo = deserializePhotoResponse(response);
-                photo.setCaption(upload.getCaption());
-                photos.add(photo);
+                Response response = null;
+                try {
+                    response = photoCall.execute();
+                    Photo photo = deserializePhotoResponse(response);
+                    photo.setCaption(upload.getCaption());
+                    photos.add(photo);
+                } finally {
+                    if (response != null) {
+                        response.body().close();
+                    }
+                }
             }
         } catch (Throwable e) {
             throw new BazaarException(e.getMessage());
         }
 
-        LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(c, submission, photos);
-        return (T) loadCall.loadSync();
+        LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(responseTypeClass, submission, photos);
+        return (ResponseType) loadCall.loadSync();
     }
 
-    private void postPhotosAndSubmissionAsync(final ConversationsCallback<T> conversationsCallback, final List<PhotoUpload> photoUploads, final ConversationsSubmission submission) {
+    private void postPhotosAndSubmissionAsync(final ConversationsCallback<ResponseType> conversationsCallback, final List<PhotoUpload> photoUploads, final ConversationsSubmissionRequest submission) {
         Logger.d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
         final List<Photo> photos = Collections.synchronizedList(new ArrayList<Photo>());
 
@@ -99,17 +172,22 @@ public final class LoadCallSubmission<T> extends LoadCall<T> {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
+                        ConversationsAnalyticsManager.sendSuccessfulConversationsPhotoUpload(upload);
                         Photo photo = deserializePhotoResponse(response);
                         photo.setCaption(upload.getCaption());
                         photos.add(photo);
                         //whenever we have received successful responses for every expect photo upload we can
-                        // reconstruct the submission request with the photo upload response details
+                        // reconstruct the submissionRequest request with the photo upload response details
                         if (photos.size() == photoUploads.size()) {
-                            LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(c, submission, photos);
+                            LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(responseTypeClass, submission, photos);
                             loadCall.loadAsync(conversationsCallback);
                         }
                     } catch (BazaarException e) {
                         errorOnMainThread(conversationsCallback, e);
+                    } finally {
+                        if (response != null) {
+                            response.body().close();
+                        }
                     }
                 }
             });
@@ -128,72 +206,39 @@ public final class LoadCallSubmission<T> extends LoadCall<T> {
     }
 
     @Override
-    public void loadAsync(final ConversationsCallback<T> conversationsCallback) {
-        BazaarException error = submission.getError();
+    public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
+        BazaarException error = submissionRequest.getError();
 
         if (error != null) {
             errorOnMainThread(conversationsCallback, error);
             return;
         }
 
-        List<PhotoUpload> photoUploads = submission.getBuilder().photoUploads;
+        List<PhotoUpload> photoUploads = submissionRequest.getBuilder().photoUploads;
         //At this point we assume know that since we are submitting and not being forced to preview that it has been previewed already.
-        // The request is ready to have its photos uploaded, then submitted.
-        if (photoUploads != null && photoUploads.size() > 0 && !submission.getForcePreview() && submission.getBuilder().getAction() == Action.Submit) {
+        // The request is ready to have its photos uploaded then submitted.
+        if (photoUploads != null && photoUploads.size() > 0 && !submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit) {
 
-            postPhotosAndSubmissionAsync(conversationsCallback, photoUploads, submission);
+            postPhotosAndSubmissionAsync(conversationsCallback, photoUploads, submissionRequest);
 
         } else {
-            //At this point we know that the submission needs to be previewed
+            //At this point we know that the submissionRequest needs to be previewed
             //Either by user asking for preview or being forced to preview before Submit
-            //Or it is ready for full submission (it's had it's photo's uploaded or never had any)
-            this.call.enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, final Response response) {
-                    ConversationsResponseBase conversationResponse = null;
-                    BazaarException error = null;
-                    if (!response.isSuccessful()) {
-                        error = new BazaarException("Unsuccessful response for Conversations with error code: " + response.code());
-                    } else {
-                        try {
-                            conversationResponse = deserializeAndCloseResponse(response);
-                        } catch (BazaarException t) {
-                            error = t;
-                        }
-                    }
-
-                    if (error != null) {
-                        errorOnMainThread(conversationsCallback, error);
-                    }else {
-                        //if User intended to only Preview or if a Submit has already been previewed we are done and can callback
-                        if (submission.getBuilder().getAction() == Action.Preview || (!submission.getForcePreview() && submission.getBuilder().getAction() == Action.Submit)) {
-                            successOnMainThread(conversationsCallback, conversationResponse);
-                        }
-                        //We know that a Submit was succesfully previewed so now we Submit for real
-                        else {
-                            LoadCall newCall = BVConversationsClient.reCreateCallNoPreview(c, submission);
-                            newCall.loadAsync(conversationsCallback);
-                        }
-                    }
-                }
-            });
+            //Or it is ready for full submissionRequest (it's had it's photo's uploaded or never had any)
+            this.call.enqueue(new SubmissionDelegateCallback<>(conversationsCallback, this, submissionRequest, responseTypeClass));
         }
     }
 
     private Call makePhotoCall(PhotoUpload upload) {
         String fullUrl = String.format("%s%s", BVConversationsClient.conversationsBaseUrl, upload.getEndPoint());
         RequestBody req = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart(ConversationsBase.kAPI_VERSION, ConversationsBase.API_VERSION)
-                .addFormDataPart(ConversationsBase.kPASS_KEY, BVSDK.getInstance().getApiKeyConversations())
+                .addFormDataPart(ConversationsRequest.kAPI_VERSION, ConversationsRequest.API_VERSION)
+                .addFormDataPart(ConversationsRequest.kPASS_KEY, BVSDK.getInstance().getApiKeyConversations())
                 .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("photo", "photo.png", RequestBody.create(MEDIA_TYPE_PNG, upload.getPhotoFile())).build();
 
         Request request = new Request.Builder()
+                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                 .url(fullUrl)
                 .post(req)
                 .build();

@@ -3,7 +3,7 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * TODO: Describe file here.
  */
-interface BVCallback<T> {
-    void onSuccess(T response);
+interface BVCallback<ResponseType> {
+    void onSuccess(ResponseType response);
     void onFailure(BazaarException exception);
 }

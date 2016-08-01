@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.Question;
+import com.bazaarvoice.bvandroidsdk.QuestionsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -29,6 +30,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DemoQuestionsActivity extends AppCompatActivity implements DemoQuestionsContract.View {
 
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
@@ -37,13 +41,13 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     private BVProduct bvProduct;
     private DemoQuestionsContract.UserActionsListener questionsActionsListener;
 
-    private ImageView productImageView;
-    private TextView productName;
-    private RatingBar productRating;
+    @BindView(R.id.product_image) ImageView productImageView;
+    @BindView(R.id.product_name) TextView productName;
+    @BindView(R.id.product_rating) RatingBar productRating;
 
-    private RecyclerView questionsRecyclerView;
+    @BindView(R.id.questions_recycler_view) QuestionsRecyclerView questionsRecyclerView;
     private DemoQuestionsAdapter questionsAdapter;
-    private ProgressBar questionLoading;
+    @BindView(R.id.questions_loading) ProgressBar questionLoading;
 
     private boolean forceLoadFromProductId; // Meaning, a BVProduct is explicitly not provided
     private String productId;
@@ -52,6 +56,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_qanda);
+        ButterKnife.bind(this);
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
 
@@ -71,10 +76,9 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         }
 
         setupToolbarViews();
-        setupHeaderViews();
         setupRecyclerView();
 
-        questionsActionsListener = new DemoQuestionsPresenter(this, demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId);
+        questionsActionsListener = new DemoQuestionsPresenter(this, demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId, questionsRecyclerView);
     }
 
     @Override
@@ -98,34 +102,29 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void setupHeaderViews() {
-        productImageView = (ImageView) findViewById(R.id.product_image);
-        productName = (TextView) findViewById(R.id.product_name);
-        productRating = (RatingBar) findViewById(R.id.product_rating);
-
-        if (bvProduct != null){
-            Picasso.with(productImageView.getContext()).load(bvProduct.getImageUrl()).into(productImageView);
-            productName.setText(bvProduct.getProductName());
-            productRating.setRating(bvProduct.getAverageRating());
-        } else {
-            productName.setText("API Test Questions for Product: " + productId);
-            productRating.setVisibility(View.INVISIBLE);
-        }
-
-    }
-
     private void setupRecyclerView() {
-
         String productId = bvProduct == null ? this.productId : bvProduct.getProductId();
 
-        questionsRecyclerView = (RecyclerView) findViewById(R.id.questions_recycler_view);
         questionsAdapter = new DemoQuestionsAdapter(productId);
         questionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);
         questionsRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(spacing));
         questionsRecyclerView.setAdapter(questionsAdapter);
         questionsRecyclerView.setNestedScrollingEnabled(false);
-        questionLoading = (ProgressBar) findViewById(R.id.questions_loading);
+    }
+
+    @Override
+    public void showHeaderView(String imageUrl, String productNameStr, float averageRating) {
+        if (!TextUtils.isEmpty(imageUrl)) {
+            Picasso.with(productImageView.getContext()).load(imageUrl).into(productImageView);
+        }
+        productName.setText(productNameStr);
+        if (averageRating >= 0) {
+            productRating.setRating(averageRating);
+            productRating.setVisibility(View.VISIBLE);
+        } else {
+            productRating.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * TODO: Describe file here.
  */
-public class QuestionSubmission extends ConversationsSubmission {
+public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
 
     private static final String kPRODUCT_ID = "ProductId";
     private static final String kQUESTION_SUMMARY = "QuestionSummary";
@@ -16,8 +16,13 @@ public class QuestionSubmission extends ConversationsSubmission {
     private static final String kIS_ANONUSER = "IsUserAnonymous";
     private static final String kSEND_EMAIL_ANSWERED = "SendEmailAlertWhenAnswered";
 
-    public QuestionSubmission(ConversationsSubmission.Builder builder) {
+    public QuestionSubmissionRequest(ConversationsSubmissionRequest.Builder builder) {
         super(builder);
+    }
+
+    String getProductId() {
+        Map<String, Object> queryParams = makeQueryParams();
+        return queryParams.containsKey(kPRODUCT_ID) ? (String) queryParams.get(kPRODUCT_ID) : "";
     }
 
     @Override
@@ -41,7 +46,7 @@ public class QuestionSubmission extends ConversationsSubmission {
         return null;
     }
 
-    public static final class Builder extends ConversationsSubmission.Builder<Builder> {
+    public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder> {
 
         private final String productId;
         private String questionSummary;
@@ -74,8 +79,8 @@ public class QuestionSubmission extends ConversationsSubmission {
             return this;
         }
 
-        public QuestionSubmission build() {
-            return new QuestionSubmission(this);
+        public QuestionSubmissionRequest build() {
+            return new QuestionSubmissionRequest(this);
         }
 
         @Override

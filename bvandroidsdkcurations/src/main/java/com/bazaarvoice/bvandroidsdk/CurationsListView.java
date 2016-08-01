@@ -11,7 +11,7 @@ import java.util.List;
 /**
         * Bazaarvoice Provided {@link android.widget.ListView} to display {CurationsView} objects
         */
-public final class CurationsListView extends BVListView implements BVViewGroupEventListener, CurationsFeedCallback{
+public final class CurationsListView extends BVListView implements CurationsFeedCallback {
 
     public CurationsListView(Context context) {
         super(context);
@@ -54,17 +54,12 @@ public final class CurationsListView extends BVListView implements BVViewGroupEv
     }
 
     @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
-    }
-
-    @Override
     public void onViewGroupInteractedWith() {
         CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.LISTVIEW);
     }
 
     @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.LISTVIEW);
     }
 
@@ -79,10 +74,14 @@ public final class CurationsListView extends BVListView implements BVViewGroupEv
 
     @Override
     public void onFailure(Throwable throwable) {
-
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onFailure(throwable);
         }
+    }
+
+    @Override
+    public String getProductId() {
+        return requestExternalId;
     }
 }
