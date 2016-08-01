@@ -18,7 +18,7 @@ import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
 /**
  * Bazaarvoice Provided {@link GridView} to display {@link RecommendationView} objects
  */
-public final class RecommendationsGridView extends BVGridView implements AbsListView.OnScrollListener, BVViewGroupEventListener, BVRecommendations.BVRecommendationsLoader {
+public final class RecommendationsGridView extends BVGridView implements AbsListView.OnScrollListener, BVRecommendations.BVRecommendationsLoader {
 
     private String productId, categoryId;
     private WeakReference<BVRecommendations.BVRecommendationsCallback> delegateCbRef;
@@ -38,11 +38,6 @@ public final class RecommendationsGridView extends BVGridView implements AbsList
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RecommendationsGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
     }
 
     @Override
@@ -90,7 +85,12 @@ public final class RecommendationsGridView extends BVGridView implements AbsList
     }
 
     @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         RecommendationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(ReportingGroup.GRIDVIEW);
+    }
+
+    @Override
+    public String getProductId() {
+        return productId;
     }
 }

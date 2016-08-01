@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Bazaarvoice Provided {@link android.support.v7.widget.RecyclerView} to display {@link CurationsView} objects
  */
-public final class CurationsRecyclerView extends BVRecyclerView implements BVViewGroupEventListener, CurationsFeedCallback {
+public final class CurationsRecyclerView extends BVRecyclerView implements CurationsFeedCallback {
 
     private String widgetId = "MainGrid";
     private String requestExternalId;
@@ -50,8 +50,8 @@ public final class CurationsRecyclerView extends BVRecyclerView implements BVVie
     }
 
     @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
+    public String getProductId() {
+        return requestExternalId;
     }
 
     @Override
@@ -60,8 +60,10 @@ public final class CurationsRecyclerView extends BVRecyclerView implements BVVie
     }
 
     @Override
-    public void onViewGroupAddedToHierarchy() {
-        CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.RECYCLERVIEW);
+    public void onVisibleOnScreenStateChanged(boolean onScreen) {
+        if (onScreen) {
+            CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.RECYCLERVIEW);
+        }
     }
 
     @Override
@@ -75,7 +77,6 @@ public final class CurationsRecyclerView extends BVRecyclerView implements BVVie
 
     @Override
     public void onFailure(Throwable throwable) {
-
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onFailure(throwable);

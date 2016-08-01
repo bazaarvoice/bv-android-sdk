@@ -4,7 +4,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
- * Internal API: Wrapper around AnalyticsManger to form/send analytics
+ * Wrapper around AnalyticsManger to form/send analytics
  * events for recommendations events
  */
 public class RecommendationsAnalyticsManager {
@@ -30,6 +30,7 @@ public class RecommendationsAnalyticsManager {
      * @param bvProduct
      */
     public static void sendProductImpressionEvent(BVProduct bvProduct) {
+        Logger.d("RecAnalytics", "bvProduct " + bvProduct.getProductId() + " is impressed?" + bvProduct.impressed);
         if (!shouldSendProductEvent(bvProduct) || bvProduct.impressed) {
             return;
         }

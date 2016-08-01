@@ -159,7 +159,7 @@ class AnalyticsManager {
                     }
                     Logger.d(tag, "}");
                 } else {
-                    Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source"));
+                    Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source") + (event.containsKey("name") ? (" - name:" + event.get("name")) : ""));
                 }
             }
         }
@@ -304,6 +304,7 @@ class AnalyticsManager {
                     .url(url)
                     .header("Content-Type", "application/json")
                     .header("X-Requested-With", "XMLHttpRequest")
+                    .header("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                     .post(body)
                     .build();
 

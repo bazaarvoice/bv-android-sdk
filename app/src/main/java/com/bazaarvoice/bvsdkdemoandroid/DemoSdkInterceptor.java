@@ -18,7 +18,7 @@ class DemoSdkInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         boolean isProdHost = originalRequest.url().host().equals("network.bazaarvoice.com");
         boolean isAnalyticsEvent = originalRequest.url().encodedPath().contains("event");
-        if (isProdHost && isAnalyticsEvent) {
+        if (DemoConstants.PREVENT_ANALYTICS_IN_PROD && isProdHost && isAnalyticsEvent) {
             Response noResponse = new Response.Builder()
                     .code(999)
                     .message("Not sending analytics to production while testing")

@@ -64,6 +64,7 @@ public class BVCurations {
             Request httpRequest = new Request.Builder()
                     .url(request.toUrlQueryString())
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                     .build();
             Logger.v(getClass().getSimpleName(), httpRequest.url().toString());
 
@@ -148,6 +149,7 @@ public class BVCurations {
             }
 
             Request httpRequest = new Request.Builder()
+                    .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                     .url(request.toUrlQueryString())
                     .post(bodyBuilder.build())
                     .build();

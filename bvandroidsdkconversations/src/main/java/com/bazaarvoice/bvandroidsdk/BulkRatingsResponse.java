@@ -6,6 +6,6 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response class for BulkRatingRequest to obtain statistics such as Ratings on multiple productIds
  */
-public class BulkRatingsResponse extends ConversationsRequestResponseBase<Statistics> {
+public class BulkRatingsResponse extends ConversationsDisplayResponse<Statistics> {
 
 }

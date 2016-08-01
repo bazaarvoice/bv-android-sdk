@@ -4,8 +4,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
- * Callback for whenever a ConversationsRequest finishes loading
+ * Callback for whenever a ConversationsDisplayRequest finishes loading
  */
-public interface ConversationsCallback<T> extends BVCallback<T>{
+public interface ConversationsCallback<ResponseType> extends BVCallback<ResponseType>{
 
 }

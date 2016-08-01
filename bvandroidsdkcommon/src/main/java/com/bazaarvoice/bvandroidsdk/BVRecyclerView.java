@@ -11,9 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 /**
- * Bazaarvoice Provided {@link RecyclerView} to display {@link BVView} objects
+ * Bazaarvoice Provided {@link android.support.v7.widget.RecyclerView} to display {@link BVView} objects
  */
-abstract class BVRecyclerView extends RecyclerView {
+abstract class BVRecyclerView extends RecyclerView implements BVViewGroupEventListener, EventView.EventViewListener<BVRecyclerView>, EventView.ProductView {
 
     private static final String TAG = BVRecyclerView.class.getSimpleName();
 
@@ -37,23 +37,23 @@ abstract class BVRecyclerView extends RecyclerView {
 
     void init() {
         super.addOnScrollListener(onScrollListener);
+        setWillNotDraw(false);
+        EventView.bind(this, this, this);
     }
 
     private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             if (hasInteracted && newState == SCROLL_STATE_IDLE) {
-                getEventListener().onViewGroupInteractedWith();
+                onViewGroupInteractedWith();
             }
 
             if (!hasInteracted && newState == SCROLL_STATE_DRAGGING) {
-                getEventListener().onViewGroupInteractedWith();
+                onViewGroupInteractedWith();
                 hasInteracted = true;
             }
         }
     };
-
-    abstract BVViewGroupEventListener getEventListener();
 
     /**
      * {@inheritDoc}
@@ -63,8 +63,46 @@ abstract class BVRecyclerView extends RecyclerView {
         super.onDraw(c);
         if (!seen) {
             seen = true;
-            getEventListener().onViewGroupAddedToHierarchy();
+            onAddedToViewHierarchy();
         }
     }
 
+    // TODO handle recyclerview nested scroll
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onVisibleOnScreenStateChanged(boolean onScreen) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onTap() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAddedToViewHierarchy() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onViewGroupInteractedWith() {
+
+    }
+
+    @Override
+    public void onFirstTimeOnScreen() {
+
+    }
 }

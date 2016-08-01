@@ -5,10 +5,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * TODO: Describe file here.
- */
-public class AnswerSubmissionResponse extends ConversationsResponseBase {
+public class AnswerSubmissionResponse extends ConversationsResponse {
 
     @SerializedName("Locale")
     private String locale;

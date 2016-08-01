@@ -166,5 +166,9 @@ class IncludedContentBase extends IncludeableContent {
 
             return this.product;
         }
+
+        public String getProductId() {
+            return productId;
+        }
     }
 }

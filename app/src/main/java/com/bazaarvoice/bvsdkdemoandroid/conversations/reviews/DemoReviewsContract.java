@@ -10,6 +10,7 @@ import java.util.List;
 public interface DemoReviewsContract {
 
     interface View {
+        void showHeaderView(String imageUrl, String productName, float averageRating);
         void showReviews(List<Review> bazaarReviews);
         void showLoadingReviews(boolean show);
         void showNoReviews();

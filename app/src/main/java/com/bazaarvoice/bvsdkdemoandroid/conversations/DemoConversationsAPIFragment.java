@@ -10,21 +10,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bazaarvoice.bvandroidsdk.Action;
-import com.bazaarvoice.bvandroidsdk.AnswerSubmission;
+import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
-import com.bazaarvoice.bvandroidsdk.QuestionSubmission;
+import com.bazaarvoice.bvandroidsdk.QuestionSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.QuestionSubmissionResponse;
-import com.bazaarvoice.bvandroidsdk.ReviewSubmission;
+import com.bazaarvoice.bvandroidsdk.ReviewSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.ReviewSubmissionResponse;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-///import static com.iovation.mobile.android.DevicePrint.getBlackbox;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +33,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+///import static com.iovation.mobile.android.DevicePrint.getBlackbox;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass.
@@ -45,7 +46,9 @@ public class DemoConversationsAPIFragment extends Fragment {
     private ProgressDialog progress;
     private static final String TEST_PRODUCT_ID = "test1"; // This product ID must be in the catalog for the provided Conversations API key.
 
-    List<String> TEST_BULK_PRODUCT_IDS = Arrays.asList("test1", "test2", "test3", "test4", "test5", "test6");
+    private List<String> TEST_BULK_PRODUCT_IDS = Arrays.asList("test1", "test2", "test3", "test4", "test5", "test6");
+
+    private BVConversationsClient client = new BVConversationsClient();
 
     public DemoConversationsAPIFragment() {
         // Required empty public constructor
@@ -138,7 +141,6 @@ public class DemoConversationsAPIFragment extends Fragment {
                     progress.setTitle("Submitting Review...");
                     progress.show();
 
-                    BVConversationsClient client = new BVConversationsClient();
                     File localImageFile = null;
 
                     try {
@@ -149,7 +151,7 @@ public class DemoConversationsAPIFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                    ReviewSubmission submission = new ReviewSubmission.Builder(Action.Preview, TEST_PRODUCT_ID)
+                    ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
 //                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
@@ -193,8 +195,8 @@ public class DemoConversationsAPIFragment extends Fragment {
 
                     progress.setTitle("Submitting Question...");
                     progress.show();
-                    BVConversationsClient client = new BVConversationsClient();
-                    QuestionSubmission submission = new QuestionSubmission.Builder(Action.Preview, TEST_PRODUCT_ID)
+
+                    QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
                             //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
@@ -236,8 +238,8 @@ public class DemoConversationsAPIFragment extends Fragment {
 
                     progress.setTitle("Submitting Answer...");
                     progress.show();
-                    BVConversationsClient client = new BVConversationsClient();
-                    AnswerSubmission submission = new AnswerSubmission.Builder(Action.Preview, "14679", "User answer text goes here....")
+
+                    AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Action.Preview, "14679", "User answer text goes here....")
                             //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")

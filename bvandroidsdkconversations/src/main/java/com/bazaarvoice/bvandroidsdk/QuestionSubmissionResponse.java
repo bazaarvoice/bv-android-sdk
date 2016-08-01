@@ -3,8 +3,5 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-/**
- * TODO: Describe file here.
- */
-public class QuestionSubmissionResponse extends ConversationsResponseBase{
+public class QuestionSubmissionResponse extends ConversationsResponse {
 }

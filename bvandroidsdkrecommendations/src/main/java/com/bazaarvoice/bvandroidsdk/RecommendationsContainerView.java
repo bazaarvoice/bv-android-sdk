@@ -17,7 +17,7 @@ import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
 /**
  * Bazaarvoice Provided {@link FrameLayout} to display {@link RecommendationView} objects
  */
-public class RecommendationsContainerView extends BVContainerView implements BVViewGroupEventListener, BVRecommendations.BVRecommendationsLoader {
+public class RecommendationsContainerView extends BVContainerView implements BVRecommendations.BVRecommendationsLoader {
     private static final String TAG = RecommendationsContainerView.class.getSimpleName();
 
     private String productId, categoryId;
@@ -38,11 +38,6 @@ public class RecommendationsContainerView extends BVContainerView implements BVV
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RecommendationsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
     }
 
     @Override
@@ -85,12 +80,7 @@ public class RecommendationsContainerView extends BVContainerView implements BVV
     };
 
     @Override
-    public void onViewGroupInteractedWith() {
-
-    }
-
-    @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         RecommendationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(ReportingGroup.CUSTOM);
     }
 }

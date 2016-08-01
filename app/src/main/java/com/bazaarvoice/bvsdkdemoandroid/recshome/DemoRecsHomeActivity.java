@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,7 +49,6 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.nested_scroll_view) NestedScrollView nestedScrollView;
     @BindView(R.id.rec_recycler_view) RecommendationsRecyclerView recyclerView;
     private DemoRecsAdapter adapter;
     private DemoProductRecContract.UserActionsListener recsUserActionListener;

@@ -8,12 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -27,19 +27,21 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DemoProductStatsActivity extends AppCompatActivity implements DemoProductStatsContract.View {
 
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
 
     private DemoProductStatsContract.UserActionsListener bulkRatingsUserActionListener;
 
-    private CardView productRowHeader;
-    private TextView productName;
-    private RatingBar productRating;
-
-    private RecyclerView productStatsRecyclerView;
+    @BindView(R.id.product_image) ImageView productImage;
+    @BindView(R.id.product_name) TextView productName;
+    @BindView(R.id.product_rating) RatingBar productRating;
+    @BindView(R.id.reviews_recycler_view) RecyclerView productStatsRecyclerView;
     private DemoProductStatsAdapter productStatsAdapter;
-    private ProgressBar reviewsLoading;
+    @BindView(R.id.reviews_loading) ProgressBar reviewsLoading;
 
     private String productId;
 
@@ -47,6 +49,7 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_reviews);
+        ButterKnife.bind(this);
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
 
         setupToolbarViews();
@@ -65,26 +68,18 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
     }
 
     private void setupHeaderViews() {
-        productRowHeader = (CardView) findViewById(R.id.product_row_header);
-        (productRowHeader.findViewById(R.id.product_image)).setVisibility(View.INVISIBLE);
-
-        productName = (TextView) productRowHeader.findViewById(R.id.product_name);
-        productRating = (RatingBar) productRowHeader.findViewById(R.id.product_rating);
-
+        productImage.setVisibility(View.INVISIBLE);
         productName.setText("Testing product id: " + productId);
         productRating.setVisibility(View.INVISIBLE);
-
     }
 
     private void setupRecyclerView() {
-        productStatsRecyclerView = (RecyclerView) findViewById(R.id.reviews_recycler_view);
         productStatsAdapter = new DemoProductStatsAdapter();
         productStatsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);
         productStatsRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(spacing));
         productStatsRecyclerView.setAdapter(productStatsAdapter);
         productStatsRecyclerView.setNestedScrollingEnabled(false);
-        reviewsLoading = (ProgressBar) findViewById(R.id.reviews_loading);
     }
 
     @Override

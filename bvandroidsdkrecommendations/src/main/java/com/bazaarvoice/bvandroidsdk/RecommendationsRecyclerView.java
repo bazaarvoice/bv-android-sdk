@@ -6,18 +6,17 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.*;
+import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
 
 /**
- * Bazaarvoice Provided {@link RecyclerView} to display {@link RecommendationView} objects
+ * Bazaarvoice Provided {@link android.support.v7.widget.RecyclerView} to display {@link RecommendationView} objects
  */
-public final class RecommendationsRecyclerView extends BVRecyclerView implements BVViewGroupEventListener, BVRecommendations.BVRecommendationsLoader {
+public final class RecommendationsRecyclerView extends BVRecyclerView implements BVRecommendations.BVRecommendationsLoader {
 
     private static final String TAG = RecommendationsRecyclerView.class.getSimpleName();
 
@@ -34,11 +33,6 @@ public final class RecommendationsRecyclerView extends BVRecyclerView implements
 
     public RecommendationsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-    }
-
-    @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
     }
 
     @Override
@@ -82,11 +76,26 @@ public final class RecommendationsRecyclerView extends BVRecyclerView implements
 
     @Override
     public void onViewGroupInteractedWith() {
-        RecommendationsAnalyticsManager.sendBvViewGroupInteractedWithEvent(ReportingGroup.RECYCLERVIEW);
+        if (isNestedScrollingEnabled()) {
+            RecommendationsAnalyticsManager.sendBvViewGroupInteractedWithEvent(ReportingGroup.RECYCLERVIEW);
+        }
     }
 
     @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         RecommendationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(ReportingGroup.RECYCLERVIEW);
+    }
+
+    @Override
+    public boolean startNestedScroll(int axes) {
+        if (!isNestedScrollingEnabled()) {
+            RecommendationsAnalyticsManager.sendBvViewGroupInteractedWithEvent(ReportingGroup.RECYCLERVIEW);
+        }
+        return super.startNestedScroll(axes);
+    }
+
+    @Override
+    public String getProductId() {
+        return productId;
     }
 }

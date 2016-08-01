@@ -5,13 +5,11 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Bazaarvoice provided {@link FrameLayout} to contain a single Bazaarvoice
@@ -19,29 +17,29 @@ import java.util.Set;
  * about the users interaction with the Product in order to help influence
  * future recommendations.
  */
-abstract class BVView extends FrameLayout {
+abstract class BVView extends FrameLayout implements BVViewEventListener, EventView.EventViewListener<BVView>, EventView.ProductView {
 
     private static final String TAG = BVView.class.getSimpleName();
 
-    private BvOnScreenListener onScreenListener;
+    private boolean seenInHierarchy = false;
 
-    public BVView(Context context) {
+    BVView(Context context) {
         super(context);
         init();
     }
 
-    public BVView(Context context, AttributeSet attrs) {
+    BVView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public BVView(Context context, AttributeSet attrs, int defStyleAttr) {
+    BVView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public BVView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    BVView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
@@ -49,40 +47,61 @@ abstract class BVView extends FrameLayout {
 
     void init() {
         setWillNotDraw(false);
-        this.onScreenListener = new BvOnScreenListener(getEventListener());
-        getViewTreeObserver().addOnGlobalLayoutListener(new EventView.GlobalLayoutListener<BVView>(this, onScreenListener));
-        getViewTreeObserver().addOnScrollChangedListener(new EventView.ScrollChangeListener<BVView>(this, onScreenListener));
+        EventView.bind(this, this, this);
     }
 
-    private static class BvOnScreenListener implements EventView.OnScreenListener<BVView> {
-        private final Set<String> seenIds = new HashSet<>();
-        private final BVViewEventListener eventListener;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onVisibleOnScreenStateChanged(boolean onScreen) {
 
-        BvOnScreenListener(BVViewEventListener eventListener) {
-            this.eventListener = eventListener;
-        }
-
-        @Override
-        public void onScreen(BVView bvView) {
-            if (!seenIds.contains(bvView.getProductId())) {
-                eventListener.onImpression();
-                seenIds.add(bvView.getProductId());
-            }
-        }
     }
 
-    abstract BVViewEventListener getEventListener();
-
-    abstract String getProductId();
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_UP:
-                getEventListener().onConversion();
+                onTap();
                 break;
         }
 
         return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onDraw(Canvas c) {
+        super.onDraw(c);
+        if (!seenInHierarchy) {
+            seenInHierarchy = true;
+            onAddedToViewHierarchy();
+        }
+    }
+
+    @Override
+    public void onFirstTimeOnScreen() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onTap() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onAddedToViewHierarchy() {
+
     }
 }

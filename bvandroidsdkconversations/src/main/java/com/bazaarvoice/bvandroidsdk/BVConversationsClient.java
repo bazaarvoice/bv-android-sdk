@@ -13,11 +13,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * Class used to perform Conversations requests. It is recommended to BVConversationsClient as a singleton.
+ * Class used to perform Conversations requests. It is recommended to useBVConversationsClient as a single instance in your app.
  */
 public final class BVConversationsClient {
-//    private final static String REQUEST
-
     private static final OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
     static final String conversationsBaseUrl = BVSDK.getInstance().getConversationsApiRootUrl();
     private static final MediaType URL_ENCODED = MediaType.parse("application/x-www-form-urlencoded");
@@ -26,7 +24,7 @@ public final class BVConversationsClient {
      * @param request QuestionAndAnswerRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
-    public LoadCallDisplay<QuestionAndAnswerResponse> prepareCall(QuestionAndAnswerRequest request) {
+    public LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> prepareCall(QuestionAndAnswerRequest request) {
         return createCall(QuestionAndAnswerResponse.class, request);
     }
 
@@ -34,7 +32,7 @@ public final class BVConversationsClient {
      * @param request ProductDisplayPageRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
-    public LoadCallDisplay<ProductDisplayPageResponse> prepareCall(ProductDisplayPageRequest request) {
+    public LoadCallDisplay<ProductDisplayPageRequest, ProductDisplayPageResponse> prepareCall(ProductDisplayPageRequest request) {
         return createCall(ProductDisplayPageResponse.class, request);
     }
 
@@ -42,7 +40,7 @@ public final class BVConversationsClient {
      * @param request BulkRatingsRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
-    public LoadCallDisplay<BulkRatingsResponse> prepareCall(BulkRatingsRequest request) {
+    public LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse> prepareCall(BulkRatingsRequest request) {
         return createCall(BulkRatingsResponse.class, request);
     }
 
@@ -50,39 +48,45 @@ public final class BVConversationsClient {
      * @param request ReviewsRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
-    public LoadCallDisplay<ReviewResponse> prepareCall(ReviewsRequest request) {
+    public LoadCallDisplay<ReviewsRequest, ReviewResponse> prepareCall(ReviewsRequest request) {
         return createCall(ReviewResponse.class, request);
     }
 
-    public LoadCallSubmission<AnswerSubmissionResponse> prepareCall(AnswerSubmission submission) {
+    public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
+        ResponseType loadSync(LoadCallDisplay<RequestType, ResponseType> call) throws BazaarException;
+        void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
+    }
+
+    public LoadCallSubmission<AnswerSubmissionRequest, AnswerSubmissionResponse> prepareCall(AnswerSubmissionRequest submission) {
         return createCall(AnswerSubmissionResponse.class, submission);
     }
 
-    public LoadCallSubmission<ReviewSubmissionResponse> prepareCall(ReviewSubmission submission) {
+    public LoadCallSubmission<ReviewSubmissionRequest, ReviewSubmissionResponse> prepareCall(ReviewSubmissionRequest submission) {
         return createCall(ReviewSubmissionResponse.class, submission);
     }
 
-    public LoadCallSubmission<QuestionSubmissionResponse> prepareCall(QuestionSubmission submission) {
+    public LoadCallSubmission<QuestionSubmissionRequest, QuestionSubmissionResponse> prepareCall(QuestionSubmissionRequest submission) {
         return createCall(QuestionSubmissionResponse.class, submission);
     }
 
-    private <T> LoadCallDisplay<T> createCall(Class<T> c, ConversationsRequest request) {
+    private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType request) {
         String fullUrl = String.format("%s%s?%s", conversationsBaseUrl, request.getEndPoint(), request.getUrlQueryString());
         Logger.d("url", fullUrl);
         Request okRequest = new Request.Builder()
+                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                 .url(fullUrl)
                 .build();
-        return new LoadCallDisplay<T>(request, c, okHttpClient.newCall(okRequest));
+        return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest));
     }
 
-    private static <T> LoadCallSubmission<T> createCall(Class<T> c, ConversationsSubmission submission) {
+    private static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType submission) {
         if (submission.getBuilder().getAction() == Action.Submit) {
             submission.setForcePreview(true);
         }
-        return loadCallFromSubmission(c, submission);
+        return loadCallFromSubmission(responseTypeClass, submission);
     }
 
-    static <T> LoadCallSubmission<T> loadCallFromSubmission(Class<T> c, ConversationsSubmission submission) {
+    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> loadCallFromSubmission(Class<ResponseType> responseTypeClass, RequestType submission) {
         String fullUrl = String.format("%s%s", conversationsBaseUrl, submission.getEndPoint());
         Log.d("url", fullUrl);
 
@@ -91,28 +95,23 @@ public final class BVConversationsClient {
         Request okRequest = new Request.Builder()
                 .post(body)
                 .addHeader("Content-type", "application/x-www-form-urlencoded")
+                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                 .url(fullUrl)
                 .build();
-        return new LoadCallSubmission<T>(submission, c, okHttpClient.newCall(okRequest));
+        return new LoadCallSubmission<RequestType, ResponseType>(submission, responseTypeClass, okHttpClient.newCall(okRequest));
     }
 
-    static <T> LoadCall<T> reCreateCallWithPhotos(Class<T> c, ConversationsSubmission submission, List<Photo> photos) {
+    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallWithPhotos(Class<ResponseType> responseTypeClass, RequestType submission, List<Photo> photos) {
         submission.setPhotos(photos);
         submission.getBuilder().photoUploads.clear();
         submission.setForcePreview(false);
 
-        LoadCall loadCall = loadCallFromSubmission(c, submission);
+        LoadCall loadCall = loadCallFromSubmission(responseTypeClass, submission);
         return loadCall;
     }
 
-    static <T> LoadCall<T> reCreateCallNoPreview(Class<T> c, ConversationsSubmission submission) {
+    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallNoPreview(Class<ResponseType> responseTypeClass, RequestType submission) {
         submission.setForcePreview(false);
-        return loadCallFromSubmission(c, submission);
+        return loadCallFromSubmission(responseTypeClass, submission);
     }
-
-
-
-
-
-
 }

@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 /**
  * Bazaarvoice Provided {@link FrameLayout} to display {@link BVView} objects
  */
-abstract class BVContainerView extends FrameLayout {
+abstract class BVContainerView extends FrameLayout implements BVViewEventListener {
     private static final String TAG = BVContainerView.class.getSimpleName();
 
     private boolean seen = false;
@@ -42,8 +42,6 @@ abstract class BVContainerView extends FrameLayout {
     void init() {
     }
 
-    abstract BVViewGroupEventListener getEventListener();
-
     /**
      * {@inheritDoc}
      */
@@ -52,8 +50,18 @@ abstract class BVContainerView extends FrameLayout {
         super.onDraw(c);
         if (!seen) {
             seen = true;
-            getEventListener().onViewGroupAddedToHierarchy();
+            onAddedToViewHierarchy();
         }
+    }
+
+    @Override
+    public void onTap() {
+
+    }
+
+    @Override
+    public void onAddedToViewHierarchy() {
+
     }
 
 }

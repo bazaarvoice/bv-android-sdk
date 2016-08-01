@@ -48,7 +48,7 @@ class Utils {
 
     }
 
-    static <Key, Value> void mapPutSafe(Map<Key, Object> map, Key key, Value value) {
+    static <Key, Value> void mapPutSafe(Map<Key, Value> map, Key key, Value value) {
         if (map != null && key != null && value != null) {
             map.put(key, value);
         }
@@ -85,13 +85,13 @@ class Utils {
 
     static void checkNotMain() {
         if (isMain()) {
-            throw new IllegalStateException("Method call should not happen from the main thread.");
+            throw new BazaarRuntimeException("Method call should not happen from the main thread.");
         }
     }
 
     static void checkMain() {
         if (!isMain()) {
-            throw new IllegalStateException("Method call should happen from the main thread.");
+            throw new BazaarRuntimeException("Method call should happen from the main thread.");
         }
     }
 

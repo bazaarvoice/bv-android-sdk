@@ -5,21 +5,19 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.Map;
 
-/**
- * TODO: Describe file here.
- */
-public class AnswerSubmission extends ConversationsSubmission{
+public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
 
     private static final String kQUESTIONID = "QuestionId";
     private static final String kANSWERTEXT = "AnswerText";
+    public static final String ANSWER_ENDPOINT = "submitanswer.json";
 
-    private AnswerSubmission(Builder builder) {
+    private AnswerSubmissionRequest(Builder builder) {
         super(builder);
     }
 
     @Override
     String getEndPoint() {
-        return "submitanswer.json";
+        return ANSWER_ENDPOINT;
     }
 
     @Override
@@ -27,14 +25,19 @@ public class AnswerSubmission extends ConversationsSubmission{
         return null;
     }
 
+    String getProductId() {
+        Map<String, Object> queryParams = makeQueryParams();
+        return queryParams.containsKey(kQUESTIONID) ? (String) queryParams.get(kQUESTIONID) : "";
+    }
+
     @Override
     void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (AnswerSubmission.Builder) getBuilder();
+        Builder builder = (AnswerSubmissionRequest.Builder) getBuilder();
         queryParams.put(kQUESTIONID, builder.questionId);
         queryParams.put(kANSWERTEXT, builder.answerText);
     }
 
-    public static final class Builder extends ConversationsSubmission.Builder<Builder>{
+    public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder>{
         private final String questionId;
         private final String answerText;
 
@@ -44,12 +47,8 @@ public class AnswerSubmission extends ConversationsSubmission{
             this.answerText = answerText;
         }
 
-        public Builder test(){
-            return this;
-        }
-
-        public AnswerSubmission build() {
-            return new AnswerSubmission(this);
+        public AnswerSubmissionRequest build() {
+            return new AnswerSubmissionRequest(this);
         }
 
         @Override

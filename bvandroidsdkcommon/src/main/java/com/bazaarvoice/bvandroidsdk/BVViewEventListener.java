@@ -1,10 +1,23 @@
+/**
+ * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+ */
 package com.bazaarvoice.bvandroidsdk;
 
 /**
- * Created by Bazaarvoice on 4/11/16.
+ * Implemented by a Bazaarvoice View extending {@link android.widget.FrameLayout}
+ * that will contain some piece of UGC, Recommended Product,
+ * Curations Feed Item, etc. that can be tied to these specific
+ * actions.
  */
 interface BVViewEventListener {
-    void onImpression();
-    void onConversion();
-    void onAddedToViewHeirarchy();
+    /**
+     * When this View is tapped
+     */
+    void onTap();
+
+    /**
+     * When this View added to the current View Hierarchy, but
+     * may or may not be in the viewport
+     */
+    void onAddedToViewHierarchy();
 }

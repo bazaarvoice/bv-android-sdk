@@ -7,10 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * TODO: Describe file here.
- */
-class ConversationsResponseBase {
+class ConversationsResponse {
     @SerializedName("HasErrors")
     private Boolean hasErrors;
     @SerializedName("Errors")

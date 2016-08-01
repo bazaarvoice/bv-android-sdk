@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Bazaarvoice Provided {@link GridView} to display {@link CurationsView} objects
  */
-public final class CurationsGridView extends BVGridView implements AbsListView.OnScrollListener, BVViewGroupEventListener, CurationsFeedCallback {
+public final class CurationsGridView extends BVGridView implements AbsListView.OnScrollListener, CurationsFeedCallback {
 
     public CurationsGridView(Context context) {
         super(context);
@@ -59,17 +59,12 @@ public final class CurationsGridView extends BVGridView implements AbsListView.O
     }
 
     @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
-    }
-
-    @Override
     public void onViewGroupInteractedWith() {
         CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.GRIDVIEW);
     }
 
     @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.GRIDVIEW);
     }
 
@@ -84,10 +79,14 @@ public final class CurationsGridView extends BVGridView implements AbsListView.O
 
     @Override
     public void onFailure(Throwable throwable) {
-
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onFailure(throwable);
         }
+    }
+
+    @Override
+    public String getProductId() {
+        return requestExternalId;
     }
 }

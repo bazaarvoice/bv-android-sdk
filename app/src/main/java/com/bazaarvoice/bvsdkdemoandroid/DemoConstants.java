@@ -41,6 +41,9 @@ public class DemoConstants {
 
     // Curations Other Config Options
     public static final ArrayList<String> CURATIONS_GROUPS = new ArrayList<>(Arrays.asList("__all__"));
+
+    // Production Environment Other Config Options
+    public static final boolean PREVENT_ANALYTICS_IN_PROD = true;
     /**************************************************************/
 
     public static boolean isSet(String constant) {

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_3">
 
-            <android.support.v7.widget.RecyclerView
+            <com.bazaarvoice.bvandroidsdk.AnswersRecyclerView
                 android:id="@+id/answers_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

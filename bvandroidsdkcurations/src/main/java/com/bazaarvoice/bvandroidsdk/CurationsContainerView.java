@@ -1,3 +1,6 @@
+/**
+ * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+ */
 package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
@@ -16,7 +19,12 @@ import java.util.List;
 /**
  * Used to wrap around your custom views used to display Curations content to facilitate analytic events
  */
-public final class CurationsContainerView extends BVContainerView implements BVViewGroupEventListener, CurationsFeedCallback {
+public final class CurationsContainerView extends BVContainerView implements CurationsFeedCallback {
+
+    private String widgetId = "MainGrid";
+    private String requestExternalId;
+    private CurationsFeedRequest request;
+    private WeakReference<CurationsFeedCallback> cbWeakRef;
 
     public CurationsContainerView(Context context) {
         super(context);
@@ -25,10 +33,6 @@ public final class CurationsContainerView extends BVContainerView implements BVV
     public CurationsContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    private String widgetId = "MainGrid";
-    private String requestExternalId;
-    private CurationsFeedRequest request;
-    private WeakReference<CurationsFeedCallback> cbWeakRef;
 
     public CurationsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -37,7 +41,6 @@ public final class CurationsContainerView extends BVContainerView implements BVV
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CurationsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
     }
 
     /**
@@ -60,17 +63,7 @@ public final class CurationsContainerView extends BVContainerView implements BVV
     }
 
     @Override
-    BVViewGroupEventListener getEventListener() {
-        return this;
-    }
-
-    @Override
-    public void onViewGroupInteractedWith() {
-
-    }
-
-    @Override
-    public void onViewGroupAddedToHierarchy() {
+    public void onAddedToViewHierarchy() {
         CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.CUSTOM);
     }
 
@@ -85,7 +78,6 @@ public final class CurationsContainerView extends BVContainerView implements BVV
 
     @Override
     public void onFailure(Throwable throwable) {
-
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onFailure(throwable);

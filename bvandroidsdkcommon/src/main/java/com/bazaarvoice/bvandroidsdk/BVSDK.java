@@ -53,6 +53,7 @@ public class BVSDK{
     private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/event";
     private static final String CONVERSATIONS_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/data/";
     private static final String CONVERSATIONS_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/data/";
+    private static final String BVSDK_USER_AGENT = "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME;
     static final int BVHandlePayload = 123;
     static volatile BVSDK singleton;
 
@@ -422,6 +423,10 @@ public class BVSDK{
 
     String getApiKeyCurations() {
         return apiKeys.getApiKeyCurations();
+    }
+
+    String getBvsdkUserAgent() {
+        return BVSDK_USER_AGENT;
     }
 
 }

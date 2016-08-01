@@ -5,9 +5,6 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.io.File;
 
-/**
- * TODO: Describe file here.
- */
 class PhotoUpload {
     static final String kCONTENT_TYPE = "contenttype";
 
