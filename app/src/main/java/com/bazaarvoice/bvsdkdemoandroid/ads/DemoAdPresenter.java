@@ -41,6 +41,8 @@ public class DemoAdPresenter implements DemoAdContract.UserActionsListener, Nati
             publisherAdRequest.addCustomTargeting(entry.getKey(), entry.getValue());
         }
 
+        publisherAdRequest.addCustomTargeting("cities", "undefined");
+
         // Add deviceId for emulator
         // You can also add your own for a specific hardware device
 //        if (BuildConfig.DEBUG) {

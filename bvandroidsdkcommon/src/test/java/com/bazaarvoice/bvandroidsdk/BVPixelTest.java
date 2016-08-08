@@ -23,14 +23,18 @@ public class BVPixelTest {
     String clientId = "fooClient";
     BazaarEnvironment environment = BazaarEnvironment.STAGING;
     String apiKeyShopperAd = "fooBarApiKey";
+    private static boolean sdkInitialized = false;
 
     @Before
     public void setup() {
-        // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-                .bazaarEnvironment(environment)
-                .apiKeyShopperAdvertising(apiKeyShopperAd)
-                .build();
+        if (!sdkInitialized) {
+            // Builder used to initialize the Bazaarvoice SDKs
+            BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                    .bazaarEnvironment(environment)
+                    .apiKeyShopperAdvertising(apiKeyShopperAd)
+                    .build();
+            sdkInitialized = true;
+        }
     }
 
     @Test

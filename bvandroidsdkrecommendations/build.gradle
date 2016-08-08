@@ -41,7 +41,6 @@ dependencies {
     compile project(':bvandroidsdkcommon')
     provided dep.recyclerview
     provided dep.gson
-    provided dep.playServiceAds
 
     testCompile dep.junit
     testCompile dep.mockito

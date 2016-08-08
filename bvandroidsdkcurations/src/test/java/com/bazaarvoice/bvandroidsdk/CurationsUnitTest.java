@@ -95,7 +95,7 @@ public class CurationsUnitTest {
 
         curationsPostApiBaseUrl = server.url("/curationspost/").toString();
         curationsPostFullUrl  = curationsPostApiBaseUrl + "?client=" + clientId + "&passkey=" + curationsApiKey;
-        BVSDK.instance = new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, curationsApiKey, bvLogLevel, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl);
+        BVSDK.singleton = new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, curationsApiKey, bvLogLevel, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl);
     }
 
     @Test

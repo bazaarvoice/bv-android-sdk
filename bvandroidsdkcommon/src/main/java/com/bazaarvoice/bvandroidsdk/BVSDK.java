@@ -6,13 +6,14 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
+import android.support.annotation.MainThread;
+import android.support.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,7 +38,6 @@ public class BVSDK {
 
     private static final String TAG = BVSDK.class.getSimpleName();
     private static final String SCHEDULED_BV_THREAD_NAME = "BV-ScheduledThread";
-    private static final String SCHEDULED_BV_PROFILE_THREAD_NAME = "BV-Profile-ScheduledThread";
     private static final String IMMEDIATE_BV_THREAD_NAME = "BV-ImmediateThread";
     private static final String SHOPPER_MARKETING_API_ROOT_URL_STAGING = "https://my.network-stg.bazaarvoice.com";
     private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com";
@@ -47,7 +47,7 @@ public class BVSDK {
     private static final String CURATIONS_POST_API_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/curations/content/add/";
     private static final String ANALYTICS_ROOT_URL_PRODUCTION = "https://network.bazaarvoice.com/event";
     private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/event";
-    static BVSDK instance;
+    static volatile BVSDK singleton;
 
     static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
 
@@ -85,9 +85,6 @@ public class BVSDK {
         // Also set here for when the constructor is used during tests
         Logger.setLogLevel(logLevel);
 
-        Logger.d(TAG, "Updating user upon BVSDK initialization");
-        updateUser();
-
         /**
          * Register with ActivityLifeCycleCallbacks for App lifecycle analaytics, and
          * for triggering user profile updates
@@ -101,18 +98,37 @@ public class BVSDK {
     }
 
     public static BVSDK getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException("Must initialize BVSDK first.");
-        }
+        confirmBVSDKCreated();
+        return singleton;
+    }
 
-        return instance;
+    private static void confirmBVSDKCreated() {
+        if (singleton == null) {
+            synchronized (BVSDK.class) {
+                if (singleton == null) {
+                    throw new IllegalStateException("Must initialize BVSDK first.");
+                }
+            }
+        }
+    }
+
+    private static void confirmBVSDKNotCreated() {
+        if (singleton != null) {
+            synchronized (BVSDK.class) {
+                if (singleton != null) {
+                    throw new IllegalStateException("BVSDK singleton already exists");
+                }
+            }
+        }
     }
 
     /**
      * Used for testing to emulate app restart when this singleton would be destroyed
      */
     static void destroy() {
-        instance = null;
+        synchronized (BVSDK.class) {
+            singleton = null;
+        }
     }
 
     private static final class NamedThreadFactory implements ThreadFactory {
@@ -146,13 +162,17 @@ public class BVSDK {
         private BVLogLevel logLevel;
         private OkHttpClient okHttpClient;
 
-        private Builder() {}
-
         /**
          * @param application Required Application Object
          * @param clientId Client id used to get custom results
          */
         public Builder(Application application, String clientId) {
+            if (application == null) {
+                throw new IllegalArgumentException("Application must not be null");
+            }
+            if (clientId == null || clientId.isEmpty()) {
+                throw new IllegalArgumentException("clientId must be valid");
+            }
             this.application = application;
             this.clientId = clientId;
         }
@@ -171,6 +191,9 @@ public class BVSDK {
          * @return
          */
         public Builder apiKeyShopperAdvertising(String apiKeyShopperAdvertising) {
+            if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
+                throw new IllegalArgumentException("apiKeyShopperAdvertising must be valid");
+            }
             this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
             return this;
         }
@@ -180,6 +203,9 @@ public class BVSDK {
          * @return
          */
         public Builder apiKeyConversations(String apiKeyConversations) {
+            if (apiKeyConversations == null || apiKeyConversations.isEmpty()) {
+                throw new IllegalArgumentException("apiKeyConversations must be valid");
+            }
             this.apiKeyConversations = apiKeyConversations;
             return this;
         }
@@ -189,11 +215,17 @@ public class BVSDK {
          * @return
          */
         public Builder apiKeyCurations(String apiKeyCurations) {
+            if (apiKeyCurations == null || apiKeyCurations.isEmpty()) {
+                throw new IllegalArgumentException("apiKeyCurations must be valid");
+            }
             this.apiKeyCurations = apiKeyCurations;
             return this;
         }
 
         public Builder logLevel(BVLogLevel logLevel) {
+            if (logLevel == null) {
+                throw new IllegalArgumentException("logLevel must not be null");
+            }
             this.logLevel = logLevel;
             return this;
         }
@@ -210,6 +242,8 @@ public class BVSDK {
         }
 
         public BVSDK build() {
+            confirmBVSDKNotCreated();
+
             if (application == null) {
                 throw new IllegalStateException("Must provide an application object");
             }
@@ -233,7 +267,6 @@ public class BVSDK {
             Logger.setLogLevel(logLevel);
 
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
-            ScheduledExecutorService profileExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_PROFILE_THREAD_NAME));
             ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
             Gson gson = new Gson();
             String versionName = Utils.getVersionName(application.getApplicationContext());
@@ -244,12 +277,13 @@ public class BVSDK {
             String curationsDisplayApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_DISPLAY_API_ROOT_URL_STAGING : CURATIONS_DISPLAY_API_ROOT_URL_PRODUCTION;
             String curationsPostApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? CURATIONS_POST_API_ROOT_URL_STAGING : CURATIONS_POST_API_ROOT_URL_PRODUCTION;
             String analyticsRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
-            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, immediateExecutorService, profileExecutorService, okHttpClient, gson);
+            List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
+            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, gson, profilePollTimes);
             AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), versionName, versionCode, clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
 
-            instance = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, logLevel, okHttpClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl);
-            return instance;
+            singleton = new BVSDK(application, clientId, bazaarEnvironment, apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, logLevel, okHttpClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiRootUrl, curationsDisplayApiRootUrl, curationsPostApiRootUrl);
+            return singleton;
         }
     }
 
@@ -310,23 +344,17 @@ public class BVSDK {
      *                       for information on where this auth string comes from, and why it is
      *                       necessary.
      */
-    public void setUserAuthString(String userAuthString) {
-        if (userAuthString == null) {
-            Logger.w(TAG, "userAuthString must not be null");
-            return;
-        }
-
-        String savedUserAuthString = bvAuthenticatedUser.getUserAuthString();
-        if (savedUserAuthString != null && savedUserAuthString.equals(userAuthString)) {
-            Logger.w(TAG, "This same userAuthString is already set");
+    @MainThread
+    public void setUserAuthString(@NonNull String userAuthString) {
+        if (userAuthString == null || userAuthString.isEmpty()) {
+            Logger.w(TAG, "userAuthString must not be empty");
             return;
         }
 
         bvAuthenticatedUser.setUserAuthString(userAuthString);
         analyticsManager.dispatchSendPersonalizationEvent();
 
-        Logger.d(TAG, "Updating user upon user auth string update");
-        updateUser();
+        bvAuthenticatedUser.updateUser("user auth string update");
     }
 
     /**
@@ -349,20 +377,6 @@ public class BVSDK {
      */
     public void sendNonCommerceConversionEvent(Conversion conversion) {
         analyticsManager.enqueueNonCommerceConversionEvent(conversion);
-    }
-
-    private void updateUser() {
-        final Handler handler = new Handler(Looper.getMainLooper());
-
-        for(final int time : Arrays.asList(0, 5000, 10000, 20000)){
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Logger.d(TAG, "Profile update poll");
-                    bvAuthenticatedUser.updateProfile();
-                }
-            }, time);
-        }
     }
 
     BVAuthenticatedUser getAuthenticatedUser() {
