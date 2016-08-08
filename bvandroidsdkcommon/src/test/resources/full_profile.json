@@ -1,0 +1,14 @@
+{
+  "profile": {
+    "interests": {
+      "stuff1": "HIGH",
+      "stuff2": "LOW",
+      "stuff3": "MED",
+    },
+    "brands": {
+      "company1": "MED",
+      "company2": "LOW",
+      "company3": "HIGH",
+    }
+  }
+}

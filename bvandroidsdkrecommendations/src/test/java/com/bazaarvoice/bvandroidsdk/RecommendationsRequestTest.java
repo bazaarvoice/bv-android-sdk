@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class})
+@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
 public class RecommendationsRequestTest {
 
     String versionName;
@@ -66,7 +66,7 @@ public class RecommendationsRequestTest {
         shopperAdvertisingApiKey = "foobar-bvtestshopperadvertisingid";
         uuid = UUID.fromString(uuidTestStr);
 
-        BVSDK.instance = new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, apiKeyCurations, BVLogLevel.WARNING, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiUrl, curationsApiUrl);
+        BVSDK.singleton = new BVSDK(RuntimeEnvironment.application, clientId, environment, shopperAdvertisingApiKey, shopperAdvertisingApiKey, apiKeyCurations, BVLogLevel.WARNING, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, shopperMarketingApiBaseUrl, curationsApiUrl, curationsApiUrl);
 
         when(bvAuthenticatedUser.getUserAuthString()).thenReturn(userAuthStr);
     }

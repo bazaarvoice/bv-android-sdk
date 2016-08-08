@@ -1,5 +1,11 @@
 # Changelog
 
+# Changelog
+
+# 4.0.5
+* Fix BVSDK to enforce singleton pattern
+* Remove Scheduled Profile updates
+
 # 4.0.4
 
 ## Common

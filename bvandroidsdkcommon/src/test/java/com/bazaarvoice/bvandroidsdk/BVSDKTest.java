@@ -91,6 +91,23 @@ public class BVSDKTest {
     }
 
     @Test
+    public void bvSdkShouldOnlyAllowOneCreation() {
+        try {
+            // Builder used to initialize the Bazaarvoice SDKs
+            BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                    .bazaarEnvironment(environment)
+                    .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+                    .build();
+            // Builder used to initialize the Bazaarvoice SDKs
+            BVSDK bvsdk2 = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                    .bazaarEnvironment(environment)
+                    .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+                    .build();
+            fail("Should not be able to create multiple BVSDK instances");
+        } catch (IllegalStateException expected) {}
+    }
+
+    @Test
     public void bvSdkShouldSetupLogLevel() {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
@@ -119,6 +136,8 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkShouldSetupShopperProfileEnvironment() {
+        BVSDK.destroy();
+
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
                 .bazaarEnvironment(environment)
@@ -145,13 +164,9 @@ public class BVSDKTest {
     public void bvSdkBuilderShouldRequireValidApplication() {
         try {
             // Builder used to initialize the Bazaarvoice SDKs
-            BVSDK bvsdk = new BVSDK.Builder(null, clientId)
-                    .bazaarEnvironment(environment)
-                    .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                    .build();
-
+            new BVSDK.Builder(null, clientId);
             fail();
-        } catch (IllegalStateException exception) {
+        } catch (IllegalArgumentException exception) {
             // expected to fail here
         }
     }
@@ -160,13 +175,9 @@ public class BVSDKTest {
     public void bvSdkBuilderShouldRequireValidClientId() {
         try {
             // Builder used to initialize the Bazaarvoice SDKs
-            BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, null)
-                    .bazaarEnvironment(environment)
-                    .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                    .build();
-
+            new BVSDK.Builder(RuntimeEnvironment.application, null);
             fail();
-        } catch (IllegalStateException exception) {
+        } catch (IllegalArgumentException exception) {
             // expected to fail here
         }
     }
