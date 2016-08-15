@@ -24,19 +24,21 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     private String productId;
     private boolean fetched = false;
     private final BVConversationsClient client = new BVConversationsClient();
+    private boolean forceAPICall;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall) {
         this.view = view;
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
         this.productId = productId;
+        this.forceAPICall = forceAPICall;
     }
 
     @Override
     public void loadReviews(boolean forceRefresh) {
         fetched = false;
         DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (currentConfig.isDemoClient()) {
+        if (!forceAPICall && currentConfig.isDemoClient()) {
             showReviews(demoDataUtil.getConversationsReviews());
             return;
         }

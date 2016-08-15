@@ -32,6 +32,7 @@ import java.util.List;
 public class DemoQuestionsActivity extends AppCompatActivity implements DemoQuestionsContract.View {
 
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
+    private static final String FORCE_LOAD_API = "extra_force_api_load";
 
     private BVProduct bvProduct;
     private DemoQuestionsContract.UserActionsListener questionsActionsListener;
@@ -44,16 +45,20 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     private DemoQuestionsAdapter questionsAdapter;
     private ProgressBar questionLoading;
 
+    private boolean forceLoadFromProductId; // Meaning, a BVProduct is explicitly not provided
+    private String productId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_qanda);
-        String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+        this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+        this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
 
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
         DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
 
-        if (demoConfigUtils.isDemoClient()) {
+        if (!forceLoadFromProductId && demoConfigUtils.isDemoClient()) {
             List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
                 if (currRecProd.getProductId().equals(productId)) {
@@ -69,7 +74,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         setupHeaderViews();
         setupRecyclerView();
 
-        questionsActionsListener = new DemoQuestionsPresenter(this, demoConfigUtils, demoDataUtil, productId);
+        questionsActionsListener = new DemoQuestionsPresenter(this, demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId);
     }
 
     @Override
@@ -98,14 +103,23 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         productName = (TextView) findViewById(R.id.product_name);
         productRating = (RatingBar) findViewById(R.id.product_rating);
 
-        Picasso.with(productImageView.getContext()).load(bvProduct.getImageUrl()).into(productImageView);
-        productName.setText(bvProduct.getProductName());
-        productRating.setRating(bvProduct.getAverageRating());
+        if (bvProduct != null){
+            Picasso.with(productImageView.getContext()).load(bvProduct.getImageUrl()).into(productImageView);
+            productName.setText(bvProduct.getProductName());
+            productRating.setRating(bvProduct.getAverageRating());
+        } else {
+            productName.setText("API Test Questions for Product: " + productId);
+            productRating.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void setupRecyclerView() {
+
+        String productId = bvProduct == null ? this.productId : bvProduct.getProductId();
+
         questionsRecyclerView = (RecyclerView) findViewById(R.id.questions_recycler_view);
-        questionsAdapter = new DemoQuestionsAdapter(bvProduct.getProductId());
+        questionsAdapter = new DemoQuestionsAdapter(productId);
         questionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);
         questionsRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(spacing));

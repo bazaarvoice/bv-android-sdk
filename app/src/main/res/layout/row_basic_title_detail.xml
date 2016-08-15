@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_3">
+
+        <TextView
+            android:id="@+id/basic_row_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_2"
+            android:textSize="@dimen/text_size_title"
+            android:textColor="@color/bv_green_2"
+            tools:text="Your Title Here (With some extra words to test long titles)"/>
+
+        <TextView
+            android:id="@+id/basic_row_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/basic_row_title"
+            android:layout_marginTop="@dimen/margin_2"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="@string/bacon_ipsum"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

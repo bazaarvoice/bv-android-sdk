@@ -38,7 +38,7 @@ import java.io.ByteArrayOutputStream;
 import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils.safeParseString;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class BazaarReview implements Parcelable {
 	private int rating;

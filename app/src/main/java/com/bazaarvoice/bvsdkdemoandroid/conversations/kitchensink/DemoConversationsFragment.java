@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.util.Random;
 
 /**
- * TODO: Description Here
+ * @deprecated This is to be removed in favor of ConversationsDemoFragment
  */
 public class DemoConversationsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

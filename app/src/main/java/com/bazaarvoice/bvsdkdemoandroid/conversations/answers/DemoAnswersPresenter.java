@@ -21,19 +21,21 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
     private DemoDataUtil demoDataUtil;
     private String productId;
     private String questionId;
+    private boolean forceAPICall;
 
-    public DemoAnswersPresenter(DemoAnswersContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, String questionId) {
+    public DemoAnswersPresenter(DemoAnswersContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, String questionId,  boolean forceAPICall) {
         this.view = view;
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
         this.productId = productId;
         this.questionId = questionId;
+        this.forceAPICall = forceAPICall;
     }
 
     @Override
     public void loadAnswers(boolean forceRefresh) {
         DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (currentConfig.isDemoClient()) {
+        if (!forceAPICall && currentConfig.isDemoClient()) {
             view.showAnswers(demoDataUtil.getConversationsAnswers(questionId));
             return;
         }

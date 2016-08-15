@@ -24,7 +24,7 @@ import com.bazaarvoice.bvandroidsdk.types.IncludeStatsType;
 import com.bazaarvoice.bvandroidsdk.types.RequestType;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class BazaarFunctions{
 

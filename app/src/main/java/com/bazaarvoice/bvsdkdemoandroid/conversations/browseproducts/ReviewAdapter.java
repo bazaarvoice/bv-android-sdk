@@ -29,7 +29,7 @@ import com.bazaarvoice.bvsdkdemoandroid.R;
 import java.util.ArrayList;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class ReviewAdapter extends BaseAdapter {
 

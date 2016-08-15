@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class DemoConversationDetailActivity extends AppCompatActivity {
 

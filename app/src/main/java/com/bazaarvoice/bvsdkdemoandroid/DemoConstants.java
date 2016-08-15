@@ -15,13 +15,12 @@ public class DemoConstants {
     // Bazaarvoice client id
     public static final String BV_CLIENT_ID = "REPLACE_ME";
 
-    // API passkeys
     public static final String PASSKEY_SHOPPER_AD = "REPLACE_ME";
     public static final String PASSKEY_CONVERSATIONS = "REPLACE_ME";
     public static final String PASSKEY_CURATIONS = "REPLACE_ME";
 
     // Bazaarvoice environments, NOTE! Turn to PRODUCTION for production apps
-    public static final BazaarEnvironment ENVIRONMENT = BazaarEnvironment.PRODUCTION;
+    public static final BazaarEnvironment ENVIRONMENT = BazaarEnvironment.STAGING;
     /**************************************************************/
 
 

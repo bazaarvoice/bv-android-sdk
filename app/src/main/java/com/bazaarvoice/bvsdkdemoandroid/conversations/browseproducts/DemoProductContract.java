@@ -4,7 +4,9 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts;
 
 import com.bazaarvoice.bvandroidsdk.Product;
-
+/**
+ *  @deprecated - Old API to be removed
+ */
 public interface DemoProductContract {
 
     interface View {

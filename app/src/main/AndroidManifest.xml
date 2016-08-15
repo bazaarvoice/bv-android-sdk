@@ -65,6 +65,14 @@
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity"
             android:label="@string/title_activity_answers" />
 
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity"
+            android:label="@string/title_activity_bulkratings" />
+
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity"
+            android:label="@string/title_activity_product_stats" />
+
     </application>
 
 </manifest>

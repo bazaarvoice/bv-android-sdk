@@ -12,7 +12,9 @@ import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
-
+/**
+ *  @deprecated - Old API to be removed
+ */
 public class DemoProductPresenter implements DemoProductContract.UserActionsListener {
 
     private DemoProductContract.View view;

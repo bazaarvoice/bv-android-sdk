@@ -37,7 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class BazaarProduct implements Parcelable {
 

@@ -25,7 +25,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class ReviewDisplayActivity extends Activity {
 

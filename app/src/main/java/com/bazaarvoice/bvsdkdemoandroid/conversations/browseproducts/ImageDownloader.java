@@ -25,7 +25,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class ImageDownloader {
 	

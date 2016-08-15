@@ -10,6 +10,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *  @deprecated - Old API to be removed
+ */
 public class BazaarAnswer {
 
     private String answerText;

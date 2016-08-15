@@ -36,7 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class ReviewsActivity extends Activity {
 

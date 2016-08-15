@@ -17,6 +17,8 @@
     <string name="title_activity_fancy_product_detail">Product Detail</string>
     <string name="title_activity_demo_app">BVSDK Demo</string>
     <string name="title_activity_reviews">Product Reviews</string>
+    <string name="title_activity_bulkratings">Bulk Ratings</string>
+    <string name="title_activity_product_stats">Product Review Stats</string>
     <string name="title_activity_questions">Product Questions</string>
     <string name="title_activity_answers">Product Answers</string>
 
