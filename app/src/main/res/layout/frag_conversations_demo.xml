@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment">
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Display Reviews"
+        android:id="@+id/displayReviewsBtn"
+        android:layout_marginTop="44dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/displayQABtn"
+        android:layout_alignEnd="@+id/displayQABtn"
+        android:layout_alignLeft="@+id/displayQABtn"
+        android:layout_alignStart="@+id/displayQABtn" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Display Question &amp; Answer"
+        android:id="@+id/displayQABtn"
+        android:layout_below="@+id/displayReviewsBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Display Product Page Stats"
+        android:id="@+id/displayProductPageBtn"
+        android:layout_below="@+id/displayQABtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Display Bulk Ratings"
+        android:id="@+id/displayInlineRatingsPageBtn"
+        android:layout_below="@+id/displayProductPageBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+    <!-- Seperator -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:id="@+id/seperator"
+        android:background="@color/bv_blue_2"
+        android:layout_below="@+id/displayInlineRatingsPageBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
+
+    <!-- End Seperator -->
+
+    <!-- Submit Buttons -->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Review with Photo"
+        android:id="@+id/submitReviewWithPhoto"
+        android:layout_below="@+id/seperator"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Question"
+        android:id="@+id/submitQuestion"
+        android:layout_below="@+id/submitReviewWithPhoto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Answer"
+        android:id="@+id/submitAnswer"
+        android:layout_below="@+id/submitQuestion"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+
+</RelativeLayout>

@@ -26,7 +26,7 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 
 /**
- * TODO: Description Here
+ * @deprecated Using ConversationsDemoFragment
  */
 public class BrowseProductsFragment extends Fragment {
 

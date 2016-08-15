@@ -24,19 +24,21 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
     private String productId;
     private boolean fetched = false;
     private BVConversationsClient conversationsClient = new BVConversationsClient();
+    private boolean forceAPICall;
 
-    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId) {
+    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall) {
         this.view = view;
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
         this.productId = productId;
+        this.forceAPICall = forceAPICall;
     }
 
     @Override
     public void loadQuestions(boolean forceRefresh) {
         fetched = false;
         DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (currentConfig.isDemoClient()) {
+        if (!forceAPICall && currentConfig.isDemoClient()) {
             showQuestions(demoDataUtil.getConversationsQuestions());
             return;
         }

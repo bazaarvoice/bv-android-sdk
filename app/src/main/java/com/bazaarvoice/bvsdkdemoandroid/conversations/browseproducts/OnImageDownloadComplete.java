@@ -15,7 +15,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts;
 import android.graphics.Bitmap;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public interface OnImageDownloadComplete {
 	

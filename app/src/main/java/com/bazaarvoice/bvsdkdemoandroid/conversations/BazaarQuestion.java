@@ -16,6 +16,9 @@ import java.util.List;
 import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils.safeParse;
 import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils.safeParseString;
 
+/**
+ * @deprecated - Old API to be removed
+ */
 public class BazaarQuestion {
 
     private String productId;

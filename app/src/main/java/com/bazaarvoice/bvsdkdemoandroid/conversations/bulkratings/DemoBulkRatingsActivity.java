@@ -1,7 +1,7 @@
 /**
  * Copyright 2016 Bazaarvoice Inc. All rights reserved.
  */
-package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
+package com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,50 +14,42 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bazaarvoice.bvandroidsdk.BVProduct;
-import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.Statistics;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DemoReviewsActivity extends AppCompatActivity implements DemoReviewsContract.View {
+public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBulkRatingsContract.View {
 
-    private static final String EXTRA_PRODUCT_ID = "extra_product_id";
-    private static final String FORCE_LOAD_API = "extra_force_api_load";
+    private static final String EXTRA_PRODUCT_IDS = "extra_bulk_product_ids";
 
-    private BVProduct bvProduct;
-    private DemoReviewsContract.UserActionsListener reviewsUserActionListener;
+    private DemoBulkRatingsContract.UserActionsListener bulkRatingsUserActionListener;
 
     private CardView productRowHeader;
-    private ImageView productImageView;
     private TextView productName;
     private RatingBar productRating;
 
     private RecyclerView reviewsRecyclerView;
-    private DemoReviewsAdapter reviewsAdapter;
+    private DemoBulkRatingsAdapter bulkReviewAdapter;
     private ProgressBar reviewsLoading;
 
-    private boolean forceLoadFromProductId; // Meaning, a BVProduct is explicitly not provided
-    private String productId;
+    private ArrayList<String> bulkProductIds = new ArrayList<String>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_reviews);
-        this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
-        this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
-        bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+        Bundle extra = getIntent().getBundleExtra("extra");
+        this.bulkProductIds = (ArrayList<String>) extra.getSerializable(EXTRA_PRODUCT_IDS);
 
         setupToolbarViews();
         setupHeaderViews();
@@ -65,7 +57,7 @@ public class DemoReviewsActivity extends AppCompatActivity implements DemoReview
 
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
         DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
-        reviewsUserActionListener = new DemoReviewsPresenter(this, demoConfigUtils, demoDataUtil, productId, this.forceLoadFromProductId);
+        bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, demoConfigUtils, demoDataUtil, bulkProductIds);
     }
 
     private void setupToolbarViews() {
@@ -76,35 +68,23 @@ public class DemoReviewsActivity extends AppCompatActivity implements DemoReview
 
     private void setupHeaderViews() {
         productRowHeader = (CardView) findViewById(R.id.product_row_header);
+        (productRowHeader.findViewById(R.id.product_image)).setVisibility(View.INVISIBLE);
 
-        productImageView = (ImageView) productRowHeader.findViewById(R.id.product_image);
         productName = (TextView) productRowHeader.findViewById(R.id.product_name);
         productRating = (RatingBar) productRowHeader.findViewById(R.id.product_rating);
 
-        if (this.bvProduct != null) {
-            DemoUtils demoUtils = DemoUtils.getInstance(productImageView.getContext());
-            demoUtils.picassoThumbnailLoader()
-                    .load(bvProduct.getImageUrl())
-                    .resizeDimen(R.dimen.side_not_set, R.dimen.clip_half_image_side)
-                    .into(productImageView);
-            productName.setText(bvProduct.getProductName());
-            productRating.setRating(bvProduct.getAverageRating());
+        productName.setText("Testing product ids: " + bulkProductIds.toString());
+        productRating.setVisibility(View.INVISIBLE);
 
-        } else {
-
-            productName.setText("Testing product id: " + productId);
-            productRating.setVisibility(View.INVISIBLE);
-
-        }
     }
 
     private void setupRecyclerView() {
         reviewsRecyclerView = (RecyclerView) findViewById(R.id.reviews_recycler_view);
-        reviewsAdapter = new DemoReviewsAdapter();
+        bulkReviewAdapter = new DemoBulkRatingsAdapter();
         reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);
         reviewsRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(spacing));
-        reviewsRecyclerView.setAdapter(reviewsAdapter);
+        reviewsRecyclerView.setAdapter(bulkReviewAdapter);
         reviewsRecyclerView.setNestedScrollingEnabled(false);
         reviewsLoading = (ProgressBar) findViewById(R.id.reviews_loading);
     }
@@ -112,7 +92,7 @@ public class DemoReviewsActivity extends AppCompatActivity implements DemoReview
     @Override
     protected void onResume() {
         super.onResume();
-        reviewsUserActionListener.loadReviews(false);
+        bulkRatingsUserActionListener.loadRatings();
     }
 
     @Override
@@ -127,38 +107,33 @@ public class DemoReviewsActivity extends AppCompatActivity implements DemoReview
 
 
     @Override
-    public void showReviews(List<Review> bazaarReviews) {
-        reviewsAdapter.refreshReviews(bazaarReviews);
+    public void showRatings(List<Statistics> bazaarStatistics) {
+        bulkReviewAdapter.refreshReviews(bazaarStatistics);
     }
 
     @Override
-    public void showLoadingReviews(boolean show) {
+    public void showLoadingRatings(boolean show) {
         reviewsLoading.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
-    public void showNoReviews() {
+    public void showNoRatings() {
 
     }
 
     @Override
-    public void showReviewsMessage(String message) {
-        Toast.makeText(DemoReviewsActivity.this, message, Toast.LENGTH_SHORT).show();
+    public void showRatingsMessage(String message) {
+        Toast.makeText(DemoBulkRatingsActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void transitionToReviews() {
+    public void transitionToRatings() {
         // no-op
     }
 
-    @Override
-    public void showSubmitReviewDialog() {
-        // maybe TODO
-    }
-
     public static void transitionTo(Activity fromActivity, String productId) {
-        Intent intent = new Intent(fromActivity, DemoReviewsActivity.class);
-        intent.putExtra(EXTRA_PRODUCT_ID, productId);
+        Intent intent = new Intent(fromActivity, DemoBulkRatingsActivity.class);
+        intent.putExtra(EXTRA_PRODUCT_IDS, productId);
         fromActivity.startActivity(intent);
     }
 }

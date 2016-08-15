@@ -36,7 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public class ProductsActivity extends Activity {
 	protected static final String TAG = "ProductsActivity";

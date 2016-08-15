@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 class ProductAdapter extends BaseAdapter {
 

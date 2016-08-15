@@ -16,6 +16,9 @@
         android:id="@+id/browse_products"
         android:title="Browse Products" />
     <item
+        android:id="@+id/conversations_demo"
+        android:title="Conversations API Demo" />
+    <item
         android:id="@+id/curations"
         android:title="Curations" />
 </menu>

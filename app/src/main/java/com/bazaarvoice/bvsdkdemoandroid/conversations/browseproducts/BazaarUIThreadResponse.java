@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 
 /**
- * TODO: Description Here
+ *  @deprecated - Old API to be removed
  */
 public abstract class BazaarUIThreadResponse implements OnBazaarResponse {
 

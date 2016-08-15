@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -42,17 +43,19 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
     private RecyclerView answersRecyclerView;
     private DemoAnswersAdapter answersAdapter;
 
+    private String questionId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_answers);
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
-        String questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);
+        questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);
 
         DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
 
-        if (demoConfigUtils.isDemoClient()) {
+        if (bvProduct != null && demoConfigUtils.isDemoClient()) {
             List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
                 if (currRecProd.getProductId().equals(productId)) {
@@ -68,7 +71,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         setupHeaderViews();
         setupRecyclerView();
 
-        this.answerUserActionListener = new DemoAnswersPresenter(this, demoConfigUtils, demoDataUtil, productId, questionId);
+        this.answerUserActionListener = new DemoAnswersPresenter(this, demoConfigUtils, demoDataUtil, productId, questionId, bvProduct == null);
     }
 
     @Override
@@ -97,9 +100,14 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         productName = (TextView) findViewById(R.id.product_name);
         productRating = (RatingBar) findViewById(R.id.product_rating);
 
-        Picasso.with(productImageView.getContext()).load(bvProduct.getImageUrl()).into(productImageView);
-        productName.setText(bvProduct.getProductName());
-        productRating.setRating(bvProduct.getAverageRating());
+        if (bvProduct != null) {
+            Picasso.with(productImageView.getContext()).load(bvProduct.getImageUrl()).into(productImageView);
+            productName.setText(bvProduct.getProductName());
+            productRating.setRating(bvProduct.getAverageRating());
+        } else {
+            productName.setText("Testing Question Id: " + questionId);
+            productRating.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setupRecyclerView() {

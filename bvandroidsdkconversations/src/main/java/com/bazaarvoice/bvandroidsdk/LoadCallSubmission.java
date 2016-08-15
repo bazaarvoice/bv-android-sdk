@@ -138,7 +138,7 @@ public final class LoadCallSubmission<T> extends LoadCall<T> {
 
         List<PhotoUpload> photoUploads = submission.getBuilder().photoUploads;
         //At this point we assume know that since we are submitting and not being forced to preview that it has been previewed already.
-        // The request is ready to have it's photos uploaded then submitted.
+        // The request is ready to have its photos uploaded, then submitted.
         if (photoUploads != null && photoUploads.size() > 0 && !submission.getForcePreview() && submission.getBuilder().getAction() == Action.Submit) {
 
             postPhotosAndSubmissionAsync(conversationsCallback, photoUploads, submission);
