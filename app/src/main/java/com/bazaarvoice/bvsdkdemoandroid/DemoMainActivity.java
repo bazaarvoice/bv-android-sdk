@@ -27,11 +27,7 @@ import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.BrowseProductsFragment;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ProductsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.kitchensink.DemoConversationDetailActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.kitchensink.DemoConversationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
@@ -42,6 +38,8 @@ import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragm
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+//import com.iovation.mobile.android.DevicePrint;
+//import static com.iovation.mobile.android.DevicePrint.start;
 
 import java.util.ArrayList;
 
@@ -82,6 +80,9 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         if (savedInstanceState == null) {
             transitionTo(DemoHomePageFragment.newInstance());
         }
+
+        // Uncomment me for iovation suppoort
+        //start(getApplicationContext());
     }
 
     @Override
@@ -142,14 +143,6 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                         toolbar.setTitle("Advertising");
                         transitionTo(AdsFragment.newInstance());
                         break;
-                    case R.id.conversations:
-                        toolbar.setTitle(getString(R.string.demo_conversations) + ": Kitchen Sink");
-                        transitionTo(DemoConversationsFragment.newInstance());
-                        break;
-                    case R.id.browse_products:
-                        toolbar.setTitle(getString(R.string.demo_conversations) + ": Browse");
-                        transitionTo(BrowseProductsFragment.getInstance());
-                        break;
                     case R.id.conversations_demo:
                         toolbar.setTitle(getString(R.string.demo_conversations) + ": API Demo");
                         transitionTo(DemoConversationsAPIFragment.newInstance());
@@ -178,13 +171,6 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         DemoProductDetailActivity.start(this, bvProduct);
     }
 
-    public void transitionToBVConversationDetail(String url, String response) {
-        Intent intent = new Intent(this, DemoConversationDetailActivity.class);
-        intent.putExtra(DemoConversationDetailActivity.URL_EXTRA_KEY, url);
-        intent.putExtra(DemoConversationDetailActivity.RESPONSE_EXTRA_KEY, response);
-        startActivity(intent);
-    }
-
     public void transitionToNativeAd() {
         Intent intent = new Intent(this, NativeAdActivity.class);
         startActivity(intent);
@@ -197,12 +183,6 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     public void transitionToBannerAd(){
         Intent intent = new Intent(this, BannerAdActivity.class);
-        startActivity(intent);
-    }
-
-    public void transitionToProductSearch(String query){
-        Intent intent = new Intent(this, ProductsActivity.class);
-        intent.putExtra("searchTerm", query);
         startActivity(intent);
     }
 

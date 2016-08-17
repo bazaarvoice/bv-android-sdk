@@ -24,6 +24,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+///import static com.iovation.mobile.android.DevicePrint.getBlackbox;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -131,6 +132,9 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
+                    // For clients in US, iovation SDK is required!
+//                    String blackbox = getBlackbox(getContext().getApplicationContext());
+
                     progress.setTitle("Submitting Review...");
                     progress.show();
 
@@ -146,6 +150,7 @@ public class DemoConversationsAPIFragment extends Fragment {
                     }
 
                     ReviewSubmission submission = new ReviewSubmission.Builder(Action.Preview, TEST_PRODUCT_ID)
+//                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
                             .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
@@ -183,10 +188,14 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
+                    // For clients in US, iovation SDK is required!
+                    //String blackbox = getBlackbox(getContext().getApplicationContext());
+
                     progress.setTitle("Submitting Question...");
                     progress.show();
                     BVConversationsClient client = new BVConversationsClient();
                     QuestionSubmission submission = new QuestionSubmission.Builder(Action.Preview, TEST_PRODUCT_ID)
+                            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
                             .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
@@ -222,10 +231,14 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
+                    // For clients in US, iovation SDK is required!
+                    //String blackbox = getBlackbox(getContext().getApplicationContext());
+
                     progress.setTitle("Submitting Answer...");
                     progress.show();
                     BVConversationsClient client = new BVConversationsClient();
                     AnswerSubmission submission = new AnswerSubmission.Builder(Action.Preview, "14679", "User answer text goes here....")
+                            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
                             .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
