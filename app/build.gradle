@@ -4,6 +4,20 @@ buildscript {
         classpath dep.crashlyticsPlugin
         classpath dep.androidAptPlugin
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -117,7 +131,13 @@ dependencies {
     apt dep.butterknifeCompiler
 
     // iovation aar dependency
-    // compile(name:'deviceprint-release-2.3.0', ext:'aar')
+    // Uncomment the following lines to add iovation support
+    // Make sure the iovation arr is in the app/libs folder
+//    dependencies {
+//        compile fileTree(dir: 'libs', include: ['*.jar'])
+//        compile(name:'deviceprint-release-2.3.0', ext:'aar')
+//        compile(group:'com.android.support', name:'support-v4', version:'23.0.1')
+//    }
 
     releaseCompile dep.leakCanaryNoOp
 

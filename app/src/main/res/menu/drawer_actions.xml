@@ -10,12 +10,6 @@
         android:id="@+id/advertising"
         android:title="Ads" />
     <item
-        android:id="@+id/conversations"
-        android:title="Conversations" />
-    <item
-        android:id="@+id/browse_products"
-        android:title="Browse Products" />
-    <item
         android:id="@+id/conversations_demo"
         android:title="Conversations API Demo" />
     <item
