@@ -19,7 +19,7 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "User Authentication Token";
+	var tabName = "Conversations Submission";
 
 	$('.nav-link.active').removeClass('active');
 	console.log('active tab: ', tabName);
@@ -67,7 +67,7 @@ $(function(){
 
     ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'User Authentication Token'
+      title: 'Conversations Submission'
     });
     ga('send', 'pageview');
   </script>
@@ -151,7 +151,7 @@ $(function(){
                                         id="conversationsDropdownArrow"
                                         class="fa fa-sort-desc fa-rotate-270"></i></span></span>
                         </a>
-                        <div class="collapse "
+                        <div class="collapse in"
                              id="conversationsDropdown">
                             <ul>
                                 <li class="nav-item">
@@ -216,23 +216,195 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	User Authentication Token
+	Conversations Submission
 </div>
+
+<p>Use the Bazaarvoice Mobile SDKs to enable Conversations functionality, such as Ratings and Reviews. The Conversations module provides an easy-to-use wrapper around the <a href="https://developer.bazaarvoice.com/apis/conversations/">Conversations API</a>. Contact Bazaarvoice to set up Conversations.</p>
+
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
+
 <hr>
-<p>Both the Advertising and Product Recommendations modules sof the Bazaarvoice Mobile SDKs support adding an authenticated user for shopper profile matching.</p>
-<p>After a user is authenticated inside your user login workflow, use the <code>BVSDK</code> instance to set up the user authentication token.</p>
+<br>
 
-<h3>Example</h3>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The authentication token created with your existing Bazaarvoice implementation logic needs to be provided to the BVSDKManager. However, the steps to encrypt your authentication token are still applicable even if you are not a Conversations client.</p>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-installationCollapse">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#installationCollapse" aria-expanded="false" aria-controls="installationCollapse" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="installationArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;">Installation Instructions</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Click here to see how to install and configure the BVSDK.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="installationCollapse" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
+<h3>Installation with Gradle</h3>
+<p>Include the Maven Central repository and add the appropriate Bazaarvoice Mobile SDK modules to your dependencies:</p>
+
+
+<pre><code>dependencies {
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:'
+}
+repositories {
+    mavenCentral()
+} </code></pre>
+
+
 
 <br>
-<h5>Adding User Information</h5>
-<p>The user auth string is an encrypted query string. In the documentation above, <code>date=2007­0527&userid=ID12345</code> is used as an example. This is then encrypted/signed appropriately for security. Add information such as identity and demographics in this query string, for example:</p><p> <code>date=2007­0527&userid=ID12345&facebookId=abc123&age=28&gender=female</code></p>
-<p>Allowed keys include: <code>userid, age, email, facebookId, gender, twitterId</code>. This information can then be safely passed to the <code>BVSDK</code> instance, as shown in the following example:</p>
-<pre><code class="java">BVSDK.getInstance().setUserAuthString("0ce436b29697d6bc74f30f724b9b0bb6646174653d31323334267573657269643d5265636f6d6d656e646174696f6e7353646b54657374");</code></pre>
-<p>After <code>setUserAuthString</code> has been called, Bazaarvoice will begin matching data to this user's profile. The process runs nearly in real-time, but is not instant. The Mobile SDK will poll to update the user profile and should reflect the user's interests within seconds.</p>
+
+<h3>Extending the Application</h3>
+<p>Create a class that extends <code>android.app.Application</code>, and initialize the Mobile SDK using its builder.</p>
+<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
+<p>in the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure about your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
+
+<pre><code class="java">public class MyApplication extends Application {
+
+    @Override
+    public void onCreate(){
+        super.onCreate();
+
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
+            .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
+            .apiKeyConversations(YOUR_CONVERSATIONS_KEY) //Required for Conversations
+            .logLevel(BVLogLevel.INFO)
+            .build();
+    }
+}
+</code></pre>
 <br>
+
+<h3>AndroidManifest</h3>
+<pre><code class="xml">&lt;!-- Request internet permission, if not already there. --&gt;
+&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+
+&lt;!-- set the name of the class for the application entry --&gt;
+&lt;application
+    android:name=".MyApplication"&gt;
+&lt;/application&gt;</code></pre>
+
+
+		</div>
+    </div>
+  </div>
+<br>
+
+
+
+<h2>Using Conversations</h2>
+<p>After you install the Mobile SDK, complete the following steps to submit consumer-generated content.</p>
+<br>
+<h4>BVConversationsClient</h4>
+
+Use an instace of the <code>BVConversationsClient</code> to make all your Conversations Submission API requets. You can keep an instance of this this object to handle all your Conversations requests as shown in the examples below.
+<br>
+<br>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#reviewsub" aria-controls="reviewssub" role="tab" data-toggle="tab">ReviewSubmission</a></li>
+    <li role="presentation"><a href="#questionub" aria-controls="questionub" role="tab" data-toggle="tab">QuestionSubmission</a></li>
+    <li role="presentation"><a href="#answersub" aria-controls="answersub" role="tab" data-toggle="tab">AnswerSubmission</a></li>
+</ul>
+
+<div class="tab-content code-switcher">
+    <div role="tabpanel" class="tab-pane active" id="reviewsub">
+<h4>Submitting Reviews</h4>
+<p>To submit Reviews you will use <code>ReviewSubmission</code>. To create a <code>ReviewSubmission</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to submit Reviews. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields because of this which will be represented as a <code>BazaarException</code>. It also has the optional fields that are valid for submitting Reviews. Reference <code>ReviewSubmission.java</code> for other optional fields</p>
+<pre><code>ReviewSubmission submission = new ReviewSubmission.Builder(Action.Submit, productId)
+                .userNickname(userNickname)
+                .build();</code></pre>
+<p>Once the ReviewSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+
+<p>Submissions can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;ReviewSubmissionResponse&gt;() {
+    @Override
+    public void onSuccess(ReviewSubmissionResponse response) {
+                
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    ReviewSubmissionResponse response = client.prepareCall(submission).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+            </div>
+    <div role="tabpanel" class="tab-pane" id="questionub">
+<h4>Submitting Questions</h4>
+<p>To submit Questions you will use <code>QuestionSubmission</code>. To create a <code>QuestionSubmission</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to submit Questions. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields because of this which will be represented as a <code>BazaarException</code>. It also has the optional fields that are valid for submitting Questions. Reference <code>QuestionSubmission.java</code> for other optional fields</p>
+<pre><code>QuestionSubmission submission = new QuestionSubmission.Builder(Action.Submit,productId)
+                .userNickname(userNickname)
+                .questionDetails(questionDetails)
+                .questionSummary(questionSummary)
+                .agreedToTermsAndConditions(agreedToTC)
+                .build();</code></pre>
+<p>Once the QuestionSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+
+<p>Submissions can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;QuestionSubmissionResponse&gt;() {
+    @Override
+    public void onSuccess(QuestionSubmissionResponse response) {
+                
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    QuestionSubmissionResponse response = client.prepareCall(submission).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+                    </div>
+    <div role="tabpanel" class="tab-pane" id="answersub">
+<h4>Submitting Answers</h4>
+<p>To submit Answers you will use <code>AnswerSubmission</code>. To create a <code>AnswerSubmission</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to submit Answers. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields because of this which will be represented as a <code>BazaarException</code>. It also has the optional fields that are valid for submitting Answers. Reference <code>AnswerSubmission.java</code> for other optional fields</p>
+<pre><code>AnswerSubmission submission = new AnswerSubmission.Builder(Action.Submit, questionId, answerText)
+                            .userNickname(userNickname)
+                            .build();</code></pre>
+<p>Once the AnswerSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+
+<p>Submissions can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;AnswerSubmissionResponse&gt;() {
+    @Override
+    public void onSuccess(AnswerSubmissionResponse response) {
+                
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    AnswerSubmissionResponse response = client.prepareCall(submission).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+    </div>
+</div>
+
+
 
 
 <div class="well well-sm">

@@ -19,7 +19,7 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "Curations Display";
+	var tabName = "Conversations Display";
 
 	$('.nav-link.active').removeClass('active');
 	console.log('active tab: ', tabName);
@@ -67,7 +67,7 @@ $(function(){
 
     ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'Curations Display'
+      title: 'Conversations Display'
     });
     ga('send', 'pageview');
   </script>
@@ -129,7 +129,7 @@ $(function(){
                                 <span><span>Curations</span><span style="float:right;"><i id="curationsDropdownArrow"
                                                                                           class="fa fa-sort-desc  fa-rotate-270"></i></span></span>
                         </a>
-                        <div class="collapse in"
+                        <div class="collapse "
                              id="curationsDropdown">
                             <ul>
                                 <li class="nav-item">
@@ -151,7 +151,7 @@ $(function(){
                                         id="conversationsDropdownArrow"
                                         class="fa fa-sort-desc fa-rotate-270"></i></span></span>
                         </a>
-                        <div class="collapse "
+                        <div class="collapse in"
                              id="conversationsDropdown">
                             <ul>
                                 <li class="nav-item">
@@ -216,17 +216,15 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	Curations
+	Conversations Display
 </div>
 
-<p>Use the Curations module of the Bazaarvoice Mobile SDKs to harness a wealth of social media content tailored for your marketing needs, and display it where it can deliver engagement, trust, and conversion: your Android app.</p>
-<br>
+<p>Use the Bazaarvoice Mobile SDKs to enable Conversations functionality, such as Ratings and Reviews. The Conversations module provides an easy-to-use wrapper around the <a href="https://developer.bazaarvoice.com/apis/conversations/">Conversations API</a>. Contact Bazaarvoice to set up Conversations.</p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  You must have Bazaarvoice Curations enabled to use the Curations module. Contact Bazaarvoice to set up Curations and to get your <code>apiKeyCurations</code>.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
 
 <hr>
 <br>
-
 
 
 
@@ -252,7 +250,7 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:curations:'
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:'
 }
 repositories {
     mavenCentral()
@@ -276,7 +274,7 @@ repositories {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
             .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
-            .apiKeyCurations(YOUR_CURATIONS_KEY) //Required for Curations
+            .apiKeyConversations(YOUR_CONVERSATIONS_KEY) //Required for Conversations
             .logLevel(BVLogLevel.INFO)
             .build();
     }
@@ -300,222 +298,176 @@ repositories {
 <br>
 
 
+Conversations Display Sections in this page:
 
-<h3>Getting a Curations Feed</h3>
+<li><a href="#display_api">Using the Conversations Display API</a> - Samples for how to request the API directly.</li>
+<li><a href="#display_containers">Using the Conversations Display Containers</a> - Overview for UI containers that wrap the Conversations Display API for helping with analytics collection.</li>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  This page assumes you have a new application with a launch Activity called <code>MainActivity</code>.</p>
-
-<p>MainActivity's XML layout has a <code>CurationsRecyclerView</code> with the "curations_demo_list" id. The following XML code provides more information about Curations UI Containers.</p>
-
-<pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.bazaarvoice.curationsexample.MainActivity"&gt;
-
-    &lt;com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
-        android:id="@+id/curations_demo_list"
-        android:layout_width="match_parent"
-        android:layout_height="345dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" /&gt;
-
-&lt;/RelativeLayout&gt;</code></pre>
-<br>
-<p>The following code builds a request, sends it with <code>CurationsRecyclerView</code>, and receives a callback that either successfully provides a List of <code>CurationsFeedItem</code> or fails and provides a <code>Throwable</code> with a descriptive message.</p>
-<pre><code class="java">public class MainActivity extends AppCompatActivity implements CurationsFeedCallback {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        final CurationsRecyclerView recyclerView = (CurationsRecyclerView) findViewById(R.id.curations_demo_list);
-        //Create list of desired groups to retrieve feed for.
-        ArrayList<String> groups = new ArrayList&lt;&gt;();
-        groups.add("__all__");
-
-        //Builder used to construct CurationsRequest. Builder must be constructed with List of groups
-        CurationsRequest request = new CurationsRequest.Builder(groups)
-            //add other params. visit https://scissors.feedmagnet.com/docs/api/ for full list
-            .limit(20)
-            .hasPhoto(true)
-            .build();
-
-       //use CurationsRecyclerView instance to get Curations Feed and a CurationsFeedCallback to get handle successful and unsuccessful attempts to get Curations Feed
-        recyclerView.getCurationsFeedItems(request, "MainGrid", this);
-    }
-
-    @Override
-    public void onSuccess(List&lt;CurationsFeedItem&gt; list) {
-        //successfully completed. Use feedItems to populate UI
-    }
-
-    @Override
-    public void onFailure(Throwable throwable) {
-        //failed to get feed. Descriptive throwable can be used to debug
-    }</code></pre>
 <br>
 
-<h3>Viewing an Example App</h3>
-<p>Refer to the <a href="example_projects.html">Example Projects</a> page for a working example app that gets and displays a Curations feed, and demonstrates the correct use of Curations UI Containers for analytic events</p>
+<a name="display_api"></a>
+<h2>Using Conversations Display API</h2>
+<p>After you install the Mobile SDK, you can refer to the guide below for using the API and Conversations UI containers for displaying Product Review Statistics, Reviews, Question, Answers, and Bulk Ratings of serveral products at once.</p>
+
 <br>
+<h4>BVConversationsClient</h4>
 
-<h3>Using Curations UI Containers</h3>
-<p>Providing feedback about user interaction helps Bazaarvoice produce useful ROI (return on investment) reports. To send feedback, use one of the provided views to wrap either a single <code>CurationsFeedItem</code> view or a group of <code>CurationsFeedItem</code> views.</p>
-<h4>Wrapping a single CurationsFeedItem view</h4>
-<p>In this example, you would use the following layout to display a single <code>CurationsFeedItem</code> after fetching it with the method explained in the "Getting the Curations Feed" section on this page:</p>
-<pre><code class="xml">&lt;LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="90dp"&gt;
-        &lt;ImageView
-            android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"/&gt;
-        &lt;TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="90dp" /&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<br>
+Use an instace of the <code>BVConversationsClient</code> to make all your Conversations Display API requets. You can keep an instance of this this object to handle all your Conversations calls as shown in the examples below.
 
-<p>To provide Bazaarvoice with feedback in this layout, wrap the <code>LinearLayout</code> with the provided <code>CurationsView</code>, as shown in the following example:</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"&gt;
-    &lt;LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"&gt;
-            &lt;ImageView
-                android:id="@+id/image"
-                android:layout_width="90dp"
-                android:layout_height="90dp"/&gt;
-            &lt;TextView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="90dp" /&gt;
-    &lt;/LinearLayout&gt;
-&lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;</code></pre>
-<br>
+<br><br>
 
-<p>In the code, associate the inflated <code>CurationsView</code> object with the correlating <code>CurationsFeedItem</code> it correlates to. The following example uses the <code>getView</code> method of an Adapter:</p>
-<pre><code class="java">class MyAdapter extends ArrayAdapter<CurationsFeedItem> {
-    private List<CurationsFeedItem> feedItems;
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ...
-        CurationsFeedItem currentFeedItem = getItem(position);
-        CurationsView curationsView = (curationsView) convertView.findViewById(R.id.curationsView);
-        curationsView.setCurationsFeedItem(currentFeedItem);
-        ...
-    }
-}</code></pre>
-<br>
-
-<h4>Wrapping a group of CurationFeedItem views</h4>
-<p>In this example, you would use the following layout to display a group of <code>BVProducts</code> after fetching them with the method explained in the "Getting the Curations Feed" section on this page:</p>
-<pre><code class="xml">&lt;android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-<br>
-
-<p>To provide Bazaarvoice with feedback in this layout, swap the <code>RecyclerView</code> with the provided <code>CurationsRecyclerView</code>, as shown in the following example:</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-<br>
-
-<h4>Other options for wrapping a group of CurationFeedItem views</h4>
-<p>If you want to use other <code>ViewGroups</code> in place of a <code>RecyclerView</code>, the Mobile SDK offers three options:</p>
-<ul>
-	<li>
-		<p><strong>CurationsListView</strong></p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsListView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-	</li>
-	<li>
-		<p><strong>CurationsGridView</strong></p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsGridView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsGridView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-	</li>
-	<li>
-		<p><strong>CurationsContainerView</strong>&#8212;If you want to use a different <code>ViewGroup</code> than <code>ListView</code>, <code>GridView</code>, or <code>RecyclerView</code>&#8212;such as a <code>LinearLayout</code>&#8212; to display <code>CurationsView</code> objects, wrap the ViewGroup with a <code>CurationsContainerView</code>, as shown in the following example.</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsContainerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsContainerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"&gt;
-
-    &lt;LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"&gt;
-
-        &lt;com.bazaarvoice.bvandroidsdk.CurationsView
-            android:id="@+id/curationsView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"&gt;
-            &lt;LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"&gt;
-                    &lt;ImageView
-                        android:id="@+id/image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"/&gt;
-                    &lt;TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" /&gt;
-            &lt;/LinearLayout&gt;
-        &lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;
-
-        &lt;com.bazaarvoice.bvandroidsdk.CurationsView
-            android:id="@+id/curationsView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"&gt;
-            &lt;LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"&gt;
-                    &lt;ImageView
-                        android:id="@+id/image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"/&gt;
-                    &lt;TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" /&gt;
-            &lt;/LinearLayout&gt;
-        &lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;
-
-    &lt;/LinearLayout&gt;
-
-&lt;/com.bazaarvoice.bvandroidsdk.CurationsContainerView&gt;</code></pre>
-	</li>
+<ul class="nav nav-tabs" role="tablist">
+	<li role="presentation" class="active"><a href="#reviewsreq" aria-controls="reviewsreq" role="tab" data-toggle="tab">ReviewsRequest</a></li>
+	<li role="presentation"><a href="#qnareq" aria-controls="qnareq" role="tab" data-toggle="tab">QuestionAndAnswersRequest</a></li>
+	<li role="presentation"><a href="#bulkreq" aria-controls="bulkreq" role="tab" data-toggle="tab">BulkRatingsRequest</a></li>
+	<li role="presentation"><a href="#pdpreq" aria-controls="pdpreq" role="tab" data-toggle="tab">ProductDisplayPageRequest</a></li>
 </ul>
+
+<div class="tab-content code-switcher">
+	<div role="tabpanel" class="tab-pane active" id="reviewsreq">
+<h4>Displaying Reviews</h4>
+<p>To display reviews you will use <code>ReviewsRequest</code>. To create a <code>ReviewsRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Reviews. It also has the optional fields that are valid for requesting Reviews. Reference <code>ReviewsRequest.java</code> for other optional fields</p>
+<pre><code>ReviewsRequest request = new ReviewsRequest.Builder(productId, reviewsLimit, reviewsOffset)
+		.addSort(ReviewOptions.Sort.AuthorId, SortOrder.ASC)
+		.build();</code></pre>
+        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Reviews</p>
+
+        <p>ReviewsRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ReviewResponse&gt;() {
+    @Override
+    public void onSuccess(ReviewResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains Reviews
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    ReviewResponse response = client.prepareCall(request).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+
+</div>
+
+<div role="tabpanel" class="tab-pane" id="qnareq">
+<h4>Displaying Question and Answers</h4>
+<p>To display reviews you will use <code>QuestionAndAnswersRequest</code>. To create a <code>QuestionAndAnswersRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Questions. It also has the optional fields that are valid for requesting Questions. Reference <code>QuestionAndAnswersRequest.java</code> for other optional fields</p>
+<pre><code>QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder(productId, limit, offset)
+                .addFilter(QuestionOptions.Filter.AuthorId, EqualityOperator.EQ, authorId)
+                .build();</code></pre>
+        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Questions</p>
+
+        <p>QuestionAndAnswersRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(request).loadAsync(new ConversationsCallback&lt;QuestionAndAnswerResponse&gt;() {
+    @Override
+    public void onSuccess(QuestionAndAnswerResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains Questions
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    QuestionAndAnswerResponse response = client.prepareCall(request).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+</div>
+
+<div role="tabpanel" class="tab-pane" id="bulkreq">
+<h4>Displaying Bulk Product Ratings</h4>
+<p>To display reviews you will use <code>BulkRatingsRequest</code>. To create a <code>BulkRatingsRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Statistics. It also has the optional fields that are valid for requesting Statistics. Reference <code>BulkRatingsRequest.java</code> for other optional fields</p>
+<pre><code>BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIdList, BulkRatingOptions.StatsType.NativeReviews)
+                .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, contentLocale)
+                .build();</code></pre>
+        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Statistics</p>
+
+        <p>BulkRatingsRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(request).loadAsync(new ConversationsCallback&lt;BulkRatingsResponse&gt;() {
+    @Override
+    public void onSuccess(BulkRatingsResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains Statistics
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    BulkRatingsResponse response = client.prepareCall(request).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+</div>
+
+<div role="tabpanel" class="tab-pane" id="pdpreq">
+<h4>Displaying Product Display Page Content</h4>
+<p>To display reviews you will use <code>ProductDisplayPageRequest</code>. To create a <code>ProductDisplayPageRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Products. It also has the optional fields that are valid for requesting Products. Reference <code>ProductDisplayPageRequest.java</code> for other optional fields</p>
+<pre><code>ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder(productId)
+                .addIncludeContent(PDPContentType.Reviews, limit)
+                .build();</code></pre>
+        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Products</p>
+
+        <p>ProductDisplayPageRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ProductDisplayPageResponse&gt;() {
+    @Override
+    public void onSuccess(ProductDisplayPageResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains Products
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<pre><code>try {
+    ProductDisplayPageResponse response = client.prepareCall(request).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+</div>
+</div>
+
+<hr><br>
+
+<a name="display_containers"></a>
+
+<h2>Conversations Display: UI Containers</h2>
+
 <br>
+
+In order to provide user interaction analytics that help produce useful ROI (return on investment) reports, and more accurate future recommendations, you should use the SDK-provided views when requesting and displaying Reviews, Questions, or Answers.
+
+The SDK supports the following sub-classed types of view containers, depending on your preference:
+<br><br>
+<li><b>GridView</b>: ReviewsGridView, AnswersGridView, QuestionsGridView</li>
+<li><b>FrameLayout</b>: ReviewsContainerView, AnswersContainerView, QuestionsContainerView</li>
+<li><b>ListView</b>: ReviewsListView, AnswersListView, QuestionsListView</li>
+<li><b>RecyclerView</b>: ReviewsRecyclerView, AnswersRecyclerView, AnswersRecyclerView</li>
+<br>
+
+For a refrence implementation on utilizing the Reviews, Question, and Answers containers, please refer to the sample application in the SDK.
+
+
+<br><br>
 
 
 

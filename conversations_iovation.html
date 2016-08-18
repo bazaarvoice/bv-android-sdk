@@ -155,10 +155,16 @@ $(function(){
                              id="conversationsDropdown">
                             <ul>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="using_conversations.html"><span>Using Conversations</span></a>
+                                    <a class="nav-link" href="conversations_display.html"><span>Conversations Display</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_submission.html"><span>Conversations Submission</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="upgrading_conversations.html"><span>Upgrading Conversations</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -213,41 +219,58 @@ $(function(){
 	Authenticity using device fingerprinting
 </div>
 
-<p>Bazaarvoice has partenered with <a href="iovation_bvsample">iovation</a>, an industry leader in device reputation technology, to ensure authenticity in consumer-generated content. Bazaarvoice Mobile SDKs for Android and iOS support the ability to include the iovation fingerprint along with Conversations API requests, using the <code>BVPost</code> request object. Contact your Bazaarvoice support representative to request an evaluation of the iovation integration.</p>
+<p>Bazaarvoice has partenered with <a href="https://www.iovation.com/">iovation</a>, an industry leader in device reputation technology, to ensure authenticity in consumer-generated content. Bazaarvoice Mobile SDKs for Android and iOS support the ability to include the iovation fingerprint along with Conversations API requests, using the <code>BVPost</code> request object. Contact your Bazaarvoice support representative to request an evaluation of the iovation integration.</p>
 <p>Refer to the <a href="https://developer.bazaarvoice.com/apis/conversations/tutorials/device_fingerprinting">Device Fingerprinting</a> page of the Bazaarvoice Developer Portal for technical details about creating and submitting device fingerprinting information from iovation with consumer-generated content. Refer to the <a href="https://developer.bazaarvoice.com/apis/conversations/tutorials/Device_Fingerprinting%20mobile">Mobile Device Fingerprinting</a> page of the Developer Portal for mobile-specific details about integrating with iovation.</p>
 
 
 <hr/>
 
 <h3>Android Integration</h3>
-<p>After you integrate the iovation <code>aar</code>, the rest of the integration process is simple. For any <code>SubmissionParams</code> object passed to the <code>BazaarRequest#postSubmission(final RequestType type, BazaarParams params, final OnBazaarResponse listener)</code>, add the following lines of code:</p>
-<pre><code class="java">BazaarRequest request = new BazaarRequest();
-SubmissionParams params = new SubmissionParams();
-...
+<p>After you integrate the iovation <code>aar</code>, the rest of the integration process is simple. For any <code>ReviewSubmission</code>, <code>QuestionSubmission</code>, or <code>AnswerSubmission</code> object passed to the <code>BVConversationsClient#prepareCall(...)</code> method, just add the <code>blackbox</code> value to the <code>fingerPrint</code> parameter like the sampe code below:</p>
+<pre><code class="java">BVConversationsClient client = new BVConversationsClient();
+
 String blackbox = getBlackbox(getContext().getApplicationContext());
-params.setFingerprint(blackbox);
-params.setAction(Action.SUBMIT);
-...
-request.postSubmission(RequestType.REVIEWS, params, listener);</code></pre>
+
+ReviewSubmission submission = new ReviewSubmission.Builder(Action.Submit, productId)
+	.fingerPrint(blackbox)
+	// add other submission params here
+	.build();
+
+client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;ReviewSubmissionResponse&gt;() {
+
+    @Override
+    public void onSuccess(ReviewSubmissionResponse response) {
+        // Successful repsonse
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        // Failure, handle error appropriately
+    }
+});
+}</code></pre>
 <br>
 
 <h3>Sample Application</h3>
-<p>The demo app <code>ConversationsFragment</code> contains the necessary integration code commented out. Enable the code after you add the iovation <code>aar</code> to the project. Complete the following steps to run a demo:</p>
+<p>The demo app file <code>DemoConversationsAPIFragment.java</code> contains the necessary iovation SDK integration code commented out. After you add the iovation <code>aar</code> to the project., uncomment the code requesting and adding the <code>blackbox</code> parameter to your submission requets. Complete the following steps to run a demo:</p>
 
 <ol>
 	<li>Open the demo project.</li>
 	<li>Create a directory named <code>libs</code> in the <code>bv-android-sdk/app/</code> directory.</li>
 	<li>Drag and drop the deviceprint-release-2.3.0.aar into the <code>libs</code> directory.</li>
 	<li>Uncomment the <code>compile(name:'deviceprint-release-2.3.0', ext:'aar')</code> line in the <code>bv-android-sdk/app/build.gradle</code> file.</li>
-	<li>Uncomment the sample lines in <code>ConversationsFragment#handleReviewSub()</code>.</li>
-	<li>Configure the project with your Client ID and Conversations API Key in the <code>UserConfigurationImpl</code> class.</li>
+	<li>Uncomment the blackbox and fingerprinting sample lines in <code>DemoConversationsAPIFragment#setUpUGCSubmisionActionButtons(View view)</code>.</li>
+	<li>Uncomment the <code>start(getApplicationContext())</code> call in <code>DemoMainActivity</code>.</li>
+	<li>Configure the project with your Client ID and Conversations API Key in the <code>DemoConstants</code> class.</li>
 </ol>
 <br>
-<p>After you complete integration, run the app and view the <code>BazaarRequest</code> requests when tapping the <strong>Review</strong> button in the Content Submission section of the Conversations demo page, as shown in the following examples.</p>
+<p>After you complete integration, run the app and view the <code>ReviewSubmission</code>  (or Question/Answer Submission0 requests when tapping the <strong>Review</strong> button in the Content Submission section of the Conversations demo page, as shown in the following examples.</p>
 
-<img src="android-img/conv_tut_add_iovation_gradle.png" style="height:280px" class="center-block img-fluid" />
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: iovation verification should be done using Action.Submit and not Action.Preview.</p>
+
+<img src="android-img/conv_tut_add_iovation_gradle.png" style="height:350px" class="center-block img-fluid" />
 <br>
-<img src="android-img/conv_tut_uncomment_iovation_fp.png" style="height:280px" class="center-block img-fluid" />
+<img src="android-img/conv_tut_uncomment_iovation_fp.png" style="height:350px" class="center-block img-fluid" />
 <br>
 
 
