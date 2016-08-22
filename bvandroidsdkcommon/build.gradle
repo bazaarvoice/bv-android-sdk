@@ -1,19 +1,19 @@
 buildscript {
     dependencies {
-        classpath dep.androidPlugin
-        classpath dep.credentialsPlugin
+        classpath sdkBuildDep.androidPlugin
+        classpath sdkBuildDep.credentialsPlugin
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion sdkBuildInfo.compileSdkVersion
+    buildToolsVersion sdkBuildInfo.buildToolsVersion
 
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
-        targetCompatibility rootProject.ext.targetCompatibilityVersion
+        sourceCompatibility sdkBuildInfo.sourceCompatibilityVersion
+        targetCompatibility sdkBuildInfo.targetCompatibilityVersion
     }
 
     dexOptions {
@@ -22,8 +22,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion sdkBuildInfo.minSdkVersion
+        targetSdkVersion sdkBuildInfo.targetSdkVersion
     }
     buildTypes {
         NEXUS_USER {
@@ -42,18 +42,18 @@ android {
 }
 
 dependencies {
-    compile dep.gson
-    compile dep.okhttp3
-    compile dep.recyclerview
-    compile dep.playServiceAds
+    compile sdkDep.gson
+    compile sdkDep.okhttp3
+    compile sdkDep.recyclerview
+    compile sdkDep.playServiceAds
 
     // Dependencies for local unit tests
-    testCompile dep.junit
-    testCompile dep.mockito
-    testCompile dep.hamcrest
-    testCompile dep.mockWebServer
-    testCompile dep.robolectric
-    testCompile dep.roboPlayServices
+    testCompile sdkTestDep.junit
+    testCompile sdkTestDep.mockito
+    testCompile sdkTestDep.hamcrest
+    testCompile sdkTestDep.mockWebServer
+    testCompile sdkTestDep.robolectric
+    testCompile sdkTestDep.roboPlayServices
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

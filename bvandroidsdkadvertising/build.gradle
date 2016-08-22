@@ -1,19 +1,19 @@
 buildscript {
     dependencies {
-        classpath dep.androidPlugin
-        classpath dep.credentialsPlugin
+        classpath sdkBuildDep.androidPlugin
+        classpath sdkBuildDep.credentialsPlugin
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion sdkBuildInfo.compileSdkVersion
+    buildToolsVersion sdkBuildInfo.buildToolsVersion
 
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
-        targetCompatibility rootProject.ext.targetCompatibilityVersion
+        sourceCompatibility sdkBuildInfo.sourceCompatibilityVersion
+        targetCompatibility sdkBuildInfo.targetCompatibilityVersion
     }
 
     dexOptions {
@@ -22,8 +22,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion sdkBuildInfo.minSdkVersion
+        targetSdkVersion sdkBuildInfo.targetSdkVersion
     }
     buildTypes {
         NEXUS_USER {
@@ -41,9 +41,9 @@ android {
 dependencies {
     compile project(':bvandroidsdkcommon')
 
-    testCompile dep.junit
-    testCompile dep.mockito
-    testCompile dep.hamcrest
+    testCompile sdkTestDep.junit
+    testCompile sdkTestDep.mockito
+    testCompile sdkTestDep.hamcrest
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

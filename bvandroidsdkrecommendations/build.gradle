@@ -1,19 +1,19 @@
 buildscript {
     dependencies {
-        classpath dep.androidPlugin
-        classpath dep.credentialsPlugin
+        classpath sdkBuildDep.androidPlugin
+        classpath sdkBuildDep.credentialsPlugin
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion sdkBuildInfo.compileSdkVersion
+    buildToolsVersion sdkBuildInfo.buildToolsVersion
 
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
-        targetCompatibility rootProject.ext.targetCompatibilityVersion
+        sourceCompatibility sdkBuildInfo.sourceCompatibilityVersion
+        targetCompatibility sdkBuildInfo.targetCompatibilityVersion
     }
 
     dexOptions {
@@ -22,8 +22,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion sdkBuildInfo.minSdkVersion
+        targetSdkVersion sdkBuildInfo.targetSdkVersion
     }
     buildTypes {
         NEXUS_USER {
@@ -35,17 +35,18 @@ android {
     lintOptions {
         abortOnError false
     }
+
 }
 
 dependencies {
     compile project(':bvandroidsdkcommon')
-    provided dep.recyclerview
-    provided dep.gson
+    provided sdkDep.recyclerview
+    provided sdkDep.gson
 
-    testCompile dep.junit
-    testCompile dep.mockito
-    testCompile dep.hamcrest
-    testCompile dep.robolectric
+    testCompile sdkTestDep.junit
+    testCompile sdkTestDep.mockito
+    testCompile sdkTestDep.hamcrest
+    testCompile sdkTestDep.robolectric
     testCompile project(':bvandroidsdktesting')
 }
 

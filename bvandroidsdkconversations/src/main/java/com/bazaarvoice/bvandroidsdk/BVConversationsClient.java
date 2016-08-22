@@ -53,7 +53,6 @@ public final class BVConversationsClient {
     }
 
     public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
-        ResponseType loadSync(LoadCallDisplay<RequestType, ResponseType> call) throws BazaarException;
         void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
     }
 

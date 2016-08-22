@@ -1,8 +1,8 @@
 buildscript {
     dependencies {
-        classpath dep.androidPlugin
-        classpath dep.crashlyticsPlugin
-        classpath dep.androidAptPlugin
+        classpath demoAppBuildDep.androidPlugin
+        classpath demoAppBuildDep.crashlyticsPlugin
+        classpath demoAppBuildDep.androidAptPlugin
     }
     repositories {
         flatDir {
@@ -36,12 +36,12 @@ def hasAppdemoBuildSettings() {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion demoAppBuildInfo.compileSdkVersion
+    buildToolsVersion demoAppBuildInfo.buildToolsVersion
 
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
-        targetCompatibility rootProject.ext.targetCompatibilityVersion
+        sourceCompatibility demoAppBuildInfo.sourceCompatibilityVersion
+        targetCompatibility demoAppBuildInfo.targetCompatibilityVersion
     }
 
     dexOptions {
@@ -67,10 +67,10 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion demoAppBuildInfo.minSdkVersion
+        targetSdkVersion demoAppBuildInfo.targetSdkVersion
+        versionCode demoAppVersionCode
+        versionName demoAppVersionName
     }
 
     productFlavors {
@@ -114,21 +114,21 @@ dependencies {
 //    compile dep.bvSdkConversations
 //    compile dep.bvSdkCurations
 
-    compile dep.picasso
-    compile dep.prettyTime
-    compile dep.appCompatV7
-    compile dep.designCompat
-    compile dep.supportV4
-    compile dep.cardview
-    compile dep.preferenceV7
-    compile dep.preferenceV14
-    compile dep.playServiceAds
-    compile dep.ddPlist
-    compile dep.circleIndicator
-    compile dep.stetho
-    compile dep.stethoOkhttp3
-    compile dep.butterknife
-    apt dep.butterknifeCompiler
+    compile demoAppDep.picasso
+    compile demoAppDep.prettyTime
+    compile demoAppDep.appCompatV7
+    compile demoAppDep.designCompat
+    compile demoAppDep.supportV4
+    compile demoAppDep.cardview
+    compile demoAppDep.preferenceV7
+    compile demoAppDep.preferenceV14
+    compile demoAppDep.playServiceAds
+    compile demoAppDep.ddPlist
+    compile demoAppDep.circleIndicator
+    compile demoAppDep.stetho
+    compile demoAppDep.stethoOkhttp3
+    compile demoAppDep.butterknife
+    apt demoAppDep.butterknifeCompiler
 
     // iovation aar dependency
     // Uncomment the following lines to add iovation support
@@ -139,11 +139,11 @@ dependencies {
 //        compile(group:'com.android.support', name:'support-v4', version:'23.0.1')
 //    }
 
-    NEXUS_USERCompile dep.leakCanaryNoOp
+    NEXUS_USERCompile demoAppDep.leakCanaryNoOp
 
-    debugCompile dep.leakCanary
-    testCompile dep.junit
-    compile(dep.crashlytics) {
+    debugCompile demoAppDep.leakCanary
+    testCompile demoAppTestDep.junit
+    compile(demoAppDep.crashlytics) {
         transitive = true;
     }
 }
