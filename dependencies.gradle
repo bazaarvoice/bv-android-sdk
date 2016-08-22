@@ -1,60 +1,44 @@
 ext {
     // Sdk and tools
-    minSdkVersion = 15
-    targetSdkVersion = 24
-    compileSdkVersion = 24
-    buildToolsVersion = '24.0.0'
-    sourceCompatibilityVersion = JavaVersion.VERSION_1_7
-    targetCompatibilityVersion = JavaVersion.VERSION_1_7
+    sdkBuildInfo = [
+            minSdkVersion : 15,
+            targetSdkVersion : 24,
+            compileSdkVersion : 24,
+            buildToolsVersion : '24.0.0',
+            sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
+            targetCompatibilityVersion : JavaVersion.VERSION_1_7
+    ]
 
-    // App values
-    versionCode = 8
-    versionName = "1.0.7"
+    // Projects that were published with multiple artifacts must build
+    // all artifacts with the same version number. This block is for sharing
+    // the version number in one location for those artifacts
+    sdkSharedVersions = [
+            okhttp3Version : '3.2.0',
+            supportLibraryVersion : '24.0.0'
+    ]
 
-    // Shared dependency versions
-    okhttp3Version = '3.2.0'
-    supportLibraryVersion = '24.0.0'
-    leakCanaryVersion = '1.4-beta2'
-    bvSdkVersion = '4.0.5'
-    stethoVersion = '1.3.1'
-    butterknifeVersion = '8.2.1'
-
-    dep = [
+    sdkBuildDep = [
             androidPlugin       : 'com.android.tools.build:gradle:2.1.2',
-            crashlyticsPlugin   : 'io.fabric.tools:gradle:1.21.6',
-            credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
-            androidAptPlugin    : 'com.neenbedankt.gradle.plugins:android-apt:1.8',
-            okhttp3             : "com.squareup.okhttp3:okhttp:$okhttp3Version",
-            mockWebServer       : "com.squareup.okhttp3:mockwebserver:$okhttp3Version",
-            supportV4           : "com.android.support:support-v4:$supportLibraryVersion",
-            recyclerview        : "com.android.support:recyclerview-v7:$supportLibraryVersion",
-            appCompatV7         : "com.android.support:appcompat-v7:$supportLibraryVersion",
-            designCompat        : "com.android.support:design:$supportLibraryVersion",
-            cardview            : "com.android.support:cardview-v7:$supportLibraryVersion",
-            preferenceV7        : "com.android.support:preference-v7:$supportLibraryVersion",
-            preferenceV14       : "com.android.support:preference-v14:$supportLibraryVersion",
+            credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1'
+    ]
+
+    sdkDep = [
+            okhttp3             : "com.squareup.okhttp3:okhttp:$sdkSharedVersions.okhttp3Version",
             gson                : 'com.google.code.gson:gson:2.5',
-            picasso             : 'com.squareup.picasso:picasso:2.5.2',
+            playServiceAds      : 'com.google.android.gms:play-services-ads:8.4.0',
+            supportV4           : "com.android.support:support-v4:$sdkSharedVersions.supportLibraryVersion",
+            recyclerview        : "com.android.support:recyclerview-v7:$sdkSharedVersions.supportLibraryVersion",
+            appCompatV7         : "com.android.support:appcompat-v7:$sdkSharedVersions.supportLibraryVersion",
+            designCompat        : "com.android.support:design:$sdkSharedVersions.supportLibraryVersion"
+    ]
+
+    sdkTestDep = [
+            mockWebServer       : "com.squareup.okhttp3:mockwebserver:$sdkSharedVersions.okhttp3Version",
             junit               : 'junit:junit:4.12',
             mockito             : 'org.mockito:mockito-core:1.10.19',
-            playServiceAds      : 'com.google.android.gms:play-services-ads:8.4.0',
             hamcrest            : 'org.hamcrest:hamcrest-all:1.3',
             robolectric         : 'org.robolectric:robolectric:3.1',
             roboPlayServices    : 'org.robolectric:shadows-play-services:3.1',
-            prettyTime          : 'org.ocpsoft.prettytime:prettytime:3.2.7.Final',
-            ddPlist             : 'com.googlecode.plist:dd-plist:1.16',
-            butterknife         : "com.jakewharton:butterknife:$butterknifeVersion",
-            butterknifeCompiler : "com.jakewharton:butterknife-compiler:$butterknifeVersion",
-            circleIndicator     : 'me.relex:circleindicator:1.2.1@aar',
-            crashlytics         : 'com.crashlytics.sdk.android:crashlytics:2.5.7@aar',
-            leakCanary          : "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion",
-            leakCanaryNoOp      : "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion",
-            stetho              : "com.facebook.stetho:stetho:$stethoVersion",
-            stethoOkhttp3       : "com.facebook.stetho:stetho-okhttp3:$stethoVersion",
-            bvSdkAds            : "com.bazaarvoice.bvandroidsdk:advertising:$bvSdkVersion",
-            bvSdkConversations  : "com.bazaarvoice.bvandroidsdk:conversations:$bvSdkVersion",
-            bvSdkCurations      : "com.bazaarvoice.bvandroidsdk:curations:$bvSdkVersion",
-            bvSdkRecommendations: "com.bazaarvoice.bvandroidsdk:recommendations:$bvSdkVersion",
     ]
 
     isCi = "true".equals(System.getenv('CI'))

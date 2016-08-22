@@ -36,15 +36,6 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
     }
 
     @Override
-    public QuestionAndAnswerResponse loadSync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call) throws BazaarException {
-        final QuestionAndAnswerRequest qAndARequest = call.getRequest();
-        productId = qAndARequest.getProductId();
-        QuestionAndAnswerResponse qAndAResponse = call.loadSync();
-        trySendUsedFeatureInViewEvent();
-        return qAndAResponse;
-    }
-
-    @Override
     public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsCallback<QuestionAndAnswerResponse> callback) {
         final QuestionAndAnswerRequest qAndARequest = call.getRequest();
         productId = qAndARequest.getProductId();

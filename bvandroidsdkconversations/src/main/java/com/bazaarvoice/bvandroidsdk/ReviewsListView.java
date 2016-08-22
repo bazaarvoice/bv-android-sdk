@@ -30,15 +30,6 @@ public final class ReviewsListView extends BVListView implements BVConversations
     }
 
     @Override
-    public ReviewResponse loadSync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call) throws BazaarException {
-        final ReviewsRequest reviewsRequest = call.getRequest();
-        productId = reviewsRequest.getProductId();
-        ReviewResponse reviewResponse = call.loadSync();
-        trySendUsedFeatureInViewEvent();
-        return reviewResponse;
-    }
-
-    @Override
     public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsCallback<ReviewResponse> callback) {
         final ReviewsRequest reviewsRequest = call.getRequest();
         productId = reviewsRequest.getProductId();
