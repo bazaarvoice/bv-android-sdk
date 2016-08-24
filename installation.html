@@ -237,10 +237,10 @@ $(function(){
 
 <p>Implement the following code to include the Maven Central repository and add Bazaarvoice Mobile SDK modules to your dependencies for each Bazaarvoice product you are using.</p>
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:'
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:'
-    compile 'com.bazaarvoice.bvandroidsdk:curations:'
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:'
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:curations:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:4.+'
 }
 repositories {
     mavenCentral()
@@ -271,10 +271,7 @@ repositories {
 <br>
 
 <h3>AndroidManifest</h3>
-<pre><code class="xml">&lt;!-- Request internet permission, if not already there. --&gt;
-&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-
-&lt;!-- set the name of the class for the application entry --&gt;
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
 &lt;application
     android:name=".MyApplication"&gt;
 &lt;/application&gt;</code></pre>

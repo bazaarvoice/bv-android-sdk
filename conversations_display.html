@@ -250,7 +250,7 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:'
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:4.+'
 }
 repositories {
     mavenCentral()
@@ -283,10 +283,7 @@ repositories {
 <br>
 
 <h3>AndroidManifest</h3>
-<pre><code class="xml">&lt;!-- Request internet permission, if not already there. --&gt;
-&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
-
-&lt;!-- set the name of the class for the application entry --&gt;
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
 &lt;application
     android:name=".MyApplication"&gt;
 &lt;/application&gt;</code></pre>
@@ -312,124 +309,99 @@ Conversations Display Sections in this page:
 <br>
 <h4>BVConversationsClient</h4>
 
-Use an instace of the <code>BVConversationsClient</code> to make all your Conversations Display API requets. You can keep an instance of this this object to handle all your Conversations calls as shown in the examples below.
+Use a Bazaarvoice ViewGroup class to make all your Conversations Display API requests.
 
 <br><br>
 
 <ul class="nav nav-tabs" role="tablist">
-	<li role="presentation" class="active"><a href="#reviewsreq" aria-controls="reviewsreq" role="tab" data-toggle="tab">ReviewsRequest</a></li>
-	<li role="presentation"><a href="#qnareq" aria-controls="qnareq" role="tab" data-toggle="tab">QuestionAndAnswersRequest</a></li>
-	<li role="presentation"><a href="#bulkreq" aria-controls="bulkreq" role="tab" data-toggle="tab">BulkRatingsRequest</a></li>
-	<li role="presentation"><a href="#pdpreq" aria-controls="pdpreq" role="tab" data-toggle="tab">ProductDisplayPageRequest</a></li>
+  <li role="presentation" class="active"><a href="#pdpreq" aria-controls="pdpreq" role="tab" data-toggle="tab">Product Display Page</a></li>
+	<li role="presentation"><a href="#reviewsreq" aria-controls="reviewsreq" role="tab" data-toggle="tab">Reviews</a></li>
+	<li role="presentation"><a href="#qnareq" aria-controls="qnareq" role="tab" data-toggle="tab">Questions &amp; Answers</a></li>
+	<li role="presentation"><a href="#bulkreq" aria-controls="bulkreq" role="tab" data-toggle="tab">Bulk Ratings</a></li>
 </ul>
 
 <div class="tab-content code-switcher">
-	<div role="tabpanel" class="tab-pane active" id="reviewsreq">
-<h4>Displaying Reviews</h4>
-<p>To display reviews you will use <code>ReviewsRequest</code>. To create a <code>ReviewsRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Reviews. It also has the optional fields that are valid for requesting Reviews. Reference <code>ReviewsRequest.java</code> for other optional fields</p>
-<pre><code>ReviewsRequest request = new ReviewsRequest.Builder(productId, reviewsLimit, reviewsOffset)
-		.addSort(ReviewOptions.Sort.AuthorId, SortOrder.ASC)
-		.build();</code></pre>
-        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Reviews</p>
+  <div role="tabpanel" class="tab-pane active" id="pdpreq">
 
-        <p>ReviewsRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ReviewResponse&gt;() {
-    @Override
-    public void onSuccess(ReviewResponse response) {
-        //called on Main Thread
-        response.getResults(); //contains Reviews
-    }
+    <h4>Loading a Product Display Page</h4>
+<p>
+  When showing a product display page, use a <code>ProductDisplayPageRequest
+  </code> to fetch useful data like <code>reviewStatistics</code> or to include
+  the first 10 <code>Review</code> reviews.
+</p>
 
-    @Override
-    public void onFailure(BazaarException exception) {
-        //called on Main Thread
-    }
-});</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
-<pre><code>try {
-    ReviewResponse response = client.prepareCall(request).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
+<p>
+  First, let's look at a simple <code>ProductDisplayPageRequest</code>
+<p>
 
-</div>
+<pre><code>// request product information, including statistics on reviews and questions/answers.
+ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder("test1")
+              .addIncludeStatistics(PDPContentType.Reviews)
+              .addIncludeStatistics(PDPContentType.Questions)
+              .build();
+</code></pre>
 
-<div role="tabpanel" class="tab-pane" id="qnareq">
-<h4>Displaying Question and Answers</h4>
-<p>To display reviews you will use <code>QuestionAndAnswersRequest</code>. To create a <code>QuestionAndAnswersRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Questions. It also has the optional fields that are valid for requesting Questions. Reference <code>QuestionAndAnswersRequest.java</code> for other optional fields</p>
-<pre><code>QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder(productId, limit, offset)
-                .addFilter(QuestionOptions.Filter.AuthorId, EqualityOperator.EQ, authorId)
-                .build();</code></pre>
-        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Questions</p>
+<p>
+  In the code above, a <code>ProductDisplayPageRequest</code> is created for
+  productId <strong>test1</strong>. We also include statistics for reviews and
+  questions/answers. You may want to include some actual content with it, as
+  shown below. We also sort the included reviews by their submissionTime.
+</p>
 
-        <p>QuestionAndAnswersRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(request).loadAsync(new ConversationsCallback&lt;QuestionAndAnswerResponse&gt;() {
-    @Override
-    public void onSuccess(QuestionAndAnswerResponse response) {
-        //called on Main Thread
-        response.getResults(); //contains Questions
-    }
+<pre><code>// request product information, including statistics on reviews and questions/answers.
+ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder("test1")
+              .addIncludeContent(PDPContentType.Reviews, 10)
+              .addIncludeContent(PDPContentType.Questions, 5)
+              .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+              .build();</code></pre>
 
-    @Override
-    public void onFailure(BazaarException exception) {
-        //called on Main Thread
-    }
-});</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
-<pre><code>try {
-    QuestionAndAnswerResponse response = client.prepareCall(request).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-</div>
+<p>
+  <strong>Let's load this request!</strong>
+</p>
 
-<div role="tabpanel" class="tab-pane" id="bulkreq">
-<h4>Displaying Bulk Product Ratings</h4>
-<p>To display reviews you will use <code>BulkRatingsRequest</code>. To create a <code>BulkRatingsRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Statistics. It also has the optional fields that are valid for requesting Statistics. Reference <code>BulkRatingsRequest.java</code> for other optional fields</p>
-<pre><code>BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIdList, BulkRatingOptions.StatsType.NativeReviews)
-                .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, contentLocale)
-                .build();</code></pre>
-        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Statistics</p>
+<p>
+  To do so, pass the request to your BVConversationsClient instance as shown
+  below.
+</p>
 
-        <p>BulkRatingsRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(request).loadAsync(new ConversationsCallback&lt;BulkRatingsResponse&gt;() {
-    @Override
-    public void onSuccess(BulkRatingsResponse response) {
-        //called on Main Thread
-        response.getResults(); //contains Statistics
-    }
-
-    @Override
-    public void onFailure(BazaarException exception) {
-        //called on Main Thread
-    }
-});</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
-<pre><code>try {
-    BulkRatingsResponse response = client.prepareCall(request).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-</div>
-
-<div role="tabpanel" class="tab-pane" id="pdpreq">
-<h4>Displaying Product Display Page Content</h4>
-<p>To display reviews you will use <code>ProductDisplayPageRequest</code>. To create a <code>ProductDisplayPageRequest</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to request Products. It also has the optional fields that are valid for requesting Products. Reference <code>ProductDisplayPageRequest.java</code> for other optional fields</p>
-<pre><code>ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder(productId)
-                .addIncludeContent(PDPContentType.Reviews, limit)
-                .build();</code></pre>
-        <p>Once the request is created you will use your instance of <code>BVConversationsClient</code> to obtain Products</p>
-
-        <p>ProductDisplayPageRequest can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
 <pre><code>BVConversationsClient client = new BVConversationsClient();
 client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ProductDisplayPageResponse&gt;() {
     @Override
     public void onSuccess(ProductDisplayPageResponse response) {
         //called on Main Thread
-        response.getResults(); //contains Products
+        response.getResults(); //contains the product
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});
+</code></pre>
+
+
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="reviewsreq">
+
+    <h4>Loading more Reviews</h4>
+
+<p>
+  As shown previously, you should use a <code>ProductDisplayPageRequest</code>
+  to load the first page of CGC that your users will see (up to 20 items). When
+  loading reviews, you should request and display reviews in a
+  <code>ReviewsRecyclerView</code>, <code>ReviewsListView</code>,
+  <code>ReviewsGridView</code>, or <code>ReviewsContainerView</code> container:
+</p>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("test1", 10, 20).build();
+reviewsRecyclerView = (ReviewsRecyclerView) findViewById(R.id.my_reviews_recycler_view);
+reviewsRecyclerView.loadAsync(client.prepareCall(reviewsRequest), new ConversationsCallback&lt;ReviewResponse&gt;() {
+    @Override
+    public void onSuccess(ReviewResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains reviews
     }
 
     @Override
@@ -437,13 +409,186 @@ client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ProductDispla
         //called on Main Thread
     }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
-<pre><code>try {
-    ProductDisplayPageResponse response = client.prepareCall(request).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-</div>
+
+<p>
+  A <code>ReviewsRequest</code> requires three parameters:
+</p>
+
+<ul>
+  <li>productId - the productId that you want reviews for</li>
+  <li>limit - max number of reviews to fetch (maximum of 20)</li>
+  <li>offset - the index to start on</li>
+</ul>
+
+<p>
+  A combination of limit and offset should be used to load more pages of reviews
+  upon the user's request.
+</p>
+
+<p>
+  You can add filters and sorts to the request, as shown below:
+</p>
+
+<pre><code>ReviewsRequest request = new ReviewsRequest.Builder("test1", 10, 0)
+       .addFilter(ReviewOptions.Filter.HasPhotos, EqualityOperator.EQ, "")
+       .addSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
+       .build();</code></pre>
+
+<p>
+  Loading reviews is simply done by calling the loadAsync() method on the chosen
+  Reviews View container as shown above.
+</p>
+
+<h4>Displaying Reviews</h4>
+
+<p>
+  Multiple reviews should be shown in one of the following container view:
+</p>
+
+<ul>
+  <li><code>ReviewsRecyclerView</code></li>
+  <li><code>ReviewsListView</code></li>
+  <li><code>ReviewsGridView</code></li>
+  <li><code>ReviewsContainerView</code></li>
+</ul>
+
+<p>
+  Each review should be shown using a <code>ReviewView</code>.
+</p>
+
+
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="qnareq">
+
+    <h4>Loading more Questions/Answers</h4>
+
+<p>
+  Similarly to reviews, you should use a <code>ProductDisplayPageRequest</code>
+  to load the first page of Questions/Answers (up to the first 20 questions).
+  When loading questions, you should request and display questions in a
+  <code>QuestionsRecyclerView</code>, <code>QuestionsListView</code>,
+  <code>QuestionsGridView</code>, or <code>QuestionsContainerView</code>
+  container:
+</p>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+QuestionAndAnswerRequest questionsRequest = new QuestionAndAnswerRequest.Builder("test1", 10, 20).build();
+questionsRecyclerView = (QuestionsRecyclerView) findViewById(R.id.my_questions_recycler_view);
+questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new ConversationsCallback&lt;QuestionAndAnswerResponse&gt;() {
+    @Override
+    public void onSuccess(QuestionAndAnswerResponse response) {
+        //called on Main Thread
+        response.getResults();
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});</code></pre>
+
+<p>
+  A <code>QuestionsAndAnswersRequest</code> requires the same three parameters
+  as a <code>ReviewsRequest</code>:
+</p>
+
+<ul>
+  <li>productId - the productId that you want questions for</li>
+  <li>limit - max number of questions to fetch (maximum of 20)</li>
+  <li>offset - the index to start on</li>
+</ul>
+
+<p>
+  A combination of limit and offset should be used to load more pages of
+  questions upon the user's request.
+</p>
+
+<p>
+  You can add filters and sorts to the request, as shown below:
+</p>
+
+<pre><code>QuestionsAndAnswersRequest request = new QuestionsAndAnswersRequest.Builder("test1", 10, 0)
+       .addFilter(QuestionOptions.Filter.HasPhotos, EqualityOperator.EQ, "")
+       .addSort(QuestionOptions.Sort.TotalAnswerCount, SortOrder.DESC)
+       .build();</code></pre>
+
+<h4>Displaying Questions &amp; Answers</h4>
+
+<p>
+ Questions &amp; Answers should be shown in one of the following container view:
+</p>
+
+<ul>
+  <li><code>QuestionsRecyclerView</code></li>
+  <li><code>QuestionsListView</code></li>
+  <li><code>QuestionsGridView</code></li>
+  <li><code>QuestionsContainerView</code></li>
+  <li><code>AnswersRecyclerView</code></li>
+  <li><code>AnswersListView</code></li>
+  <li><code>AnswersGridView</code></li>
+  <li><code>AnswersContainerView</code></li>
+</ul>
+
+<p>
+  Each question should be shown using a <code>QuestionView</code>, and each answer
+  should be shown using an <code>AnswerView</code>.
+</p>
+
+
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="bulkreq">
+
+    <h4>Showing Bulk Ratings</h4>
+
+<p>
+  To show product rating statistics on a category page, use a
+  <code>BulkRatingsRequest</code>. For example, on a category page like this
+  one:
+</p>
+
+<p>
+  Getting each product's rating statistics can be done with the following single
+  request:
+</p>
+
+<pre><code>List&lt;String&gt; productIds = Arrays.asList("test1", "test2", "test3", "test4");
+BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.All).build();
+</code></pre>
+
+<p>
+  Which can be loaded with:
+</p>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(request).loadAsync(new ConversationsCallback&lt;BulkRatingsResponse&gt;() {
+    @Override
+    public void onSuccess(BulkRatingsResponse response) {
+        //called on Main Thread
+        String productId="", averageOverallRating="", totalReviewCount="";
+        for (Statistics stats : response.getResults()) {
+            ProductStatistics productStats = stats.getProductStatistics();
+            if (productStats != null) {
+              productId = productStats.getProductId();
+              ReviewStatistics reviewStats = productStats.getReviewStatistics();
+              if (reviewStats != null) {
+                averageOverallRating = reviewStats.getAverageOverallRating();
+                totalReviewCount = reviewStats.getTotalReviewCount();
+              }
+            }
+        }
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+    }
+});
+</code></pre>
+
+
+  </div>
 </div>
 
 <hr><br>
