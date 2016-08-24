@@ -2,6 +2,35 @@
 
 # Changelog
 
+# 4.1.0
+
+## Conversations
+
+### Conversations Revamped 
+
+This release provides a vast improvement over the current display and submission API for Conversations. 
+The following improvements will:
+
+* decrease implementation time
+* provide deserialized responses returned in P.O.J.O (plain old java objects), as opposed to returning 
+a raw json response string
+* make error handling much simpler, (e.g. wrapping legacy conversations API implementation details so 
+you don't have to worry about it
+* provide View container objects, which makes ROI reporting much simpler
+
+We have deprecated the ```BazaarRequest``` class as well as any related classes to implement 
+Conversation the old way. For any clients migrating from the ```BazaarRequest``` API, please refer to 
+the upgrade guide: https://bazaarvoice.github.io/bv-android-sdk/upgrading_conversations.html
+
+### Other Conversations Changes
+
+* Fixed the implementation of the ```DisplayParams#addLimitOnIncludedType(type, limitVal)``` method to 
+correctly add the ```type``` to the ```limitType``` list 
+
+## General
+
+* Updated root dependencies.gradle to distinguish BVSDK artifact depndencies versus Demo App dependencies
+
 # 4.0.5
 * Fix BVSDK to enforce singleton pattern
 * Remove Scheduled Profile updates
