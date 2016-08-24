@@ -271,7 +271,7 @@ public class DisplayParams extends BazaarParams {
 		if (limitType == null) {
 			limitType = new ArrayList<String>();
 		}
-		sortType.add("limit_" + type.getTypeString() + "=" + limitVal);
+		limitType.add("limit_" + type.getTypeString() + "=" + limitVal);
 	}
 	
 	public List<String> getLimitType() {
