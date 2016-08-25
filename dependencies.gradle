@@ -14,7 +14,9 @@ ext {
     // the version number in one location for those artifacts
     sdkSharedVersions = [
             okhttp3Version : '3.2.0',
-            supportLibraryVersion : '24.0.0'
+            supportLibraryVersion : '24.0.0',
+            gimbalVersion : '2.46',
+            playServicesVersion : '9.0.0'
     ]
 
     sdkBuildDep = [
@@ -24,17 +26,17 @@ ext {
     ]
 
     sdkDep = [
+            // common
             okhttp3             : "com.squareup.okhttp3:okhttp:$sdkSharedVersions.okhttp3Version",
             gson                : 'com.google.code.gson:gson:2.5',
-            playServiceAds      : 'com.google.android.gms:play-services-ads:8.4.0',
-            supportV4           : "com.android.support:support-v4:$sdkSharedVersions.supportLibraryVersion",
+            playServiceAds      : "com.google.android.gms:play-services-ads:$sdkSharedVersions.playServicesVersion",
             recyclerview        : "com.android.support:recyclerview-v7:$sdkSharedVersions.supportLibraryVersion",
+
+            // location
             appCompatV7         : "com.android.support:appcompat-v7:$sdkSharedVersions.supportLibraryVersion",
-            designCompat        : "com.android.support:design:$sdkSharedVersions.supportLibraryVersion"
-            firebaseCore        : "com.google.firebase:firebase-core:$playServicesVersion",
-            bvSdk               : '4.0.0-SNAPSHOT',
-            gimbal              : "com.gimbal.android.v2:gimbal-sdk:$gimbalVersion",
-            gimbalSLF4J         : "com.gimbal.android.v2:gimbal-slf4j-impl:$gimbalVersion",
+            firebaseCore        : "com.google.firebase:firebase-core:$sdkSharedVersions.playServicesVersion",
+            gimbal              : "com.gimbal.android.v2:gimbal-sdk:$sdkSharedVersions.gimbalVersion",
+            gimbalSLF4J         : "com.gimbal.android.v2:gimbal-slf4j-impl:$sdkSharedVersions.gimbalVersion",
             slf4jApi            : 'org.slf4j:slf4j-api:1.7.21'
     ]
 
