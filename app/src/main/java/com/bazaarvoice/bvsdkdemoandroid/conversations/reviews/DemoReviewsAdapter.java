@@ -65,7 +65,7 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.reviewTimeAgo.setVisibility(View.GONE);
         }
 
-        boolean hasImage = bazaarReview.getPhotos().size() > 0;
+        boolean hasImage = bazaarReview.getPhotos() != null ? bazaarReview.getPhotos().size() > 0 : false;
         if (hasImage) {
             viewHolder.reviewImage.setVisibility(View.VISIBLE);
             DemoUtils demoUtils = DemoUtils.getInstance(viewHolder.reviewImage.getContext());

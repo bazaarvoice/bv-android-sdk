@@ -351,9 +351,9 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
     @Override
     public void showProduct(Product product) {
-        int numReviews = (product.getReviewStatistics().getTotalReviewCount() != null) ? product.getReviewStatistics().getTotalReviewCount() : 0;
-        int numQuestions = (product.getQaStatistics().getTotalQuestionCount() != null) ? product.getQaStatistics().getTotalQuestionCount() : 0;
-        int numAnswers = (product.getQaStatistics().getTotalAnswerCount() != null) ? product.getQaStatistics().getTotalAnswerCount() : 0;
+        int numReviews = (product.getReviewStatistics() != null) ? product.getReviewStatistics().getTotalReviewCount() : 0;
+        int numQuestions = (product.getQaStatistics() != null) ? product.getQaStatistics().getTotalQuestionCount() : 0;
+        int numAnswers = (product.getQaStatistics() != null) ? product.getQaStatistics().getTotalAnswerCount() : 0;
 
         if (numReviews > 0) {
             convReviews.setText(String.format(getString(R.string.conv_reviews_photos), numReviews));

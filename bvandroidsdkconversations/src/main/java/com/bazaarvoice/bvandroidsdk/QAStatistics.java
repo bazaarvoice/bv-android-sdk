@@ -63,7 +63,7 @@ public class QAStatistics {
     }
 
     public Integer getTotalAnswerCount() {
-        return totalAnswerCount;
+        return totalAnswerCount != null ? totalAnswerCount : 0;
     }
 
     public Integer getAnswerNotHelpfulVoteCount() {
@@ -71,7 +71,7 @@ public class QAStatistics {
     }
 
     public Integer getTotalQuestionCount() {
-        return totalQuestionCount;
+        return totalQuestionCount != null ? totalQuestionCount : 0;
     }
 
     public Integer getQuestionNotHelpfulVoteCount() {
