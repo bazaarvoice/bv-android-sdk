@@ -2,6 +2,12 @@
 
 # Changelog
 
+# 4.1.1
+
+## Conversations
+
+* Fixed Review response parsing, and updated unit tests to cover all expected response parsing
+
 # 4.1.0
 
 ## Conversations
