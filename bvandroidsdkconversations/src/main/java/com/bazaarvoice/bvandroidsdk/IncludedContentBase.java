@@ -132,7 +132,7 @@ class IncludedContentBase extends IncludeableContent {
     }
 
     public Date getSubmissionDate() {
-        if (submissionDate == null) {
+        if (submissionDate == null && submissionTime != null) {
             submissionDate = DateUtil.dateFromString(submissionTime);
         }
         return submissionDate;

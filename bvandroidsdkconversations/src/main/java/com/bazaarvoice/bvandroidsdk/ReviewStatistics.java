@@ -67,7 +67,8 @@ public class ReviewStatistics {
     }
 
     public Integer getTotalReviewCount() {
-        return totalReviewCount;
+
+        return totalReviewCount != null ? totalReviewCount : 0;
     }
 
     public Integer getRatingsOnlyReviewCount() {

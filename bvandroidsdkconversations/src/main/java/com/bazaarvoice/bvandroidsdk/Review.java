@@ -5,6 +5,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public class Review extends IncludedContentBase.ProductIncludedContentBase {
     @SerializedName("TotalCommentCount")
     private Integer totalCommentCount;
     @SerializedName("ClientResponses")
-    private Map<String, Object> clientResponses;
+    private List<Object> clientResponses;
     @SerializedName("SecondaryRatings")
     private Map<String, SecondaryRating> secondaryRatings;
     @SerializedName("CommentIds")
@@ -82,7 +84,7 @@ public class Review extends IncludedContentBase.ProductIncludedContentBase {
         return totalCommentCount;
     }
 
-    public Map<String, Object> getClientResponses() {
+    public List<Object> getClientResponses() {
         return clientResponses;
     }
 
