@@ -1,0 +1,153 @@
+{
+  "Includes":{
+
+  },
+  "HasErrors":false,
+  "Offset":0,
+  "TotalResults":3,
+  "Locale":"en_US",
+  "Errors":[
+
+  ],
+  "Results":[
+    {
+      "Brand":{
+        "Name":"GE",
+        "Id":"otttwtzo9imo28ssfm58x1hm"
+      },
+      "ISBNs":[
+
+      ],
+      "UPCs":[
+
+      ],
+      "Description":"This extra-large capacity dryer lets you choose between 8 dry cycles, so you can use the proper settings for your clothes. The auto dry function uses thermostats to tell when your laundry is dry, reducing wear and tear.",
+      "ManufacturerPartNumbers":[
+
+      ],
+      "Attributes":{
+
+      },
+      "QuestionIds":[
+
+      ],
+      "BrandExternalId":"otttwtzo9imo28ssfm58x1hm",
+      "ProductPageUrl":"http://myshco.com/appliances/dryers/profile.php",
+      "FamilyIds":[
+
+      ],
+      "AttributesOrder":[
+
+      ],
+      "ImageUrl":"http://myshco.com/productImages/profile.png",
+      "EANs":[
+
+      ],
+      "Name":"Profile 7.5 Cu. Ft. Colossal Capacity Electric Dryer",
+      "CategoryId":"1011",
+      "ReviewIds":[
+
+      ],
+      "Id":"1000001",
+      "StoryIds":[
+
+      ],
+      "ModelNumbers":[
+
+      ]
+    },
+    {
+      "Brand":{
+        "Name":"GE",
+        "Id":"otttwtzo9imo28ssfm58x1hm"
+      },
+      "ISBNs":[
+
+      ],
+      "UPCs":[
+
+      ],
+      "Description":"This extra-large capacity dryer lets you choose between 8 dry cycles, so you can use the proper settings for your clothes. The auto dry function uses thermostats to tell when\\nyour laundry is dry, reducing wear and tear.",
+      "ManufacturerPartNumbers":[
+
+      ],
+      "Attributes":{
+
+      },
+      "QuestionIds":[
+
+      ],
+      "BrandExternalId":"otttwtzo9imo28ssfm58x1hm",
+      "ProductPageUrl":"http://myshco.com/appliances/dryers/profile.php",
+      "FamilyIds":[
+
+      ],
+      "AttributesOrder":[
+
+      ],
+      "ImageUrl":"http://myshco.com/productImages/profile.png",
+      "EANs":[
+
+      ],
+      "Name":"GE Profile 7.5 Cu. Ft. Colossal Capacity Electric Dryer",
+      "CategoryId":"testCategory1011",
+      "ReviewIds":[
+
+      ],
+      "Id":"test2",
+      "StoryIds":[
+
+      ],
+      "ModelNumbers":[
+
+      ]
+    },
+    {
+      "Brand":{
+        "Name":"GE",
+        "Id":"otttwtzo9imo28ssfm58x1hm"
+      },
+      "ISBNs":[
+
+      ],
+      "UPCs":[
+
+      ],
+      "Description":"PreciseAir Convection System delivers even air and heat circulation for superior baking and roasting results. Extra-Large Oven Capacity provides a large oven interior ideal for cooking more items at once. Self-Clean Oven conveniently cleans the oven cavity without need of scrubbing.",
+      "ManufacturerPartNumbers":[
+
+      ],
+      "Attributes":{
+
+      },
+      "QuestionIds":[
+
+      ],
+      "BrandExternalId":"otttwtzo9imo28ssfm58x1hm",
+      "ProductPageUrl":"http://myshco.com/appliances/ovens/cafe.php",
+      "FamilyIds":[
+
+      ],
+      "AttributesOrder":[
+
+      ],
+      "ImageUrl":"http://myshco.com/productImages/cafe.png",
+      "EANs":[
+
+      ],
+      "Name":"Cafe 30\" Free Standing Gas Range",
+      "CategoryId":"testCategory1011",
+      "ReviewIds":[
+
+      ],
+      "Id":"test6",
+      "StoryIds":[
+
+      ],
+      "ModelNumbers":[
+
+      ]
+    }
+  ],
+  "Limit":10
+}

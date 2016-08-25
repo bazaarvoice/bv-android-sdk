@@ -5,8 +5,6 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
 

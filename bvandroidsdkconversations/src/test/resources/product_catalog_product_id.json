@@ -1,0 +1,61 @@
+{
+  "Includes":{
+
+  },
+  "HasErrors":false,
+  "Offset":0,
+  "TotalResults":1,
+  "Locale":"en_US",
+  "Errors":[
+
+  ],
+  "Results":[
+    {
+      "Brand":{
+        "Name":"mysh",
+        "Id":"cskg0snv1x3chrqlde0zklodb"
+      },
+      "ISBNs":[
+
+      ],
+      "UPCs":[
+
+      ],
+      "Description":"Our pinpoint oxford is crafted from only the finest 80's two-ply cotton fibers.Single-needle stitching on all seams for a smooth flat appearance. Tailored with our Traditional\n                straight collar and button cuffs. Machine wash. Imported.",
+      "ManufacturerPartNumbers":[
+
+      ],
+      "Attributes":{
+
+      },
+      "QuestionIds":[
+
+      ],
+      "BrandExternalId":"cskg0snv1x3chrqlde0zklodb",
+      "ProductPageUrl":null,
+      "FamilyIds":[
+
+      ],
+      "AttributesOrder":[
+
+      ],
+      "ImageUrl":"http://myshco.com/productImages/shirt.jpg",
+      "EANs":[
+
+      ],
+      "Name":"Dress Shirt",
+      "CategoryId":"testCategory1031",
+      "ReviewIds":[
+
+      ],
+      "Id":"test1",
+      "StoryIds":[
+
+      ],
+      "ModelNumbers":[
+
+      ]
+    }
+  ],
+  "Limit":10
+}

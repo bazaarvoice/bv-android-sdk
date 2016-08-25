@@ -85,6 +85,76 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals("Sort to string incorrect", sort.toString(), "AuthorId:asc");
     }
 
+    private void testParsing(String filename, Class responseClass) {
+        String reviewsForProdResponse = jsonFileAsString(filename);
+        gson.fromJson(reviewsForProdResponse, responseClass);
+    }
+
+    @Test
+    public void testPdpForAllProductsParsing() {
+        testParsing("product_catalog_all_products.json", ProductDisplayPageResponse.class);
+    }
+
+    @Test
+    public void testPdpForProductIdParsing() {
+        testParsing("product_catalog_product_id.json", ProductDisplayPageResponse.class);
+    }
+
+    @Test
+    public void testPdpForProductIdIncludeRevStatsParsing() {
+        testParsing("product_catalog_prod_include_rev_stats.json", ProductDisplayPageResponse.class);
+    }
+
+    @Test
+    public void testPdpForAllProductsSortedParsing() {
+        testParsing("product_catalog_all_prods_sorted.json", ProductDisplayPageResponse.class);
+    }
+
+    @Test
+    public void testPdpForAllProductsInCategoryParsing() {
+        testParsing("product_catalog_all_prods_in_category.json", ProductDisplayPageResponse.class);
+    }
+
+    @Test
+    public void testPdpForTextSearchParsing() {
+        testParsing("product_catalog_text_search.json", ProductDisplayPageResponse.class);
+    }
+
+    @Test
+    public void testReviewsForAllReviewsParsing() {
+        testParsing("reviews_all_reviews.json", ReviewResponse.class);
+    }
+
+    @Test
+    public void testReviewsForProdParsing() {
+        testParsing("reviews_for_prod.json", ReviewResponse.class);
+    }
+
+    @Test
+    public void testReviewsForAllReviewsIncludeRevStatsParsing() {
+        testParsing("reviews_all_reviews_include_rev_stats.json", ReviewResponse.class);
+    }
+
+    @Test
+    public void testReviewsForSingleReviewParsing() {
+        testParsing("reviews_single_review.json", ReviewResponse.class);
+    }
+
+    @Test
+    public void testReviewsForSingleReviewIncludeProdStatsParsing() {
+        testParsing("reviews_single_review_include_prod_stats.json", ReviewResponse.class);
+    }
+
+    @Test
+    public void testReviewsForSomeReviewsParsing() {
+        testParsing("reviews_some_reviews.json", ReviewResponse.class);
+    }
+
+    @Test
+    public void testQandAForSomeQuestionsWithAnswersParsing() {
+        testParsing("qanda_some_questions_with_answers.json", QuestionAndAnswerResponse.class);
+    }
+
     private List<String> getProdIds(int limit){
         List<String> prodIds = new ArrayList<>();
         for (int i = 0; i < limit; i++) {

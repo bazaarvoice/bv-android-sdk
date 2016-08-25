@@ -150,10 +150,12 @@ public class Product extends IncludeableContent {
         return id;
     }
 
+    @Nullable
     public ReviewStatistics getReviewStatistics() {
         return reviewStatistics;
     }
 
+    @Nullable
     public QAStatistics getQaStatistics() {
         return qaStatistics;
     }
