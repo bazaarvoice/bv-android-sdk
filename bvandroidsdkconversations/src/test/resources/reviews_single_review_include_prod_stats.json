@@ -1,0 +1,164 @@
+{
+  "HasErrors":false,
+  "Includes":{
+    "Products":{
+      "1000001":{
+        "Brand":{
+          "Name":"GE",
+          "Id":"otttwtzo9imo28ssfm58x1hm"
+        },
+        "ISBNs":[
+
+        ],
+        "UPCs":[
+
+        ],
+        "Description":"This extra-large capacity dryer lets you choose between 8 dry cycles, so you can use the proper settings for your clothes. The auto dry function uses thermostats to tell when your laundry is dry, reducing wear and tear.",
+        "ManufacturerPartNumbers":[
+
+        ],
+        "Attributes":{
+
+        },
+        "QuestionIds":[
+
+        ],
+        "BrandExternalId":"otttwtzo9imo28ssfm58x1hm",
+        "ProductPageUrl":"http://myshco.com/appliances/dryers/profile.php",
+        "FamilyIds":[
+
+        ],
+        "AttributesOrder":[
+
+        ],
+        "ImageUrl":"http://myshco.com/productImages/profile.png",
+        "EANs":[
+
+        ],
+        "Name":"Profile 7.5 Cu. Ft. Colossal Capacity Electric Dryer",
+        "CategoryId":"1011",
+        "ReviewIds":[
+
+        ],
+        "Id":"1000001",
+        "StoryIds":[
+
+        ],
+        "ModelNumbers":[
+
+        ]
+      }
+    },
+    "ProductsOrder":[
+      "1000001"
+    ]
+  },
+  "Offset":0,
+  "TotalResults":1,
+  "Locale":"en_US",
+  "Errors":[
+
+  ],
+  "Results":[
+    {
+      "TagDimensions":{
+
+      },
+      "TagDimensionsOrder":[
+
+      ],
+      "AdditionalFieldsOrder":[
+
+      ],
+      "Cons":null,
+      "IsRecommended":null,
+      "IsRatingsOnly":false,
+      "UserNickname":"Test12345",
+      "Pros":null,
+      "Photos":[
+
+      ],
+      "ContextDataValues":{
+
+      },
+      "Videos":[
+
+      ],
+      "ContextDataValuesOrder":[
+
+      ],
+      "SubmissionId":null,
+      "LastModificationTime":"2016-05-27T18:15:24.000+00:00",
+      "TotalFeedbackCount":16,
+      "TotalPositiveFeedbackCount":13,
+      "UserLocation":null,
+      "BadgesOrder":[
+        "Staff"
+      ],
+      "Badges":{
+        "Staff":{
+          "BadgeType":"Affiliation",
+          "Id":"Staff",
+          "ContentType":"REVIEW"
+        }
+      },
+      "AuthorId":"2t60niux2p3q072frpo00mwgh",
+      "IsFeatured":false,
+      "SecondaryRatingsOrder":[
+        "Value",
+        "Quality"
+      ],
+      "IsSyndicated":false,
+      "ProductRecommendationIds":[
+
+      ],
+      "Title":"This is a test review.",
+      "ProductId":"1000001",
+      "AdditionalFields":{
+
+      },
+      "CampaignId":null,
+      "Helpfulness":0.638889,
+      "TotalNegativeFeedbackCount":3,
+      "SubmissionTime":"2011-06-22T12:41:21.000+00:00",
+      "Rating":3,
+      "IPAddress":null,
+      "ContentLocale":"en_US",
+      "RatingRange":5,
+      "TotalCommentCount":0,
+      "ReviewText":"This is a test review. This is a test review. This is a test review. This is a test review. This is a test review. This is a test review. This is a test review.",
+      "ModerationStatus":"APPROVED",
+      "ClientResponses":[
+
+      ],
+      "Id":"192612",
+      "CommentIds":[
+
+      ],
+      "SecondaryRatings":{
+        "Value":{
+          "Value":4,
+          "ValueLabel":null,
+          "MaxLabel":null,
+          "Label":"Value",
+          "Id":"Value",
+          "ValueRange":5,
+          "MinLabel":null,
+          "DisplayType":"NORMAL"
+        },
+        "Quality":{
+          "Value":5,
+          "ValueLabel":null,
+          "MaxLabel":null,
+          "Label":"Quality",
+          "Id":"Quality",
+          "ValueRange":5,
+          "MinLabel":null,
+          "DisplayType":"NORMAL"
+        }
+      },
+      "LastModeratedTime":"2011-06-29T00:09:31.000+00:00"
+    }
+  ],
+  "Limit":10
+}
