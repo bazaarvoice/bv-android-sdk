@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Looper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -63,6 +65,26 @@ class Utils {
         }
 
         return url;
+    }
+
+    /**
+     * Helper method when we know it is safe to return 0 in null state.
+     *
+     * @param integer input value
+     * @return if non-null then returns value, otherwise returns 0
+     */
+    @NonNull static Integer getIntegerSafe(@Nullable Integer integer) {
+        return integer == null ? Integer.valueOf(0) : integer;
+    }
+
+    /**
+     * Helper method when we know it is safe to return 0 in null state.
+     *
+     * @param floatInput input value
+     * @return if non-null then returns value, otherwise returns 0
+     */
+    @NonNull static Float getFloatSafe(@Nullable Float floatInput) {
+        return floatInput == null ? Float.valueOf(0) : floatInput;
     }
 
     private static final String BV_SHARED_PREFS_FILE_NAME = "_bazaarvoice_shared_prefs_";
