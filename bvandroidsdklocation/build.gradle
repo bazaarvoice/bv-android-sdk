@@ -1,21 +1,21 @@
 buildscript {
     dependencies {
-        classpath dep.androidPlugin
-        classpath dep.credentialsPlugin
-        classpath dep.playServicesPlugin
-        classpath dep.credentialsPlugin
+        classpath sdkBuildDep.androidPlugin
+        classpath sdkBuildDep.credentialsPlugin
+        classpath sdkBuildDep.playServicesPlugin
+        classpath sdkBuildDep.credentialsPlugin
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion sdkBuildInfo.compileSdkVersion
+    buildToolsVersion sdkBuildInfo.buildToolsVersion
 
     compileOptions {
-        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
-        targetCompatibility rootProject.ext.targetCompatibilityVersion
+        sourceCompatibility sdkBuildInfo.sourceCompatibilityVersion
+        targetCompatibility sdkBuildInfo.targetCompatibilityVersion
     }
 
     dexOptions {
@@ -24,8 +24,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion sdkBuildInfo.minSdkVersion
+        targetSdkVersion sdkBuildInfo.targetSdkVersion
     }
     buildTypes {
         release {
@@ -37,18 +37,19 @@ android {
     lintOptions {
         abortOnError false
     }
+
 }
 
 dependencies {
     compile project(':bvandroidsdkcommon')
-    compile dep.gimbal
-    compile dep.gimbalSLF4J
-    compile dep.slf4jApi
-    compile dep.playServiceAds
-    compile dep.appCompatV7
-    compile dep.firebaseCore
+    compile sdkDep.gimbal
+    compile sdkDep.gimbalSLF4J
+    compile sdkDep.slf4jApi
+    compile sdkDep.playServiceAds
+    compile sdkDep.appCompatV7
+    compile sdkDep.firebaseCore
 
-    testCompile dep.junit
+    testCompile sdkTestDep.junit
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')
