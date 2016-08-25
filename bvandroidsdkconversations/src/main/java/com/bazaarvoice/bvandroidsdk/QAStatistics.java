@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
+import static com.bazaarvoice.bvandroidsdk.Utils.getIntegerSafe;
+
 public class QAStatistics {
 
     @SerializedName("HelpfulVoteCount")
@@ -51,43 +53,43 @@ public class QAStatistics {
     private transient Date firstQuestionDate;
 
     public Integer getHelpfulVoteCount() {
-        return helpfulVoteCount;
+        return getIntegerSafe(helpfulVoteCount);
     }
 
     public Integer getBestAnswerCount() {
-        return bestAnswerCount;
+        return getIntegerSafe(bestAnswerCount);
     }
 
     public Integer getQuestionHelpfulVoteCount() {
-        return questionHelpfulVoteCount;
+        return getIntegerSafe(questionHelpfulVoteCount);
     }
 
     public Integer getTotalAnswerCount() {
-        return totalAnswerCount != null ? totalAnswerCount : 0;
+        return getIntegerSafe(totalAnswerCount);
     }
 
     public Integer getAnswerNotHelpfulVoteCount() {
-        return answerNotHelpfulVoteCount;
+        return getIntegerSafe(answerNotHelpfulVoteCount);
     }
 
     public Integer getTotalQuestionCount() {
-        return totalQuestionCount != null ? totalQuestionCount : 0;
+        return getIntegerSafe(totalQuestionCount);
     }
 
     public Integer getQuestionNotHelpfulVoteCount() {
-        return questionNotHelpfulVoteCount;
+        return getIntegerSafe(questionNotHelpfulVoteCount);
     }
 
     public Integer getFeaturedQuestionCount() {
-        return featuredQuestionCount;
+        return getIntegerSafe(featuredQuestionCount);
     }
 
     public Integer getFeaturedAnswerCount() {
-        return featuredAnswerCount;
+        return getIntegerSafe(featuredAnswerCount);
     }
 
     public Integer getAnswerHelpfulVoteCount() {
-        return answerHelpfulVoteCount;
+        return getIntegerSafe(answerHelpfulVoteCount);
     }
 
     public DistributionElement getTagDistribution() {

@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.bazaarvoice.bvandroidsdk.Utils.getFloatSafe;
+import static com.bazaarvoice.bvandroidsdk.Utils.getIntegerSafe;
+
 public class ReviewStatistics {
 
     @SerializedName("HelpfulVoteCount")
@@ -47,40 +50,39 @@ public class ReviewStatistics {
     private transient RatingDistribution ratingDistribution;
 
     public Integer getHelpfulVoteCount() {
-        return helpfulVoteCount;
+        return getIntegerSafe(helpfulVoteCount);
     }
 
     public Integer getNotRecommendedCount() {
-        return notRecommendedCount;
+        return getIntegerSafe(notRecommendedCount);
     }
 
     public Integer getFeaturedReviewCount() {
-        return featuredReviewCount;
+        return getIntegerSafe(featuredReviewCount);
     }
 
     public Integer getNotHelpfulVoteCount() {
-        return notHelpfulVoteCount;
+        return getIntegerSafe(notHelpfulVoteCount);
     }
 
     public Integer getOverallRatingRange() {
-        return overallRatingRange;
+        return getIntegerSafe(overallRatingRange);
     }
 
     public Integer getTotalReviewCount() {
-
-        return totalReviewCount != null ? totalReviewCount : 0;
+        return getIntegerSafe(totalReviewCount);
     }
 
     public Integer getRatingsOnlyReviewCount() {
-        return ratingsOnlyReviewCount;
+        return getIntegerSafe(ratingsOnlyReviewCount);
     }
 
     public Integer getRecommendedCount() {
-        return recommendedCount;
+        return getIntegerSafe(recommendedCount);
     }
 
     public Float getAverageOverallRating() {
-        return averageOverallRating;
+        return getFloatSafe(averageOverallRating);
     }
 
     public Map<String, SecondaryRatingsAverages> getSecondaryRatingsAverages() {
