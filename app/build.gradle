@@ -109,10 +109,10 @@ dependencies {
     compile project(':bvandroidsdkconversations')
     compile project(':bvandroidsdkcurations')
 
-//    compile dep.bvSdkAds
-//    compile dep.bvSdkRecommendations
-//    compile dep.bvSdkConversations
-//    compile dep.bvSdkCurations
+//    compile demoAppDep.bvSdkAds
+//    compile demoAppDep.bvSdkRecommendations
+//    compile demoAppDep.bvSdkConversations
+//    compile demoAppDep.bvSdkCurations
 
     compile demoAppDep.picasso
     compile demoAppDep.prettyTime
