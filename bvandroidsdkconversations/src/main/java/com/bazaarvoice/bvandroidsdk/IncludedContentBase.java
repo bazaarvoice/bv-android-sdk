@@ -3,6 +3,8 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -91,6 +93,7 @@ class IncludedContentBase extends IncludeableContent {
         return id;
     }
 
+    @Nullable
     public List<Photo> getPhotos() {
         return photos;
     }
