@@ -117,7 +117,7 @@ $(function(){
                 </span>
                 <ul>
                     <li class="nav-item">
-                        <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations</span></a>
+                        <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations (Beta)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
@@ -169,6 +169,9 @@ $(function(){
                             </ul>
                         </div>
 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="location.html"><span>Location (Beta)</span></a>
                     </li>
                 </ul>
             </li>
@@ -357,7 +360,7 @@ BVSDK.getInstance().sendConversionTransactionEvent(transaction);</code></pre>
 Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
 params.put("email", "some.one@domain.com");
 
-Conversion conversion = new Conversion("BroucherDownload", "YourDefinedValue", "Model xyz brochure", params);
+Conversion conversion = new Conversion("BrochureDownload", "YourDefinedValue", "Model xyz brochure", params);
 
 /*
   Use the BVSDK to track the Non-commerce Conversion Event.

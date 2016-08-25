@@ -19,7 +19,7 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "Product Recommendations";
+	var tabName = "Location";
 
 	$('.nav-link.active').removeClass('active');
 	console.log('active tab: ', tabName);
@@ -67,7 +67,7 @@ $(function(){
 
     ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'Product Recommendations'
+      title: 'Location'
     });
     ga('send', 'pageview');
   </script>
@@ -138,9 +138,6 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="curations_custom_posts.html"><span>Curations Custom Posts</span></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="curations_example_app.html"><span>Curations Example App</span></a>
-                                </li>
                             </ul>
                         </div>
                     </li>
@@ -155,10 +152,10 @@ $(function(){
                              id="conversationsDropdown">
                             <ul>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="conversations_display.html"><span>Conversations Display</span></a>
+                                    <a class="nav-link" href="content_display.html"><span>Content Display</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="conversations_submission.html"><span>Conversations Submission</span></a>
+                                    <a class="nav-link" href="content_submission.html"><span>Content Submission</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
@@ -186,6 +183,11 @@ $(function(){
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="ios_9_considerations.html">
+                    <span><i class="m-r-1 fa fa-mobile"></i> iOS 9 Considerations</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="example_projects.html">
                     <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
                 </a>
@@ -196,14 +198,14 @@ $(function(){
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="api_reference.html">
+                <a class="nav-link" href="./ios-assets/api_reference/index.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
             <br>
             <li class="nav-item">
                 <a class="nav-link"
-                   href="mailto:mobilecoreteam@bazaarvoice.com?subject=Android SDK documentation feedback"
+                   href="mailto:mobilecoreteam@bazaarvoice.com?subject=iOS SDK documentation feedback"
                    style="border: 1px #fff solid;">
                     <span><i class="m-r-1 fa fa-envelope"></i>Feedback</span>
                 </a>
@@ -219,19 +221,18 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	Product Recommendations
+	Location
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The Product Recommendations module is currently in limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The Location module is currently in limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
 
-<p>Use the following guide to fetch and display product recommendations in your app with Bazaarvoice Mobile SDKs.</p>
+<p>The Location module of the Bazaarvoice Mobile SDK facilitates knowing when your shoppers are entering and exiting your physical retail locations. You will be provided a very valuable opportunity to present a shopper with your location aware content. Perhaps you have a simple greeting or coupon? Aside from the value you add within your mobile experience, Bazaarvoice can use this location context to enhance our existing products. Rating and Reviews filtered down to the city level, recommended products for nearby people like you, local social media content (Curations), and more are all possible by using the Location module.</p>
 
 
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your Shopper Advertising API Key and Client ID to implement and use product recommendations.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  You must have Bazaarvoice Location enabled to use the Location module. Contact Bazaarvoice to set up Location and to get your <strong>apiKeyLocation</strong>.</p>
 
-<hr>
+<hr/>
 <br>
-
 
 
 
@@ -257,12 +258,11 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:location:4.+'
 }
 repositories {
     mavenCentral()
 } </code></pre>
-
 
 
 <br>
@@ -281,7 +281,7 @@ repositories {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
             .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
-            .apiKeyShopperAdvertising(YOUR_SHOPPER_ADVERTISING_API_KEY) //Required for Recommendations
+            .apiKeyLocation(YOUR_LOCATION_KEY) //Required for Geo-Location
             .logLevel(BVLogLevel.INFO)
             .build();
     }
@@ -302,185 +302,86 @@ repositories {
 <br>
 
 
-<h3>Set User Information</h3>
-<p>
-	After a user is authenticated inside your user login workflow, set an authenticated user to enable profile matching. Refer to <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> for instructions.
+<br>
+
+<h2>Using the Location Module</h2>
+<br>
+<h4>Requesting User Location Permission</h4>
+<p>You will need to obtain fine location permission. The Location module cannot function without this. This permission is included in the Location module's manifest, but please note that your app might need to support Runtime Permissions for obatining fine location. Please follow best practices when requesting permission at Runtime. Request it at a time when it's contexually relavent such as when trying to use a "Store Finder." Ask via your own dialog first then present the actual system prompt if they accepted your prompt. This way you can provide the detailed benefits they'd receive if they grant the permission. There are many online resources you refer to when making you permission request decisions.
 </p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: You must give the userAuthString created with your existing Bazaarvoice implementation logic to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are applicable even if you are not a Conversations client.</p>
-
-<h5>Example Authentication String for Testing</h5>
-<p>
-	If you haven't yet set up an authorization token, use the <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> example.
-</p>
-
-
 <br>
-<h3>Getting Recommendations</h3>
-<p>After you successfully install and configure the SDK and set user information, you can fetch product recommendations with the following code:</p>
-<pre><code class="java">BVRecommendations recs = new BVRecommendations();
+<h4>Listening for when your Users Enter/Exit your Locations</h4>
+<p>After location perissions have been granted you can use the Location module as follows.</p>
+<pre>
+<code class="java">
+/**
+Any class that you would like to listen to when a user enters and exits your retail locations should 
+implement BVLocationManager.BVLocationListener
+*/
+public class DemoMainActivity extends AppCompatActivity implements BVLocationManager.BVLocationListener {
 
-recs.getRecommendedProducts(20, new BVRecommendations.BVRecommendationsCallback() {
     @Override
-    public void onSuccess(List&lt;BVProduct&gt; recommendedProducts) {
-       Log.d("Demo", recommendedProducts.toString());
+    protected void onCreate(Bundle savedInstanceState) {
+		...
+        //Implement BVLocationListener and call the following method to receive callbacks
+    	BVLocationManager.getInstance().addLocationVisitListener(this);
+
+        //You must call the following to start locations updates
+    	BVLocationManager.getInstance().startMonitoringLocation();
+    	...
+    }
+
+    //Your added listeners will be notified via these two methods
+    @Override
+    public void didBeginVisit(BVVisit visit) {
+
     }
 
     @Override
-    public void onFailure(Throwable throwable) {
-       Log.d("Demo", throwable.getMessage());
+    public void didEndVisit(BVVisit visit) {
+
     }
-});</code></pre>
+}
+</code>
+</pre>
 <br>
-
-<p>Refer to <code>BVRecommendations.java</code> methods for getting recommendations based on a <strong>categoryId</strong> or <strong>productId</strong>. Refer to <code>DemoRecommendationsFragment.java</code> in the <code>app</code> module for a demo implementation.</p>
-<br>
-
-<h3>Wrapping Recommendations UI Containers</h3>
-<p>To provide Bazaarvoice with feedback about user interaction that can help produce useful ROI (return on investment) reports, and more accurate future recommendations, you should use one of the provided views to wrap either a single recommended product view or a group of recommended products views.</p>
-
-<h5>Wrapping a single recommended product view</h5>
-<p>In this example, you would use the following layout to display a single <code>BVProduct</code> after fetching it with the method explained in the "Getting Recommendations" section of this page:</p>
-
-<pre><code>&lt;LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="90dp"&gt;
-        &lt;ImageView
-            android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"/&gt;
-        &lt;TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="90dp" /&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<br>
-
-<p>To provide Bazaarvoice with feedback in this layout, wrap the the <code>LinearLayout</code> with the provided <code>RecommendationView</code>, as shown in the following example:</p>
-<pre><code>&lt;com.bazaarvoice.bvandroidsdk.RecommendationView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recommendationView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"&gt;
-    &lt;LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"&gt;
-            &lt;ImageView
-                android:id="@+id/image"
-                android:layout_width="90dp"
-                android:layout_height="90dp"/&gt;
-            &lt;TextView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="90dp" /&gt;
-    &lt;/LinearLayout&gt;
-</com.bazaarvoice.bvandroidsdk.RecommendationView></code></pre>
-<br>
-
-<p>In the code, associate the inflated <code>RecommendationView</code> object with the correlating <code>BVProduct</code>. The following example uses the <code>getView</code> method of an Adapter:</p>
-<pre><code class="java">class MyAdapter extends ArrayAdapter<BVProduct> {
-    private List<BVProduct> bvProducts;
-
+<h4>Notifcations when User Enters Location</h4>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Contact Bazaarvoice to set up notifications</p>
+<p>The Location module also supports notifications. Notifications may be dynamically configured by contacting Bazaarvoice. You will also have an opportunity in code to decided where a notification is displayed or not and modify the notification to be displayed. Note notifications delegate methods will only be invoked when app is in the background.</p>
+<pre>
+<code class="java">
+public class DemoMainActivity extends AppCompatActivity implements BVLocationManager.BVNotificationListener {
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    protected void onCreate(Bundle savedInstanceState) {
+
         ...
-        BVProduct currentBvProduct = getItem(position);
-        RecommendationView recommendationView = (RecommendationView) convertView.findViewById(R.id.recommendationView);
-        recommendationView.setBvProduct(currentBvProduct);
-        ...
+        /**
+        Set the single BVLocationNotificationDelegate to handle notifications. By default notifications will not be shown.
+        You must explcility implement shouldShowNotificationForVisit() to show them.
+        */
+        BVLocationManager.getInstance().setNotificationListener(this);
     }
-}</code></pre>
+
+    //Decide whether the notificaiton should be shown for particular visit
+    @Override
+    public boolean shouldPresentNotificationForVisit(BVVisit visit) {
+        return true;
+    }
+
+    /**
+    If shouldShowNotificationForVisit returned true then this method will be called with your preconfigured
+    Notification.Builder. Here you may edit any property of the Notification.Builder. If null is return preconfigured notification
+    will be shown.
+    */
+    @Override
+    public Notification.Builder configureNotificationForDisplay(Notification.Builder notificationBuilder, BVVisit visit) {
+        return notificationBuilder;
+    }
+}
+</code>
+</pre>
 <br>
-
-<h5>Wrapping a group of recommended product views</h5>
-<p>In this example, you would use the following layout to display a group of <code>BVProducts</code> after fetching them with the method explained in the "Get Recommendations" section on this page:</p>
-<pre><code class="xml">&lt;android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recommendationProdRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-<p>To provide Bazaarvoice with feedback in this layout, swap the <code>RecyclerView</code> with the provided <code>RecommendationsRecyclerView</code>, as shown in the following example:</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recommendationProdRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-<br>
-
-<h5>Other options for wrapping a group of recommended product views</h5>
-<p>If you want to use other ViewGroups in place of a RecyclerView, Mobile SDK offers three options:</p>
-<ul>
-	<li>
-		<p>RecommendationsListView</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.RecommendationsListView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/recommendationProdListView"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"/&gt;</code></pre>
-	</li>
-	<li><p>RecommendationsGridView</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.RecommendationsGridView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recommendationProdGridView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-</li>
-	<li><p>RecommendationsContainerView&#8212;If you want to use a different ViewGroup than ListView, GridView, or RecyclerView&#8212;such as a LinearLayout&#8212;to display RecommendationView objects, wrap the ViewGroup with a RecommendationsContainerView. The following example shows how you can use a LinearLayout ViewGroup:</p>
-<pre><code>&lt;com.bazaarvoice.bvandroidsdk.RecommendationsContainerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recommendationProdContainerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"&gt;
-
-    &lt;LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"&gt;
-
-        &lt;com.bazaarvoice.bvandroidsdk.RecommendationView
-            android:id="@+id/recommendationView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"&gt;
-            &lt;LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"&gt;
-                    &lt;ImageView
-                        android:id="@+id/image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"/&gt;
-                    &lt;TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" /&gt;
-            &lt;/LinearLayout&gt;
-        &lt;/com.bazaarvoice.bvandroidsdk.RecommendationView&gt;
-
-        &lt;com.bazaarvoice.bvandroidsdk.RecommendationView
-            android:id="@+id/recommendationView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"&gt;
-            &lt;LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"&gt;
-                    &lt;ImageView
-                        android:id="@+id/image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"/&gt;
-                    &lt;TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" /&gt;
-            &lt;/LinearLayout&gt;
-        &lt;/com.bazaarvoice.bvandroidsdk.RecommendationView&gt;
-
-    &lt;/LinearLayout&gt;
-
-&lt;/com.bazaarvoice.bvandroidsdk.RecommendationsContainerView&gt;</code></pre></li>
-</ul>
 
 
 
