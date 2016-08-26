@@ -2,6 +2,12 @@
 
 # Changelog
 
+# 4.1.2
+
+## Conversations
+
+* Fixed AnswerOptions.Sort visibility from package-private to public
+
 # 4.1.1
 
 ## Conversations
