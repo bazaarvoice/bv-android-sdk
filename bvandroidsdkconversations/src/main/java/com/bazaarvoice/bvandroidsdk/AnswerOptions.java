@@ -6,7 +6,7 @@ package com.bazaarvoice.bvandroidsdk;
 public enum AnswerOptions {
     ;
 
-    enum Sort implements UGCOption {
+    public enum Sort implements UGCOption {
         Id("Id"),
         AuthorId("AuthorId"),
         CampaignId("CampaignId"),
