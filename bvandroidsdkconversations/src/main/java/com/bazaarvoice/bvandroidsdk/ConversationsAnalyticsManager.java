@@ -296,29 +296,35 @@ public class ConversationsAnalyticsManager {
         }
         if (conversationResponse instanceof ProductDisplayPageResponse) {
             ProductDisplayPageResponse productDisplayPageResponse = (ProductDisplayPageResponse) conversationResponse;
-            Product product = productDisplayPageResponse.getResults().get(0);
+            List<Product> products = productDisplayPageResponse.getResults();
+            if (products == null || products.isEmpty()) {
+                return;
+            }
+            Product product = products.get(0);
             sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
         }
         if (conversationResponse instanceof ReviewResponse) {
             ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
             List<Review> reviews = reviewResponse.getResults();
-            if (reviews != null && reviews.size() > 0) {
-                Review review = reviewResponse.getResults().get(0);
-                if (review != null) {
-                    Product product = review.getProduct();
-                    sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
-                }
+            if (reviews == null || reviews.isEmpty()) {
+                return;
+            }
+            Review review = reviews.get(0);
+            if (review != null) {
+                Product product = review.getProduct();
+                sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
             }
         }
         if (conversationResponse instanceof QuestionAndAnswerResponse) {
             QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
             List<Question> questions = questionAndAnswerResponse.getResults();
-            if (questions != null && questions.size()>0) {
-                Question question = questions.get(0);
-                if (question != null) {
-                    Product product = question.getProduct();
-                    sendProductPageView(MagpieBvProduct.QUESTIONS_AND_ANSWERS, product);
-                }
+            if (questions == null || questions.isEmpty()) {
+                return;
+            }
+            Question question = questions.get(0);
+            if (question != null) {
+                Product product = question.getProduct();
+                sendProductPageView(MagpieBvProduct.QUESTIONS_AND_ANSWERS, product);
             }
         }
     }
