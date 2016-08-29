@@ -106,6 +106,7 @@ public class BVLocationManager {
      */
     public void stopMonitoringLocation() {
         placeManager.stopMonitoring();
+        Gimbal.stop();
     }
 
     public interface BVLocationListener {
