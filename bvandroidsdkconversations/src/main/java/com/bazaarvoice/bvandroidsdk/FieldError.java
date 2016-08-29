@@ -5,10 +5,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * TODO: Describe file here.
- */
-class FieldError {
+public class FieldError {
 
     @SerializedName("Field")
     private String field;
@@ -16,4 +13,16 @@ class FieldError {
     private String message;
     @SerializedName("Code")
     private String code;
+
+    public String getField() {
+        return field;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getCode() {
+        return code;
+    }
 }

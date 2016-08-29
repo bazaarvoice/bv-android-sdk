@@ -21,6 +21,10 @@ public class Badge {
         this.type = Type.fromString(this.badgeType);
     }
 
+    public Type getType() {
+        return Type.fromString(badgeType);
+    }
+
     public enum Type {
         Merit,
         Custom,

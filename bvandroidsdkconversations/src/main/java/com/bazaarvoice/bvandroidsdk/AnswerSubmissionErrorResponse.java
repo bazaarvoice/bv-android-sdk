@@ -7,9 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * TODO: Describe file here.
- */
 public class AnswerSubmissionErrorResponse {
     @SerializedName("Locale")
     private String locale;
@@ -26,4 +23,31 @@ public class AnswerSubmissionErrorResponse {
     @SerializedName("Answer")
     private SubmittedAnswer answer;
 
+    public String getLocale() {
+        return locale;
+    }
+
+    public String getSubmissionId() {
+        return submissionId;
+    }
+
+    public String getAuthorSubmissionToken() {
+        return authorSubmissionToken;
+    }
+
+    public List<Error> getErrors() {
+        return errors;
+    }
+
+    public Boolean getHasErrors() {
+        return hasErrors;
+    }
+
+    public Integer getTypicalHoursToPost() {
+        return typicalHoursToPost;
+    }
+
+    public SubmittedAnswer getAnswer() {
+        return answer;
+    }
 }

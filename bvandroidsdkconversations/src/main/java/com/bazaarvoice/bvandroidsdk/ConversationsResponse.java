@@ -14,11 +14,12 @@ class ConversationsResponse {
     private List<Error> errors;
     @SerializedName("FormErrors")
     private FormError formErrors;
-    Boolean getHasErrors() {
+
+    public Boolean getHasErrors() {
         return hasErrors;
     }
 
-    List<Error> getErrors() {
+    public List<Error> getErrors() {
         return errors;
     }
 
