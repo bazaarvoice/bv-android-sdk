@@ -1,6 +1,10 @@
 # Changelog
 
-# Changelog
+# 4.1.3
+
+## Conversations
+
+* Fixed NPE in ConversationsAnalyticsManager for response with no products
 
 # 4.1.2
 
