@@ -1,5 +1,11 @@
 # Changelog
 
+# 4.1.4
+
+## Conversations
+
+* Fixed visibility of methods that should be public
+
 # 4.1.3
 
 ## Conversations
