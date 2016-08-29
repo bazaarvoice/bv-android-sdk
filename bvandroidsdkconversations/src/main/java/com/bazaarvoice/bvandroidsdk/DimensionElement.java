@@ -3,6 +3,8 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -14,4 +16,17 @@ public class DimensionElement {
     private String id;
     @SerializedName("Value")
     private List<String> values;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Nullable
+    public List<String> getValues() {
+        return values;
+    }
 }

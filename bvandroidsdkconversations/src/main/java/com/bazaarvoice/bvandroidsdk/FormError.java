@@ -7,10 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
-/**
- * TODO: Describe file here.
- */
-class FormError {
+public class FormError {
 
     @SerializedName("FieldErrors")
     private Map<String, FieldError> fieldErrorMap;
