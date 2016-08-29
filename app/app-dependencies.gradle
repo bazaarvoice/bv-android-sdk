@@ -21,7 +21,7 @@ ext {
             okhttp3Version : '3.2.0',
             supportLibraryVersion : '24.0.0',
             leakCanaryVersion : '1.4-beta2',
-            bvSdkVersion : '4.1.3',
+            bvSdkVersion : '4.1.4',
             stethoVersion : '1.3.1',
             butterknifeVersion : '8.2.1',
     ]
