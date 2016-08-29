@@ -35,6 +35,7 @@ public class BVLocationManager {
     BVCommunicationListener proxyCommunicationListener = new BVCommunicationListener();
 
     private BVLocationManager() {
+
         Gimbal.setApiKey(BVSDK.getInstance().getApplication(), BVSDK.getInstance().getApiKeyLocation());
         placeManager = PlaceManager.getInstance();
         placeManager.addListener(proxyLocationListener);
@@ -170,12 +171,8 @@ public class BVLocationManager {
             }
             Attributes attributes = place.getAttributes();
             String type = attributes.getValue(PlaceAttribute.Type.getKey());
-
-            if (!type.equalsIgnoreCase(PlaceType.Geofence.getValue())) {
-                return;
-            }
-
             String client = attributes.getValue(PlaceAttribute.ClientId.getKey());
+
             if (client == null) {
                 return;
             }
@@ -183,6 +180,12 @@ public class BVLocationManager {
             if (!client.equalsIgnoreCase(BVSDK.getInstance().getClientId())) {
                 return;
             }
+
+            if (type == null || !type.equalsIgnoreCase(PlaceType.Geofence.getValue())) {
+                return;
+            }
+
+
 
             BVVisit visit = attributesToVisit(attributes);
 
@@ -216,12 +219,12 @@ public class BVLocationManager {
             Attributes attributes = visit.getPlace().getAttributes();
             String type = attributes.getValue(PlaceAttribute.Type.getKey());
 
-            if (!type.equalsIgnoreCase(PlaceType.Geofence.getValue())) {
+            String client = attributes.getValue(PlaceAttribute.ClientId.getKey());
+            if (client == null || !client.equalsIgnoreCase(BVSDK.getInstance().getClientId())) {
                 return null;
             }
 
-            String client = attributes.getValue(PlaceAttribute.ClientId.getKey());
-            if (client == null || !client.equalsIgnoreCase(BVSDK.getInstance().getClientId())) {
+            if (type == null || !type.equalsIgnoreCase(PlaceType.Geofence.getValue())) {
                 return null;
             }
 
