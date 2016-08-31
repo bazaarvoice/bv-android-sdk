@@ -114,6 +114,7 @@ dependencies {
 //    compile demoAppDep.bvSdkRecommendations
 //    compile demoAppDep.bvSdkConversations
 //    compile demoAppDep.bvSdkCurations
+//    compile demoAppDep.bvSdkLocation
 
     compile demoAppDep.picasso
     compile demoAppDep.prettyTime
