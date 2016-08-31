@@ -1,5 +1,20 @@
 # Changelog
 
+# 4.2.0
+
+## **NEW** Location
+
+This NEXUS_USER provides a new module for adding location awareness to your app. This module facilitates 
+knowing when your shoppers are entering and exiting your physical retail locations. You will be 
+provided a very valuable opportunity to present a shopper with your location aware content. Perhaps 
+you have a simple greeting or coupon? Aside from the value you add within your mobile experience, 
+Bazaarvoice can use this location context to enhance our existing products. Rating and Reviews 
+filtered down to the city level, recommended products for nearby people like you, local social media 
+content (Curations), and more are all possible by using the Location module.
+
+For more information, please refer to the location documenation 
+ https://bazaarvoice.github.io/bv-android-sdk/location.html
+
 # 4.1.4
 
 ## Conversations
