@@ -36,7 +36,7 @@ public class DemoDataUtil {
     private static final String AD_UNIT_ID = "/5705/bv-incubator/IncubatorEnduranceCycles";
     private Context applicationContext;
     private List<BVProduct> savedDemoRecProds;
-    private List<CurationsFeedItem> savedCurationsFeedItems;
+    private CurationsFeedResponse savedCurationsFeedResponse;
     private List<Review> savedConversationsReviews;
     private List<Question> savedConversationsQuestions;
     private Gson gson;
@@ -73,22 +73,29 @@ public class DemoDataUtil {
         return bvProducts;
     }
 
-    public List<CurationsFeedItem> getCurationsFeedItems() {
-        if (savedCurationsFeedItems != null) {
-            return savedCurationsFeedItems;
+    private CurationsFeedResponse getCurationsFeedReponse() {
+        if (savedCurationsFeedResponse != null) {
+            return savedCurationsFeedResponse;
         }
 
-        List<CurationsFeedItem> curationsFeedItems = new ArrayList<>();
+        CurationsFeedResponse curationsFeedResponse = null;
         try {
             InputStream inputStream = applicationContext.getAssets().open("curationsEnduranceCycles.json");
             Reader reader = new InputStreamReader(inputStream);
-            CurationsFeedResponse curationsFeedResponse = gson.fromJson(reader, CurationsFeedResponse.class);
-            curationsFeedItems = curationsFeedResponse.getUpdates();
-            savedCurationsFeedItems = curationsFeedItems;
+            curationsFeedResponse = gson.fromJson(reader, CurationsFeedResponse.class);
+            savedCurationsFeedResponse = curationsFeedResponse;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return curationsFeedItems;
+        return curationsFeedResponse;
+    }
+
+    public List<CurationsFeedItem> getCurationsFeedItems() {
+        return getCurationsFeedReponse().getUpdates();
+    }
+
+    public String getCurationsFeedResponseJsonString() {
+        return gson.toJson(getCurationsFeedReponse());
     }
 
     public List<Review> getConversationsReviews() {

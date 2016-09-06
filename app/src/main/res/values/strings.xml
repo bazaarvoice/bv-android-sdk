@@ -26,6 +26,7 @@
     <string name="title_activity_product_stats">Product Review Stats</string>
     <string name="title_activity_questions">Product Questions</string>
     <string name="title_activity_answers">Product Answers</string>
+    <string name="title_activity_curations_map">Curations Photo Map</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
@@ -69,4 +70,6 @@
     <string name="demo_sdk_not_configured">BVSDK not configured!</string>
     <string name="demo_need_curations_key">You need to add your Curations API key and Client ID to test this feature.</string>
     <string name="answer_found_helpful">"%1$s of %2$s users found this answer helpful"</string>
+    <string name="title_activity_demo_curations_maps">Map</string>
+    <string name="curations_map_subtitle_template">"via %1$s"</string>
 </resources>

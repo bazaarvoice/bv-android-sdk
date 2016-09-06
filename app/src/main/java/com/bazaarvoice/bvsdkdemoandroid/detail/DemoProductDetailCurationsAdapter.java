@@ -40,13 +40,15 @@ public class DemoProductDetailCurationsAdapter extends RecyclerView.Adapter<Recy
         CurationsFeedItem feedItem = feedItems.get(position);
         DemoProductDetailViewHolder demoViewHolder = (DemoProductDetailViewHolder) holder;
 
-        CurationsPhoto curationsPhoto = feedItem.getPhotos().get(0);
-        String curationsPhotoUrl = curationsPhoto.getImageServiceUrl() + "&width=" + (DemoUtils.MAX_IMAGE_WIDTH/4) + "&height=" + (DemoUtils.MAX_IMAGE_HEIGHT/4);
-        DemoUtils demoUtils = DemoUtils.getInstance(demoViewHolder.image.getContext());
-        demoUtils.picassoThumbnailLoader()
-                .load(curationsPhotoUrl)
-                .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
-                .into(demoViewHolder.image);
+        if (feedItem.getPhotos() != null && !feedItem.getPhotos().isEmpty()) {
+            CurationsPhoto curationsPhoto = feedItem.getPhotos().get(0);
+            String curationsPhotoUrl = curationsPhoto.getImageServiceUrl() + "&width=" + (DemoUtils.MAX_IMAGE_WIDTH/4) + "&height=" + (DemoUtils.MAX_IMAGE_HEIGHT/4);
+            DemoUtils demoUtils = DemoUtils.getInstance(demoViewHolder.image.getContext());
+            demoUtils.picassoThumbnailLoader()
+                    .load(curationsPhotoUrl)
+                    .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
+                    .into(demoViewHolder.image);
+        }
         demoViewHolder.curationsView.setCurationsFeedItem(feedItem);
         demoViewHolder.row.setTag(feedItem);
         demoViewHolder.row.setOnClickListener(new View.OnClickListener() {

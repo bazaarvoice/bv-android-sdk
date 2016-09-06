@@ -12,6 +12,7 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCac
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.stetho.Stetho;
@@ -57,6 +58,7 @@ public class DemoApplication extends Application {
      */
     private void setupBVSDK() {
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
+        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         String clientId = demoConfigUtils.getClientId();
         String shopperAdvertisingApiKey = demoConfigUtils.getShopperAdPasskey();
         String conversationsApiKey = demoConfigUtils.getConversationsPasskey();
@@ -65,7 +67,7 @@ public class DemoApplication extends Application {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .addNetworkInterceptor(new StethoInterceptor())
-                .addInterceptor(new DemoSdkInterceptor())
+                .addInterceptor(new DemoSdkInterceptor(demoConfigUtils, demoDataUtil))
                 .build();
 
         // Builder used to initialize the Bazaarvoice SDKs

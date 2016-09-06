@@ -9,19 +9,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TODO: Describe file here.
- */
 class DemoCurationsDetailPagerAdapter extends FragmentPagerAdapter {
 
-    private List<CurationsFeedItem> curationsFeedItems = Collections.emptyList();
+    private List<CurationsFeedItem> curationsFeedItems = new ArrayList<>();
 
-    public DemoCurationsDetailPagerAdapter(FragmentManager fm, List<CurationsFeedItem> curationsFeedItems) {
+    public DemoCurationsDetailPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.curationsFeedItems = curationsFeedItems;
     }
 
     @Override
@@ -29,6 +25,12 @@ class DemoCurationsDetailPagerAdapter extends FragmentPagerAdapter {
         boolean showLeftArrow = position > 0;
         boolean showRightArrow = position < (curationsFeedItems.size() - 1);
         return DemoCurationsDetailFragment.newInstance(curationsFeedItems.get(position), position, showLeftArrow, showRightArrow);
+    }
+
+    public void setCurationsFeedItems(List<CurationsFeedItem> curationsFeedItems) {
+        this.curationsFeedItems.clear();
+        this.curationsFeedItems.addAll(curationsFeedItems);
+        notifyDataSetChanged();
     }
 
     @Override

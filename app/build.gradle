@@ -91,7 +91,7 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY',  String.valueOf(hasCrashlyticsKey())
+        it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY', String.valueOf(hasCrashlyticsKey())
     }
 
     testOptions {
@@ -125,6 +125,8 @@ dependencies {
     compile demoAppDep.preferenceV7
     compile demoAppDep.preferenceV14
     compile demoAppDep.playServiceAds
+    compile demoAppDep.playServiceMaps
+    compile demoAppDep.playServiceLocation
     compile demoAppDep.ddPlist
     compile demoAppDep.circleIndicator
     compile demoAppDep.stetho
@@ -148,6 +150,7 @@ dependencies {
     compile(demoAppDep.crashlytics) {
         transitive = true;
     }
+    compile 'com.google.android.gms:play-services-appindexing:9.0.0'
 }
 
 
