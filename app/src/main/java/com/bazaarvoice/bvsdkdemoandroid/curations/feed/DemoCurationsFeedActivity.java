@@ -13,12 +13,10 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
+import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -68,7 +66,6 @@ public class DemoCurationsFeedActivity extends AppCompatActivity implements Cura
 
         CurationsFeedRequest request = new CurationsFeedRequest.Builder(DemoConstants.CURATIONS_GROUPS)
                 .limit(20)
-                .hasPhoto(true)
                 .withProductData(true)
                 .build();
 
@@ -92,13 +89,11 @@ public class DemoCurationsFeedActivity extends AppCompatActivity implements Cura
         progressBar.setVisibility(View.GONE);
     }
 
-
     public void transitionToCurationsDetail(List<CurationsFeedItem> updates, int idxOfSelected) {
-        Intent intent = new Intent(this, DemoCurationsDetailActivity.class);
-        Gson gson = new GsonBuilder().create();
-        intent.putExtra(DemoCurationsDetailActivity.CURRATIONS_UPDATE_KEY, gson.toJson(updates));
-        intent.putExtra(DemoCurationsDetailActivity.CURRATIONS_UPDATE_IDX_KEY, idxOfSelected);
-        startActivity(intent);
+        CurationsFeedItem curationsFeedItem = updates.get(idxOfSelected);
+        String productId = curationsFeedItem != null && curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty() ? curationsFeedItem.getProducts().get(0).getId() : "";
+        String feedItemId = String.valueOf(curationsFeedItem.getId());
+        DemoRouter.transitionToCurationsFeedItem(this, productId, feedItemId);
     }
 
     public static void transitionTo(Activity fromActivity) {

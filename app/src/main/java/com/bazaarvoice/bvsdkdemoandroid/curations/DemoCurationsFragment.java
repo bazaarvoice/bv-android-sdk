@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
+import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -59,6 +60,17 @@ public class DemoCurationsFragment extends Fragment {
                 }
             }
         });
+
+        Button locBtn = (Button) view.findViewById(R.id.viewCurationsLocBtn);
+        locBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (readyForDemo()) {
+                    DemoRouter.transitionToCurationsMapView(DemoCurationsFragment.this.getContext(), "");
+                }
+            }
+        });
+
         return view;
     }
 

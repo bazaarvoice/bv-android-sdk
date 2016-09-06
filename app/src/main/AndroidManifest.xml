@@ -3,7 +3,7 @@
     package="com.bazaarvoice.bvsdkdemoandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="com.bazaarvoice.bvsdkdemoandroid.DemoApplication"
@@ -18,9 +18,6 @@
             android:theme="@style/AppTheme"/>
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity" />
         <activity
-            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.kitchensink.DemoConversationDetailActivity"
-            android:label="@string/title_activity_bvconversation_detail" />
-        <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity"
             android:label="@string/title_activity_banner_ad" />
         <activity
@@ -29,9 +26,6 @@
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity"
             android:label="@string/title_activity_interstitial_ad" />
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ProductsActivity" />
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ReviewsActivity" />
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.ReviewDisplayActivity" />
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity" />
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity" />
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity" />
@@ -72,6 +66,26 @@
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity"
             android:label="@string/title_activity_product_stats" />
+
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity"
+            android:label="@string/title_activity_curations_map" />
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 

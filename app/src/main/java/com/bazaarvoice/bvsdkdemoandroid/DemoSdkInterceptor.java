@@ -3,6 +3,9 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid;
 
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -13,6 +16,15 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 class DemoSdkInterceptor implements Interceptor {
+
+    private DemoConfigUtils demoConfigUtils;
+    private DemoDataUtil demoDataUtil;
+
+    public DemoSdkInterceptor(DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil) {
+        this.demoConfigUtils = demoConfigUtils;
+        this.demoDataUtil = demoDataUtil;
+    }
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
@@ -27,8 +39,30 @@ class DemoSdkInterceptor implements Interceptor {
                     .protocol(Protocol.HTTP_2)
                     .build();
             return noResponse;
-        } else {
-            return chain.proceed(originalRequest);
         }
+
+        if (demoConfigUtils.isDemoClient()) {
+            return interceptDemoRequests(chain);
+        }
+
+        return chain.proceed(originalRequest);
+    }
+
+    private Response interceptDemoRequests(Chain chain) throws IOException {
+        Request originalRequest = chain.request();
+        String path = originalRequest.url().encodedPath();
+
+        if (path.contains("curations/content/get")) {
+            String curationsFeedItemsJsonStr = demoDataUtil.getCurationsFeedResponseJsonString();
+            Response response = new Response.Builder()
+                    .code(200)
+                    .body(ResponseBody.create(MediaType.parse("json"), curationsFeedItemsJsonStr))
+                    .request(originalRequest)
+                    .protocol(Protocol.HTTP_2)
+                    .build();
+            return response;
+        }
+
+        return chain.proceed(originalRequest);
     }
 }

@@ -189,7 +189,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                 .load(leftProduct.getImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(leftRec.image);
-        leftRec.prodName.setText(leftProduct.getProductId());
+        leftRec.prodName.setText(leftProduct.getProductName());
         if (TextUtils.isEmpty(leftProduct.getPrice())){
             leftRec.prodPrice.setVisibility(View.GONE);
         } else {
@@ -216,7 +216,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                     .load(rightProduct.getImageUrl())
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                     .into(rightRec.image);
-            rightRec.prodName.setText(rightProduct.getProductId());
+            rightRec.prodName.setText(rightProduct.getProductName());
             if (TextUtils.isEmpty(rightProduct.getPrice())){
                 rightRec.prodPrice.setVisibility(View.GONE);
             } else {

@@ -2,28 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Curations Feed"
         android:id="@+id/viewCurationsBtn"
-        android:layout_marginTop="205dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/postCurationsBtn"
-        android:layout_alignStart="@+id/postCurationsBtn"
-        android:layout_alignRight="@+id/postCurationsBtn"
-        android:layout_alignEnd="@+id/postCurationsBtn" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="View Curations Feed" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit to Curations"
         android:id="@+id/postCurationsBtn"
-        android:layout_below="@+id/viewCurationsBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp" />
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewCurationsBtn"
+        android:layout_marginTop="@dimen/margin_2"
+        android:text="Submit to Curations" />
+
+    <Button
+        android:id="@+id/viewCurationsLocBtn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/postCurationsBtn"
+        android:layout_marginTop="@dimen/margin_2"
+        android:text="View Curations Locations"/>
+
 </RelativeLayout>

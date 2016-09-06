@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -27,26 +28,25 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
+import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductContract;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
-import com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DemoFancyProductDetailActivity extends AppCompatActivity implements DemoProductRecContract.View, DemoProductCurationsRowContract.View, DemoProductDetailRecAdapter.ProductTapListener, DemoProductDetailCurationsAdapter.CurationFeedItemTapListener, DemoProductContract.View {
 
@@ -76,6 +76,9 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @BindView(R.id.get_curations_progress) ProgressBar getCurationsProgressBar;
     @BindView(R.id.curations_submit_container) ViewGroup curationsSubmitViewGroup;
     @BindView(R.id.curations_submit_image) TextView fontAwesomeCameraIcon;
+    @BindView(R.id.curations_locations) ViewGroup curationsLocationsContainer;
+    @BindView(R.id.curations_locations_image) TextView fontAwesomeLocationIcon;
+    @BindView(R.id.curations_seperator_2) View curationsSnippetSpacer2;
 
     @BindView(R.id.conv_reviews) TextView convReviews;
     @BindView(R.id.conv_questions_image) TextView fontAwesomeQuestionIcon;
@@ -207,6 +210,21 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         }
     };
 
+    @OnClick(R.id.curations_locations)
+    void onCurationsLocationClicked() {
+        String googleMapsKey = getResources().getString(R.string.google_maps_key);
+        boolean haveGoogleMapsApiKey =  DemoConstants.isSet(googleMapsKey);
+        if (haveGoogleMapsApiKey) {
+            DemoRouter.transitionToCurationsMapView(this, productId);
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Google API Key Missing")
+                    .setMessage("To view Curations Locations you must obtain a Google Maps API key, and place it in the google_maps_api.xml file in this project")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
+    }
+
     private void setupRecommendationsRow() {
         recommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recAdapter = new DemoProductDetailRecAdapter();
@@ -224,7 +242,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         curationsSubmitViewGroup.setOnClickListener(curationsSubmitClickListener);
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         fontAwesomeCameraIcon.setTypeface(fontAwesomeFont);
-
+        fontAwesomeLocationIcon.setTypeface(fontAwesomeFont);
     }
 
     private void showReviewDialog() {
@@ -288,14 +306,10 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
     @Override
     public void transitionToCurationsFeedItem(int index, List<CurationsFeedItem> curationsFeedItems) {
-        Intent intent = new Intent(this, DemoCurationsDetailActivity.class);
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<CurationsFeedItem>>() {
-        }.getType();
-        String curationsFeedItemsJsonStr = gson.toJson(curationsFeedItems, listType);
-        intent.putExtra(DemoCurationsDetailActivity.CURRATIONS_UPDATE_KEY, curationsFeedItemsJsonStr);
-        intent.putExtra(DemoCurationsDetailActivity.CURRATIONS_UPDATE_IDX_KEY, index);
-        startActivity(intent);
+        CurationsFeedItem curationsFeedItem = curationsFeedItems.get(index);
+        String productId = curationsFeedItem != null && curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty() ? curationsFeedItem.getProducts().get(0).getId() : "";
+        String feedItemId = String.valueOf(curationsFeedItem.getId());
+        DemoRouter.transitionToCurationsFeedItem(this, productId, feedItemId);
     }
 
     /**

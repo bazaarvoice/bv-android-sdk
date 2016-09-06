@@ -4,15 +4,11 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -76,9 +72,6 @@ class EventView {
                 eventViewListener.onVisibleOnScreenStateChanged(onScreen);
             }
             if (onScreen && !seenOnScreenWithId(bvView, productView.getProductId())) {
-                WindowManager wm = (WindowManager) bvView.getContext().getSystemService(Context.WINDOW_SERVICE);
-                Display display = wm.getDefaultDisplay();
-                Log.d("AnalyticsVerify", "onScreen view " + bvView.hashCode() + " with product " + productView.getProductId() + " from " + logSource + " with rectW: " + rect.width() + " rectH:" + rect.height() + " and globalOffset: " + globalOffset.toString() + " displayW: " + display.getWidth() + ", displayH: " + display.getHeight());
                 eventViewListener.onFirstTimeOnScreen();
             }
             lastOnScreenState = onScreen;
@@ -114,7 +107,6 @@ class EventView {
         }
 
         static <ViewType extends View> void updateSeenId(Set<String> seenIdsForView, ViewType view, String id) {
-            Log.d(EventView.class.getSimpleName(), "onProcessEvent() - First time seeing " + id + " on screen!");
             seenIdsForView.add(id);
             view.setTag(com.bazaarvoice.bvandroidsdk_common.R.string.seen_product_onscreen_with_id_set, seenIdsForView);
         }

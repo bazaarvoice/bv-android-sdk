@@ -1,7 +1,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,12 +29,19 @@ public class CurationsFeedRequest {
                 e.printStackTrace();
             }
             if (object != null){
-                if (f.getName() == "groups" || f.getName() == "tags"){
-                    strBuilder.append("&" + f.getName() + "=" + StringUtils.componentsSeparatedBy((ArrayList)object, "&"+f.getName()+"="));
-                } else if (f.getName() == "media") {
+                if (f.getName().equals("groups") || f.getName().equals("tags")){
+                    strBuilder.append("&" + f.getName() + "=" + StringUtils.componentsSeparatedBy((List<String>)object, "&"+f.getName()+"="));
+                } else if (f.getName().equals("media")) {
                     String mediaStr = "&media={'" + builder.media.mediaType + "':{'width':" + builder.media.width + ",'height':" + builder.media.height + "}}";
                     strBuilder.append(mediaStr);
-                }else{
+                } else if (f.getName().equals("latitude")) {
+                    if (builder.latitude != null && builder.longitude != null) {
+                        String geolocationStr = "&geolocation=" + builder.latitude + "," + builder.longitude;
+                        strBuilder.append(geolocationStr);
+                    }
+                } else if (f.getName().equals("longitude")) {
+                    // no-op
+                } else {
                     strBuilder.append("&" + f.getName() + "=" + object);
                 }
             }
@@ -49,7 +55,7 @@ public class CurationsFeedRequest {
         protected List<String> tags; //content must contain at least one
         protected String client; //provided by sdk
         protected String passKey; // provided by sdk
-        protected String authorTokenOrAlias;
+        protected String author;
         protected String externalId;
         protected Long after; //only content after this date
         protected Long before; //only content before this date
@@ -64,6 +70,7 @@ public class CurationsFeedRequest {
         protected Boolean include_comments;
         protected Boolean explicit_permission; //true returns only content that is Rights Management approved.
         protected CurationsMedia media;
+        protected Double latitude, longitude;
         //TODO success
 
         public Builder(List<String> groups){
@@ -71,7 +78,7 @@ public class CurationsFeedRequest {
         }
 
         public Builder authorTokenOrAlias(String authorTokenOrAlias){
-            this.authorTokenOrAlias = authorTokenOrAlias;
+            this.author = authorTokenOrAlias;
             return this;
         }
 
@@ -100,6 +107,7 @@ public class CurationsFeedRequest {
             return this;
         }
 
+        @Deprecated
         public Builder perGroupLimit(Integer perGroupLimit){
             this.per_group_limit = perGroupLimit;
             return this;
@@ -135,6 +143,7 @@ public class CurationsFeedRequest {
             return this;
         }
 
+        @Deprecated
         public Builder explicitPermission(Boolean explicitPermission){
             this.explicit_permission = explicitPermission;
             return this;
@@ -147,6 +156,12 @@ public class CurationsFeedRequest {
 
         public Builder tags(List<String> tags){
             this.tags = tags;
+            return this;
+        }
+
+        public Builder location(Double latitude, Double longitude) {
+            this.latitude = latitude;
+            this.longitude = longitude;
             return this;
         }
 

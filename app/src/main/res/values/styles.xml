@@ -28,4 +28,11 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="AppTheme.TextAppearance.Body1" parent="TextAppearance.AppCompat.Body1" />
+    <style name="AppTheme.TextAppearance.Body2" parent="TextAppearance.AppCompat.Body2" />
+    <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button" />
+    <style name="AppTheme.TextAppearance.Headline" parent="TextAppearance.AppCompat.Headline" />
+    <style name="AppTheme.TextAppearance.Caption" parent="TextAppearance.AppCompat.Caption" />
+
+
 </resources>

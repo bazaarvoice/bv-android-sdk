@@ -1,7 +1,7 @@
 /**
  * Copyright 2016 Bazaarvoice Inc. All rights reserved.
  */
-package com.bazaarvoice.bvsdkdemoandroid.detail;
+package com.bazaarvoice.bvsdkdemoandroid.curations.detail;
 
 import com.bazaarvoice.bvandroidsdk.BVCurations;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedCallback;
@@ -17,25 +17,25 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import java.util.Collections;
 import java.util.List;
 
-class DemoProductCurationsRowPresenter implements DemoProductCurationsRowContract.UserActionsListener, CurationsFeedCallback {
+public class DemoCurationsDetailPresenter implements DemoCurationsDetailContract.UserActionsListener, CurationsFeedCallback {
 
-    private DemoProductCurationsRowContract.View view;
+    private DemoCurationsDetailContract.View view;
     private DemoConfigUtils demoConfigUtils;
     private DemoDataUtil demoDataUtil;
-    private boolean fetched = false;
-    private List<CurationsFeedItem> curationsFeedItems = Collections.emptyList();
     private String productId;
+    private List<CurationsFeedItem> curationsFeedItems = Collections.emptyList();
+    private String currentFeedItemId;
 
-    public DemoProductCurationsRowPresenter(DemoProductCurationsRowContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId) {
+    public DemoCurationsDetailPresenter(DemoCurationsDetailContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, String startFeedItemId) {
         this.view = view;
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
         this.productId = productId;
+        this.currentFeedItemId = startFeedItemId;
     }
 
     @Override
-    public void loadCurationsFeedItems(boolean forceRefresh) {
-        fetched = false;
+    public void loadCurationsFeed() {
         DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
         List<CurationsFeedItem> demoFeedItems = demoDataUtil.getCurationsFeedItems();
         if (currentConfig.isDemoClient()) {
@@ -58,17 +58,25 @@ class DemoProductCurationsRowPresenter implements DemoProductCurationsRowContrac
         bvCurations.getCurationsFeedItems(request, this);
     }
 
-    @Override
-    public void onCurationsFeedItemTapped(CurationsFeedItem curationsFeedItem) {
-        if (fetched) {
-            for (int i=0; i<curationsFeedItems.size(); i++) {
-                CurationsFeedItem currItem = curationsFeedItems.get(i);
-                if (curationsFeedItem.getId().equals(currItem.getId())) {
-                    view.transitionToCurationsFeedItem(i, curationsFeedItems);
-                    return;
-                }
+    private void showCurationsFeedItems(List<CurationsFeedItem> feedItems) {
+        curationsFeedItems = feedItems;
+
+        if (feedItems.size() > 0) {
+            view.showCurationsFeed(feedItems);
+            view.showCurationsFeedItemInPager(getCurrentFeedItemIndex());
+        } else {
+            view.showNoCurations();
+        }
+    }
+
+    private int getCurrentFeedItemIndex() {
+        for (int i=0; i<curationsFeedItems.size(); i++) {
+            CurationsFeedItem curationsFeedItem = curationsFeedItems.get(i);
+            if (currentFeedItemId.equals(String.valueOf(curationsFeedItem.getId()))) {
+                return i;
             }
         }
+        return 0;
     }
 
     @Override
@@ -81,17 +89,5 @@ class DemoProductCurationsRowPresenter implements DemoProductCurationsRowContrac
         throwable.printStackTrace();
         view.showCurationsMessage("Failed to get curations feed");
         showCurationsFeedItems(Collections.<CurationsFeedItem>emptyList());
-    }
-
-    private void showCurationsFeedItems(List<CurationsFeedItem> feedItems) {
-        curationsFeedItems = feedItems;
-        fetched = true;
-        view.showLoadingCurations(false);
-
-        if (feedItems.size() > 0) {
-            view.showCurations(feedItems);
-        } else {
-            view.showNoCurations();
-        }
     }
 }
