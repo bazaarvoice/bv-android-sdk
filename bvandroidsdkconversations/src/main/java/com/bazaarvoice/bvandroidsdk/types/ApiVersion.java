@@ -7,20 +7,9 @@ package com.bazaarvoice.bvandroidsdk.types;
 /**
  * Bazaarvoice Conversations enum used for defining for the API version to use when making a request.
  */
+@Deprecated
 public enum ApiVersion {
-	/**
-	 * Use version 5.1.
-	 */
-	FIVE_ONE("5.1"),
-	/**
-	 * Use version 5.2.
-	 */
-	FIVE_TWO("5.2"),
-	/**
-	 * Use version 5.3.
-	 */
-	FIVE_THREE("5.3"),
-	
+
 	FIVE_FOUR("5.4");
 	
 	private String apiString;

@@ -11,12 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Product extends IncludeableContent {
+/**
+ * A Store object is equivalent to a Conversations Product but contains additional Geo-Location attributes
+ * such as address, city, latitude, longitude.
+ */
+public class Store extends IncludeableStoresContent {
     @SerializedName("Brand")
     private Map<String, Object> brand;
     @SerializedName("Attributes")
-    private Map<String, Object> attributes;
-    private List<String> ISBNs, UPCs, EANs;
+    private Map<String, StoreLocationAttributes> locationAttributes;
     @SerializedName("ManufacturerPartNumbers")
     private List<String> manufacturerPartNumbers;
     @SerializedName("FamilyIds")
@@ -41,24 +44,19 @@ public class Product extends IncludeableContent {
     private String id;
     @SerializedName("ReviewStatistics")
     private ReviewStatistics reviewStatistics;
-    @SerializedName("QAStatistics")
-    private QAStatistics qaStatistics;
     @SerializedName("ReviewIds")
     private List<String> reviewsIds;
-    @SerializedName("QuestionIds")
-    private List<String> questionsIds;
 
-    private transient List<Review> reviews;
-    private transient List<Question> questions;
+    private transient List<StoreReview> reviews;
 
     public
     @Nullable
-    List<Review> getReviews() {
+    List<StoreReview> getReviews() {
 
         if (this.reviews == null && this.reviewsIds != null && super.getIncludedIn().getReviews() != null) {
             this.reviews = new ArrayList<>();
             for (String reviewId : this.reviewsIds) {
-                Review review = super.getIncludedIn().getReviewMap().get(reviewId);
+                StoreReview review = super.getIncludedIn().getReviewMap().get(reviewId);
                 if (review != null) {
                     this.reviews.add(review);
                 }
@@ -68,58 +66,8 @@ public class Product extends IncludeableContent {
         return this.reviews;
     }
 
-    public
-    @Nullable
-    List<Question> getQuestions() {
-
-        if (this.questions == null && this.questionsIds != null && super.getIncludedIn().getQuestions() != null) {
-            this.questions = new ArrayList<>();
-
-            for (String questionId : this.questionsIds) {
-                Question question = super.getIncludedIn().getQuestionMap().get(questionId);
-                if (question != null) {
-                    this.questions.add(question);
-                }
-            }
-        }
-
-        return this.questions;
-    }
-
     public Map<String, Object> getBrand() {
         return brand;
-    }
-
-    public Map<String, Object> getAttributes() {
-        return attributes;
-    }
-
-    public List<String> getISBNs() {
-        return ISBNs;
-    }
-
-    public List<String> getUPCs() {
-        return UPCs;
-    }
-
-    public List<String> getEANs() {
-        return EANs;
-    }
-
-    public List<String> getManufacturerPartNumbers() {
-        return manufacturerPartNumbers;
-    }
-
-    public List<String> getFamilyIds() {
-        return familyIds;
-    }
-
-    public List<String> getAttributesOrder() {
-        return attributesOrder;
-    }
-
-    public List<String> getModelNumbers() {
-        return modelNumbers;
     }
 
     public String getProductDescription() {
@@ -150,17 +98,50 @@ public class Product extends IncludeableContent {
         return id;
     }
 
-    public List<String> getReviewsIds(){
-        return reviewsIds;
-    }
-
     @Nullable
     public ReviewStatistics getReviewStatistics() {
         return reviewStatistics;
     }
 
-    @Nullable
-    public QAStatistics getQaStatistics() {
-        return qaStatistics;
+    public enum StoreAttributeType {
+        COUNTRY("Country"),
+        CITY("City"),
+        STATE("State"),
+        ADDRESS("Address"),
+        PHONE("Phone"),
+        POSTALCODE("PostalCode"),
+        LATITUDE("Latitude"),
+        LONGITUDE("Longitude"),
+        ;
+
+        String val;
+        StoreAttributeType(String val) {
+            this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return val;
+        }
     }
+
+    /**
+     * Get a location attribute on a Store object by supplying one of the StoreAttributeType enumerations.
+     * May return null if the attribute is not defined in the original store feed.
+     * @param storeAttributeType
+     * @return String value of the attribute, or null if not defined.
+     */
+    public String getLocationAttribute(StoreAttributeType storeAttributeType) {
+        String value = null;
+
+        if (locationAttributes != null) {
+            StoreLocationAttributes attribs = locationAttributes.get(storeAttributeType.toString());
+            if (attribs != null){
+                value = attribs.getElements().get(0).getValue();
+            }
+        }
+
+        return value;
+    }
+
 }

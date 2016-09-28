@@ -34,6 +34,7 @@ public class BVSDKTest {
     BazaarEnvironment environment;
     String shopperAdvertisingApiKey;
     String conversationsApiKey;
+    String conversationsStoresApiKey;
     String conversationsApiBaseUrl;
     BVLogLevel bvLogLevel;
     String shopperMarketingApiBaseUrl;
@@ -70,7 +71,7 @@ public class BVSDKTest {
         analyticsManager = mock(AnalyticsManager.class);
         bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
         bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
-        keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, curationsApiKey, locationApiKey);
+        keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, conversationsStoresApiKey, curationsApiKey, locationApiKey);
         rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl, conversationsApiBaseUrl);
 
         RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");

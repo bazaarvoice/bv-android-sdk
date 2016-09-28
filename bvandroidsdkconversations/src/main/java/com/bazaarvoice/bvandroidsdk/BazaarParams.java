@@ -17,6 +17,7 @@ import java.util.Map;
  * class should not be used to add parameters. Instead, use one of the derived
  * classes: {@link DisplayParams}, {@link SubmissionParams}, {@link SubmissionMediaParams}.
  */
+@Deprecated
 public abstract class BazaarParams {
 
 	protected Media media;

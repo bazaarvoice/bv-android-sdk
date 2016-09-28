@@ -45,11 +45,23 @@ public final class BVConversationsClient {
     }
 
     /**
+     * @param request BulkStoreRatingsRequest to be sent
+     * @return LoadCall object with the request ready to be sent
+     */
+    public LoadCallDisplay<BulkStoreRatingsRequest, BulkStoreRatingsResponse> prepareCall(BulkStoreRatingsRequest request) {
+        return createCall(BulkStoreRatingsResponse.class, request);
+    }
+
+    /**
      * @param request ReviewsRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
     public LoadCallDisplay<ReviewsRequest, ReviewResponse> prepareCall(ReviewsRequest request) {
         return createCall(ReviewResponse.class, request);
+    }
+
+    public LoadCallDisplay<StoreReviewsRequest, StoreReviewResponse> prepareCall(StoreReviewsRequest request) {
+        return createCall(StoreReviewResponse.class, request);
     }
 
     public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {

@@ -10,6 +10,7 @@ import org.json.JSONObject;
  * An interface used to define callbacks for when a response to a request
  * is received.
  */
+@Deprecated
 public interface OnBazaarResponse {
 	/**
 	 * Handle a valid json response.

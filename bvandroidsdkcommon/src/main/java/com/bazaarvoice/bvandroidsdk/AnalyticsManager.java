@@ -160,6 +160,8 @@ class AnalyticsManager {
                     Logger.d(tag, "}");
                 } else {
                     Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source") + (event.containsKey("name") ? (" - name:" + event.get("name")) : ""));
+                    //JSONObject log = new JSONObject(event);
+                    //Logger.d(tag, log.toString());
                 }
             }
         }

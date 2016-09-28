@@ -60,6 +60,11 @@ public class DemoConfigUtils {
         return config.apiKeyConversations;
     }
 
+    public String getConversationsStoresPasskey() {
+        DemoConfig config = DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
+        return config.apiKeyConversationsStores;
+    }
+
     public String getCurationsPasskey() {
         DemoConfig config = DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
         return config.apiKeyCurations;

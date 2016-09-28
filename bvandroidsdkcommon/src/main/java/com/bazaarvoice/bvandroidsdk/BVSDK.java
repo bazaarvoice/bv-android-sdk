@@ -168,6 +168,7 @@ public class BVSDK{
         private BazaarEnvironment bazaarEnvironment;
         private String apiKeyShopperAdvertising;
         private String apiKeyConversations;
+        private String apiKeyConversationsStores;
         private String apiKeyCurations;
         private String apiKeyLocation;
         private BVLogLevel logLevel;
@@ -218,6 +219,18 @@ public class BVSDK{
                 throw new IllegalArgumentException("apiKeyConversations must be valid");
             }
             this.apiKeyConversations = apiKeyConversations;
+            return this;
+        }
+
+        /**
+         * @param apiKeyConversationsStores API Key required to access Conversations SDK
+         * @return
+         */
+        public Builder apiKeyConversationsStores(String apiKeyConversationsStores) {
+            if (apiKeyConversationsStores == null || apiKeyConversationsStores.isEmpty()) {
+                throw new IllegalArgumentException("apiKeyConversationsStores must be valid");
+            }
+            this.apiKeyConversationsStores = apiKeyConversationsStores;
             return this;
         }
 
@@ -303,7 +316,7 @@ public class BVSDK{
             BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, gson, profilePollTimes);
             AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), versionName, versionCode, clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
-            BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyCurations, apiKeyLocation);
+            BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyConversationsStores, apiKeyCurations, apiKeyLocation);
 
             Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
                 @Override
@@ -429,6 +442,10 @@ public class BVSDK{
 
     String getApiKeyConversations() {
         return apiKeys.getApiKeyConversations();
+    }
+
+    String getApiKeyConversationsStores() {
+        return apiKeys.getApiKeyConversationsStores();
     }
 
     String getApiKeyCurations() {

@@ -4,17 +4,19 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
- * TODO: Describe file here.
+ * API Key keeper for supported BV products.
  */
 class BVApiKeys {
     final String apiKeyShopperAdvertising;
     final String apiKeyConversations;
+    final String apiKeyConversationsStores;
     final String apiKeyCurations;
     final String apiKeyLocations;
 
-    public BVApiKeys(String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyCurations, String apiKeyLocations) {
+    public BVApiKeys(String apiKeyShopperAdvertising, String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyLocations) {
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
         this.apiKeyConversations = apiKeyConversations;
+        this.apiKeyConversationsStores = apiKeyConversationsStores;
         this.apiKeyCurations = apiKeyCurations;
         this.apiKeyLocations = apiKeyLocations;
     }
@@ -25,6 +27,10 @@ class BVApiKeys {
 
     public String getApiKeyConversations() {
         return apiKeyConversations;
+    }
+
+    public String getApiKeyConversationsStores() {
+        return apiKeyConversationsStores;
     }
 
     public String getApiKeyCurations() {
