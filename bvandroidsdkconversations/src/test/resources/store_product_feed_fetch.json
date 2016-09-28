@@ -1,0 +1,180 @@
+{
+  "Limit": 10,
+  "Offset": 0,
+  "TotalResults": 1,
+  "Locale": "en_US",
+  "Results": [
+    {
+      "AttributesOrder": [
+        "Address",
+        "PostalCode",
+        "Latitude",
+        "City",
+        "Longitude",
+        "Phone",
+        "State",
+        "Country"
+      ],
+      "Attributes": {
+        "Address": {
+          "Id": "Address",
+          "Values": [
+            {
+              "Value": "South, 10901 Stonelake Blvd",
+              "Locale": null
+            }
+          ]
+        },
+        "PostalCode": {
+          "Id": "PostalCode",
+          "Values": [
+            {
+              "Value": "78735",
+              "Locale": null
+            }
+          ]
+        },
+        "Latitude": {
+          "Id": "Latitude",
+          "Values": [
+            {
+              "Value": "30.3994293",
+              "Locale": null
+            }
+          ]
+        },
+        "City": {
+          "Id": "City",
+          "Values": [
+            {
+              "Value": "Austin",
+              "Locale": null
+            }
+          ]
+        },
+        "Longitude": {
+          "Id": "Longitude",
+          "Values": [
+            {
+              "Value": "-97.7380764",
+              "Locale": null
+            }
+          ]
+        },
+        "Phone": {
+          "Id": "Phone",
+          "Values": [
+            {
+              "Value": "(512) 551-6000",
+              "Locale": null
+            }
+          ]
+        },
+        "State": {
+          "Id": "State",
+          "Values": [
+            {
+              "Value": "TX",
+              "Locale": null
+            }
+          ]
+        },
+        "Country": {
+          "Id": "Country",
+          "Values": [
+            {
+              "Value": "USA",
+              "Locale": null
+            }
+          ]
+        }
+      },
+      "Name": "Endurance Cycles Austin",
+      "Description": "10901 Stonelake Blvd, Austin, TX 78759",
+      "ImageUrl": "http://media.bizj.us/view/img/8513272/bazaarvoice-1-exterior*750xx900-506-0-1.jpg",
+      "Id": "1",
+      "CategoryId": "bv-category-1",
+      "BrandExternalId": "1",
+      "Brand": {
+        "Id": "1"
+      },
+      "Active": true,
+      "ProductPageUrl": "http://www.endurancecycles.com/",
+      "Disabled": false,
+      "EANs": [],
+      "FamilyIds": [],
+      "StoryIds": [],
+      "ISBNs": [],
+      "ModelNumbers": [],
+      "UPCs": [],
+      "ReviewIds": [],
+      "QuestionIds": [],
+      "ManufacturerPartNumbers": [],
+      "ReviewStatistics": {
+        "RecommendedCount": 9,
+        "RatingDistribution": [
+          {
+            "RatingValue": 5,
+            "Count": 9
+          },
+          {
+            "RatingValue": 4,
+            "Count": 3
+          }
+        ],
+        "TotalReviewCount": 12,
+        "SecondaryRatingsAveragesOrder": [
+          "Quality",
+          "Value"
+        ],
+        "SecondaryRatingsAverages": {
+          "Quality": {
+            "Id": "Quality",
+            "AverageRating": 5,
+            "DisplayType": "NORMAL",
+            "MaxLabel": null,
+            "MinLabel": null,
+            "ValueRange": 5
+          },
+          "Value": {
+            "Id": "Value",
+            "AverageRating": 4.5,
+            "DisplayType": "NORMAL",
+            "MaxLabel": null,
+            "MinLabel": null,
+            "ValueRange": 5
+          }
+        },
+        "RatingsOnlyReviewCount": 3,
+        "NotHelpfulVoteCount": 18,
+        "HelpfulVoteCount": 28,
+        "ContextDataDistributionOrder": [
+          "Age"
+        ],
+        "ContextDataDistribution": {
+          "Age": {
+            "Id": "Age",
+            "Values": [
+              {
+                "Count": 1,
+                "Value": "55to64"
+              }
+            ]
+          }
+        },
+        "NotRecommendedCount": 2,
+        "AverageOverallRating": 4.75,
+        "FirstSubmissionTime": "2015-09-30T00:47:00.000+00:00",
+        "LastSubmissionTime": "2016-07-29T01:33:00.000+00:00",
+        "FeaturedReviewCount": 0,
+        "TagDistribution": {},
+        "OverallRatingRange": 5,
+        "TagDistributionOrder": []
+      },
+      "TotalReviewCount": 12
+    }
+  ],
+  "Includes": {},
+  "HasErrors": false,
+  "Errors": []
+}

@@ -27,6 +27,7 @@ import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
@@ -148,7 +149,11 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                         toolbar.setTitle(getString(R.string.demo_conversations) + ": API Demo");
                         transitionTo(DemoConversationsAPIFragment.newInstance());
                         break;
-                    case R.id.curations:
+                    case R.id.conversations_demo_stores:
+                        toolbar.setTitle(getString(R.string.demo_conversations_stores) + ": API Demo");
+                        transitionTo(DemoConversationsStoresAPIFragment.newInstance());
+                        break;
+                        case R.id.curations:
                         toolbar.setTitle(getString(R.string.demo_curations));
                         transitionTo(DemoCurationsFragment.newInstance());
                         break;

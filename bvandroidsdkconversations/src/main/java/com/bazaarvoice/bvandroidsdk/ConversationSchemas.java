@@ -64,7 +64,9 @@ class ConversationSchemas {
     enum AnalyticsContentType {
         Review("Review"),
         Question("Question"),
-        Answer("Answer");
+        Answer("Answer"),
+        Store("Store"),
+        StoreReview("StoreReview");
 
         private final String key;
 

@@ -44,6 +44,7 @@ public abstract class BVBaseTest {
     String curationsApiKey;
     String shopperAdvertisingApiKey;
     String conversationApiKey;
+    String conversationStoresApiKey;
 
     //URL roots
     String conversationsApiBaseUrl;
@@ -77,7 +78,7 @@ public abstract class BVBaseTest {
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs
         Logger.setLogLevel(bvLogLevel);
-        BVApiKeys keys = new BVApiKeys(shopperAdvertisingApiKey, conversationApiKey, curationsApiKey, locationsApiBaseUrl);
+        BVApiKeys keys = new BVApiKeys(shopperAdvertisingApiKey, conversationApiKey, conversationStoresApiKey, curationsApiKey, locationsApiBaseUrl);
         BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, curationsApiBaseUrl, curationsPostApiBaseUrl, conversationsApiBaseUrl);
         BVSDK.singleton = new BVSDK(RuntimeEnvironment.application, clientId, environment, keys, bvLogLevel, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, rootApiUrls, handler);
     }

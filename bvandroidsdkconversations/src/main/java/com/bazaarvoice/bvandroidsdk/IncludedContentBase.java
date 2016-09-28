@@ -174,4 +174,5 @@ class IncludedContentBase extends IncludeableContent {
             return productId;
         }
     }
+
 }

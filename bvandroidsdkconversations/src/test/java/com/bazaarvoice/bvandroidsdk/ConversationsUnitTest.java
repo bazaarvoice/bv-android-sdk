@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -15,7 +17,7 @@ import static junit.framework.Assert.assertTrue;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@Config(constants = BuildConfig.class, sdk = 19)
 public class ConversationsUnitTest extends BVBaseTest{
 
     @Override
@@ -26,7 +28,7 @@ public class ConversationsUnitTest extends BVBaseTest{
 
     @Test
     public void testQnARequestOverLimitError() {
-        QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("testProductId", 50, 0)
+        QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("testProductId", 101, 0)
                 .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
@@ -64,7 +66,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testReviewsRequestOverLimitError() {
 
-        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 50 , 0)
+        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 101 , 0)
                 .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);

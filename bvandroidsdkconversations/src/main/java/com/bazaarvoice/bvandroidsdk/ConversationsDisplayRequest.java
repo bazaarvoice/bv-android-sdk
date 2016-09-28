@@ -55,7 +55,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
    private Map<String, Object> makeCommonQueryParams() {
         Map<String, Object> params = new HashMap<>();
         params.put(kAPI_VERSION, API_VERSION);
-        params.put(kPASS_KEY, BVSDK.getInstance().getApiKeyConversations());
+        params.put(kPASS_KEY, getAPIKey());
         params.put(kAPP_ID, BVSDK.getInstance().analyticsManager.getPackageName());
         params.put(kAPP_VERSION, BVSDK.getInstance().analyticsManager.getVersionName());
         params.put(kBUILD_NUM, BVSDK.getInstance().analyticsManager.getVersionCode());
@@ -72,6 +72,10 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
 
     String getUrlQueryString() {
         return this.urlQueryString;
+    }
+
+    String getAPIKey(){
+        return BVSDK.getInstance().getApiKeyConversations();
     }
 
     abstract void addRequestQueryParams(Map<String, Object> queryParams);

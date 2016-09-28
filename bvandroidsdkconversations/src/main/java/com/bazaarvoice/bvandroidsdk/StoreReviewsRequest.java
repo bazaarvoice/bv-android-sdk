@@ -8,20 +8,25 @@ import android.support.annotation.NonNull;
 import java.util.Map;
 
 /**
- * Request used to obtain Reviews for a particular productId
+ * Request used to obtain Store Reviews for a particular storeId
  */
-public class ReviewsRequest extends ConversationsDisplayRequest {
+public class StoreReviewsRequest extends ConversationsDisplayRequest {
 
     private static final String REVIEWS_ENDPOINT = "reviews.json";
-    private final String productId;
+    private final String storeId;
 
-    private ReviewsRequest(Builder builder) {
+    private StoreReviewsRequest(Builder builder) {
         super(builder);
-        this.productId = builder.productId;
+        this.storeId = builder.productId;
     }
 
-    String getProductId() {
-        return productId;
+    String getStoreId() {
+        return storeId;
+    }
+
+    @Override
+    String getAPIKey(){
+        return BVSDK.getInstance().getApiKeyConversationsStores();
     }
 
     @Override
@@ -45,7 +50,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
         queryParams.put(kLIMIT, "" + builder.limit);
         queryParams.put(kOFFSET, "" + builder.offset);
-        queryParams.put(kINCLUDE, INCLUDE_ANSWERS);
+        queryParams.put(kINCLUDE, "Products");
 
         if (!builder.sorts.isEmpty()){
             queryParams.put(kSORT, StringUtils.componentsSeparatedBy(builder.sorts, ","));
@@ -57,16 +62,16 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     }
 
 
-    public static final class Builder extends ReviewDisplayRequestBuilder<ReviewsRequest> {
+    public static final class Builder extends ReviewDisplayRequestBuilder<StoreReviewsRequest> {
 
-        public Builder(@NonNull String productId, int limit, int offset) {
-            super(productId, limit, offset);
+        public Builder(@NonNull String storeId, int limit, int offset) {
+            super(storeId, limit, offset);
         }
 
-        @Override
-        public ReviewsRequest build() {
-            return new ReviewsRequest(this);
+        public StoreReviewsRequest build() {
+            return new StoreReviewsRequest(this);
         }
+
 
     }
 }

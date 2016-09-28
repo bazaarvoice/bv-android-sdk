@@ -34,8 +34,8 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
     BazaarException getError() {
         Builder builder = (Builder) super.getBuilder();
 
-        if (builder.limit < 1 || builder.limit > 20) {
-            return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 20.", builder.limit));
+        if (builder.limit < 1 || builder.limit > 100) {
+            return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", builder.limit));
         }
             return null;
     }

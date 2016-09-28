@@ -37,6 +37,7 @@
     <string name="demo_recommendations">Recommendations</string>
     <string name="demo_ads">Advertisements</string>
     <string name="demo_conversations">Conversations</string>
+    <string name="demo_conversations_stores">Conversations Stores</string>
     <string name="demo_curations">Curations</string>
     <string name="demo_location">Location</string>
 

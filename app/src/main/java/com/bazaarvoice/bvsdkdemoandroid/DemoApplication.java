@@ -62,6 +62,7 @@ public class DemoApplication extends Application {
         String clientId = demoConfigUtils.getClientId();
         String shopperAdvertisingApiKey = demoConfigUtils.getShopperAdPasskey();
         String conversationsApiKey = demoConfigUtils.getConversationsPasskey();
+        String conversationsStoresApiKey = demoConfigUtils.getConversationsStoresPasskey();
         String curationsApiKey = demoConfigUtils.getCurationsPasskey();
         String locationApiKey = demoConfigUtils.getLocationPasskey();
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -75,6 +76,7 @@ public class DemoApplication extends Application {
                 .bazaarEnvironment(DemoConstants.ENVIRONMENT)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .apiKeyConversations(conversationsApiKey)
+                .apiKeyConversationsStores(conversationsStoresApiKey)
                 .apiKeyCurations(curationsApiKey)
                 .apiKeyLocation(locationApiKey)
                 .logLevel(BVLogLevel.VERBOSE)

@@ -234,6 +234,27 @@ public class ConversationsAnalyticsManager {
         }
     }
 
+    public static void sendUgcImpressionEventStoreReviews(List<StoreReview> reviews) {
+        for (StoreReview review : reviews) {
+            String productId = "", contentId = "";
+            if (review != null) {
+                productId = review.getStoreId();
+                contentId = review.getContentId();
+            }
+            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, contentId, ConversationSchemas.AnalyticsContentType.StoreReview, MagpieBvProduct.RATINGS_AND_REVIEWS);
+        }
+    }
+
+    public static void sendUgcImpressionEventStores(List<Store> stores) {
+        for (Store store : stores) {
+            String productId = "";
+            if (store != null) {
+                productId = store.getId();
+            }
+            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, "", ConversationSchemas.AnalyticsContentType.Store, MagpieBvProduct.RATINGS_AND_REVIEWS);
+        }
+    }
+
     public static void sendUgcImpressionEventQAndA(List<Question> questions) {
         for (Question question : questions) {
             String productId = "", questionId = "";
@@ -290,11 +311,19 @@ public class ConversationsAnalyticsManager {
             ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
             ConversationsAnalyticsManager.sendUgcImpressionEventReviews(reviewResponse.getResults());
         }
-        if (conversationResponse instanceof QuestionAndAnswerResponse) {
+        else if (conversationResponse instanceof StoreReviewResponse) {
+            StoreReviewResponse storeReviewResponse = (StoreReviewResponse) conversationResponse;
+            ConversationsAnalyticsManager.sendUgcImpressionEventStoreReviews(storeReviewResponse.getResults());
+        }
+        else if (conversationResponse instanceof BulkStoreRatingsResponse) {
+            BulkStoreRatingsResponse bulkStoresResponse = (BulkStoreRatingsResponse) conversationResponse;
+            ConversationsAnalyticsManager.sendUgcImpressionEventStores(bulkStoresResponse.getResults());
+        }
+        else if (conversationResponse instanceof QuestionAndAnswerResponse) {
             QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
             ConversationsAnalyticsManager.sendUgcImpressionEventQAndA(questionAndAnswerResponse.getResults());
         }
-        if (conversationResponse instanceof ProductDisplayPageResponse) {
+        else if (conversationResponse instanceof ProductDisplayPageResponse) {
             ProductDisplayPageResponse productDisplayPageResponse = (ProductDisplayPageResponse) conversationResponse;
             List<Product> products = productDisplayPageResponse.getResults();
             if (products == null || products.isEmpty()) {
@@ -303,7 +332,7 @@ public class ConversationsAnalyticsManager {
             Product product = products.get(0);
             sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
         }
-        if (conversationResponse instanceof ReviewResponse) {
+        else if (conversationResponse instanceof ReviewResponse) {
             ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
             List<Review> reviews = reviewResponse.getResults();
             if (reviews == null || reviews.isEmpty()) {
@@ -315,7 +344,7 @@ public class ConversationsAnalyticsManager {
                 sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
             }
         }
-        if (conversationResponse instanceof QuestionAndAnswerResponse) {
+        else if (conversationResponse instanceof QuestionAndAnswerResponse) {
             QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
             List<Question> questions = questionAndAnswerResponse.getResults();
             if (questions == null || questions.isEmpty()) {

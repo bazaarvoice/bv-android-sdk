@@ -17,6 +17,7 @@ public class DemoConstants {
 
     public static final String PASSKEY_SHOPPER_AD = "REPLACE_ME";
     public static final String PASSKEY_CONVERSATIONS = "REPLACE_ME";
+    public static final String PASSKEY_CONVERSATIONS_STORES = "REPLACE_ME";
     public static final String PASSKEY_CURATIONS = "REPLACE_ME";
     public static final String PASSKEY_LOCATION = "REPLACE_ME";
 
