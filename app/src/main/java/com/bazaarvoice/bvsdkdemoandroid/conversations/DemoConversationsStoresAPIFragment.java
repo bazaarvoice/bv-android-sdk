@@ -17,10 +17,10 @@ import com.bazaarvoice.bvandroidsdk.BulkStoreRatingsRequest;
 import com.bazaarvoice.bvandroidsdk.BulkStoreRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
-import com.bazaarvoice.bvandroidsdk.ReviewSubmissionRequest;
-import com.bazaarvoice.bvandroidsdk.ReviewSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
+import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionRequest;
+import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.StoreReviewsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
@@ -32,7 +32,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -119,14 +118,8 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
 //                    ((DemoMainActivity) getActivity()).transitionToBulkRatingsActivity(new ArrayList<String>(TEST_BULK_PRODUCT_IDS));
 //                }
 
-                ArrayList<String> storeList = new ArrayList<String>();
-                storeList.add("1");
-                storeList.add("2");
-                storeList.add("3");
-                storeList.add("4");
-
                 BVConversationsClient client = new BVConversationsClient();
-                BulkStoreRatingsRequest storesRequest = new BulkStoreRatingsRequest.Builder(storeList)
+                BulkStoreRatingsRequest storesRequest = new BulkStoreRatingsRequest.Builder(TEST_BULK_PRODUCT_IDS)
                         .build();
 
                 client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreRatingsResponse>() {
@@ -184,7 +177,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
         //////////////////////////////
         // Submit Example Buttons
         //////////////////////////////
-        // Submit Review w/ Photo
+        // Submit Store Review w/ Photo
         Button feedBtn = (Button) view.findViewById(R.id.submitStoreReviewWithPhoto);
         feedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +187,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                     // For clients in US, iovation SDK is required!
 //                    String blackbox = getBlackbox(getContext().getApplicationContext());
 
-                    progress.setTitle("Submitting Review...");
+                    progress.setTitle("Submitting Store Review...");
                     progress.show();
 
                     File localImageFile = null;
@@ -207,11 +200,12 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                    ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
+                    StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
 //                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
-                            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                            .user("user1234" + Math.random())
+                            //.userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
                             .rating(5)
                             .title("Review title")
                             .reviewText("This is the review text the user adds about how great the product is!")
@@ -221,10 +215,10 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                             .addPhoto(localImageFile, "What a cute pupper!")
                             .build();
 
-                    client.prepareCall(submission).loadAsync(new ConversationsCallback<ReviewSubmissionResponse>() {
+                    client.prepareCall(submission).loadAsync(new ConversationsCallback<StoreReviewSubmissionResponse>() {
 
                         @Override
-                        public void onSuccess(ReviewSubmissionResponse response) {
+                        public void onSuccess(StoreReviewSubmissionResponse response) {
                             progress.dismiss();
                             showDialogWithMessage("Successful review submission.");
                         }

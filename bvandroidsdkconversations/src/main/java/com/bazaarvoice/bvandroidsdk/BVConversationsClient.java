@@ -76,6 +76,10 @@ public final class BVConversationsClient {
         return createCall(ReviewSubmissionResponse.class, submission);
     }
 
+    public LoadCallSubmission<StoreReviewSubmissionRequest, StoreReviewSubmissionResponse> prepareCall(StoreReviewSubmissionRequest submission) {
+        return createCall(StoreReviewSubmissionResponse.class, submission);
+    }
+
     public LoadCallSubmission<QuestionSubmissionRequest, QuestionSubmissionResponse> prepareCall(QuestionSubmissionRequest submission) {
         return createCall(QuestionSubmissionResponse.class, submission);
     }

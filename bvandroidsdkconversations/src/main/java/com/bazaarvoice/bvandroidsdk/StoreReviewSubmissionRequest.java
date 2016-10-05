@@ -3,15 +3,15 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-public class ReviewSubmissionRequest extends BaseReviewSubmissionRequest {
+public class StoreReviewSubmissionRequest extends BaseReviewSubmissionRequest {
 
-    ReviewSubmissionRequest(Builder builder) {
+    StoreReviewSubmissionRequest(Builder builder) {
         super(builder);
     }
 
     @Override
     protected String getApiKey() {
-        return BVSDK.getInstance().getApiKeyConversations();
+        return BVSDK.getInstance().getApiKeyConversationsStores();
     }
 
     public static class Builder extends BaseReviewSubmissionRequest.Builder<Builder> {
@@ -19,8 +19,8 @@ public class ReviewSubmissionRequest extends BaseReviewSubmissionRequest {
             super(action, productId);
         }
 
-        public ReviewSubmissionRequest build() {
-            return new ReviewSubmissionRequest(this);
+        public StoreReviewSubmissionRequest build() {
+            return new StoreReviewSubmissionRequest(this);
         }
     }
 }

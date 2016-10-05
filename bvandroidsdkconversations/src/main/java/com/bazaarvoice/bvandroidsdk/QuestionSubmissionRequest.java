@@ -20,6 +20,11 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
         super(builder);
     }
 
+    @Override
+    protected String getApiKey() {
+        return BVSDK.getInstance().getApiKeyConversations();
+    }
+
     String getProductId() {
         Map<String, Object> queryParams = makeQueryParams();
         return queryParams.containsKey(kPRODUCT_ID) ? (String) queryParams.get(kPRODUCT_ID) : "";
