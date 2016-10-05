@@ -68,7 +68,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     private Map<String, Object> makeCommonQueryParams() {
         Map<String, Object> params = new HashMap<>();
         mapPutSafe(params, kAPI_VERSION, API_VERSION);
-        mapPutSafe(params, kPASS_KEY, BVSDK.getInstance().getApiKeyConversations());
+        mapPutSafe(params, kPASS_KEY, getApiKey());
         mapPutSafe(params, kAPP_ID, BVSDK.getInstance().analyticsManager.getPackageName());
         mapPutSafe(params, kAPP_VERSION, BVSDK.getInstance().analyticsManager.getVersionName());
         mapPutSafe(params, kBUILD_NUM, BVSDK.getInstance().analyticsManager.getVersionCode());
@@ -103,6 +103,8 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
         return params;
     }
+
+    protected abstract String getApiKey();
 
     private String createUrlQueryString(Map<String, Object> queryParams) {
 

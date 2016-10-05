@@ -31,6 +31,11 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
     }
 
     @Override
+    protected String getApiKey() {
+        return BVSDK.getInstance().getApiKeyConversations();
+    }
+
+    @Override
     void addRequestQueryParams(Map<String, Object> queryParams) {
         Builder builder = (AnswerSubmissionRequest.Builder) getBuilder();
         queryParams.put(kQUESTIONID, builder.questionId);
