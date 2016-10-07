@@ -201,7 +201,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                    StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Submit, TEST_PRODUCT_ID)
+                    StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
 //                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("mcfly")
                             .userEmail("flymcfly@bar.com")
