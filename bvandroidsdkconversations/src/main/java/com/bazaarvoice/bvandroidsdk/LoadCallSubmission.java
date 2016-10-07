@@ -135,7 +135,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
         try {
             for (PhotoUpload upload : photoUploads) {
-                Call photoCall = makePhotoCall(upload);
+                Call photoCall = makePhotoCall(upload, submission);
                 Response response = null;
                 try {
                     response = photoCall.execute();
@@ -161,7 +161,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         final List<Photo> photos = Collections.synchronizedList(new ArrayList<Photo>());
 
         for (final PhotoUpload upload : photoUploads) {
-            Call photoCall = makePhotoCall(upload);
+            Call photoCall = makePhotoCall(upload, submission);
             //async upload all photos
             photoCall.enqueue(new Callback() {
                 @Override
@@ -200,7 +200,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         PhotoUploadResponse photoUploadResponse = gson.fromJson(reader, PhotoUploadResponse.class);
         response.body().close();
         if (photoUploadResponse.getHasErrors()) {
-            throw new BazaarException(gson.toJson(photoUploadResponse.getErrors()));
+            throw new BazaarException(gson.toJson(photoUploadResponse.getFormErrors()));
         }
         return photoUploadResponse.getPhoto();
     }
@@ -229,11 +229,11 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         }
     }
 
-    private Call makePhotoCall(PhotoUpload upload) {
+    private Call makePhotoCall(PhotoUpload upload, ConversationsSubmissionRequest conversationsSubmitRequest) {
         String fullUrl = String.format("%s%s", BVConversationsClient.conversationsBaseUrl, upload.getEndPoint());
         RequestBody req = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart(ConversationsRequest.kAPI_VERSION, ConversationsRequest.API_VERSION)
-                .addFormDataPart(ConversationsRequest.kPASS_KEY, BVSDK.getInstance().getApiKeyConversations())
+                .addFormDataPart(ConversationsRequest.kPASS_KEY, conversationsSubmitRequest.getApiKey())
                 .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("photo", "photo.png", RequestBody.create(MEDIA_TYPE_PNG, upload.getPhotoFile())).build();
 

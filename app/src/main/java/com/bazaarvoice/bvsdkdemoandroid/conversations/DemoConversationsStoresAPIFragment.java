@@ -193,26 +193,27 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                     File localImageFile = null;
 
                     try {
-                        InputStream stream = getContext().getAssets().open("puppy.jpg");
+                        //InputStream stream = getContext().getAssets().open("puppy.jpg"); // Sample of a photo that is too small and will generate an error message.
+                        InputStream stream = getContext().getAssets().open("bike_shop_photo.png");
                         localImageFile = createFileFromInputStream(stream);
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
+                    StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Submit, TEST_PRODUCT_ID)
 //                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
-                            .userNickname("shazbat")
-                            .userEmail("foo@bar.com")
-                            .user("user1234" + Math.random())
+                            .userNickname("mcfly")
+                            .userEmail("flymcfly@bar.com")
+                            .user("mrmcfly" + Math.random())
                             //.userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
                             .rating(5)
-                            .title("Review title")
-                            .reviewText("This is the review text the user adds about how great the product is!")
+                            .title("Most excellent!")
+                            .reviewText("This is the greatest store that is, has been, or ever will be!")
                             .sendEmailAlertWhenCommented(true)
                             .sendEmailAlertWhenPublished(true)
                             .agreedToTermsAndConditions(true)
-                            .addPhoto(localImageFile, "What a cute pupper!")
+                            .addPhoto(localImageFile, "Awesome Photo!")
                             .build();
 
                     client.prepareCall(submission).loadAsync(new ConversationsCallback<StoreReviewSubmissionResponse>() {

@@ -129,7 +129,6 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     }
 
     public abstract static class Builder<BuilderChildType extends Builder> {
-        private String passKey = BVSDK.getInstance().getApiKeyConversations();
         private String campaignId;
         private String fingerPrint;
         private String hostedAuthenticationEmail;
