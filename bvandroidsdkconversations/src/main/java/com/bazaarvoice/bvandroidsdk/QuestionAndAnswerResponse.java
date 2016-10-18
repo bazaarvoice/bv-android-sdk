@@ -6,6 +6,6 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response class for QuestionAndAnswerRequest to obtain Q&As for a particular productId
  */
-public class QuestionAndAnswerResponse extends IncludesResponse<Question> {
+public class QuestionAndAnswerResponse extends IncludesResponse<Question, ConversationsIncludeProduct> {
 
 }

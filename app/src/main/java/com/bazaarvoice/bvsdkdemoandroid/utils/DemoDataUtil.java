@@ -17,6 +17,8 @@ import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ShopperProfile;
+import com.bazaarvoice.bvandroidsdk.StoreReview;
+import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -38,6 +40,7 @@ public class DemoDataUtil {
     private List<BVProduct> savedDemoRecProds;
     private CurationsFeedResponse savedCurationsFeedResponse;
     private List<Review> savedConversationsReviews;
+    private List<StoreReview> savedConversationsStoreReviews;
     private List<Question> savedConversationsQuestions;
     private Gson gson;
     private CurationsPostResponse curationsPostResponse;
@@ -117,6 +120,25 @@ public class DemoDataUtil {
         return conversationsReviews;
     }
 
+    public List<StoreReview> getConversationsStoreReviews() {
+        if (savedConversationsReviews != null) {
+            return savedConversationsStoreReviews;
+        }
+
+        List<StoreReview> conversationsReviews = new ArrayList<>();
+        try {
+            InputStream inputStream = applicationContext.getAssets().open("conversationsReviewsEnduranceCycles.json");
+            conversationsReviews.addAll(convertResponseToStoreReviews(inputStream));
+            savedConversationsStoreReviews = conversationsReviews;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return conversationsReviews;
+    }
+
     private String readResponse(InputStream inputStream) throws IOException {
         BufferedReader reader =  new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder response = new StringBuilder();
@@ -132,6 +154,12 @@ public class DemoDataUtil {
     private List<Review> convertResponseToReviews(InputStream inputStream) throws JSONException, IOException {
         String jsonResponseStr = readResponse(inputStream);
         ReviewResponse reviewResponse = gson.fromJson(jsonResponseStr, ReviewResponse.class);
+        return reviewResponse.getResults();
+    }
+
+    private List<StoreReview> convertResponseToStoreReviews(InputStream inputStream) throws JSONException, IOException {
+        String jsonResponseStr = readResponse(inputStream);
+        StoreReviewResponse reviewResponse = gson.fromJson(jsonResponseStr, StoreReviewResponse.class);
         return reviewResponse.getResults();
     }
 

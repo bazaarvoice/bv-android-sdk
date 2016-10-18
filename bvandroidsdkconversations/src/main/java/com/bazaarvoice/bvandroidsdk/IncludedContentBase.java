@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-class IncludedContentBase extends IncludeableContent {
+class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude> extends IncludeableContent<ConversationsIncludeType> {
 
     @SerializedName("UserNickname")
     private String userNickname;
@@ -163,8 +163,8 @@ class IncludedContentBase extends IncludeableContent {
 
         public Product getProduct() {
 
-            if (this.product == null && super.getIncludedIn() != null && super.getIncludedIn().getProducts() != null) {
-                this.product = super.getIncludedIn().getProductMap().get(this.productId);
+            if (this.product == null && super.getIncludedIn() != null && super.getIncludedIn().getItems() != null) {
+                this.product = (Product) getIncludedIn().getItemMap().get(productId);
             }
 
             return this.product;
@@ -173,6 +173,8 @@ class IncludedContentBase extends IncludeableContent {
         public String getProductId() {
             return productId;
         }
+
     }
+
 
 }

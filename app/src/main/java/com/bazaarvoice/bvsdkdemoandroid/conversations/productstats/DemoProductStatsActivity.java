@@ -13,12 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -39,9 +41,11 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
     @BindView(R.id.product_image) ImageView productImage;
     @BindView(R.id.product_name) TextView productName;
     @BindView(R.id.product_rating) RatingBar productRating;
-    @BindView(R.id.reviews_recycler_view) RecyclerView productStatsRecyclerView;
+    private RecyclerView productStatsRecyclerView;
     private DemoProductStatsAdapter productStatsAdapter;
     @BindView(R.id.reviews_loading) ProgressBar reviewsLoading;
+    @BindView(R.id.recyclerViewStub)
+    ViewStub recyclerViewStub;
 
     private String productId;
 
@@ -50,6 +54,7 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_reviews);
         ButterKnife.bind(this);
+        inflateRecyclerView();
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
 
         setupToolbarViews();
@@ -59,6 +64,12 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
         DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         bulkRatingsUserActionListener = new DemoProductStatsPresenter(this, demoConfigUtils, demoDataUtil, productId);
+    }
+
+    void inflateRecyclerView() {
+        recyclerViewStub.setLayoutResource(R.layout.store_reviews_recyclerview);
+        recyclerViewStub.inflate();
+        productStatsRecyclerView = (ConversationsDisplayRecyclerView) findViewById(R.id.store_reviews_recycler_view);
     }
 
     private void setupToolbarViews() {

@@ -12,18 +12,20 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.BaseReview;
+import com.bazaarvoice.bvandroidsdk.Photo;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
-public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Review> reviews = Collections.emptyList();
+    List<ReviewType> reviews = Collections.emptyList();
     private PrettyTime prettyTime;
 
     public DemoReviewsAdapter() {
@@ -38,26 +40,39 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Review bazaarReview = reviews.get(position);
+        ReviewType bazaarReview = reviews.get(position);
         ReviewRowViewHolder viewHolder = (ReviewRowViewHolder) holder;
 
-        viewHolder.reviewTitle.setText(bazaarReview.getTitle());
-        viewHolder.reviewBody.setText(bazaarReview.getReviewText());
-        viewHolder.reviewRating.setRating(bazaarReview.getRating() == null ? 0 : bazaarReview.getRating());
+        String title = bazaarReview.getTitle();
+        String reviewText = bazaarReview.getReviewText();
+        Integer rating = bazaarReview.getRating();
+        String location = bazaarReview.getUserLocation();
+        Date submissionDate= bazaarReview.getSubmissionDate();
+        String nickName = bazaarReview.getUserNickname();
+        List<Photo> photos = bazaarReview.getPhotos();
 
-        boolean hasLocation = !TextUtils.isEmpty(bazaarReview.getUserLocation()) && !bazaarReview.getUserLocation().equals("null");
+        populateViewHolder(viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos);
+    }
+
+
+    void populateViewHolder(ReviewRowViewHolder viewHolder, String title, String reviewText, Integer rating, String location, Date submissionDate, String nickName, List<Photo> photos) {
+        viewHolder.reviewTitle.setText(title);
+        viewHolder.reviewBody.setText(reviewText);
+        viewHolder.reviewRating.setRating(rating == null ? 0 : rating);
+
+        boolean hasLocation = !TextUtils.isEmpty(location) && !location.equals("null");
         if (hasLocation) {
-            viewHolder.reviewLocation.setText(bazaarReview.getUserLocation());
+            viewHolder.reviewLocation.setText(location);
             viewHolder.reviewLocation.setVisibility(View.VISIBLE);
         } else {
             viewHolder.reviewLocation.setVisibility(View.GONE);
         }
 
-        boolean hasTimeAgo = bazaarReview.getSubmissionDate() != null;
+        boolean hasTimeAgo = submissionDate != null;
         if (hasTimeAgo) {
-            String timeAgo = prettyTime.format(bazaarReview.getSubmissionDate());
-            boolean hasUserNickname = !TextUtils.isEmpty(bazaarReview.getUserNickname());
-            String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarReview.getUserNickname() : timeAgo;
+            String timeAgo = prettyTime.format(submissionDate);
+            boolean hasUserNickname = !TextUtils.isEmpty(nickName);
+            String timeAgoBy = hasUserNickname ? timeAgo + " by " + nickName : timeAgo;
             viewHolder.reviewTimeAgo.setText(timeAgoBy);
             viewHolder.reviewTimeAgo.setVisibility(View.VISIBLE);
 
@@ -65,11 +80,11 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.reviewTimeAgo.setVisibility(View.GONE);
         }
 
-        boolean hasImage = bazaarReview.getPhotos() != null ? bazaarReview.getPhotos().size() > 0 : false;
+        boolean hasImage = photos != null ? photos.size() > 0 : false;
         if (hasImage) {
             viewHolder.reviewImage.setVisibility(View.VISIBLE);
             DemoUtils demoUtils = DemoUtils.getInstance(viewHolder.reviewImage.getContext());
-            demoUtils.picassoThumbnailLoader().load(bazaarReview.getPhotos().get(0).getContent().getThumbnailUrl()).into(viewHolder.reviewImage);
+            demoUtils.picassoThumbnailLoader().load(photos.get(0).getContent().getThumbnailUrl()).into(viewHolder.reviewImage);
         } else {
             viewHolder.reviewImage.setVisibility(View.GONE);
         }
@@ -80,12 +95,12 @@ public class DemoReviewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return reviews.size();
     }
 
-    public void refreshReviews(List<Review> reviews) {
+    public void refreshReviews(List<ReviewType> reviews) {
         this.reviews = reviews;
         notifyDataSetChanged();
     }
 
-    private final class ReviewRowViewHolder extends RecyclerView.ViewHolder {
+    protected final class ReviewRowViewHolder extends RecyclerView.ViewHolder {
 
         TextView reviewTitle, reviewTimeAgo, reviewLocation, reviewBody;
         RatingBar reviewRating;

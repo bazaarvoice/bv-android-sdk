@@ -3,15 +3,15 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
-import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.BaseReview;
 
 import java.util.List;
 
-public interface DemoReviewsContract {
+public interface DemoReviewsContract<ReviewType extends BaseReview> {
 
-    interface View {
+    interface View<ReviewType> {
         void showHeaderView(String imageUrl, String productName, float averageRating);
-        void showReviews(List<Review> bazaarReviews);
+        void showReviews(List<ReviewType> reviews);
         void showLoadingReviews(boolean show);
         void showNoReviews();
         void showReviewsMessage(String message);

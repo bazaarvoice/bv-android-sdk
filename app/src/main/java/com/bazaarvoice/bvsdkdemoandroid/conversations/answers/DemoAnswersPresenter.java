@@ -5,9 +5,10 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 
 
 import com.bazaarvoice.bvandroidsdk.Answer;
-import com.bazaarvoice.bvandroidsdk.Product;
+import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
+import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
@@ -31,6 +32,14 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
         this.productId = productId;
         this.questionId = questionId;
         this.forceAPICall = forceAPICall;
+
+        if (productId != null && !productId.isEmpty()) {
+            BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            String imageUrl = bvProduct == null ? null : bvProduct.getImageUrl();
+            String productName = bvProduct == null ? "" : bvProduct.getProductName();
+            float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
+            view.showHeaderView(imageUrl, productName, averageOverallRating);
+        }
     }
 
     @Override
@@ -51,22 +60,6 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
             }
         }
         view.showAnswers(cachedAnswers);
-        if (cachedAnswers.size() > 0) {
-            Answer firstAnswer = cachedAnswers.get(0);
-            Question question = firstAnswer.getQuestion();
-            if (question != null) {
-                Product product = question.getProduct();
-                if (product != null) {
-                    String imageUrl = product.getImageUrl();
-                    String productName = product.getName();
-                    float averageOverallRating = -1;
-                    if (product.getReviewStatistics() != null) {
-                        averageOverallRating = product.getReviewStatistics().getAverageOverallRating();
-                    }
-                    view.showHeaderView(imageUrl, productName, averageOverallRating);
-                }
-            }
-        }
     }
 
 }

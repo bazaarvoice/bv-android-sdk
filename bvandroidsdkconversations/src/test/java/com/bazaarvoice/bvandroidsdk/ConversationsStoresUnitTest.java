@@ -5,9 +5,9 @@ import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
     public void testBulkStoreRatingsRequestValidLimit() {
         List<String> prodIds = getStoreIds(20);
 
-        BulkStoreRatingsRequest request = new BulkStoreRatingsRequest.Builder(prodIds)
+        BulkStoreRequest request = new BulkStoreRequest.Builder(prodIds)
                 .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
@@ -41,7 +41,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
     @Test
     public void testBulkStoreRatingsLimitAndOffset() {
 
-        BulkStoreRatingsRequest request = new BulkStoreRatingsRequest.Builder(20, 0)
+        BulkStoreRequest request = new BulkStoreRequest.Builder(20, 0)
                 .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
@@ -59,11 +59,42 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
 
     @Test
     public void testStoreReviewsRequestValidLimit() {
-
         StoreReviewsRequest request = new StoreReviewsRequest.Builder("testStoreId", 20 , 0)
                 .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
+    }
+
+    @Test
+    public void testStoreReviewSubmissionRequestApi() {
+        StoreReviewSubmissionRequest request = new StoreReviewSubmissionRequest.Builder(Action.Preview, "productId")
+                .addAdditionalField("key", "value")
+                .addContextDataValueString("key", "value")
+                .addContextDataValueString("key", true)
+                .addFreeFormTag("questionId", "value")
+                .addPhoto(new File("path/to/file"), "caption")
+                .addPredefinedTag("questionId", "tagId", "value")
+                .addRatingQuestion("questionName", 100)
+                .addRatingSlider("questionName", "value")
+                .isRecommended(true)
+                .sendEmailAlertWhenCommented(true)
+                .sendEmailAlertWhenPublished(true)
+                .rating(5)
+                .netPromoterScore(5)
+                .title("title")
+                .reviewText("review text")
+                .netPromoterComment("comment")
+                .campaignId("campaignId")
+                .fingerPrint("fingerprint")
+                .hostedAuthenticationEmail("hostedAuthEmail")
+                .locale("locale")
+                .user("user")
+                .userEmail("useremail@email.com")
+                .userId("userId")
+                .userLocation("userLocation")
+                .userNickname("userNickName")
+                .agreedToTermsAndConditions(true)
+                .build();
     }
 
     private Object testParsing(String filename, Class responseClass) {
@@ -76,7 +107,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
         // Parse a json result where a single store is fetched and the Results contain Review objects
         // and the Includes contain the store and statistics for which the reviews are returned.
         StoreReviewResponse response = (StoreReviewResponse) testParsing("store_reviews_include_statistics.json", StoreReviewResponse.class);
-        Map<String, Store> stores = response.getIncludes().getStoreMap();
+        Map<String, Store> stores = response.getIncludes().getItemMap();
             assertTrue("Wrong store count", stores != null && stores.size() == 1);
 
         Store store = stores.get("1");
@@ -90,7 +121,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
     @Test
     public void testBulkStoresResponseParsing() {
         // Parse a json result where a single store is fetched by explicit it
-        BulkStoreRatingsResponse response = (BulkStoreRatingsResponse) testParsing("store_product_feed_fetch.json", BulkStoreRatingsResponse.class);
+        BulkStoreResponse response = (BulkStoreResponse) testParsing("store_product_feed_fetch.json", BulkStoreResponse.class);
         List<Store> stores = response.getResults();
         assertTrue("Wrong store count", stores != null && stores.size() == 1);
 

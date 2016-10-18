@@ -11,9 +11,9 @@ import java.util.Map;
 /**
  * Request used to obtain multiple product stores.
  */
-public class BulkStoreRatingsRequest extends ConversationsDisplayRequest {
+public class BulkStoreRequest extends ConversationsDisplayRequest {
 
-    private BulkStoreRatingsRequest(Builder builder) {
+    private BulkStoreRequest(Builder builder) {
         super(builder);
     }
 
@@ -34,7 +34,7 @@ public class BulkStoreRatingsRequest extends ConversationsDisplayRequest {
 
     @Override
     void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (BulkStoreRatingsRequest.Builder) getBuilder();
+        Builder builder = (BulkStoreRequest.Builder) getBuilder();
 
         if (builder.getLimit() != null){
             queryParams.put(kLIMIT, builder.getLimit().intValue());
@@ -75,8 +75,8 @@ public class BulkStoreRatingsRequest extends ConversationsDisplayRequest {
             return this;
         }
 
-        public BulkStoreRatingsRequest build() {
-            return new BulkStoreRatingsRequest(this);
+        public BulkStoreRequest build() {
+            return new BulkStoreRequest(this);
         }
 
         @Override

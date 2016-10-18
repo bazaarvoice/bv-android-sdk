@@ -3,14 +3,14 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-class IncludeableContent {
-    private transient ConversationsInclude includedIn;
+class IncludeableContent<ConversationsIncludeType extends ConversationsInclude> {
+    private transient ConversationsIncludeType includedIn;
 
-    protected void setIncludedIn(ConversationsInclude includedIn) {
+    protected void setIncludedIn(ConversationsIncludeType includedIn) {
         this.includedIn = includedIn;
     }
 
-    public ConversationsInclude getIncludedIn() {
+    public ConversationsIncludeType getIncludedIn() {
         return includedIn;
     }
 }

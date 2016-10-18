@@ -50,6 +50,9 @@
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity"
             android:label="@string/title_activity_reviews" />
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoStoreReviewsActivity"
+            android:label="@string/title_activity_reviews" />
 
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity"
@@ -90,6 +93,9 @@
         <service
             android:name="com.bazaarvoice.bvsdkdemoandroid.location.DemoLocationService"
             android:exported="false" />
+
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity"
+            android:label="@string/title_activity_stores" />
     </application>
 
 </manifest>

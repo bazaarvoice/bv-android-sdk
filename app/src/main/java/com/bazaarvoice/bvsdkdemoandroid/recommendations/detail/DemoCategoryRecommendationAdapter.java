@@ -177,14 +177,14 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
     }
 
     private final class HeaderDetailViewHolder extends RecyclerView.ViewHolder {
-        private RecommendationView detailBvView;
+//        private RecommendationView detailBvView;
         private TextView prodName;
         private ImageView prodImage;
         private TextView prodRating;
 
         public HeaderDetailViewHolder(View itemView) {
             super(itemView);
-            detailBvView = (RecommendationView) itemView.findViewById(R.id.bvView);
+//            detailBvView = (RecommendationView) itemView.findViewById(R.id.bvView);
             prodName = (TextView) itemView.findViewById(R.id.productName);
             prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
             prodRating = (TextView) itemView.findViewById(R.id.productRating);

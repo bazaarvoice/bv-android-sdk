@@ -64,4 +64,27 @@
         android:layout_marginTop="13dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:id="@+id/seperator2"
+        android:background="@color/bv_blue_2"
+        android:layout_below="@+id/submitStoreReviewWithPhoto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Queue Store Notification Review"
+        android:id="@+id/queueStoreNotificationReview"
+        android:layout_below="@+id/seperator2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
 </RelativeLayout>

@@ -7,12 +7,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class IncludesResponse<IncludableContentType extends IncludeableContent> extends ConversationsDisplayResponse<IncludableContentType> {
+class IncludesResponse<IncludableContentType extends IncludeableContent, ConversationsIncludeType extends ConversationsInclude> extends ConversationsDisplayResponse<IncludableContentType> {
     @SerializedName("Includes")
-    private ConversationsInclude includes;
+    private ConversationsIncludeType includes;
     private boolean hasAssociatedIncludes = false;
 
-    public ConversationsInclude getIncludes() {
+    public ConversationsIncludeType getIncludes() {
         return includes;
     }
 

@@ -32,6 +32,7 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRating
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoStoreReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity;
@@ -40,8 +41,6 @@ import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragm
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-//import com.iovation.mobile.android.DevicePrint;
-//import static com.iovation.mobile.android.DevicePrint.start;
 
 import java.util.ArrayList;
 
@@ -207,6 +206,13 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     public void transitionToReviewsActivity(String productId){
         Intent intent = new Intent(this, DemoReviewsActivity.class);
+        intent.putExtra("extra_product_id", productId);
+        intent.putExtra("extra_force_api_load", true);
+        startActivity(intent);
+    }
+
+    public void transitionToStoreReviewsActivity(String productId){
+        Intent intent = new Intent(this, DemoStoreReviewsActivity.class);
         intent.putExtra("extra_product_id", productId);
         intent.putExtra("extra_force_api_load", true);
         startActivity(intent);

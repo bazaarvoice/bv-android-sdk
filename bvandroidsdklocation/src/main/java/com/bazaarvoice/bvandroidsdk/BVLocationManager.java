@@ -32,7 +32,6 @@ public class BVLocationManager {
         proxyLocationListener = new LocationListener(this, visitListeners, bvNotificationManager);
         placeManager = PlaceManager.getInstance();
         placeManager.addListener(proxyLocationListener);
-        Gimbal.registerForPush("205299337611");
     }
 
     public static BVLocationManager getInstance() {

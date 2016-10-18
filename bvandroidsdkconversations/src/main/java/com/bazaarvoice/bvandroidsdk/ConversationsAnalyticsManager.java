@@ -238,8 +238,8 @@ public class ConversationsAnalyticsManager {
         for (StoreReview review : reviews) {
             String productId = "", contentId = "";
             if (review != null) {
-                productId = review.getStoreId();
-                contentId = review.getContentId();
+                productId = review.getProductId();
+                contentId = review.getId();
             }
             ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, contentId, ConversationSchemas.AnalyticsContentType.StoreReview, MagpieBvProduct.RATINGS_AND_REVIEWS);
         }
@@ -315,8 +315,8 @@ public class ConversationsAnalyticsManager {
             StoreReviewResponse storeReviewResponse = (StoreReviewResponse) conversationResponse;
             ConversationsAnalyticsManager.sendUgcImpressionEventStoreReviews(storeReviewResponse.getResults());
         }
-        else if (conversationResponse instanceof BulkStoreRatingsResponse) {
-            BulkStoreRatingsResponse bulkStoresResponse = (BulkStoreRatingsResponse) conversationResponse;
+        else if (conversationResponse instanceof BulkStoreResponse) {
+            BulkStoreResponse bulkStoresResponse = (BulkStoreResponse) conversationResponse;
             ConversationsAnalyticsManager.sendUgcImpressionEventStores(bulkStoresResponse.getResults());
         }
         else if (conversationResponse instanceof QuestionAndAnswerResponse) {

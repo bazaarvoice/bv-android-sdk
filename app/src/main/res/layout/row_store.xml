@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/raw_rec_row_container"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_subheading"
+            android:textColor="@color/bv_black_1"
+            android:textStyle="bold"
+            tools:background="#54c"
+            tools:text="Store Name Here"/>
+
+        <RelativeLayout
+            android:id="@+id/storeRatingContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/storeName">
+
+            <RatingBar
+                android:id="@+id/storeRating"
+                style="?attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_title"
+                tools:background="#c54"/>
+
+            <TextView
+                android:id="@+id/storeRatingCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/storeRating"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/text_size_body_1"
+                tools:text="(20)"
+                tools:background="#5c4"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/storeStreetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/storeRatingContainer"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="1234 Washington Avenue"
+            tools:background="#54c"/>
+
+        <TextView
+            android:id="@+id/storeCityStateZip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/storeStreetName"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="Capitol City, Vermont 12345"
+            tools:background="#cc4"/>
+
+        <TextView
+            android:id="@+id/storePhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/storeCityStateZip"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="(800) 867-5309"
+            tools:background="#c4c"/>
+
+        <TextView
+            android:id="@+id/storeOpenHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/storePhoneNumber"
+            android:textSize="@dimen/text_size_body_1"
+            tools:text="9am - 5pm"
+            tools:background="#c4c"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

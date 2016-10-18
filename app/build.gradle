@@ -73,11 +73,6 @@ android {
         versionName demoAppVersionName
     }
 
-    productFlavors {
-        live {}
-        demo {}
-    }
-
     buildTypes {
         NEXUS_USER {
             minifyEnabled false
