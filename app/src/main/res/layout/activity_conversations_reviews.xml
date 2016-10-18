@@ -35,11 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/margin_3">
-
-            <com.bazaarvoice.bvandroidsdk.ReviewsRecyclerView
-                android:id="@+id/reviews_recycler_view"
+            <ViewStub
+                android:id="@+id/recyclerViewStub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
             <ProgressBar
                 android:id="@+id/reviews_loading"

@@ -14,7 +14,7 @@ public class StoreReviewSubmissionRequest extends BaseReviewSubmissionRequest {
         return BVSDK.getInstance().getApiKeys().getApiKeyConversationsStores();
     }
 
-    public static class Builder extends BaseReviewSubmissionRequest.Builder<Builder> {
+    public static class Builder extends BaseReviewBuilder<Builder> {
         public Builder(Action action, String productId) {
             super(action, productId);
         }

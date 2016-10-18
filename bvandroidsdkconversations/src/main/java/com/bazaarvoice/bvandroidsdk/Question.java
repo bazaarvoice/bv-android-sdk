@@ -55,7 +55,7 @@ public class Question extends IncludedContentBase.ProductIncludedContentBase {
         if (this.answers == null && this.answerIds != null && super.getIncludedIn().getAnswers() != null) {
             this.answers = new ArrayList<>();
             for (String answerId : this.answerIds) {
-                Answer answer = super.getIncludedIn().getAnswerMap().get(answerId);
+                Answer answer = (Answer) super.getIncludedIn().getAnswerMap().get(answerId);
                 if (answer != null) {
                     this.answers.add(answer);
                 }

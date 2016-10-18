@@ -13,10 +13,10 @@ import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApplication;
-import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
 public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -82,14 +82,7 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
             BVSDK bvsdk = BVSDK.getInstance();
             bvsdk = null;
             DemoApplication.cleanUp();
-            BVSDK newBvsdk = new BVSDK.Builder(getActivity().getApplication(), clientId)
-                    .apiKeyShopperAdvertising(shopperAdPasskey)
-                    .apiKeyConversations(conversationsPasskey)
-                    .apiKeyCurations(curationsPasskey)
-                    .bazaarEnvironment(DemoConstants.ENVIRONMENT)
-                    .logLevel(DemoConstants.LOG_LEVEL)
-                    .build();
-            newBvsdk.setUserAuthString(DemoConstants.BV_USER_AUTH_STRING);
+            DemoUtils.restartApp();
         } else {
             new AlertDialog.Builder(getContext())
                     .setMessage("No profile loaded for this client currently")

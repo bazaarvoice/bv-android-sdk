@@ -19,7 +19,7 @@ abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionReques
     private static final String kREVIEW_TEXT = "ReviewText";
     private static final String kNET_PROMOTER_COMMENT = "NetPromoterComment";
 
-    BaseReviewSubmissionRequest(Builder builder) {
+    BaseReviewSubmissionRequest(BaseReviewBuilder builder) {
         super(builder);
     }
 
@@ -40,7 +40,7 @@ abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionReques
 
     @Override
     void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (Builder) getBuilder();
+        BaseReviewBuilder builder = (BaseReviewBuilder) getBuilder();
         queryParams.put(kPRODUCT_ID, builder.productId);
         queryParams.put(kIS_RECOMMENDED, builder.isRecommended);
         queryParams.put(kSEND_EMAIL_COMMENTED, builder.sendEmailAlertWhenCommented);

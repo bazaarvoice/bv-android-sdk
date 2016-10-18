@@ -4,14 +4,15 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
-import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
+import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
@@ -19,18 +20,18 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 import java.util.Collections;
 import java.util.List;
 
-public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener, ConversationsCallback<ReviewResponse> {
+public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener, ConversationsCallback {
 
-    private DemoReviewsContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
-    private BVConversationsClient.DisplayLoader reviewsLoader;
-    private String productId;
-    private boolean fetched = false;
-    private final BVConversationsClient client = new BVConversationsClient();
-    private boolean forceAPICall;
+    protected DemoReviewsContract.View view;
+    protected DemoConfigUtils demoConfigUtils;
+    protected DemoDataUtil demoDataUtil;
+    protected BVConversationsClient.DisplayLoader reviewsLoader;
+    protected String productId;
+    protected boolean fetched = false;
+    protected final BVConversationsClient client = new BVConversationsClient();
+    protected boolean forceAPICall;
 
-        public DemoReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
         this.view = view;
         this.demoConfigUtils = demoConfigUtils;
         this.demoDataUtil = demoDataUtil;
@@ -39,7 +40,11 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         this.forceAPICall = forceAPICall;
 
         if (productId != null && !productId.isEmpty()) {
-            view.showHeaderView(null, "Testing product id: " + productId, -1);
+            BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            String imageUrl = bvProduct == null ? null : bvProduct.getImageUrl();
+            String productName = bvProduct == null ? "" : bvProduct.getProductName();
+            float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
+            view.showHeaderView(imageUrl, productName, averageOverallRating);
         }
     }
 
@@ -84,24 +89,14 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
 
         if (bazaarReviews.size() > 0) {
             view.showReviews(bazaarReviews);
-            Review firstReview = bazaarReviews.get(0);
-            Product product = firstReview.getProduct();
-            if (product != null) {
-                String imageUrl = product.getImageUrl();
-                String productName = product.getName();
-                float averageOverallRating = -1;
-                if (product.getReviewStatistics() != null) {
-                    averageOverallRating = product.getReviewStatistics().getAverageOverallRating();
-                }
-                view.showHeaderView(imageUrl, productName, averageOverallRating);
-            }
         } else {
             view.showNoReviews();
         }
     }
 
     @Override
-    public void onSuccess(ReviewResponse response) {
+    public void onSuccess(Object object) {
+        ReviewResponse response = (ReviewResponse) object;
         showReviews(response.getResults());
     }
 

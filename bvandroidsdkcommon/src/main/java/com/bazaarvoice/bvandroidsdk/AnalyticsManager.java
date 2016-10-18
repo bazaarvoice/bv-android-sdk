@@ -346,7 +346,7 @@ class AnalyticsManager {
             if (response.isSuccessful()) {
                 Logger.d("Analytics", "Successfully posted " + analyticsBatch.size() + " events");
             } else {
-                Logger.d("Analytics", "Unsuccessfully posted events - errorCode: " + response.code());
+                Logger.d("Analytics", "Unsuccessfully posted Events: " + response.code() + ", message: " + response.message());
             }
         } catch (IOException e) {
             Logger.e(TAG, "Failed to send analytics event", e);

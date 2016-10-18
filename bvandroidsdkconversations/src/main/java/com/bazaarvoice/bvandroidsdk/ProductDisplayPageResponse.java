@@ -6,6 +6,6 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response class for InlineRatingsRequest to obtain statistics such as Ratings on multiple productIds
  */
-public class ProductDisplayPageResponse extends IncludesResponse<Product> {
+public class ProductDisplayPageResponse extends IncludesResponse<Product, ConversationsIncludeProduct> {
 
 }

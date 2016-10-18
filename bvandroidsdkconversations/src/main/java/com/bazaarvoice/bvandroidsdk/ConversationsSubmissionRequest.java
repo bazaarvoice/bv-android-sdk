@@ -11,9 +11,6 @@ import java.util.Map;
 
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
-/**
- * TODO: Describe file here. asldkfjalksdjflkasjdflkasjdflkj
- */
 abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     private static final String kCAMPAIGN_ID = "campaignid";

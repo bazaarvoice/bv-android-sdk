@@ -45,11 +45,11 @@ public final class BVConversationsClient {
     }
 
     /**
-     * @param request BulkStoreRatingsRequest to be sent
+     * @param request BulkStoreRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
-    public LoadCallDisplay<BulkStoreRatingsRequest, BulkStoreRatingsResponse> prepareCall(BulkStoreRatingsRequest request) {
-        return createCall(BulkStoreRatingsResponse.class, request);
+    public LoadCallDisplay<BulkStoreRequest, BulkStoreResponse> prepareCall(BulkStoreRequest request) {
+        return createCall(BulkStoreResponse.class, request);
     }
 
     /**

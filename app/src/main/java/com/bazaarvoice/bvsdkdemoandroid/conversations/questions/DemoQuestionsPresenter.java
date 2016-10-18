@@ -4,12 +4,14 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerRequest;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
+import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
@@ -37,7 +39,11 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
         this.loader = loader;
 
         if (productId != null && !productId.isEmpty()) {
-            view.showHeaderView(null, "API Test Questions for Product: " + productId, -1);
+            BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            String imageUrl = bvProduct == null ? null : bvProduct.getImageUrl();
+            String productName = bvProduct == null ? "" : bvProduct.getProductName();
+            float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
+            view.showHeaderView(imageUrl, productName, averageOverallRating);
         }
     }
 

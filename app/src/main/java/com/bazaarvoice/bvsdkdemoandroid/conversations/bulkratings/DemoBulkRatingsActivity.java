@@ -14,11 +14,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Statistics;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
@@ -27,6 +29,9 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBulkRatingsContract.View {
 
@@ -41,6 +46,8 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
     private RecyclerView reviewsRecyclerView;
     private DemoBulkRatingsAdapter bulkReviewAdapter;
     private ProgressBar reviewsLoading;
+    @BindView(R.id.recyclerViewStub)
+    ViewStub recyclerViewStub;
 
     private ArrayList<String> bulkProductIds = new ArrayList<String>();
 
@@ -48,6 +55,8 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_reviews);
+        ButterKnife.bind(this);
+        inflateRecyclerView();
         Bundle extra = getIntent().getBundleExtra("extra");
         this.bulkProductIds = (ArrayList<String>) extra.getSerializable(EXTRA_PRODUCT_IDS);
 
@@ -58,6 +67,12 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
         DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
         DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, demoConfigUtils, demoDataUtil, bulkProductIds);
+    }
+
+    void inflateRecyclerView() {
+        recyclerViewStub.setLayoutResource(R.layout.reviews_recyclerview);
+        recyclerViewStub.inflate();
+        reviewsRecyclerView = (ConversationsDisplayRecyclerView) findViewById(R.id.store_reviews_recycler_view);
     }
 
     private void setupToolbarViews() {

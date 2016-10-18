@@ -8,9 +8,6 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 
 import java.util.List;
 
-/**
- * TODO: Description Here
- */
 public interface DemoRecommendationsContract {
 
     interface View {

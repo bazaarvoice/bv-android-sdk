@@ -14,7 +14,7 @@ public class Answer extends IncludedContentBase {
 
     public Question getQuestion() {
         if (this.question == null && getIncludedIn() != null && getIncludedIn().getQuestions() != null){
-            this.question = getIncludedIn().getQuestionMap().get(this.questionId);
+            this.question = (Question) getIncludedIn().getQuestionMap().get(this.questionId);
         }
 
         return this.question;

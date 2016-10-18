@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,15 @@ import android.widget.Button;
 
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVNotificationManager;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.BulkStoreRatingsRequest;
-import com.bazaarvoice.bvandroidsdk.BulkStoreRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
-import com.bazaarvoice.bvandroidsdk.ReviewOptions;
-import com.bazaarvoice.bvandroidsdk.SortOrder;
-import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionResponse;
-import com.bazaarvoice.bvandroidsdk.StoreReviewsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
+import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 
@@ -32,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,10 +47,6 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
     private List<String> TEST_BULK_PRODUCT_IDS = Arrays.asList("1", "2", "3", "4");
 
     private BVConversationsClient client = new BVConversationsClient();
-
-    public DemoConversationsStoresAPIFragment() {
-        // Required empty public constructor
-    }
 
     public static DemoConversationsStoresAPIFragment newInstance() {
         DemoConversationsStoresAPIFragment fragment = new DemoConversationsStoresAPIFragment();
@@ -77,65 +70,32 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
     }
 
     private void setUpDisplayActionButtons(View view){
-
         // Read reviews for product id
         Button readReviewsButton = (Button) view.findViewById(R.id.displayStoreReviewsBtn);
         readReviewsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (readyForDemo()) {
-//                    ((DemoMainActivity) getActivity()).transitionToReviewsActivity(TEST_PRODUCT_ID);
-//                }
-                BVConversationsClient client = new BVConversationsClient();
-                StoreReviewsRequest reviewsRequest = new StoreReviewsRequest.Builder(TEST_PRODUCT_ID, 20, 0)
-                        .addSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
-                        .build();
-                client.prepareCall(reviewsRequest).loadAsync(new ConversationsCallback<StoreReviewResponse>() {
-                    @Override
-                    public void onSuccess(StoreReviewResponse response) {
-                        //called on Main Thread
-                        response.getResults(); //contains reviews
+                if (readyForDemo()) {
+                    DemoMainActivity activity = (DemoMainActivity) getActivity();
+                    if (activity != null && !activity.isFinishing()) {
+                        activity.transitionToStoreReviewsActivity(TEST_PRODUCT_ID);
                     }
-
-                    @Override
-                    public void onFailure(BazaarException exception) {
-                        //called on Main Thread
-                        Log.d("Dev", exception.getLocalizedMessage());
-                    }
-                });
-
+                }
             }
         });
-
 
         // Display Bulk Stores with known store id(s)
         Button buldStoresById = (Button) view.findViewById(R.id.displayStoresByIds);
         buldStoresById.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                if (readyForDemo()) {
-//                    ((DemoMainActivity) getActivity()).transitionToBulkRatingsActivity(new ArrayList<String>(TEST_BULK_PRODUCT_IDS));
-//                }
-
-                BVConversationsClient client = new BVConversationsClient();
-                BulkStoreRatingsRequest storesRequest = new BulkStoreRatingsRequest.Builder(TEST_BULK_PRODUCT_IDS)
-                        .build();
-
-                client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreRatingsResponse>() {
-                    @Override
-                    public void onSuccess(BulkStoreRatingsResponse response) {
-                        //called on Main Thread
-                        response.getResults(); //contains stores
+                if (readyForDemo()) {
+                    DemoMainActivity activity = (DemoMainActivity) getActivity();
+                    if (activity != null && !activity.isFinishing()) {
+                        ArrayList<String> productIds = new ArrayList<String>(Arrays.asList("1", "2", "3", "4"));
+                        DemoStoresActivity.transitionToWithProductIds(activity, productIds);
                     }
-
-                    @Override
-                    public void onFailure(BazaarException exception) {
-                        //called on Main Thread
-                        Log.d("Dev", exception.getLocalizedMessage());
-                    }
-                });
-
+                }
             }
         });
 
@@ -144,29 +104,25 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
         bulkStoresByLimitOffset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                if (readyForDemo()) {
-//                    ((DemoMainActivity) getActivity()).transitionToBulkRatingsActivity(new ArrayList<String>(TEST_BULK_PRODUCT_IDS));
-//                }
-
-                BVConversationsClient client = new BVConversationsClient();
-                BulkStoreRatingsRequest storesRequest = new BulkStoreRatingsRequest.Builder(20,0)
-                        .build();
-
-                client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreRatingsResponse>() {
-                    @Override
-                    public void onSuccess(BulkStoreRatingsResponse response) {
-                        //called on Main Thread
-                        response.getResults(); //contains stores
+                if (readyForDemo()) {
+                    DemoMainActivity activity = (DemoMainActivity) getActivity();
+                    if (activity != null && !activity.isFinishing()) {
+                        DemoStoresActivity.transitionToWithLimitAndOffset(activity, 20, 0);
                     }
+                }
+            }
+        });
 
-                    @Override
-                    public void onFailure(BazaarException exception) {
-                        //called on Main Thread
-                        Log.d("Dev", exception.getLocalizedMessage());
-                    }
-                });
-
+        Button queueStoreNotificationReview = (Button) view.findViewById(R.id.queueStoreNotificationReview);
+        queueStoreNotificationReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (readyForDemo()) {
+                    BVNotificationManager bvNotificationManager = BVNotificationManager.getInstance();
+                    String storeId = "1";
+                    long dwellTimeMillis = 5500l;
+                    bvNotificationManager.scheduleNotification(storeId, dwellTimeMillis);
+                }
             }
         });
 
@@ -177,7 +133,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
         //////////////////////////////
         // Submit Example Buttons
         //////////////////////////////
-        // Submit Store Review w/ Photo
+        // Submit Review w/ Photo
         Button feedBtn = (Button) view.findViewById(R.id.submitStoreReviewWithPhoto);
         feedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,13 +143,12 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                     // For clients in US, iovation SDK is required!
 //                    String blackbox = getBlackbox(getContext().getApplicationContext());
 
-                    progress.setTitle("Submitting Store Review...");
+                    progress.setTitle("Submitting Review...");
                     progress.show();
 
                     File localImageFile = null;
 
                     try {
-                        //InputStream stream = getContext().getAssets().open("puppy.jpg"); // Sample of a photo that is too small and will generate an error message.
                         InputStream stream = getContext().getAssets().open("bike_shop_photo.png");
                         localImageFile = createFileFromInputStream(stream);
 
@@ -203,17 +158,16 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
 
                     StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
 //                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
-                            .userNickname("mcfly")
-                            .userEmail("flymcfly@bar.com")
-                            .user("mrmcfly" + Math.random())
-                            //.userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                            .userNickname("shazbat")
+                            .user("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                            .userEmail("foo@bar.com")
                             .rating(5)
-                            .title("Most excellent!")
-                            .reviewText("This is the greatest store that is, has been, or ever will be!")
+                            .title("Review title")
+                            .reviewText("This is the review text the user adds about how great the product is!")
                             .sendEmailAlertWhenCommented(true)
                             .sendEmailAlertWhenPublished(true)
                             .agreedToTermsAndConditions(true)
-                            .addPhoto(localImageFile, "Awesome Photo!")
+                            .addPhoto(localImageFile, "What a cute pupper!")
                             .build();
 
                     client.prepareCall(submission).loadAsync(new ConversationsCallback<StoreReviewSubmissionResponse>() {
@@ -252,7 +206,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
         if (!DemoConstants.isSet(conversationsStoresKey)) {
             String errorMessage = String.format(
                     getString(R.string.view_demo_error_message),
-                    displayName, getString(R.string.demo_conversations)
+                    displayName, getString(R.string.demo_conversations_stores)
             );
             showDialogWithMessage(errorMessage);
             return false;

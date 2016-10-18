@@ -6,6 +6,6 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response class for StoreReviewResponse to obtain StoreReviews for a particular storeId
  */
-public class StoreReviewResponse extends IncludesStoreResponse<StoreReview> {
+public class StoreReviewResponse extends IncludesResponse<StoreReview, ConversationsIncludeStore> {
 
 }

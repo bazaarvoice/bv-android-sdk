@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswersContract.View {
 
@@ -51,6 +53,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_answers);
+        ButterKnife.bind(this);
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);
 
@@ -108,13 +111,15 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
 
     @Override
     public void showHeaderView(String imageUrl, String productNameStr, float averageRating) {
-        if (bvProduct != null) {
+        if (!TextUtils.isEmpty(imageUrl)) {
             Picasso.with(productImageView.getContext()).load(imageUrl).into(productImageView);
-            productName.setText(productNameStr);
+        }
+        productName.setText(productNameStr);
+        if (averageRating >= 0) {
             productRating.setRating(averageRating);
+            productRating.setVisibility(View.VISIBLE);
         } else {
-            productName.setText("Testing Question Id: " + questionId);
-            productRating.setVisibility(View.INVISIBLE);
+            productRating.setVisibility(View.GONE);
         }
     }
 

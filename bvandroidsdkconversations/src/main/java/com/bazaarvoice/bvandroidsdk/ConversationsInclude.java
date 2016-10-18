@@ -9,23 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ConversationsInclude {
+class ConversationsInclude<P extends BaseProduct, R extends BaseReview> {
     @SerializedName("Products")
-    private Map<String, Product> productMap;
+    private Map<String, P> itemMap;
     @SerializedName("Answers")
     private Map<String, Answer> answerMap;
     @SerializedName("Questions")
     private Map<String, Question> questionMap;
     @SerializedName("Reviews")
-    private Map<String, Review> reviewMap;
+    private Map<String, R> reviewMap;
 
-    private transient List<Product> products;
+    private transient List<P> items;
     private transient List<Answer> answers;
     private transient List<Question> questions;
-    private transient List<Review> reviews;
+    private transient List<R> reviews;
 
-    protected Map<String, Product> getProductMap() {
-        return productMap;
+    protected Map<String, P> getItemMap() {
+        return itemMap;
     }
 
     protected Map<String, Answer> getAnswerMap() {
@@ -36,11 +36,11 @@ public class ConversationsInclude {
         return questionMap;
     }
 
-    protected Map<String, Review> getReviewMap() {
+    protected Map<String, R> getReviewMap() {
         return reviewMap;
     }
 
-    public List<Review> getReviews() {
+    protected List<R> getReviewsList() {
         if (this.reviews == null && this.reviewMap != null) {
             this.reviews = processContent(this.reviewMap);
         }
@@ -54,11 +54,11 @@ public class ConversationsInclude {
         return this.questions;
     }
 
-    public List<Product> getProducts() {
-        if (this.products == null && this.questionMap != null) {
-            this.products = processContent(this.productMap);
+    protected List<P> getItems() {
+        if (this.items == null && this.itemMap != null) {
+            this.items = processContent(this.itemMap);
         }
-        return this.products;
+        return this.items;
     }
 
     public List<Answer> getAnswers() {
