@@ -59,7 +59,6 @@ public abstract class BVBaseTest {
     AnalyticsManager analyticsManager = mock(AnalyticsManager.class);
     BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
     BVAuthenticatedUser bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
-
     Handler handler = new Handler(Looper.getMainLooper());
     @Before
     public void setup() {

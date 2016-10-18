@@ -7,7 +7,7 @@ public class DemoConfig {
     public String apiKeyConversations;
     public String apiKeyConversationsStores;
     public String apiKeyCurations;
-    public String apiKeyLocation;
+    public String apiKeyLocationAndroid;
     public String apiKeyShopperAdvertising;
     public String clientId;
     public String displayName;
@@ -15,14 +15,14 @@ public class DemoConfig {
     public DemoConfig() {
     }
 
-    public DemoConfig(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocation, String clientId, String displayName) {
+    public DemoConfig(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocationAndroid, String clientId, String displayName) {
         this.apiKeyConversations = apiKeyConversations;
         this.apiKeyConversationsStores = apiKeyConversationsStores;
         this.apiKeyCurations = apiKeyCurations;
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
         this.clientId = clientId;
         this.displayName = displayName;
-        this.apiKeyLocation = apiKeyLocation;
+        this.apiKeyLocationAndroid = apiKeyLocationAndroid;
     }
 
     public boolean hasConversations() {
@@ -42,7 +42,7 @@ public class DemoConfig {
     }
 
     public boolean hasLocation() {
-        return apiKeyLocation != null && !apiKeyLocation.equals("REPLACE_ME");
+        return apiKeyLocationAndroid != null && !apiKeyLocationAndroid.equals("REPLACE_ME");
     }
 
     public boolean isDemoClient() {

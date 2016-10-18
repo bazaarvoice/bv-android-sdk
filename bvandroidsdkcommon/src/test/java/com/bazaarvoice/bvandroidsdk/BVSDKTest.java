@@ -169,7 +169,7 @@ public class BVSDKTest {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(conversationsApiKey, bvsdk.getApiKeyConversations());
+        assertEquals(conversationsApiKey, bvsdk.getApiKeys().getApiKeyConversations());
     }
 
     @Test

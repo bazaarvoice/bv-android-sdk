@@ -71,7 +71,7 @@ public class BazaarRequest {
      */
     @Deprecated
     public BazaarRequest() {
-        this(BVSDK.getInstance().getApiKeyConversations(), ApiVersion.FIVE_FOUR);
+        this(BVSDK.getInstance().getApiKeys().getApiKeyConversations(), ApiVersion.FIVE_FOUR);
     }
 
     /**

@@ -48,6 +48,7 @@ dependencies {
     compile sdkDep.playServiceAds
     compile sdkDep.appCompatV7
     compile sdkDep.firebaseCore
+    compile sdkDep.supportV4
 
     testCompile sdkTestDep.junit
 }

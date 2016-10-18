@@ -5,6 +5,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.graphics.Bitmap;
 
+import com.bazaarvoice.bvandroidsdk.internal.Utils;
+
 import junit.framework.Assert;
 
 import java.util.HashMap;
@@ -28,7 +30,7 @@ public class CurationsPostRequest {
         strBuilder.append("?client=");
         strBuilder.append(BVSDK.getInstance().getClientId());
         strBuilder.append("&passkey=");
-        strBuilder.append(BVSDK.getInstance().getApiKeyCurations());
+        strBuilder.append(BVSDK.getInstance().getApiKeys().getApiKeyCurations());
 
         return strBuilder.toString();
     }

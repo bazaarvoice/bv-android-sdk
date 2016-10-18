@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
 /**
  * Internal SDK Base class for forming Analytics.

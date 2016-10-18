@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 import android.util.Log;
 
+import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;

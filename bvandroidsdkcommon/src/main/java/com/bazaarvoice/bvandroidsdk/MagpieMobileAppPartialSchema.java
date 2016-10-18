@@ -2,7 +2,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.Map;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
 /**
  * Copyright 2016 Bazaarvoice Inc. All rights reserved.

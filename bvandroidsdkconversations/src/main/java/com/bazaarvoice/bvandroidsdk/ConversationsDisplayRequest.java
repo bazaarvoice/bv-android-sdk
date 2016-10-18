@@ -75,7 +75,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
     }
 
     String getAPIKey(){
-        return BVSDK.getInstance().getApiKeyConversations();
+        return BVSDK.getInstance().getApiKeys().getApiKeyConversations();
     }
 
     abstract void addRequestQueryParams(Map<String, Object> queryParams);
