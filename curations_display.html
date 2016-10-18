@@ -212,6 +212,7 @@ $(function(){
     </div>
 </nav>
 
+
       <div id="application_container">
         <div id="task_container">
           <div id="task_content" class="app-content">
@@ -343,9 +344,9 @@ repositories {
 
         //Builder used to construct CurationsRequest. Builder must be constructed with List of groups
         CurationsRequest request = new CurationsRequest.Builder(groups)
-            //add other params. visit https://scissors.feedmagnet.com/docs/api/ for full list
+            //add other params. visit https://developer.bazaarvoice.com/docs/read/curations/content_display for full list
             .limit(20)
-            .hasPhoto(true)
+            .location(12.345, -12.345) // get curations content based on user's current location
             .build();
 
        //use CurationsRecyclerView instance to get Curations Feed and a CurationsFeedCallback to get handle successful and unsuccessful attempts to get Curations Feed

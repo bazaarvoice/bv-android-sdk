@@ -129,7 +129,7 @@ $(function(){
                                 <span><span>Curations</span><span style="float:right;"><i id="curationsDropdownArrow"
                                                                                           class="fa fa-sort-desc  fa-rotate-270"></i></span></span>
                         </a>
-                        <div class="collapse "
+                        <div class="collapse in"
                              id="curationsDropdown">
                             <ul>
                                 <li class="nav-item">
@@ -211,6 +211,7 @@ $(function(){
         </ul>
     </div>
 </nav>
+
 
       <div id="application_container">
         <div id="task_container">
@@ -295,7 +296,6 @@ protected void onCreate(Bundle savedInstanceState) {
     groups.add("__all__");
     CurationsFeedRequest request = new CurationsFeedRequest.Builder(groups)
             .limit(20)
-            .hasPhoto(true)
             .build();
 
     recyclerView.getCurationsFeedItems(request, "MainGrid", this);
@@ -459,7 +459,6 @@ findViewById(R.id.curations_demo_list);
         groups.add("__all__");
         CurationsFeedRequest request = new CurationsFeedRequest.Builder(groups)
                 .limit(20)
-                .hasPhoto(true)
                 .build();
 
         recyclerView.getCurationsFeedItems(request, "MainGrid", new CurationsFeedCallback() {
