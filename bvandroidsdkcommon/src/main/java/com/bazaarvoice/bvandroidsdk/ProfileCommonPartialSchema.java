@@ -6,7 +6,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.Map;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
 class ProfileCommonPartialSchema extends BvPartialSchema {
 

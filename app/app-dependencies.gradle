@@ -28,7 +28,7 @@ ext {
     ]
 
     demoAppBuildDep = [
-            androidPlugin       : 'com.android.tools.build:gradle:2.2.0',
+            androidPlugin       : 'com.android.tools.build:gradle:2.2.1',
             crashlyticsPlugin   : 'io.fabric.tools:gradle:1.21.6',
             androidAptPlugin    : 'com.neenbedankt.gradle.plugins:android-apt:1.8',
     ]

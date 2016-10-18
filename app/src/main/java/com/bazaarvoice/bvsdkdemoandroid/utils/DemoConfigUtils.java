@@ -34,7 +34,7 @@ public class DemoConfigUtils {
         sharedPreferences.edit().putString(key, value).commit();
     }
 
-    private  String getStringInPrefs(String key, String defaultValue) {
+    private String getStringInPrefs(String key, String defaultValue) {
         SharedPreferences sharedPreferences = applicationContext.getSharedPreferences(CONFIG_SHARED_PREFS, Context.MODE_PRIVATE);
         return sharedPreferences.getString(key, defaultValue);
     }
@@ -72,7 +72,7 @@ public class DemoConfigUtils {
 
     public String getLocationPasskey() {
         DemoConfig config = DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
-        return config.apiKeyLocation;
+        return config.apiKeyLocationAndroid;
     }
 
     public DemoConfig getCurrentConfig() {
@@ -101,6 +101,16 @@ public class DemoConfigUtils {
             clientIdNames[i++] = config.clientId;
         }
         return clientIdNames;
+    }
+
+    public void putLastLocationEvent(String lastLocationEvent) {
+        String keyLastLocationEvent = applicationContext.getString(R.string.key_last_location_event);
+        putStringInPrefs(keyLastLocationEvent, lastLocationEvent);
+    }
+
+    public String getLastLocationEvent() {
+        String keyLastLocationEvent = applicationContext.getString(R.string.key_last_location_event);
+        return getStringInPrefs(keyLastLocationEvent, "none");
     }
 
     public boolean isDemoClient() {

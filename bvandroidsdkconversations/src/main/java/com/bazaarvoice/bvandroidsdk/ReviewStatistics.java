@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.getFloatSafe;
-import static com.bazaarvoice.bvandroidsdk.Utils.getIntegerSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.getFloatSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.getIntegerSafe;
 
 public class ReviewStatistics {
 

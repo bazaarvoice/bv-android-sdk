@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkMain;
 
 /**
  * Bazaarvoice Provided {@link android.support.v7.widget.RecyclerView} to display {@link RecommendationView} objects

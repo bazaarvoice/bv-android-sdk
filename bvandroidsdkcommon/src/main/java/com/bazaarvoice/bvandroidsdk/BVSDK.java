@@ -12,10 +12,12 @@ import android.os.Message;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
+import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +27,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 
 /**
@@ -38,7 +41,8 @@ import okhttp3.OkHttpClient;
  * <p> Your client name and the application object must also be provided when
  * constructing the {@link Builder}</p>
  */
-public class BVSDK{
+public class BVSDK {
+    // region Properties
 
     private static final String TAG = BVSDK.class.getSimpleName();
     private static final String SCHEDULED_BV_THREAD_NAME = "BV-ScheduledThread";
@@ -69,7 +73,11 @@ public class BVSDK{
     final Gson gson;
     final BVRootApiUrls rootApiUrls;
     final BVApiKeys apiKeys;
-    private final Handler handler;
+    final Handler handler;
+
+    // endregion
+
+    // region Constructor
 
     BVSDK(Application application, String clientId, BazaarEnvironment environment, BVApiKeys apiKeys, BVLogLevel logLevel, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, BVRootApiUrls rootApiUrls, Handler handler) {
         this.application = application;
@@ -99,10 +107,64 @@ public class BVSDK{
         analyticsManager.enqueueAppStateEvent(MobileAppLifecycleSchema.AppState.LAUNCHED);
     }
 
+    // endregion
+
+    // region Public API
+
     public static BVSDK getInstance() {
         confirmBVSDKCreated();
         return singleton;
     }
+
+    /**
+     * Tell BVSDK who the user is. This is the essential step in providing targeted, personalized
+     * information about the user.
+     * @param userAuthString The Bazaarvoice-specific User Auth String. See the online documentation
+     *                       for information on where this auth string comes from, and why it is
+     *                       necessary.
+     */
+    @MainThread
+    public void setUserAuthString(@NonNull String userAuthString) {
+        if (userAuthString == null || userAuthString.isEmpty()) {
+            Logger.w(TAG, "userAuthString must not be empty");
+            return;
+        }
+
+        bvAuthenticatedUser.setUserAuthString(userAuthString);
+        analyticsManager.dispatchSendPersonalizationEvent();
+
+        bvAuthenticatedUser.updateUser("user auth string update");
+    }
+
+    /**
+     * Event when a transaction occurs
+     *
+     * @param transaction
+     */
+    public void sendConversionTransactionEvent(Transaction transaction) {
+        if (transaction.getItems() == null || transaction.getItems().size() == 0){
+            Logger.w("BVSDK", "Could not track Transaction. Transaction items are required");
+            return;
+        }
+        analyticsManager.enqueueConversionTransactionEvent(transaction);
+    }
+
+    /**
+     * Event when a transaction occurs
+     *
+     * @param conversion
+     */
+    public void sendNonCommerceConversionEvent(Conversion conversion) {
+        analyticsManager.enqueueNonCommerceConversionEvent(conversion);
+    }
+
+    public static Builder builder(Application application, String clientId) {
+        return new Builder(application, clientId);
+    }
+
+    // endregion
+
+    // region Internal API
 
     private static void confirmBVSDKCreated() {
         if (singleton == null) {
@@ -156,6 +218,9 @@ public class BVSDK{
         handler.sendMessage(message);
     }
 
+    // endregion
+
+    // region Builder
 
     /**
      * Initialization Builder that must be called in the {@link android.app.Application#onCreate()} method
@@ -294,8 +359,18 @@ public class BVSDK{
             }
 
             if (okHttpClient == null) {
-                this.okHttpClient = new OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).build();
+                this.okHttpClient = new OkHttpClient();
             }
+
+            // Use their OkHttp instance or ours, and add the options we want
+            File httpCacheFile = new File(application.getCacheDir(), "bvsdk_http_cache");
+            long maxCacheSize = 1024 * 1024 * 10; // 10MiB
+            Cache httpCache = new Cache(httpCacheFile, maxCacheSize);
+            this.okHttpClient = okHttpClient
+                    .newBuilder()
+                    .cache(httpCache)
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .build();
 
             Logger.setLogLevel(logLevel);
 
@@ -332,12 +407,26 @@ public class BVSDK{
                 }
             });
 
-            singleton = new BVSDK(application, clientId, bazaarEnvironment, apiKeys, logLevel, okHttpClient, analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, endPoints, handler);
+            singleton = new BVSDK(
+                    application,
+                    clientId,
+                    bazaarEnvironment,
+                    apiKeys,
+                    logLevel,
+                    okHttpClient,
+                    analyticsManager,
+                    bvActivityLifecycleCallbacks,
+                    bvAuthenticatedUser,
+                    gson,
+                    endPoints,
+                    handler);
             return singleton;
         }
     }
 
-    // Methods for helper classes below
+    // endregion
+
+    // region BVSDK Helper Objects
 
     Context getApplicationContext() {
         return application.getApplicationContext();
@@ -378,89 +467,26 @@ public class BVSDK{
     String getConversationsApiRootUrl() {
         return rootApiUrls.getConversationsApiRootUrl();
     }
+
     OkHttpClient getOkHttpClient() {
         return okHttpClient;
-    }
-
-    void registerLifecycleListener(Application.ActivityLifecycleCallbacks lifecycleCallbacks) {
-        application.registerActivityLifecycleCallbacks(lifecycleCallbacks);
-    }
-
-    void unregisterLifecycleListener(Application.ActivityLifecycleCallbacks lifecycleCallbacks) {
-        application.unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
-    }
-
-    /**
-     * Tell BVSDK who the user is. This is the essential step in providing targeted, personalized
-     * information about the user.
-     * @param userAuthString The Bazaarvoice-specific User Auth String. See the online documentation
-     *                       for information on where this auth string comes from, and why it is
-     *                       necessary.
-     */
-    @MainThread
-    public void setUserAuthString(@NonNull String userAuthString) {
-        if (userAuthString == null || userAuthString.isEmpty()) {
-            Logger.w(TAG, "userAuthString must not be empty");
-            return;
-        }
-
-        bvAuthenticatedUser.setUserAuthString(userAuthString);
-        analyticsManager.dispatchSendPersonalizationEvent();
-
-        bvAuthenticatedUser.updateUser("user auth string update");
-    }
-
-    /**
-     * Event when a transaction occurs
-     *
-     * @param transaction
-     */
-    public void sendConversionTransactionEvent(Transaction transaction) {
-        if (transaction.getItems() == null || transaction.getItems().size() == 0){
-            Logger.w("BVSDK", "Could not track Transaction. Transaction items are required");
-            return;
-        }
-        analyticsManager.enqueueConversionTransactionEvent(transaction);
-    }
-
-    /**
-     * Event when a transaction occurs
-     *
-     * @param conversion
-     */
-    public void sendNonCommerceConversionEvent(Conversion conversion) {
-        analyticsManager.enqueueNonCommerceConversionEvent(conversion);
     }
 
     BVAuthenticatedUser getAuthenticatedUser() {
         return bvAuthenticatedUser;
     }
 
-    String getApiKeyShopperAdvertising() {
-        return apiKeys.getApiKeyShopperAdvertising();
-    }
-
-    String getApiKeyConversations() {
-        return apiKeys.getApiKeyConversations();
-    }
-
-    String getApiKeyConversationsStores() {
-        return apiKeys.getApiKeyConversationsStores();
-    }
-
-    String getApiKeyCurations() {
-        return apiKeys.getApiKeyCurations();
+    BVApiKeys getApiKeys() {
+        return apiKeys;
     }
 
     String getBvsdkUserAgent() {
         return BVSDK_USER_AGENT;
     }
 
-    String getApiKeyLocation() {
-        return apiKeys.getApiKeyLocations();
-    }
-
     Application getApplication() {
         return application;
     }
+
+    // endregion
 }

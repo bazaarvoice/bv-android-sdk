@@ -22,7 +22,7 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
 
     @Override
     protected String getApiKey() {
-        return BVSDK.getInstance().getApiKeyConversations();
+        return BVSDK.getInstance().getApiKeys().getApiKeyConversations();
     }
 
     String getProductId() {

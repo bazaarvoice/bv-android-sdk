@@ -13,7 +13,7 @@ import android.widget.GridView;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkMain;
 
 /**
  * Bazaarvoice Provided {@link GridView} to display {@link RecommendationView} objects

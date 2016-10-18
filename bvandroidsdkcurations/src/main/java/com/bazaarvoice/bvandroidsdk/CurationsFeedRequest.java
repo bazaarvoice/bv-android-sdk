@@ -19,7 +19,7 @@ public class CurationsFeedRequest {
         strBuilder.append("client=");
         strBuilder.append(BVSDK.getInstance().getClientId());
         strBuilder.append("&passKey=");
-        strBuilder.append(BVSDK.getInstance().getApiKeyCurations());
+        strBuilder.append(BVSDK.getInstance().getApiKeys().getApiKeyCurations());
         for (Field f : builder.getClass().getDeclaredFields()) {
 
             Object object = null;

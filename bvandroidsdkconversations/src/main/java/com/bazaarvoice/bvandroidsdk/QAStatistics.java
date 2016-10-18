@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.getIntegerSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.getIntegerSafe;
 
 public class QAStatistics {
 

@@ -50,6 +50,7 @@
     <string name="key_conversations_passkey">key_conversations_passkey</string>
     <string name="key_curations_passkey">key_curations_passkey</string>
     <string name="key_staging_enabled">key_staging_enabled</string>
+    <string name="key_last_location_event">key_last_location_event</string>
 
     <string name="product_not_setup">This product is not setup for this client.</string>
 
@@ -73,4 +74,5 @@
     <string name="answer_found_helpful">"%1$s of %2$s users found this answer helpful"</string>
     <string name="title_activity_demo_curations_maps">Map</string>
     <string name="curations_map_subtitle_template">"via %1$s"</string>
+    <string name="last_loc_event_template">"Last Location Event: %s"</string>
 </resources>

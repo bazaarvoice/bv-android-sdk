@@ -12,25 +12,41 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <receiver
+            android:name="com.bazaarvoice.bvandroidsdk.BVNotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.bazaarvoice.bvandroidsdk.action.EXIT_GEOFENCE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.bazaarvoice.bvandroidsdk.BVNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.bazaarvoice.bvandroidsdk.action.BV_NOTIFICATION_SERVICE" />
+                <action android:name="com.bazaarvoice.bvandroidsdk.action.NOTIFICATION_BUTTON_TAPPED" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.gimbal.internal.service.GimbalService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.bazaarvoice.bvandroidsdk.service.GIMBAL_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.gimbal.internal.service.GimbalServiceStartStopReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+            </intent-filter>
+        </receiver>
     </application>
-
-    <service
-        android:name="com.gimbal.internal.service.GimbalService"
-        android:exported="false" >
-        <intent-filter>
-            <action android:name="com.bazaarvoice.bvandroidsdk.service.GIMBAL_SERVICE" />
-        </intent-filter>
-    </service>
-
-    <receiver
-        android:name="com.gimbal.internal.service.GimbalServiceStartStopReceiver"
-        android:enabled="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-        <intent-filter>
-            <action android:name="android.intent.action.ACTION_SHUTDOWN" />
-        </intent-filter>
-    </receiver>
 
 </manifest>

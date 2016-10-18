@@ -7,17 +7,18 @@ import com.gimbal.android.Visit;
 
 class LocationAnalyticsManager {
 
-    static final void sendLocationEventForGimbalVisit(Visit visit) {
-
+    static final void sendLocationEventForGimbalVisit(Visit visit, VisitLocationSchema.TransitionState transitionState) {
+        if (visit == null || visit.getPlace() == null) {
+            return;
+        }
         String id = visit.getPlace().getAttributes().getValue(PlaceAttribute.Id.getKey());
-        VisitLocationSchema.TransitionState state = (visit.getDepartureTimeInMillis() > 0) ? VisitLocationSchema.TransitionState.Exit : VisitLocationSchema.TransitionState.Entry;
 
         long seconds = (visit.getDepartureTimeInMillis() > 0) ? visit.getDwellTimeInMillis() / 1000 : 0;
 
         AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
 
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        VisitLocationSchema visitLocationSchema = new VisitLocationSchema(magpieMobileAppPartialSchema, id, state, seconds);
+        VisitLocationSchema visitLocationSchema = new VisitLocationSchema(magpieMobileAppPartialSchema, id, transitionState, seconds);
         analyticsManager.enqueueEvent(visitLocationSchema);
     }
 }

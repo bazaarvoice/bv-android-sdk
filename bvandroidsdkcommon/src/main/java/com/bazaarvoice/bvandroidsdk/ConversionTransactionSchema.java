@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.mapPutSafe;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
 /**
  * Created by Bazaarvoice on 3/29/16.

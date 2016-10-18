@@ -46,7 +46,7 @@ public class BulkStoreRatingsRequest extends ConversationsDisplayRequest {
 
     @Override
     String getAPIKey(){
-        return BVSDK.getInstance().getApiKeyConversationsStores();
+        return BVSDK.getInstance().getApiKeys().getApiKeyConversationsStores();
     }
 
     public static final class Builder extends ConversationsDisplayRequest.Builder {

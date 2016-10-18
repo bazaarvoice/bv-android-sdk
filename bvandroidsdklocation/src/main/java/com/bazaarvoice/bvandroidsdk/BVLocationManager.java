@@ -3,45 +3,36 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-import android.app.Notification;
-
+import com.bazaarvoice.bvandroidsdk.internal.ListenerContainer;
 import com.gimbal.android.Attributes;
-import com.gimbal.android.Communication;
-import com.gimbal.android.CommunicationListener;
-import com.gimbal.android.CommunicationManager;
 import com.gimbal.android.Gimbal;
 import com.gimbal.android.Place;
 import com.gimbal.android.PlaceEventListener;
 import com.gimbal.android.PlaceManager;
 import com.gimbal.android.Visit;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /**
  * Class used to monitor users location and provide information about users retail location visits
  */
 public class BVLocationManager {
-
+    private static final String TAG = BVLocationManager.class.getSimpleName();
     private static BVLocationManager instance;
-    private final List<ListenerContainer> visitListeners = new ArrayList<>();
+    private final ListenerContainer<BVLocationListener> visitListeners;
     private PlaceManager placeManager;
-    private CommunicationManager communicationManager;
-    private BVNotificationListener notificationListener;
+    private final ListenerContainer<BVRateStoreListener> rateStoreListeners;
 
-    LocationListener proxyLocationListener = new LocationListener();
-    BVCommunicationListener proxyCommunicationListener = new BVCommunicationListener();
+    private final LocationListener proxyLocationListener;
 
     private BVLocationManager() {
-
-        Gimbal.setApiKey(BVSDK.getInstance().getApplication(), BVSDK.getInstance().getApiKeyLocation());
+        BVSDK bvsdk = BVSDK.getInstance();
+        Gimbal.setApiKey(bvsdk.getApplication(), bvsdk.getApiKeys().getApiKeyLocations());
+        BVNotificationManager bvNotificationManager = BVNotificationManager.getInstance();
+        visitListeners = new ListenerContainer<>();
+        rateStoreListeners = new ListenerContainer<>();
+        proxyLocationListener = new LocationListener(this, visitListeners, bvNotificationManager);
         placeManager = PlaceManager.getInstance();
         placeManager.addListener(proxyLocationListener);
         Gimbal.registerForPush("205299337611");
-        communicationManager = CommunicationManager.getInstance();
-        communicationManager.addListener(proxyCommunicationListener);
     }
 
     public static BVLocationManager getInstance() {
@@ -64,21 +55,9 @@ public class BVLocationManager {
             return;
         }
 
-        if (getContainerForCallback(listener) == null) {
-            ListenerContainer container = new ListenerContainer(listener);
-            visitListeners.add(container);
+        if (!visitListeners.contains(listener)) {
+            visitListeners.add(listener);
         }
-    }
-
-    private ListenerContainer getContainerForCallback(BVLocationListener callback) {
-
-        for (ListenerContainer container : visitListeners) {
-            if (container.callbackWeakReference == callback) {
-                return container;
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -86,9 +65,8 @@ public class BVLocationManager {
      * @param listener Listener to be removed
      */
     public void removeLocationVisitListener(BVLocationListener listener) {
-        ListenerContainer container = getContainerForCallback(listener);
-        if (container != null) {
-            visitListeners.remove(container);
+        if (listener != null) {
+            visitListeners.remove(listener);
         }
     }
 
@@ -114,24 +92,20 @@ public class BVLocationManager {
         void didEndVisit(BVVisit visit);
     }
 
-
-    public interface BVNotificationListener {
-        boolean shouldPresentNotificationForVisit(BVVisit visit);
-        Notification.Builder configureNotificationForDisplay(Notification.Builder notificationBuilder, BVVisit visit);
+    public interface BVRateStoreListener {
+        void onRateStoreClicked(String storeId);
     }
 
-
-    private class ListenerContainer {
-
-        private final WeakReference<BVLocationListener> callbackWeakReference;
-
-        ListenerContainer(BVLocationListener callback) {
-            this.callbackWeakReference = new WeakReference(callback);
-        }
+    public void addRateStoreListener(BVRateStoreListener rateStoreListener) {
+        this.rateStoreListeners.add(rateStoreListener);
     }
 
-    public void setNotificationListener(BVNotificationListener listener) {
-        this.notificationListener = listener;
+    public void removeRateStoreListener(BVRateStoreListener rateStoreListener) {
+        this.rateStoreListeners.remove(rateStoreListener);
+    }
+
+    public ListenerContainer<BVRateStoreListener> getRateStoreListeners() {
+        return rateStoreListeners;
     }
 
     private BVVisit attributesToVisit(Attributes attributes) {
@@ -145,31 +119,31 @@ public class BVLocationManager {
         return new BVVisit(name, address, city, state, zip, storeId);
     }
 
-    class LocationListener extends PlaceEventListener {
+    static class LocationListener extends PlaceEventListener {
+        private final BVLocationManager bvLocationManager;
+        private final ListenerContainer<BVLocationListener> visitListeners;
+        private final BVNotificationManager bvNotificationManager;
+
+        public LocationListener(final BVLocationManager bvLocationManager, final ListenerContainer<BVLocationListener> visitListeners, final BVNotificationManager bvNotificationManager) {
+            this.bvLocationManager = bvLocationManager;
+            this.visitListeners = visitListeners;
+            this.bvNotificationManager = bvNotificationManager;
+        }
 
         @Override
         public void onVisitStart(Visit visit) {
-
-            if (gimbalPlaceIsValid(visit.getPlace())) {
-                LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit);
-            }
-
-            callbackRegisteredListeners(visit.getPlace(), true);
+            LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit, VisitLocationSchema.TransitionState.Entry);
+            callbackRegisteredListeners(visit, true);
         }
 
         @Override
         public void onVisitEnd(Visit visit) {
-            if (gimbalPlaceIsValid(visit.getPlace())) {
-                LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit);
-            }
-
-            callbackRegisteredListeners(visit.getPlace(), false);
+            LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit, VisitLocationSchema.TransitionState.Exit);
+            callbackRegisteredListeners(visit, false);
         }
 
-        private void callbackRegisteredListeners(Place place, boolean didStart) {
-            if (visitListeners.size() == 0) {
-                return;
-            }
+        private void callbackRegisteredListeners(Visit visit, boolean didStart) {
+            Place place = visit.getPlace();
             Attributes attributes = place.getAttributes();
             String type = attributes.getValue(PlaceAttribute.Type.getKey());
             String client = attributes.getValue(PlaceAttribute.ClientId.getKey());
@@ -186,72 +160,21 @@ public class BVLocationManager {
                 return;
             }
 
+            BVVisit bvVisit = bvLocationManager.attributesToVisit(attributes);
+            bvNotificationManager.scheduleNotification(bvVisit.getStoreId(), visit.getDwellTimeInMillis());
 
-
-            BVVisit visit = attributesToVisit(attributes);
-
-            List<ListenerContainer> containers = visitListeners;
-            for (ListenerContainer container : containers) {
-
-                if (container.callbackWeakReference.get() != null) {
+            for (BVLocationListener locationListener : visitListeners.getListeners()) {
+                if (locationListener != null) {
                     if (didStart) {
-                        container.callbackWeakReference.get().didBeginVisit(visit);
-                    }else {
-                        container.callbackWeakReference.get().didEndVisit(visit);
+                        locationListener.didBeginVisit(bvVisit);
+                    } else {
+                        locationListener.didEndVisit(bvVisit);
                     }
-
-                }else {
-                    visitListeners.remove(container);
+                } else {
+                    visitListeners.remove(locationListener);
                 }
             }
         }
-
-        private boolean gimbalPlaceIsValid(Place place) {
-            return place.getAttributes().getValue(PlaceAttribute.Id.getKey()) != null;
-        }
     }
 
-    class BVCommunicationListener extends CommunicationListener {
-
-        public Collection<Communication> presentNotificationForCommunications(Collection<Communication> communications, Visit visit) {
-
-            List<Communication> filteredCommunications = new ArrayList<>();
-
-            Attributes attributes = visit.getPlace().getAttributes();
-            String type = attributes.getValue(PlaceAttribute.Type.getKey());
-
-            String client = attributes.getValue(PlaceAttribute.ClientId.getKey());
-            if (client == null || !client.equalsIgnoreCase(BVSDK.getInstance().getClientId())) {
-                return null;
-            }
-
-            if (type == null || !type.equalsIgnoreCase(PlaceType.Geofence.getValue())) {
-                return null;
-            }
-
-            BVVisit bvVisit = attributesToVisit(visit.getPlace().getAttributes());
-            for (Communication communication : communications) {
-                if (notificationListener != null && notificationListener.shouldPresentNotificationForVisit(bvVisit)) {
-                    filteredCommunications.add(communication);
-                }
-            }
-
-            return communications;
-        }
-
-        public Notification.Builder prepareCommunicationForDisplay(Communication communication, Visit visit, int notificationId) {
-
-            if (notificationListener != null) {
-                Notification.Builder builder = new Notification.Builder(BVSDK.getInstance().getApplicationContext());
-                builder.setContentTitle(communication.getTitle());
-                builder.setContentText(communication.getDescription());
-                builder.setSmallIcon(R.drawable.ic_stat_action_room);
-
-                BVVisit bvVisit = attributesToVisit(visit.getPlace().getAttributes());
-                return notificationListener.configureNotificationForDisplay(builder, bvVisit);
-            }
-
-            return null;
-        }
-    }
 }

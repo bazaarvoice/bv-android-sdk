@@ -9,8 +9,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static com.bazaarvoice.bvandroidsdk.Utils.checkMain;
-import static com.bazaarvoice.bvandroidsdk.Utils.checkNotMain;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkMain;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkNotMain;
 
 public final class LoadCallDisplay<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends LoadCall<RequestType, ResponseType> {
 

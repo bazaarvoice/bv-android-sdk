@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/margin_2"
     tools:context=".location.DemoLocationFragment">
 
     <LinearLayout
@@ -17,8 +18,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Bazaarvoice Location Demo (Beta)"
             android:textColor="#00ab8e"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp" />
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/textView7"
@@ -26,10 +26,18 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/greeting_message_location"
-            android:layout_marginTop="26dp"
-            android:textColor="#003d4c"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginTop="@dimen/margin_1"
+            android:textColor="#003d4c" />
+
+        <TextView
+            android:id="@+id/lastLocEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/last_loc_event_template"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_3"/>
+
     </LinearLayout>
 
 </FrameLayout>

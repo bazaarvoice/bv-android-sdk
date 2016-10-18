@@ -11,6 +11,8 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
+import com.bazaarvoice.bvandroidsdk.internal.Utils;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -35,6 +37,8 @@ import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
  * Internal SDK API for sending analytics events
  */
 class AnalyticsManager {
+    // region Properties
+
     private static final String TAG = AnalyticsManager.class.getSimpleName();
     private static final String ANALYTICS_THREAD_NAME = TAG;
     private static final int ANALYTICS_START_DELAY_SECONDS = 10;
@@ -64,6 +68,10 @@ class AnalyticsManager {
     private final UUID uuid;
     private final BVAuthenticatedUser bvAuthenticatedUser;
 
+    // endregion
+
+    // region Constructor
+
     AnalyticsManager(final Context applicationContext, final String versionName, final String versionCode, final String clientId, final String baseUrl, final OkHttpClient okHttpClient, final ExecutorService immediateExecutorService, final ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final String packageName, final UUID uuid) {
         this.analyticsBatch = new AnalyticsBatch();
         this.analyticsThread = new AnalyticsThread();
@@ -82,26 +90,13 @@ class AnalyticsManager {
         this.bvAuthenticatedUser = bvAuthenticatedUser;
     }
 
+    // endregion
+
     MagpieMobileAppPartialSchema getMagpieMobileAppPartialSchema() {
         return new MagpieMobileAppPartialSchema.Builder().client(clientId).build();
     }
 
-    private MobileAppLifecycleSchema getMobileAppLifecycleSchema(MobileAppLifecycleSchema.AppState appState) {
-        MobileAppLifecycleSchema.Builder builder = new MobileAppLifecycleSchema.Builder(appState, getMagpieMobileAppPartialSchema(), getProfileCommonPartialSchema())
-                .mobileAppIdentifier(packageName)
-                .mobileAppVersion(versionName)
-                .mobileDeviceName(Build.MODEL)
-                .mobileOSVersion(Build.VERSION.RELEASE)
-                .bvSDKVersion(BVSDK.SDK_VERSION);
-
-        return builder.build();
-    }
-
-    ProfileCommonPartialSchema getProfileCommonPartialSchema() {
-        return new ProfileCommonPartialSchema(bvAuthenticatedUser.getUserAuthString());
-    }
-
-    // Helper classes to form and send analytics
+    // region Helper Classes - to form and send analytics
 
     static class AnalyticsTask implements Runnable {
         private final AnalyticsManager analyticsManager;
@@ -159,11 +154,28 @@ class AnalyticsManager {
                     }
                     Logger.d(tag, "}");
                 } else {
-                    Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source") + (event.containsKey("name") ? (" - name:" + event.get("name")) : ""));
+                    Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source") + getSmartExtraInfo(event));
                     //JSONObject log = new JSONObject(event);
                     //Logger.d(tag, log.toString());
                 }
             }
+        }
+
+        private String getSmartExtraInfo(Map<String, Object> event) {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (event.containsKey("name")) {
+                stringBuilder.append(" - name:" + event.get("name"));
+            }
+            if (event.containsKey("transition")) {
+                stringBuilder.append(" - transition:" + event.get("transition"));
+            }
+            if (event.containsKey("durationSecs")) {
+                stringBuilder.append(" - durationSecs:" + event.get("durationSecs"));
+            }
+            if (event.containsKey("locationId")) {
+                stringBuilder.append(" - locationId:" + event.get("locationId"));
+            }
+            return stringBuilder.toString();
         }
     }
 
@@ -216,7 +228,9 @@ class AnalyticsManager {
         }
     }
 
-    // Users of AnalyticsManager send analytics through these methods on the main looper
+    // endregion
+
+    // region API - send analytics through these methods on the main looper
 
     void dispatchSendPersonalizationEvent() {
         analyticsHandler.sendMessage(analyticsHandler.obtainMessage(DISPATCH_SEND_PERSONALIZATION_EVENT));
@@ -242,7 +256,24 @@ class AnalyticsManager {
         analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_NON_COMMERCE_CONVERSION_EVENT, conversion));
     }
 
-    // Internal methods that manage building and sending analytics events on the AnalyticsThread
+    // endregion
+
+    // region Internal Methods - that manage building and sending analytics events on the AnalyticsThread
+
+    private MobileAppLifecycleSchema getMobileAppLifecycleSchema(MobileAppLifecycleSchema.AppState appState) {
+        MobileAppLifecycleSchema.Builder builder = new MobileAppLifecycleSchema.Builder(appState, getMagpieMobileAppPartialSchema(), getProfileCommonPartialSchema())
+                .mobileAppIdentifier(packageName)
+                .mobileAppVersion(versionName)
+                .mobileDeviceName(Build.MODEL)
+                .mobileOSVersion(Build.VERSION.RELEASE)
+                .bvSDKVersion(BVSDK.SDK_VERSION);
+
+        return builder.build();
+    }
+
+    ProfileCommonPartialSchema getProfileCommonPartialSchema() {
+        return new ProfileCommonPartialSchema(bvAuthenticatedUser.getUserAuthString());
+    }
 
     void addMagpieData(BvAnalyticsSchema schema) {
         schema.addKeyVal(KEY_HASHED_IP, HASHED_IP);
@@ -315,7 +346,7 @@ class AnalyticsManager {
             if (response.isSuccessful()) {
                 Logger.d("Analytics", "Successfully posted " + analyticsBatch.size() + " events");
             } else {
-                Logger.d("Analytics", "Unsuccessfully posted Events: " + response.code());
+                Logger.d("Analytics", "Unsuccessfully posted events - errorCode: " + response.code());
             }
         } catch (IOException e) {
             Logger.e(TAG, "Failed to send analytics event", e);
@@ -338,4 +369,6 @@ class AnalyticsManager {
     String getPackageName() {
         return packageName;
     }
+
+    // endregion
 }

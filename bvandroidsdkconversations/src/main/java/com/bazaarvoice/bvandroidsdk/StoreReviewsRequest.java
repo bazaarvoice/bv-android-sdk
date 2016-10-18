@@ -26,7 +26,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
 
     @Override
     String getAPIKey(){
-        return BVSDK.getInstance().getApiKeyConversationsStores();
+        return BVSDK.getInstance().getApiKeys().getApiKeyConversationsStores();
     }
 
     @Override
