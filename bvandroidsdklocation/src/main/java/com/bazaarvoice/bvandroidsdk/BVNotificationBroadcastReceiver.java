@@ -73,15 +73,18 @@ public final class BVNotificationBroadcastReceiver extends BroadcastReceiver {
                     rateStoreListener.onRateStoreClicked(storeId);
                 }
                 NotificationManagerCompat.from(context).cancel(storeIdInt);
+                BVNotificationAnalyticsManager.sendNotifiactionEnentForStoreReviewFeatureUsed(BVNotificationAnalyticsManager.NotificationAction.Positive.getKey(), storeId);
                 break;
             }
             case BVNotificationService.NEUTRAL: {
                 BVNotificationManager.getInstance().rescheduleNotification(storeId);
+                BVNotificationAnalyticsManager.sendNotifiactionEnentForStoreReviewFeatureUsed(BVNotificationAnalyticsManager.NotificationAction.Neutral.getKey(), storeId);
                 NotificationManagerCompat.from(context).cancel(storeIdInt);
                 break;
             }
             case BVNotificationService.NEGATIVE: {
                 NotificationManagerCompat.from(context).cancel(storeIdInt);
+                BVNotificationAnalyticsManager.sendNotifiactionEnentForStoreReviewFeatureUsed(BVNotificationAnalyticsManager.NotificationAction.Negative.getKey(), storeId);
                 break;
             }
         }

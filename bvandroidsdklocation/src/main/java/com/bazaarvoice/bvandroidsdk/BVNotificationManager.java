@@ -25,6 +25,7 @@ import okhttp3.Response;
  * Manages queueing notifications
  */
 public final class BVNotificationManager {
+    private static final String PUSH_NOTIFICATION_VIEW_NAME = "StoreReviewPushNotification";
     private static final String TAG = BVNotificationManager.class.getSimpleName();
     private static final String S3_LABS_BASE_URL = "https://s3.amazonaws.com";
     private static final String S3_CONFIG_URL_TEMPLATE = S3_LABS_BASE_URL + "/incubator-mobile-apps/conversations-stores/%s/android/geofenceConfig.json";
@@ -111,6 +112,8 @@ public final class BVNotificationManager {
         PendingIntent alarmPendingIntent = getAlarmPendingIntent(storeId);
         long timeForAlarmMillis = getTimeForAlarm(initialSchedule, bvNotificationData);
         setAlarm(timeForAlarmMillis, alarmPendingIntent);
+
+        BVNotificationAnalyticsManager.sendNotificationEventForNotificationInView(PUSH_NOTIFICATION_VIEW_NAME, storeId);
     }
 
     private PendingIntent getAlarmPendingIntent(String storeId) {
