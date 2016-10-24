@@ -25,7 +25,7 @@ public class CurationsPostRequest {
     }
 
     protected String toUrlQueryString() {
-        StringBuilder strBuilder = new StringBuilder(BVSDK.getInstance().getCurationsPostApiRootUrl());
+        StringBuilder strBuilder = new StringBuilder(BVSDK.getInstance().getRootApiUrls().getCurationsPostApiRootUrl());
 
         strBuilder.append("?client=");
         strBuilder.append(BVSDK.getInstance().getClientId());

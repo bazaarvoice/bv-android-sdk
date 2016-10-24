@@ -72,7 +72,7 @@ public class BVRecommendations {
         URL requestUrl;
         try {
             BVSDK bvsdk = BVSDK.getInstance();
-            String baseUrlStr = bvsdk.getShopperMarketingApiRootUrl();
+            String baseUrlStr = bvsdk.getRootApiUrls().getShopperMarketingApiRootUrl();
             String apiKey = bvsdk.getApiKeys().getApiKeyShopperAdvertising();
             String clientId = bvsdk.getClientId();
             String recRequestUrlStr = RecommendationsRequest.toUrlString(baseUrlStr, adId, apiKey, clientId, request);

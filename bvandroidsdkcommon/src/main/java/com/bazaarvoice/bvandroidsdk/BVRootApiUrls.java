@@ -4,7 +4,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
- * TODO: Describe file here.
+ * API URL keeper for supported BV products.
  */
 class BVRootApiUrls {
 

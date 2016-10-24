@@ -43,8 +43,6 @@ public class BazaarRequest {
     private static final String HTTP_METHOD_GET = "GET";
     private static final String HTTP_METHOD_POST = "POST";
 
-    private String clientName;
-    private BazaarEnvironment environment;
     private String apiKeyConversations;
     private String apiVersion;
     protected String requestUrl;
@@ -88,13 +86,7 @@ public class BazaarRequest {
         }
 
         BVSDK bvsdk = BVSDK.getInstance();
-        this.environment = bvsdk.getEnvironment();
-        this.clientName = bvsdk.getClientId();
-
-        if(this.environment == BazaarEnvironment.PRODUCTION)
-            this.requestUrl = "https://api.bazaarvoice.com/data/";
-        else
-            this.requestUrl = "https://stg.api.bazaarvoice.com/data/";
+        this.requestUrl = bvsdk.getRootApiUrls().getConversationsApiRootUrl();
 
         this.apiKeyConversations = apiKeyConversations;
         this.apiVersion = apiVersion.getVersionName();

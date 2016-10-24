@@ -29,7 +29,7 @@ class BVNotificationAnalyticsManager {
 
     }
 
-    static final void sendNotifiactionEnentForStoreReviewFeatureUsed(String actionDetail, String productId){
+    static final void sendNotificationEventForStoreReviewFeatureUsed(String actionDetail, String productId){
 
         AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();

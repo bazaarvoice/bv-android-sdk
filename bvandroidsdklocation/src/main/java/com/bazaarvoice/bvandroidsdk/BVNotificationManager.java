@@ -99,7 +99,7 @@ public final class BVNotificationManager {
     }
 
     /**
-     * For service to call after it has retreived the {@link BvNotificationData}.
+     * For service to call after it has retrieved the {@link BvNotificationData}.
      * <br><br>
      * May be called once we know that we are approved to move forward with scheduling a notification.
      *

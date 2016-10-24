@@ -2,8 +2,6 @@ buildscript {
     dependencies {
         classpath sdkBuildDep.androidPlugin
         classpath sdkBuildDep.credentialsPlugin
-        classpath sdkBuildDep.playServicesPlugin
-        classpath sdkBuildDep.credentialsPlugin
     }
 }
 
@@ -47,7 +45,6 @@ dependencies {
     compile sdkDep.slf4jApi
     compile sdkDep.playServiceAds
     compile sdkDep.appCompatV7
-    compile sdkDep.firebaseCore
     compile sdkDep.supportV4
 
     testCompile sdkTestDep.junit
@@ -55,4 +52,3 @@ dependencies {
 
 apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
-apply plugin: 'com.google.gms.google-services'

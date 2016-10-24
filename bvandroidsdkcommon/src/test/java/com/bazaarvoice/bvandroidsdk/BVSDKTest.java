@@ -10,10 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowApplication;
 
 import java.util.concurrent.ExecutorService;
 
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
 public class BVSDKTest {
 
@@ -121,6 +120,8 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkShouldSetupLogLevel() {
+        BVSDK.destroy();
+
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
                 .bazaarEnvironment(environment)
@@ -144,20 +145,6 @@ public class BVSDKTest {
                 .build();
 
         assertEquals(clientId, bvsdk.getClientId());
-    }
-
-    @Test
-    public void bvSdkShouldSetupShopperProfileEnvironment() {
-        BVSDK.destroy();
-
-        // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-                .bazaarEnvironment(environment)
-                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                .build();
-
-        assertEquals(environment, bvsdk.getEnvironment());
-        ShadowApplication.runBackgroundTasks();
     }
 
     @Test
