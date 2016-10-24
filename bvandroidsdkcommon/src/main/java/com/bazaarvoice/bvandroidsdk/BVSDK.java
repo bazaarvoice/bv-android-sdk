@@ -440,10 +440,6 @@ public class BVSDK {
         return clientId;
     }
 
-    BazaarEnvironment getEnvironment() {
-        return environment;
-    }
-
     AnalyticsManager getAnalyticsManager() {
         return analyticsManager;
     }
@@ -452,20 +448,8 @@ public class BVSDK {
         return gson;
     }
 
-    String getShopperMarketingApiRootUrl() {
-        return rootApiUrls.getShopperMarketingApiRootUrl();
-    }
-
-    String getCurationsDisplayApiRootUrl(){
-        return rootApiUrls.getCurationsDisplayApiRootUrl();
-    }
-
-    String getCurationsPostApiRootUrl(){
-        return rootApiUrls.getCurationsPostApiRootUrl();
-    }
-
-    String getConversationsApiRootUrl() {
-        return rootApiUrls.getConversationsApiRootUrl();
+    BVRootApiUrls getRootApiUrls() {
+        return rootApiUrls;
     }
 
     OkHttpClient getOkHttpClient() {

@@ -14,7 +14,7 @@ public class CurationsFeedRequest {
     }
 
     protected String toUrlQueryString(){
-        StringBuilder strBuilder = new StringBuilder(BVSDK.getInstance().getCurationsDisplayApiRootUrl());
+        StringBuilder strBuilder = new StringBuilder(BVSDK.getInstance().getRootApiUrls().getCurationsDisplayApiRootUrl());
 
         strBuilder.append("client=");
         strBuilder.append(BVSDK.getInstance().getClientId());

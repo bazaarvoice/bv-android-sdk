@@ -17,7 +17,7 @@ import okhttp3.RequestBody;
  */
 public final class BVConversationsClient {
     private static final OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
-    static final String conversationsBaseUrl = BVSDK.getInstance().getConversationsApiRootUrl();
+    static final String conversationsBaseUrl = BVSDK.getInstance().getRootApiUrls().getConversationsApiRootUrl();
     private static final MediaType URL_ENCODED = MediaType.parse("application/x-www-form-urlencoded");
 
     /**
