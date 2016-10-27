@@ -11,8 +11,8 @@ ext {
     ]
 
     // App values
-    demoAppVersionCode = 12
-    demoAppVersionName = "2.1.0"
+    demoAppVersionCode = 13
+    demoAppVersionName = "2.1.1"
 
     // Projects that were published with multiple artifacts must build
     // all artifacts with the same version number. This block is for sharing
