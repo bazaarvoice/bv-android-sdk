@@ -68,10 +68,10 @@
                         android:id="@+id/prod_rec_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Recommendations"
+                        android:text="Recommended For You"
                         android:layout_marginLeft="@dimen/margin_3"
                         android:layout_marginTop="@dimen/margin_3"
-                        android:textSize="@dimen/text_size_title"
+                        android:textSize="@dimen/text_size_subheading"
                         android:textColor="@color/bv_green_2"/>
 
                     <com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView

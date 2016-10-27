@@ -1,259 +1,202 @@
 {
-  "Includes":{
-
-  },
-  "HasErrors":false,
-  "Offset":0,
-  "TotalResults":1,
-  "Locale":"en_US",
-  "Errors":[
-
-  ],
-  "Results":[
-    {
-      "UPCs":[
-
-      ],
-      "Brand":{
-        "Name":"mysh",
-        "Id":"cskg0snv1x3chrqlde0zklodb"
+  "Includes": {},
+  "HasErrors": false,
+  "Offset": 0,
+  "TotalResults": 1,
+  "Locale": "en_US",
+  "Errors": [],
+  "Results": [{
+    "ISBNs": [],
+    "Brand": {
+      "Name": "Endurance",
+      "Id": "Endurance"
+    },
+    "UPCs": ["100000000052"],
+    "Description": null,
+    "Attributes": {},
+    "ManufacturerPartNumbers": [],
+    "QuestionIds": [],
+    "BrandExternalId": "Endurance",
+    "ProductPageUrl": "http://www.endurancecycles.com/products/endurance-apex-2",
+    "FamilyIds": [],
+    "TotalAnswerCount": 5,
+    "AttributesOrder": [],
+    "ImageUrl": "http://cdn.shopify.com/s/files/1/0796/3917/files/Endurance_Apex_2_THUMB.png?5905770545529023052",
+    "EANs": [],
+    "TotalQuestionCount": 7,
+    "Name": "Endurance Apex 2",
+    "QAStatistics": {
+      "ContextDataDistributionOrder": [],
+      "HelpfulVoteCount": 1,
+      "BestAnswerCount": 0,
+      "QuestionHelpfulVoteCount": 0,
+      "TotalAnswerCount": 5,
+      "LastQuestionAnswerTime": "2016-06-25T07:15:35.000+00:00",
+      "TagDistributionOrder": [],
+      "FirstAnswerTime": "2016-06-04T16:22:07.000+00:00",
+      "AnswerNotHelpfulVoteCount": 0,
+      "TotalQuestionCount": 7,
+      "QuestionNotHelpfulVoteCount": 0,
+      "FeaturedQuestionCount": 0,
+      "FeaturedAnswerCount": 0,
+      "TagDistribution": {},
+      "FirstQuestionTime": "2016-06-01T23:16:50.000+00:00",
+      "ContextDataDistribution": {},
+      "AnswerHelpfulVoteCount": 1,
+      "LastQuestionTime": "2016-06-25T07:15:35.000+00:00",
+      "LastAnswerTime": "2016-06-20T12:36:37.000+00:00"
+    },
+    "CategoryId": "WomensBikes",
+    "TotalReviewCount": 40,
+    "ReviewIds": [],
+    "Id": "6-bv",
+    "StoryIds": [],
+    "ReviewStatistics": {
+      "ContextDataDistributionOrder": ["Age", "Gender", "PrimaryUse", "Experience", "Brand", "Where"],
+      "HelpfulVoteCount": 13,
+      "NotRecommendedCount": 2,
+      "AverageOverallRating": 4.3,
+      "SecondaryRatingsAveragesOrder": ["Value", "Comfort", "Quality"],
+      "FeaturedReviewCount": 0,
+      "TagDistributionOrder": [],
+      "NotHelpfulVoteCount": 0,
+      "OverallRatingRange": 5,
+      "SecondaryRatingsAverages": {
+        "Value": {
+          "Id": "Value",
+          "AverageRating": 4.275
+        },
+        "Quality": {
+          "Id": "Quality",
+          "AverageRating": 3.975
+        },
+        "Comfort": {
+          "Id": "Comfort",
+          "AverageRating": 3.775
+        }
       },
-      "ISBNs":[
-
-      ],
-      "Attributes":{
-
+      "RatingDistribution": [{
+        "Count": 4,
+        "RatingValue": 1
+      }, {
+        "Count": 1,
+        "RatingValue": 2
+      }, {
+        "Count": 2,
+        "RatingValue": 3
+      }, {
+        "Count": 5,
+        "RatingValue": 4
+      }, {
+        "Count": 28,
+        "RatingValue": 5
+      }],
+      "TotalReviewCount": 40,
+      "RatingsOnlyReviewCount": 0,
+      "RecommendedCount": 38,
+      "TagDistribution": {},
+      "ContextDataDistribution": {
+        "Where": {
+          "Values": [{
+            "Value": "Endurance-website",
+            "Count": 9
+          }, {
+            "Value": "Performance-Bicycles",
+            "Count": 8
+          }, {
+            "Value": "Rugged-Outfitters",
+            "Count": 9
+          }, {
+            "Value": "Other",
+            "Count": 14
+          }],
+          "Label": "Where",
+          "Id": "Where"
+        },
+        "Brand": {
+          "Values": [{
+            "Value": "This-is-my-first-bike",
+            "Count": 9
+          }, {
+            "Value": "Trek",
+            "Count": 11
+          }, {
+            "Value": "Specialized",
+            "Count": 5
+          }, {
+            "Value": "Diamondback",
+            "Count": 2
+          }, {
+            "Value": "Schwinn",
+            "Count": 1
+          }, {
+            "Value": "Endurance",
+            "Count": 7
+          }, {
+            "Value": "Other",
+            "Count": 5
+          }],
+          "Label": "Brand",
+          "Id": "Brand"
+        },
+        "Experience": {
+          "Values": [{
+            "Value": "Beginner",
+            "Count": 15
+          }, {
+            "Value": "Intermediate",
+            "Count": 20
+          }, {
+            "Value": "Expert",
+            "Count": 5
+          }],
+          "Label": "Experience",
+          "Id": "Experience"
+        },
+        "PrimaryUse": {
+          "Values": [{
+            "Value": "Commuting",
+            "Count": 1
+          }, {
+            "Value": "Racing",
+            "Count": 19
+          }, {
+            "Value": "Leisure",
+            "Count": 3
+          }, {
+            "Value": "Exercise",
+            "Count": 17
+          }],
+          "Label": "Primary Use",
+          "Id": "PrimaryUse"
+        },
+        "Age": {
+          "Values": [{
+            "Value": "25to34",
+            "Count": 23
+          }, {
+            "Value": "35to44",
+            "Count": 13
+          }, {
+            "Value": "45to54",
+            "Count": 4
+          }],
+          "Label": "Age",
+          "Id": "Age"
+        },
+        "Gender": {
+          "Values": [{
+            "Value": "Female",
+            "Count": 40
+          }],
+          "Label": "Gender",
+          "Id": "Gender"
+        }
       },
-      "ManufacturerPartNumbers":[
-
-      ],
-      "Description":"Our pinpoint oxford is crafted from only the finest 80's two-ply cotton fibers.Single-needle stitching on all seams for a smooth flat appearance. Tailored with our Traditional\nstraight collar and button cuffs. Machine wash. Imported.",
-      "QuestionIds":[
-
-      ],
-      "ProductPageUrl":null,
-      "BrandExternalId":"cskg0snv1x3chrqlde0zklodb",
-      "FamilyIds":[
-
-      ],
-      "TotalAnswerCount":4,
-      "AttributesOrder":[
-
-      ],
-      "ImageUrl":"http://myshco.com/productImages/shirt.jpg",
-      "EANs":[
-
-      ],
-      "TotalQuestionCount":2,
-      "Name":"Dress Shirt",
-      "QAStatistics":{
-        "ContextDataDistributionOrder":[
-
-        ],
-        "HelpfulVoteCount":0,
-        "BestAnswerCount":0,
-        "QuestionHelpfulVoteCount":0,
-        "TotalAnswerCount":4,
-        "LastQuestionAnswerTime":"2011-06-07T19:00:36.000+00:00",
-        "TagDistributionOrder":[
-
-        ],
-        "FirstAnswerTime":"2009-05-29T12:23:00.000+00:00",
-        "AnswerNotHelpfulVoteCount":0,
-        "TotalQuestionCount":2,
-        "QuestionNotHelpfulVoteCount":0,
-        "FeaturedQuestionCount":0,
-        "FeaturedAnswerCount":0,
-        "TagDistribution":{
-
-        },
-        "FirstQuestionTime":"2009-03-10T12:08:49.000+00:00",
-        "ContextDataDistribution":{
-
-        },
-        "AnswerHelpfulVoteCount":0,
-        "LastQuestionTime":"2011-03-25T11:50:43.000+00:00",
-        "LastAnswerTime":"2011-06-07T19:00:36.000+00:00"
-      },
-      "CategoryId":"testCategory1031",
-      "TotalReviewCount":32,
-      "ReviewIds":[
-
-      ],
-      "Id":"test1",
-      "StoryIds":[
-
-      ],
-      "ReviewStatistics":{
-        "ContextDataDistributionOrder":[
-          "Gender"
-        ],
-        "HelpfulVoteCount":4,
-        "NotRecommendedCount":44,
-        "AverageOverallRating":4.0254,
-        "SecondaryRatingsAveragesOrder":[
-          "Value",
-          "Quality"
-        ],
-        "FeaturedReviewCount":10,
-        "TagDistributionOrder":[
-          "Pro",
-          "Con"
-        ],
-        "NotHelpfulVoteCount":4,
-        "OverallRatingRange":5,
-        "SecondaryRatingsAverages":{
-          "Value":{
-            "Id":"Value",
-            "AverageRating":4.6666665
-          },
-          "Quality":{
-            "Id":"Quality",
-            "AverageRating":2.0
-          }
-        },
-        "RatingDistribution":[
-          {
-            "Count":22,
-            "RatingValue":1
-          },
-          {
-            "Count":21,
-            "RatingValue":2
-          },
-          {
-            "Count":24,
-            "RatingValue":3
-          },
-          {
-            "Count":70,
-            "RatingValue":4
-          },
-          {
-            "Count":139,
-            "RatingValue":5
-          }
-        ],
-        "TotalReviewCount":8,
-        "RatingsOnlyReviewCount":47,
-        "RecommendedCount":213,
-        "TagDistribution":{
-          "Pro":{
-            "Values":[
-              {
-                "Value":"Quality",
-                "Count":40
-              },
-              {
-                "Value":"Organic Fabric",
-                "Count":38
-              },
-              {
-                "Value":"Pro 2",
-                "Count":21
-              },
-              {
-                "Value":"Pro 1",
-                "Count":14
-              },
-              {
-                "Value":"Example of wordy Pro value",
-                "Count":12
-              },
-              {
-                "Value":"test",
-                "Count":6
-              },
-              {
-                "Value":"Color",
-                "Count":1
-              },
-              {
-                "Value":"Comfortable",
-                "Count":1
-              },
-              {
-                "Value":"Design",
-                "Count":1
-              },
-              {
-                "Value":"Durable",
-                "Count":1
-              }
-            ],
-            "Label":"Pros",
-            "Id":"Pro"
-          },
-          "Con":{
-            "Values":[
-              {
-                "Value":"Quality",
-                "Count":30
-              },
-              {
-                "Value":"Features",
-                "Count":29
-              },
-              {
-                "Value":"Con 2",
-                "Count":17
-              },
-              {
-                "Value":"Example of wordy Con value",
-                "Count":11
-              },
-              {
-                "Value":"Con 1",
-                "Count":9
-              },
-              {
-                "Value":"test",
-                "Count":3
-              },
-              {
-                "Value":"add a con",
-                "Count":1
-              },
-              {
-                "Value":"adfadsf",
-                "Count":1
-              },
-              {
-                "Value":"Low quality",
-                "Count":1
-              },
-              {
-                "Value":"Not durable",
-                "Count":1
-              }
-            ],
-            "Label":"Cons",
-            "Id":"Con"
-          }
-        },
-        "ContextDataDistribution":{
-          "Gender":{
-            "Values":[
-              {
-                "Value":"Male",
-                "Count":73
-              },
-              {
-                "Value":"Female",
-                "Count":59
-              }
-            ],
-            "Label":"Gender",
-            "Id":"Gender"
-          }
-        },
-        "FirstSubmissionTime":"2008-02-24T18:29:37.000+00:00",
-        "LastSubmissionTime":"2011-06-09T19:39:02.000+00:00"
-      },
-      "ModelNumbers":[
-
-      ]
-    }
-  ],
-  "Limit":10
+      "FirstSubmissionTime": "2016-06-02T00:36:59.000+00:00",
+      "LastSubmissionTime": "2016-06-30T02:42:25.000+00:00"
+    },
+    "ModelNumbers": []
+  }],
+  "Limit": 10
 }
