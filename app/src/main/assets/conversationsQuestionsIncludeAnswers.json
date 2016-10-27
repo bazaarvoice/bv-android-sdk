@@ -2,446 +2,401 @@
   "HasErrors": false,
   "Includes": {
     "Answers": {
-      "16390": {
+      "2140120": {
         "AdditionalFieldsOrder": [],
-        "UserNickname": "Kanye South",
-        "IsBrandAnswer": false,
-        "Photos": [
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81051/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81051/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81051"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81052/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81052/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81052"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81053/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81053/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81053"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81054/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81054/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81054"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81055/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81055/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81055"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81056/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81056/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81056"
-          }
-        ],
-        "ContextDataValues": {},
-        "Videos": [],
-        "ContextDataValuesOrder": [],
-        "LastModificationTime": "2011-06-30T21:21:34.000+00:00",
-        "QuestionId": "14898",
-        "SubmissionId": null,
-        "TotalFeedbackCount": 3,
-        "TotalPositiveFeedbackCount": 3,
-        "UserLocation": "In porta sapi",
-        "BadgesOrder": [],
-        "Badges": {},
-        "AuthorId": "5jrptijda8",
-        "IsFeatured": false,
-        "IsSyndicated": null,
-        "ProductRecommendationIds": [],
-        "AdditionalFields": {},
-        "CampaignId": null,
-        "TotalNegativeFeedbackCount": 0,
-        "SubmissionTime": "2011-06-14T15:53:07.000+00:00",
-        "IPAddress": null,
-        "ContentLocale": "en_US",
-        "ModerationStatus": "APPROVED",
-        "Id": "16390",
-        "AnswerText": "I don't know but they're painted black.",
-        "LastModeratedTime": "2011-06-30T21:21:34.000+00:00"
-      },
-      "16392": {
-        "AdditionalFieldsOrder": [],
-        "UserNickname": "Mr. Gatsby",
+        "UserNickname": "michelle73",
         "IsBrandAnswer": false,
         "Photos": [],
         "ContextDataValues": {},
         "Videos": [],
         "ContextDataValuesOrder": [],
-        "LastModificationTime": "2011-06-29T00:10:10.000+00:00",
-        "QuestionId": "14899",
-        "SubmissionId": null,
-        "TotalFeedbackCount": 3,
-        "TotalPositiveFeedbackCount": 3,
-        "UserLocation": null,
+        "LastModificationTime": "2016-07-01T05:00:26.000+00:00",
+        "SubmissionId": "otv7og5sjp54hzzv012qlrskz",
+        "QuestionId": "1398914",
+        "TotalFeedbackCount": 1,
+        "TotalPositiveFeedbackCount": 1,
+        "UserLocation": "Miami",
         "BadgesOrder": [],
         "Badges": {},
-        "AuthorId": "6zpdakali0g",
+        "AuthorId": "b82oi4lzomkedlvr8bzdu5gyo",
         "IsFeatured": false,
         "IsSyndicated": null,
         "ProductRecommendationIds": [],
         "AdditionalFields": {},
         "CampaignId": null,
         "TotalNegativeFeedbackCount": 0,
-        "SubmissionTime": "2011-06-03T15:14:44.000+00:00",
-        "ContentLocale": "en_US",
-        "IPAddress": null,
-        "ModerationStatus": "APPROVED",
-        "Id": "16392",
-        "AnswerText": "Dude are you serious? This isn't the tour de france.",
-        "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
-      },
-      "16391": {
-        "AdditionalFieldsOrder": [],
-        "UserNickname": "Jason S. Jasonson",
-        "IsBrandAnswer": false,
-        "Photos": [
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81057/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81057/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81057"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81058/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81058/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81058"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81059/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81059/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81059"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81060/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81060/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81060"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81061/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81061/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81061"
-          },
-          {
-            "Caption": null,
-            "Sizes": {
-              "thumbnail": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81062/photoThumb.jpg",
-                "Id": "thumbnail"
-              },
-              "normal": {
-                "Url": "http://apireadonly.ugc.bazaarvoice.com/bvstaging/answers/5556/81062/photo.jpg",
-                "Id": "normal"
-              }
-            },
-            "SizesOrder": [
-              "thumbnail",
-              "normal"
-            ],
-            "Id": "81062"
-          }
-        ],
-        "ContextDataValues": {},
-        "Videos": [],
-        "ContextDataValuesOrder": [],
-        "LastModificationTime": "2011-06-30T21:21:35.000+00:00",
-        "QuestionId": "14898",
-        "SubmissionId": null,
-        "TotalFeedbackCount": 3,
-        "TotalPositiveFeedbackCount": 3,
-        "UserLocation": "Pellentesque habitant",
-        "BadgesOrder": [
-          "top250Contributor"
-        ],
-        "Badges": {
-          "top250Contributor": {
-            "BadgeType": "Merit",
-            "Id": "top250Contributor",
-            "ContentType": "ANSWER"
-          }
-        },
-        "AuthorId": "7kz3prwv9xc",
-        "IsFeatured": false,
-        "IsSyndicated": null,
-        "ProductRecommendationIds": [],
-        "AdditionalFields": {},
-        "CampaignId": null,
-        "TotalNegativeFeedbackCount": 0,
-        "SubmissionTime": "2011-06-14T20:07:31.000+00:00",
-        "IPAddress": null,
+        "SubmissionTime": "2016-06-06T23:53:56.000+00:00",
         "ContentLocale": "en_US",
         "ModerationStatus": "APPROVED",
-        "Id": "16391",
-        "AnswerText": "Great question, have always wondered the same thing! I went and checked and it's carbon fiber through-and-through.",
-        "LastModeratedTime": "2011-06-30T21:21:35.000+00:00"
+        "Id": "2140120",
+        "AnswerText": "Yes! I have the Quickback3 and this mounts very well on it. Wish I had a trailer hitch rack but this bike is light enough to lift up.",
+        "LastModeratedTime": "2016-06-07T00:04:42.000+00:00"
       },
-      "16389": {
+      "2140119": {
         "AdditionalFieldsOrder": [],
-        "UserNickname": "Ollie Sykes",
+        "UserNickname": "jenniertri",
         "IsBrandAnswer": false,
         "Photos": [],
         "ContextDataValues": {},
         "Videos": [],
         "ContextDataValuesOrder": [],
-        "LastModificationTime": "2011-06-29T00:10:10.000+00:00",
-        "QuestionId": "14898",
-        "SubmissionId": null,
-        "TotalFeedbackCount": 3,
-        "TotalPositiveFeedbackCount": 3,
-        "UserLocation": "Proin nec conguerisus",
+        "LastModificationTime": "2016-07-01T05:00:25.000+00:00",
+        "SubmissionId": "2yuda3quo6rdvjs3r4ozi8zbh",
+        "QuestionId": "1398915",
+        "TotalFeedbackCount": 0,
+        "TotalPositiveFeedbackCount": 0,
+        "UserLocation": "Austin",
         "BadgesOrder": [],
         "Badges": {},
-        "AuthorId": "8g90d8ea70g",
+        "AuthorId": "ti39cfrkdemimmuqrd8ghfq6o",
         "IsFeatured": false,
         "IsSyndicated": null,
         "ProductRecommendationIds": [],
         "AdditionalFields": {},
         "CampaignId": null,
         "TotalNegativeFeedbackCount": 0,
-        "SubmissionTime": "2011-06-03T15:13:44.000+00:00",
+        "SubmissionTime": "2016-06-19T16:29:00.000+00:00",
         "ContentLocale": "en_US",
-        "IPAddress": null,
         "ModerationStatus": "APPROVED",
-        "Id": "16389",
-        "AnswerText": "Up until 2012, it was a lightweight aluminum alloy but since 2012 they have used carbon fiber.",
-        "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
+        "Id": "2140119",
+        "AnswerText": "I got about 6 months out of the Apex tires before wearing them out (I ride 150 miles/month). Switched to Continental Grand Prix 4000s, which I used on my Apex 1 before this and I usually get about 9 months out of them.",
+        "LastModeratedTime": "2016-06-19T16:39:49.000+00:00"
+      },
+      "2140118": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "austingirl75",
+        "IsBrandAnswer": false,
+        "Photos": [],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2016-07-01T05:00:23.000+00:00",
+        "SubmissionId": "m573fw84vs7y7logil3z1u3y8",
+        "QuestionId": "1398916",
+        "TotalFeedbackCount": 0,
+        "TotalPositiveFeedbackCount": 0,
+        "UserLocation": "Austin",
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "u2zjc8tyaqiierj5gmwyt3hfm",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2016-06-04T16:22:07.000+00:00",
+        "ContentLocale": "en_US",
+        "ModerationStatus": "APPROVED",
+        "Id": "2140118",
+        "AnswerText": "I am also that height! I have been riding the Apex 2 since we introduced them and it fits me well. The seat can be lowered quite a bit and I adjusted the stem and handlebars to fit me well. Everyone's body is different, so I definitely recommend buying from a bike shop that offers customer fitting. Visit our Where to Buy page to find a Premier dealer in your area - they should all offer custom fitting.",
+        "LastModeratedTime": "2016-06-04T16:32:59.000+00:00"
+      },
+      "2140117": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "jennycycle",
+        "IsBrandAnswer": false,
+        "Photos": [],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2016-07-01T05:00:25.000+00:00",
+        "SubmissionId": "iqon1jnkfc36d1og86dwfjym7",
+        "QuestionId": "1398919",
+        "TotalFeedbackCount": 0,
+        "TotalPositiveFeedbackCount": 0,
+        "UserLocation": "Traverse City",
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "2jo9q25oud51vjwbcnxc46fxa",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2016-06-13T03:50:19.000+00:00",
+        "ContentLocale": "en_US",
+        "ModerationStatus": "APPROVED",
+        "Id": "2140117",
+        "AnswerText": "At this price point, and for a beginner, I'd just stick with rim brakes. Sure, disc brakes have superior stopping power, especially for wet rides. And they wear better. For me they are not worth the hassle.",
+        "LastModeratedTime": "2016-06-13T04:01:17.000+00:00"
+      },
+      "2140114": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "EnduranceCycles",
+        "IsBrandAnswer": false,
+        "Photos": [],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2016-07-01T05:00:24.000+00:00",
+        "SubmissionId": "1z00699p1jdhyph4y7g5va77c",
+        "QuestionId": "1398920",
+        "TotalFeedbackCount": 0,
+        "TotalPositiveFeedbackCount": 0,
+        "UserLocation": "Charlotte",
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "a3vi3t0ww3k5asb8pdb5yk6v6",
+        "IsFeatured": false,
+        "IsSyndicated": null,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2016-06-20T12:36:37.000+00:00",
+        "ContentLocale": "en_US",
+        "ModerationStatus": "APPROVED",
+        "Id": "2140114",
+        "AnswerText": "No, this is not normal. If you purchased from an authorized retailer, please take it back to their bike department and ask them to inspect it (this is covered by your warranty). If you bought it from us online, please call Customer Service at 800-843-3000 and we will can help you diagnose it and determine the right course of action and make this right.",
+        "LastModeratedTime": "2016-06-20T12:47:37.000+00:00"
       }
     },
-    "AnswersOrder": [
-      "16392",
-      "16391",
-      "16390",
-      "16389"
-    ]
+    "AnswersOrder": ["2140114", "2140117", "2140120", "2140118", "2140119"]
   },
-  "Offset": 3,
-  "TotalResults": 257,
+  "Offset": 0,
+  "TotalResults": 7,
   "Locale": "en_US",
   "Errors": [],
-  "Results": [
-    {
-      "QuestionSummary": "Specs?",
-      "TagDimensions": {},
-      "TagDimensionsOrder": [],
-      "AdditionalFieldsOrder": [],
-      "TotalAnswerCount": 1,
-      "QuestionDetails": "What is the rolling resistance of the stock tires on this bike, and what is the stand-alone air drag coefficient of the bike in racing position?",
-      "Photos": [],
-      "ContextDataValues": {},
-      "CategoryId": null,
-      "Videos": [],
-      "ContextDataValuesOrder": [],
-      "SubmissionId": null,
-      "LastModificationTime": "2011-08-25T15:56:50.000+00:00",
-      "AnswerIds": [
-        "16392"
-      ],
-      "TotalFeedbackCount": 3,
-      "TotalPositiveFeedbackCount": 3,
-      "BadgesOrder": [],
-      "UserLocation": null,
-      "Badges": {},
-      "AuthorId": "5lxezf3dcao",
-      "IsFeatured": false,
-      "IsSyndicated": null,
-      "ProductRecommendationIds": [],
-      "ProductId": "1000001",
-      "AdditionalFields": {},
-      "CampaignId": null,
-      "TotalNegativeFeedbackCount": 0,
-      "SubmissionTime": "2011-05-19T17:47:35.000+00:00",
-      "IPAddress": null,
-      "ContentLocale": "en_US",
-      "ModerationStatus": "APPROVED",
-      "Id": "14899",
-      "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
-    },
-    {
-      "QuestionSummary": "What material is this bike's handlebars made from?",
-      "TagDimensions": {},
-      "TagDimensionsOrder": [],
-      "AdditionalFieldsOrder": [],
-      "TotalAnswerCount": 3,
-      "QuestionDetails": null,
-      "UserNickname": "Paul McCartney",
-      "Photos": [],
-      "ContextDataValues": {},
-      "CategoryId": null,
-      "Videos": [],
-      "ContextDataValuesOrder": [],
-      "SubmissionId": null,
-      "LastModificationTime": "2011-08-25T15:56:50.000+00:00",
-      "AnswerIds": [
-        "16391",
-        "16390",
-        "16389"
-      ],
-      "TotalFeedbackCount": 3,
-      "TotalPositiveFeedbackCount": 3,
-      "BadgesOrder": [],
-      "UserLocation": null,
-      "Badges": {},
-      "AuthorId": "byl8zsjs2mo",
-      "IsFeatured": false,
-      "IsSyndicated": null,
-      "ProductRecommendationIds": [],
-      "ProductId": "1000001",
-      "AdditionalFields": {},
-      "CampaignId": null,
-      "TotalNegativeFeedbackCount": 0,
-      "SubmissionTime": "2011-05-06T15:18:22.000+00:00",
-      "ContentLocale": "en_US",
-      "IPAddress": null,
-      "ModerationStatus": "APPROVED",
-      "Id": "14898",
-      "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
-    }
-  ],
-  "Limit": 2
+  "Results": [{
+    "QuestionSummary": "My new Apex 2 vibrates slightly at high speed - is that normal? It can be very unnerving.",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 1,
+    "QuestionDetails": null,
+    "UserNickname": "bikeforever9",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:24.000+00:00",
+    "SubmissionId": "73ojmkf7ta68r20gbj7jhxhba",
+    "AnswerIds": ["2140114"],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "Houston",
+    "Badges": {},
+    "AuthorId": "mq5xk8tlaak6xhttl1390chzi",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": null,
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-25T07:15:35.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398920",
+    "LastModeratedTime": "2016-06-25T07:28:19.000+00:00"
+  }, {
+    "QuestionSummary": "I am training for my first half ironman tri - is the Apex 2 available with tri handlebars?",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 0,
+    "QuestionDetails": null,
+    "UserNickname": "janicew",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:27.000+00:00",
+    "SubmissionId": "l6suktggsh2z870s2l6unumkx",
+    "AnswerIds": [],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "Greenville",
+    "Badges": {},
+    "AuthorId": "hs23wmwqi2ztyzcu7an2sozir",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": null,
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-23T00:31:03.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398918",
+    "LastModeratedTime": "2016-06-23T00:43:53.000+00:00"
+  }, {
+    "QuestionSummary": "I am just getting into road biking and have heard disc brakes are the new rage. Apex uses rim brakes. Will I notice the difference?",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 1,
+    "QuestionDetails": null,
+    "UserNickname": "superfitamy8",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:25.000+00:00",
+    "SubmissionId": "i229s15boruovjd9hitgu8dup",
+    "AnswerIds": ["2140117"],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "Seattle",
+    "Badges": {},
+    "AuthorId": "somjzbupf1qq71mmf3nvhkfod",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": null,
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-22T17:06:46.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398919",
+    "LastModeratedTime": "2016-06-22T17:19:33.000+00:00"
+  }, {
+    "QuestionSummary": "Does this bike fit a trunk mounted carrier like the Yakima Quickback3?",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 1,
+    "QuestionDetails": null,
+    "UserNickname": "bikefriend6",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:26.000+00:00",
+    "SubmissionId": "ivlnhq8f5aj9vox929zwfvzus",
+    "AnswerIds": ["2140120"],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "Mount Pleasant",
+    "Badges": {},
+    "AuthorId": "plzsqrk7n6yta8u57tv6e3mho",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": null,
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-15T20:26:46.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398914",
+    "LastModeratedTime": "2016-06-15T20:39:45.000+00:00"
+  }, {
+    "QuestionSummary": "I'm 5' 2\" - will this bike fit my frame? My Trek Silque didn't fit me well.",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 1,
+    "QuestionDetails": null,
+    "UserNickname": "heidib2",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:24.000+00:00",
+    "SubmissionId": "6dkk0ewbosg5la19atoxcppmi",
+    "AnswerIds": ["2140118"],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "Hilton Head",
+    "Badges": {},
+    "AuthorId": "l5mv99u6rqn7zg12f7v45kx1y",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": null,
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-09T08:38:12.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398916",
+    "LastModeratedTime": "2016-06-09T08:51:05.000+00:00"
+  }, {
+    "QuestionSummary": "Are the stock tires any good or should I replace them when I get the bike? I ride about 120 miles weekly.",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 1,
+    "QuestionDetails": null,
+    "UserNickname": "trslady1",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:25.000+00:00",
+    "SubmissionId": "asdillfuse3awl22kv4oxz2d7",
+    "AnswerIds": ["2140119"],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "Portland",
+    "Badges": {},
+    "AuthorId": "38bylz6stipuxvlqr5hwbymob",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": null,
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-08T04:00:30.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398915",
+    "LastModeratedTime": "2016-06-08T04:13:26.000+00:00"
+  }, {
+    "QuestionSummary": "Has anyone used the QuadLock mounting system with this bike? Is it compatible?",
+    "TagDimensions": {},
+    "TagDimensionsOrder": [],
+    "AdditionalFieldsOrder": [],
+    "TotalAnswerCount": 0,
+    "QuestionDetails": null,
+    "UserNickname": "MariaSAustin",
+    "Photos": [],
+    "ContextDataValues": {},
+    "CategoryId": null,
+    "Videos": [],
+    "ContextDataValuesOrder": [],
+    "LastModificationTime": "2016-07-01T05:00:26.000+00:00",
+    "SubmissionId": "ekm79jpxpnvtxljingo9sz453",
+    "AnswerIds": [],
+    "TotalFeedbackCount": 0,
+    "TotalPositiveFeedbackCount": 0,
+    "BadgesOrder": [],
+    "UserLocation": "New York, NY",
+    "Badges": {},
+    "AuthorId": "9mzvw447sc30pbnyu653y4mk1",
+    "IsFeatured": false,
+    "IsSyndicated": null,
+    "ProductRecommendationIds": [],
+    "ProductId": "6-bv",
+    "AdditionalFields": {},
+    "CampaignId": "BV_QUESTION_DISPLAY",
+    "TotalNegativeFeedbackCount": 0,
+    "SubmissionTime": "2016-06-01T23:16:50.000+00:00",
+    "ContentLocale": "en_US",
+    "ModerationStatus": "APPROVED",
+    "Id": "1398691",
+    "LastModeratedTime": "2016-06-01T23:24:10.000+00:00"
+  }],
+  "Limit": 20
 }
