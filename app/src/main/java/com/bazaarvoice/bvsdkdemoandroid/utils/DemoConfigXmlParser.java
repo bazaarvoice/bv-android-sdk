@@ -4,13 +4,14 @@
 package com.bazaarvoice.bvsdkdemoandroid.utils;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.dd.plist.NSArray;
 import com.dd.plist.NSDictionary;
 import com.dd.plist.NSObject;
 import com.dd.plist.PropertyListFormatException;
 import com.dd.plist.PropertyListParser;
-import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 
 import org.xml.sax.SAXException;
 
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import static android.content.ContentValues.TAG;
 
 class DemoConfigXmlParser {
 
@@ -134,7 +137,7 @@ class DemoConfigXmlParser {
                     field.set(config, objectValue);
                 }
             } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+                Log.d(TAG, key + " does not exist as a field in our Android DemoConfig POJO, so will not be added");
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
