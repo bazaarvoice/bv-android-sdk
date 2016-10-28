@@ -19,7 +19,7 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "Location";
+	var tabName = "Conversations for Stores";
 
 	$('.nav-link.active').removeClass('active');
 	console.log('active tab: ', tabName);
@@ -67,7 +67,7 @@ $(function(){
 
     ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'Location'
+      title: 'Conversations for Stores'
     });
     ga('send', 'pageview');
   </script>
@@ -176,7 +176,7 @@ $(function(){
                                         id="conversationsStoresDropdownArrow"
                                         class="fa fa-sort-desc fa-rotate-270"></i></span></span>
                         </a>
-                        <div class="collapse "
+                        <div class="collapse in"
                              id="conversationsStoresDropdown">
                             <ul>
                                 <li class="nav-item">
@@ -244,17 +244,14 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	Location
+	Conversations Stores - Display and Submission API
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The Location module is currently in limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
+<p>Use the Bazaarvoice Mobile SDKs to enable Conversations for Stores functionality, such as displaying store reviews and submitting a review and photo of a store. The API is very similar to the Conversations API for product reviews, with the addition that the BVSDK provides additional meta-info for stores, such as geo-location. Contact Bazaarvoice to set up Conversations for Stores.</p>
 
-<p>The Location module of the Bazaarvoice Mobile SDK facilitates knowing when your shoppers are entering and exiting your physical retail locations. You will be provided a very valuable opportunity to present a shopper with your location aware content. Perhaps you have a simple greeting or coupon? Aside from the value you add within your mobile experience, Bazaarvoice can use this location context to enhance our existing products. Rating and Reviews filtered down to the city level, recommended products for nearby people like you, local social media content (Curations), and more are all possible by using the Location module.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <strong>apiKeyConversationsStores</strong> to implement and use Conversations for Stores with Mobile SDKs.</p>
 
-
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  You must have Bazaarvoice Location enabled to use the Location module. Contact Bazaarvoice to set up Location and to get your <strong>apiKeyLocation</strong>.</p>
-
-<hr/>
+<hr>
 <br>
 
 
@@ -281,11 +278,12 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:location:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:4.+'
 }
 repositories {
     mavenCentral()
 } </code></pre>
+
 
 
 <br>
@@ -304,7 +302,7 @@ repositories {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
             .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
-            .apiKeyLocation(YOUR_LOCATION_KEY) //Required for Geo-Location
+            .apiKeyConversationsStores(YOUR_CONVERSATIONS_STORES_KEY) //Required for Conversations for Stores
             .logLevel(BVLogLevel.INFO)
             .build();
     }
@@ -325,198 +323,140 @@ repositories {
 <br>
 
 
-<h2>Using the Location Module</h2>
-<br>
-<h4>Requesting User Location Permission</h4>
-<p>You will need to obtain fine location permission. The Location module cannot function without this. This permission is included in the Location module's manifest, but please note that your app might need to support Runtime Permissions for obtaining fine location. Please follow best practices when requesting permission at Runtime. Request it at a time when it's contexually relavent such as when trying to use a "Store Finder." Ask via your own dialog first then present the actual system prompt if they accepted your prompt. This way you can provide the detailed benefits they'd receive if they grant the permission. There are many online resources you refer to when making you permission request decisions.
-</p>
+Check out the code samples below to get an overview of what functionality you can use with the BVSDK.
+<hr>
 
 <br>
-<h4>Listening for Location Events in the background</h4>
 
-<p>Once location permissions have been accepted you can now begin listening for geofence notifications.
-    In order to do be listening even when the app has been backgrounded and/or killed you should implement
-    your own Service which then sets up location listeners with the BVLocationManager. Make sure to add the
-    new Service to your Manifest.</p>
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Display Store Reviews</a></li>
+  <li role="presentation"><a href="#storebulkratings" aria-controls="storebulkratings" role="tab" data-toggle="tab">Display Store Ratings</a></li>
+  <li role="presentation"><a href="#submitstorereview" aria-controls="submitstorereview" role="tab" data-toggle="tab">Submit Store Review</a></li>
+  
+</ul>
+<div class="tab-content code-switcher">
+	
+	<div role="tabpanel" class="tab-pane active" id="reviews">
 
-<pre><code class="xml">&lt;manifest&gt;
-    &lt;application&gt;
-        &lt;service
-                android:name="com.mycompany.myapp.DemoLocationService"
-                android:exported="false" /&gt;
-    &lt;/application&gt;
-&lt;/manifest&gt;</code></pre>
+	<!-- Store Reviews -->
+		<br>
+<h2>Display Store Reviews</h2>
 
-<pre><code class="java">public class DemoLocationService extends Service {
+Requesting reviews for stores is done with the <code>StoreReviewsRequest</code> class. Using the limit and offset paging parameters to fold in more <code>BVReview</code> objects as your end-user scrolls through the reviews. Adjust parameters such as filters and sorting on the <code>StoreReviewsRequest#Builder</code> class. An example of requesting reviews is shown below:
+<hr>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+StoreReviewsRequest reviewsRequest = new StoreReviewsRequest.Builder(TEST_PRODUCT_ID, 20, 0)
+        .addSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
+        .build();
+client.prepareCall(reviewsRequest).loadAsync(new ConversationsCallback<StoreReviewResponse>() {
     @Override
-    public void onCreate() {
-        super.onCreate();
-        BVLocationManager.getInstance().startMonitoringLocation();
-    }
-
-    @Override
-    public void onDestroy() {
-        BVLocationManager.getInstance().stopMonitoringLocation();
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-}</code></pre>
-
-<br>
-<h4>Listening for when your Users Enter/Exit your Locations</h4>
-
-<p>In order to be notified when a user enter/exits a store you should add a BVLocationManager.BVLocationListener
-to your service.</p>
-
-<pre><code class="java">public class DemoLocationService extends Service {
-    public static final String ACTION_VISIT_START = "com.mycompany.myapp.action.VISIT_START";
-    public static final String ACTION_VISIT_END = "com.mycompany.myapp.action.VISIT_END";
-
-    public static final String EXTRA_STORE_ID = "extra_store_id";
-
-    private BVLocationManager.BVLocationListener bvLocationListener = new BVLocationManager.BVLocationListener() {
-        @Override
-        public void didBeginVisit(BVVisit visit) {
-            Intent intent = new Intent(ACTION_VISIT_START);
-            intent.putExtra(EXTRA_STORE_ID, visit.getStoreId());
-            sendBroadcast(intent);
-        }
-
-        @Override
-        public void didEndVisit(BVVisit visit) {
-            Intent intent = new Intent(ACTION_VISIT_END);
-            intent.putExtra(EXTRA_STORE_ID, visit.getStoreId());
-            sendBroadcast(intent);
-        }
-    };
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        BVLocationManager.getInstance().addLocationVisitListener(bvLocationListener);
-        BVLocationManager.getInstance().startMonitoringLocation();
+    public void onSuccess(StoreReviewResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains reviews
     }
 
     @Override
-    public void onDestroy() {
-        BVLocationManager.getInstance().stopMonitoringLocation();
-        BVLocationManager.getInstance().removeLocationVisitListener(bvLocationListener);
-        super.onDestroy();
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+        Log.d("Dev", exception.getLocalizedMessage());
     }
+});</code></pre>
 
-    @Nullable
+
+	</div>
+	
+	<div role="tabpanel" class="tab-pane" id="storebulkratings">
+
+		<!-- Store Bulk Ratings -->
+		<br>
+<h2>Display Stores</h2>
+
+You can fetch store and store meta-info two ways: by known store ids, or by using limit and offset parameters. Start with the <code>BulkStoreRequest</code> request class and use the right <code>Builder()</code> constructor depending on how you want to request stores from your store feed. Stores meta-info, such as product id, description, and geo-description are contained in <code>BVStore</code> objects.
+<hr>
+<h3>Bulk Stores Request by Store ID</h3>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+BulkStoreRequest storesRequest = new BulkStoreRequest.Builder(TEST_BULK_PRODUCT_IDS)
+        .build();
+
+client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreResponse>() {
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-}</code></pre>
-
-<p>Once you have setup your service, you are now ready to begin listening for the broadcasts
-that you send from it. Below is an example of an Activity which has it's own inner BroadcastReceiver
-which is listening for the custom events we made above. You could implement your own standalone
-BroadcastReceiver as well that is registered in the AndroidManifest.xml if you wished to have your
-app always listening for your custom broadcasts.</p>
-
-<pre><code class="java">public class DemoLocationActivity extends AppCompatActivity {
-    private BroadcastReceiver demoLocationReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                switch (intent.getAction()) {
-                    case DemoLocationService.ACTION_VISIT_START: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("visit start for " + storeId);
-                        break;
-                    }
-                    case DemoLocationService.ACTION_VISIT_END: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("visit end for " + storeId);
-                        break;
-                    }
-                }
-            }
-        }
-    };
-
-    private void updateLasLocEvent(String lastLocEvent) {
-        // ...
-    }
-}</code></pre>
-
-<br>
-<h4>Listening for when your user taps review notification</h4>
-
-<p>In order to be notified when a user has tapped a notification, asking to review a product, you should
-add a BVLocationManager.BVRateStoreListener to your service.</p>
-
-<pre><code class="java">public class DemoLocationService extends Service {
-    public static final String ACTION_RATE_STORE = "com.bazaarvoice.bvsdkdemoandroid.action.RATE_STORE";
-
-    public static final String EXTRA_STORE_ID = "extra_store_id";
-
-    private BVLocationManager.BVRateStoreListener rateStoreListener = new BVLocationManager.BVRateStoreListener() {
-        @Override
-        public void onRateStoreClicked(String storeId) {
-            Intent intent = new Intent(ACTION_RATE_STORE);
-            intent.putExtra(EXTRA_STORE_ID, storeId);
-            sendBroadcast(intent);
-        }
-    };
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        BVLocationManager.getInstance().addRateStoreListener(rateStoreListener);
-        BVLocationManager.getInstance().startMonitoringLocation();
+    public void onSuccess(BulkStoreResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains stores
     }
 
     @Override
-    public void onDestroy() {
-        BVLocationManager.getInstance().stopMonitoringLocation();
-        BVLocationManager.getInstance().removeRateStoreListener(rateStoreListener);
-        super.onDestroy();
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+        Log.d("Dev", exception.getLocalizedMessage());
     }
+});</code></pre>
 
-    @Nullable
+
+<h3>Bulk Stores Request with Limit and Offset</h3>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+BulkStoreRequest storesRequest = new BulkStoreRequest.Builder(20,0)
+        .build();
+
+client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreResponse>() {
     @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void onSuccess(BulkStoreResponse response) {
+        //called on Main Thread
+        response.getResults(); //contains stores
     }
 
-}</code></pre>
-
-<p>Once you have setup your service, you are now ready to begin listening for the broadcasts
-    that you send from it. Below is an example of an Activity which has it's own inner BroadcastReceiver
-    which is listening for the custom events we made above. You could implement your own standalone
-    BroadcastReceiver as well that is registered in the AndroidManifest.xml if you wished to have your
-    app always listening for your custom broadcasts.</p>
-
-<pre><code class="java">public class DemoLocationActivity extends AppCompatActivity {
-    private BroadcastReceiver demoLocationReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                switch (intent.getAction()) {
-                    case DemoLocationService.ACTION_RATE_STORE: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("user tapped rate store for " + storeId);
-                        break;
-                    }
-                }
-            }
-        }
-    };
-
-    private void updateLasLocEvent(String lastLocEvent) {
-        // ...
+    @Override
+    public void onFailure(BazaarException exception) {
+        //called on Main Thread
+        Log.d("Dev", exception.getLocalizedMessage());
     }
-}</code></pre>
+});</code></pre>
+
+
+	</div>
+
+	<div role="tabpanel" class="tab-pane" id="submitstorereview">
+
+		<!-- Store Bulk Ratings -->
+		<br>
+<h2>Submitting a Review on a Store</h2>
+
+Submit a store review using the <code>StoreReviewSubmissionRequest</code> API. An example for how to use this API is below.
+<hr>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Preview, productId)
+	//.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+	.userNickname("mcfly")
+	.userEmail("flymcfly@bar.com")
+	.user("mrmcfly" + Math.random())
+	.rating(5)
+	.title("Most excellent!")
+	.reviewText("This is the greatest store that is, has been, or ever will be!")
+	.sendEmailAlertWhenCommented(true)
+	.sendEmailAlertWhenPublished(true)
+	.agreedToTermsAndConditions(true)
+	.addPhoto(localImageFile, "Awesome Photo!")
+	.build();
+
+client.prepareCall(submission).loadAsync(new ConversationsCallback<StoreReviewSubmissionResponse>() {
+
+@Override
+	public void onSuccess(StoreReviewSubmissionResponse response) {
+		showDialogWithMessage("Successful review submission.");
+	}
+
+	@Override
+	public void onFailure(BazaarException exception) {
+		showDialogWithMessage(exception.getMessage());
+	}
+});</code></pre>
+
+
+	</div>
+	
+</div>
 <br>
 
 
