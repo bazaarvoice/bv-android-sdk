@@ -103,7 +103,7 @@ public class BVLocationManager {
         this.rateStoreListeners.remove(rateStoreListener);
     }
 
-    public ListenerContainer<BVRateStoreListener> getRateStoreListeners() {
+    ListenerContainer<BVRateStoreListener> getRateStoreListeners() {
         return rateStoreListeners;
     }
 
