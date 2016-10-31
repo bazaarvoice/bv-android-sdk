@@ -1,5 +1,21 @@
 # Changelog
 
+# 5.0.0
+
+This release provides a refresh to the Conversations API as well new features for geofence events. 
+
+## Conversations
+
+* Added Conversations for Stores support
+* Added Rich Push notification support for requesting store reviews
+* Added Notification support integrated with BVLocation module (store geofence support)
+* Fixed some max limit bugs in Conversations Display requests for Reviews and Bulk Ratings
+
+## Curations
+
+* Added ```CurationsFeedRequest.Builder#location(latitude, longitude)``` parameter to allow searching 
+for Curations feed items by location
+
 # 4.2.0
 
 ## **NEW** Location
@@ -12,7 +28,7 @@ Bazaarvoice can use this location context to enhance our existing products. Rati
 filtered down to the city level, recommended products for nearby people like you, local social media 
 content (Curations), and more are all possible by using the Location module.
 
-For more information, please refer to the location documenation 
+For more information, please refer to the location documentation 
  https://bazaarvoice.github.io/bv-android-sdk/location.html
 
 # 4.1.4
