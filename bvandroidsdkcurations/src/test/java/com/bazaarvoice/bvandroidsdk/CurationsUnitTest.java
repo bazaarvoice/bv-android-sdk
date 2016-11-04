@@ -227,7 +227,8 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Test
     public void postFullUrlGeneratedFromRequestBuilderCorrectly(){
-        CurationsPostRequest request = new CurationsPostRequest.Builder(getAuthor(), getGroups(), "TEXT", testBitmap).build();
+        CurationsPostRequest request = new CurationsPostRequest.Builder(getAuthor(), getGroups(), "TEXT", testBitmap)
+                .build();
 
         assertEquals(request.toUrlQueryString(), curationsPostFullUrl);
     }
@@ -404,9 +405,10 @@ public class CurationsUnitTest extends BVBaseTest {
                 .permalink(permalink)
                 .place(place)
                 .teaser(teaser)
+                .geoCoordinates(37.123, -97.456)
                 .timestampInSeconds(Long.parseLong(timeStamp)).build();
 
-        String [] expectedComponents = new String[10];
+        String [] expectedComponents = new String[11];
         expectedComponents[0] = "\"author\":{\"alias\":\"" + authorAlias + "\",\"token\":\"" + authorToken + "\"}";
         expectedComponents[1] = "\"text\":\"" + text + "\"";
         expectedComponents[2] = "\"tags\":[\"" + tag1 + "\",\"" + tag2 + "\"]";
@@ -417,6 +419,7 @@ public class CurationsUnitTest extends BVBaseTest {
         expectedComponents[7] = "\"photos\":[{\"remote_url\":\"" + photo1 + "\"}]";
         expectedComponents[8] = "\"timestamp\":" + timeStamp;
         expectedComponents[9] = "\"groups\":[\"" + testGroup1 + "\",\"" + testGroup2 + "\"]";
+        expectedComponents[10] = "\"coordinates\":{\"latitude\":37.123,\"longitude\":-97.456}";
 
         String payload = request.getJsonPayload();
         for (String expected : expectedComponents){

@@ -117,6 +117,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
             CurationsPostRequest request = new CurationsPostRequest.Builder(author, DemoConstants.CURATIONS_GROUPS, text, chosenBmp) //required params
                     //Optional Params
                     .timestampInSeconds(timestampInSeconds)
+                    //                .geoCoordinates(37.123, -97.456)
                     //                .place("HUMAN READABLE PLACE HERE such as 'Austin, TX'")
                     //                .tags(tags)
                     //                .teaser("YOU TEASER HERE")
