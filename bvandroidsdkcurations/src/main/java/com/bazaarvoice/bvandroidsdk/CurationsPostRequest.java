@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * TODO: Describe file here.
+ * Used to build up request parameters when submitting photo(s) to Curations.
  */
 
 public class CurationsPostRequest {
@@ -115,6 +115,11 @@ public class CurationsPostRequest {
 
         public Builder links(List<CurationsLink> links){
             this.links = links;
+            return this;
+        }
+
+        public Builder geoCoordinates(Double latitude, Double longititude){
+            this.coordinate = new CurationsCoordinate(latitude, longititude);
             return this;
         }
 
