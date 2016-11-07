@@ -95,7 +95,7 @@ $(function(){
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav side-nav nav-stacked nav-pills">
             <div class="bv_logo">
-                <a href="/">
+                <a href="/bv-android-sdk/index.html">
                     <span class="bv_teal">bazaar</span><span class="bv_white">voice</span><span class="bv_teal">:</span>
                 </a>
             </div>
@@ -263,11 +263,11 @@ $(function(){
 
 <p>Implement the following code to include the Maven Central repository and add Bazaarvoice Mobile SDK modules to your dependencies for each Bazaarvoice product you are using.</p>
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:4.+'
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:4.+'
-    compile 'com.bazaarvoice.bvandroidsdk:curations:4.+'
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:4.+'
-    compile 'com.bazaarvoice.bvandroidsdk:location:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:5.+'
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:5.+'
+    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:5.+'
+    compile 'com.bazaarvoice.bvandroidsdk:location:5.+'
 }
 repositories {
     mavenCentral()
@@ -287,7 +287,7 @@ repositories {
         super.onCreate();
 
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(this, YOUR_CLIENT_ID) // your client name, e.g. 'bazaarvoice'
+        BVSDK.builder(this, YOUR_CLIENT_ID) // your client name, e.g. 'bazaarvoice'
             .bazaarEnvironment(BazaarEnvironment.PRODUCTION) //Either staging or production. Use corresponding API key
             .apiKeyShopperAdvertising(YOUR_SHOPPER_ADVERTISING_API_KEY) //Required for Ads
             .logLevel(BVLogLevel.INFO)

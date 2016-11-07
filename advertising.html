@@ -95,7 +95,7 @@ $(function(){
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav side-nav nav-stacked nav-pills">
             <div class="bv_logo">
-                <a href="/">
+                <a href="/bv-android-sdk/index.html">
                     <span class="bv_teal">bazaar</span><span class="bv_white">voice</span><span class="bv_teal">:</span>
                 </a>
             </div>
@@ -278,7 +278,7 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:4.+'
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:5.+'
     compile 'com.google.android.gms:play-services-ads:'
 }
 repositories {
@@ -301,7 +301,7 @@ repositories {
         super.onCreate();
 
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
+        BVSDK.builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
             .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
             .apiKeyShopperAdvertising(YOUR_SHOPPER_ADVERTISING_API_KEY) //Required for Ads
             .logLevel(BVLogLevel.INFO)
