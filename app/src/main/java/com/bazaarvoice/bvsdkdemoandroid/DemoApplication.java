@@ -19,8 +19,6 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.squareup.leakcanary.LeakCanary;
 
-import java.util.concurrent.TimeUnit;
-
 import io.fabric.sdk.android.Fabric;
 import okhttp3.OkHttpClient;
 
@@ -65,20 +63,21 @@ public class DemoApplication extends Application {
         String conversationsStoresApiKey = demoConfigUtils.getConversationsStoresPasskey();
         String curationsApiKey = demoConfigUtils.getCurationsPasskey();
         String locationApiKey = demoConfigUtils.getLocationPasskey();
+        String pinApiKey = demoConfigUtils.getPinPasskey();
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(new DemoSdkInterceptor(demoConfigUtils, demoDataUtil))
                 .build();
 
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(this, clientId)
+        BVSDK.builder(this, clientId)
                 .bazaarEnvironment(DemoConstants.ENVIRONMENT)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .apiKeyConversations(conversationsApiKey)
                 .apiKeyConversationsStores(conversationsStoresApiKey)
                 .apiKeyCurations(curationsApiKey)
                 .apiKeyLocation(locationApiKey)
+                .apiKeyPin(pinApiKey)
                 .logLevel(BVLogLevel.VERBOSE)
                 .okHttpClient(okHttpClient)
                 .build();

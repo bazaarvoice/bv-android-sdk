@@ -11,9 +11,9 @@ import android.widget.Button;
 
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BVNotificationManager;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.StoreNotificationManager;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionResponse;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
@@ -118,10 +118,10 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (readyForDemo()) {
-                    BVNotificationManager bvNotificationManager = BVNotificationManager.getInstance();
+                    StoreNotificationManager storeNotificationManager = StoreNotificationManager.getInstance();
                     String storeId = "1";
                     long dwellTimeMillis = 5500l;
-                    bvNotificationManager.scheduleNotification(storeId, dwellTimeMillis);
+                    storeNotificationManager.scheduleNotification(storeId, dwellTimeMillis);
                 }
             }
         });

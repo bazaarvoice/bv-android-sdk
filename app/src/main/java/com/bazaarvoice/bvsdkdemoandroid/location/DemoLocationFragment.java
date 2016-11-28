@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -23,8 +24,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.BVLocationManager;
+import com.bazaarvoice.bvandroidsdk.BVNotificationService;
+import com.bazaarvoice.bvandroidsdk.BVVisit;
+import com.bazaarvoice.bvandroidsdk.StoreNotificationManager;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 
@@ -58,7 +64,7 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        boolean givenLocPermission = permissions != null && grantResults!= null && permissions.length == 1 && grantResults.length ==1 && permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        boolean givenLocPermission = permissions.length == 1 && grantResults.length == 1 && permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION) && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         if (givenLocPermission) {
             startLocationUpdates();
         }
@@ -73,7 +79,6 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getContext().startService(new Intent(getContext(), DemoLocationService.class));
         locationManager = (LocationManager) getContext().getSystemService(Service.LOCATION_SERVICE);
     }
 
@@ -126,7 +131,7 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     @Override
     public void onStop() {
         super.onStop();
-        getContext().unregisterReceiver(demoLocationReceiver);
+        stopGeofenceService();
     }
 
     private boolean readyForDemo() {
@@ -146,12 +151,15 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     }
 
     private void startGeofenceService() {
-        getContext().startService(new Intent(getContext(), DemoLocationService.class));
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(DemoLocationService.ACTION_VISIT_START);
-        intentFilter.addAction(DemoLocationService.ACTION_VISIT_END);
-        intentFilter.addAction(DemoLocationService.ACTION_RATE_STORE);
+        intentFilter.addAction(BVLocationManager.ACTION_GEOFENCE_VISIT);
+        intentFilter.addAction(BVNotificationService.ACTION_NOTIFICATION_BUTTON_TAPPED);
         getContext().registerReceiver(demoLocationReceiver, intentFilter);
+        BVLocationManager.getInstance().startMonitoringLocation();
+    }
+
+    private void stopGeofenceService() {
+        BVLocationManager.getInstance().stopMonitoringLocation();
     }
 
     @Override
@@ -173,25 +181,74 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     private BroadcastReceiver demoLocationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                switch (intent.getAction()) {
-                    case DemoLocationService.ACTION_VISIT_START: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("visit start for " + storeId);
+            String intentAction = intent.getAction();
+            if (intentAction != null) {
+                switch (intentAction) {
+                    case BVLocationManager.ACTION_GEOFENCE_VISIT: {
+                        onGeofenceEvent(intent);
                         break;
                     }
-                    case DemoLocationService.ACTION_VISIT_END: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("visit end for " + storeId);
-                        break;
-                    }
-                    case DemoLocationService.ACTION_RATE_STORE: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("user tapped rate store for " + storeId);
+                    case BVNotificationService.ACTION_NOTIFICATION_BUTTON_TAPPED: {
+                        onNotificationButtonTappedEvent(intent);
                         break;
                     }
                 }
             }
         }
+
+        private void onGeofenceEvent(Intent intent) {
+            boolean didStart = BVLocationManager.didStart(intent);
+            BVVisit bvVisit = BVLocationManager.getBvVisit(intent);
+            if (didStart) {
+                updateLastLocEvent("visit start for " + bvVisit.getStoreId());
+            } else {
+                updateLastLocEvent("visit end for " + bvVisit.getStoreId());
+            }
+        }
+
+        private void onNotificationButtonTappedEvent(Intent intent) {
+            String featureName = BVNotificationService.getFeatureName(intent);
+            switch (featureName) {
+                case StoreNotificationManager.FEATURE_NAME: {
+                    String storeId = BVNotificationService.getNotificationCgcId(intent);
+                    int buttonTapped = BVNotificationService.getButtonTapped(intent);
+                    switch (buttonTapped) {
+                        case BVNotificationService.POSITIVE: {
+                            showSnackbar("Tapped Review for " + storeId);
+                            if (getActivity() != null && !getActivity().isFinishing()) {
+                                DemoRateActivity.transitionTo(getActivity());
+                            }
+                            break;
+                        }
+                        case BVNotificationService.NEUTRAL: {
+                            showSnackbar("Tapped Later for " + storeId);
+                            break;
+                        }
+                        case BVNotificationService.NEGATIVE: {
+                            showSnackbar("Tapped Dismiss for " + storeId);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
     };
+
+    private void showSnackbar(String message) {
+        View view = getView();
+        if (view == null || getActivity() == null || getActivity().isFinishing()) {
+            return;
+        }
+
+        final Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(getString(R.string.okay), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
+    }
+
 }

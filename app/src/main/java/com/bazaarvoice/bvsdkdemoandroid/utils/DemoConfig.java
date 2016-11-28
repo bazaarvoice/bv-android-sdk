@@ -9,17 +9,19 @@ public class DemoConfig {
     public String apiKeyCurations;
     public String apiKeyLocationAndroid;
     public String apiKeyShopperAdvertising;
+    public String apiKeyPIN;
     public String clientId;
     public String displayName;
 
     public DemoConfig() {
     }
 
-    public DemoConfig(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocationAndroid, String clientId, String displayName) {
+    public DemoConfig(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocationAndroid, String apiKeyPIN, String clientId, String displayName) {
         this.apiKeyConversations = apiKeyConversations;
         this.apiKeyConversationsStores = apiKeyConversationsStores;
         this.apiKeyCurations = apiKeyCurations;
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
+        this.apiKeyPIN = apiKeyPIN;
         this.clientId = clientId;
         this.displayName = displayName;
         this.apiKeyLocationAndroid = apiKeyLocationAndroid;
@@ -43,6 +45,10 @@ public class DemoConfig {
 
     public boolean hasLocation() {
         return apiKeyLocationAndroid != null && !apiKeyLocationAndroid.equals("REPLACE_ME");
+    }
+
+    public boolean hasPin() {
+        return apiKeyPIN != null && !apiKeyPIN.equals("REPLACE_ME");
     }
 
     public boolean isDemoClient() {

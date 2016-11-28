@@ -1,3 +1,9 @@
+/**
+ * Setups up the necessary gradle properties to be able to sign the
+ * sdk aar files. Should be applied to the end of each bvsdk module
+ * build.gradle file,
+ * e.g. apply from: rootProject.file('gradle/setup-signing.gradle')
+ */
 apply plugin: 'nu.studer.credentials'
 apply plugin: 'signing'
 

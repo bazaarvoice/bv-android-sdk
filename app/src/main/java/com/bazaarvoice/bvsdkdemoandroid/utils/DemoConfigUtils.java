@@ -75,6 +75,11 @@ public class DemoConfigUtils {
         return config.apiKeyLocationAndroid;
     }
 
+    public String getPinPasskey() {
+        DemoConfig config = DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
+        return config.apiKeyPIN;
+    }
+
     public DemoConfig getCurrentConfig() {
         return DemoConfigXmlParser.getConfigFromClientId(applicationContext, getClientId());
     }
