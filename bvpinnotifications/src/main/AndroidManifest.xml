@@ -1,0 +1,21 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bazaarvoice.bvandroidsdk_pinnotifications">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application>
+        <service
+            android:name="com.bazaarvoice.bvandroidsdk.PinNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.bazaarvoice.bvandroidsdk.action.NOTIFICATION_BUTTON_TAPPED" />
+            </intent-filter>
+        </service>
+        <receiver android:name="com.bazaarvoice.bvandroidsdk.PinNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.bazaarvoice.bvandroidsdk.action.NOTIFICATION_BUTTON_TAPPED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

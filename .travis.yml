@@ -3,19 +3,27 @@ language: android
 jdk:
   - oraclejdk8
 
+before_install:
+  - mkdir "$ANDROID_HOME/licenses" || true
+  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
+  - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+
 android:
     components:
         - platform-tools
         - tools
-        - android-24
-        - build-tools-24.0.0
+        - android-25
+        - build-tools-25.0.1
         - extra-android-m2repository
         - extra-google-m2repository
+    licenses:
+      - android-sdk-license-.+
+      - '.+'
 
 git:
   depth: 1
 
-script: TERM=dumb ./gradlew --stacktrace clean check -x :bvandroidsdktesting:lint
+script: TERM=dumb ./gradlew --stacktrace clean check
 
 branches:
   except:

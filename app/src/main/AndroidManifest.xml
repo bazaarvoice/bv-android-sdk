@@ -11,6 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/title_activity_demo_app"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity"
@@ -78,6 +79,10 @@
             android:name="com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity"
             android:label="@string/title_activity_curations_map" />
 
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity"
+            android:label="@string/title_activity_rate" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -94,9 +99,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <service
-            android:name="com.bazaarvoice.bvsdkdemoandroid.location.DemoLocationService"
-            android:exported="false" />
+        <receiver android:name=".location.DemoLocationReceiver">
+            <intent-filter>
+                <action android:name="com.bazaarvoice.bvandroidsdk.action.NOTIFICATION_BUTTON_TAPPED"/>
+            </intent-filter>
+        </receiver>
 
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity"
             android:label="@string/title_activity_stores" />

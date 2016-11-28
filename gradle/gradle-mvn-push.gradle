@@ -22,22 +22,74 @@ def isReleaseBuild() {
     return VERSION_NAME.contains("SNAPSHOT") == false
 }
 
+def isOpenSourceRelease() {
+    return hasProperty('openSourceRelease') && openSourceRelease == true
+}
+
 def getReleaseRepositoryUrl() {
-    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+    if (isOpenSourceRelease()) {
+        // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
+        return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+    } else {
+        if (hasProperty('RELEASE_REPOSITORY_URL')) {
+            // else get the BV Maven Repo URL if it exists
+            return RELEASE_REPOSITORY_URL
+        } else {
+            throw new GradleException("RELEASE_REPOSITORY_URL must be defined in " +
+                    "~/.gradle/gradle.properties and point to the internal BV maven repo")
+        }
+    }
 }
 
 def getSnapshotRepositoryUrl() {
-    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-            : "https://oss.sonatype.org/content/repositories/snapshots/"
+    if (isOpenSourceRelease()) {
+        // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
+        return "https://oss.sonatype.org/content/repositories/snapshots/"
+    } else {
+        if (hasProperty('SNAPSHOT_REPOSITORY_URL')) {
+            // else get the BV Maven Repo URL if it exists
+            return SNAPSHOT_REPOSITORY_URL
+        } else {
+            throw new GradleException("SNAPSHOT_REPOSITORY_URL must be defined in " +
+                    "~/.gradle/gradle.properties and point to the internal BV maven repo")
+        }
+    }
 }
 
 def getRepositoryUsername() {
-    return hasProperty('NEXUS_USER') ? NEXUS_USER : ""
+    if (isOpenSourceRelease()) {
+        if (hasProperty('OPEN_SOURCE_NEXUS_USER')) {
+            return OPEN_SOURCE_NEXUS_USER
+        } else {
+            throw new GradleException("OPEN_SOURCE_NEXUS_USER must be defined in " +
+                    "~/.gradle/gradle.properties")
+        }
+    } else {
+        if (hasProperty('NEXUS_USER')) {
+            return NEXUS_USER
+        } else {
+            throw new GradleException("NEXUS_USER must be defined in " +
+                    "~/.gradle/gradle.properties")
+        }
+    }
 }
 
 def getRepositoryPassword() {
-    return credentials.NEXUS_PASSWORD != null ? credentials.NEXUS_PASSWORD : ""
+    if (isOpenSourceRelease()) {
+        if (credentials.OPEN_SOURCE_NEXUS_PASSWORD != null) {
+            return credentials.OPEN_SOURCE_NEXUS_PASSWORD
+        } else {
+            throw new GradleException("OPEN_SOURCE_NEXUS_PASSWORD must be defined in " +
+                    "~/.gradle/gradle.encrypted.properties")
+        }
+    } else {
+        if (credentials.NEXUS_PASSWORD != null) {
+            return credentials.NEXUS_PASSWORD
+        } else {
+            throw new GradleException("NEXUS_PASSWORD must be defined in " +
+                    "~/.gradle/gradle.encrypted.properties")
+        }
+    }
 }
 
 afterEvaluate { project ->

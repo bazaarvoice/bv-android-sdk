@@ -36,9 +36,10 @@ class DemoConfigXmlParser {
     private static final String demoApiKeyCurations = DemoConstants.PASSKEY_CURATIONS;
     private static final String demoApiKeyShopperAdvertising = DemoConstants.PASSKEY_SHOPPER_AD;
     private static final String demoApiKeyLocation = DemoConstants.PASSKEY_LOCATION;
+    private static final String demoApiKeyPin = DemoConstants.PASSKEY_PIN;
     private static final String demoClientId = DemoConstants.BV_CLIENT_ID;
     public static final String demoDisplayName = "demo";
-    private static final DemoConfig demoConfig = new DemoConfig(demoApiKeyConversations, demoApiKeyConversationsStores, demoApiKeyCurations, demoApiKeyShopperAdvertising, demoApiKeyLocation, demoClientId, demoDisplayName);
+    private static final DemoConfig demoConfig = new DemoConfig(demoApiKeyConversations, demoApiKeyConversationsStores, demoApiKeyCurations, demoApiKeyShopperAdvertising, demoApiKeyLocation, demoApiKeyPin, demoClientId, demoDisplayName);
 
     public static DemoConfig getConfigFromClientId(Context context, String clientId) {
         List<DemoConfig> configList = getConfigList(context);

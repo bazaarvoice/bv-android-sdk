@@ -1,0 +1,30 @@
+[
+  {
+    "product_page_url": "http://www.endurancecycles.com/products/endurance-guard",
+    "avg_rating": 4.3,
+    "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/files/helmet1.JPG?12529938024920340634",
+    "name": "Endurance Guard",
+    "id": "19-bv"
+  },
+  {
+    "product_page_url": "http://www.endurancecycles.com/products/endurance-distance",
+    "avg_rating": 3.1,
+    "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/files/shoes3.jpg?9533165284767025125",
+    "name": "Endurance Distance",
+    "id": "15-bv"
+  },
+  {
+    "product_page_url": "http://www.endurancecycles.com/products/granola-bar-with-honey",
+    "avg_rating": 4.9,
+    "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/files/Energy_bar_1.jpg?13414361435441223830",
+    "name": "Granola Bar with Honey",
+    "id": "12-bv"
+  },
+  {
+    "product_page_url": "http://www.endurancecycles.com/products/endurance-pace-1",
+    "avg_rating": 2.3,
+    "image_url": "http://cdn.shopify.com/s/files/1/0796/3917/files/Endurance_Pace_1_THUMB.png?13910431573289158764",
+    "name": "Endurance Pace 1",
+    "id": "5-bv"
+  }
+]

@@ -1,0 +1,12 @@
+{
+    "notificationDelay": 5,
+    "reviewPromptDisplayText": "Thank you for your recent purchase.",
+    "reviewPromptSubtitleText": "Would you like to leave a review?",
+    "reviewPromptYesReview": "Review",
+    "reviewPromptRemindText": "Later",
+    "reviewPromptNoReview": "Dismiss",
+    "reviewRemindLaterDuration": 30,
+    "notificationsEnabled": true,
+    "headsUpEnabled": true,
+    "urlScheme": "bvsdkdemo"
+}

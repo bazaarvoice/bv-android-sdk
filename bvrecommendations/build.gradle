@@ -1,0 +1,25 @@
+buildscript {
+    dependencies {
+        classpath sdkBuildDep.androidPlugin
+        classpath sdkBuildDep.credentialsPlugin
+    }
+}
+
+apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
+
+dependencies {
+    compile project(':bvcommon')
+    provided sdkDep.recyclerview
+    provided sdkDep.gson
+
+    // Dependencies for local unit tests
+    testCompile sdkTestDep.junit
+    testCompile sdkTestDep.mockito
+    testCompile sdkTestDep.mockWebServer
+    testCompile sdkTestDep.robolectric
+}
+
+apply from: rootProject.file('gradle/setup-signing.gradle')
+if (isReleasing) {
+    apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+}

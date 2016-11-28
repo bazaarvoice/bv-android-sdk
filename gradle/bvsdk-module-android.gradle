@@ -1,0 +1,54 @@
+/**
+ * This should be applied to all bvandroidsdk modules that we plan
+ * to NEXUS_USER.
+ * e.g. apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
+ */
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion sdkBuildInfo.compileSdkVersion
+    buildToolsVersion sdkBuildInfo.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility sdkBuildInfo.sourceCompatibilityVersion
+        targetCompatibility sdkBuildInfo.targetCompatibilityVersion
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
+    }
+
+    defaultConfig {
+        minSdkVersion sdkBuildInfo.minSdkVersion
+        targetSdkVersion sdkBuildInfo.targetSdkVersion
+    }
+    buildTypes {
+        NEXUS_USER {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'BVSDK_VERSION_NAME', '"' + VERSION_NAME + '"'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    testOptions {
+        unitTests.all {
+            systemProperty 'robolectric.dependency.repo.url', 'https://repo.bazaarvoice.com:443/nexus/content/groups/public'
+            systemProperty 'robolectric.dependency.repo.id', 'nexus'
+        }
+    }
+
+    sourceSets {
+        String sharedTestDir = '../bvcommon/src/sharedTest/java'
+        test {
+            java.srcDir sharedTestDir
+        }
+    }
+}

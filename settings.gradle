@@ -1,1 +1,11 @@
-include ':app', ':bvandroidsdkcommon', ':bvandroidsdkrecommendations', ':bvandroidsdkconversations', ':bvandroidsdkadvertising', ':bvandroidsdkcurations', ':bvandroidsdklocation', ':bvandroidsdktesting'
+include ':app',
+        ':bvcommon',
+        ':bvrecommendations',
+        ':bvconversations',
+        ':bvadvertising',
+        ':bvcurations',
+        ':bvlocation',
+        ':bvpin',
+        ':bvnotifications',
+        ':bvstorenotifications',
+        ':bvpinnotifications'

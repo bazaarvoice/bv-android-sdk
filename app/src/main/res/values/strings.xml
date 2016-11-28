@@ -29,6 +29,7 @@
     <string name="title_activity_answers">Product Answers</string>
     <string name="title_activity_curations_map">Curations Photo Map</string>
     <string name="title_activity_stores">Stores</string>
+    <string name="title_activity_rate">Rate</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
@@ -42,6 +43,7 @@
     <string name="demo_conversations_stores">Conversations Stores</string>
     <string name="demo_curations">Curations</string>
     <string name="demo_location">Location</string>
+    <string name="demo_pin">PIN</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 

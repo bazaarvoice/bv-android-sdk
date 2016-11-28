@@ -99,17 +99,22 @@ android {
 }
 
 dependencies {
-    compile project(':bvandroidsdkadvertising')
-    compile project(':bvandroidsdkrecommendations')
-    compile project(':bvandroidsdkconversations')
-    compile project(':bvandroidsdkcurations')
-    compile project(':bvandroidsdklocation')
-
-//    compile demoAppDep.bvSdkAds
-//    compile demoAppDep.bvSdkRecommendations
-//    compile demoAppDep.bvSdkConversations
-//    compile demoAppDep.bvSdkCurations
-//    compile demoAppDep.bvSdkLocation
+    if (useLocalSdk) {
+        compile project(':bvadvertising')
+        compile project(':bvrecommendations')
+        compile project(':bvconversations')
+        compile project(':bvcurations')
+        compile project(':bvlocation')
+        compile project(':bvpinnotifications')
+        compile project(':bvstorenotifications')
+    } else {
+        compile demoAppDep.bvSdkAds
+        compile demoAppDep.bvSdkRecommendations
+        compile demoAppDep.bvSdkConversations
+        compile demoAppDep.bvSdkCurations
+        compile demoAppDep.bvSdkPinNotif
+        compile demoAppDep.bvSdkStoreNotif
+    }
 
     compile demoAppDep.picasso
     compile demoAppDep.prettyTime
@@ -119,9 +124,11 @@ dependencies {
     compile demoAppDep.cardview
     compile demoAppDep.preferenceV7
     compile demoAppDep.preferenceV14
+    compile demoAppDep.constraintLayout
     compile demoAppDep.playServiceAds
     compile demoAppDep.playServiceMaps
     compile demoAppDep.playServiceLocation
+    compile demoAppDep.playAppIndexing
     compile demoAppDep.ddPlist
     compile demoAppDep.circleIndicator
     compile demoAppDep.stetho
@@ -145,7 +152,6 @@ dependencies {
     compile(demoAppDep.crashlytics) {
         transitive = true;
     }
-    compile 'com.google.android.gms:play-services-appindexing:9.0.0'
 }
 
 
