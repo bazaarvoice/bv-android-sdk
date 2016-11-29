@@ -248,6 +248,17 @@ $(function(){
 <hr>
 <br>
 
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href="#prereqs">Prerequisites</a></li>
+  <li><a href="#install-with-gradle">Installing with Gradle</li>
+  <li><a href="#extend-app">Extending the Application</a></li>
+  <li><a href="#android-manifest">AndroidManifest</a></li>
+  <li><a href="#dependencies">Bazaarvoice SDK Dependencies</a></li>
+  <li><a href="#complete-install">Completing Installation</a></li>
+</ol>
+
+<div id="prereqs">
 <h3>Prerequisites</h3>
 <ul>
   <li>Signed Data Usage Amendment, if not already in place</li>
@@ -257,6 +268,9 @@ $(function(){
   <li>API key(s) for Bazaarvoice products you have enabled</li>
 </ul>
 <br>
+</div>
+
+<div id="install-with-gradle">
 <h3>Installing with Gradle</h3>
 
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  For manual installation using archive builds (.aar), use the latest archive version on the  <a href="http://repo1.maven.org/maven2/com/bazaarvoice/bvandroidsdk/">BVSDK Maven repository</a>.</p>
@@ -274,7 +288,9 @@ repositories {
 }
 </code></pre>
 <br>
+</div>
 
+<div id="extend-app">
 <h3>Extending the Application</h3>
 <p>Create a class that extends <code>android.app.Application</code> and initialize the Mobile SDK using its builder.</p>
 <p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
@@ -296,18 +312,72 @@ repositories {
 }
 </code></pre>
 <br>
+</div>
 
+<div id="android-manifest">
 <h3>AndroidManifest</h3>
 <pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
 &lt;application
     android:name=".MyApplication"&gt;
 &lt;/application&gt;</code></pre>
 
+<br>
+</div>
 
+<div id="dependencies">
+<h3>Bazaarvoice SDK Dependencies</h3>
+
+<p>In case your app and our SDK use different versions of the same
+  dependencies, we have compiled a list of the depedencies each of our
+  modules has below to help debug.</p>
+
+<p>If your app pulls in any <code>com.android.support</code>,
+  <code>com.google.android.gms</code>, or <code>com.gimbal.android.v2</code>
+  modules, it would be best for you to look at the specific modules that we
+  request from those packages below. Redeclare them in your build.gradle
+  with the explicit version you would like. This will avoid any 'duplicate
+  class' issues while compiling.</p>
+
+<h4>Common</h4>
+<pre><code>compile "com.google.code.gson:gson:2.5"
+compile "com.squareup.okhttp3:okhttp:3.2.0"
+compile "com.google.android.gms:play-services-ads:9.0.0"
+compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
+
+<h4>Advertising</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+
+<h4>Conversations</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+
+<h4>Curations</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+
+<h4>Location</h4>
+
+<p>Inherits from common, and adds...</p>
+
+<pre><code>compile "com.gimbal.android.v2:gimbal-sdk:2.46"
+compile "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"
+compile "org.slf4j:slf4j-api:1.7.21:1.7.21"
+compile "com.android.support:support-v4:25.0.0"
+compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
+
+<h4>Recommendations</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+<br>
+</div>
+
+<div id="complete-install">
 <h3>Completing Installation</h3>
 
 <p>After you've completed the above steps, the Bazaarvoice Mobile SDK should be configured and installed. If you encounter difficulties, contact <a href="https://developer.bazaarvoice.com/support">Bazaarvoice Client Care</a> or your implementation team.</p>
 <br>
+</div>
 
 
 
