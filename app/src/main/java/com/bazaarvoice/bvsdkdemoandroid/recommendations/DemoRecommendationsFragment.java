@@ -21,6 +21,7 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DividerItemDecoration;
@@ -51,6 +52,13 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
                 showDetailScreen(bvProduct);
             }
         });
+        demoProductAdapter.setAddProductToCartLister(new DemoProductAdapter.AddProductToCartLister() {
+            @Override
+            public void addProductToCart(BVProduct product) {
+                DemoCart.INSTANCE.addProduct(product);
+            }
+        });
+
         recyclerView.setAdapter(demoProductAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));

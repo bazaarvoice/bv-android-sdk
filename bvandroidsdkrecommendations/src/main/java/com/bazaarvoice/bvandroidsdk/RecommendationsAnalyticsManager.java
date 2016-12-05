@@ -30,7 +30,7 @@ public class RecommendationsAnalyticsManager {
      * @param bvProduct
      */
     public static void sendProductImpressionEvent(BVProduct bvProduct) {
-        Logger.d("RecAnalytics", "bvProduct " + bvProduct.getProductId() + " is impressed?" + bvProduct.impressed);
+        Logger.d("RecAnalytics", "bvProduct " + bvProduct.getId() + " is impressed?" + bvProduct.impressed);
         if (!shouldSendProductEvent(bvProduct) || bvProduct.impressed) {
             return;
         }
@@ -38,7 +38,7 @@ public class RecommendationsAnalyticsManager {
 
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
-        RecommendationImpressionSchema schema = new RecommendationImpressionSchema(bvProduct.getProductId(), magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
+        RecommendationImpressionSchema schema = new RecommendationImpressionSchema(bvProduct.getId(), magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
 
         analyticsManager.enqueueEvent(schema);
     }
@@ -61,7 +61,7 @@ public class RecommendationsAnalyticsManager {
     }
 
     private static boolean shouldSendProductEvent(BVProduct bvProduct) {
-        String productId = bvProduct == null ? "null_product" : bvProduct.getProductId();
+        String productId = bvProduct == null ? "null_product" : bvProduct.getId();
         if (!isProductValid(bvProduct)) {
             Logger.w(TAG, "Product impression not sent for invalid product: " + productId);
             return false;
@@ -98,6 +98,6 @@ public class RecommendationsAnalyticsManager {
     }
 
     private static boolean isProductValid(BVProduct bvProduct) {
-        return bvProduct != null && bvProduct.getProductId() != null;
+        return bvProduct != null && bvProduct.getId() != null;
     }
 }

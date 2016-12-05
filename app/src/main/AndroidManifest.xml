@@ -35,6 +35,10 @@
             android:label="@string/title_activity_settings"/>
 
         <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity"
+            android:label="@string/title_activity_cart"/>
+
+        <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity"
             android:label="@string/title_activity_fancy_product_detail"/>
         <activity

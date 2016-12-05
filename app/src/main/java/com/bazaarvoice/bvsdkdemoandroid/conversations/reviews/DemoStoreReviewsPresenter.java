@@ -61,8 +61,8 @@ public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
             StoreReview firstReview = bazaarReviews.get(0);
             Store store = firstReview.getIncludedIn().getStores().get(0);
             if (store != null) {
-                String imageUrl = store.getImageUrl();
-                String productName = store.getName();
+                String imageUrl = store.getDisplayImageUrl();
+                String productName = store.getDisplayName();
                     float averageOverallRating = -1;
                     if (store.getReviewStatistics() != null) {
                     averageOverallRating = store.getReviewStatistics().getAverageOverallRating();

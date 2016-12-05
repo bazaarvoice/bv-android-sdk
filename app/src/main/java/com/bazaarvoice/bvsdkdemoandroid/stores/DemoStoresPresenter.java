@@ -40,7 +40,7 @@ class DemoStoresPresenter implements DemoStoresContract.UserActionsListener {
 
     @Override
     public void onStoreTapped(Store store) {
-        view.showMessage("store " + store.getName() + " tapped");
+        view.showMessage("store " + store.getDisplayName() + " tapped");
     }
 
     @Override

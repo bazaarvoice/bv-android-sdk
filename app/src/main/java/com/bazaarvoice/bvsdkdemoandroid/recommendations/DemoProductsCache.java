@@ -28,7 +28,7 @@ public class DemoProductsCache extends DemoCache<BVProduct> {
 
     @Override
     protected String getKey(BVProduct bvProduct) {
-        return bvProduct.getProductId();
+        return bvProduct.getId();
     }
 
 }

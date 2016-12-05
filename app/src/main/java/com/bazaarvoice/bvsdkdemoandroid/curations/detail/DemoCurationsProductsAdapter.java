@@ -38,9 +38,9 @@ public class DemoCurationsProductsAdapter extends RecyclerView.Adapter<RecyclerV
         BvViewHolder bvViewHolder = (BvViewHolder) holder;
 
         final CurationsProduct product = products.get(position);
-        Picasso.with(bvViewHolder.productImage.getContext()).load(product.getProductImageUrl()).into(bvViewHolder.productImage);
+        Picasso.with(bvViewHolder.productImage.getContext()).load(product.getDisplayImageUrl()).into(bvViewHolder.productImage);
 
-        bvViewHolder.productName.setText(product.getProductName());
+        bvViewHolder.productName.setText(product.getDisplayName());
 
         if (product.getProductReviewStatistics().getNumReviews() > 0) {
 

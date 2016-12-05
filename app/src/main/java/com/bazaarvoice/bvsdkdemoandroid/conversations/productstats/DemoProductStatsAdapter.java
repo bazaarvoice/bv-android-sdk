@@ -39,7 +39,7 @@ public class DemoProductStatsAdapter extends RecyclerView.Adapter<RecyclerView.V
         Product product = statistics.get(position);
         BasicRowViewHolder viewHolder = (BasicRowViewHolder) holder;
 
-        viewHolder.title.setText("Product Stats for: " + product.getName());
+        viewHolder.title.setText("Product Stats for: " + product.getDisplayName());
 
         // Here we'll just build up some structured text so you can see what
         // sort of statistical data you can get from a product id.

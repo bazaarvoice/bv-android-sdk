@@ -26,6 +26,7 @@ import com.bazaarvoice.bvsdkdemoandroid.ads.AdsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
+import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
@@ -100,9 +101,13 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (DemoConfigUtils.getInstance(this).configFileExists()) {
-            getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+
+        getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+
+        if (!DemoConfigUtils.getInstance(this).configFileExists()) {
+            menu.findItem(R.id.settings_action).setVisible(false);
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -113,6 +118,10 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                 case R.id.settings_action:
                     DemoSettingsActivity.transitionTo(DemoMainActivity.this);
                     break;
+                case R.id.cart_action:
+                    DemoCartActivity.transitionTo(DemoMainActivity.this);
+                    break;
+
             }
             return false;
         }

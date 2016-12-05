@@ -26,6 +26,7 @@ import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdContract;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdPresenter;
+import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecContract;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecPresenter;
@@ -103,9 +104,13 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (DemoConfigUtils.getInstance(this).configFileExists()) {
-            getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+
+        getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+
+        if (!DemoConfigUtils.getInstance(this).configFileExists()) {
+            menu.findItem(R.id.settings_action).setVisible(false);
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -115,6 +120,9 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
             switch (item.getItemId()) {
                 case R.id.settings_action:
                     DemoSettingsActivity.transitionTo(DemoRecsHomeActivity.this);
+                    break;
+                case R.id.cart_action:
+                    DemoCartActivity.transitionTo(DemoRecsHomeActivity.this);
                     break;
             }
             return false;
@@ -172,7 +180,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
 
     @Override
     public void onProductTapped(BVProduct bvProduct) {
-        DemoFancyProductDetailActivity.transitionTo(this, bvProduct.getProductId());
+        DemoFancyProductDetailActivity.transitionTo(this, bvProduct.getId());
     }
 
     @Override

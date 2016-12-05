@@ -66,7 +66,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         if (!forceLoadFromProductId && demoConfigUtils.isDemoClient()) {
             List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
-                if (currRecProd.getProductId().equals(productId)) {
+                if (currRecProd.getId().equals(productId)) {
                     bvProduct = currRecProd;
                     break;
                 }
@@ -103,7 +103,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     }
 
     private void setupRecyclerView() {
-        String productId = bvProduct == null ? this.productId : bvProduct.getProductId();
+        String productId = bvProduct == null ? this.productId : bvProduct.getId();
 
         questionsAdapter = new DemoQuestionsAdapter(productId);
         questionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));

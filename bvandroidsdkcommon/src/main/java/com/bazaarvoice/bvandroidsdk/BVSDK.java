@@ -136,25 +136,11 @@ public class BVSDK {
         bvAuthenticatedUser.updateUser("user auth string update");
     }
 
-    /**
-     * Event when a transaction occurs
-     *
-     * @param transaction
-     */
-    public void sendConversionTransactionEvent(Transaction transaction) {
-        if (transaction.getItems() == null || transaction.getItems().size() == 0){
-            Logger.w("BVSDK", "Could not track Transaction. Transaction items are required");
-            return;
-        }
+    void sendConversionTransactionEvent(Transaction transaction) {
         analyticsManager.enqueueConversionTransactionEvent(transaction);
     }
 
-    /**
-     * Event when a transaction occurs
-     *
-     * @param conversion
-     */
-    public void sendNonCommerceConversionEvent(Conversion conversion) {
+    void sendNonCommerceConversionEvent(Conversion conversion) {
         analyticsManager.enqueueNonCommerceConversionEvent(conversion);
     }
 

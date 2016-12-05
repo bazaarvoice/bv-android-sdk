@@ -59,7 +59,7 @@ public class DemoStoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         final Store store = stores.get(position);
         DemoStoreAdapter.BvViewHolder bvViewHolder = (DemoStoreAdapter.BvViewHolder) holder;
 
-        bvViewHolder.storeName.setText(store.getName());
+        bvViewHolder.storeName.setText(store.getDisplayName());
 
         bvViewHolder.storeRating.setRating(store.getReviewStatistics().getAverageOverallRating());
         bvViewHolder.storeRatingCount.setText("(" + store.getReviewStatistics().getTotalReviewCount() + ")");

@@ -50,7 +50,7 @@ public final class RecommendationView extends BVView {
         if (bvProduct == null) {
             throw new IllegalStateException("Must associate BVProduct with RecommendationView");
         }
-        return bvProduct.getProductId();
+        return bvProduct.getId();
     }
 
     @Override

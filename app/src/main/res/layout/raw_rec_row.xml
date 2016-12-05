@@ -16,6 +16,14 @@
         tools:background="#c45"
         tools:src="@android:drawable/ic_btn_speak_now"/>
 
+    <Button
+        android:layout_width="131dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right"
+        android:paddingRight="8dp"
+        android:text="Add To Cart"
+        android:id="@+id/addToCartButton"/>
+
     <TextView
         android:id="@+id/productName"
         android:layout_width="match_parent"

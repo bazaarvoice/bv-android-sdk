@@ -3,6 +3,7 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class BaseProduct<AttributeType> extends IncludeableContent {
+public abstract class BaseProduct<AttributeType> extends IncludeableContent implements BVDisplayableProductContent{
     @SerializedName("Brand")
     private Map<String, Object> brand;
     @SerializedName("Attributes")
@@ -109,10 +110,12 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent {
         return productPageUrl;
     }
 
+    @Deprecated //Use getDisplayImageUrl
     public String getImageUrl() {
         return imageUrl;
     }
 
+    @Deprecated //Use getDisplayName
     public String getName() {
         return name;
     }
@@ -121,9 +124,6 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent {
         return categoryId;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public List<String> getReviewsIds(){
         return reviewsIds;
@@ -132,5 +132,25 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent {
     @Nullable
     public ReviewStatistics getReviewStatistics() {
         return reviewStatistics;
+    }
+
+    @Override @NonNull
+    public String getId() {
+        return id;
+    }
+
+    @Override @Nullable
+    public String getDisplayName() {
+        return name;
+    }
+
+    @Override @Nullable
+    public String getDisplayImageUrl() {
+        return imageUrl;
+    }
+
+    @Override 
+    public float getAverageRating() {
+        return reviewStatistics.getAverageOverallRating();
     }
 }

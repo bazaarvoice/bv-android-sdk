@@ -38,23 +38,11 @@
             android:text="Product Name"
             android:textSize="@dimen/text_size_body_1"/>
 
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/product_name"
-            android:layout_marginBottom="@dimen/margin_1"
-            android:layout_marginLeft="@dimen/margin_3"
-            android:layout_marginRight="@dimen/margin_3"
-            android:layout_centerHorizontal="true"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_subheading"/>
-
         <RatingBar
             android:id="@+id/product_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_price"
+            android:layout_below="@id/product_name"
             android:layout_marginLeft="@dimen/margin_3"
             android:layout_marginRight="@dimen/margin_3"
             android:layout_centerHorizontal="true"

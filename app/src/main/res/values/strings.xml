@@ -19,6 +19,7 @@
     <string name="title_activity_location_example_activty">Location Example</string>
     <string name="title_activity_gimbal_example">Gimbal Example</string>
     <string name="title_activity_settings">Demo Settings</string>
+    <string name="title_activity_cart">Demo Cart</string>
     <string name="title_activity_fancy_product_detail">Product Detail</string>
     <string name="title_activity_demo_app">BVSDK Demo</string>
     <string name="title_activity_reviews">Product Reviews</string>

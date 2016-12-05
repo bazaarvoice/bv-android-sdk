@@ -34,7 +34,7 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
 
     @Override
     public void onRecommendationProductTapped(BVProduct recommendationProduct) {
-        view.showMessage("Tapped on: " + recommendationProduct.getProductId());
+        view.showMessage("Tapped on: " + recommendationProduct.getId());
     }
 
     @Override

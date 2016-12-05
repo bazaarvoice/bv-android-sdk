@@ -4,7 +4,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.detail;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,16 +43,11 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
 
         DemoUtils demoUtils = DemoUtils.getInstance(demoViewHolder.image.getContext());
         demoUtils.picassoThumbnailLoader()
-                .load(bvProduct.getImageUrl())
+                .load(bvProduct.getDisplayImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(demoViewHolder.image);
-        demoViewHolder.productName.setText(bvProduct.getProductName());
+        demoViewHolder.productName.setText(bvProduct.getDisplayName());
         demoViewHolder.productRating.setRating((int) bvProduct.getAverageRating());
-        if (TextUtils.isEmpty(bvProduct.getPrice())){
-            demoViewHolder.productPrice.setVisibility(View.GONE);
-        } else {
-            demoViewHolder.productPrice.setText(bvProduct.getPrice());
-        }
 
         demoViewHolder.recommendationView.setBvProduct(bvProduct);
 
@@ -86,7 +80,7 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
         RecommendationView recommendationView;
         RelativeLayout row;
         ImageView image;
-        TextView productName, productPrice;
+        TextView productName;
         RatingBar productRating;
 
         public DemoProductDetailViewHolder(View itemView) {
@@ -95,7 +89,6 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
             row = (RelativeLayout) itemView.findViewById(R.id.rec_snippet_container);
             image = (ImageView) itemView.findViewById(R.id.image);
             productName = (TextView) itemView.findViewById(R.id.product_name);
-            productPrice = (TextView) itemView.findViewById(R.id.product_price);
             productRating = (RatingBar) itemView.findViewById(R.id.product_rating);
         }
     }

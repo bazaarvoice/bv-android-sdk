@@ -163,7 +163,7 @@ public class DemoCurationsDetailFragment extends Fragment {
                     if (productIsCached) {
                         DemoFancyProductDetailActivity.transitionTo(getActivity(), product.getId());
                     } else {
-                        DemoFancyProductDetailActivity.transitionTo(getActivity(), product.getId(), product.getProductName(), product.getProductImageUrl());
+                        DemoFancyProductDetailActivity.transitionTo(getActivity(), product.getId(), product.getDisplayName(), product.getDisplayImageUrl());
                     }
                 }
             }
