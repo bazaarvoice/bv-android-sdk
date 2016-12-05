@@ -44,8 +44,8 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
 
         if (productId != null && !productId.isEmpty()) {
             BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
-            String imageUrl = bvProduct == null ? null : bvProduct.getImageUrl();
-            String productName = bvProduct == null ? "" : bvProduct.getProductName();
+            String imageUrl = bvProduct == null ? null : bvProduct.getDisplayImageUrl();
+            String productName = bvProduct == null ? "" : bvProduct.getDisplayName();
             float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
             view.showHeaderView(imageUrl, productName, averageOverallRating);
         }
@@ -99,8 +99,8 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
             Log.d(TAG, "question submitted on " + date.toString());
             Product product = firstQuestion.getProduct();
             if (product != null) {
-                String imageUrl = product.getImageUrl();
-                String productName = product.getName();
+                String imageUrl = product.getDisplayImageUrl();
+                String productName = product.getDisplayName();
                 float averageOverallRating = -1;
                 if (product.getReviewStatistics() != null) {
                     averageOverallRating = product.getReviewStatistics().getAverageOverallRating();

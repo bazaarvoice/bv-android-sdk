@@ -63,7 +63,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         if (bvProduct != null && demoConfigUtils.isDemoClient()) {
             List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
-                if (currRecProd.getProductId().equals(productId)) {
+                if (currRecProd.getId().equals(productId)) {
                     bvProduct = currRecProd;
                     break;
                 }

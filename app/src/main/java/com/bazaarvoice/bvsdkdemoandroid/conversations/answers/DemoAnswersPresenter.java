@@ -35,8 +35,8 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
 
         if (productId != null && !productId.isEmpty()) {
             BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
-            String imageUrl = bvProduct == null ? null : bvProduct.getImageUrl();
-            String productName = bvProduct == null ? "" : bvProduct.getProductName();
+            String imageUrl = bvProduct == null ? null : bvProduct.getDisplayImageUrl();
+            String productName = bvProduct == null ? "" : bvProduct.getDisplayName();
             float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
             view.showHeaderView(imageUrl, productName, averageOverallRating);
         }

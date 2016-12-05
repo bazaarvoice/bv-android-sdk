@@ -7,22 +7,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
@@ -31,6 +34,7 @@ import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductContract;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
@@ -57,13 +61,12 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     String productId;
     String productName;
     String productImageUrl;
-    String productPrice;
     float productAverageRating;
 
     @BindView(R.id.product_image) ImageView prodImage;
     @BindView(R.id.product_name) TextView prodName;
-    @BindView(R.id.product_price) TextView prodPrice;
     @BindView(R.id.product_rating) RatingBar prodRating;
+    @BindView(R.id.addToCartButton) Button addToCartButton;
 
     @BindView(R.id.product_row_rec_recycler_view) RecommendationsRecyclerView recommendationsRecyclerView;
     DemoProductDetailRecAdapter recAdapter;
@@ -107,10 +110,9 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
                 productName = getIntent().getStringExtra(EXTRA_PRODUCT_NAME);
                 productImageUrl = getIntent().getStringExtra(EXTRA_PRODUCT_IMAGE_URL);
             } else {
-                BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
-                productName = bvProduct.getProductName();
-                productImageUrl = bvProduct.getImageUrl();
-                productPrice = bvProduct.getPrice();
+                BVDisplayableProductContent bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+                productName = bvProduct.getDisplayName();
+                productImageUrl = bvProduct.getDisplayImageUrl();
                 productAverageRating = bvProduct.getAverageRating();
             }
         }
@@ -168,10 +170,16 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
                 .into(prodImage);
 
         prodName.setText(productName);
-        prodPrice.setText(productPrice);
-        boolean hasPrice = !TextUtils.isEmpty(productPrice);
-        prodPrice.setVisibility(hasPrice ? View.VISIBLE : View.GONE);
         prodRating.setRating((int)productAverageRating);
+
+        final ProductContentContainer contentContainer = new ProductContentContainer(productId, productName, productImageUrl, productAverageRating);
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DemoCart.INSTANCE.addProduct(contentContainer);
+
+            }
+        });
     }
 
     private void setupConversationsRow() {
@@ -350,7 +358,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
     @Override
     public void onProductTapListener(BVProduct bvProduct) {
-        DemoFancyProductDetailActivity.transitionTo(this, bvProduct.getProductId());
+        DemoFancyProductDetailActivity.transitionTo(this, bvProduct.getId());
     }
 
     @Override
@@ -411,4 +419,41 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         DemoQuestionsActivity.transitionTo(this, productId);
     }
 
+
+    private static class ProductContentContainer implements BVDisplayableProductContent {
+        private String id;
+        private String name;
+        private String imageUrl;
+        private float avgRating;
+
+        private ProductContentContainer(String id, String name, String imageUrl, float avgRating) {
+            this.id = id;
+            this.name = name;
+            this.imageUrl = imageUrl;
+            this.avgRating = avgRating;
+        }
+
+        @NonNull
+        @Override
+        public String getId() {
+            return id;
+        }
+
+        @Nullable
+        @Override
+        public String getDisplayName() {
+            return name;
+        }
+
+        @Nullable
+        @Override
+        public String getDisplayImageUrl() {
+            return imageUrl;
+        }
+
+        @Override
+        public float getAverageRating() {
+            return avgRating;
+        }
+    }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,6 +29,12 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public interface OnBvProductClickListener {
         void onBvProductClickListener(BVProduct bvProduct, View row);
     }
+
+    public interface AddProductToCartLister {
+        void addProductToCart(BVProduct product);
+    }
+
+    private AddProductToCartLister addProductToCartLister;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,11 +67,20 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         BvViewHolder bvViewHolder = (BvViewHolder) holder;
 
         Picasso.with(bvViewHolder.prodImage.getContext())
-                .load(bvProduct.getImageUrl())
+                .load(bvProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(bvViewHolder.prodImage);
 
-        bvViewHolder.productName.setText(bvProduct.getProductName());
+
+
+        bvViewHolder.addToCartButtonListener = new BvViewHolder.AddToCartButtonListener() {
+            @Override
+            public void addToCartPressed() {
+                addProductToCartLister.addProductToCart(bvProduct);
+            }
+        };
+
+        bvViewHolder.productName.setText(bvProduct.getDisplayName());
 
         if (bvProduct.getNumReviews() > 0) {
             String reviews = "Average Rating: ";
@@ -98,11 +114,17 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return bvProducts.size();
     }
 
-    private class BvViewHolder extends RecyclerView.ViewHolder {
+    private static class BvViewHolder extends RecyclerView.ViewHolder {
         public RecommendationView row;
         public ImageView prodImage;
         public TextView productName;
         public TextView productRating;
+        private Button addToCartButton;
+        private AddToCartButtonListener addToCartButtonListener;
+
+        public interface AddToCartButtonListener {
+            void addToCartPressed();
+        }
 
         public BvViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +132,13 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
             productName = (TextView) itemView.findViewById(R.id.productName);
             productRating = (TextView) itemView.findViewById(R.id.productRating);
+            addToCartButton = (Button) itemView.findViewById(R.id.addToCartButton);
+            addToCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addToCartButtonListener.addToCartPressed();
+                }
+            });
         }
     }
 
@@ -120,5 +149,9 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public void setOnItemClickListener(OnBvProductClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void  setAddProductToCartLister(AddProductToCartLister lister){
+        this.addProductToCartLister = lister;
     }
 }

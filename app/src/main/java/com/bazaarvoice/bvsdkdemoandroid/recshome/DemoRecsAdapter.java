@@ -6,7 +6,6 @@ package com.bazaarvoice.bvsdkdemoandroid.recshome;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -186,15 +185,11 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
         RecItemViewHolder leftRec = new RecItemViewHolder(leftRecView);
 
         demoUtils.picassoThumbnailLoader()
-                .load(leftProduct.getImageUrl())
+                .load(leftProduct.getDisplayImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(leftRec.image);
-        leftRec.prodName.setText(leftProduct.getProductName());
-        if (TextUtils.isEmpty(leftProduct.getPrice())){
-            leftRec.prodPrice.setVisibility(View.GONE);
-        } else {
-            leftRec.prodPrice.setText(leftProduct.getPrice());
-        }
+        leftRec.prodName.setText(leftProduct.getDisplayName());
+
         leftRec.prodRating.setRating((int)leftProduct.getAverageRating());
         leftRec.recView.setBvProduct(leftProduct);
         leftRec.recView.setTag(leftProduct);
@@ -213,15 +208,10 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
             RecItemViewHolder rightRec = new RecItemViewHolder(rightRecView);
 
             demoUtils.picassoThumbnailLoader()
-                    .load(rightProduct.getImageUrl())
+                    .load(rightProduct.getDisplayImageUrl())
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                     .into(rightRec.image);
-            rightRec.prodName.setText(rightProduct.getProductName());
-            if (TextUtils.isEmpty(rightProduct.getPrice())){
-                rightRec.prodPrice.setVisibility(View.GONE);
-            } else {
-                rightRec.prodPrice.setText(rightProduct.getPrice());
-            }
+            rightRec.prodName.setText(rightProduct.getDisplayName());
             rightRec.prodRating.setRating((int)rightProduct.getAverageRating());
             rightRec.recView.setBvProduct(rightProduct);
             rightRec.recView.setTag(rightProduct);
@@ -300,7 +290,6 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
         RecommendationView recView;
         @BindView(R.id.image) ImageView image;
         @BindView(R.id.product_name) TextView prodName;
-        @BindView(R.id.product_price) TextView prodPrice;
         @BindView(R.id.product_rating) RatingBar prodRating;
         RecItemViewHolder(RecommendationView recView) {
             this.recView = recView;

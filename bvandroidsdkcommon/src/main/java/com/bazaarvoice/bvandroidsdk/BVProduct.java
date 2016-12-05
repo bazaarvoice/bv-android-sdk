@@ -4,12 +4,15 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Bazaarvoice Product
  */
-public class BVProduct {
+public class BVProduct implements BVDisplayableProductContent{
 
     protected boolean impressed = false;
 
@@ -31,8 +34,8 @@ public class BVProduct {
     @SerializedName("name")
     private String productName;
 
-    @SerializedName("price")
-    private String price;
+    @SerializedName("CategoryId")
+    private String categoryId;
 
     private boolean sponsored;
 
@@ -43,6 +46,7 @@ public class BVProduct {
 
     private RecommendationStats recommendationStats;
 
+    @Deprecated //Use getId
     public String getProductId() {
         return productId;
     }
@@ -51,10 +55,7 @@ public class BVProduct {
         return numReviews;
     }
 
-    public float getAverageRating() {
-        return averageRating;
-    }
-
+    @Deprecated //Use getDisplayImageUrl
     public String getImageUrl() {
         return imageUrl;
     }
@@ -63,11 +64,10 @@ public class BVProduct {
         return productPageUrl;
     }
 
+    @Deprecated //Use getDisplayName
     public String getProductName() {
         return productName;
     }
-
-    public String getPrice() { return price; }
 
     public boolean isSponsored() {
         return sponsored;
@@ -79,6 +79,10 @@ public class BVProduct {
 
     public String getRs() {
         return rs;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
     }
 
     void mergeRecommendationStats(RecommendationStats recommendationStats) {
@@ -102,5 +106,25 @@ public class BVProduct {
                 ", review=" + review +
                 ", rs=" + rs +
                 '}';
+    }
+
+    @Override @NonNull
+    public String getId() {
+        return productId;
+    }
+
+    @Override @Nullable
+    public String getDisplayName() {
+        return productName;
+    }
+
+    @Override @Nullable
+    public String getDisplayImageUrl() {
+        return imageUrl;
+    }
+
+    @Override
+    public float getAverageRating() {
+        return averageRating;
     }
 }

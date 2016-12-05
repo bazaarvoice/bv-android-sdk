@@ -15,35 +15,28 @@ import android.widget.Toast;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DividerItemDecoration;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
 public class DemoProductDetailActivity extends AppCompatActivity implements DemoRecommendationDetailContract.View {
 
-    public static final String BV_PRODUCT_ID = "extra_bv_product_id";
-    public static final String BV_PRODUCT_NAME = "extra_bv_product_name";
-    public static final String BV_PRODUCT_RATING = "extra_bv_product_rating";
-    public static final String BV_PRODUCT_IMAGE_URL = "extra_bv_product_image_url";
-    public static final String BV_PRODUCT_NUM_REVIEWS = "extra_bv_product_num_reviews";
+    public static final String BV_PRODUCT = "extra_bv_product";
 
     private DemoRecommendationDetailContract.UserActionsListener userActionsListener;
 
     private RecommendationsRecyclerView recyclerView;
     private DemoCategoryRecommendationAdapter demoCategoryRecommendationAdapter;
-    private String bvProductId;
-    private String bvProductName;
-    private float bvProductRating;
-    private String bvProductImageUrl;
-    private int bvProductNumReviews;
+    private BVProduct bvProduct;
+    private DemoCart cart;
 
     public static void start(Activity activity, BVProduct bvProduct) {
         Intent intent = new Intent(activity, DemoProductDetailActivity.class);
-        intent.putExtra(BV_PRODUCT_ID, bvProduct.getProductId());
-        intent.putExtra(BV_PRODUCT_NAME, bvProduct.getProductName());
-        intent.putExtra(BV_PRODUCT_RATING, bvProduct.getAverageRating());
-        intent.putExtra(BV_PRODUCT_IMAGE_URL, bvProduct.getImageUrl());
-        intent.putExtra(BV_PRODUCT_NUM_REVIEWS, bvProduct.getNumReviews());
+        Gson gson = new GsonBuilder().create();
+        intent.putExtra(BV_PRODUCT, gson.toJson(bvProduct));
         activity.startActivity(intent);
     }
 
@@ -58,28 +51,33 @@ public class DemoProductDetailActivity extends AppCompatActivity implements Demo
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
 
-        demoCategoryRecommendationAdapter = new DemoCategoryRecommendationAdapter(bvProductImageUrl, bvProductName, bvProductNumReviews, bvProductRating);
+        demoCategoryRecommendationAdapter = new DemoCategoryRecommendationAdapter(bvProduct);
         demoCategoryRecommendationAdapter.setOnExtraProductTappedListener(new DemoCategoryRecommendationAdapter.OnExtraProductTappedListener() {
             @Override
             public void onExtraProductTapped(BVProduct bvProduct) {
                 userActionsListener.onRelatedRecommendationTapped(bvProduct);
             }
         });
+
+        demoCategoryRecommendationAdapter.setAddProductToCartLister(new DemoCategoryRecommendationAdapter.AddProductToCartLister() {
+            @Override
+            public void addProductToCart(BVProduct product) {
+                DemoCart.INSTANCE.addProduct(product);
+            }
+        });
+
         recyclerView.setAdapter(demoCategoryRecommendationAdapter);
     }
 
     private void getIntentExtras() {
-        bvProductId = getIntent().getStringExtra(BV_PRODUCT_ID);
-        bvProductName = getIntent().getStringExtra(BV_PRODUCT_NAME);
-        bvProductRating = getIntent().getFloatExtra(BV_PRODUCT_RATING, 0f);
-        bvProductImageUrl = getIntent().getStringExtra(BV_PRODUCT_IMAGE_URL);
-        bvProductNumReviews = getIntent().getIntExtra(BV_PRODUCT_NUM_REVIEWS, 0);
+        Gson gson = new GsonBuilder().create();
+        bvProduct = gson.fromJson(getIntent().getStringExtra(BV_PRODUCT), BVProduct.class);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        userActionsListener = new DemoProductDetailPresenter(this, bvProductId, recyclerView);
+        userActionsListener = new DemoProductDetailPresenter(this, bvProduct.getId(), recyclerView);
         userActionsListener.loadRelatedRecommendations(true);
     }
 

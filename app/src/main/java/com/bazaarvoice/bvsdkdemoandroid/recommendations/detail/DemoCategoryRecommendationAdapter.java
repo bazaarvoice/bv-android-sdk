@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +21,7 @@ import java.util.List;
 
 public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private String detailImageUrl;
-    private String detailProductName;
-    private int detailNumReviews;
-    private float detailAverageRating;
+    private final BVProduct detailProduct;
     private List<BVProduct> recommendedProducts = Collections.emptyList();
     private static final int ROW_HEADER_DETAIL = 0;
     private static final int ROW_EXTRA_HEADER = 1;
@@ -35,11 +33,14 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
 
     private OnExtraProductTappedListener onExtraProductTappedListener;
 
-    public DemoCategoryRecommendationAdapter(String detailImageUrl, String detailProductName, int detailNumReviews, float detailAverageRating) {
-        this.detailImageUrl = detailImageUrl;
-        this.detailProductName = detailProductName;
-        this.detailNumReviews = detailNumReviews;
-        this.detailAverageRating = detailAverageRating;
+    public interface AddProductToCartLister {
+        void addProductToCart(BVProduct product);
+    }
+
+    private AddProductToCartLister addProductToCartLister;
+
+    public DemoCategoryRecommendationAdapter(BVProduct bvProduct) {
+        this.detailProduct = bvProduct;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
 
         switch (itemViewType) {
             case ROW_HEADER_DETAIL:
-                bindHeaderDetailViewHolder(holder);
+                bindHeaderDetailViewHolder(holder, position);
                 break;
             case ROW_EXTRA_HEADER:
                 bindExtraHeaderViewHolder(holder);
@@ -93,7 +94,7 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         }
     }
 
-    private void bindHeaderDetailViewHolder(RecyclerView.ViewHolder holder) {
+    private void bindHeaderDetailViewHolder(RecyclerView.ViewHolder holder, int position) {
         HeaderDetailViewHolder headerDetailViewHolder = (HeaderDetailViewHolder) holder;
 
         ImageView prodImage = headerDetailViewHolder.prodImage;
@@ -101,18 +102,25 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         layoutParams.height = prodImage.getResources().getDimensionPixelSize(R.dimen.product_image_height_detail);
         prodImage.setLayoutParams(layoutParams);
         Picasso.with(prodImage.getContext())
-                .load(detailImageUrl)
+                .load(detailProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(prodImage);
 
 
+        headerDetailViewHolder.addToCartButtonListener = new HeaderDetailViewHolder.AddToCartButtonListener() {
+            @Override
+            public void addToCartPressed() {
+                DemoCategoryRecommendationAdapter.this.addProductToCartLister.addProductToCart(detailProduct);
+            }
+        };
+
         TextView productName = headerDetailViewHolder.prodName;
-        productName.setText(detailProductName);
+        productName.setText(detailProduct.getDisplayName());
 
         TextView productRating = headerDetailViewHolder.prodRating;
-        if (detailNumReviews > 0) {
+        if (detailProduct.getNumReviews() > 0) {
             String reviews = "Average Rating: ";
-            for (int i=0; i<detailAverageRating; i++) {
+            for (int i=0; i<detailProduct.getAverageRating(); i++) {
                 reviews += "⭐";
             }
             productRating.setText(reviews);
@@ -131,11 +139,11 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         final BVProduct bvProduct = recommendedProducts.get(position - 2);
 
         TextView textView = headerDetailViewHolder.title;
-        textView.setText(bvProduct.getProductName());
+        textView.setText(bvProduct.getDisplayName());
 
         ImageView imageView = headerDetailViewHolder.image;
         Picasso.with(imageView.getContext())
-                .load(bvProduct.getImageUrl())
+                .load(bvProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(imageView);
 
@@ -176,11 +184,17 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         notifyDataSetChanged();
     }
 
-    private final class HeaderDetailViewHolder extends RecyclerView.ViewHolder {
+    private static final class HeaderDetailViewHolder extends RecyclerView.ViewHolder {
 //        private RecommendationView detailBvView;
         private TextView prodName;
         private ImageView prodImage;
         private TextView prodRating;
+        private Button addToCartButton;
+        private AddToCartButtonListener addToCartButtonListener;
+
+        public interface AddToCartButtonListener {
+            void addToCartPressed();
+        }
 
         public HeaderDetailViewHolder(View itemView) {
             super(itemView);
@@ -188,6 +202,13 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
             prodName = (TextView) itemView.findViewById(R.id.productName);
             prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
             prodRating = (TextView) itemView.findViewById(R.id.productRating);
+            addToCartButton = (Button) itemView.findViewById(R.id.addToCartButton);
+            addToCartButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addToCartButtonListener.addToCartPressed();
+                }
+            });
         }
     }
 
@@ -214,5 +235,9 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
 
     public void setOnExtraProductTappedListener(OnExtraProductTappedListener listener) {
         this.onExtraProductTappedListener = listener;
+    }
+
+    public void  setAddProductToCartLister(AddProductToCartLister lister){
+        this.addProductToCartLister = lister;
     }
 }

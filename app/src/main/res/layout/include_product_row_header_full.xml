@@ -37,14 +37,6 @@
                 android:textSize="@dimen/text_size_subheading"
                 tools:text="Product Name"/>
 
-            <TextView
-                android:id="@+id/product_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_1"
-                android:textSize="@dimen/text_size_headline"
-                android:textStyle="bold"/>
-
             <RatingBar
                 android:id="@+id/product_rating"
                 android:layout_width="wrap_content"
@@ -54,6 +46,12 @@
                 tools:rating="4.3"
                 style="@style/Base.Widget.AppCompat.RatingBar.Small"/>
 
+            <Button
+                android:layout_width="131dp"
+                android:layout_height="40dp"
+                android:paddingRight="8dp"
+                android:text="Add To Cart"
+                android:id="@+id/addToCartButton"/>
         </LinearLayout>
     </LinearLayout>
 
