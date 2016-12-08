@@ -27,7 +27,7 @@ public class BVRecommendations {
 
     private static final String TAG = BVRecommendations.class.getSimpleName();
 
-    BVRecommendations() {
+    public BVRecommendations() {
         BVSDK bvsdk = BVSDK.getInstance();
 
         String apiKeyShopperAdvertising = bvsdk.getApiKeys().getApiKeyShopperAdvertising();
