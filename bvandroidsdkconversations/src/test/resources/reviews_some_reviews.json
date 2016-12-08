@@ -212,7 +212,7 @@
       "AdditionalFields":{
 
       },
-      "CampaignId":null,
+      "CampaignId":"Blah",
       "Helpfulness":null,
       "TotalNegativeFeedbackCount":0,
       "SubmissionTime":"2011-04-05T13:40:37.000+00:00",
