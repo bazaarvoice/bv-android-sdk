@@ -7,14 +7,14 @@ public class RatingDistribution {
     private final Integer oneStarCount;
     private final Integer twoStarCount;
     private final Integer threeStarCount;
-    private final Integer fourStarCount0;
+    private final Integer fourStarCount;
     private final Integer fiveStarCount;
 
-    RatingDistribution(Integer oneStarCount, Integer twoStarCount, Integer threeStarCount, Integer fourStarCount0, Integer fiveStarCount) {
+    RatingDistribution(Integer oneStarCount, Integer twoStarCount, Integer threeStarCount, Integer fourStarCount, Integer fiveStarCount) {
         this.oneStarCount = oneStarCount;
         this.twoStarCount = twoStarCount;
         this.threeStarCount = threeStarCount;
-        this.fourStarCount0 = fourStarCount0;
+        this.fourStarCount = fourStarCount;
         this.fiveStarCount = fiveStarCount;
     }
 
@@ -31,7 +31,7 @@ public class RatingDistribution {
     }
 
     public Integer getFourStarCount() {
-        return fourStarCount0;
+        return fourStarCount;
     }
 
     public Integer getFiveStarCount() {
