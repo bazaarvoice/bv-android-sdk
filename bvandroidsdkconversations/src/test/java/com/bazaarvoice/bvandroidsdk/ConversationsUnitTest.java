@@ -162,8 +162,6 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertNotNull(firstReview.getClientResponses());
         assertNotNull(firstReview.getCampaignId());
         assertNotNull(firstReview.getFeatured());
-        assertNotNull(firstReview.getPros());
-        assertNotNull(firstReview.getCons());
     }
 
     @Test
