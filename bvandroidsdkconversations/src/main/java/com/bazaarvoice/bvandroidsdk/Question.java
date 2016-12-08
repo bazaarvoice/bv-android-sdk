@@ -22,6 +22,8 @@ public class Question extends IncludedContentBase.ProductIncludedContentBase {
     private Integer totalInappropriateFeedbackCount;
     @SerializedName("TagDimensions")
     private Map<String, DimensionElement> tagDimensions;
+    @SerializedName("BrandImageLogoURL")
+    private String brandImageLogoUrl;
 
     @SerializedName("AnswerIds")
     private List<String> answerIds;
@@ -63,5 +65,9 @@ public class Question extends IncludedContentBase.ProductIncludedContentBase {
         }
 
         return this.answers;
+    }
+
+    public String getBrandImageLogoUrl() {
+        return brandImageLogoUrl;
     }
 }
