@@ -149,8 +149,8 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
     }
 
     public Date getLastModificationDate() {
-        if (lastModeratedDate == null) {
-            lastModeratedDate = DateUtil.dateFromString(lastModeratedTime);
+        if (lastModificationDate == null) {
+            lastModificationDate = DateUtil.dateFromString(lastModificationTime);
         }
         return lastModificationDate;
     }

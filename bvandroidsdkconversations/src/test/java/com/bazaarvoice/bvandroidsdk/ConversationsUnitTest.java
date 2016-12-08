@@ -5,7 +5,6 @@ import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
@@ -88,9 +89,9 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals("Sort to string incorrect", sort.toString(), "AuthorId:asc");
     }
 
-    private void testParsing(String filename, Class responseClass) {
+    private <ResponseType> ResponseType testParsing(String filename, Class<ResponseType> responseClass) {
         String reviewsForProdResponse = jsonFileAsString(filename);
-        gson.fromJson(reviewsForProdResponse, responseClass);
+        return gson.fromJson(reviewsForProdResponse, responseClass);
     }
 
     @Test
@@ -150,12 +151,44 @@ public class ConversationsUnitTest extends BVBaseTest{
 
     @Test
     public void testReviewsForSomeReviewsParsing() {
-        testParsing("reviews_some_reviews.json", ReviewResponse.class);
+        ReviewResponse response = testParsing("reviews_some_reviews.json", ReviewResponse.class);
+        Review firstReview = response.getResults().get(0);
+        assertNotNull(firstReview.getAuthorId());
+        assertNotNull(firstReview.getProductId());
+        assertNotNull(firstReview.getModerationStatus());
+        assertNotNull(firstReview.getBadges());
+        assertNotNull(firstReview.getLastModificationDate());
+        assertNotNull(firstReview.getLastModeratedDate());
+        assertNotNull(firstReview.getClientResponses());
+        assertNotNull(firstReview.getCampaignId());
+        assertNotNull(firstReview.getFeatured());
+        assertNotNull(firstReview.getPros());
+        assertNotNull(firstReview.getCons());
     }
 
     @Test
     public void testQandAForSomeQuestionsWithAnswersParsing() {
-        testParsing("qanda_some_questions_with_answers.json", QuestionAndAnswerResponse.class);
+        QuestionAndAnswerResponse response = testParsing("qanda_some_questions_with_answers.json", QuestionAndAnswerResponse.class);
+        Question firstQuestion = response.getResults().get(0);
+        assertNotNull(firstQuestion.getBrandImageLogoUrl());
+        assertNotNull(firstQuestion.getQuestionDetails());
+        assertNotNull(firstQuestion.getQuestionSummary());
+        assertNotNull(firstQuestion.getTagDimensions());
+        assertNotNull(firstQuestion.getTagDimensions());
+        assertNotNull(firstQuestion.getTotalAnswerCount());
+        assertNotNull(firstQuestion.getTotalInappropriateFeedbackCount());
+        assertNotNull(firstQuestion.getAdditionalFields());
+        assertNotNull(firstQuestion.getAuthorId());
+        assertNotNull(firstQuestion.getBadges());
+        assertNotNull(firstQuestion.getCampaignId());
+        assertNotNull(firstQuestion.getContentLocale());
+        assertNotNull(firstQuestion.getContextDataValues());
+        assertNotNull(firstQuestion.getFeatured());
+        assertNotNull(firstQuestion.getId());
+        assertNotNull(firstQuestion.getLastModeratedDate());
+        assertNotNull(firstQuestion.getLastModificationDate());
+        assertNotNull(firstQuestion.getModerationStatus());
+        assertNotNull(firstQuestion.getProductId());
     }
 
     private List<String> getProdIds(int limit){

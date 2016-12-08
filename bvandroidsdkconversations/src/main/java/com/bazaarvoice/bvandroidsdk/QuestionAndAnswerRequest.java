@@ -74,7 +74,7 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
 
         }
 
-        public Builder addSort(ProductOptions.Sort sort, SortOrder sortOrder) {
+        public Builder addSort(QuestionOptions.Sort sort, SortOrder sortOrder) {
             this.sorts.add(new Sort(sort, sortOrder));
             return this;
         }
