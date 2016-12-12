@@ -1,5 +1,26 @@
 # Changelog
 
+# 5.1.2
+
+## Conversations
+
+* Fix ```BrandImageLogoURL``` missing from Question response
+* Fix sort parameter for ```QuestionAndAnswerRequest```
+* Fix typo in ```RatingDistribution``` class
+* Fix ```DateUtil``` parser
+
+# 5.1.1
+
+## Recommendations
+
+* Make Recommendations constructor public. Recommendations was and still is available through the android View based methods, but this allows View independent access
+
+# 5.1.0
+
+## Curations
+
+* Added support to geo-tag custom content submission with the Curations Submission API.
+
 # 5.0.0
 
 This release provides a refresh to the Conversations API as well new features for geofence events. 
