@@ -277,6 +277,8 @@ $(function(){
 
 <pre><code>dependencies {
     compile 'com.bazaarvoice.bvandroidsdk:conversations:5.+'
+    compile 'com.google.android.gms:play-services-ads:9.{your_play_services_version}'
+    compile 'com.android.support:recyclerview-v7:25.{your_support_library_version}'
 }
 repositories {
     mavenCentral()
@@ -309,9 +311,10 @@ repositories {
 <br>
 
 <h3>AndroidManifest</h3>
-<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
-&lt;application
-    android:name=".MyApplication"&gt;
+<hr>
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;<br/>
+&lt;application<br/>
+    android:name=".MyApplication"&gt;<br/>
 &lt;/application&gt;</code></pre>
 
 
@@ -580,7 +583,8 @@ questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new Conver
 </p>
 
 <pre><code>List&lt;String&gt; productIds = Arrays.asList("test1", "test2", "test3", "test4");
-BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.All).build();
+BulkRatingsRequest request = new BulkRatingsRequest
+    .Builder(productIds, BulkRatingOptions.StatsType.All).build();
 </code></pre>
 
 <p>
@@ -592,23 +596,30 @@ client.prepareCall(request).loadAsync(new ConversationsCallback&lt;BulkRatingsRe
     @Override
     public void onSuccess(BulkRatingsResponse response) {
         //called on Main Thread
-        String productId="", averageOverallRating="", totalReviewCount="";
         for (Statistics stats : response.getResults()) {
+            String productId = "";
+            Float avgRating = Float.NaN;
+            Integer totalReviewCount = 0;
             ProductStatistics productStats = stats.getProductStatistics();
             if (productStats != null) {
               productId = productStats.getProductId();
               ReviewStatistics reviewStats = productStats.getReviewStatistics();
               if (reviewStats != null) {
-                averageOverallRating = reviewStats.getAverageOverallRating();
+                avgRating = reviewStats.getAverageOverallRating();
                 totalReviewCount = reviewStats.getTotalReviewCount();
               }
             }
+            String msg = String
+                .format("productId: %s, avgRating: %f, totalReviewCount: %d",
+                productId, avgRating, totalReviewCount);
+            Log.d("BulkRatings", msg);
         }
     }
 
     @Override
     public void onFailure(BazaarException exception) {
         //called on Main Thread
+        Log.e("BulkRatings", "Failed to get bulk ratings", exception);
     }
 });
 </code></pre>

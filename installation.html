@@ -245,10 +245,20 @@ $(function(){
   Installation
 </div>
 <p>This guide shows you how to install and import the Bazaarvoice Mobile SDK into your Android app.</p>
-<hr>
-<br>
 
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href="#prereqs">Prerequisites</a></li>
+  <li><a href="#install-with-gradle">Installing with Gradle</li>
+  <li><a href="#configure-bvsdk">Configuring the BVSDK</a></li>
+  <li><a href="#android-manifest">AndroidManifest</a></li>
+  <li><a href="#dependencies">Bazaarvoice SDK Dependencies</a></li>
+  <li><a href="#complete-install">Completing Installation</a></li>
+</ol>
+
+<div id="prereqs">
 <h3>Prerequisites</h3>
+<hr>
 <ul>
   <li>Signed Data Usage Amendment, if not already in place</li>
   <li>Minimum Android deployment target of 4.1.0 (API Level 16)</li>
@@ -257,57 +267,345 @@ $(function(){
   <li>API key(s) for Bazaarvoice products you have enabled</li>
 </ul>
 <br>
-<h3>Installing with Gradle</h3>
+</div>
 
+<div id="install-with-gradle">
+<h3>Installing with Gradle</h3>
+<hr>
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  For manual installation using archive builds (.aar), use the latest archive version on the  <a href="http://repo1.maven.org/maven2/com/bazaarvoice/bvandroidsdk/">BVSDK Maven repository</a>.</p>
 
-<p>Implement the following code to include the Maven Central repository and add Bazaarvoice Mobile SDK modules to your dependencies for each Bazaarvoice product you are using.</p>
-<pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:5.+'
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:5.+'
-    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:5.+'
-    compile 'com.bazaarvoice.bvandroidsdk:location:5.+'
-}
-repositories {
-    mavenCentral()
-}
+<p>Add the following dependencies to include the Maven Central repository and add Bazaarvoice Mobile SDK modules. You only need to add the dependencies for the products you have an API key for.</p>
+<pre><code>dependencies {<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:location:5.+'<br/>
+}<br/>
+repositories {<br/>
+    mavenCentral()<br/>
+}<br/>
 </code></pre>
 <br>
+</div>
 
-<h3>Extending the Application</h3>
-<p>Create a class that extends <code>android.app.Application</code> and initialize the Mobile SDK using its builder.</p>
-<p>You can find a full list of build options in <code>BVSDK.java</code>.</p>
-<p>In the following example, <code>YOUR_CLIENT_ID</code> represents your client name, such as "<strong>bazaarvoice</strong>". If you are unsure of your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Bazaarvoice Client Care</a> or your implementation team.</p>
+<div id="configure-bvsdk">
+<h3>Configuring the BVSDK</h3>
+<hr>
+Once you have install the source code for the SDK, you are now ready to initialize the <code>BVSDK</code> with your API key(s) and envrionment (staging versus production).
+<br><br>
+<div class="panel-group flex" id="accordion" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
+    
 
-<pre><code class="java">public class MyApplication extends Application {
 
-    @Override
-    public void onCreate(){
-        super.onCreate();
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-configurationCollapse">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#configurationCollapse" aria-expanded="true" aria-controls="configurationCollapse" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="configurationArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;"><step>1</step> <span>Select Configuration Options</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Configure your SDK options.<br/>The values you set will generate the necessary script and Mobile SDK intialization code to get you up and running quickly.</span></p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="configurationCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
 
-        // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK.builder(this, YOUR_CLIENT_ID) // your client name, e.g. 'bazaarvoice'
-            .bazaarEnvironment(BazaarEnvironment.PRODUCTION) //Either staging or production. Use corresponding API key
-            .apiKeyShopperAdvertising(YOUR_SHOPPER_ADVERTISING_API_KEY) //Required for Ads
-            .logLevel(BVLogLevel.INFO)
-            .build();
+    <div class="flex flex-row" style="align-items: center">
+        <div class="cel-fl-2">
+            Enter your Client ID:
+        </div>
+        <div class="cel-fl-10">
+            <input type="text" class="edit_ClientID" id="clientId" placeholder="your client name, such as bazaarvoice" style="border-color:red" size="40"/>
+        </div>
+    </div>
+    <div class="flex flex-row">
+        <p>If you don't know your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    Select one or more module(s):
+                </th>
+                <th>
+                    Enter API key:
+                </th>
+            <tr>
+                <td>
+                    <input type="checkbox" class="cb_BVCurations"/> <b>Curations</b>
+                </td>
+                <td>
+                    <input type="text" class="key_BVCurations" placeholder="Curations API Key here" style="width:100%"/>
+                </td>
+            <tr>
+                <td>
+                    <input type="checkbox" class="cb_BVConversations"/> <b>Conversations</b>
+                </td>
+                <td>
+                    <input type="text" class="key_BVConversations" placeholder="Conversations API Key here" style="width:100%"/>
+                </td>
+            <tr>
+            <tr>
+                <td>
+                    <input type="checkbox" class="cb_BVConversationsStores"/> <b>Conversations for Stores</b>
+                </td>
+                <td>
+                    <input type="text" class="key_BVConversationsStores" placeholder="Conversations for Stores API Key here" style="width:100%"/>
+                </td>
+            <tr>
+                <td>
+                    <input type="checkbox" class="cb_BVAdvertising"/> <b>Advertising</b>
+                    <br/>
+                    <input type="checkbox" class="cb_BVRecommendations"/> <b>Product Recommendations</b>
+                </td>
+                <td>
+                    <input type="text" class="key_ShopperAdvertising" placeholder="Shopper Advertising API Key here" style="width:100%"/>
+                </td>
+            <tr>
+              <tr>
+                <td>
+                    <input type="checkbox" class="cb_BVLocation"/> <b>Location</b>
+                </td>
+                <td>
+                    <input type="text" class="key_BVCLocation" placeholder="Location API Key here" style="width:100%"/>
+                </td>
+            <tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+
+    // Determine whether or not to put red border on invalid text entry
+    function validateTextInputs(){
+
+      // client id text box
+        if ($('.edit_ClientID').val() == '') {
+        $('.edit_ClientID').css('border-color', 'red');
+        }
+        else {
+        $('.edit_ClientID').css('border-color', '');
+        }
+
+      // API key checkboxes
+      if ($('.cb_BVCurations:checked').length > 0 && !$('.key_BVCurations').val()){
+          $('.key_BVCurations').css('border-color', 'red');
+      } else {
+          $('.key_BVCurations').css('border-color', '');
+      }
+
+      if ($('.cb_BVConversations:checked').length > 0 && !$('.key_BVConversations').val()){
+        $('.key_BVConversations').css('border-color', 'red');
+      } else {
+        $('.key_BVConversations').css('border-color', '');
+      }
+
+       if ($('.cb_BVConversationsStores:checked').length > 0 && !$('.key_BVConversationsStores').val()){
+        $('.key_BVConversationsStores').css('border-color', 'red');
+      } else {
+        $('.key_BVConversationsStores').css('border-color', '');
+      }
+
+      if ( ($('.cb_BVAdvertising:checked').length > 0 || $('.cb_BVRecommendations:checked').length > 0)
+                  && !$('.key_ShoppeAdvertising').val()){
+          $('.key_ShoppeAdvertising').css('border-color', 'red');
+      } else {
+          $('.key_ShoppeAdvertising').css('border-color', '');
+      }
+
+      if ($('.cb_BVLocation:checked').length > 0 && !$('.key_BVCLocation').val()){
+          $('.key_BVCLocation').css('border-color', 'red');
+      } else {
+          $('.key_BVCLocation').css('border-color', '');
+      }
+
     }
-}
-</code></pre>
-<br>
 
+    function updateCodeSnippets(){
+            var REPLACE_ME  = "ERROR"
+            if ($('.edit_ClientID#clientId').val().length > 0){
+             clientId = $('.edit_ClientID#clientId').val()
+            } else {
+             clientId = REPLACE_ME
+            }
+
+            $('#java-bvsdkmanager').text('    BVSDK.builder(application, "' + clientId + '")')
+            $('#java-bvsdkmanager').append('<br/>      .bazaarEnvironment(BazaarEnvironment.STAGING) // Change to BazaarEnvironment.PRODUCTION for release<br/>')
+
+            if ($('.cb_BVAdvertising:checked').length > 0 || $('.cb_BVRecommendations:checked').length > 0) {
+              var shopperKey = $('.key_ShopperAdvertising').val()
+              $('#java-bvsdkmanager').append('      .apiKeyShopperAdvertising("' + shopperKey + '")<br/>');
+            }
+
+            if ($('.cb_BVCurations:checked').length > 0){
+               var curationsKey = $('.key_BVCurations').val()
+               $('#java-bvsdkmanager').append('      .apiKeyCurations("' + curationsKey + '")<br/>');
+            }
+
+            if ($('.cb_BVConversations:checked').length > 0){
+              var conversationsKey = $('.key_BVConversations').val()
+              $('#java-bvsdkmanager').append('      .apiKeyConversations("' + conversationsKey + '")<br/>');
+            }
+
+            if ($('.cb_BVConversationsStores:checked').length > 0){
+              var conversationsStoresKey = $('.key_BVConversationsStores').val()
+              $('#java-bvsdkmanager').append('      .apiKeyConversationsStores("' + conversationsStoresKey + '")<br/>');
+            }
+
+            if ($('.cb_BVLocation:checked').length > 0 || $('.cb_BVLocation:checked').length > 0){
+              var locationKey = $('.key_BVCLocation').val()
+              $('#java-bvsdkmanager').append('      .apiKeyLocation("' + locationKey + '")<br/>');
+            }
+
+            $('#java-bvsdkmanager').append('      .build();<br/>')
+    }
+
+    function formatCode() {
+
+      // You can use highlightBlock to highlight blocks dynamically inserted into the page. Just make sure you don't do it twice for already highlighted blocks.
+
+      //If your code container relies on <br> tags instead of line breaks (i.e. if it's not <pre>) set the useBR option to true:
+      hljs.configure({useBR: true});
+      $('pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+    }
+
+    // Handle text box input changes
+    $(':text').on('input',function(e){
+        validateTextInputs()
+      updateCodeSnippets()
+      // formatCode()
+    });
+
+
+    // Handle checkbox toggles
+    $(':checkbox').on('click', function() {
+      validateTextInputs()
+      updateCodeSnippets()
+      // formatCode()
+
+    });
+
+    formatCode()
+    </script>
+
+    		</div>
+    </div>
+  </div>
+
+    
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-installationBVSDKManager">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#installationBVSDKManager" aria-expanded="false" aria-controls="installationBVSDKManager" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="installationBVSDKManagerArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;"><step>2</step> Initialize the BVSDKManager</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Initialize the <code>BVSDKManager</code> in your Application class.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="installationBVSDKManager" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
+    <p>Insert the following code in your <code>Application#onCreate(...)</code></p>
+
+</code></pre>
+<pre><code class="java">public class MyApplication extends Application {<br/>
+  @Override<br/>
+  public void onCreate(){<br/>
+    super.onCreate();<br/>
+    // Builder used to initialize the Bazaarvoice SDKs
+    <div id="java-bvsdkmanager">    // You haven't selected a configuration option yet in Step 1!</div>
+  }<br/>
+}<br/>
+</code></pre>
+
+    		</div>
+    </div>
+  </div>
+
+</div>
+
+<br>
+</div>
+
+<div id="android-manifest">
 <h3>AndroidManifest</h3>
-<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
-&lt;application
-    android:name=".MyApplication"&gt;
+<hr>
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;<br/>
+&lt;application<br/>
+    android:name=".MyApplication"&gt;<br/>
 &lt;/application&gt;</code></pre>
 
+<br>
+</div>
 
+<div id="dependencies">
+<h3>Bazaarvoice SDK Dependencies</h3>
+<hr>
+
+<p>In case your app and our SDK use different versions of the same
+  dependencies, we have compiled a list of the depedencies each of our
+  modules has below to help debug.</p>
+
+<p>If your app pulls in any <code>com.android.support</code>,
+  <code>com.google.android.gms</code>, or <code>com.gimbal.android.v2</code>
+  modules, it would be best for you to look at the specific modules that we
+  request from those packages below. Redeclare them in your build.gradle
+  with the explicit version you would like. This will avoid any 'duplicate
+  class' issues while compiling.</p>
+
+<h4>Common</h4>
+<pre><code>compile "com.google.code.gson:gson:2.5"<br/>
+compile "com.squareup.okhttp3:okhttp:3.2.0"<br/>
+compile "com.google.android.gms:play-services-ads:9.0.0"<br/>
+compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
+
+<h4>Advertising</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+
+<h4>Conversations</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+
+<h4>Curations</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+
+<h4>Location</h4>
+
+<p>Inherits from common, and adds:</p>
+
+<pre><code>compile "com.gimbal.android.v2:gimbal-sdk:2.46"<br/>
+compile "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"<br/>
+compile "org.slf4j:slf4j-api:1.7.21:1.7.21"<br/>
+compile "com.android.support:support-v4:25.0.0"<br/>
+compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
+
+<h4>Recommendations</h4>
+
+<p>Inherits from common, no additional dependencies.</p>
+<br>
+</div>
+
+<div id="complete-install">
 <h3>Completing Installation</h3>
-
+<hr>
 <p>After you've completed the above steps, the Bazaarvoice Mobile SDK should be configured and installed. If you encounter difficulties, contact <a href="https://developer.bazaarvoice.com/support">Bazaarvoice Client Care</a> or your implementation team.</p>
 <br>
+</div>
 
 
 

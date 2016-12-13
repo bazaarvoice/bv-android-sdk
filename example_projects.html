@@ -245,120 +245,96 @@ $(function(){
 	Example Projects
 </div>
 <hr>
+
+
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-installationCollapse">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#installationCollapse" aria-expanded="false" aria-controls="installationCollapse" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="installationArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;">Setup Instructions</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">Click here to see how to download and open the BVSDK project.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="installationCollapse" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
+<h3>Setup</h3>
+<hr>
+<ol>
+  <li>
+    Clone the BVSDK repository:
+    <pre><code>$ git clone https://github.com/bazaarvoice/bv-android-sdk.git</code></pre>
+  </li>
+  <li>
+    In Android Studio select <b>Open an existing Android Studio Project</b>, or <b>File</b> > <b>Open</b>.
+    <img src="android-img/examples/open_project.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Navigate to the root directory of the project, and click <b>OK</b>
+    <img src="android-img/examples/open_sdk.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+</ol>
+
+		</div>
+    </div>
+  </div>
+
+
+<h3>Basic Example Project</h3>
+<hr>
+<p>The BVSDK contains basic example projects for each module as well as a full demo project highlighting a full integration of all the BVSDK components. Preview any of the samples in the SDK to help you get your implementation up and running quickly.</p>
+
+If you want to drop in your own API keys to run any of the demos from the drawer menu, just open <code>DemoConstants.java</code> and set your client ID and API key values for the API demos you want to explore.<p/>
+
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
+
+<br>
+
+<ol>
+  <li>
+    <p>Right click the <code>DemoMainActivity.java</code> file, and select Run.</p>
+    <img src="android-img/examples/code_example_run.png" style="height:auto; border:1px solid gray" class="center-block img-fluid"/>
+  </li>
+  <br><br>
+  <li>
+    <p>On your device, you should see a home page like this. This app can be used to view example implementations of the different
+    parts of the BVSDK.</p>
+    <img src="android-img/examples/code_example_home.png" style="max-width:30%" class="center-block img-fluid" />
+  </li>
+  <br><br>
+  <li>
+    <p>There will be a drawer with simple code example for each of the products.</p>
+    <img src="android-img/examples/code_example_drawer.png" style="max-width: 30%" class="center-block img-fluid" />
+  </li>
+</ol>
+
+
+<h3>BVSDKDemo: Full SDK Integration Examples</h3>
+<hr>
 <p>The BVSDK contains basic example projects for each module as well as a full demo project highlighting a full integration of all the BVSDK components. Preview any of the samples in the SDK to help you get your implementation up and running quickly.</p>
 
 <p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
 
 <br>
 
-
-
-
-<div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="heading-codeAppSetupId">
-    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#codeAppSetupId" aria-expanded="false" aria-controls="codeAppSetupId" style="text-decoration: none">
-      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
-          <i id="codeAppSetupArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
-          <h5 style="margin-bottom: 0;">Configuring the Code Example App</h5>
-      </div>
-      <div class="flex flex-row">
-          <p style="color:#444; margin-bottom: 6px;">Click here to see how to configure the code example app.</p>
-      </div>
-      <div style="clear:both;"></div>
-    </a>
-  </div>
-  <div id="codeAppSetupId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-    <div class="panel-body">
-
 <ol>
-  <li>
-    <p>Open the <code>DemoConstants.java</code> file, and modify...
-      <ol>
-        <li><code>BV_CLIENT_ID</code> - your Bazaarvoice provided clientId string name</li>
-        <li><code>PASSKEY_SHOPPER_AD</code> - your Bazaarvoice Shopper Advertising api key</li>
-        <li><code>PASSKEY_CONVERSATIONS</code> - your Bazaarvoice Conversations api key</li>
-        <li><code>PASSKEY_CURATIONS</code> - your Bazaarvoice Curations api key</li>
-        <li><code>PASSKEY_LOCATION</code> - your Bazaarvoice Location api key</li>
-        <li><code>ENVIRONMENT</code> - the environment you want from the BazaarEnvironment enum</li>
-      </ol>
-    </p>
-    <p><code>BV_CLIENT_ID</code> and <code>ENVIRONMENT</code> are required, and the others may be left as
-      <code>"REPLACE_ME"</code> if not used</p>
-  </li>
-  <br><br>
-  <li>
-    <p>Right click the <code>DemoMainActivity.java</code> file, and select Run.</p>
-    <img src="android-img/code_example_step_2_run_activity.png" style="height:auto; border:1px solid gray" class="center-block img-fluid"/>
-  </li>
-  <br><br>
-  <li>
-    <p>On your device, you should see a home page like this. This app can be used to view example implementations of the different
-    parts of the BVSDK.</p>
-    <img src="android-img/code_example_step_10_home_screen.png" style="max-width:30%" class="center-block img-fluid" />
-  </li>
-  <br><br>
-  <li>
-    <p>There will be a drawer with simple code example for each of the products.</p>
-    <img src="android-img/code_example_step_11_nav_drawer.png" style="max-width: 30%" class="center-block img-fluid" />
-  </li>
-</ol>
-
-		</div>
-    </div>
-  </div>
-
-
-
-
-
-<div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="heading-demoAppSetupId">
-    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#demoAppSetupId" aria-expanded="false" aria-controls="demoAppSetupId" style="text-decoration: none">
-      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
-          <i id="demoAppSetupArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
-          <h5 style="margin-bottom: 0;">Configuring the Demo App</h5>
-      </div>
-      <div class="flex flex-row">
-          <p style="color:#444; margin-bottom: 6px;">Click here to see how to configure the demo app.</p>
-      </div>
-      <div style="clear:both;"></div>
-    </a>
-  </div>
-  <div id="demoAppSetupId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-    <div class="panel-body">
-
-<ol>
-  <li>
-    <p>Open the <code>DemoConstants.java</code> file, and modify...
-      <ol>
-        <li><code>BV_CLIENT_ID</code> - your Bazaarvoice provided clientId string name</li>
-        <li><code>PASSKEY_SHOPPER_AD</code> - your Bazaarvoice Shopper Advertising api key</li>
-        <li><code>PASSKEY_CONVERSATIONS</code> - your Bazaarvoice Conversations api key</li>
-        <li><code>PASSKEY_CONVERSATIONS_STORES</code> - your Bazaarvoice Conversations api key</li>
-        <li><code>PASSKEY_CURATIONS</code> - your Bazaarvoice Curations api key</li>
-        <li><code>ENVIRONMENT</code> - the environment you want from the BazaarEnvironment enum</li>
-      </ol>
-    </p>
-    <p><code>BV_CLIENT_ID</code> and <code>ENVIRONMENT</code> are required, and the others may be left as
-      <code>"REPLACE_ME"</code> if not used.
-    <p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The demo app is not useable without a Shopper Advertising API Key.</p></p>
-  </li>
-  <br><br>
   <li>
     <p>Right click the <code>DemoRecsHomeActivity.java</code> file, and select Run.</p>
-    <img src="android-img/demo_step_2_run_activity.png" style="height:auto; border:1px solid gray"" class="center-block img-fluid" />
+    <img src="android-img/examples/demo_example_run.png" style="height:auto; border:1px solid gray"" class="center-block img-fluid" />
   </li>
   <br><br>
   <li>
-    <p>On your device, you should see a home page like this. This app can be used as an example of best practices to use when integrating all parts
-    of the BVSDK into a single app.</p>
-    <img src="android-img/demo_step_10_home_screen.png" style="max-width:30%" class="center-block img-fluid" />
+    <p>On your device, you should see a home page like the one below. This app can be used as an example of best practices to use when integrating BVSDK into your app mobile application.</p>
+    <img src="android-img/examples/demo_example_home.png" style="max-width:30%" class="center-block img-fluid" />
   </li>
 </ol>
-
-		</div>
-    </div>
-  </div>
 
 
 <br>

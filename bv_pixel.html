@@ -281,6 +281,8 @@ $(function(){
 
 <pre><code>dependencies {
     compile 'com.bazaarvoice.bvandroidsdk:common:5.+'
+    compile 'com.google.android.gms:play-services-ads:9.{your_play_services_version}'
+    compile 'com.android.support:recyclerview-v7:25.{your_support_library_version}'
 }
 repositories {
     mavenCentral()
@@ -312,9 +314,10 @@ repositories {
 <br>
 
 <h3>AndroidManifest</h3>
-<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
-&lt;application
-    android:name=".MyApplication"&gt;
+<hr>
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;<br/>
+&lt;application<br/>
+    android:name=".MyApplication"&gt;<br/>
 &lt;/application&gt;</code></pre>
 
 
