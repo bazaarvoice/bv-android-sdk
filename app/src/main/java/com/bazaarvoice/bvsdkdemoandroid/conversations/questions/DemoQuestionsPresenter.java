@@ -3,6 +3,8 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
+import android.util.Log;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
@@ -17,10 +19,12 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActionsListener, ConversationsCallback<QuestionAndAnswerResponse> {
 
+    private static final String TAG = "DemoQsPresenter";
     private DemoQuestionsContract.View view;
     private DemoConfigUtils demoConfigUtils;
     private DemoDataUtil demoDataUtil;
@@ -91,6 +95,8 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
         if (questions.size() > 0) {
             view.showQuestions(questions);
             Question firstQuestion = questions.get(0);
+            Date date = firstQuestion.getSubmissionDate();
+            Log.d(TAG, "question submitted on " + date.toString());
             Product product = firstQuestion.getProduct();
             if (product != null) {
                 String imageUrl = product.getImageUrl();

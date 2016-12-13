@@ -3,20 +3,27 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 class DateUtil {
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+    static SimpleDateFormat dateFormat = null;
 
     static Date dateFromString(String dateStr) {
         Date date = null;
         try {
+            initDateFormat();
             date = dateFormat.parse(dateStr);
-        } catch (ParseException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return date;
+    }
+
+    private static void initDateFormat() {
+        if (dateFormat == null) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        }
     }
 }

@@ -168,7 +168,6 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testQandAForSomeQuestionsWithAnswersParsing() {
         QuestionAndAnswerResponse response = testParsing("qanda_some_questions_with_answers.json", QuestionAndAnswerResponse.class);
         Question firstQuestion = response.getResults().get(0);
-        assertNotNull(firstQuestion.getBrandImageLogoUrl());
         assertNotNull(firstQuestion.getQuestionDetails());
         assertNotNull(firstQuestion.getQuestionSummary());
         assertNotNull(firstQuestion.getTagDimensions());
@@ -187,6 +186,9 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertNotNull(firstQuestion.getLastModificationDate());
         assertNotNull(firstQuestion.getModerationStatus());
         assertNotNull(firstQuestion.getProductId());
+
+        Answer firstAnswer = firstQuestion.getAnswers().get(0);
+        assertNotNull(firstAnswer.getBrandImageLogoUrl());
     }
 
     private List<String> getProdIds(int limit){

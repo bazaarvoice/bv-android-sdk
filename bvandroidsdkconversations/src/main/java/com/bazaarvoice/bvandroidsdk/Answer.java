@@ -10,6 +10,8 @@ public class Answer extends IncludedContentBase {
     private String questionId;
     @SerializedName("AnswerText")
     private String answerText;
+    @SerializedName("BrandImageLogoURL")
+    private String brandImageLogoUrl;
     private transient Question question;
 
     public Question getQuestion() {
@@ -18,6 +20,10 @@ public class Answer extends IncludedContentBase {
         }
 
         return this.question;
+    }
+
+    public String getBrandImageLogoUrl() {
+        return brandImageLogoUrl;
     }
 
     public String getAnswerText() {
