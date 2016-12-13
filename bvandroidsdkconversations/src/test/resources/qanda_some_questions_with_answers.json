@@ -1,6 +1,39 @@
 {
   "Includes":{
-
+    "Answers": {
+      "123": {
+        "AdditionalFieldsOrder": [],
+        "UserNickname": "UG2sk",
+        "IsBrandAnswer": true,
+        "Photos": [],
+        "ContextDataValues": {},
+        "Videos": [],
+        "ContextDataValuesOrder": [],
+        "LastModificationTime": "2011-06-29T00:10:10.000+00:00",
+        "QuestionId": "14898",
+        "BrandImageLogoURL": "http://www.example.com/badge.png",
+        "SubmissionId": null,
+        "TotalFeedbackCount": 0,
+        "TotalPositiveFeedbackCount": 0,
+        "UserLocation": "Proin nec conguerisus",
+        "BadgesOrder": [],
+        "Badges": {},
+        "AuthorId": "8g90d8ea70g",
+        "IsFeatured": false,
+        "IsSyndicated": false,
+        "ProductRecommendationIds": [],
+        "AdditionalFields": {},
+        "CampaignId": null,
+        "TotalNegativeFeedbackCount": 0,
+        "SubmissionTime": "2011-06-03T15:13:44.000+00:00",
+        "ContentLocale": "en_US",
+        "IPAddress": null,
+        "ModerationStatus": "APPROVED",
+        "Id": "123",
+        "AnswerText": "Cras gravida accumsan eros, imperdiet mollis magna commodosed. Donec vehicula velitdolor.",
+        "LastModeratedTime": "2011-06-29T00:10:10.000+00:00"
+      }
+    }
   },
   "HasErrors":false,
   "Offset":0,
@@ -41,7 +74,7 @@
       "SubmissionId":null,
       "LastModificationTime":"2011-08-25T15:56:50.000+00:00",
       "AnswerIds":[
-
+        "123"
       ],
       "TotalFeedbackCount":0,
       "TotalPositiveFeedbackCount":0,
@@ -68,7 +101,6 @@
       "ContentLocale":"en_US",
       "IPAddress":null,
       "ModerationStatus":"APPROVED",
-      "BrandImageLogoURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Wikipedia_Logo_1.0.png/220px-Wikipedia_Logo_1.0.png",
       "Id":"14899",
       "LastModeratedTime":"2011-06-29T00:10:10.000+00:00"
     },
@@ -129,7 +161,6 @@
       "ContentLocale":"en_US",
       "IPAddress":null,
       "ModerationStatus":"APPROVED",
-      "BrandImageLogoURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Wikipedia_Logo_1.0.png/220px-Wikipedia_Logo_1.0.png",
       "Id":"14898",
       "LastModeratedTime":"2011-06-29T00:10:10.000+00:00"
     },
