@@ -1,5 +1,12 @@
 # Changelog
 
+# 5.1.3
+
+## Conversations
+
+* Fix ```BrandImageLogoURL``` correctly moved to Answer model
+* Fix ```DateUtil``` parsing error that occurs on Android API 16-23, and add better catching around it
+
 # 5.1.2
 
 ## Conversations
