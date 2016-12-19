@@ -15,10 +15,15 @@ import com.bazaarvoice.bvandroidsdk.AnswerSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionRequest;
+import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.QuestionSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.QuestionSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.ReviewSubmissionResponse;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
@@ -128,6 +133,15 @@ public class DemoConversationsAPIFragment extends Fragment {
         //////////////////////////////
         // Submit Example Buttons
         //////////////////////////////
+        this.setupPhotoSubmitButton(view);
+        this.setupQuestionSubmitButton(view);
+        this.setupAnswerSubmitButton(view);
+        this.setupFeedbackSubmitButton(view);
+
+    }
+
+    private void setupPhotoSubmitButton(View view){
+
         // Submit Review w/ Photo
         Button feedBtn = (Button) view.findViewById(R.id.submitReviewWithPhoto);
         feedBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +149,7 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
-                    // For clients in US, iovation SDK is required!
+                    // For clients non-EU clients, iovation SDK is required!
 //                    String blackbox = getBlackbox(getContext().getApplicationContext());
 
                     progress.setTitle("Submitting Review...");
@@ -183,6 +197,9 @@ public class DemoConversationsAPIFragment extends Fragment {
             }
         });
 
+    }
+
+    private void setupQuestionSubmitButton(View view){
         // Submit Question
         Button questionBtn = (Button) view.findViewById(R.id.submitQuestion);
         questionBtn.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +207,7 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
-                    // For clients in US, iovation SDK is required!
+                    // For clients non-EU clients, iovation SDK is required!
                     //String blackbox = getBlackbox(getContext().getApplicationContext());
 
                     progress.setTitle("Submitting Question...");
@@ -224,8 +241,9 @@ public class DemoConversationsAPIFragment extends Fragment {
                 }
             }
         });
+    }
 
-
+    private void setupAnswerSubmitButton(View view){
         // Submit Answer
         Button answerButton = (Button) view.findViewById(R.id.submitAnswer);
         answerButton.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +251,7 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
-                    // For clients in US, iovation SDK is required!
+                    // For clients non-EU clients, iovation SDK is required!
                     //String blackbox = getBlackbox(getContext().getApplicationContext());
 
                     progress.setTitle("Submitting Answer...");
@@ -265,7 +283,49 @@ public class DemoConversationsAPIFragment extends Fragment {
                 }
             }
         });
+    }
 
+    private void setupFeedbackSubmitButton(View view){
+        // Submit Feedback
+        Button feedbackButton = (Button) view.findViewById(R.id.submitFeedback);
+        feedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (readyForDemo()) {
+
+                    // For non-EU clients, iovation SDK is required!
+                    //String blackbox = getBlackbox(getContext().getApplicationContext());
+
+                    progress.setTitle("Submitting Feedback...");
+                    progress.show();
+
+                    String theReviewId = "83725"; // E.g. the review/question/answer "Id"
+
+                    FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(Action.Preview, theReviewId)
+                            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+                            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
+                            .feedbackType(FeedbackType.HELPFULNESS)
+                            .feedbackContentType(FeedbackContentType.REVIEW)
+                            .feedbackVote(FeedbackVoteType.POSITIVE)
+                            .build();
+
+                    client.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
+
+                        @Override
+                        public void onSuccess(FeedbackSubmissionResponse response) {
+                            progress.dismiss();
+                            showDialogWithMessage("Successful feedback submission.");
+                        }
+
+                        @Override
+                        public void onFailure(BazaarException exception) {
+                            progress.dismiss();
+                            showDialogWithMessage(exception.getMessage());
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override

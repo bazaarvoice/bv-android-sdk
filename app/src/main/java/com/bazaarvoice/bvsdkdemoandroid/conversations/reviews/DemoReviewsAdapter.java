@@ -8,12 +8,22 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.Action;
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
+import com.bazaarvoice.bvandroidsdk.BazaarException;
+import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionRequest;
+import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.Photo;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
@@ -50,15 +60,42 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         Date submissionDate= bazaarReview.getSubmissionDate();
         String nickName = bazaarReview.getUserNickname();
         List<Photo> photos = bazaarReview.getPhotos();
+        Integer helpfulVoteCount = bazaarReview.getTotalPositiveFeedbackCount();
+        Integer notHelpfulVoteCount = bazaarReview.getTotalNegativeFeedbackCount();
 
-        populateViewHolder(viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos);
+        populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location,
+                submissionDate, nickName, photos, helpfulVoteCount, notHelpfulVoteCount);
     }
 
+    void populateViewHolder(final ReviewType reviewItem, final ReviewRowViewHolder viewHolder, String title, String reviewText, Integer rating, String location,
+                            Date submissionDate, String nickName, List<Photo> photos, final Integer helpfulVoteCount, final Integer notHelpfulVoteCount) {
 
-    void populateViewHolder(ReviewRowViewHolder viewHolder, String title, String reviewText, Integer rating, String location, Date submissionDate, String nickName, List<Photo> photos) {
         viewHolder.reviewTitle.setText(title);
         viewHolder.reviewBody.setText(reviewText);
         viewHolder.reviewRating.setRating(rating == null ? 0 : rating);
+
+        if (TextUtils.isEmpty(reviewText) || helpfulVoteCount < 0){
+            viewHolder.notHelpfulButton.setVisibility(View.GONE);
+            viewHolder.helpfulButton.setVisibility(View.GONE);
+            viewHolder.helpfulTextHeader.setVisibility(View.GONE);
+        } else {
+            setHelpfulnessVoteCountText(reviewItem.getTotalPositiveFeedbackCount(), reviewItem.getTotalNegativeFeedbackCount(), viewHolder);
+
+            viewHolder.helpfulButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    submitHelpfulnessVote(reviewItem, FeedbackVoteType.POSITIVE, viewHolder);
+                }
+            });
+
+            viewHolder.notHelpfulButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    submitHelpfulnessVote(reviewItem, FeedbackVoteType.NEGATIVE, viewHolder);
+                }
+            });
+
+        }
 
         boolean hasLocation = !TextUtils.isEmpty(location) && !location.equals("null");
         if (hasLocation) {
@@ -90,6 +127,73 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         }
     }
 
+    private void setHelpfulnessVoteCountText(Integer positiveReviewCount, Integer negativeReviewCount, ReviewRowViewHolder viewHolder){
+
+        viewHolder.notHelpfulButton.setText("Not Helpful (" + negativeReviewCount + ")");
+        viewHolder.helpfulButton.setText("Helpful (" + positiveReviewCount + ")");
+
+    }
+
+    private void submitHelpfulnessVote(final ReviewType reviewItem, final FeedbackVoteType vote, final ReviewRowViewHolder viewHolder){
+
+        viewHolder.notHelpfulButton.setClickable(false);
+        viewHolder.helpfulButton.setClickable(false);
+
+        viewHolder.notHelpfulButton.setAlpha(0.5f);
+        viewHolder.helpfulButton.setAlpha(0.5f);
+
+        Integer posReviewCount = reviewItem.getTotalPositiveFeedbackCount();
+        Integer negReviewCount = reviewItem.getTotalNegativeFeedbackCount();
+
+        if (vote == FeedbackVoteType.POSITIVE){
+            posReviewCount++;
+        } else {
+            negReviewCount++;
+        }
+
+        setHelpfulnessVoteCountText(posReviewCount, negReviewCount, viewHolder);
+
+        final Integer finalPosReviewCount = posReviewCount;
+        final Integer finalNegReviewCount = negReviewCount;
+
+        FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(Action.Preview, reviewItem.getId())
+                //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+                .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
+                .feedbackType(FeedbackType.HELPFULNESS)
+                .feedbackContentType(FeedbackContentType.REVIEW)
+                .feedbackVote(vote)
+                .build();
+
+        BVConversationsClient client = new BVConversationsClient();
+        client.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
+
+            @Override
+            public void onSuccess(FeedbackSubmissionResponse response) {
+                // Yeah! Success, no do nothing!
+            }
+
+            @Override
+            public void onFailure(BazaarException exception) {
+               //  Rollback
+                viewHolder.notHelpfulButton.setClickable(true);
+                viewHolder.helpfulButton.setClickable(true);
+
+                viewHolder.notHelpfulButton.setAlpha(1.0f);
+                viewHolder.helpfulButton.setAlpha(1.0f);
+
+                if (vote == FeedbackVoteType.POSITIVE){
+                    setHelpfulnessVoteCountText(finalPosReviewCount - 1, finalNegReviewCount, viewHolder);
+                } else {
+                    setHelpfulnessVoteCountText(finalPosReviewCount, finalNegReviewCount - 1, viewHolder);
+                }
+
+            }
+        });
+
+
+    }
+
+
     @Override
     public int getItemCount() {
         return reviews.size();
@@ -105,6 +209,8 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         TextView reviewTitle, reviewTimeAgo, reviewLocation, reviewBody;
         RatingBar reviewRating;
         ImageView reviewImage;
+        Button helpfulButton, notHelpfulButton;
+        TextView helpfulTextHeader;
 
         public ReviewRowViewHolder(View itemView) {
             super(itemView);
@@ -114,6 +220,9 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
             reviewBody = (TextView) itemView.findViewById(R.id.review_body);
             reviewRating = (RatingBar) itemView.findViewById(R.id.review_rating);
             reviewImage = (ImageView) itemView.findViewById(R.id.review_header_info_image);
+            helpfulButton = (Button) itemView.findViewById(R.id.helpfulButton);
+            notHelpfulButton = (Button) itemView.findViewById(R.id.notHelpfulButton);
+            helpfulTextHeader = (TextView) itemView.findViewById(R.id.helpfulTextView);
         }
     }
 }

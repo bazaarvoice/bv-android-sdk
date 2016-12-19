@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 /**
- * TODO: Describe file here.
+ * Answer model for a successful Conversations Answer Submission
  */
 public class SubmittedAnswer {
     @SerializedName("AnswerText")

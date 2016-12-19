@@ -368,6 +368,18 @@ public class ConversationsAnalyticsManager {
         analyticsManager.enqueueEvent(schema);
     }
 
+    public static void sendUsedFeatureUgcFeedbackSubmission(@NonNull SubmitUsedFeatureSchema.SubmitFeature submitFeature, @Nullable String contentId, @Nullable String contentType, @Nullable String feedbackType, boolean hasFingerprint) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(submitFeature, magpieMobileAppPartialSchema)
+                .contentId(contentId)
+                .contentType(contentType)
+                .detail1(feedbackType)
+                .fingerprint(hasFingerprint)
+                .build();
+        analyticsManager.enqueueEvent(schema);
+    }
+
     static void sendSuccessfulConversationsSubmitResponse(ConversationsSubmissionRequest request) {
         boolean hasFingerPrint = request.getFingerprint() != null && !request.getFingerprint().isEmpty();
 
@@ -385,6 +397,13 @@ public class ConversationsAnalyticsManager {
             ReviewSubmissionRequest reviewSubmissionRequest = (ReviewSubmissionRequest) request;
             String productId = reviewSubmissionRequest.getProductId();
             sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.WRITE, productId, hasFingerPrint);
+        }
+        if (request instanceof FeedbackSubmissionRequest) {
+            FeedbackSubmissionRequest feedbackSubmissionRequest = (FeedbackSubmissionRequest) request;
+            String contentId = feedbackSubmissionRequest.getContentId();
+            String contentType = feedbackSubmissionRequest.getContentType();
+            String feedbackType = feedbackSubmissionRequest.getFeedbackType();
+            sendUsedFeatureUgcFeedbackSubmission(SubmitUsedFeatureSchema.SubmitFeature.FEEDBACK, contentId, contentType, feedbackType, hasFingerPrint);
         }
     }
 

@@ -84,6 +84,10 @@ public final class BVConversationsClient {
         return createCall(QuestionSubmissionResponse.class, submission);
     }
 
+    public LoadCallSubmission<FeedbackSubmissionRequest, FeedbackSubmissionResponse> prepareCall(FeedbackSubmissionRequest submission) {
+        return createCall(FeedbackSubmissionResponse.class, submission);
+    }
+
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType request) {
         String fullUrl = String.format("%s%s?%s", conversationsBaseUrl, request.getEndPoint(), request.getUrlQueryString());
         Logger.d("url", fullUrl);

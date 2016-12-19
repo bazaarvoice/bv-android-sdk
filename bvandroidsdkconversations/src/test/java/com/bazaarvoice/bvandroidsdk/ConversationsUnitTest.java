@@ -1,5 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
+import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 
 import org.junit.Test;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
@@ -189,6 +193,81 @@ public class ConversationsUnitTest extends BVBaseTest{
 
         Answer firstAnswer = firstQuestion.getAnswers().get(0);
         assertNotNull(firstAnswer.getBrandImageLogoUrl());
+    }
+
+
+    @Test
+    public void testFeedbackSubmitHelpfulVote() {
+
+        FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder(Action.Preview, "contentId")
+                .feedbackType(FeedbackType.HELPFULNESS)
+                .feedbackContentType(FeedbackContentType.REVIEW)
+                .feedbackVote(FeedbackVoteType.POSITIVE)
+                .userId("theUserId")
+                .build();
+
+        assertTrue("Request should not contain error", request.getError() == null);
+    }
+
+    @Test
+    public void testFeedbackSubmitInappropriateFeedback(){
+
+        FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder(Action.Preview, "contentId")
+                .feedbackType(FeedbackType.INAPPROPRIATE)
+                .feedbackContentType(FeedbackContentType.QUESTION)
+                .userId("theUserId")
+                .build();
+
+        assertTrue("Request should not contain error.", request.getError() == null);
+
+    }
+
+    @Test
+    public void testParsingFeedbackHelpfulnessResponse() {
+
+        FeedbackSubmissionResponse response = testParsing("feedback_helpfulness_response.json", FeedbackSubmissionResponse.class);
+
+        assertEquals(response.getHasErrors(), Boolean.FALSE);
+        assertNotNull(response.getLocale());
+        assertNull(response.getSubmissionId());
+        assertNull(response.getTypicalHoursToPost());
+        assertEquals(response.getErrors().size(), 0);
+        assertNull(response.getFeedback().getInappropriateFeedback());
+
+        assertEquals(response.getFeedback().getHelpfulnessFeedback().getAuthorId(), "alphauser");
+        assertEquals(response.getFeedback().getHelpfulnessFeedback().getVote(), "POSITIVE");
+
+    }
+
+    @Test
+    public void testParsingFeedbackInappropriateResponse() {
+
+        FeedbackSubmissionResponse response = testParsing("feedback_inappropriate_response.json", FeedbackSubmissionResponse.class);
+
+        assertEquals(response.getHasErrors(), Boolean.FALSE);
+        assertNotNull(response.getLocale());
+        assertNull(response.getSubmissionId());
+        assertNull(response.getTypicalHoursToPost());
+        assertEquals(response.getErrors().size(), 0);
+        assertNull(response.getFeedback().getHelpfulnessFeedback());
+
+        assertEquals(response.getFeedback().getInappropriateFeedback().getAuthorId(), "alphauser");
+        assertEquals(response.getFeedback().getInappropriateFeedback().getReasonText(), "This is where the reason text would go");
+    }
+
+    @Test
+    public void testErrorResponseNoAPIKey() {
+
+        ConversationsResponse errorResponse = testParsing("conversations_error_no_apikey.json", ConversationsResponse.class);
+
+        assertEquals(errorResponse.getHasErrors(), Boolean.TRUE);
+        assertEquals(errorResponse.getErrors().size(), 1);
+
+        Error firstError = errorResponse.getErrors().get(0);
+
+        assertEquals(firstError.getCode(), "ERROR_PARAM_INVALID_API_KEY");
+        assertEquals(firstError.getMessage(), "The passKey provided is invalid.");
+
     }
 
     private List<String> getProdIds(int limit){

@@ -1,0 +1,17 @@
+{
+  "Data":{},
+  "HasErrors":false,
+  "Form":[],
+  "FormErrors":{},
+  "TypicalHoursToPost":null,
+  "SubmissionId":null,
+  "Feedback":{
+    "Inappropriate":
+    {
+      "ReasonText":"This is where the reason text would go",
+      "AuthorId":"alphauser"
+    }
+  },
+  "Locale":"en_US",
+  "Errors":[]
+}
