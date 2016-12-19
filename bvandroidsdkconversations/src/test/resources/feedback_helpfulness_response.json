@@ -1,0 +1,17 @@
+{
+  "Data":{},
+  "HasErrors":false,
+  "Form":[],
+  "FormErrors":{},
+  "TypicalHoursToPost":null,
+  "SubmissionId":null,
+  "Feedback":{
+    "Helpfulness":
+    {
+      "Vote":"POSITIVE",
+      "AuthorId":"alphauser"
+    }
+  },
+  "Locale":"en_US",
+  "Errors":[]
+}

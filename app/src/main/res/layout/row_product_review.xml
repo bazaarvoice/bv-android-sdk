@@ -70,14 +70,51 @@
 
         </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/review_footer_info"
+        android:layout_below="@+id/review_header_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/review_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/review_header_info"
             android:layout_marginTop="@dimen/margin_2"
             android:textSize="@dimen/text_size_body_1"
             tools:text="@string/bacon_ipsum"/>
+
+        <TextView
+            android:text="Was this review helpful?"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/helpfulTextView"
+            android:layout_below="@+id/review_body"
+            android:layout_marginTop="@dimen/margin_2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:text="Yes (0)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/helpfulButton"
+            android:layout_alignBottom="@+id/notHelpfulButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/helpfulTextView"/>
+
+        <Button
+            android:text="No (0)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notHelpfulButton"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/helpfulButton"
+            android:layout_toEndOf="@+id/helpfulButton"
+            android:layout_below="@+id/helpfulTextView"/>
+    </RelativeLayout>
+
 
     </RelativeLayout>
 

@@ -14,6 +14,8 @@ abstract class UsedFeatureCanonicalSchema extends BvAnalyticsSchema {
     private static final String KEY_DETAIL2 = "detail2";
     private static final String KEY_PRODUCT_ID = "productId";
     private static final String KEY_CATEGORY_ID = "categoryId";
+    private static final String KEY_CONTENT_ID = "contentId";
+    private static final String KEY_CONTENT_TYPE = "contentType";
     private static final String KEY_BV_PRODUCT = "bvProduct";
     private static final String KEY_COMPONENT = "component";
     private static final String KEY_INTERACTION = "interaction";
@@ -32,6 +34,14 @@ abstract class UsedFeatureCanonicalSchema extends BvAnalyticsSchema {
 
     protected void addDetail2(String detail2) {
         addKeyVal(KEY_DETAIL2, detail2);
+    }
+
+    protected void addContentId(String contentId) {
+        addKeyVal(KEY_CONTENT_ID, contentId);
+    }
+
+    protected void addContentType(String contentType) {
+        addKeyVal(KEY_CONTENT_TYPE, contentType);
     }
 
     protected void addProductId(String productId) {

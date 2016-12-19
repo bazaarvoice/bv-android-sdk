@@ -11,12 +11,15 @@ class SubmitUsedFeatureSchema extends UsedFeatureCanonicalSchema {
 
     private static final String KEY_FINGERPRINT = "fingerprinting";
     private static final String source = "native-mobile-sdk";
-    private static final String bvProduct = "Recommendations";
+    private static final String bvProduct = "RatingsAndReviews";
 
     private SubmitUsedFeatureSchema(Builder builder) {
         super(source, builder.submitFeature.toString(), bvProduct);
         addCategoryId(builder.categoryId);
         addProductId(builder.productId);
+        addContentId(builder.contentId);
+        addContentType(builder.contentType);
+        addDetail1(builder.detail1);
         addKeyVal(KEY_FINGERPRINT, builder.fingerprint);
         addPartialSchema(builder.magpieMobileAppPartialSchema);
     }
@@ -41,6 +44,9 @@ class SubmitUsedFeatureSchema extends UsedFeatureCanonicalSchema {
     public static final class Builder {
         private String categoryId;
         private String productId;
+        private String contentId;
+        private String contentType;
+        private String detail1;
         private boolean fingerprint;
         private SubmitFeature submitFeature;
         private MagpieMobileAppPartialSchema magpieMobileAppPartialSchema;
@@ -62,6 +68,21 @@ class SubmitUsedFeatureSchema extends UsedFeatureCanonicalSchema {
 
         public Builder fingerprint(boolean val) {
             fingerprint = val;
+            return this;
+        }
+
+        public Builder contentId(String contentId) {
+            this.contentId = contentId;
+            return this;
+        }
+
+        public Builder contentType(String contentType) {
+            this.contentType = contentType;
+            return this;
+        }
+
+        public Builder detail1(String detail1) {
+            this.detail1 = detail1;
             return this;
         }
 

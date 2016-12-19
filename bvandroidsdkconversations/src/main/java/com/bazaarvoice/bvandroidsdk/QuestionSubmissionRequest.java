@@ -6,7 +6,7 @@ package com.bazaarvoice.bvandroidsdk;
 import java.util.Map;
 
 /**
- * TODO: Describe file here.
+ * Request builder for submitting questions about produts.
  */
 public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
 

@@ -28,6 +28,6 @@ public class DemoStoreReviewsAdapter extends DemoReviewsAdapter<StoreReview> {
         String nickName = bazaarReview.getUserNickname();
         List<Photo> photos = bazaarReview.getPhotos();
 
-        populateViewHolder(viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos);
+        populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos, -1, -1);
     }
 }
