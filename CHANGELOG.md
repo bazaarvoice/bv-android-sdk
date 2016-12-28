@@ -1,5 +1,11 @@
 # Changelog
 
+# 5.2.0
+
+## Conversations
+
+* Added support for submitting feedback. You may now send helpfulness or flag inappropriate content for reviews, questions, or answers
+
 # 5.1.3
 
 ## Conversations
