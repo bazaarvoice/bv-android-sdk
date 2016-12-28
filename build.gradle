@@ -2,19 +2,11 @@ subprojects {
     buildscript {
         repositories {
             jcenter()
-//            maven {
-//                url "https://oss.sonatype.org/content/repositories/snapshots"
-//            }
-//            mavenLocal()
             maven { url 'https://maven.fabric.io/public' }
         }
     }
     repositories {
         jcenter()
-//        maven {
-//            url "https://oss.sonatype.org/content/repositories/snapshots"
-//        }
-//        mavenLocal()
         maven { url 'https://maven.fabric.io/public' }
     }
 
