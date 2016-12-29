@@ -330,7 +330,7 @@ repositories {
 <br>
 <h4>BVConversationsClient</h4>
 
-Use an instace of the <code>BVConversationsClient</code> to make all your Conversations Submission API requets. You can keep an instance of this this object to handle all your Conversations requests as shown in the examples below.
+Use an instance of the <code>BVConversationsClient</code> to make all your Conversations Submission API requets. You can keep an instance of this this object to handle all your Conversations requests as shown in the examples below.
 <br>
 <br>
 
@@ -338,23 +338,24 @@ Use an instace of the <code>BVConversationsClient</code> to make all your Conver
     <li role="presentation" class="active"><a href="#reviewsub" aria-controls="reviewssub" role="tab" data-toggle="tab">ReviewSubmission</a></li>
     <li role="presentation"><a href="#questionub" aria-controls="questionub" role="tab" data-toggle="tab">QuestionSubmission</a></li>
     <li role="presentation"><a href="#answersub" aria-controls="answersub" role="tab" data-toggle="tab">AnswerSubmission</a></li>
+     <li role="presentation"><a href="#feedbacksub" aria-controls="feedbacksub" role="tab" data-toggle="tab">FeedbackSubmission</a></li>
 </ul>
 
 <div class="tab-content code-switcher">
     <div role="tabpanel" class="tab-pane active" id="reviewsub">
 <h4>Submitting Reviews</h4>
-<p>To submit Reviews you will use <code>ReviewSubmission</code>. To create a <code>ReviewSubmission</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to submit Reviews. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields because of this which will be represented as a <code>BazaarException</code>. It also has the optional fields that are valid for submitting Reviews. Reference <code>ReviewSubmission.java</code> for other optional fields</p>
+<p>When submitting Reviews you will use the <code>ReviewSubmission</code> class to build your POST request. For a <code>ReviewSubmission</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Reviews. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Reviews. Reference <code>ReviewSubmission.java</code> for the other request values you can set.</p>
 <pre><code>ReviewSubmission submission = new ReviewSubmission.Builder(Action.Submit, productId)
                 .userNickname(userNickname)
                 .build();</code></pre>
 <p>Once the ReviewSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
 
-<p>Submissions can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
 <pre><code>BVConversationsClient client = new BVConversationsClient();
 client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;ReviewSubmissionResponse&gt;() {
     @Override
     public void onSuccess(ReviewSubmissionResponse response) {
-                
+
     }
 
     @Override
@@ -362,16 +363,17 @@ client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;ReviewSubm
 
     }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
 <pre><code>try {
     ReviewSubmissionResponse response = client.prepareCall(submission).loadSync();
 } catch (BazaarException e) {
     e.printStackTrace();
 }</code></pre>
+
             </div>
     <div role="tabpanel" class="tab-pane" id="questionub">
 <h4>Submitting Questions</h4>
-<p>To submit Questions you will use <code>QuestionSubmission</code>. To create a <code>QuestionSubmission</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to submit Questions. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields because of this which will be represented as a <code>BazaarException</code>. It also has the optional fields that are valid for submitting Questions. Reference <code>QuestionSubmission.java</code> for other optional fields</p>
+<p>When submitting Questions you will use the <code>QuestionSubmission</code> class to build your POST request. For a <code>QuestionSubmission</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Questions. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Questions. Reference <code>QuestionSubmission.java</code> for the other request values you can set.</p>
 <pre><code>QuestionSubmission submission = new QuestionSubmission.Builder(Action.Submit,productId)
                 .userNickname(userNickname)
                 .questionDetails(questionDetails)
@@ -380,12 +382,12 @@ client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;ReviewSubm
                 .build();</code></pre>
 <p>Once the QuestionSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
 
-<p>Submissions can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
 <pre><code>BVConversationsClient client = new BVConversationsClient();
 client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;QuestionSubmissionResponse&gt;() {
     @Override
     public void onSuccess(QuestionSubmissionResponse response) {
-                
+
     }
 
     @Override
@@ -393,27 +395,28 @@ client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;QuestionSu
 
     }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
 <pre><code>try {
     QuestionSubmissionResponse response = client.prepareCall(submission).loadSync();
 } catch (BazaarException e) {
     e.printStackTrace();
 }</code></pre>
+
                     </div>
     <div role="tabpanel" class="tab-pane" id="answersub">
 <h4>Submitting Answers</h4>
-<p>To submit Answers you will use <code>AnswerSubmission</code>. To create a <code>AnswerSubmission</code> you will use its <code>Builder</code>. The <code>Builder</code> constructor contains the minimum required fields to submit Answers. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields because of this which will be represented as a <code>BazaarException</code>. It also has the optional fields that are valid for submitting Answers. Reference <code>AnswerSubmission.java</code> for other optional fields</p>
+<p>When submitting Answers you will use the <code>AnswerSubmission</code> class to build your POST request. For a <code>AnswerSubmission</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Answers. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Answers. Reference <code>AnswerSubmission.java</code> for the other request values you can set.</p>
 <pre><code>AnswerSubmission submission = new AnswerSubmission.Builder(Action.Submit, questionId, answerText)
                             .userNickname(userNickname)
                             .build();</code></pre>
 <p>Once the AnswerSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
 
-<p>Submissions can be processed asynchronosly as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
 <pre><code>BVConversationsClient client = new BVConversationsClient();
 client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;AnswerSubmissionResponse&gt;() {
     @Override
     public void onSuccess(AnswerSubmissionResponse response) {
-                
+
     }
 
     @Override
@@ -421,12 +424,46 @@ client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;AnswerSubm
 
     }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synconously as follows.</p>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
 <pre><code>try {
     AnswerSubmissionResponse response = client.prepareCall(submission).loadSync();
 } catch (BazaarException e) {
     e.printStackTrace();
 }</code></pre>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="feedbacksub">
+<h4>Submitting Feedback</h4>
+<p>When submitting Feedback you will use the <code>FeedbackSubmissionRequest</code> class to build your POST request. For a <code>FeedbackSubmissionRequest</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Feedback. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Feedback. Reference <code>FeedbackSubmissionRequest.java</code> for the other request values you can set.</p>
+<pre><code>FeedbackSubmission submission = new FeedbackSubmission.Builder(Action.Submit, contentId)
+                .feedbackType(FeedbackType.HELPFULNESS) // You can also flag for inappropriateness.
+                .feedbackContentType(FeedbackContentType.REVIEW)
+                .feedbackVote(FeedbackVoteType.POSITIVE)
+                .userId(theUserId)
+                .userNickname(userNickname)
+                .build();</code></pre>
+<p>Once the FeedbackSubmissionRequest is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+
+<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;FeedbackSubmissionResponse&gt;() {
+    @Override
+    public void onSuccess(FeedbackSubmissionResponse response) {
+
+    }
+
+    @Override
+    public void onFailure(BazaarException exception) {
+
+    }
+});</code></pre>
+<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
+<pre><code>try {
+    FeedbackSubmissionResponse response = client.prepareCall(submission).loadSync();
+} catch (BazaarException e) {
+    e.printStackTrace();
+}</code></pre>
+
     </div>
 </div>
 
