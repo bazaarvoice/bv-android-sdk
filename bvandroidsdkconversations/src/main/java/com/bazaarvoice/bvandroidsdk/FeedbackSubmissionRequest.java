@@ -79,8 +79,8 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
         private String feedbackVote;
         private String reasonFlaggedText;
 
-        public Builder(Action action, String contentId) {
-            super(action);
+        public Builder(String contentId) {
+            super(Action.Preview);  // Feedback does not support action, so forcing preview will make a proper submission.
             this.contentId = contentId;
         }
 

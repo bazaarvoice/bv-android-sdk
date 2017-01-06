@@ -214,7 +214,6 @@ public class DemoConversationsAPIFragment extends Fragment {
                     progress.show();
 
                     QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
-                            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
                             .userNickname("shazbat")
                             .userEmail("foo@bar.com")
                             .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
@@ -293,16 +292,12 @@ public class DemoConversationsAPIFragment extends Fragment {
             public void onClick(View v) {
                 if (readyForDemo()) {
 
-                    // For non-EU clients, iovation SDK is required!
-                    //String blackbox = getBlackbox(getContext().getApplicationContext());
-
                     progress.setTitle("Submitting Feedback...");
                     progress.show();
 
                     String theReviewId = "83725"; // E.g. the review/question/answer "Id"
 
-                    FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(Action.Preview, theReviewId)
-                            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+                    FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(theReviewId)
                             .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
                             .feedbackType(FeedbackType.HELPFULNESS)
                             .feedbackContentType(FeedbackContentType.REVIEW)

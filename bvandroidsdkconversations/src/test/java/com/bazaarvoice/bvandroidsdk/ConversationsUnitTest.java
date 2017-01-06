@@ -199,7 +199,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testFeedbackSubmitHelpfulVote() {
 
-        FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder(Action.Preview, "contentId")
+        FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
                 .feedbackType(FeedbackType.HELPFULNESS)
                 .feedbackContentType(FeedbackContentType.REVIEW)
                 .feedbackVote(FeedbackVoteType.POSITIVE)
@@ -212,7 +212,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testFeedbackSubmitInappropriateFeedback(){
 
-        FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder(Action.Preview, "contentId")
+        FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
                 .feedbackType(FeedbackType.INAPPROPRIATE)
                 .feedbackContentType(FeedbackContentType.QUESTION)
                 .userId("theUserId")
