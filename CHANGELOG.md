@@ -1,5 +1,11 @@
 # Changelog
 
+# 5.2.1 
+
+## Conversations
+
+* Fix ```FeedbackSubmissionRequest``` constructor to not require ```Action``` parameter
+
 # 5.2.0
 
 ## Conversations
