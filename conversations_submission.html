@@ -435,7 +435,7 @@ client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;AnswerSubm
     <div role="tabpanel" class="tab-pane" id="feedbacksub">
 <h4>Submitting Feedback</h4>
 <p>When submitting Feedback you will use the <code>FeedbackSubmissionRequest</code> class to build your POST request. For a <code>FeedbackSubmissionRequest</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Feedback. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Feedback. Reference <code>FeedbackSubmissionRequest.java</code> for the other request values you can set.</p>
-<pre><code>FeedbackSubmission submission = new FeedbackSubmission.Builder(Action.Submit, contentId)
+<pre><code>FeedbackSubmission submission = new FeedbackSubmission.Builder(contentId)
                 .feedbackType(FeedbackType.HELPFULNESS) // You can also flag for inappropriateness.
                 .feedbackContentType(FeedbackContentType.REVIEW)
                 .feedbackVote(FeedbackVoteType.POSITIVE)
