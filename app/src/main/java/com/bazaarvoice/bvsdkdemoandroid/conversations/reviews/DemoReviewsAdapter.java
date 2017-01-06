@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
@@ -156,8 +155,7 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         final Integer finalPosReviewCount = posReviewCount;
         final Integer finalNegReviewCount = negReviewCount;
 
-        FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(Action.Preview, reviewItem.getId())
-                //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+        FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(reviewItem.getId())
                 .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
                 .feedbackType(FeedbackType.HELPFULNESS)
                 .feedbackContentType(FeedbackContentType.REVIEW)
