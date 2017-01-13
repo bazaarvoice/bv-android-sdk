@@ -4,6 +4,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -103,12 +105,13 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     protected abstract String getApiKey();
 
-    private String createUrlQueryString(Map<String, Object> queryParams) {
+    protected String createUrlQueryString(Map<String, Object> queryParams) {
 
         StringBuilder builder = new StringBuilder();
         for (String key : queryParams.keySet()) {
             if (queryParams.get(key) != null) {
-                builder.append(String.format("%s=%s", key, queryParams.get(key)));
+                String paramValue = queryParams.get(key).toString();
+                builder.append(String.format("%s=%s", key, encode(paramValue)));
                 builder.append("&");
             }
         }
@@ -116,6 +119,22 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
+
+    /**
+     * URL encode the value
+     *
+     * @param value
+     *            the value to encode
+     * @return encoded value
+     */
+    private static String encode(String value) {
+        try {
+            return URLEncoder.encode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return URLEncoder.encode(value);
+        }
+    }
+
 
     abstract void addRequestQueryParams(Map<String, Object> queryParams);
 
