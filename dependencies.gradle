@@ -1,3 +1,5 @@
+import java.util.logging.Logger
+
 ext {
     // Sdk and tools
     sdkBuildInfo = [
@@ -51,10 +53,12 @@ ext {
     isCi = "true".equals(System.getenv('CI'))
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
+    logger = Logger.getLogger("BVSDK")
+
     // use -Prelease=true when building to enable release
     // Example releasing internally
     //   "./gradlew clean uploadArchives -Prelease=true"
     // Example releasing publically
     //   "./gradlew clean uploadArchives -Prelease=true -PopenSourceRelease=true"
-    isReleasing = rootProject.hasProperty('release') && release == true
+    isReleasing = rootProject.hasProperty('release') && release.toBoolean()
 }

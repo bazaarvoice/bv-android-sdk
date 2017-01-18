@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
@@ -51,7 +50,6 @@ public class PinNotificationManager {
     /**
      * @param productId id of the product to be reviewed
      */
-    @MainThread
     public void scheduleNotification(final String productId) {
         pinBgHandler.sendMessage(pinBgHandler.obtainMessage(MSG_DISPATCH_SCHEDULE_NOTIFICATION, productId));
     }
@@ -102,6 +100,10 @@ public class PinNotificationManager {
             return;
         }
         String productImageUrl = PinNotificationManager.getProductImageUrl(productId);
+        if (productImageUrl == null) {
+            Logger.d(TAG, "Failed to get product info. Cancelling schedule call");
+            return;
+        }
         Context appContext = BVSDK.getInstance().getApplicationContext();
 
         BVNotificationUtil.ScheduleNotificationData<PinNotificationData> scheduleNotificationData =

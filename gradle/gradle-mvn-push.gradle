@@ -94,6 +94,8 @@ def getRepositoryPassword() {
 
 afterEvaluate { project ->
     uploadArchives {
+        logger.info("BVSDK Upload Archives for " + POM_ARTIFACT_ID)
+
         repositories {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
