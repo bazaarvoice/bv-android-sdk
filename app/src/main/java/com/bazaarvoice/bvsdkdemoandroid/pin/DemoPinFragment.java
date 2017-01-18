@@ -52,6 +52,7 @@ public class DemoPinFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        readyForDemo();
         registerNotificationReceiver();
     }
 
@@ -81,14 +82,10 @@ public class DemoPinFragment extends Fragment {
 
     private boolean readyForDemo() {
         DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
-        if (currentConfig.isDemoClient()) {
-            return true;
-        }
-
-        String curationsKey = currentConfig.apiKeyPIN;
+        String pinApiKey = currentConfig.apiKeyPIN;
         String displayName = currentConfig.displayName;
 
-        if (!DemoConstants.isSet(curationsKey)) {
+        if (!DemoConstants.isSet(pinApiKey) || currentConfig.isDemoClient()) {
             String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_pin));
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(errorMessage);
@@ -109,28 +106,30 @@ public class DemoPinFragment extends Fragment {
     @OnClick(R.id.getPins)
     public void onGetPinsTapped() {
         if (readyForDemo()) {
-            pinClient.getPendingPins(new PinClient.PinsCallback() {
-                @Override
-                public void onSuccess(List<Pin> pins) {
-                    StringBuilder message = new StringBuilder();
-                    for (Pin pin : pins) {
-                        message.append(pin.getDisplayName()).append("\n");
-                    }
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Products To Review")
-                            .setMessage(message.toString())
-                            .setPositiveButton(getString(R.string.okay), null)
-                            .show();
-                }
+            pinClient.getPendingPins(pinsCallback);
+        }
+    }
 
-                @Override
-                public void onFailure(Throwable throwable) {
-                    Log.e(TAG, "Failed to get pins", throwable);
-                }
-            });
+    private PinClient.PinsCallback pinsCallback = new PinClient.PinsCallback() {
+        @Override
+        public void onSuccess(List<Pin> pins) {
+            StringBuilder message = new StringBuilder();
+            for (Pin pin : pins) {
+                message.append(pin.getDisplayName()).append("\n");
+            }
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Products To Review")
+                    .setMessage(message.toString())
+                    .setPositiveButton(getString(R.string.okay), null)
+                    .show();
+
         }
 
-    }
+        @Override
+        public void onFailure(Throwable throwable) {
+            Log.e(TAG, "Failed to get pinsCallback", throwable);
+        }
+    };
 
     @Override
     public void onDestroyView() {

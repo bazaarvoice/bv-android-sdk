@@ -289,8 +289,10 @@ class BVNotificationUtil {
     static <NotificationDataType extends BVNotificationData> NotificationDataType getNotificationData(String remoteFeatureName, String remoteFileName, Class<NotificationDataType> notificationDataTypeClass) {
         NotificationDataType notificationData = null;
         String pinConfigDataUrl = BVRemoteConfig.getFeatureConfigUrl(remoteFeatureName, remoteFileName);
+        Logger.d(TAG, pinConfigDataUrl);
         Request request = new Request.Builder()
                 .url(pinConfigDataUrl)
+                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                 .build();
         OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
         Gson gson = BVSDK.getInstance().getGson();

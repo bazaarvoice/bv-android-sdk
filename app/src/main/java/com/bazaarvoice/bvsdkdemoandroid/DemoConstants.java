@@ -23,7 +23,7 @@ public class DemoConstants {
     public static final String PASSKEY_PIN = "REPLACE_ME";
 
     // Bazaarvoice environments, NOTE! Turn to PRODUCTION for production apps
-    public static final BazaarEnvironment ENVIRONMENT = BazaarEnvironment.PRODUCTION;
+    public static final BazaarEnvironment ENVIRONMENT = BazaarEnvironment.STAGING;
     /**************************************************************/
 
 
@@ -46,7 +46,7 @@ public class DemoConstants {
     public static final ArrayList<String> CURATIONS_GROUPS = new ArrayList<>(Arrays.asList("__all__"));
 
     // Production Environment Other Config Options
-    public static final boolean PREVENT_ANALYTICS_IN_PROD = false;
+    public static final boolean PREVENT_ANALYTICS_IN_PROD = true;
     /**************************************************************/
 
     public static boolean isSet(String constant) {

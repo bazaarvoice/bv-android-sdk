@@ -1,6 +1,20 @@
-/**
- * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package com.bazaarvoice.bvandroidsdk;
 
 import java.util.ArrayList;
@@ -9,9 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Base request object for all Conversations Display API request builders.
- * Clients should use one of the sub-classed Request classes for constructing an API request object
- * to use with the {@link BVConversationsClient}
+ * Common options for a Conversations display request
  */
 abstract class ConversationsDisplayRequest extends ConversationsRequest {
     static final String kFILTER = "Filter";

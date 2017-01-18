@@ -12,6 +12,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
@@ -110,7 +111,20 @@ public class ConversationsUnitTest extends BVBaseTest{
 
     @Test
     public void testPdpForProductIdIncludeRevStatsParsing() {
-        testParsing("product_catalog_prod_include_rev_stats.json", ProductDisplayPageResponse.class);
+        ProductDisplayPageResponse response = testParsing("product_catalog_prod_include_rev_stats.json", ProductDisplayPageResponse.class);
+
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+        RatingDistribution ratingDistribution = reviewStats.getRatingDistribution();
+        assertEquals(22, ratingDistribution.getOneStarCount().intValue());
+        assertEquals(21, ratingDistribution.getTwoStarCount().intValue());
+        assertEquals(24, ratingDistribution.getThreeStarCount().intValue());
+        assertEquals(70, ratingDistribution.getFourStarCount().intValue());
+        assertEquals(139, ratingDistribution.getFiveStarCount().intValue());
+
+        Map<String, SecondaryRatingsAverages> secondaryRatingsAvgs =
+                reviewStats.getSecondaryRatingsAverages();
+        float qualityRating = secondaryRatingsAvgs.get("Quality").getAverageOverallRating();
+        assertEquals(2.0f, qualityRating);
     }
 
     @Test
@@ -278,6 +292,20 @@ public class ConversationsUnitTest extends BVBaseTest{
 
         assertTrue("Request should not contain error.", request.getError() == null);
 
+    }
+
+    @Test
+    public void testProductDisplayPageRequest() {
+        ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
+                .addIncludeContent(PDPContentType.Answers, 20)
+                .addIncludeContent(PDPContentType.Questions, 20)
+                .addIncludeContent(PDPContentType.Reviews, 20)
+                .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .build();
+
+        assertTrue("Request should not contain error", pdpRequest.getError() == null);
     }
 
     @Test

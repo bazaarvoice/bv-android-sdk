@@ -1,6 +1,20 @@
-/**
- * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package com.bazaarvoice.bvandroidsdk;
 
 import java.io.File;
@@ -13,6 +27,9 @@ import java.util.Map;
 
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
+/**
+ * Base options for a Conversations submission request
+ */
 abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     private static final String kCAMPAIGN_ID = "campaignid";
@@ -105,7 +122,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     protected abstract String getApiKey();
 
-    protected String createUrlQueryString(Map<String, Object> queryParams) {
+    String createUrlQueryString(Map<String, Object> queryParams) {
 
         StringBuilder builder = new StringBuilder();
         for (String key : queryParams.keySet()) {

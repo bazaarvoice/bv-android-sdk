@@ -1,3 +1,5 @@
+import java.util.logging.Logger
+
 ext {
     // Sdk and tools
     sdkBuildInfo = [
@@ -51,10 +53,12 @@ ext {
     isCi = "true".equals(System.getenv('CI'))
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 
+    logger = Logger.getLogger("BVSDK")
+
     // use -PNEXUS_USER=true when building to enable NEXUS_USER
     // Example releasing internally
     //   "./gradlew clean uploadArchives -PNEXUS_USER=true"
     // Example releasing publically
     //   "./gradlew clean uploadArchives -PNEXUS_USER=true -PopenSourceRelease=true"
-    isReleasing = rootProject.hasProperty('NEXUS_USER') && NEXUS_USER == true
+    isReleasing = rootProject.hasProperty('NEXUS_USER') && NEXUS_USER.toBoolean()
 }
