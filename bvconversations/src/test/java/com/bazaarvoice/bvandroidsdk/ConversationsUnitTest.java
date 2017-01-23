@@ -213,7 +213,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testReviewSubmissionBuilder(){
 
         // Make sure the string is encoded properly
-        String expectedResult = "bvAndroidSdkVersion=5.2.1&passkey=a+differnt+key&UserNickname=nickname&Rating=5&ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21&agreedToTermsAndConditions=true&Title=Android+SDK+Testing&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&SendEmailAlertWhenCommented=true&UserId=user1234&action=Submit&sendemailalertwhenpublished=true";
+        String expectedResult = "bvAndroidSdkVersion=" + bvSdkVersion + "&passkey=a+differnt+key&UserNickname=nickname&Rating=5&ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21&agreedToTermsAndConditions=true&Title=Android+SDK+Testing&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&SendEmailAlertWhenCommented=true&UserId=user1234&action=Submit&sendemailalertwhenpublished=true";
 
         ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Submit, "123987")
                 .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
@@ -237,7 +237,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testQuestionSubmissionBuilder(){
 
         // Make sure the string is encoded properly
-        String expectedResult = "bvAndroidSdkVersion=5.2.1&passkey=a+differnt+key&UserNickname=nickname&action=Submit&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com";
+        String expectedResult = "bvAndroidSdkVersion=" + bvSdkVersion + "&passkey=a+differnt+key&UserNickname=nickname&action=Submit&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com";
 
         QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Action.Submit, "123987")
                 .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
@@ -254,7 +254,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testQuestionAnswerBuilder(){
 
         // Make sure the string is encoded properly
-        String expectedResult = "bvAndroidSdkVersion=5.2.1&passkey=a+differnt+key&UserNickname=nickname&QuestionId=123987&action=Submit&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&AnswerText=Let+me+google+that+for+you....&UserEmail=foo%40bar.com";
+        String expectedResult = "bvAndroidSdkVersion=" + bvSdkVersion + "&passkey=a+differnt+key&UserNickname=nickname&QuestionId=123987&action=Submit&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&AnswerText=Let+me+google+that+for+you....&UserEmail=foo%40bar.com";
 
        AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Action.Submit, "123987", "Let me google that for you....")
                 .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")

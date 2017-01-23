@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
+import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -56,6 +57,7 @@ public abstract class BVBaseTest {
 
     BazaarEnvironment environment;
     BVLogLevel bvLogLevel;
+    String bvSdkVersion;
 
     AnalyticsManager analyticsManager = mock(AnalyticsManager.class);
     BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
@@ -75,6 +77,7 @@ public abstract class BVBaseTest {
         curationsApiKey = "foobar-bvtestcurationskey";
         uuid = UUID.fromString(uuidTestStr);
         bvLogLevel = BVLogLevel.VERBOSE;
+        bvSdkVersion = BuildConfig.BVSDK_VERSION_NAME;
 
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs

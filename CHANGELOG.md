@@ -1,5 +1,42 @@
 # Changelog
 
+# 6.2.0
+
+## Conversations
+
+* Removed deprecated Conversations classes
+* Fixed URL Encoding of Submission request parameters
+
+## Common
+
+* Added new API wrapper for ```BVPixel``` and removed the relevant calls from ```BVSDK```
+
+## **NEW** PIN API
+
+* Added ```PinClient``` to get a list of products that have been purchased, and need to be reviewed
+
+## **NEW** PIN Notifications
+
+* Added a ```PinNotificationManager``` to queue a Post Interaction Notification based on a product id. These notifications 
+are remotely configurable on our backend
+
+## Store Notifications
+
+* Removed notifications from the Location module itself, so that this is a stand alone dependency
+
+## **NEW** Notifications
+
+* Added a new module for the base code to fetch remote notification configuration, and manage queueing
+
+## Location
+
+* Added new preferred way to subscribe to events, by listening to intents with an action of 
+```com.bazaarvoice.bvandroidsdk.action.GEOFENCE_VISIT```   
+
+## General
+
+* Added demo and code sample apps to have a cart to test ```BVPixel``` 
+
 # 5.2.1 
 
 ## Conversations
