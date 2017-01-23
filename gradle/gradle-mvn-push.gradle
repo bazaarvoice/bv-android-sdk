@@ -23,7 +23,7 @@ def isReleaseBuild() {
 }
 
 def isOpenSourceRelease() {
-    return hasProperty('openSourceRelease') && openSourceRelease == true
+    return hasProperty('openSourceRelease') && openSourceRelease.toBoolean()
 }
 
 def getReleaseRepositoryUrl() {
