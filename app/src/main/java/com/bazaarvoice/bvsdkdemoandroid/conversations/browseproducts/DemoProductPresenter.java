@@ -10,8 +10,8 @@ import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.List;
 

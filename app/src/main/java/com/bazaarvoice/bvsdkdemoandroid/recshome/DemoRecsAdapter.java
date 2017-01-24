@@ -17,9 +17,8 @@ import android.widget.TextView;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationView;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.ads.formats.NativeAd;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
@@ -28,6 +27,8 @@ import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,11 +99,17 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
     public static final int ROW_COUNT = 2;
     private static final int AD_ROW_INDEX = 2;
 
+    @Inject Picasso picasso;
+
     public interface RecTapListener {
         void onProductTapped(BVProduct bvProduct);
     }
 
     private RecTapListener recTapListener;
+
+    public DemoRecsAdapter(Context context) {
+        DemoApp.get(context).getAppComponent().inject(this);
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -145,10 +152,6 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
         NativeContentAd nativeContentAd = rowDataAd != null ? rowDataAd.getNativeContentAd() : null;
         NativeContentAdView nativeContentAdView = adViewHolder.nativeContentAdView;
         ImageView imageView = adViewHolder.imageView;
-        Context context = imageView.getContext();
-        DemoUtils demoUtils = DemoUtils.getInstance(context);
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(context);
-        Picasso picasso = demoUtils.picassoThumbnailLoader();
 
         RequestCreator requestCreator = null;
         if (nativeContentAd != null) {
@@ -177,15 +180,12 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
     private void bindRecRow(RecyclerView.ViewHolder holder, BVProduct leftProduct, BVProduct rightProduct) {
         RecRowViewHolder recRowViewHolder = (RecRowViewHolder) holder;
 
-        DemoUtils demoUtils = DemoUtils.getInstance(recRowViewHolder.row.getContext());
-
         LinearLayout recRowContainer = recRowViewHolder.recRowContainer;
         recRowContainer.removeAllViews();
         RecommendationView leftRecView = (RecommendationView) LayoutInflater.from(recRowContainer.getContext()).inflate(R.layout.include_product_rec_snippet_cell, recRowContainer, false);
         RecItemViewHolder leftRec = new RecItemViewHolder(leftRecView);
 
-        demoUtils.picassoThumbnailLoader()
-                .load(leftProduct.getDisplayImageUrl())
+        picasso.load(leftProduct.getDisplayImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(leftRec.image);
         leftRec.prodName.setText(leftProduct.getDisplayName());
@@ -207,8 +207,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
             RecommendationView rightRecView = (RecommendationView) LayoutInflater.from(recRowContainer.getContext()).inflate(R.layout.include_product_rec_snippet_cell, recRowContainer, false);
             RecItemViewHolder rightRec = new RecItemViewHolder(rightRecView);
 
-            demoUtils.picassoThumbnailLoader()
-                    .load(rightProduct.getDisplayImageUrl())
+            picasso.load(rightProduct.getDisplayImageUrl())
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                     .into(rightRec.image);
             rightRec.prodName.setText(rightProduct.getDisplayName());
@@ -288,7 +287,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
 
     static class RecItemViewHolder {
         RecommendationView recView;
-        @BindView(R.id.image) ImageView image;
+        @BindView(R.id.productThumbnailImage) ImageView image;
         @BindView(R.id.product_name) TextView prodName;
         @BindView(R.id.product_rating) RatingBar prodRating;
         RecItemViewHolder(RecommendationView recView) {
@@ -299,7 +298,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
 
     static class AdViewHolder extends RecyclerView.ViewHolder {
         NativeContentAdView nativeContentAdView;
-        @BindView(R.id.image) ImageView imageView;
+        @BindView(R.id.productThumbnailImage) ImageView imageView;
         @BindView(R.id.headline_text) TextView headlineText;
         @BindView(R.id.call_to_action_text) TextView callToActionText;
         @BindView(R.id.body_text) TextView bodyText;

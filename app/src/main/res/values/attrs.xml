@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DemoCarouselView">
+        <attr name="carouselHeader" format="string" />
+        <attr name="carouselItemShowImage" format="boolean" />
+        <attr name="carouselItemShowTitle" format="boolean" />
+        <attr name="carouselItemShowRating" format="boolean" />
+    </declare-styleable>
+</resources>

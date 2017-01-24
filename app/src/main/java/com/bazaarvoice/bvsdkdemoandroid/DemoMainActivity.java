@@ -1,5 +1,18 @@
-/**
- * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 
 package com.bazaarvoice.bvsdkdemoandroid;
@@ -22,7 +35,7 @@ import android.view.MenuItem;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsPostCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
-import com.bazaarvoice.bvsdkdemoandroid.ads.AdsFragment;
+import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
@@ -42,9 +55,11 @@ import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 public class DemoMainActivity extends AppCompatActivity implements CurationsPostCallback {
     @IdRes
@@ -55,6 +70,8 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
     private MenuItem prevItem;
 
     private Toolbar toolbar;
+
+    @Inject DemoConfigUtils demoConfigUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +103,8 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
         // Uncomment me for iovation suppoort
         //start(getApplicationContext());
+
+        DemoApp.get(this).getAppComponent().inject(this);
     }
 
     @Override
@@ -105,7 +124,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
         getMenuInflater().inflate(R.menu.toolbar_actions, menu);
 
-        if (!DemoConfigUtils.getInstance(this).configFileExists()) {
+        if (!demoConfigUtils.configFileExists()) {
             menu.findItem(R.id.settings_action).setVisible(false);
         }
 
@@ -152,7 +171,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                         break;
                     case R.id.advertising:
                         toolbar.setTitle("Advertising");
-                        transitionTo(AdsFragment.newInstance());
+                        transitionTo(DemoAdFragment.newInstance());
                         break;
                     case R.id.conversations_demo:
                         toolbar.setTitle(getString(R.string.demo_conversations) + ": API Demo");

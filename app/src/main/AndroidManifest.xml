@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="com.bazaarvoice.bvsdkdemoandroid.DemoApplication"
+        android:name="com.bazaarvoice.bvsdkdemoandroid.DemoApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/title_activity_demo_app"
@@ -16,73 +16,82 @@
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity" />
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity"
-            android:label="@string/title_activity_banner_ad" />
+            android:label="@string/title_activity_banner_ad"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity"
-            android:label="@string/title_activity_native_ad" />
+            android:label="@string/title_activity_native_ad"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity"
-            android:label="@string/title_activity_interstitial_ad" />
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity" />
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity" />
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity" />
-
+            android:label="@string/title_activity_interstitial_ad"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity"
+            android:label="@string/title_activity_curations_detail"/>
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity"
+            android:label="@string/title_activity_curations_feed"/>
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity"
+            android:label="@string/title_activity_curations_post"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity"
-            android:label="@string/title_activity_settings"/>
-
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity"
             android:label="@string/title_activity_cart"/>
-
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity"
-            android:label="@string/title_activity_fancy_product_detail"/>
+            android:label="@string/title_activity_fancy_product_detail"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHomeActivity"
             android:label="@string/title_activity_demo_app"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity"
-            android:label="@string/title_activity_reviews" />
+            android:label="@string/title_activity_reviews"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoStoreReviewsActivity"
-            android:label="@string/title_activity_reviews" />
-
+            android:label="@string/title_activity_store_reviews"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity"
-            android:label="@string/title_activity_questions" />
-
+            android:label="@string/title_activity_questions"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity"
-            android:label="@string/title_activity_answers" />
-
+            android:label="@string/title_activity_answers"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity"
-            android:label="@string/title_activity_bulkratings" />
-
+            android:label="@string/title_activity_bulkratings"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity"
-            android:label="@string/title_activity_product_stats" />
-
+            android:label="@string/title_activity_product_stats"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity"
             android:label="@string/title_activity_curations_map" />
-
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity"
             android:label="@string/title_activity_rate" />
-
+        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity"
+            android:label="@string/title_activity_author" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -105,8 +114,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity"
-            android:label="@string/title_activity_stores" />
+        <activity
+            android:name="com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity"
+            android:label="@string/title_activity_stores"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

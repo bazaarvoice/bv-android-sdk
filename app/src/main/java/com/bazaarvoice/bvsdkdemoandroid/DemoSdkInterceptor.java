@@ -3,8 +3,8 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid;
 
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.io.IOException;
 

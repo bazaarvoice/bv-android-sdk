@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:scrollbarStyle="insideOverlay"
+    android:fillViewport="true">
+    <com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorView
+        android:id="@+id/demo_author_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/authorNicknameTv"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="24sp"
+            android:textColor="@color/bv_black_1"
+            tools:text="Santa Claus"
+            android:layout_marginStart="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/imageView3"
+            android:layout_marginLeft="8dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/authorLocationTv"
+            app:layout_constraintLeft_toLeftOf="@+id/authorNicknameTv"
+            app:layout_constraintRight_toRightOf="@+id/authorNicknameTv"
+            tools:text="North Pole"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/authorNicknameTv"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/authorLocationTv"
+            app:layout_constraintLeft_toLeftOf="@+id/authorLocationTv"
+            app:layout_constraintRight_toRightOf="@+id/authorLocationTv"
+            android:id="@+id/badgeContainer"
+            android:layout_height="48dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/bv_gray_2"
+            android:id="@+id/separator"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintHorizontal_bias="0.93"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/allReviewsButton" />
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:srcCompat="@drawable/ic_mood_black_24dp"
+            android:id="@+id/imageView3"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/guideline"
+            app:layout_constraintGuide_begin="155dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteY="236dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:text="@string/view_all_my_reviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/allReviewsButton"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <TextView
+            android:text="My Most Recent Review"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/authorRecentReviewHeader"
+            android:textSize="24sp"
+            android:textColor="@color/bv_black_1"
+            app:layout_constraintTop_toTopOf="@+id/separator"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/separator"
+            app:layout_constraintRight_toRightOf="@+id/separator" />
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            app:srcCompat="@color/bv_green_3"
+            android:id="@+id/reviewProductImage"
+            app:layout_constraintLeft_toLeftOf="@+id/authorRecentReviewHeader"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/authorRecentReviewHeader" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviewProductName"
+            android:textSize="24sp"
+            tools:text="Product Name"
+            android:layout_marginStart="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/reviewProductImage"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/authorRecentReviewHeader"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/bv_black_1" />
+
+        <TextView
+            android:text="My Rating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/myRatingHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/reviewProductName"
+            app:layout_constraintRight_toRightOf="@+id/reviewProductName"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/reviewProductName"
+            android:textSize="18sp" />
+
+        <RatingBar
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviewRating"
+            style="@style/bvRatingBar"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/myRatingHeader"
+            android:isIndicator="true"
+            android:layout_marginStart="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/reviewProductImage"
+            android:layout_marginLeft="8dp" />
+
+        <TextView
+            android:id="@+id/reviewBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:maxHeight="100dp"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reviewProductImage"
+            tools:text="@string/bacon_ipsum" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/reviewPostedDateTv"
+            app:layout_constraintLeft_toLeftOf="@+id/reviewBody"
+            app:layout_constraintRight_toRightOf="@+id/reviewBody"
+            android:textStyle="normal|bold"
+            android:text="Posted on %s"
+            tools:text="Posted on October 2, 2012"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/reviewBody"
+            app:layout_constraintHorizontal_bias="0.0" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/bv_gray_2"
+            android:id="@+id/separator_2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintHorizontal_bias="0.93"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/reviewPostedDateTv" />
+
+        <com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView
+            android:id="@+id/pinCarouselContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:carouselHeader="Products To Review"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/separator_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorView>
+
+</ScrollView>

@@ -1,7 +1,20 @@
-/**
- * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
-package com.bazaarvoice.bvsdkdemoandroid.utils;
+package com.bazaarvoice.bvsdkdemoandroid.configs;
 
 import android.content.Context;
 
@@ -31,9 +44,9 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoDataUtil {
+import javax.inject.Inject;
 
-    private static DemoDataUtil instance;
+public class DemoDataUtil {
 
     private static final String AD_UNIT_ID = "/5705/bv-incubator/IncubatorEnduranceCycles";
     private Context applicationContext;
@@ -45,17 +58,10 @@ public class DemoDataUtil {
     private Gson gson;
     private CurationsPostResponse curationsPostResponse;
 
-    private DemoDataUtil(Context context) {
-        applicationContext = context.getApplicationContext();
-        gson = new Gson();
-    }
-
-    public static DemoDataUtil getInstance(Context context) {
-        if (instance == null) {
-            instance = new DemoDataUtil(context);
-        }
-
-        return instance;
+    @Inject
+    DemoDataUtil(Context context, Gson gson) {
+        applicationContext = context;
+        this.gson = gson;
     }
 
     public List<BVProduct> getRecommendedProducts() {

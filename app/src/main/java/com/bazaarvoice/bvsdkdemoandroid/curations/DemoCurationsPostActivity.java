@@ -21,16 +21,19 @@ import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
 import com.bazaarvoice.bvandroidsdk.CurationsPostCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsPostRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DemoCurationsPostActivity extends AppCompatActivity implements CurationsPostCallback, Target {
     private static final int SELECT_PICTURE = 1;
@@ -43,10 +46,14 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
     private Button postBtn;
     private Uri imageUri;
 
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoDataUtil demoDataUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curations_post);
+        DemoApp.get(this).getAppComponent().inject(this);
         progressBar = (ProgressBar) findViewById(R.id.curations_post_loading);
         progressBar.setVisibility(View.GONE);
         commentText = (TextView) findViewById(R.id.curationsCommentText);
@@ -57,8 +64,8 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DemoConfigUtils.getInstance(DemoCurationsPostActivity.this).isDemoClient()) {
-                    DemoCurationsPostActivity.this.onSuccess(DemoDataUtil.getInstance(DemoCurationsPostActivity.this).getCurationsPostResponse());
+                if (demoConfigUtils.isDemoClient()) {
+                    DemoCurationsPostActivity.this.onSuccess(demoDataUtil.getCurationsPostResponse());
                     return;
                 }
 
@@ -127,7 +134,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
 
             // curations.postContentToCurations(request, this);
         } else {
-            onSuccess(DemoDataUtil.getInstance(this).getCurationsPostResponse());
+            onSuccess(demoDataUtil.getCurationsPostResponse());
         }
     }
 

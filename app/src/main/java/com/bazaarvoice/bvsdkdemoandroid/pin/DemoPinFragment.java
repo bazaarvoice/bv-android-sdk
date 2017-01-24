@@ -19,12 +19,15 @@ import com.bazaarvoice.bvandroidsdk.BVNotificationService;
 import com.bazaarvoice.bvandroidsdk.Pin;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvandroidsdk.PinNotificationManager;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,8 +40,16 @@ public class DemoPinFragment extends Fragment {
     private static final String PRODUCT_ID = "1-bv";
     private PinClient pinClient;
 
+    @Inject DemoConfigUtils demoConfigUtils;
+
     public static Fragment newInstance() {
         return new DemoPinFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
     }
 
     @Nullable @Override
@@ -81,7 +92,7 @@ public class DemoPinFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
         String pinApiKey = currentConfig.apiKeyPIN;
         String displayName = currentConfig.displayName;
 

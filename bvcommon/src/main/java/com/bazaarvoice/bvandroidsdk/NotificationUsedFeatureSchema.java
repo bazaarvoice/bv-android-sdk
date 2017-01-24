@@ -1,5 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
+/**
+ * Internal API: Custom schema for notification used feature events
+ */
 class NotificationUsedFeatureSchema extends UsedFeatureCanonicalSchema {
 
     private static final String source = "native-mobile-sdk";

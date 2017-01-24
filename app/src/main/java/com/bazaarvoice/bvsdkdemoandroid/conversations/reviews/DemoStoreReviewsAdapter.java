@@ -8,11 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import com.bazaarvoice.bvandroidsdk.Photo;
 import com.bazaarvoice.bvandroidsdk.Store;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
+import com.squareup.picasso.Picasso;
+
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Date;
 import java.util.List;
 
 public class DemoStoreReviewsAdapter extends DemoReviewsAdapter<StoreReview> {
+
+    public DemoStoreReviewsAdapter(Picasso picasso, PrettyTime prettyTime) {
+        super(picasso, prettyTime);
+    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {

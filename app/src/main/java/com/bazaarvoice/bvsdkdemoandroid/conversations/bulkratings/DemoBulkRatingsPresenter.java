@@ -10,8 +10,8 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Statistics;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

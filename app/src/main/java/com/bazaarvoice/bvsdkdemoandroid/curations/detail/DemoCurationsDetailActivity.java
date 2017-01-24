@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DemoCurationsDetailActivity extends AppCompatActivity implements DemoCurationsDetailContract.View {
 
@@ -21,18 +24,20 @@ public class DemoCurationsDetailActivity extends AppCompatActivity implements De
     private DemoCurationsDetailPagerAdapter pagerAdapter;
     private DemoCurationsDetailContract.UserActionsListener userActionsListener;
 
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoDataUtil demoDataUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curations_detail);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DemoApp.get(this).getAppComponent().inject(this);
         String productId = getIntent().getStringExtra(KEY_PRODUCT_ITEM);
         String startCurationsItemId = getIntent().getStringExtra(KEY_CURATIONS_ITEM_ID);
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         userActionsListener = new DemoCurationsDetailPresenter(this, demoConfigUtils, demoDataUtil, productId, startCurationsItemId);
         viewPager = (ViewPager) findViewById(R.id.curations_view_pager);
-        pagerAdapter = new DemoCurationsDetailPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new DemoCurationsDetailPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
     }
 

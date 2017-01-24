@@ -87,7 +87,7 @@ public class ProductDisplayPageRequest extends ConversationsDisplayRequest {
             this.answerSorts = new ArrayList<>();
             this.includes = new ArrayList<>();
             this.statistics = new ArrayList<>();
-            filters.add(new Filter(Filter.Type.Id, EqualityOperator.EQ, productId));
+            getFilters().add(new Filter(Filter.Type.Id, EqualityOperator.EQ, productId));
         }
 
         public Builder addReviewSort(ReviewOptions.Sort sort, SortOrder order) {
@@ -123,11 +123,6 @@ public class ProductDisplayPageRequest extends ConversationsDisplayRequest {
 
         public ProductDisplayPageRequest build() {
             return new ProductDisplayPageRequest(this);
-        }
-
-        @Override
-        List<Filter> getFilters() {
-            return filters;
         }
     }
 }

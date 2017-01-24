@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,9 +37,7 @@ public class DemoCartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_action_navigation_arrow_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         cart = DemoCart.INSTANCE;
         setupRecyclerView();

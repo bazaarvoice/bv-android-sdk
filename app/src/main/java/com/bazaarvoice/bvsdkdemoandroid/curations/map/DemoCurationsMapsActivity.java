@@ -23,9 +23,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -37,6 +38,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +59,7 @@ public class DemoCurationsMapsActivity extends FragmentActivity implements OnMap
     ViewGroup mapContainer;
     @BindView(R.id.location_description_card)
     CardView locationDescriptionCard;
-    @BindView(R.id.image)
+    @BindView(R.id.productThumbnailImage)
     ImageView image;
     @BindView(R.id.item_text)
     TextView itemText;
@@ -68,12 +71,16 @@ public class DemoCurationsMapsActivity extends FragmentActivity implements OnMap
      */
     private GoogleApiClient client;
 
+    @Inject DemoDataUtil demoDataUtil;
+    @Inject Picasso picasso;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_curations_maps);
         ButterKnife.bind(this);
+        DemoApp.get(this).getAppComponent().inject(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(map);
@@ -81,11 +88,9 @@ public class DemoCurationsMapsActivity extends FragmentActivity implements OnMap
 
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
 
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
-        DemoUtils demoUtils = DemoUtils.getInstance(this);
         int detailRowHeight = getResources().getDimensionPixelSize(R.dimen.snippet_prod_image_side);
         boolean haveFineLocPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        mapUserActionListener = new DemoCurationsMapsPresenter(this, demoDataUtil, demoUtils, productId, detailRowHeight, haveFineLocPermission);
+        mapUserActionListener = new DemoCurationsMapsPresenter(this, demoDataUtil, picasso, productId, detailRowHeight, haveFineLocPermission);
         client = new GoogleApiClient.Builder(this)
                 .addApi(AppIndex.API)
                 .addConnectionCallbacks(this)
@@ -120,7 +125,6 @@ public class DemoCurationsMapsActivity extends FragmentActivity implements OnMap
 
         // update the detail card info
         if (!TextUtils.isEmpty(thumbnailUrl)) {
-            Picasso picasso = DemoUtils.getInstance(this).picassoThumbnailLoader();
             picasso.load(thumbnailUrl)
                     .resizeDimen(R.dimen.snippet_prod_image_side, R.dimen.snippet_prod_image_side)
                     .into(image);

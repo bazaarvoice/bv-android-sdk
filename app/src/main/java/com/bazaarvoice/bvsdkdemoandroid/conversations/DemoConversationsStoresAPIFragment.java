@@ -16,12 +16,13 @@ import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.StoreNotificationManager;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionResponse;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +32,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 ///import static com.iovation.mobile.android.DevicePrint.getBlackbox;
 
@@ -48,6 +51,8 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
 
     private BVConversationsClient client = new BVConversationsClient();
 
+    @Inject DemoConfigUtils demoConfigUtils;
+
     public static DemoConversationsStoresAPIFragment newInstance() {
         DemoConversationsStoresAPIFragment fragment = new DemoConversationsStoresAPIFragment();
         return fragment;
@@ -56,6 +61,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
     }
 
     @Override
@@ -198,7 +204,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
 
     private boolean readyForDemo() {
 
-        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
 
         String conversationsStoresKey = currentConfig.apiKeyConversationsStores;
         String displayName = currentConfig.displayName;

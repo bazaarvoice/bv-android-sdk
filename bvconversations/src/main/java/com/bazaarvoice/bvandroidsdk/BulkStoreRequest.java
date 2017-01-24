@@ -73,7 +73,7 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
         public Builder(@NonNull  List<String> storeIds) {
             this.storeIds = storeIds;
             this.limit = this.offset = null;
-            filters.add(new Filter(Filter.Type.Id, EqualityOperator.EQ, storeIds));
+            getFilters().add(new Filter(Filter.Type.Id, EqualityOperator.EQ, storeIds));
             this.statsType = BulkRatingOptions.StatsType.Reviews;
         }
 
@@ -85,17 +85,12 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
         }
 
         public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
-            this.filters.add(new Filter(filter, equalityOperator, value));
+            getFilters().add(new Filter(filter, equalityOperator, value));
             return this;
         }
 
         public BulkStoreRequest build() {
             return new BulkStoreRequest(this);
-        }
-
-        @Override
-        List<Filter> getFilters() {
-            return filters;
         }
 
         public Integer getLimit() {

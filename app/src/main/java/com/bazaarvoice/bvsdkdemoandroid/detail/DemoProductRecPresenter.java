@@ -7,9 +7,9 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.Collections;
 import java.util.List;

@@ -3,6 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.detail;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,18 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
+import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    @Inject Picasso picasso;
 
     private List<BVProduct> recommendedProducts = Collections.emptyList();
 
@@ -29,6 +35,10 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     private ProductTapListener productTapListener;
+
+    public DemoProductDetailRecAdapter(Context context) {
+        DemoApp.get(context).getAppComponent().inject(this);
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,9 +51,7 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
         BVProduct bvProduct = recommendedProducts.get(position);
         DemoProductDetailViewHolder demoViewHolder = (DemoProductDetailViewHolder) holder;
 
-        DemoUtils demoUtils = DemoUtils.getInstance(demoViewHolder.image.getContext());
-        demoUtils.picassoThumbnailLoader()
-                .load(bvProduct.getDisplayImageUrl())
+        picasso.load(bvProduct.getDisplayImageUrl())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(demoViewHolder.image);
         demoViewHolder.productName.setText(bvProduct.getDisplayName());
@@ -87,7 +95,7 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
             super(itemView);
             recommendationView = (RecommendationView) itemView;
             row = (RelativeLayout) itemView.findViewById(R.id.rec_snippet_container);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.productThumbnailImage);
             productName = (TextView) itemView.findViewById(R.id.product_name);
             productRating = (RatingBar) itemView.findViewById(R.id.product_rating);
         }

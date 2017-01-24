@@ -229,7 +229,7 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
             super(itemView);
             recommendationView = (RecommendationView) itemView;
             title = (TextView) itemView.findViewById(R.id.text);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.productThumbnailImage);
         }
     }
 

@@ -52,14 +52,4 @@
         app:layout_constraintRight_toRightOf="@+id/editText5"
         app:layout_constraintLeft_toLeftOf="@+id/editText5" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

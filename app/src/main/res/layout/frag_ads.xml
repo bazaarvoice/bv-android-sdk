@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.bazaarvoice.bvsdkdemoandroid.ads.AdsFragment">
+    tools:context="com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment">
 
     <!-- TODO: CurationsFeedItem blank fragment layout -->
 

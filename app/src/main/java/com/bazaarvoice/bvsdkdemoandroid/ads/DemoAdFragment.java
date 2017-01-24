@@ -14,24 +14,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
-/**
- * TODO: Description Here
- */
-public class AdsFragment extends Fragment {
+import javax.inject.Inject;
 
+public class DemoAdFragment extends Fragment {
 
-    public AdsFragment() {
-        // Required empty public constructor
-    }
+    @Inject DemoConfigUtils demoConfigUtils;
 
-    public static AdsFragment newInstance() {
-        AdsFragment fragment = new AdsFragment();
+    public static DemoAdFragment newInstance() {
+        DemoAdFragment fragment = new DemoAdFragment();
         return fragment;
     }
 
@@ -72,6 +69,8 @@ public class AdsFragment extends Fragment {
             }
         });
 
+        DemoApp.get(getContext()).getAppComponent().inject(this);
+
         return view;
     }
 
@@ -82,7 +81,7 @@ public class AdsFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
         String shopperAdKey = currentConfig.apiKeyShopperAdvertising;
         String displayName = currentConfig.displayName;
 

@@ -14,7 +14,7 @@
         android:background="?android:attr/selectableItemBackground">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/productThumbnailImage"
             android:layout_width="@dimen/snippet_prod_image_side"
             android:layout_height="@dimen/snippet_prod_image_side"
             android:scaleType="centerCrop"

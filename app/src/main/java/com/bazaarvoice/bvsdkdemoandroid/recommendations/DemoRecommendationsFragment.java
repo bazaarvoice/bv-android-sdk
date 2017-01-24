@@ -19,14 +19,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DividerItemDecoration;
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DemoRecommendationsFragment extends Fragment implements DemoRecommendationsContract.View {
     private static final String TAG = DemoRecommendationsFragment.class.getSimpleName();
@@ -36,9 +39,20 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView noRecsFoundTextView;
     private ProgressBar getRecsProgressBar;
+
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoDataUtil demoDataUtil;
+
     public static DemoRecommendationsFragment newInstance() {
         return new DemoRecommendationsFragment();
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +91,7 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        userActionsListener = new DemoRecommendationsPresenter(this, DemoConfigUtils.getInstance(getContext()), DemoDataUtil.getInstance(getContext()), recyclerView);
+        userActionsListener = new DemoRecommendationsPresenter(this, demoConfigUtils, demoDataUtil, recyclerView);
     }
     @Override
     public void onPause() {

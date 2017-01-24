@@ -12,12 +12,13 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsMedia;
 import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class DemoCurationsMapsPresenter implements DemoCurationsMapContract.User
 
     private DemoCurationsMapContract.View view;
     private DemoDataUtil demoDataUtil;
-    private DemoUtils demoUtils;
+    private Picasso picasso;
     private List<CurationsFeedItem> curationsFeedItems = new ArrayList<>();
     private DemoMarkerManager markerManager;
     private String productId;
@@ -40,10 +41,10 @@ public class DemoCurationsMapsPresenter implements DemoCurationsMapContract.User
     private GoogleMap googleMap;
     private Double lastKnownLatitude, lastKnownLongitude;
 
-    public DemoCurationsMapsPresenter(DemoCurationsMapContract.View view, DemoDataUtil demoDataUtil, DemoUtils demoUtils, String productId, int detailRowHeight, boolean haveFineLocationPermission) {
+    public DemoCurationsMapsPresenter(DemoCurationsMapContract.View view, DemoDataUtil demoDataUtil, Picasso picasso, String productId, int detailRowHeight, boolean haveFineLocationPermission) {
         this.view = view;
         this.demoDataUtil = demoDataUtil;
-        this.demoUtils = demoUtils;
+        this.picasso = picasso;
         this.productId = productId;
         this.detailRowHeight = detailRowHeight;
         this.haveFineLocationPermission = haveFineLocationPermission;
@@ -126,7 +127,7 @@ public class DemoCurationsMapsPresenter implements DemoCurationsMapContract.User
     private void prefetchImages() {
         for (CurationsFeedItem item : curationsFeedItems) {
             String thumbnailUrl = getThumbnailUrl(item);
-            demoUtils.picassoThumbnailLoader().load(thumbnailUrl).fetch();
+            picasso.load(thumbnailUrl).fetch();
         }
     }
 

@@ -6,7 +6,6 @@ package com.bazaarvoice.bvsdkdemoandroid.ads;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -34,8 +33,7 @@ public class BannerAdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner_ad);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         bannerAdLoading = (TextView) findViewById(R.id.banner_ad_loading);
         bannerAdSuccess = (TextView) findViewById(R.id.banner_ad_success);
         bannerAdFailure = (TextView) findViewById(R.id.banner_ad_failure);

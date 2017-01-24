@@ -20,14 +20,17 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,16 +52,19 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
 
     private String questionId;
 
+    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoConfigUtils demoConfigUtils;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_answers);
         ButterKnife.bind(this);
+
+        DemoApp.get(this).getAppComponent().inject(this);
+
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);
-
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
 
         if (bvProduct != null && demoConfigUtils.isDemoClient()) {
             List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
