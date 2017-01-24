@@ -27,12 +27,12 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
 import com.bazaarvoice.bvandroidsdk.CurationsProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsVideo;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -40,6 +40,8 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.inject.Inject;
 
 
 /**
@@ -59,15 +61,13 @@ public class DemoCurationsDetailFragment extends Fragment {
     private int itemIDX;
     private boolean showLeftArrow, showRightArrow;
 
-    public DemoCurationsDetailFragment() {
-        // Required empty public constructor
-    }
+    @Inject Picasso picasso;
+    @Inject Gson gson;
 
-    public static DemoCurationsDetailFragment newInstance(CurationsFeedItem update, int itemIDX, boolean showLeftArrow, boolean showRightArrow) {
+    public static DemoCurationsDetailFragment newInstance(Gson gson, CurationsFeedItem update, int itemIDX, boolean showLeftArrow, boolean showRightArrow) {
         DemoCurationsDetailFragment fragment = new DemoCurationsDetailFragment();
         Bundle args = new Bundle();
         args.putInt(IDX_PARAM, itemIDX);
-        Gson gson = new GsonBuilder().create();
         args.putString(ITEM_PARAM, gson.toJson(update));
         args.putBoolean(ARG_SHOW_LEFT_ARROW, showLeftArrow);
         args.putBoolean(ARG_SHOW_RIGHT_ARROW, showRightArrow);
@@ -78,8 +78,8 @@ public class DemoCurationsDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
         if (getArguments() != null) {
-            Gson gson = new GsonBuilder().create();
             feedItem = gson.fromJson(getArguments().getString(ITEM_PARAM), CurationsFeedItem.class);
             itemIDX = getArguments().getInt(IDX_PARAM);
             showLeftArrow = getArguments().getBoolean(ARG_SHOW_LEFT_ARROW);
@@ -123,7 +123,6 @@ public class DemoCurationsDetailFragment extends Fragment {
         }
 
         ImageView profPic = (ImageView) view.findViewById(R.id.profPic);
-        Picasso picasso = DemoUtils.getInstance(view.getContext()).picassoThumbnailLoader();
         picasso.load(feedItem.getAuthor().getAvatarUrl())
                 .placeholder(R.drawable.placeholderimg)
                 .resizeDimen(R.dimen.side_not_set, R.dimen.product_image_height_detail)
@@ -219,7 +218,6 @@ public class DemoCurationsDetailFragment extends Fragment {
 
         if (feedItem.getPhotos().size() > 0) {
             CurationsPhoto photo = feedItem.getPhotos().get(0);
-            Picasso picasso = DemoUtils.getInstance(view.getContext()).picassoThumbnailLoader();
             String curationsPhotoUrl = photo.getImageServiceUrl() + "&width=" + (DemoUtils.MAX_IMAGE_WIDTH/4) + "&height=" + (DemoUtils.MAX_IMAGE_HEIGHT/4);
             picasso.load(curationsPhotoUrl)
                     .placeholder(R.drawable.placeholderimg)

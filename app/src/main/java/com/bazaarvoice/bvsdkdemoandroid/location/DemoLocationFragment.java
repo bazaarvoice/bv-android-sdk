@@ -28,17 +28,22 @@ import com.bazaarvoice.bvandroidsdk.BVLocationManager;
 import com.bazaarvoice.bvandroidsdk.BVNotificationService;
 import com.bazaarvoice.bvandroidsdk.BVVisit;
 import com.bazaarvoice.bvandroidsdk.StoreNotificationManager;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+
+import javax.inject.Inject;
 
 public class DemoLocationFragment extends Fragment implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String TAG = DemoLocationFragment.class.getSimpleName();
     private static final int REQUEST_LOC = 3;
     private TextView lastLocEventTv;
+
+    @Inject DemoConfigUtils demoConfigUtils;
 
     private LocationListener locationListener = new LocationListener() {
         @Override
@@ -79,6 +84,7 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
         locationManager = (LocationManager) getContext().getSystemService(Service.LOCATION_SERVICE);
     }
 
@@ -135,7 +141,7 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
         String locationKey = currentConfig.apiKeyLocationAndroid;
         String displayName = currentConfig.displayName;
 
@@ -166,13 +172,13 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_demo_location, container, false);
         lastLocEventTv = (TextView) view.findViewById(R.id.lastLocEvent);
-        String lastLocEvent = DemoConfigUtils.getInstance(getContext()).getLastLocationEvent();
+        String lastLocEvent = demoConfigUtils.getLastLocationEvent();
         updateLastLocEvent(lastLocEvent);
         return view;
     }
 
     private void updateLastLocEvent(String lastLocEvent) {
-        DemoConfigUtils.getInstance(getContext()).putLastLocationEvent(lastLocEvent);
+        demoConfigUtils.putLastLocationEvent(lastLocEvent);
         String formattedLocEvent = String.format(getString(R.string.last_loc_event_template), lastLocEvent);
         Log.d(TAG, "updateLastLocEvent: " + formattedLocEvent);
         lastLocEventTv.setText(formattedLocEvent);

@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;
@@ -24,11 +23,13 @@ import com.bazaarvoice.bvandroidsdk.ReviewSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,6 +39,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 ///import static com.iovation.mobile.android.DevicePrint.getBlackbox;
 
@@ -50,10 +57,13 @@ public class DemoConversationsAPIFragment extends Fragment {
 
     private ProgressDialog progress;
     private static final String TEST_PRODUCT_ID = "test1"; // This product ID must be in the catalog for the provided Conversations API key.
+    private static final String AUTHOR_ID = "REPLACE_ME"; // Must be a valid Author ID for the provided BazaarEnvironment and client id
 
     private List<String> TEST_BULK_PRODUCT_IDS = Arrays.asList("test1", "test2", "test3", "test4", "test5", "test6");
+    private Unbinder unbinder;
 
-    private BVConversationsClient client = new BVConversationsClient();
+    @Inject BVConversationsClient client;
+    @Inject DemoConfigUtils demoConfigUtils;
 
     public DemoConversationsAPIFragment() {
         // Required empty public constructor
@@ -67,260 +77,213 @@ public class DemoConversationsAPIFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_conversations_demo, container, false);
+        unbinder = ButterKnife.bind(this, view);
         progress = new ProgressDialog(getContext());
-
-        setUpDisplayActionButtons(view);
-        setUpUGCSubmisionActionButtons(view);
-
         return view;
     }
 
-    private void setUpDisplayActionButtons(View view){
-
-        // Read reviews for product id
-        Button readReviewsButton = (Button) view.findViewById(R.id.displayReviewsBtn);
-        readReviewsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
-                    ((DemoMainActivity) getActivity()).transitionToReviewsActivity(TEST_PRODUCT_ID);
-                }
-            }
-        });
-
-        // Read questions for product id
-        Button readQuestionsButton = (Button) view.findViewById(R.id.displayQABtn);
-        readQuestionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
-                    ((DemoMainActivity) getActivity()).transitionToQuestionsActivity(TEST_PRODUCT_ID);
-                }
-            }
-        });
-
-        // Display Product Stats
-        Button readProductStats = (Button) view.findViewById(R.id.displayProductPageBtn);
-        readProductStats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
-                    ((DemoMainActivity) getActivity()).transitionToProductStatsActivity(TEST_PRODUCT_ID);
-                }
-            }
-        });
-
-        // Display Bulk Ratings
-        Button buldRatings = (Button) view.findViewById(R.id.displayInlineRatingsPageBtn);
-        buldRatings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
-                    ((DemoMainActivity) getActivity()).transitionToBulkRatingsActivity(new ArrayList<String>(TEST_BULK_PRODUCT_IDS));
-                }
-            }
-        });
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
-    private void setUpUGCSubmisionActionButtons(View view){
-
-        //////////////////////////////
-        // Submit Example Buttons
-        //////////////////////////////
-        this.setupPhotoSubmitButton(view);
-        this.setupQuestionSubmitButton(view);
-        this.setupAnswerSubmitButton(view);
-        this.setupFeedbackSubmitButton(view);
-
+    @OnClick(R.id.displayReviewsBtn)
+    public void onDisplayReviewsButtonTapped() {
+        if (readyForDemo()) {
+            ((DemoMainActivity) getActivity()).transitionToReviewsActivity(TEST_PRODUCT_ID);
+        }
     }
 
-    private void setupPhotoSubmitButton(View view){
+    @OnClick(R.id.displayQABtn)
+    public void onDisplayQuestionsButtonTapped() {
+        if (readyForDemo()) {
+            ((DemoMainActivity) getActivity()).transitionToQuestionsActivity(TEST_PRODUCT_ID);
+        }
+    }
 
-        // Submit Review w/ Photo
-        Button feedBtn = (Button) view.findViewById(R.id.submitReviewWithPhoto);
-        feedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
+    @OnClick(R.id.displayProductPageBtn)
+    public void onDisplayProductStatsButtonTapped() {
+        if (readyForDemo()) {
+            ((DemoMainActivity) getActivity()).transitionToProductStatsActivity(TEST_PRODUCT_ID);
+        }
+    }
 
-                    // For clients non-EU clients, iovation SDK is required!
+    @OnClick(R.id.displayInlineRatingsPageBtn)
+    public void onDisplayBulkRatingsButtonTapped() {
+        if (readyForDemo()) {
+            ((DemoMainActivity) getActivity()).transitionToBulkRatingsActivity(new ArrayList<String>(TEST_BULK_PRODUCT_IDS));
+        }
+    }
+
+    @OnClick(R.id.displayAuthorBtn)
+    public void onDisplayAuthorButtonTapped() {
+        if (readyForDemo() && setAuthorId()) {
+            DemoAuthorActivity.transitionTo(getActivity(), AUTHOR_ID);
+        }
+    }
+
+    @OnClick(R.id.submitReviewWithPhoto)
+    public void onSubmitPhotoButtonTapped() {
+        if (readyForDemo()) {
+
+            // For clients non-EU clients, iovation SDK is required!
 //                    String blackbox = getBlackbox(getContext().getApplicationContext());
 
-                    progress.setTitle("Submitting Review...");
-                    progress.show();
+            progress.setTitle("Submitting Review...");
+            progress.show();
 
-                    File localImageFile = null;
+            File localImageFile = null;
 
-                    try {
-                        InputStream stream = getContext().getAssets().open("puppy.jpg");
-                        localImageFile = createFileFromInputStream(stream);
+            try {
+                InputStream stream = getContext().getAssets().open("puppy.jpg");
+                localImageFile = createFileFromInputStream(stream);
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                    ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
+            ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
 //                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
-                            .userNickname("shazbat")
-                            .userEmail("foo@bar.com")
-                            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-                            .rating(5)
-                            .title("Review title")
-                            .reviewText("This is the review text the user adds about how great the product is!")
-                            .sendEmailAlertWhenCommented(true)
-                            .sendEmailAlertWhenPublished(true)
-                            .agreedToTermsAndConditions(true)
-                            .addPhoto(localImageFile, "What a cute pupper!")
-                            .build();
+                    .userNickname("shazbat")
+                    .userEmail("foo@bar.com")
+                    .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                    .rating(5)
+                    .title("Review title")
+                    .reviewText("This is the review text the user adds about how great the product is!")
+                    .sendEmailAlertWhenCommented(true)
+                    .sendEmailAlertWhenPublished(true)
+                    .agreedToTermsAndConditions(true)
+                    .addPhoto(localImageFile, "What a cute pupper!")
+                    .build();
 
-                    client.prepareCall(submission).loadAsync(new ConversationsCallback<ReviewSubmissionResponse>() {
+            client.prepareCall(submission).loadAsync(new ConversationsCallback<ReviewSubmissionResponse>() {
 
-                        @Override
-                        public void onSuccess(ReviewSubmissionResponse response) {
-                            progress.dismiss();
-                            showDialogWithMessage("Successful review submission.");
-                        }
-
-                        @Override
-                        public void onFailure(BazaarException exception) {
-                            progress.dismiss();
-                            showDialogWithMessage(exception.getMessage());
-                        }
-                    });
+                @Override
+                public void onSuccess(ReviewSubmissionResponse response) {
+                    progress.dismiss();
+                    showDialogWithMessage("Successful review submission.");
                 }
-            }
-        });
 
+                @Override
+                public void onFailure(BazaarException exception) {
+                    progress.dismiss();
+                    showDialogWithMessage(exception.getMessage());
+                }
+            });
+        }
     }
 
-    private void setupQuestionSubmitButton(View view){
-        // Submit Question
-        Button questionBtn = (Button) view.findViewById(R.id.submitQuestion);
-        questionBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
+    @OnClick(R.id.submitQuestion)
+    public void onSubmitQuestionButtonTapped() {
+        if (readyForDemo()) {
 
-                    // For clients non-EU clients, iovation SDK is required!
-                    //String blackbox = getBlackbox(getContext().getApplicationContext());
+            // For clients non-EU clients, iovation SDK is required!
+            //String blackbox = getBlackbox(getContext().getApplicationContext());
 
-                    progress.setTitle("Submitting Question...");
-                    progress.show();
+            progress.setTitle("Submitting Question...");
+            progress.show();
 
-                    QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
-                            .userNickname("shazbat")
-                            .userEmail("foo@bar.com")
-                            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-                            .questionDetails("Question details...")
-                            .questionSummary("Question summary/title...")
-                            .sendEmailAlertWhenPublished(true)
-                            .agreedToTermsAndConditions(true)
-                            .build();
+            QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
+                    .userNickname("shazbat")
+                    .userEmail("foo@bar.com")
+                    .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                    .questionDetails("Question details...")
+                    .questionSummary("Question summary/title...")
+                    .sendEmailAlertWhenPublished(true)
+                    .agreedToTermsAndConditions(true)
+                    .build();
 
-                    client.prepareCall(submission).loadAsync(new ConversationsCallback<QuestionSubmissionResponse>() {
+            client.prepareCall(submission).loadAsync(new ConversationsCallback<QuestionSubmissionResponse>() {
 
-                        @Override
-                        public void onSuccess(QuestionSubmissionResponse response) {
-                            progress.dismiss();
-                            showDialogWithMessage("Successful question submission.");
-                        }
-
-                        @Override
-                        public void onFailure(BazaarException exception) {
-                            progress.dismiss();
-                            showDialogWithMessage(exception.getMessage());
-                        }
-                    });
+                @Override
+                public void onSuccess(QuestionSubmissionResponse response) {
+                    progress.dismiss();
+                    showDialogWithMessage("Successful question submission.");
                 }
-            }
-        });
+
+                @Override
+                public void onFailure(BazaarException exception) {
+                    progress.dismiss();
+                    showDialogWithMessage(exception.getMessage());
+                }
+            });
+        }
     }
 
-    private void setupAnswerSubmitButton(View view){
-        // Submit Answer
-        Button answerButton = (Button) view.findViewById(R.id.submitAnswer);
-        answerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
+    @OnClick(R.id.submitAnswer)
+    public void onSubmitAnswerButtonTapped() {
+        if (readyForDemo()) {
 
-                    // For clients non-EU clients, iovation SDK is required!
-                    //String blackbox = getBlackbox(getContext().getApplicationContext());
+            // For clients non-EU clients, iovation SDK is required!
+            //String blackbox = getBlackbox(getContext().getApplicationContext());
 
-                    progress.setTitle("Submitting Answer...");
-                    progress.show();
+            progress.setTitle("Submitting Answer...");
+            progress.show();
 
-                    AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Action.Preview, "14679", "User answer text goes here....")
-                            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
-                            .userNickname("shazbat")
-                            .userEmail("foo@bar.com")
-                            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-                            .sendEmailAlertWhenPublished(true)
-                            .agreedToTermsAndConditions(true)
-                            .build();
+            AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Action.Preview, "14679", "User answer text goes here....")
+                    //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+                    .userNickname("shazbat")
+                    .userEmail("foo@bar.com")
+                    .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                    .sendEmailAlertWhenPublished(true)
+                    .agreedToTermsAndConditions(true)
+                    .build();
 
-                    client.prepareCall(submission).loadAsync(new ConversationsCallback<AnswerSubmissionResponse>() {
+            client.prepareCall(submission).loadAsync(new ConversationsCallback<AnswerSubmissionResponse>() {
 
-                        @Override
-                        public void onSuccess(AnswerSubmissionResponse response) {
-                            progress.dismiss();
-                            showDialogWithMessage("Successful answer submission.");
-                        }
-
-                        @Override
-                        public void onFailure(BazaarException exception) {
-                            progress.dismiss();
-                            showDialogWithMessage(exception.getMessage());
-                        }
-                    });
+                @Override
+                public void onSuccess(AnswerSubmissionResponse response) {
+                    progress.dismiss();
+                    showDialogWithMessage("Successful answer submission.");
                 }
-            }
-        });
+
+                @Override
+                public void onFailure(BazaarException exception) {
+                    progress.dismiss();
+                    showDialogWithMessage(exception.getMessage());
+                }
+            });
+        }
     }
 
-    private void setupFeedbackSubmitButton(View view){
-        // Submit Feedback
-        Button feedbackButton = (Button) view.findViewById(R.id.submitFeedback);
-        feedbackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (readyForDemo()) {
+    @OnClick(R.id.submitFeedback)
+    public void onSubmitFeedbackButtonTapped() {
+        if (readyForDemo()) {
 
-                    progress.setTitle("Submitting Feedback...");
-                    progress.show();
+            progress.setTitle("Submitting Feedback...");
+            progress.show();
 
-                    String theReviewId = "10732579"; // E.g. the review/question/answer "Id"
+            String theReviewId = "10732579"; // E.g. the review/question/answer "Id"
 
-                    FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(theReviewId)
-                            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
-                            .feedbackType(FeedbackType.HELPFULNESS)
-                            .feedbackContentType(FeedbackContentType.REVIEW)
-                            .feedbackVote(FeedbackVoteType.POSITIVE)
-                            .build();
+            FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(theReviewId)
+                    .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
+                    .feedbackType(FeedbackType.HELPFULNESS)
+                    .feedbackContentType(FeedbackContentType.REVIEW)
+                    .feedbackVote(FeedbackVoteType.POSITIVE)
+                    .build();
 
-                    client.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
+            client.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
 
-                        @Override
-                        public void onSuccess(FeedbackSubmissionResponse response) {
-                            progress.dismiss();
-                            showDialogWithMessage("Successful feedback submission.");
-                        }
-
-                        @Override
-                        public void onFailure(BazaarException exception) {
-                            progress.dismiss();
-                            showDialogWithMessage(exception.getMessage());
-                        }
-                    });
+                @Override
+                public void onSuccess(FeedbackSubmissionResponse response) {
+                    progress.dismiss();
+                    showDialogWithMessage("Successful feedback submission.");
                 }
-            }
-        });
+
+                @Override
+                public void onFailure(BazaarException exception) {
+                    progress.dismiss();
+                    showDialogWithMessage(exception.getMessage());
+                }
+            });
+        }
     }
 
     @Override
@@ -330,8 +293,7 @@ public class DemoConversationsAPIFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-
-        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
 
         String conversationsKey = currentConfig.apiKeyConversations;
         String displayName = currentConfig.displayName;
@@ -346,18 +308,23 @@ public class DemoConversationsAPIFragment extends Fragment {
         }
 
         return true;
+    }
 
+    private boolean setAuthorId() {
+        if (!DemoConstants.isSet(AUTHOR_ID)) {
+            showDialogWithMessage(getString(R.string.author_id_empty_message));
+            return false;
+        }
+        return true;
     }
 
     private void showDialogWithMessage(String message){
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(message);
         builder.setNegativeButton("OK", null).create().show();
     }
 
     private File createFileFromInputStream(InputStream inputStream) {
-
         try{
             File f = File.createTempFile("tmp", "png");
             OutputStream outputStream = new FileOutputStream(f);

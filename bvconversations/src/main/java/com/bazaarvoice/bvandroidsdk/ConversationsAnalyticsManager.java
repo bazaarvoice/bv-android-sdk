@@ -174,6 +174,14 @@ public class ConversationsAnalyticsManager {
                 Product product = question.getProduct();
                 sendProductPageView(MagpieBvProduct.QUESTIONS_AND_ANSWERS, product);
             }
+        } else if (conversationResponse instanceof AuthorsResponse) {
+            AuthorsResponse authorsResponse = (AuthorsResponse) conversationResponse;
+            if (!authorsResponse.getHasErrors()) {
+                List<Author> authors = authorsResponse.getResults();
+                for (Author author : authors) {
+                    sendUsedFeatureAuthorDisplayEvent(author.getId());
+                }
+            }
         }
     }
 
@@ -196,6 +204,13 @@ public class ConversationsAnalyticsManager {
                 .detail1(feedbackType)
                 .fingerprint(hasFingerprint)
                 .build();
+        analyticsManager.enqueueEvent(schema);
+    }
+
+    public static void sendUsedFeatureAuthorDisplayEvent(String profileId) {
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
+        AuthorUsedFeatureSchema schema = new AuthorUsedFeatureSchema(profileId, magpieMobileAppPartialSchema);
         analyticsManager.enqueueEvent(schema);
     }
 

@@ -3,7 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.settings;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -12,37 +11,47 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.BVSDK;
-import com.bazaarvoice.bvsdkdemoandroid.DemoApplication;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
+import javax.inject.Inject;
+
 public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject SharedPreferences sharedPrefs;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        DemoApp.get(getContext()).getAppComponent().inject(this);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preferences_selected);
-        updateSettingsUi(DemoConfigUtils.getInstance(getContext()).getCurrentConfig());
+        updateSettingsUi(demoConfigUtils.getCurrentConfig());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getContext().getSharedPreferences(DemoConfigUtils.CONFIG_SHARED_PREFS, Context.MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this);
+        sharedPrefs.registerOnSharedPreferenceChangeListener(this);
 
     }
 
     @Override
     public void onPause() {
-        getContext().getSharedPreferences(DemoConfigUtils.CONFIG_SHARED_PREFS, Context.MODE_PRIVATE).unregisterOnSharedPreferenceChangeListener(this);
+        sharedPrefs.unregisterOnSharedPreferenceChangeListener(this);
         super.onPause();
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.key_client_id))) {
-            DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(getContext());
             String newClientId = demoConfigUtils.getClientId();
             DemoConfig newSelectedConfig = demoConfigUtils.getConfigFromClientId(newClientId);
             updateSettingsUi(newSelectedConfig);
@@ -81,7 +90,7 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
         if (clientId != null) {
             BVSDK bvsdk = BVSDK.getInstance();
             bvsdk = null;
-            DemoApplication.cleanUp();
+            DemoApp.cleanUp();
             DemoUtils.restartApp();
         } else {
             new AlertDialog.Builder(getContext())
@@ -93,7 +102,6 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
     }
 
     private String getNotSetString() {
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(getContext());
         return demoConfigUtils.isDemoClient() ? "" : getString(R.string.product_not_setup);
     }
 }

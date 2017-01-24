@@ -4,46 +4,34 @@
 package com.bazaarvoice.bvsdkdemoandroid.utils;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.view.Display;
 
 import com.google.android.gms.ads.AdRequest;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DemoUtils {
 
-    private static DemoUtils instance;
-
     public static final int MAX_IMAGE_WIDTH = 1440;
     public static final int MAX_IMAGE_HEIGHT = 2560;
 
-    private Picasso picasso;
-    private Context applicationContext;
+//    private Picasso picasso;
+//    private Context context;
+//
+//    public DemoUtils(Context context) {
+//        this.context = context;
+//    }
 
-    private DemoUtils(Context context) {
-        this.applicationContext = context.getApplicationContext();
-    }
-
-    public static DemoUtils getInstance(Context context) {
-        if (instance == null) {
-            instance = new DemoUtils(context);
-        }
-        return instance;
-    }
-
-    public Picasso picassoThumbnailLoader() {
-        if (picasso == null) {
-            picasso = new Picasso.Builder(applicationContext)
-                    .defaultBitmapConfig(Bitmap.Config.RGB_565)
-                    .build();
-        }
-        return picasso;
-    }
+//    public Picasso picassoThumbnailLoader() {
+//        if (picasso == null) {
+//            picasso = new Picasso.Builder(context)
+//                    .defaultBitmapConfig(Bitmap.Config.RGB_565)
+//                    .build();
+//        }
+//        return picasso;
+//    }
 
     public static <ReturnType> ReturnType safeParse(String key, JSONObject jsonObject) {
         return safeParse(key, jsonObject, null);

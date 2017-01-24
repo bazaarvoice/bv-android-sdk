@@ -5,16 +5,20 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
@@ -144,7 +148,17 @@ public class ConversationsUnitTest extends BVBaseTest{
 
     @Test
     public void testReviewsForAllReviewsParsing() {
-        testParsing("reviews_all_reviews.json", ReviewResponse.class);
+        ReviewResponse response = testParsing("reviews_all_reviews.json", ReviewResponse.class);
+
+        assertEquals(10, response.getResults().size());
+
+        Review firstReview = response.getResults().get(0);
+        Map<String, Badge> firstReviewBadges = firstReview.getBadges();
+        Assert.assertNotNull(firstReviewBadges);
+        Badge top10Badge = firstReviewBadges.get("top10");
+        assertEquals("REVIEW", top10Badge.getContentType());
+        assertEquals("top10", top10Badge.getId());
+        assertEquals("Merit", top10Badge.getType().name());
     }
 
     @Test
@@ -363,5 +377,74 @@ public class ConversationsUnitTest extends BVBaseTest{
         }
 
         return prodIds;
+    }
+
+    @Test
+    public void testParsingAuthorsByIdWithIncludesSorted() {
+        AuthorsResponse response = testParsing("author_by_id_with_options.json", AuthorsResponse.class);
+        List<Author> authors = response.getResults();
+        assertEquals(1, authors.size());
+        assertEquals(1, response.getTotalResults().intValue());
+        assertFalse(response.getHasErrors());
+
+        Author firstAuthor = authors.get(0);
+        assertEquals("tondra", firstAuthor.getUserNickname());
+        Map<String, ContextDataValue> contextDataValueMap = firstAuthor.getContextDataValues();
+        assertEquals(4, contextDataValueMap.size());
+        ContextDataValue experienceDataValue = contextDataValueMap.get("Experience");
+        ContextDataValue primaryUseDataValue = contextDataValueMap.get("PrimaryUse");
+        ContextDataValue ageDataValue = contextDataValueMap.get("Age");
+        ContextDataValue genderDataValue = contextDataValueMap.get("Gender");
+        assertNotNull(experienceDataValue);
+        assertNotNull(primaryUseDataValue);
+        assertNotNull(ageDataValue);
+        assertNotNull(genderDataValue);
+        assertEquals("Beginner", experienceDataValue.getValue());
+        assertEquals("Racing", primaryUseDataValue.getValue());
+        assertEquals("25to34", ageDataValue.getValue());
+        assertEquals("Female", genderDataValue.getValue());
+        assertEquals("uayhe5twq2b3dokikrsqamtlc", firstAuthor.getId());
+        assertEquals("Albany, GA, United States", firstAuthor.getLocation());
+        assertEquals(Integer.valueOf(0), firstAuthor.getReviewStatistics().getTotalReviewCount());
+        assertEquals(Integer.valueOf(1), firstAuthor.getQaStatistics().getTotalQuestionCount());
+        assertEquals(Integer.valueOf(0), firstAuthor.getQaStatistics().getTotalAnswerCount());
+        Calendar submissionDateCalendar = Calendar.getInstance();
+        submissionDateCalendar.setTime(firstAuthor.getSubmissionDate());
+        assertEquals(2016, submissionDateCalendar.get(Calendar.YEAR));
+        assertEquals(Calendar.MAY, submissionDateCalendar.get(Calendar.MONTH));
+        assertEquals(17, submissionDateCalendar.get(Calendar.DAY_OF_MONTH));
+
+        firstAuthor.getUserNickname();
+        firstAuthor.getId();
+        firstAuthor.getSubmissionDate();
+        firstAuthor.getLastModeratedDate();
+        firstAuthor.getTagDimensions();
+        firstAuthor.getPhotos();
+        firstAuthor.getContextDataValues();
+        firstAuthor.getVideos();
+        firstAuthor.getSubmissionId();
+        firstAuthor.getUserLocation();
+        firstAuthor.getBadges();
+        firstAuthor.getSecondaryRatings();
+        firstAuthor.getIncludedIn().getReviewsList();
+        firstAuthor.getIncludedIn().getQuestions();
+        firstAuthor.getIncludedIn().getAnswers();
+        firstAuthor.getReviewStatistics();
+        firstAuthor.getQaStatistics();
+    }
+
+    @Test
+    public void testAuthorRequest() {
+        AuthorsRequest request = new AuthorsRequest.Builder("authorId")
+                .addIncludeContent(PDPContentType.Reviews, 10)
+                .addIncludeContent(PDPContentType.Questions, 11)
+                .addIncludeContent(PDPContentType.Answers, 12)
+                .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addAnswerSort(AnswerOptions.Sort.AuthorId, SortOrder.DESC)
+                .addIncludeStatistics(PDPContentType.Reviews)
+                .addIncludeStatistics(PDPContentType.Questions)
+                .addIncludeStatistics(PDPContentType.Answers)
+                .build();
     }
 }

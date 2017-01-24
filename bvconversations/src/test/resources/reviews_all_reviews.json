@@ -1,1810 +1,1283 @@
 {
-  "Includes":{
-
-  },
-  "HasErrors":false,
+  "Limit":10,
   "Offset":0,
-  "TotalResults":800,
+  "TotalResults":20,
   "Locale":"en_US",
-  "Errors":[
-
-  ],
   "Results":[
     {
-      "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Vivamus orci nibh, vulputate",
-            "Proin libero ligula,",
-            "Nul"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
+      "Id":"16970619",
+      "CID":"ab6bd8ac-a041-5b3a-9540-d1787e3aa5da",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
         }
       },
-      "TagDimensionsOrder":[
-        "Pro"
+      "BadgesOrder":[
+        "top10"
       ],
+      "LastModificationTime":"2017-01-05T19:36:11.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:11.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "ContextDataValuesOrder":[
+        "Gender",
+        "LengthOfOwnership"
+      ],
+      "UserLocation":"Independence, MO",
+      "AuthorId":"data-gen-user-lulm4llkjeusqza029ffs07np",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Value",
+        "Fit_22"
+      ],
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "Helpfulness":1.0,
+      "TotalFeedbackCount":1,
+      "TotalNegativeFeedbackCount":0,
+      "TotalPositiveFeedbackCount":1,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-12-21T12:06:00.000+00:00",
+      "ReviewText":"Donec tempor, est ut placerat congue, ipsum sem iaculis ante, quis commodo mi turpis velturpis.Curabitur sit amet orcilorem.Praesent eleifend porta turpis dapibusultricies.Maecenas tincidunt lorem vitae magna auctorcondimentum.\n\nDonec interdum erat eu arcu vehiculagravida.Quisque cursus pulvinar ligula, sed accumsan felis interdumid.Nullam erat augue, condimentum et fermentum vitae, dapibus sedurna.Etiam sapien dolor, consequat nec tincidunt et, interdum euquam.",
+      "Title":"Donec id purusrisus.Praesent quis nuncante.",
+      "UserNickname":"dion861",
+      "SecondaryRatings":{
+        "Value":{
+          "Value":4,
+          "Id":"Value",
+          "MinLabel":null,
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Fit_22":{
+          "Value":4,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"A little big",
+          "ValueRange":5
+        },
+        "Quality":{
+          "Value":4,
+          "Id":"Quality",
+          "MinLabel":null,
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        }
+      },
+      "ContextDataValues":{
+        "LengthOfOwnership":{
+          "Value":"1week",
+          "Id":"LengthOfOwnership",
+          "ValueLabel":"1 week",
+          "DimensionLabel":"Length of ownership"
+        },
+        "Gender":{
+          "Value":"Male",
+          "Id":"Gender",
+          "ValueLabel":"Male",
+          "DimensionLabel":"Gender"
+        }
+      },
+      "TagDimensions":{
+
+      },
+      "SubmissionId":null,
       "AdditionalFieldsOrder":[
 
       ],
-      "Cons":null,
-      "IsRecommended":false,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
+      "TagDimensionsOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "Videos":[
+
+      ],
       "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ],
+      "Photos":[
+
+      ]
+    },
+    {
+      "Id":"16970611",
+      "CID":"b9c34a62-41b6-55fb-b0d2-7ae075098359",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
+        }
+      },
+      "BadgesOrder":[
+        "top10"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "UserLocation":"Los Angeles, CA",
+      "AuthorId":"data-gen-user-pmjyph31ca6sywxxo6fqbcabx",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Value",
+        "Fit_22"
+      ],
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "Helpfulness":0.0,
+      "TotalFeedbackCount":3,
+      "TotalNegativeFeedbackCount":3,
+      "TotalPositiveFeedbackCount":0,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-12-19T20:00:00.000+00:00",
+      "ReviewText":"Vivamus enim arcu, aliquet eget interdum eget, porttitor amassa.\n\nProin blandit eleifendviverra.Praesent rutrum urna at turpis suscipit eu malesuada semscelerisque.Praesent sodales neque non mauris porttitorsuscipit.Praesent quis nuncante.",
+      "Title":"Phasellus sit amet quam lectus, ac sagittiserat.",
+      "UserNickname":"prospero174",
+      "SecondaryRatings":{
+        "Value":{
+          "Value":5,
+          "Id":"Value",
+          "MinLabel":null,
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Fit_22":{
+          "Value":3,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"True to size",
+          "ValueRange":5
+        }
+      },
+      "TagDimensions":{
+
+      },
+      "SubmissionId":null,
+      "AdditionalFieldsOrder":[
+
+      ],
+      "TagDimensionsOrder":[
+
+      ],
+      "ContextDataValuesOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "ContextDataValues":{
+
+      },
+      "Videos":[
+
+      ],
+      "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ],
+      "Photos":[
+
+      ]
+    },
+    {
+      "Id":"16970613",
+      "CID":"11eae441-87f7-5820-a873-9645cb5ae59c",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "Staff":{
+          "ContentType":"REVIEW",
+          "Id":"Staff",
+          "BadgeType":"Affiliation"
+        },
+        "Expert":{
+          "ContentType":"REVIEW",
+          "Id":"Expert",
+          "BadgeType":"Rank"
+        }
+      },
+      "BadgesOrder":[
+        "Staff",
+        "Expert"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "ContextDataValuesOrder":[
+        "Age",
+        "Gender"
+      ],
+      "UserLocation":"Rochester, MN",
+      "AuthorId":"data-gen-user-q329el4nt3x5p26bc88upxdj1",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
       "Photos":[
         {
+          "Sizes":{
+            "normal":{
+              "Id":"normal",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/4b73d717-e338-5959-bcd1-b0478bd65b45"
+            },
+            "thumbnail":{
+              "Id":"thumbnail",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/be9256eb-24d7-5b03-b0ec-5c0b9232b3b5"
+            }
+          },
+          "Id":"658456",
+          "SizesOrder":[
+            "normal",
+            "thumbnail"
+          ],
+          "Caption":null
+        },
+        {
+          "Sizes":{
+            "normal":{
+              "Id":"normal",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/c8f6e924-4565-5c77-b9e9-189651b81c6c"
+            },
+            "thumbnail":{
+              "Id":"thumbnail",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/c0d9105a-8c3b-5e4e-8630-3939f411bd11"
+            }
+          },
+          "Id":"658457",
+          "SizesOrder":[
+            "normal",
+            "thumbnail"
+          ],
+          "Caption":null
+        },
+        {
+          "Sizes":{
+            "normal":{
+              "Id":"normal",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/569b5372-bd70-50db-af53-7f0e59f088f7"
+            },
+            "thumbnail":{
+              "Id":"thumbnail",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/21ad3fe6-81f3-5fbd-a6b9-c66b8746c620"
+            }
+          },
+          "Id":"658458",
+          "SizesOrder":[
+            "normal",
+            "thumbnail"
+          ],
+          "Caption":null
+        },
+        {
+          "Sizes":{
+            "normal":{
+              "Id":"normal",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/d0c9dcdd-f00f-5f5c-a037-5a544d761a2e"
+            },
+            "thumbnail":{
+              "Id":"thumbnail",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/05660653-9103-52bd-9e50-58461b1b3da8"
+            }
+          },
+          "Id":"658459",
+          "SizesOrder":[
+            "normal",
+            "thumbnail"
+          ],
+          "Caption":null
+        }
+      ],
+      "Rating":5,
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "Helpfulness":1.0,
+      "TotalFeedbackCount":1,
+      "TotalNegativeFeedbackCount":0,
+      "TotalPositiveFeedbackCount":1,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-10-20T23:01:00.000+00:00",
+      "ReviewText":"Nullam vel dui neque, et volutpatsem.Curabitur sit amet nibhnunc.Lorem ipsum dolor sit amet, consectetur adipiscingelit.\n\nAliquam vitae risus a felis lobortismolestie.Aenean nec scelerisquenunc.Praesent non malesuadadolor.\n\nCurabitur feugiat libero at velit aliquetlacinia.Sed rutrum quam sit amet purus luctus at aliquet antedapibus.In leo libero, aliquam et pretium vitae, hendrerit atdui.Fusce condimentum posuerevenenatis.\n\nSed vel nisl a mi pellentesque porta ut arisus.",
+      "Title":"Mauris quis portaeros.Aenean sit amet lacusmagna.",
+      "UserNickname":"adrian597",
+      "ContextDataValues":{
+        "Age":{
+          "Value":"17orUnder",
+          "Id":"Age",
+          "ValueLabel":"17 or under",
+          "DimensionLabel":"Age"
+        },
+        "Gender":{
+          "Value":"Male",
+          "Id":"Gender",
+          "ValueLabel":"Male",
+          "DimensionLabel":"Gender"
+        }
+      },
+      "TagDimensions":{
+
+      },
+      "SubmissionId":null,
+      "AdditionalFieldsOrder":[
+
+      ],
+      "TagDimensionsOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "SecondaryRatings":{
+
+      },
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "SecondaryRatingsOrder":[
+
+      ],
+      "Videos":[
+
+      ],
+      "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ]
+    },
+    {
+      "Id":"16970604",
+      "CID":"d949ed81-31e3-5bdc-84c3-c5cbd21afb21",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "featured":{
+          "ContentType":"REVIEW",
+          "Id":"featured",
+          "BadgeType":"Custom"
+        },
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
+        },
+        "incentivizedReview":{
+          "ContentType":"REVIEW",
+          "Id":"incentivizedReview",
+          "BadgeType":"Custom"
+        }
+      },
+      "BadgesOrder":[
+        "featured",
+        "top10",
+        "incentivizedReview"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "ContextDataValuesOrder":[
+        "IncentivizedReview"
+      ],
+      "AuthorId":"data-gen-user-h52m1i3979qsxix62hdydqb9c",
+      "ContentLocale":"en_US",
+      "IsFeatured":true,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Value",
+        "Fit_22"
+      ],
+      "IsRatingsOnly":false,
+      "IsRecommended":false,
+      "Helpfulness":0.5555559992790222,
+      "TotalFeedbackCount":9,
+      "TotalNegativeFeedbackCount":4,
+      "TotalPositiveFeedbackCount":5,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-07-29T11:15:00.000+00:00",
+      "ReviewText":"Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptoshimenaeos.Mauris vel justo nec mi laoreet porta quis utlacus.Fusce sed diam arcu, vel sodaleslacus.Duis ac enim non dui gravida lacinia sed vitaejusto.",
+      "Title":"Donec adipiscing libero ac elit iaculisiaculis.",
+      "UserNickname":"escalus39",
+      "SecondaryRatings":{
+        "Quality":{
+          "Value":4,
+          "Id":"Quality",
+          "MinLabel":null,
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Value":{
+          "Value":4,
+          "Id":"Value",
+          "MinLabel":null,
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Fit_22":{
+          "Value":2,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"A little small",
+          "ValueRange":5
+        }
+      },
+      "ContextDataValues":{
+        "IncentivizedReview":{
+          "Value":"True",
+          "Id":"IncentivizedReview",
+          "ValueLabel":"Yes",
+          "DimensionLabel":"Received an incentive for this review"
+        }
+      },
+      "TagDimensions":{
+
+      },
+      "SubmissionId":null,
+      "AdditionalFieldsOrder":[
+
+      ],
+      "TagDimensionsOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "Videos":[
+
+      ],
+      "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ],
+      "UserLocation":null,
+      "Photos":[
+
+      ]
+    },
+    {
+      "Id":"16970603",
+      "CID":"d77e4f0b-8c64-5a67-acb6-107b0067bfd3",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "Staff":{
+          "ContentType":"REVIEW",
+          "Id":"Staff",
+          "BadgeType":"Affiliation"
+        },
+        "Expert":{
+          "ContentType":"REVIEW",
+          "Id":"Expert",
+          "BadgeType":"Rank"
+        }
+      },
+      "BadgesOrder":[
+        "Staff",
+        "Expert"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "ContextDataValuesOrder":[
+        "Age"
+      ],
+      "UserLocation":"Fremont, CA",
+      "AuthorId":"data-gen-user-q329el4nt3x5p26bc88upxdj1",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Fit_22"
+      ],
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "Helpfulness":0.5,
+      "TotalFeedbackCount":8,
+      "TotalNegativeFeedbackCount":4,
+      "TotalPositiveFeedbackCount":4,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-05-13T17:37:00.000+00:00",
+      "ReviewText":"Donec interdum erat eu arcu vehiculagravida.Quisque cursus pulvinar ligula, sed accumsan felis interdumid.\n\nNullam erat augue, condimentum et fermentum vitae, dapibus sedurna.Etiam sapien dolor, consequat nec tincidunt et, interdum euquam.Curabitur pulvinar nulla ut mauris varius in aliquam ligulasemper.Sed pellentesque quam hendrerit enim vulputate in lacinia dolorultrices.",
+      "Title":"Praesent eleifend porta turpis dapibusultricies.",
+      "UserNickname":"adrian597",
+      "Videos":[
+        {
+          "VideoId":"iFEQVlpIJoU",
+          "VideoHost":"www.youtube.com",
+          "VideoThumbnailUrl":null,
+          "VideoIframeUrl":null,
           "Caption":null,
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474758/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474758/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474758"
-        },
-        {
-          "Caption":null,
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474759/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474759/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474759"
-        },
-        {
-          "Caption":"Sed pellentesque quam hendrerit enim vulputate in lacinia dolorultrices. Quisque turpis odio, bibendum non iaculis eu, consequat inelit. Maecenas massa ante, ullamcorper at posuere sed, vestibulum egetneque. Ut porttitor erat sit a",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474760/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474760/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474760"
-        },
-        {
-          "Caption":"Done",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474761/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474761/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474761"
+          "VideoUrl":"http://www.youtube.com/v/iFEQVlpIJoU&rel=0"
         }
       ],
       "ContextDataValues":{
         "Age":{
           "Value":"35to44",
+          "Id":"Age",
           "ValueLabel":"35 to 44",
-          "DimensionLabel":"Age",
-          "Id":"Age"
-        },
-        "LengthOfOwnership":{
-          "Value":"1week",
-          "ValueLabel":"1 week",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Male",
-          "ValueLabel":"Male",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Expert",
-          "ValueLabel":"Expert",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
+          "DimensionLabel":"Age"
         }
       },
-      "Videos":[
-        {
-          "VideoHost":"www.youtube.com",
-          "Caption":"Nam pharetra elit vel ipsum pretium ut aliquam ligulafaucibus. Mae",
-          "VideoThumbnailUrl":"http://img.youtube.com/vi/gmWWePoYHYk/0.jpg",
-          "VideoId":"gmWWePoYHYk",
-          "VideoUrl":"http://www.youtube.com/v/gmWWePoYHYk&rel=0",
-          "VideoIframeUrl":null
-        }
-      ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "LengthOfOwnership",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2012-08-27T14:58:01.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "UserLocation":"Mauris mollis turpis si",
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"data-gen-ek5fe5wdxwok2njilm1w37cj1",
-      "Title":"Curabitur pulvinar nulla ut mauris varius in aliquam ligulasemper. Sed pellentesque quam hendrerit enim v",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:56.000+00:00",
-      "Rating":4,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"Maecenas et diam eu ante tristiqueposuere. Donec adipiscing libero ac elit iaculisiaculis. Donec vestibulum diam et risus pretium sit amet interdum enimporta.\n\nIn semper nibh est, non aliquetmauris. Nam accumsan arcu at ante tristique vel tristique tellusporttitor. Suspendisse ut arcu enim, nec sollicitudinmagna. Nullam vitae metus elit, et bibendumnunc.\n\nNullam molestie leo et mi vestibulum sit amet semper duiultricies. Integer urna dui, varius ut interdum non, placerat vitaemauris. Proin tincidunt orci ac lacus faucibus condimentum mattis felisconsectetur. Nunc congue semper lectus euporttitor.",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-        {
-          "Name":"Nunc metus diam, aliquet id scelerisque sed,",
-          "ResponseSource":"Nam in sapien sit amet",
-          "ResponseMarkup":[
-            "Ut a elitmi.\n\nInteger quis volutpatlibero. Integer tincidunt viverraelementum. Sed sollicitudin ultricesimperdiet."
-          ],
-          "ResponseType":"Donec adipiscin",
-          "Date":"2012-08-27T14:57:56.000+00:00",
-          "Response":"Ut a elitmi.\n\nInteger quis volutpatlibero. Integer tincidunt viverraelementum. Sed sollicitudin ultricesimperdiet.",
-          "Department":"In leo libero, aliquam et pretium vitae, hendrerit atdui."
-        }
-      ],
-      "Id":"6876723",
-      "CommentIds":[
-
-      ],
       "SecondaryRatings":{
-        "Value":{
-          "Value":5,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
+        "Fit_22":{
+          "Value":4,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"A little big",
+          "ValueRange":5
         },
         "Quality":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
+          "Value":4,
           "Id":"Quality",
-          "ValueRange":5,
           "MinLabel":null,
-          "DisplayType":"NORMAL"
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
         }
       },
-      "LastModeratedTime":"2012-08-27T14:58:01.000+00:00"
-    },
-    {
       "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Etiam ac volutpatmi. Praesent a scelerisq",
-            "Etiam feugiat sempervestibulum. Aliqua",
-            "Nam pharet"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
-        },
-        "Con":{
-          "Values":[
-            "Etiam sapien dolor, consequat nec tincidunt et, in",
-            "Proin accumsan tempor",
-            "Donec",
-            "Sed sollicitudin ultricesimperdiet."
-          ],
-          "Label":"Cons",
-          "Id":"Con"
-        }
+
       },
-      "TagDimensionsOrder":[
-        "Pro",
-        "Con"
-      ],
+      "SubmissionId":null,
       "AdditionalFieldsOrder":[
 
       ],
-      "Cons":null,
-      "IsRecommended":null,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
+      "TagDimensionsOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
       "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ],
       "Photos":[
 
-      ],
-      "ContextDataValues":{
-        "FrequencyOfUse":{
-          "Value":"Weekly",
-          "ValueLabel":"Weekly",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "LengthOfOwnership":{
-          "Value":"3months",
-          "ValueLabel":"3 months",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Male",
-          "ValueLabel":"Male",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        }
-      },
-      "Videos":[
-        {
-          "VideoHost":"www.youtube.com",
-          "Caption":"Donec luctus lobortis velit, vitae imperdiet ligula euismodid. Fusce ac libero orci, ut temporsem. Viva",
-          "VideoThumbnailUrl":"http://img.youtube.com/vi/gmWWePoYHYk/0.jpg",
-          "VideoId":"gmWWePoYHYk",
-          "VideoUrl":"http://www.youtube.com/v/gmWWePoYHYk&rel=0",
-          "VideoIframeUrl":null
-        }
-      ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "LengthOfOwnership",
-        "FrequencyOfUse"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2012-08-27T14:58:01.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "UserLocation":"Vestibu",
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"data-gen-maz8i2oizhmltazo362zggktj",
-      "Title":"Mauris ut lacus non arcu faucibus sc",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:56.000+00:00",
-      "Rating":4,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"Suspendisse rhoncus, libero non vehicula sodales, nisl lorem vestibulum magna, non condimentum nisl est quisligula.\n\nNullafacilisi.\n\nIn tellus diam, mollis ac suscipit non, malesuada sedmetus. Nullam malesuada purus nec tortor convallis vitae consectetur sapiensodales. Nunc lorem neque, condimentum id fermentum a, aliquam sit ametligula.",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-        {
-          "Name":"Curabitur sit amet orcilo",
-          "ResponseSource":"Morbi laoreet pellent",
-          "ResponseMarkup":[
-            "Nullam tempor eleifend nisi egetconsequat.\n\nMorbi laoreet pellentesque libero, at tristique velit conguemalesuada. Fusce tristique venenatis metus acsemper."
-          ],
-          "ResponseType":"Nullam nec mi non ipsum tristiqueposuere. Aenean interdum aliquamiaculis. Aenean at tortor l",
-          "Date":"2012-08-27T14:57:56.000+00:00",
-          "Response":"Nullam tempor eleifend nisi egetconsequat.\n\nMorbi laoreet pellentesque libero, at tristique velit conguemalesuada. Fusce tristique venenatis metus acsemper.",
-          "Department":"Aenean interdum aliquamiaculis. Aenean at to"
-        }
-      ],
-      "Id":"6876724",
-      "CommentIds":[
-
-      ],
-      "SecondaryRatings":{
-        "Value":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
-        "Quality":{
-          "Value":5,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
-          "Id":"Quality",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        }
-      },
-      "LastModeratedTime":"2012-08-27T14:58:01.000+00:00"
+      ]
     },
     {
-      "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Pellentesque ferm",
-            "Fusc",
-            "Aenean sit amet lacusmagna. C",
-            "Nullam quam purus, blandit quis conva",
-            "Pellentesque"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
-        },
-        "Con":{
-          "Values":[
-            "Aenean nec scelerisquenunc. Praesent non malesuada",
-            "Class aptent taciti"
-          ],
-          "Label":"Cons",
-          "Id":"Con"
+      "Id":"16970605",
+      "CID":"c6a10e4f-53c3-525c-a15b-d9f345cd435f",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
         }
       },
-      "TagDimensionsOrder":[
-        "Pro",
-        "Con"
+      "BadgesOrder":[
+        "top10"
       ],
-      "AdditionalFieldsOrder":[
-
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "UserLocation":"Washington, DC",
+      "AuthorId":"data-gen-user-pmjyph31ca6sywxxo6fqbcabx",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Value",
+        "Fit_22"
       ],
-      "Cons":null,
+      "IsRatingsOnly":false,
       "IsRecommended":true,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
+      "Helpfulness":0.2857140004634857,
+      "TotalFeedbackCount":7,
+      "TotalNegativeFeedbackCount":5,
+      "TotalPositiveFeedbackCount":2,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-02-18T09:50:00.000+00:00",
+      "ReviewText":"Quisque dignissim viverra nibh, non cursus tortor condimentumvel.Nam non odio nec lorem accumsanlacinia.Cras vel orci id felis lobortis rhoncus ut anulla.Ut laoreet nuncjusto.Nullam vel orci vitae orci viverra interdum a quislectus.In porta sapien vel orci sodales accumsan porta ligulaporta.Vivamus erat nulla, feugiat vitae placerat id, ullamcorper quisnisi.Ut a elitmi.",
+      "Title":"Mauris iaculis pretium nibh neccursus.",
+      "UserNickname":"prospero174",
+      "SecondaryRatings":{
+        "Quality":{
+          "Value":4,
+          "Id":"Quality",
+          "MinLabel":null,
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Value":{
+          "Value":5,
+          "Id":"Value",
+          "MinLabel":null,
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Fit_22":{
+          "Value":4,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"A little big",
+          "ValueRange":5
+        }
+      },
+      "TagDimensions":{
+
+      },
+      "SubmissionId":null,
+      "AdditionalFieldsOrder":[
+
+      ],
+      "TagDimensionsOrder":[
+
+      ],
+      "ContextDataValuesOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "ContextDataValues":{
+
+      },
+      "Videos":[
+
+      ],
       "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ],
+      "Photos":[
+
+      ]
+    },
+    {
+      "Id":"16970620",
+      "CID":"3eb2271d-845d-5bd8-908d-40ddf28c2584",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
+        }
+      },
+      "BadgesOrder":[
+        "top10"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:11.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:11.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "UserLocation":"Fayetteville, NC",
+      "AuthorId":"data-gen-user-h52m1i3979qsxix62hdydqb9c",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":1,
       "Photos":[
         {
-          "Caption":null,
           "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474752/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
             "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474752/photo.jpg",
-              "Id":"normal"
+              "Id":"normal",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/c7bd91ef-f4d7-548e-b593-72897898bec5"
+            },
+            "thumbnail":{
+              "Id":"thumbnail",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/c1df26e0-455f-58e3-bdce-03e1b132c973"
             }
           },
+          "Id":"658460",
           "SizesOrder":[
-            "thumbnail",
-            "normal"
+            "normal",
+            "thumbnail"
           ],
-          "Id":"474752"
-        }
-      ],
-      "ContextDataValues":{
-        "Age":{
-          "Value":"17orUnder",
-          "ValueLabel":"17 or under",
-          "DimensionLabel":"Age",
-          "Id":"Age"
+          "Caption":null
         },
-        "FrequencyOfUse":{
-          "Value":"Daily",
-          "ValueLabel":"Daily",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "LengthOfOwnership":{
-          "Value":"1month",
-          "ValueLabel":"1 month",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Female",
-          "ValueLabel":"Female",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Intermediate",
-          "ValueLabel":"Intermediate",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
-        }
-      },
-      "Videos":[
         {
-          "VideoHost":"www.youtube.com",
-          "Caption":"Nam in sapien sit amet justo",
-          "VideoThumbnailUrl":"http://img.youtube.com/vi/CSK1D3bZhRs/0.jpg",
-          "VideoId":"CSK1D3bZhRs",
-          "VideoUrl":"http://www.youtube.com/v/CSK1D3bZhRs&rel=0",
-          "VideoIframeUrl":null
+          "Sizes":{
+            "normal":{
+              "Id":"normal",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/5be6c9ea-6fd4-54d5-82d6-fcaa9a3b08c3"
+            },
+            "thumbnail":{
+              "Id":"thumbnail",
+              "Url":"http://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/bd2dbaf1-9114-5405-b6d2-b32bd72cd155"
+            }
+          },
+          "Id":"658461",
+          "SizesOrder":[
+            "normal",
+            "thumbnail"
+          ],
+          "Caption":"Curabitur vel justo turpis, quis scelerisquemauris. Ut interdum dictum diam sit ametpo"
         }
       ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "LengthOfOwnership",
-        "FrequencyOfUse",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2015-11-10T12:45:04.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "UserLocation":"Duis fermentum purus",
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
+      "Rating":5,
       "SecondaryRatingsOrder":[
         "Value"
       ],
-      "IsFeatured":false,
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"data-gen-3kfdylgqrb7c1dxebcmbhbyuj",
-      "Title":"Int",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:56.000+00:00",
-      "Rating":5,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"In porta sapien vel orci sodales accumsan porta ligulaporta. Vivamus erat nulla, feugiat vitae placerat id, ullamcorper quisnisi. Ut a elitmi. Integer quis volutpatlibero.\n\nInteger tincidunt viverraelementum.",
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "Helpfulness":0.5714290142059326,
+      "TotalFeedbackCount":7,
+      "TotalNegativeFeedbackCount":3,
+      "TotalPositiveFeedbackCount":4,
       "ModerationStatus":"APPROVED",
-      "ClientResponses":[
+      "SubmissionTime":"2016-02-02T11:14:00.000+00:00",
+      "ReviewText":"Sed ac interdumlectus.Mauris mollis turpis sit amet neque porttitor ac venenatis mimollis.",
+      "Title":"Pellentesque eget odioorci.",
+      "UserNickname":"escalus39",
+      "Videos":[
         {
-          "Name":"Caum sociis natoque",
-          "ResponseSource":"Sed",
-          "ResponseMarkup":[
-            "Aenean fringilla ultricesultrices.\n\nUt dictum imperdiet augue, eu pretium quam aliquamnon."
-          ],
-          "ResponseType":"Nunc sollicitudin, odio eu",
-          "Date":"2012-08-27T14:57:56.000+00:00",
-          "Response":"Aenean fringilla ultricesultrices.\n\nUt dictum imperdiet augue, eu pretium quam aliquamnon.",
-          "Department":"M"
+          "VideoId":"iFEQVlpIJoU",
+          "VideoHost":"www.youtube.com",
+          "VideoThumbnailUrl":null,
+          "VideoIframeUrl":null,
+          "Caption":null,
+          "VideoUrl":"http://www.youtube.com/v/iFEQVlpIJoU&rel=0"
         }
-      ],
-      "Id":"6876720",
-      "CommentIds":[
-
       ],
       "SecondaryRatings":{
         "Value":{
-          "Value":1,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
+          "Value":5,
           "Id":"Value",
-          "ValueRange":5,
           "MinLabel":null,
-          "DisplayType":"NORMAL"
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
         }
       },
-      "LastModeratedTime":"2012-08-27T14:57:59.000+00:00"
-    },
-    {
       "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Cras consequat orciante. Susp",
-            "Quisque cur",
-            "Class aptent",
-            "Vestibulum arcu magn"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
-        }
+
       },
-      "TagDimensionsOrder":[
-        "Pro"
-      ],
+      "SubmissionId":null,
       "AdditionalFieldsOrder":[
 
       ],
-      "Cons":null,
-      "IsRecommended":false,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
-      "Pros":null,
-      "Photos":[
-        {
-          "Caption":"Praesent sodales neque non mauris porttitorsuscipit. Praesent quis nuncante.",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474754/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474754/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474754"
-        },
-        {
-          "Caption":"Ut laoreet nuncjusto. Nullam vel orci vitae orci viverra interdum a quislectus. In porta sapien vel orci so",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474755/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474755/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474755"
-        },
-        {
-          "Caption":"Donec molestie eleifend elit, vitae congue orci gravidavel. Aenean rutrum egestas lectus placeratlobortis. Aenean fringilla ultricesultrices. Ut dictum imperdiet au",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474756/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474756/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474756"
-        },
-        {
-          "Caption":"Praesent quis nuncante. Curabitur imperdi",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474757/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474757/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474757"
-        }
+      "TagDimensionsOrder":[
+
       ],
+      "ContextDataValuesOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "ContextDataValues":{
+
+      },
+      "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ]
+    },
+    {
+      "Id":"16970606",
+      "CID":"909d5350-ba25-5c67-9830-b7302a0e847f",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
+        },
+        "incentivizedReview":{
+          "ContentType":"REVIEW",
+          "Id":"incentivizedReview",
+          "BadgeType":"Custom"
+        }
+      },
+      "BadgesOrder":[
+        "top10",
+        "incentivizedReview"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "ContextDataValuesOrder":[
+        "Age",
+        "IncentivizedReview"
+      ],
+      "UserLocation":"Tampa, FL",
+      "AuthorId":"data-gen-user-t76jwo4to5gk4a7imu37beo6f",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Fit_22"
+      ],
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "TotalFeedbackCount":0,
+      "TotalNegativeFeedbackCount":0,
+      "TotalPositiveFeedbackCount":0,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-01-28T01:22:00.000+00:00",
+      "ReviewText":"Nam pharetra elit vel ipsum pretium ut aliquam ligulafaucibus.Maecenas vel massa urna, vehicula malesuadadui.Integer at purus ut magna sagittis consequat et atquam.Pellentesque fermentum lorem eget ante euismod et pulvinar nequeinterdum.\n\nSuspendisse dolor sem, vulputate vitae laoreet eu, auctor idtortor.In malesuada adipiscing enim, at porttitor dolor venenatisac.In hac habitasse plateadictumst.Pellentesque gravida luctus augue atmollis.\n\nIn quis risus magna, nec blanditrisus.Nullam tempor eleifend nisi egetconsequat.Morbi laoreet pellentesque libero, at tristique velit conguemalesuada.Fusce tristique venenatis metus acsemper.\n\nClass aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptoshimenaeos.Morbi a sapien non lectus fringillamolestie.In faucibus dui quis nisl egestas a convallis liberovarius.",
+      "Title":"Praesent eleifend porta turpis dapibusultricies.",
+      "UserNickname":"theseus66",
       "ContextDataValues":{
         "Age":{
           "Value":"45to54",
+          "Id":"Age",
           "ValueLabel":"45 to 54",
-          "DimensionLabel":"Age",
-          "Id":"Age"
+          "DimensionLabel":"Age"
         },
-        "FrequencyOfUse":{
-          "Value":"Weekly",
-          "ValueLabel":"Weekly",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "LengthOfOwnership":{
-          "Value":"1month",
-          "ValueLabel":"1 month",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Female",
-          "ValueLabel":"Female",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Intermediate",
-          "ValueLabel":"Intermediate",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
+        "IncentivizedReview":{
+          "Value":"True",
+          "Id":"IncentivizedReview",
+          "ValueLabel":"Yes",
+          "DimensionLabel":"Received an incentive for this review"
         }
       },
-      "Videos":[
+      "SecondaryRatings":{
+        "Fit_22":{
+          "Value":4,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"A little big",
+          "ValueRange":5
+        },
+        "Quality":{
+          "Value":5,
+          "Id":"Quality",
+          "MinLabel":null,
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        }
+      },
+      "TagDimensions":{
+
+      },
+      "Helpfulness":null,
+      "SubmissionId":null,
+      "AdditionalFieldsOrder":[
 
       ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "LengthOfOwnership",
-        "FrequencyOfUse",
-        "Expertise"
+      "TagDimensionsOrder":[
+
       ],
-      "SubmissionId":null,
-      "LastModificationTime":"2015-11-19T13:17:00.000+00:00",
-      "TotalFeedbackCount":5,
-      "TotalPositiveFeedbackCount":5,
-      "UserLocation":null,
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
       "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
       "ProductRecommendationIds":[
 
       ],
-      "ProductId":"data-gen-mm7lu5q84ktvgzwwxtbx05lsx",
-      "Title":"Nam accumsan arcu at ante tristique vel tristique tellusporttitor. Suspendisse ut arcu enim, nec sollicitudinmagna. Null",
+      "RatingRange":5,
+      "Videos":[
+
+      ],
+      "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
       "AdditionalFields":{
 
       },
-      "CampaignId":null,
-      "Helpfulness":0.6,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:56.000+00:00",
+      "InappropriateFeedbackList":[
+
+      ],
+      "Photos":[
+
+      ]
+    },
+    {
+      "Id":"16970608",
+      "CID":"90da78db-fd5c-58ae-9957-dc81d890b4f8",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top25":{
+          "ContentType":"REVIEW",
+          "Id":"top25",
+          "BadgeType":"Merit"
+        }
+      },
+      "BadgesOrder":[
+        "top25"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "UserLocation":"Fremont, CA",
+      "AuthorId":"data-gen-user-th1auka4vdw4m07dn6svwzz7j",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
       "Rating":5,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"Sed ac interdumlectus. Mauris mollis turpis sit amet neque porttitor ac venenatis mimollis. Pellentesque eget odioorci.\n\nPraesent sit amet turpis ullamcorper risus laciniaaliquet. Nam ut feliselit. Etiam feugiat sempervestibulum.",
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Value"
+      ],
+      "IsRatingsOnly":false,
+      "IsRecommended":true,
+      "TotalFeedbackCount":0,
+      "TotalNegativeFeedbackCount":0,
+      "TotalPositiveFeedbackCount":0,
       "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-        {
-          "Name":"Nam lorem lacus, pelle",
-          "ResponseSource":"Nam iaculis euismo",
-          "ResponseMarkup":[
-            "Pellentesque suscipit sollicitudin magna, sed fermentum ante vestibulumac."
-          ],
-          "ResponseType":"Curabitur rhoncus convallis metus, vitae hendrerit diam interdum sitamet. Sed mollis lore",
-          "Date":"2012-08-27T14:57:56.000+00:00",
-          "Response":"Pellentesque suscipit sollicitudin magna, sed fermentum ante vestibulumac.",
-          "Department":"Vestibulum luctus facilisis massa vestibulumscelerisq"
-        }
-      ],
-      "Id":"6876722",
-      "CommentIds":[
-
-      ],
+      "SubmissionTime":"2016-01-19T21:01:00.000+00:00",
+      "ReviewText":"Quisque non nequemauris.Nunc sagittis, quam in placerat egestas, augue tellus varius eros, in venenatis eros nibh idmassa.Donec sagittis placerat magna nonaliquet.Pellentesque suscipit sollicitudin magna, sed fermentum ante vestibulumac.\n\nMaecenas quis nibh at arcu volutpat pharetra quis nontortor.\n\nVestibulum arcu magna, pellentesque non pellentesque sit amet, varius nonmetus.Phasellus sit amet quam lectus, ac sagittiserat.Quisque nec velit sit amet arcu mattislaoreet.Curabitur facilisis venenatis est asollicitudin.\n\nDonec tempor, est ut placerat congue, ipsum sem iaculis ante, quis commodo mi turpis velturpis.Curabitur sit amet orcilorem.Praesent eleifend porta turpis dapibusultricies.Maecenas tincidunt lorem vitae magna auctorcondimentum.\n\nDonec interdum erat eu arcu vehiculagravida.",
+      "Title":"Nullam nec mi non ipsum tristiqueposuere.",
+      "UserNickname":"oswald445",
       "SecondaryRatings":{
-        "Value":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
         "Quality":{
           "Value":4,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
           "Id":"Quality",
-          "ValueRange":5,
           "MinLabel":null,
-          "DisplayType":"NORMAL"
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Value":{
+          "Value":5,
+          "Id":"Value",
+          "MinLabel":null,
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
         }
       },
-      "LastModeratedTime":"2012-08-27T14:58:00.000+00:00"
-    },
-    {
       "TagDimensions":{
-        "Con":{
-          "Values":[
-            "Vestibulum lobortis, diam at convallis hendre",
-            "Etiam sapi"
-          ],
-          "Label":"Cons",
-          "Id":"Con"
-        }
+
       },
-      "TagDimensionsOrder":[
-        "Con"
-      ],
+      "Helpfulness":null,
+      "SubmissionId":null,
       "AdditionalFieldsOrder":[
 
       ],
+      "TagDimensionsOrder":[
+
+      ],
+      "ContextDataValuesOrder":[
+
+      ],
+      "IsSyndicated":false,
+      "ClientResponses":[
+
+      ],
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "ContextDataValues":{
+
+      },
+      "Videos":[
+
+      ],
+      "Pros":null,
       "Cons":null,
+      "CampaignId":null,
+      "CommentIds":[
+
+      ],
+      "AdditionalFields":{
+
+      },
+      "InappropriateFeedbackList":[
+
+      ],
+      "Photos":[
+
+      ]
+    },
+    {
+      "Id":"16970612",
+      "CID":"691cd0d4-9b84-5ec6-a24c-e1880bff12f7",
+      "SourceClient":"conciergeapidocumentation",
+      "Badges":{
+        "top10":{
+          "ContentType":"REVIEW",
+          "Id":"top10",
+          "BadgeType":"Merit"
+        }
+      },
+      "BadgesOrder":[
+        "top10"
+      ],
+      "LastModificationTime":"2017-01-05T19:36:10.000+00:00",
+      "LastModeratedTime":"2017-01-05T19:36:10.000+00:00",
+      "ProductId":"data-gen-moppq9ekthfzbc6qff3bqokie",
+      "ContextDataValuesOrder":[
+        "Age",
+        "LengthOfOwnership"
+      ],
+      "UserLocation":"Downey, CA",
+      "AuthorId":"data-gen-user-lulm4llkjeusqza029ffs07np",
+      "ContentLocale":"en_US",
+      "IsFeatured":false,
+      "TotalClientResponseCount":0,
+      "TotalCommentCount":0,
+      "Rating":5,
+      "SecondaryRatingsOrder":[
+        "Quality",
+        "Value",
+        "Fit_22"
+      ],
+      "IsRatingsOnly":false,
       "IsRecommended":false,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
-      "Pros":null,
-      "Photos":[
-        {
-          "Caption":"Maecenas non sodalesdui. Vestibulum porta lacus at eros auctor vitae tincidunt ligulaporttitor. Cras gravida accumsan eros, imperdiet mollis magna commodosed. Donec vehicula velitdolor. Maecenas malesuada malesuada d",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474736/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474736/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474736"
-        },
-        {
-          "Caption":"Donec id purusrisus. Sed quis lectus in erat viverra lobortis nec utsapien. Praesent at rutrumipsum. Maecenas sollicitudin ante et dui consectetur ac semper diamaliquet. Curabitur vel justo turpis, quis scelerisquemauris. Ut inter",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474737/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474737/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474737"
-        },
-        {
-          "Caption":null,
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474738/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474738/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474738"
-        },
-        {
-          "Caption":"Proin libero ligula, ultrices eget aliquam quis, scelerisque vitaemauris. Mauris vestibulum risus in metus condimentum eu tempus tellusaliquam. Vivamus vestibulum ipsum quis sapien pulvinartincidunt. Caum sociis natoque pen",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474739/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474739/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474739"
-        }
-      ],
-      "ContextDataValues":{
-        "Age":{
-          "Value":"65orOver",
-          "ValueLabel":"65 or over",
-          "DimensionLabel":"Age",
-          "Id":"Age"
-        },
-        "FrequencyOfUse":{
-          "Value":"Monthly",
-          "ValueLabel":"Monthly",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "LengthOfOwnership":{
-          "Value":"1year",
-          "ValueLabel":"1 year or longer",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Male",
-          "ValueLabel":"Male",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Expert",
-          "ValueLabel":"Expert",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
-        }
-      },
+      "Helpfulness":0.5,
+      "TotalFeedbackCount":4,
+      "TotalNegativeFeedbackCount":2,
+      "TotalPositiveFeedbackCount":2,
+      "ModerationStatus":"APPROVED",
+      "SubmissionTime":"2016-01-19T00:56:00.000+00:00",
+      "ReviewText":"Aliquam lacinia auctoraccumsan.Proin nec conguerisus.Duis euismod conguesagittis.",
+      "Title":"Etiam ac volutpatmi.",
+      "UserNickname":"dion861",
       "Videos":[
         {
+          "VideoId":"G4ehG34jEtA",
           "VideoHost":"www.youtube.com",
-          "Caption":"Quisque nec velit sit amet arcu mattislaoreet. Curabitur facilisis venenatis est asollicitudin. Donec tempor, est ut placerat congue, ipsum sem iaculis ante, quis commodo mi turpis veltu",
-          "VideoThumbnailUrl":"http://img.youtube.com/vi/CSK1D3bZhRs/0.jpg",
-          "VideoId":"CSK1D3bZhRs",
-          "VideoUrl":"http://www.youtube.com/v/CSK1D3bZhRs&rel=0",
-          "VideoIframeUrl":null
-        }
-      ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "LengthOfOwnership",
-        "FrequencyOfUse",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2012-08-27T14:57:57.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "UserLocation":null,
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"data-gen-m87alws1ao80sjc32y3im7lxj",
-      "Title":"In semper nibh",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:55.000+00:00",
-      "Rating":4,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"Nulla sed nibh est, in conguemassa. Aenean sit amet lacusmagna. Caum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculusmus.",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-        {
-          "Name":"Etiam ac",
-          "ResponseSource":"Sed vestibulum varius",
-          "ResponseMarkup":[
-            "Quisque non nequemauris.\n\nNunc sagittis, quam in placerat egestas, augue tellus varius eros, in venenatis eros nibh idmassa."
-          ],
-          "ResponseType":"Ut dictum",
-          "Date":"2012-08-27T14:57:55.000+00:00",
-          "Response":"Quisque non nequemauris.\n\nNunc sagittis, quam in placerat egestas, augue tellus varius eros, in venenatis eros nibh idmassa.",
-          "Department":"Donec ut neque vitae libero accumsan semper sit amet sedpurus. Proin accumsan tempor orci, nec c"
-        }
-      ],
-      "Id":"6876715",
-      "CommentIds":[
-
-      ],
-      "SecondaryRatings":{
-        "Value":{
-          "Value":5,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
-        "Quality":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
-          "Id":"Quality",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        }
-      },
-      "LastModeratedTime":"2012-08-27T14:57:57.000+00:00"
-    },
-    {
-      "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Mauris ullamcorper metus vitae dolor dignis",
-            "Sed ac tortorneque. Maecena",
-            "Sed vel nunc lacinia nis",
-            "Vestibulum quis v"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
-        }
-      },
-      "TagDimensionsOrder":[
-        "Pro"
-      ],
-      "AdditionalFieldsOrder":[
-
-      ],
-      "Cons":null,
-      "IsRecommended":null,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
-      "Pros":null,
-      "Photos":[
-        {
+          "VideoThumbnailUrl":null,
+          "VideoIframeUrl":null,
           "Caption":null,
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474740/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474740/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474740"
-        },
-        {
-          "Caption":"Suspendisse ut arcu enim, nec sollicitudinmagna. Nullam vitae metus elit, et bibendumnunc. Nullam molestie leo et mi vestibulum sit amet semper duiultricies. Integer urna dui, varius ut interdum non, placerat vitaemauris. Proin tincidunt orci ac la",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474741/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474741/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474741"
+          "VideoUrl":"http://www.youtube.com/v/G4ehG34jEtA&rel=0"
         }
       ],
       "ContextDataValues":{
         "Age":{
-          "Value":"65orOver",
-          "ValueLabel":"65 or over",
-          "DimensionLabel":"Age",
-          "Id":"Age"
-        },
-        "FrequencyOfUse":{
-          "Value":"Yearly",
-          "ValueLabel":"Yearly",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "Gender":{
-          "Value":"Male",
-          "ValueLabel":"Male",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Beginner",
-          "ValueLabel":"Beginner",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
-        }
-      },
-      "Videos":[
-
-      ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "FrequencyOfUse",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2012-08-27T14:57:57.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "UserLocation":"In t",
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"data-gen-amki5ros1v3jeej68iv04d5er",
-      "Title":"Caum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculusmus. Nullam vel dui neque, et volutpatsem. Cu",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:55.000+00:00",
-      "Rating":4,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"In volutpat pretium leo, a ornare purus ultricieset. Phasellus quis ultricieslacus. Fusce tristique feugiat elit velviverra. Ut quam sapien, tempor at elementum a, ornare egetmi.",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-        {
-          "Name":null,
-          "ResponseSource":"Cura",
-          "ResponseMarkup":[
-            "Integer tincidunt viverraelementum. Sed sollicitudin ultricesimperdiet.\n\nSed ac tortorneque. Maecenas et diam eu ante tristiqueposuere."
-          ],
-          "ResponseType":"Aenean",
-          "Date":"2012-08-27T14:57:55.000+00:00",
-          "Response":"Integer tincidunt viverraelementum. Sed sollicitudin ultricesimperdiet.\n\nSed ac tortorneque. Maecenas et diam eu ante tristiqueposuere.",
-          "Department":"Proin blandit eleifendviverra. Praesent rutrum urna at turpis suscipit eu malesuada semscelerisq"
-        }
-      ],
-      "Id":"6876716",
-      "CommentIds":[
-
-      ],
-      "SecondaryRatings":{
-        "Value":{
-          "Value":2,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
-        "Quality":{
-          "Value":2,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
-          "Id":"Quality",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        }
-      },
-      "LastModeratedTime":"2012-08-27T14:57:57.000+00:00"
-    },
-    {
-      "TagDimensions":{
-        "Con":{
-          "Values":[
-            "Nullam vel dui neque, et volu"
-          ],
-          "Label":"Cons",
-          "Id":"Con"
-        }
-      },
-      "TagDimensionsOrder":[
-        "Con"
-      ],
-      "AdditionalFieldsOrder":[
-
-      ],
-      "Cons":null,
-      "IsRecommended":true,
-      "IsRatingsOnly":false,
-      "UserNickname":"3olmWO5a41Q2DFQiY6bTICvle",
-      "Pros":null,
-      "Photos":[
-        {
-          "Caption":"Aenean malesuada semper est quisluctus. Nullam eu nisi a velit consecteturegestas. Quisque dignissim viver",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474742/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474742/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474742"
-        },
-        {
-          "Caption":"Nam in sapien sit amet justo convallis ultrices at vitaesem. Nunc metus diam, aliquet id scelerisque",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474743/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474743/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474743"
-        },
-        {
-          "Caption":"Curabitur facilisis venenatis est asollicitudin. Donec tempor, est ut placerat congue, ipsum sem iaculis ante, quis commodo",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474744/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474744/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474744"
-        },
-        {
-          "Caption":"Sed ultricies ultricies erat, quis blan",
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474745/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/474745/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"474745"
-        }
-      ],
-      "ContextDataValues":{
-        "Age":{
-          "Value":"55to64",
-          "ValueLabel":"55 to 64",
-          "DimensionLabel":"Age",
-          "Id":"Age"
-        },
-        "FrequencyOfUse":{
-          "Value":"Yearly",
-          "ValueLabel":"Yearly",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "LengthOfOwnership":{
-          "Value":"1year",
-          "ValueLabel":"1 year or longer",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Expertise":{
-          "Value":"Intermediate",
-          "ValueLabel":"Intermediate",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
-        }
-      },
-      "Videos":[
-
-      ],
-      "ContextDataValuesOrder":[
-        "Age",
-        "LengthOfOwnership",
-        "FrequencyOfUse",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2012-08-27T14:57:58.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "UserLocation":"Sed tempus",
-      "BadgesOrder":[
-        "top25Contributor"
-      ],
-      "Badges":{
-        "top25Contributor":{
-          "BadgeType":"Merit",
-          "Id":"top25Contributor",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"data-gen-user-2tzuqoqfmskzdyu6mm5yjjctp",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"data-gen-2ii2o0vkl1pa41e6gi0kzpotj",
-      "Title":"Nullam nec mi non ipsum tristiqueposuere. Aenean interdum aliquamiaculis. Aenean at",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2012-08-27T14:57:55.000+00:00",
-      "Rating":2,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"Nullam vitae metus elit, et bibendumnunc. Nullam molestie leo et mi vestibulum sit amet semper duiultricies. Integer urna dui, varius ut interdum non, placerat vitaemauris.\n\nProin tincidunt orci ac lacus faucibus condimentum mattis felisconsectetur. Nunc congue semper lectus euporttitor. Aliquam pellentesque nunc at neque facilisisbibendum.\n\nAliquam varius pulvinar tellus sit ametpulvinar. Quisque non massa a nulla gravida egestas quis idmetus. Etiam eget quam in ligula convallisadipiscing.\n\nVestibulum et loremest. Aenean ac loremurna. Donec sed mi risus, faucibus fringillasem. In ullamcorper adipiscing lorem idsagittis. Ut lobortis ullamcorper sapien quismalesuada.\n\nCurabitur rhoncus convallis metus, vitae hendrerit diam interdum sitamet. Sed mollis lorem pulvinar diam dictum nec aliquet purusconsequat. Nam lorem lacus, pellentesque cursus faucibus vitae, tristique etelit. Proin turpis dui, euismod in luctus eget, vehicula neclectus. Lorem ipsum dolor sit amet, consectetur adipiscingelit. Nullam volutpat nulla in quam laoreet ut porttitor semmolestie. Aliquam cursus, massa ac faucibus elementum, ligula lectus rutrum tortor, sed blandit leo elit aceros. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpisegestas.",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-        {
-          "Name":null,
-          "ResponseSource":"Curabitur imperd",
-          "ResponseMarkup":[
-            "Quisque non massa a nulla gravida egestas quis idmetus.\n\nEtiam eget quam in ligula convallisadipiscing. Vestibulum et loremest. Aenean ac loremurna. Donec sed mi risus, faucibus fringillasem."
-          ],
-          "ResponseType":"Donec molestie eleifend elit,",
-          "Date":"2012-08-27T14:57:56.000+00:00",
-          "Response":"Quisque non massa a nulla gravida egestas quis idmetus.\n\nEtiam eget quam in ligula convallisadipiscing. Vestibulum et loremest. Aenean ac loremurna. Donec sed mi risus, faucibus fringillasem.",
-          "Department":"Aliquam vitae risus a felis lobor"
-        }
-      ],
-      "Id":"6876717",
-      "CommentIds":[
-
-      ],
-      "SecondaryRatings":{
-        "Value":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
-        "Quality":{
-          "Value":2,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
-          "Id":"Quality",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        }
-      },
-      "LastModeratedTime":"2012-08-27T14:57:58.000+00:00"
-    },
-    {
-      "TagDimensions":{
-
-      },
-      "TagDimensionsOrder":[
-
-      ],
-      "AdditionalFieldsOrder":[
-
-      ],
-      "Cons":null,
-      "IsRecommended":null,
-      "IsRatingsOnly":false,
-      "UserNickname":"Test12345",
-      "Pros":null,
-      "Photos":[
-
-      ],
-      "ContextDataValues":{
-
-      },
-      "Videos":[
-
-      ],
-      "ContextDataValuesOrder":[
-
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2016-05-27T18:15:24.000+00:00",
-      "TotalFeedbackCount":16,
-      "TotalPositiveFeedbackCount":13,
-      "UserLocation":null,
-      "BadgesOrder":[
-        "Staff"
-      ],
-      "Badges":{
-        "Staff":{
-          "BadgeType":"Affiliation",
-          "Id":"Staff",
-          "ContentType":"REVIEW"
-        }
-      },
-      "AuthorId":"2t60niux2p3q072frpo00mwgh",
-      "IsFeatured":false,
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "Title":"This is a test review.",
-      "ProductId":"1000001",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":0.638889,
-      "TotalNegativeFeedbackCount":3,
-      "SubmissionTime":"2011-06-22T12:41:21.000+00:00",
-      "Rating":3,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"This is a test review. This is a test review. This is a test review. This is a test review. This is a test review. This is a test review. This is a test review.",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-
-      ],
-      "Id":"192612",
-      "CommentIds":[
-
-      ],
-      "SecondaryRatings":{
-        "Value":{
-          "Value":4,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
-        "Quality":{
-          "Value":5,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
-          "Id":"Quality",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        }
-      },
-      "LastModeratedTime":"2011-06-29T00:09:31.000+00:00"
-    },
-    {
-      "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Pro 2",
-            "Example of wordy Pro value",
-            "Pro 1"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
-        },
-        "Con":{
-          "Values":[
-            "Example of wordy Con value",
-            "Con 1",
-            "Con 2"
-          ],
-          "Label":"Cons",
-          "Id":"Con"
-        }
-      },
-      "TagDimensionsOrder":[
-        "Pro",
-        "Con"
-      ],
-      "AdditionalFieldsOrder":[
-
-      ],
-      "Cons":null,
-      "IsRecommended":true,
-      "IsRatingsOnly":false,
-      "UserNickname":"hju78",
-      "Pros":null,
-      "Photos":[
-
-      ],
-      "ContextDataValues":{
-        "Age":{
-          "Value":"65orOver",
-          "ValueLabel":"65 or over",
-          "DimensionLabel":"Age",
-          "Id":"Age"
-        },
-        "FrequencyOfUse":{
-          "Value":"Daily",
-          "ValueLabel":"Daily",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
+          "Value":"18to24",
+          "Id":"Age",
+          "ValueLabel":"18 to 24",
+          "DimensionLabel":"Age"
         },
         "LengthOfOwnership":{
           "Value":"3months",
+          "Id":"LengthOfOwnership",
           "ValueLabel":"3 months",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Male",
-          "ValueLabel":"Male",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Intermediate",
-          "ValueLabel":"Intermediate",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
+          "DimensionLabel":"Length of ownership"
         }
       },
-      "Videos":[
-
-      ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "LengthOfOwnership",
-        "FrequencyOfUse",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2011-06-29T00:09:31.000+00:00",
-      "TotalFeedbackCount":0,
-      "TotalPositiveFeedbackCount":0,
-      "BadgesOrder":[
-
-      ],
-      "UserLocation":null,
-      "Badges":{
-
-      },
-      "AuthorId":"g0mur8h1z54",
-      "IsFeatured":false,
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"1000001",
-      "Title":"TESTING>>>>>TESTING>>>>>TESTING",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":null,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2011-06-13T18:53:57.000+00:00",
-      "Rating":3,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"TESTING>>>>>TESTING>>>>>TESTING TESTING>>>>>TESTING>>>>>TESTING TESTING>>>>>TESTING>>>>>TESTING",
-      "ModerationStatus":"APPROVED",
-      "ClientResponses":[
-
-      ],
-      "Id":"192613",
-      "CommentIds":[
-
-      ],
       "SecondaryRatings":{
         "Value":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
+          "Value":4,
           "Id":"Value",
-          "ValueRange":5,
           "MinLabel":null,
-          "DisplayType":"NORMAL"
+          "Label":"Value of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
+        },
+        "Fit_22":{
+          "Value":2,
+          "Id":"Fit_22",
+          "MinLabel":"Too small",
+          "Label":"Fit",
+          "DisplayType":"SLIDER",
+          "MaxLabel":"Too big",
+          "ValueLabel":"A little small",
+          "ValueRange":5
         },
         "Quality":{
-          "Value":2,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
+          "Value":4,
           "Id":"Quality",
-          "ValueRange":5,
           "MinLabel":null,
-          "DisplayType":"NORMAL"
+          "Label":"Quality of Product",
+          "DisplayType":"NORMAL",
+          "MaxLabel":null,
+          "ValueLabel":null,
+          "ValueRange":5
         }
       },
-      "LastModeratedTime":"2011-06-29T00:09:31.000+00:00"
-    },
-    {
       "TagDimensions":{
-        "Pro":{
-          "Values":[
-            "Pro 2",
-            "Pro 1"
-          ],
-          "Label":"Pros",
-          "Id":"Pro"
-        },
-        "Con":{
-          "Values":[
-            "Con 1",
-            "Con 2"
-          ],
-          "Label":"Cons",
-          "Id":"Con"
-        }
+
       },
-      "TagDimensionsOrder":[
-        "Pro",
-        "Con"
-      ],
+      "SubmissionId":null,
       "AdditionalFieldsOrder":[
 
       ],
-      "Cons":null,
-      "IsRecommended":true,
-      "IsRatingsOnly":false,
-      "UserNickname":"la45",
-      "Pros":null,
-      "Photos":[
-        {
-          "Caption":null,
-          "Sizes":{
-            "thumbnail":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80500/photoThumb.jpg",
-              "Id":"thumbnail"
-            },
-            "normal":{
-              "Url":"http://apireadonly.ugc.bazaarvoice.com/bvstaging/5556/80500/photo.jpg",
-              "Id":"normal"
-            }
-          },
-          "SizesOrder":[
-            "thumbnail",
-            "normal"
-          ],
-          "Id":"80500"
-        }
-      ],
-      "ContextDataValues":{
-        "Age":{
-          "Value":"17orUnder",
-          "ValueLabel":"17 or under",
-          "DimensionLabel":"Age",
-          "Id":"Age"
-        },
-        "FrequencyOfUse":{
-          "Value":"Yearly",
-          "ValueLabel":"Yearly",
-          "DimensionLabel":"Frequency of use",
-          "Id":"FrequencyOfUse"
-        },
-        "LengthOfOwnership":{
-          "Value":"1year",
-          "ValueLabel":"1 year or longer",
-          "DimensionLabel":"Length of ownership",
-          "Id":"LengthOfOwnership"
-        },
-        "Gender":{
-          "Value":"Male",
-          "ValueLabel":"Male",
-          "DimensionLabel":"Gender",
-          "Id":"Gender"
-        },
-        "Expertise":{
-          "Value":"Beginner",
-          "ValueLabel":"Beginner",
-          "DimensionLabel":"Expertise",
-          "Id":"Expertise"
-        }
-      },
-      "Videos":[
+      "TagDimensionsOrder":[
 
       ],
-      "ContextDataValuesOrder":[
-        "Gender",
-        "Age",
-        "LengthOfOwnership",
-        "FrequencyOfUse",
-        "Expertise"
-      ],
-      "SubmissionId":null,
-      "LastModificationTime":"2015-08-24T16:28:28.000+00:00",
-      "TotalFeedbackCount":1,
-      "TotalPositiveFeedbackCount":1,
-      "BadgesOrder":[
-
-      ],
-      "UserLocation":"test location",
-      "Badges":{
-
-      },
-      "AuthorId":"dpdmeklx9dk",
-      "SecondaryRatingsOrder":[
-        "Value",
-        "Quality"
-      ],
-      "IsFeatured":false,
       "IsSyndicated":false,
-      "ProductRecommendationIds":[
-
-      ],
-      "ProductId":"1000001",
-      "Title":"TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
-      "AdditionalFields":{
-
-      },
-      "CampaignId":null,
-      "Helpfulness":0.52381,
-      "TotalNegativeFeedbackCount":0,
-      "SubmissionTime":"2011-06-13T18:41:50.000+00:00",
-      "Rating":3,
-      "IPAddress":null,
-      "ContentLocale":"en_US",
-      "RatingRange":5,
-      "TotalCommentCount":0,
-      "ReviewText":"TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST",
-      "ModerationStatus":"APPROVED",
       "ClientResponses":[
 
       ],
-      "Id":"192601",
+      "ProductRecommendationIds":[
+
+      ],
+      "RatingRange":5,
+      "Pros":null,
+      "Cons":null,
+      "CampaignId":null,
       "CommentIds":[
 
       ],
-      "SecondaryRatings":{
-        "Value":{
-          "Value":3,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Value",
-          "Id":"Value",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        },
-        "Quality":{
-          "Value":2,
-          "ValueLabel":null,
-          "MaxLabel":null,
-          "Label":"Quality",
-          "Id":"Quality",
-          "ValueRange":5,
-          "MinLabel":null,
-          "DisplayType":"NORMAL"
-        }
+      "AdditionalFields":{
+
       },
-      "LastModeratedTime":"2011-06-30T21:18:41.000+00:00"
+      "InappropriateFeedbackList":[
+
+      ],
+      "Photos":[
+
+      ]
     }
   ],
-  "Limit":10
+  "Includes":{
+
+  },
+  "HasErrors":false,
+  "Errors":[
+
+  ]
 }

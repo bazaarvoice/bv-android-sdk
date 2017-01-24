@@ -85,7 +85,7 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
             this.limit = limit;
             this.offset = offset;
             this.productId = productId;
-            filters.add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
+            getFilters().add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
 
         }
 
@@ -95,7 +95,7 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
         }
 
         public Builder addFilter(QuestionOptions.Filter filter, EqualityOperator equalityOperator, String value) {
-            this.filters.add(new Filter(filter, equalityOperator, value));
+            getFilters().add(new Filter(filter, equalityOperator, value));
             return this;
         }
 
@@ -106,11 +106,6 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
 
         public QuestionAndAnswerRequest build() {
             return new QuestionAndAnswerRequest(this);
-        }
-
-        @Override
-        List<Filter> getFilters() {
-            return filters;
         }
     }
 }

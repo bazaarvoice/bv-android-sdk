@@ -3,6 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.recshome;
 
+import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -10,19 +11,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
+import com.squareup.picasso.Picasso;
 
-class DemoRecsHeaderPagerAdapter extends PagerAdapter {
+import javax.inject.Inject;
+
+public class DemoRecsHeaderPagerAdapter extends PagerAdapter {
+
+    @Inject Picasso picasso;
+
+    public DemoRecsHeaderPagerAdapter(Context context) {
+        DemoApp.get(context).getAppComponent().inject(this);
+    }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         DemoRecsHeader header = DemoRecsHeader.values()[position];
         LayoutInflater inflater = LayoutInflater.from(container.getContext());
         ImageView headerView = (ImageView) inflater.inflate(R.layout.frag_home_header, container, false);
-        DemoUtils demoUtils = DemoUtils.getInstance(container.getContext());
-        demoUtils.picassoThumbnailLoader()
-                .load(header.getDrawableResId())
+        picasso.load(header.getDrawableResId())
                 .resizeDimen(R.dimen.side_not_set, R.dimen.detail_backdrop_height)
                 .into(headerView);
         container.addView(headerView);

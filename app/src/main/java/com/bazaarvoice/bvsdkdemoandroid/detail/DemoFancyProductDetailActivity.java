@@ -31,6 +31,7 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
@@ -41,12 +42,14 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsAct
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,11 +97,15 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     private DemoProductCurationsRowPresenter curationsRowActionListener;
     private DemoProductContract.UserActionsListener productDataActionListener;
 
+    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoConfigUtils demoConfigUtils;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fancy_product_detail);
         ButterKnife.bind(this);
+        DemoApp.get(this).getAppComponent().inject(this);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(EXTRA_PRODUCT_ID)) {
             productId = savedInstanceState.getString(EXTRA_PRODUCT_ID);
@@ -124,8 +131,6 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         setupRecommendationsRow();
         setupCurationsRow();
 
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         recRowActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, false, recommendationsRecyclerView);
         curationsRowActionListener = new DemoProductCurationsRowPresenter(this, demoConfigUtils, demoDataUtil, productId);
         productDataActionListener = new DemoProductPresenter(demoConfigUtils, demoDataUtil, this, productId);
@@ -235,7 +240,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
     private void setupRecommendationsRow() {
         recommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recAdapter = new DemoProductDetailRecAdapter();
+        recAdapter = new DemoProductDetailRecAdapter(this);
         recAdapter.setProductTapListener(this);
         recommendationsRecyclerView.setAdapter(recAdapter);
         recommendationsRecyclerView.setNestedScrollingEnabled(false);
@@ -243,7 +248,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
     private void setupCurationsRow() {
         curationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        curationsAdapter = new DemoProductDetailCurationsAdapter();
+        curationsAdapter = new DemoProductDetailCurationsAdapter(this);
         curationsAdapter.setCurationFeedItemTapListener(this);
         curationsRecyclerView.setAdapter(curationsAdapter);
         curationsRecyclerView.setNestedScrollingEnabled(false);

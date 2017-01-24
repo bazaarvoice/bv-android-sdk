@@ -80,6 +80,10 @@ public final class BVConversationsClient {
         return createCall(StoreReviewResponse.class, request);
     }
 
+    public LoadCallDisplay<AuthorsRequest, AuthorsResponse> prepareCall(AuthorsRequest request) {
+        return createCall(AuthorsResponse.class, request);
+    }
+
     public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
         void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
     }

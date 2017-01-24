@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,10 +25,7 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
  */
 public class DemoCurationsFragment extends Fragment {
 
-
-    public DemoCurationsFragment() {
-        // Required empty public constructor
-    }
+    @Inject DemoConfigUtils demoConfigUtils;
 
     public static DemoCurationsFragment newInstance() {
         DemoCurationsFragment fragment = new DemoCurationsFragment();
@@ -35,6 +35,7 @@ public class DemoCurationsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DemoApp.get(getContext()).getAppComponent().inject(this);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class DemoCurationsFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = DemoConfigUtils.getInstance(getContext()).getCurrentConfig();
+        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
         if (currentConfig.isDemoClient()) {
             return true;
         }

@@ -22,12 +22,15 @@ import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Product;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +50,9 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
     @BindView(R.id.recyclerViewStub)
     ViewStub recyclerViewStub;
 
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoDataUtil demoDataUtil;
+
     private String productId;
 
     @Override
@@ -54,6 +60,7 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_reviews);
         ButterKnife.bind(this);
+        DemoApp.get(this).getAppComponent().inject(this);
         inflateRecyclerView();
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
 
@@ -61,8 +68,6 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         setupHeaderViews();
         setupRecyclerView();
 
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         bulkRatingsUserActionListener = new DemoProductStatsPresenter(this, demoConfigUtils, demoDataUtil, productId);
     }
 

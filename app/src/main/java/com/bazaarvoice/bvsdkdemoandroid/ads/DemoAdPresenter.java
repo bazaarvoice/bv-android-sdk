@@ -6,8 +6,8 @@ package com.bazaarvoice.bvsdkdemoandroid.ads;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.BVAds;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;

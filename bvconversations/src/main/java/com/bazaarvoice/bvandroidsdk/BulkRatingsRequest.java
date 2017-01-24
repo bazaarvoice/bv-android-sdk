@@ -59,22 +59,17 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
 
         public Builder(@NonNull  List<String> productIds, BulkRatingOptions.StatsType statsType) {
             this.productIds = productIds;
-            filters.add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
+            getFilters().add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
             this.statsType = statsType;
         }
 
         public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
-            this.filters.add(new Filter(filter, equalityOperator, value));
+            getFilters().add(new Filter(filter, equalityOperator, value));
             return this;
         }
 
         public BulkRatingsRequest build() {
             return new BulkRatingsRequest(this);
-        }
-
-        @Override
-        List<Filter> getFilters() {
-            return filters;
         }
     }
 }

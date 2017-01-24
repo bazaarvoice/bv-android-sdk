@@ -23,13 +23,18 @@
     <string name="title_activity_fancy_product_detail">Product Detail</string>
     <string name="title_activity_demo_app">BVSDK Demo</string>
     <string name="title_activity_reviews">Product Reviews</string>
+    <string name="title_activity_store_reviews">Store Reviews</string>
     <string name="title_activity_bulkratings">Bulk Ratings</string>
     <string name="title_activity_product_stats">Product Review Stats</string>
     <string name="title_activity_questions">Product Questions</string>
     <string name="title_activity_answers">Product Answers</string>
     <string name="title_activity_curations_map">Curations Photo Map</string>
+    <string name="title_activity_curations_feed">Curations Feed</string>
+    <string name="title_activity_curations_detail">Curations Detail</string>
+    <string name="title_activity_curations_post">Curations Post</string>
     <string name="title_activity_stores">Stores</string>
     <string name="title_activity_rate">Rate</string>
+    <string name="title_activity_author">Author</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
@@ -79,4 +84,6 @@
     <string name="title_activity_demo_curations_maps">Map</string>
     <string name="curations_map_subtitle_template">"via %1$s"</string>
     <string name="last_loc_event_template">"Last Location Event: %s"</string>
+    <string name="view_all_my_reviews">View All My Reviews</string>
+    <string name="author_id_empty_message">Must pick an Author ID to test. Set the variable DemoConversationsAPIFragment#AUTHOR_ID to an author id that exists with the current client+environment</string>
 </resources>

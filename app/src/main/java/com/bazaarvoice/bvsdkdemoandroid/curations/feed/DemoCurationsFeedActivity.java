@@ -12,13 +12,16 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DemoCurationsFeedActivity extends AppCompatActivity implements CurationsFeedCallback {
 
@@ -27,10 +30,15 @@ public class DemoCurationsFeedActivity extends AppCompatActivity implements Cura
     private ProgressBar progressBar;
     private CurationsRecyclerView recyclerView;
 
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoDataUtil demoDataUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curations_feed);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        DemoApp.get(this).getAppComponent().inject(this);
 
         progressBar = (ProgressBar) findViewById(R.id.curations_loading);
 
@@ -56,9 +64,8 @@ public class DemoCurationsFeedActivity extends AppCompatActivity implements Cura
     }
 
     private void loadCurationsFeed(CurationsRecyclerView recyclerView) {
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
         if (demoConfigUtils.isDemoClient()) {
-            curationsFeedItems = DemoDataUtil.getInstance(this).getCurationsFeedItems();
+            curationsFeedItems = demoDataUtil.getCurationsFeedItems();
             curationsAdapter.setValues(curationsFeedItems);
             dismissLoading();
             return;

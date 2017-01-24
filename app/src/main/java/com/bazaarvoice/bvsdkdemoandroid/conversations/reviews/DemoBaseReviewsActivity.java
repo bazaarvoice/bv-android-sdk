@@ -25,11 +25,11 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,10 +77,16 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         setupToolbarViews();
         setupRecyclerView();
 
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
+        DemoConfigUtils demoConfigUtils = getConfigUtils();
+        DemoDataUtil demoDataUtil = getDataUtil();
         reviewsUserActionListener = getReviewsUserActionListener(this,demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
+
+    abstract DemoConfigUtils getConfigUtils();
+
+    abstract DemoDataUtil getDataUtil();
+
+    abstract Picasso getPicasso();
 
     void inflateRecyclerView() {
         recyclerViewStub.setLayoutResource(R.layout.reviews_recyclerview);
@@ -128,9 +134,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     @Override
     public void showHeaderView(String imageUrl, String productNameStr, float averageRating) {
         if (!TextUtils.isEmpty(imageUrl)) {
-            DemoUtils demoUtils = DemoUtils.getInstance(productImageView.getContext());
-            demoUtils.picassoThumbnailLoader()
-                    .load(imageUrl)
+            getPicasso().load(imageUrl)
                     .resizeDimen(R.dimen.side_not_set, R.dimen.clip_half_image_side)
                     .into(productImageView);
         }

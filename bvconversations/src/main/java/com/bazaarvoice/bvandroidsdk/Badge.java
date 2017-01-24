@@ -43,8 +43,30 @@ public class Badge {
         this.type = Type.fromString(this.badgeType);
     }
 
+    /**
+     * @return Values include "Merit", "Custom", "Affiliation", and "Rank".
+     * These are codes internal to Bazaarvoice.
+     */
     public Type getType() {
         return Type.fromString(badgeType);
+    }
+
+    /**
+     * @return And id that can be used to obtain the related ContextDataValues
+     * that can also be returned in the API repsonse when configured.
+     * ContextDataValues can contain additional metadata such as a label to be
+     * displayed rather than an icon or ToolTip copy.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @return The specific item the badge is meant for. Typical values are
+     * 'REVIEWS', 'QUESTIONS', or 'ANSWERS'.
+     */
+    public String getContentType() {
+        return contentType;
     }
 
     public enum Type {

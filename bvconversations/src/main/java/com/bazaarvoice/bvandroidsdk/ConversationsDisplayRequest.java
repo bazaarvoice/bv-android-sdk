@@ -68,9 +68,10 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
         Map<String, Object> params = new HashMap<>();
         params.put(kAPI_VERSION, API_VERSION);
         params.put(kPASS_KEY, getAPIKey());
-        params.put(kAPP_ID, BVSDK.getInstance().analyticsManager.getPackageName());
-        params.put(kAPP_VERSION, BVSDK.getInstance().analyticsManager.getVersionName());
-        params.put(kBUILD_NUM, BVSDK.getInstance().analyticsManager.getVersionCode());
+       AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        params.put(kAPP_ID, analyticsManager.getPackageName());
+        params.put(kAPP_VERSION, analyticsManager.getVersionName());
+        params.put(kBUILD_NUM, analyticsManager.getVersionCode());
         params.put(kSDK_VERSION, BVSDK.SDK_VERSION);
 
        List<String> filterQueries = new ArrayList<>();
@@ -109,7 +110,10 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
     }
 
     static abstract class Builder{
-        protected final List<Filter> filters = new ArrayList<>();
-        abstract List<Filter> getFilters();
+        private final List<Filter> filters = new ArrayList<>();
+
+        List<Filter> getFilters() {
+            return filters;
+        }
     }
 }

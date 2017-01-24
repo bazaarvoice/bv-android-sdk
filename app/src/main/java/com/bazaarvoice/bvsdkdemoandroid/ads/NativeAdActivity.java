@@ -7,7 +7,6 @@ package com.bazaarvoice.bvsdkdemoandroid.ads;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,9 +27,6 @@ import com.google.android.gms.ads.formats.NativeContentAdView;
 import java.util.List;
 import java.util.Map;
 
-/**
- * TODO: Description Here
- */
 public class NativeAdActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
@@ -41,8 +37,8 @@ public class NativeAdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_native_ad);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = (ProgressBar) findViewById(R.id.native_ad_loading);
         loadFailed = (TextView) findViewById(R.id.native_ad_load_failed);

@@ -10,9 +10,9 @@ import com.bazaarvoice.bvandroidsdk.Store;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
 import com.bazaarvoice.bvandroidsdk.StoreReviewsRequest;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.List;
 

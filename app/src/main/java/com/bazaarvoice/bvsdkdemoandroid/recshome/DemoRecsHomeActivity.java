@@ -23,21 +23,24 @@ import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdContract;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecContract;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoDataUtil;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.formats.NativeContentAd;
 
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,17 +65,19 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     @BindView(R.id.error_recs) TextView errorTextView;
     private String clientId;
 
+    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoDataUtil demoDataUtil;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recs_home);
         ButterKnife.bind(this);
+        DemoApp.get(this).getAppComponent().inject(this);
         setupToolbar();
         setupHeaderViewPager();
         setupRecsViews();
 
-        DemoConfigUtils demoConfigUtils = DemoConfigUtils.getInstance(this);
-        DemoDataUtil demoDataUtil = DemoDataUtil.getInstance(this);
         recsUserActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, true, recyclerView);
         AdLoader.Builder adLoaderBuilder = new AdLoader.Builder(this, demoDataUtil.getAdUnitId());
         adUserActionListener = new DemoAdPresenter(this, demoConfigUtils, demoDataUtil, adLoaderBuilder);
@@ -87,7 +92,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         super.onResume();
         adUserActionListener.loadAd(false);
         boolean haveRecs = adapter.getRecommendationCount() > 0;
-        String currentClient = DemoConfigUtils.getInstance(this).getCurrentConfig().clientId;
+        String currentClient = demoConfigUtils.getCurrentConfig().clientId;
         boolean newClient = TextUtils.isEmpty(clientId);
         boolean clientChanged = !clientId.equals(currentClient);
         clientId = currentClient;
@@ -107,7 +112,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
 
         getMenuInflater().inflate(R.menu.toolbar_actions, menu);
 
-        if (!DemoConfigUtils.getInstance(this).configFileExists()) {
+        if (!demoConfigUtils.configFileExists()) {
             menu.findItem(R.id.settings_action).setVisible(false);
         }
 
@@ -137,7 +142,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     }
 
     private void setupHeaderViewPager() {
-        headerPagerAdapter = new DemoRecsHeaderPagerAdapter();
+        headerPagerAdapter = new DemoRecsHeaderPagerAdapter(this);
         headerViewPager.setAdapter(headerPagerAdapter);
         circleIndicator.setViewPager(headerViewPager);
 
@@ -157,7 +162,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     }
 
     private void setupRecsViews() {
-        adapter = new DemoRecsAdapter();
+        adapter = new DemoRecsAdapter(this);
         adapter.setRecTapListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         int spacing = getResources().getDimensionPixelSize(R.dimen.margin_3);

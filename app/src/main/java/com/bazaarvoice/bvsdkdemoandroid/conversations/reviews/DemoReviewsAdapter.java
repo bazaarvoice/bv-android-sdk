@@ -24,7 +24,7 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
+import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -36,9 +36,11 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
 
     List<ReviewType> reviews = Collections.emptyList();
     private PrettyTime prettyTime;
+    private Picasso picasso;
 
-    public DemoReviewsAdapter() {
-        this.prettyTime = new PrettyTime();
+    public DemoReviewsAdapter(Picasso picasso, PrettyTime prettyTime) {
+        this.picasso = picasso;
+        this.prettyTime = prettyTime;
     }
 
     @Override
@@ -119,8 +121,7 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         boolean hasImage = photos != null ? photos.size() > 0 : false;
         if (hasImage) {
             viewHolder.reviewImage.setVisibility(View.VISIBLE);
-            DemoUtils demoUtils = DemoUtils.getInstance(viewHolder.reviewImage.getContext());
-            demoUtils.picassoThumbnailLoader().load(photos.get(0).getContent().getThumbnailUrl()).into(viewHolder.reviewImage);
+            picasso.load(photos.get(0).getContent().getThumbnailUrl()).into(viewHolder.reviewImage);
         } else {
             viewHolder.reviewImage.setVisibility(View.GONE);
         }

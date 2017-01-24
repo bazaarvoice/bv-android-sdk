@@ -6,7 +6,6 @@ package com.bazaarvoice.bvsdkdemoandroid.ads;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -33,8 +32,7 @@ public class InterstitialAdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interstitial_ad);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         interstitialButton = (Button) findViewById(R.id.interstitial_button);
 
         String demoAdUnitId = DemoConstants.INTERSTITIAL_AD_UNIT_ID;
