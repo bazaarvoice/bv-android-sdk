@@ -29,15 +29,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Badge;
-import com.bazaarvoice.bvandroidsdk.Pin;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContract.View {
     private DemoAuthorContract.Presenter presenter;
@@ -46,10 +45,17 @@ public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContra
     @BindView(R.id.authorLocationTv) TextView authorLocationTv;
     @BindView(R.id.badgeContainer) LinearLayout badgeContainer;
 
+    @BindView(R.id.separator) View separator;
     @BindView(R.id.reviewBody) TextView recentReviewBody;
     @BindView(R.id.reviewProductImage) ImageView recentReviewImage;
     @BindView(R.id.reviewPostedDateTv) TextView recentReviewPostedDateTv;
     @BindView(R.id.reviewRating) RatingBar recentReviewRating;
+    @BindView(R.id.reviewProductName) TextView recentReviewProductName;
+    @BindView(R.id.authorRecentReviewHeader) TextView recentReviewHeader;
+    @BindView(R.id.myRatingHeader) TextView recentReviewMyRatingHeader;
+
+    @BindView(R.id.pinCarouselContainer) DemoCarouselView pinCarousel;
+    @BindView(R.id.separator_2) View separator2;
 
     public DemoAuthorView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -108,13 +114,36 @@ public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContra
     }
 
     @Override
-    public void showProductsToReview(List<Pin> pins) {
+    public void showProductsToReview(boolean show) {
+        pinCarousel.setVisibility(show ? VISIBLE : GONE);
+        separator2.setVisibility(show ? VISIBLE : GONE);
+    }
 
+    @Override
+    public void showRecentReview(boolean show) {
+        separator.setVisibility(show ? VISIBLE : GONE);
+        recentReviewBody.setVisibility(show ? VISIBLE : GONE);
+        recentReviewImage.setVisibility(show ? VISIBLE : GONE);
+        recentReviewPostedDateTv.setVisibility(show ? VISIBLE : GONE);
+        recentReviewRating.setVisibility(show ? VISIBLE : GONE);
+        recentReviewProductName.setVisibility(show ? VISIBLE : GONE);
+        recentReviewHeader.setVisibility(show ? VISIBLE : GONE);
+        recentReviewMyRatingHeader.setVisibility(show ? VISIBLE : GONE);
     }
 
     @Override
     public void showRecentReviewImage(String imageUrl) {
         Picasso.with(getContext()).load(imageUrl).into(recentReviewImage);
+    }
+
+    @Override
+    public void showRecentReviewImage(boolean show) {
+        recentReviewImage.setVisibility(show ? VISIBLE : GONE);
+    }
+
+    @Override
+    public void showRecentReviewProductName(String productName) {
+        recentReviewProductName.setText(productName);
     }
 
     @Override
@@ -132,10 +161,5 @@ public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContra
     public void showRecentReviewTimePosted(String timePosted) {
         String formattedStr = String.format("Posted %s", timePosted);
         recentReviewPostedDateTv.setText(formattedStr);
-    }
-
-    @OnClick(R.id.allReviewsButton)
-    public void onAllReviewButtonTapped() {
-
     }
 }

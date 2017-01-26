@@ -18,7 +18,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.author;
 
 import com.bazaarvoice.bvandroidsdk.Badge;
-import com.bazaarvoice.bvandroidsdk.Pin;
 import com.bazaarvoice.bvsdkdemoandroid.DemoBasePresenter;
 import com.bazaarvoice.bvsdkdemoandroid.DemoBaseView;
 
@@ -30,9 +29,11 @@ interface DemoAuthorContract {
         void showAuthorNickname(String authorNickname);
         void showAuthorLocation(String authorLocation);
         void showAuthorBadges(List<Badge> badges);
-        void showProductsToReview(List<Pin> pins);
-
+        void showProductsToReview(boolean show);
+        void showRecentReview(boolean show);
         void showRecentReviewImage(String imageUrl);
+        void showRecentReviewImage(boolean show);
+        void showRecentReviewProductName(String productName);
         void showRecentReviewRating(float rating);
         void showRecentReviewBody(String body);
         void showRecentReviewTimePosted(String timePosted);

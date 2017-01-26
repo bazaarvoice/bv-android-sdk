@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,7 +45,7 @@ public class DemoConfigJsonParser implements DemoConfigParser {
             DemoConstants.PASSKEY_LOCATION,
             DemoConstants.PASSKEY_PIN,
             DemoConstants.BV_CLIENT_ID,
-            "empty");
+            "Demo Keys");
     private Gson gson;
     private DemoConfigs demoConfigs;
     private Context context;
@@ -96,9 +97,14 @@ public class DemoConfigJsonParser implements DemoConfigParser {
     @Override
     public List<DemoConfig> getConfigList() {
         try {
+            if (!configFileExists()) {
+                return Collections.singletonList(DEFAULT_CONFIG);
+            }
             if (demoConfigs == null) {
                 Reader reader = new InputStreamReader(context.getAssets().open(DEMO_CONFIG_FILE));
                 demoConfigs = gson.fromJson(reader, DemoConfigs.class);
+                demoConfigs.getProdConfigs().add(0, DEFAULT_CONFIG);
+                demoConfigs.getStgConfigs().add(0, DEFAULT_CONFIG);
             }
             if (DemoConstants.ENVIRONMENT == BazaarEnvironment.PRODUCTION) {
                 return demoConfigs.getProdConfigs();
@@ -110,6 +116,6 @@ public class DemoConfigJsonParser implements DemoConfigParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new IllegalStateException("Failed to create a config list");
     }
 }

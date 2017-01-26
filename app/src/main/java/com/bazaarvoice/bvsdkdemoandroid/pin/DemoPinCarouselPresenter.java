@@ -23,6 +23,7 @@ import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.Pin;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselContract;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.util.List;
 
@@ -34,11 +35,13 @@ public class DemoPinCarouselPresenter implements DemoCarouselContract.Presenter 
     private static final String TAG = "PinCarouselPres";
     private DemoCarouselContract.View view;
     private PinClient pinClient;
+    private DemoConfigUtils demoConfigUtils;
 
     @Inject
-    public DemoPinCarouselPresenter(@Named("PinCarouselView") DemoCarouselContract.View view, PinClient pinClient) {
+    public DemoPinCarouselPresenter(@Named("PinCarouselView") DemoCarouselContract.View view, PinClient pinClient, DemoConfigUtils demoConfigUtils) {
         this.view = view;
         this.pinClient = pinClient;
+        this.demoConfigUtils = demoConfigUtils;
         view.setOnItemClickListener(new DemoCarouselContract.OnItemClickListener() {
             @Override
             public void onItemClicked(BVDisplayableProductContent productContent) {
@@ -49,8 +52,12 @@ public class DemoPinCarouselPresenter implements DemoCarouselContract.Presenter 
 
     @Override
     public void start() {
-        view.showLoading(true);
-        pinClient.getPendingPins(pinCb);
+        if (!demoConfigUtils.getCurrentConfig().hasPin()) {
+            view.showEmptyMessage("No PIN API key set");
+        } else {
+            view.showLoading(true);
+            pinClient.getPendingPins(pinCb);
+        }
     }
 
     private PinClient.PinsCallback pinCb = new PinClient.PinsCallback() {
