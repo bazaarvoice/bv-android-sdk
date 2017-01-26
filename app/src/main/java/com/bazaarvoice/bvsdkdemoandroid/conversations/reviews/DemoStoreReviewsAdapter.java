@@ -34,7 +34,8 @@ public class DemoStoreReviewsAdapter extends DemoReviewsAdapter<StoreReview> {
         Date submissionDate= bazaarReview.getSubmissionDate();
         String nickName = bazaarReview.getUserNickname();
         List<Photo> photos = bazaarReview.getPhotos();
+        String authorId = bazaarReview.getAuthorId();
 
-        populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos, -1, -1);
+        populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos, -1, -1, authorId);
     }
 }

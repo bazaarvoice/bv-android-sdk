@@ -63,8 +63,12 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
         queryParams.put(kOFFSET, "" + builder.offset);
         queryParams.put(kINCLUDE, INCLUDE_ANSWERS);
 
-        if (!builder.sorts.isEmpty()){
-            queryParams.put(kSORT, StringUtils.componentsSeparatedBy(builder.sorts, ","));
+        if (!builder.questionSorts.isEmpty()){
+            queryParams.put(kSORT, StringUtils.componentsSeparatedBy(builder.questionSorts, ","));
+        }
+
+        if (!builder.answerSorts.isEmpty()){
+            queryParams.put(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(builder.answerSorts, ","));
         }
 
         if (builder.searchPhrase != null) {
@@ -74,14 +78,15 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
 
     public static final class Builder extends ConversationsDisplayRequest.Builder{
 
-        private final List<Sort> sorts;
+        private final List<Sort> questionSorts, answerSorts;
         private final int limit;
         private final int offset;
         private String searchPhrase;
         private String productId;
 
         public Builder(@NonNull String productId, int limit, int offset) {
-            this.sorts = new ArrayList<>();
+            this.questionSorts = new ArrayList<>();
+            this.answerSorts = new ArrayList<>();
             this.limit = limit;
             this.offset = offset;
             this.productId = productId;
@@ -89,8 +94,35 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
 
         }
 
+        /**
+         * @deprecated renamed to explicitly be the Question sorting option
+         *
+         * @param sort Question Sort Option
+         * @param sortOrder Question Sort Order
+         * @return Request Builder
+         */
         public Builder addSort(QuestionOptions.Sort sort, SortOrder sortOrder) {
-            this.sorts.add(new Sort(sort, sortOrder));
+            this.questionSorts.add(new Sort(sort, sortOrder));
+            return this;
+        }
+
+        /**
+         * @param sort Question Sort Option
+         * @param sortOrder Question Sort Order
+         * @return Request Builder
+         */
+        public Builder addQuestionSort(QuestionOptions.Sort sort, SortOrder sortOrder) {
+            this.questionSorts.add(new Sort(sort, sortOrder));
+            return this;
+        }
+
+        /**
+         * @param sort Question Sort Option
+         * @param order Question Sort Order
+         * @return Request Builder
+         */
+        public Builder addAnswerSort(@NonNull AnswerOptions.Sort sort, @NonNull SortOrder order) {
+            answerSorts.add(new Sort(sort, order));
             return this;
         }
 

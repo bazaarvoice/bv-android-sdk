@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white" >
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_3">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/review_header_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintRight_creator="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="16dp"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
 
             <RelativeLayout
                 android:id="@+id/review_header_info_text"
@@ -28,7 +39,7 @@
                     android:layout_marginBottom="@dimen/margin_2"
                     android:textSize="@dimen/text_size_title"
                     android:textColor="@color/bv_green_2"
-                    tools:text="Review Title Here (With some extra words to test long titles)"/>
+                    tools:text="Review Title Here (With some extra words to test long titles)" />
 
                 <TextView
                     android:id="@+id/review_time_ago"
@@ -37,7 +48,7 @@
                     android:layout_below="@id/review_title"
                     android:layout_marginBottom="@dimen/margin_2"
                     android:textSize="@dimen/text_size_caption"
-                    tools:text="X Days Ago by User Name"/>
+                    tools:text="X Days Ago by User Name" />
 
                 <TextView
                     android:id="@+id/review_location"
@@ -46,7 +57,7 @@
                     android:layout_below="@id/review_time_ago"
                     android:layout_marginBottom="@dimen/margin_2"
                     android:textSize="@dimen/text_size_caption"
-                    tools:text="from Austin, TX"/>
+                    tools:text="from Austin, TX" />
 
                 <RatingBar
                     android:id="@+id/review_rating"
@@ -56,7 +67,7 @@
                     android:isIndicator="true"
                     android:numStars="5"
                     tools:rating="4.3"
-                    style="@style/Base.Widget.AppCompat.RatingBar.Small"/>
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small" />
 
             </RelativeLayout>
 
@@ -66,56 +77,65 @@
                 android:layout_height="@dimen/snippet_prod_image_side"
                 android:layout_alignRight="@id/review_header_info_text"
                 android:layout_alignParentRight="true"
-                tools:background="@color/bv_green_1"/>
+                tools:background="@color/bv_green_1" />
 
         </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/review_footer_info"
-        android:layout_below="@+id/review_header_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/review_body"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/review_footer_info"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_2"
-            android:textSize="@dimen/text_size_body_1"
-            tools:text="@string/bacon_ipsum"/>
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintRight_creator="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_header_info"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
 
-        <TextView
-            android:text="Was this review helpful?"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/helpfulTextView"
-            android:layout_below="@+id/review_body"
-            android:layout_marginTop="@dimen/margin_2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/review_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:textSize="@dimen/text_size_body_1"
+                tools:text="@string/bacon_ipsum" />
 
-        <Button
-            android:text="Yes (0)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/helpfulButton"
-            android:layout_alignBottom="@+id/notHelpfulButton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/helpfulTextView"/>
+            <TextView
+                android:text="Was this review helpful?"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/helpfulTextView"
+                android:layout_below="@+id/review_body"
+                android:layout_marginTop="@dimen/margin_2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-        <Button
-            android:text="No (0)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notHelpfulButton"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/helpfulButton"
-            android:layout_toEndOf="@+id/helpfulButton"
-            android:layout_below="@+id/helpfulTextView"/>
-    </RelativeLayout>
+            <Button
+                android:text="Yes (0)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/helpfulButton"
+                android:layout_alignBottom="@+id/notHelpfulButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/helpfulTextView" />
+
+            <Button
+                android:text="No (0)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notHelpfulButton"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/helpfulButton"
+                android:layout_toEndOf="@+id/helpfulButton"
+                android:layout_below="@+id/helpfulTextView" />
+        </RelativeLayout>
 
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

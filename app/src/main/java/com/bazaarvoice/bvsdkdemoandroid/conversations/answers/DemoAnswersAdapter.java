@@ -3,6 +3,8 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 
+import android.app.Activity;
+import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,11 +14,13 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DemoAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -44,10 +48,31 @@ public class DemoAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (hasTimeAgo) {
             String timeAgo = prettyTime.format(bazaarAnswer.getSubmissionDate());
             boolean hasUserNickname = !TextUtils.isEmpty(bazaarAnswer.getUserNickname());
+            final String nickName = bazaarAnswer.getUserNickname();
+            final String authorId = bazaarAnswer.getAuthorId();
             String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarAnswer.getUserNickname() : timeAgo;
             answerRowViewHolder.answerTimeAgo.setText(timeAgoBy);
             answerRowViewHolder.answerTimeAgo.setVisibility(View.VISIBLE);
-
+            if (!TextUtils.isEmpty(nickName)) {
+                Pattern authorPattern = Pattern.compile(nickName);
+                LinkifyCompat.addLinks(answerRowViewHolder.answerTimeAgo, authorPattern, null);
+                answerRowViewHolder.answerTimeAgo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView tv = (TextView) v;
+                        String tvText = String.valueOf(tv.getText());
+                        int selectStart = tv.getSelectionStart();
+                        int selectEnd = tv.getSelectionEnd();
+                        String selectedString = null;
+                        if (0 <= selectStart && selectStart <= tvText.length() && 0 <= selectEnd && selectEnd <= tvText.length()) {
+                            selectedString = String.valueOf(tvText.subSequence(selectStart, selectEnd));
+                        }
+                        if (selectedString != null && selectedString.equals(nickName)) {
+                            DemoAuthorActivity.transitionTo((Activity) tv.getContext(), authorId);
+                        }
+                    }
+                });
+            }
         } else {
             answerRowViewHolder.answerTimeAgo.setVisibility(View.GONE);
         }

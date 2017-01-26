@@ -28,11 +28,13 @@ import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Error;
 import com.bazaarvoice.bvandroidsdk.PDPContentType;
-import com.bazaarvoice.bvandroidsdk.Pin;
-import com.bazaarvoice.bvandroidsdk.PinClient;
+import com.bazaarvoice.bvandroidsdk.Product;
+import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
+import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -50,17 +52,24 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
     private String authorId;
     private BVConversationsClient conversationsClient;
     private PrettyTime prettyTime;
+    private DemoConfigUtils demoConfigUtils;
 
     @Inject
-    DemoAuthorPresenter(DemoAuthorContract.View view, @Named("AuthorId") String authorId, BVConversationsClient conversationsClient, PrettyTime prettyTime) {
+    DemoAuthorPresenter(DemoAuthorContract.View view, @Named("AuthorId") String authorId, BVConversationsClient conversationsClient, PrettyTime prettyTime, DemoConfigUtils demoConfigUtils) {
         this.view = view;
         this.authorId = authorId;
         this.conversationsClient = conversationsClient;
         this.prettyTime = prettyTime;
+        this.demoConfigUtils = demoConfigUtils;
     }
 
     @Override
     public void start() {
+        view.showRecentReview(false); // Wait until we have a review to show it
+
+        boolean showPinFeature = demoConfigUtils.getCurrentConfig().hasPin();
+        view.showProductsToReview(showPinFeature);
+
         AuthorsRequest request = new AuthorsRequest.Builder(authorId)
                 .addIncludeContent(PDPContentType.Reviews, 1)
                 .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
@@ -100,12 +109,15 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
                 view.showAuthorBadges(badges);
 
                 if (mostRecentReview == null) {
-                    return;
+                    view.showRecentReview(false);
+                } else {
+                    view.showRecentReview(true);
+                    view.showRecentReviewBody(mostRecentReview.getReviewText());
+                    view.showRecentReviewRating(mostRecentReview.getRating());
+                    view.showRecentReviewTimePosted(prettyTime.format(mostRecentReview.getSubmissionDate()));
+                    ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder(mostRecentReview.getProductId()).build();
+                    conversationsClient.prepareCall(pdpRequest).loadAsync(pdpCb);
                 }
-                view.showRecentReviewBody(mostRecentReview.getReviewText());
-                // TODO view.showRecentReviewImage(mostRecentReview.getPhotos());
-                view.showRecentReviewRating(mostRecentReview.getRating());
-                view.showRecentReviewTimePosted(prettyTime.format(mostRecentReview.getSubmissionDate()));
             }
         }
 
@@ -115,20 +127,42 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
         }
     };
 
-    private PinClient.PinsCallback pinCb = new PinClient.PinsCallback() {
+    private ConversationsCallback<ProductDisplayPageResponse> pdpCb = new ConversationsCallback<ProductDisplayPageResponse>() {
         @Override
-        public void onSuccess(List<Pin> pins) {
-            if (pins == null || pins.isEmpty()) {
-                Log.e(TAG, "No PINS available");
+        public void onSuccess(ProductDisplayPageResponse response) {
+            if (response == null || response.getHasErrors()) {
+                view.showRecentReviewImage(false);
+                Log.d(TAG, "Failed to get Review Details");
                 return;
             }
 
-            view.showProductsToReview(pins);
+            List<Product> products = response.getResults();
+            if (products.isEmpty()) {
+                view.showRecentReviewImage(false);
+                Log.d(TAG, "No products found");
+                return;
+            }
+
+            Product firstProduct = products.get(0);
+
+            if (firstProduct.getDisplayName() != null && !firstProduct.getDisplayImageUrl().isEmpty()) {
+                view.showRecentReviewProductName(firstProduct.getDisplayName());
+            }
+
+            String displayImageUrl = firstProduct.getDisplayImageUrl();
+            if (displayImageUrl == null || displayImageUrl.isEmpty()) {
+                view.showRecentReviewImage(false);
+                Log.d(TAG, "No image found");
+                return;
+            }
+
+            view.showRecentReviewImage(displayImageUrl);
         }
 
         @Override
-        public void onFailure(Throwable throwable) {
-            Log.e(TAG, "Failed to get PINs", throwable);
+        public void onFailure(BazaarException exception) {
+            Log.e(TAG, "Failed to get Review Details", exception);
+            view.showRecentReviewImage(false);
         }
     };
 

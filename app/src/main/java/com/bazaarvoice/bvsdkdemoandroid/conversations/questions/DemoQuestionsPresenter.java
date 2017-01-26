@@ -5,6 +5,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
 import android.util.Log;
 
+import com.bazaarvoice.bvandroidsdk.AnswerOptions;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
@@ -13,6 +14,8 @@ import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerRequest;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
+import com.bazaarvoice.bvandroidsdk.QuestionOptions;
+import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
@@ -68,6 +71,8 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
             view.showLoadingQuestions(true);
 
             QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder(productId, 20, 0)
+                    .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
+                    .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.DESC)
                     .build();
 
             loader.loadAsync(conversationsClient.prepareCall(request), this);

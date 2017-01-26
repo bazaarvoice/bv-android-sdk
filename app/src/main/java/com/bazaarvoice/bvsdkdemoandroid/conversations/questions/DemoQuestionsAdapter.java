@@ -3,9 +3,11 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoSubmitDialogFragment;
 
@@ -24,6 +27,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -61,9 +65,31 @@ public class DemoQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (hasTimeAgo) {
             String timeAgo = prettyTime.format(bazaarQuestion.getSubmissionDate());
             boolean hasUserNickname = !TextUtils.isEmpty(bazaarQuestion.getUserNickname());
-            String timeAgoBy = hasUserNickname ? timeAgo + " by " + bazaarQuestion.getUserNickname() : timeAgo;
+            final String nickName = bazaarQuestion.getUserNickname();
+            final String authorId = bazaarQuestion.getAuthorId();
+            String timeAgoBy = hasUserNickname ? timeAgo + " by " + nickName : timeAgo;
             viewHolder.questionTimeAgo.setText(timeAgoBy);
             viewHolder.questionTimeAgo.setVisibility(View.VISIBLE);
+            if (!TextUtils.isEmpty(nickName)) {
+                Pattern authorPattern = Pattern.compile(nickName);
+                LinkifyCompat.addLinks(viewHolder.questionTimeAgo, authorPattern, null);
+                viewHolder.questionTimeAgo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView tv = (TextView) v;
+                        String tvText = String.valueOf(tv.getText());
+                        int selectStart = tv.getSelectionStart();
+                        int selectEnd = tv.getSelectionEnd();
+                        String selectedString = null;
+                        if (0 <= selectStart && selectStart <= tvText.length() && 0 <= selectEnd && selectEnd <= tvText.length()) {
+                            selectedString = String.valueOf(tvText.subSequence(selectStart, selectEnd));
+                        }
+                        if (selectedString != null && selectedString.equals(nickName)) {
+                            DemoAuthorActivity.transitionTo((Activity) tv.getContext(), authorId);
+                        }
+                    }
+                });
+            }
 
         } else {
             viewHolder.questionTimeAgo.setVisibility(View.GONE);

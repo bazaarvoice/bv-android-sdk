@@ -63,7 +63,7 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
 
         if (shouldHitNetwork) {
             ReviewsRequest request = new ReviewsRequest.Builder(productId, 20, 0)
-                    .addSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
+                    .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
                     .build();
             reviewsLoader.loadAsync(client.prepareCall(request), this);
         } else {

@@ -23,6 +23,7 @@ import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigModule;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
@@ -63,6 +64,7 @@ public interface DemoAppComponent {
     BVConversationsClient getBvConvClient();
     PinClient getPinClient();
     PrettyTime getPrettyTime();
+    DemoConfigUtils getDemoConfigUtils();
 
     void inject(DemoAdFragment adsFragment);
     void inject(DemoMainActivity activity);

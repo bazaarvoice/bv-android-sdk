@@ -3,6 +3,8 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
+import android.app.Activity;
+import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -31,6 +34,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -63,13 +67,14 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         List<Photo> photos = bazaarReview.getPhotos();
         Integer helpfulVoteCount = bazaarReview.getTotalPositiveFeedbackCount();
         Integer notHelpfulVoteCount = bazaarReview.getTotalNegativeFeedbackCount();
+        String authorId = bazaarReview.getAuthorId();
 
         populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location,
-                submissionDate, nickName, photos, helpfulVoteCount, notHelpfulVoteCount);
+                submissionDate, nickName, photos, helpfulVoteCount, notHelpfulVoteCount, authorId);
     }
 
     void populateViewHolder(final ReviewType reviewItem, final ReviewRowViewHolder viewHolder, String title, String reviewText, Integer rating, String location,
-                            Date submissionDate, String nickName, List<Photo> photos, final Integer helpfulVoteCount, final Integer notHelpfulVoteCount) {
+                            Date submissionDate, final String nickName, List<Photo> photos, final Integer helpfulVoteCount, final Integer notHelpfulVoteCount, final String authorId) {
 
         viewHolder.reviewTitle.setText(title);
         viewHolder.reviewBody.setText(reviewText);
@@ -113,7 +118,26 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
             String timeAgoBy = hasUserNickname ? timeAgo + " by " + nickName : timeAgo;
             viewHolder.reviewTimeAgo.setText(timeAgoBy);
             viewHolder.reviewTimeAgo.setVisibility(View.VISIBLE);
-
+            if (!TextUtils.isEmpty(nickName)) {
+                Pattern authorPattern = Pattern.compile(nickName);
+                LinkifyCompat.addLinks(viewHolder.reviewTimeAgo, authorPattern, null);
+                viewHolder.reviewTimeAgo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView tv = (TextView) v;
+                        String tvText = String.valueOf(tv.getText());
+                        int selectStart = tv.getSelectionStart();
+                        int selectEnd = tv.getSelectionEnd();
+                        String selectedString = null;
+                        if (0 <= selectStart && selectStart <= tvText.length() && 0 <= selectEnd && selectEnd <= tvText.length()) {
+                            selectedString = String.valueOf(tvText.subSequence(selectStart, selectEnd));
+                        }
+                        if (selectedString != null && selectedString.equals(nickName)) {
+                            DemoAuthorActivity.transitionTo((Activity) tv.getContext(), authorId);
+                        }
+                    }
+                });
+            }
         } else {
             viewHolder.reviewTimeAgo.setVisibility(View.GONE);
         }
