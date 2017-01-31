@@ -191,7 +191,9 @@ $(function(){
                         </div>
 
                     </li>
-
+                     <li class="nav-item">
+                        <a class="nav-link" href="pin.html"><span>Post Interaction Notifications (Beta)</span></a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="location.html"><span>Location (Beta)</span></a>
                     </li>
@@ -276,11 +278,14 @@ $(function(){
 
 <p>Add the following dependencies to include the Maven Central repository and add Bazaarvoice Mobile SDK modules. You only need to add the dependencies for the products you have an API key for.</p>
 <pre><code>dependencies {<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:5.+'<br/>
     compile 'com.bazaarvoice.bvandroidsdk:advertising:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'<br/>
     compile 'com.bazaarvoice.bvandroidsdk:conversations:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'<br/>
     compile 'com.bazaarvoice.bvandroidsdk:location:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:pin:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:pin-notifications:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:5.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:store-notifications:5.+'
 }<br/>
 repositories {<br/>
     mavenCentral()<br/>
@@ -335,6 +340,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
                 <th>
                     Enter API key:
                 </th>
+            </tr>
             <tr>
                 <td>
                     <input type="checkbox" class="cb_BVCurations"/> <b>Curations</b>
@@ -342,6 +348,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
                 <td>
                     <input type="text" class="key_BVCurations" placeholder="Curations API Key here" style="width:100%"/>
                 </td>
+            </tr>
             <tr>
                 <td>
                     <input type="checkbox" class="cb_BVConversations"/> <b>Conversations</b>
@@ -349,7 +356,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
                 <td>
                     <input type="text" class="key_BVConversations" placeholder="Conversations API Key here" style="width:100%"/>
                 </td>
-            <tr>
+            </tr>
             <tr>
                 <td>
                     <input type="checkbox" class="cb_BVConversationsStores"/> <b>Conversations for Stores</b>
@@ -357,6 +364,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
                 <td>
                     <input type="text" class="key_BVConversationsStores" placeholder="Conversations for Stores API Key here" style="width:100%"/>
                 </td>
+            </tr>
             <tr>
                 <td>
                     <input type="checkbox" class="cb_BVAdvertising"/> <b>Advertising</b>
@@ -366,15 +374,25 @@ Once you have install the source code for the SDK, you are now ready to initiali
                 <td>
                     <input type="text" class="key_ShopperAdvertising" placeholder="Shopper Advertising API Key here" style="width:100%"/>
                 </td>
+            </tr>
             <tr>
-              <tr>
                 <td>
                     <input type="checkbox" class="cb_BVLocation"/> <b>Location</b>
                 </td>
                 <td>
                     <input type="text" class="key_BVCLocation" placeholder="Location API Key here" style="width:100%"/>
                 </td>
+            </tr>
             <tr>
+                <td>
+                    <input type="checkbox" class="cb_BVPIN"/> <b>PIN</b>
+                    <br/>
+                    <input type="checkbox" class="cb_BVPINNotifications"/> <b>PIN Notifications</b>
+                </td>
+                <td>
+                    <input type="text" class="key_BVPIN" placeholder="PIN API Key here" style="width:100%"/>
+                </td>
+            </tr>
         </table>
     </div>
 
@@ -423,6 +441,11 @@ Once you have install the source code for the SDK, you are now ready to initiali
           $('.key_BVCLocation').css('border-color', '');
       }
 
+      if (($('.cb_BVPIN:checked').length > 0 && !$('.key_BVPIN').val()) || ($('.cb_BVPINNotifications:checked').length > 0 && !$('.key_BVPINNotifications').val())){
+          $('.key_BVPIN').css('border-color', 'red');
+      } else {
+          $('.key_BVPIN').css('border-color', '');
+      }
     }
 
     function updateCodeSnippets(){
@@ -459,6 +482,11 @@ Once you have install the source code for the SDK, you are now ready to initiali
             if ($('.cb_BVLocation:checked').length > 0 || $('.cb_BVLocation:checked').length > 0){
               var locationKey = $('.key_BVCLocation').val()
               $('#java-bvsdkmanager').append('      .apiKeyLocation("' + locationKey + '")<br/>');
+            }
+
+            if ($('.cb_BVPIN:checked').length > 0 || $('.cb_BVPIN:checked').length > 0){
+              var pinKey = $('.key_BVPIN').val()
+              $('#java-bvsdkmanager').append('      .apiKeyPin("' + pinKey + '")<br/>');
             }
 
             $('#java-bvsdkmanager').append('      .build();<br/>')
@@ -590,13 +618,31 @@ compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
 
 <pre><code>compile "com.gimbal.android.v2:gimbal-sdk:2.46"<br/>
 compile "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"<br/>
-compile "org.slf4j:slf4j-api:1.7.21:1.7.21"<br/>
-compile "com.android.support:support-v4:25.0.0"<br/>
+compile "org.slf4j:slf4j-api:1.7.21"<br/>
 compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
+
+<h4>Notifications</h4>
+
+<p>Inherits from common, and adds:</p>
+
+<pre><code>compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
+
+<h4>PIN</h4>
+
+<p>Inherits from common, no additional dependencies</p>
+
+<h4>PIN Notifications</h4>
+
+<p>Inherits from pin, notifications, and conversations. No additional dependencies</p>
 
 <h4>Recommendations</h4>
 
 <p>Inherits from common, no additional dependencies.</p>
+
+<h4>Store Notifications</h4>
+
+<p>Inherits from location, notifications, and conversations. No additional dependencies</p>
+
 <br>
 </div>
 

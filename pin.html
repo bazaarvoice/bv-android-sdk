@@ -19,7 +19,7 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "Location";
+	var tabName = "Post Interaction Notifications";
 
 	$('.nav-link.active').removeClass('active');
 	console.log('active tab: ', tabName);
@@ -67,7 +67,7 @@ $(function(){
 
     ga('create', 'UA-56370630-4', 'auto');
     ga('set', {
-      title: 'Location'
+      title: 'Post Interaction Notifications'
     });
     ga('send', 'pageview');
   </script>
@@ -95,7 +95,7 @@ $(function(){
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav side-nav nav-stacked nav-pills">
             <div class="bv_logo">
-                <a href="/bv-android-sdk/index.html">
+                <a href="/bv-ios-sdk/index.html">
                     <span class="bv_teal">bazaar</span><span class="bv_white">voice</span><span class="bv_teal">:</span>
                 </a>
             </div>
@@ -138,9 +138,6 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="curations_custom_posts.html"><span>Curations Custom Posts</span></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="curations_example_app.html"><span>Curations Example App</span></a>
-                                </li>
                             </ul>
                         </div>
                     </li>
@@ -155,10 +152,10 @@ $(function(){
                              id="conversationsDropdown">
                             <ul>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="conversations_display.html"><span>Conversations Display</span></a>
+                                    <a class="nav-link" href="content_display.html"><span>Content Display</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="conversations_submission.html"><span>Conversations Submission</span></a>
+                                    <a class="nav-link" href="content_submission.html"><span>Content Submission</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
@@ -171,7 +168,8 @@ $(function(){
 
                     </li>
 
-                    <li class="nav-item">
+
+                     <li class="nav-item">
                         <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsStoresDropdown"
                            aria-expanded="false" aria-controls="conversationsStoresDropdown">
                                 <span><span>Conversations for Stores</span><span style="float:right;"><i
@@ -191,7 +189,7 @@ $(function(){
                         </div>
 
                     </li>
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="pin.html"><span>Post Interaction Notifications (Beta)</span></a>
                     </li>
                     <li class="nav-item">
@@ -210,6 +208,11 @@ $(function(){
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="ios_9_considerations.html">
+                    <span><i class="m-r-1 fa fa-mobile"></i> iOS 9 Considerations</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="example_projects.html">
                     <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
                 </a>
@@ -220,14 +223,14 @@ $(function(){
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="api_reference.html">
+                <a class="nav-link" href="./ios-assets/api_reference/index.html">
                     <span><i class="m-r-1 fa fa-book"></i>API Reference</span>
                 </a>
             </li>
             <br>
             <li class="nav-item">
                 <a class="nav-link"
-                   href="mailto:mobilecoreteam@bazaarvoice.com?subject=Android SDK documentation feedback"
+                   href="mailto:mobilecoreteam@bazaarvoice.com?subject=iOS SDK documentation feedback"
                    style="border: 1px #fff solid;">
                     <span><i class="m-r-1 fa fa-envelope"></i>Feedback</span>
                 </a>
@@ -236,7 +239,6 @@ $(function(){
     </div>
 </nav>
 
-
       <div id="application_container">
         <div id="task_container">
           <div id="task_content" class="app-content">
@@ -244,17 +246,12 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	Location
+    Post Interaction Notifications (PIN)
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The Location module is currently in limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
-
-<p>The Location module of the Bazaarvoice Mobile SDK facilitates knowing when your shoppers are entering and exiting your physical retail locations. You will be provided a very valuable opportunity to present a shopper with your location aware content. Perhaps you have a simple greeting or coupon? Aside from the value you add within your mobile experience, Bazaarvoice can use this location context to enhance our existing products. Rating and Reviews filtered down to the city level, recommended products for nearby people like you, local social media content (Curations), and more are all possible by using the Location module.</p>
-
-
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  You must have Bazaarvoice Location enabled to use the Location module. Contact Bazaarvoice to set up Location and to get your <strong>apiKeyLocation</strong>.</p>
-
-<hr/>
+You can increase review rates of your products by implementing PIN. The Bazaarvoice Mobile SDK can provide a queue of products that a user has purchased, but has not provided a review for. Additionally you can enqueue a timed push notification requesting the user to leave a review on the product.
+<br><br>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  This feature is limited BETA! You must have Bazaarvoice PIN enabled to use PIN. Contact Bazaarvoice to set up PIN and to get your <strong>apiKeyPIN</strong>.</p>
 <br>
 
 
@@ -281,11 +278,7 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:location:5.+'
-    compile 'com.google.android.gms:play-services-ads:9.{your_play_services_version}'
-    compile 'com.android.support:recyclerview-v7:25.{your_support_library_version}'
-    compile 'com.android.support:support-v4:25.{your_support_library_version}'
-    compile 'com.android.support:appcompat-v7:25.{your_support_library_version}'
+  compile 'com.bazaarvoice.bvandroidsdk:pin:5.+'
 }
 repositories {
     mavenCentral()
@@ -309,7 +302,7 @@ repositories {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK.builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
             .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
-            .apiKeyLocation(YOUR_LOCATION_KEY) //Required for Geo-Location
+            .apiKeyPIN(YOUR_PIN_KEY) //Required for Post Interaction Notifications
             .logLevel(BVLogLevel.INFO)
             .build();
     }
@@ -331,198 +324,39 @@ repositories {
 <br>
 
 
-<h2>Using the Location Module</h2>
-<br>
-<h4>Requesting User Location Permission</h4>
-<p>You will need to obtain fine location permission. The Location module cannot function without this. This permission is included in the Location module's manifest, but please note that your app might need to support Runtime Permissions for obtaining fine location. Please follow best practices when requesting permission at Runtime. Request it at a time when it's contexually relavent such as when trying to use a "Store Finder." Ask via your own dialog first then present the actual system prompt if they accepted your prompt. This way you can provide the detailed benefits they'd receive if they grant the permission. There are many online resources you refer to when making you permission request decisions.
-</p>
+<h3>Getting PIN Information</h3>
+After contacting Bazaarvoice to obtain your <code>apiKeyPin</code> and being configured for PIN you can obtain purchase history for items that have no yet been reviewed. It is important to note that you will need to be sending <a href="bv_pixel.html">BVPixel</a> events for conversions in order for products to appear in the PIN API response.
+<br/><br/>
+The use of round-trip data from a BVPixel conversion to a PIN item does require use of the Advertising Identifier (IDFA) for profile matching. If the user's device has enabled <b>Limit Ad Tracking</b> in the iOS settings, the <code>PinClient</code> result may be empty.
 
-<br>
-<h4>Listening for Location Events in the background</h4>
+<br><br>
 
-<p>Once location permissions have been accepted you can now begin listening for geofence notifications.
-    In order to do be listening even when the app has been backgrounded and/or killed you should implement
-    your own Service which then sets up location listeners with the BVLocationManager. Make sure to add the
-    new Service to your Manifest.</p>
-
-<pre><code class="xml">&lt;manifest&gt;
-    &lt;application&gt;
-        &lt;service
-                android:name="com.mycompany.myapp.DemoLocationService"
-                android:exported="false" /&gt;
-    &lt;/application&gt;
-&lt;/manifest&gt;</code></pre>
-
-<pre><code class="java">public class DemoLocationService extends Service {
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        BVLocationManager.getInstance().startMonitoringLocation();
-    }
-
-    @Override
-    public void onDestroy() {
-        BVLocationManager.getInstance().stopMonitoringLocation();
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-}</code></pre>
-
-<br>
-<h4>Listening for when your Users Enter/Exit your Locations</h4>
-
-<p>In order to be notified when a user enter/exits a store you should add a BVLocationManager.BVLocationListener
-to your service.</p>
-
-<pre><code class="java">public class DemoLocationService extends Service {
-    public static final String ACTION_VISIT_START = "com.mycompany.myapp.action.VISIT_START";
-    public static final String ACTION_VISIT_END = "com.mycompany.myapp.action.VISIT_END";
-
-    public static final String EXTRA_STORE_ID = "extra_store_id";
-
-    private BVLocationManager.BVLocationListener bvLocationListener = new BVLocationManager.BVLocationListener() {
+<pre><code class="java">PinClient pinClient = new PinClient();
+pinClient.getPendingPins(new PinClient.PinsCallback() {
         @Override
-        public void didBeginVisit(BVVisit visit) {
-            Intent intent = new Intent(ACTION_VISIT_START);
-            intent.putExtra(EXTRA_STORE_ID, visit.getStoreId());
-            sendBroadcast(intent);
-        }
-
-        @Override
-        public void didEndVisit(BVVisit visit) {
-            Intent intent = new Intent(ACTION_VISIT_END);
-            intent.putExtra(EXTRA_STORE_ID, visit.getStoreId());
-            sendBroadcast(intent);
-        }
-    };
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        BVLocationManager.getInstance().addLocationVisitListener(bvLocationListener);
-        BVLocationManager.getInstance().startMonitoringLocation();
-    }
-
-    @Override
-    public void onDestroy() {
-        BVLocationManager.getInstance().stopMonitoringLocation();
-        BVLocationManager.getInstance().removeLocationVisitListener(bvLocationListener);
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-}</code></pre>
-
-<p>Once you have setup your service, you are now ready to begin listening for the broadcasts
-that you send from it. Below is an example of an Activity which has it's own inner BroadcastReceiver
-which is listening for the custom events we made above. You could implement your own standalone
-BroadcastReceiver as well that is registered in the AndroidManifest.xml if you wished to have your
-app always listening for your custom broadcasts.</p>
-
-<pre><code class="java">public class DemoLocationActivity extends AppCompatActivity {
-    private BroadcastReceiver demoLocationReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                switch (intent.getAction()) {
-                    case DemoLocationService.ACTION_VISIT_START: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("visit start for " + storeId);
-                        break;
-                    }
-                    case DemoLocationService.ACTION_VISIT_END: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("visit end for " + storeId);
-                        break;
-                    }
-                }
+        public void onSuccess(List&lt;Pin&gt; pins) {
+            for (Pin pin : pins) {
+                // All the Pin objects for you!
             }
         }
-    };
 
-    private void updateLasLocEvent(String lastLocEvent) {
-        // ...
-    }
-}</code></pre>
+        @Override
+        public void onFailure(Throwable throwable) {
+            Log.e(TAG, "Failed to get pins", throwable);
+        }
+});</code></pre>
 
 <br>
-<h4>Listening for when your user taps review notification</h4>
 
-<p>In order to be notified when a user has tapped a notification, asking to review a product, you should
-add a BVLocationManager.BVRateStoreListener to your service.</p>
+<h3>Push Notifications</h3>
 
-<pre><code class="java">public class DemoLocationService extends Service {
-    public static final String ACTION_RATE_STORE = "com.bazaarvoice.bvsdkdemoandroid.action.RATE_STORE";
+You can also queue up local push notifications to ask customers to leave reviews on specific products they have purchased. The action item text and image are fully customizable as well as the notification delay time.
+<br><br>
+<img src="android-img/PIN/pin_push_notification.png" style="height:410px; box-shadow: 0px 0px 8px #444;" class="center-block img-fluid" />
 
-    public static final String EXTRA_STORE_ID = "extra_store_id";
-
-    private BVLocationManager.BVRateStoreListener rateStoreListener = new BVLocationManager.BVRateStoreListener() {
-        @Override
-        public void onRateStoreClicked(String storeId) {
-            Intent intent = new Intent(ACTION_RATE_STORE);
-            intent.putExtra(EXTRA_STORE_ID, storeId);
-            sendBroadcast(intent);
-        }
-    };
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        BVLocationManager.getInstance().addRateStoreListener(rateStoreListener);
-        BVLocationManager.getInstance().startMonitoringLocation();
-    }
-
-    @Override
-    public void onDestroy() {
-        BVLocationManager.getInstance().stopMonitoringLocation();
-        BVLocationManager.getInstance().removeRateStoreListener(rateStoreListener);
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-}</code></pre>
-
-<p>Once you have setup your service, you are now ready to begin listening for the broadcasts
-    that you send from it. Below is an example of an Activity which has it's own inner BroadcastReceiver
-    which is listening for the custom events we made above. You could implement your own standalone
-    BroadcastReceiver as well that is registered in the AndroidManifest.xml if you wished to have your
-    app always listening for your custom broadcasts.</p>
-
-<pre><code class="java">public class DemoLocationActivity extends AppCompatActivity {
-    private BroadcastReceiver demoLocationReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null) {
-                switch (intent.getAction()) {
-                    case DemoLocationService.ACTION_RATE_STORE: {
-                        String storeId = intent.getStringExtra(DemoLocationService.EXTRA_STORE_ID);
-                        updateLastLocEvent("user tapped rate store for " + storeId);
-                        break;
-                    }
-                }
-            }
-        }
-    };
-
-    private void updateLasLocEvent(String lastLocEvent) {
-        // ...
-    }
-}</code></pre>
+<br><br><br>
+Ask your Bazaarvoice sales representative for a demonstration and how we can help increase your review rates on products.
+<br>
 <br>
 
 
