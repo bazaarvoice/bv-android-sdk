@@ -1,5 +1,17 @@
 # Changelog
 
+# 6.3.0
+
+## Conversations
+
+* Added ```AuthorsRequest``` and ```AuthorsResponse``` to retrieve a Conversations 
+Author Profile
+* Deprecated the ```QuestionAndAnswerRequest.Builder#addSort(...)``` in favor of the 
+more explicit ```QuestionAndAnswerRequest.Builder#addQuestionSort(...)```
+* Added ability to sort included ```Answer```s with
+ ```QuestionAndAnswerRequest.Builder#addAnswerSort(...)```
+* Added new Code Sample App and Demo App ability to view an author by id
+
 # 6.2.0
 
 ## Conversations
