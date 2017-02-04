@@ -249,6 +249,14 @@ $(function(){
 
 <p>Use the Bazaarvoice Mobile SDKs to enable Conversations functionality, such as Ratings and Reviews. The Conversations module provides an easy-to-use wrapper around the <a href="https://developer.bazaarvoice.com/apis/conversations/">Conversations API</a>. Contact Bazaarvoice to set up Conversations.</p>
 
+<ol>
+  <li><a href="#pdp" onclick="navigateTab(this);">Product Display Page Statistics</a></li>
+  <li><a href="#reviews" onclick="navigateTab(this);">Reviews</li>
+  <li><a href="#questionsanswers" onclick="navigateTab(this);">Questions and Answers</li>
+  <li><a href="#bulkratings" onclick="navigateTab(this);">Bulk Ratings</a></li>
+  <li><a href="#authordisplay" onclick="navigateTab(this);">Author Profile Display</a></li>
+</ol>
+
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
 
 <hr>
@@ -345,15 +353,15 @@ Use a Bazaarvoice ViewGroup class to make all your Conversations Display API req
 <br><br>
 
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active"><a href="#pdpreq" aria-controls="pdpreq" role="tab" data-toggle="tab">Product Display Page</a></li>
-	<li role="presentation"><a href="#reviewsreq" aria-controls="reviewsreq" role="tab" data-toggle="tab">Reviews</a></li>
-	<li role="presentation"><a href="#qnareq" aria-controls="qnareq" role="tab" data-toggle="tab">Questions &amp; Answers</a></li>
-	<li role="presentation"><a href="#bulkreq" aria-controls="bulkreq" role="tab" data-toggle="tab">Bulk Ratings</a></li>
+  <li role="presentation" class="active"><a href="#pdp" aria-controls="pdp" role="tab" data-toggle="tab">Product Display Page</a></li>
+	<li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+	<li role="presentation"><a href="#questionsanswers" aria-controls="questionsanswers" role="tab" data-toggle="tab">Questions &amp; Answers</a></li>
+	<li role="presentation"><a href="#bulkratings" aria-controls="bulkratings" role="tab" data-toggle="tab">Bulk Ratings</a></li>
+  <li role="presentation"><a href="#authordisplay" aria-controls="authordisplay" role="tab" data-toggle="tab">Author Profile</a></li>
 </ul>
 
 <div class="tab-content code-switcher">
-  <div role="tabpanel" class="tab-pane active" id="pdpreq">
-
+  <div role="tabpanel" class="tab-pane active" id="pdp">
     <h4>Loading a Product Display Page</h4>
 <p>
   When showing a product display page, use a <code>ProductDisplayPageRequest
@@ -410,11 +418,8 @@ client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ProductDispla
 });
 </code></pre>
 
-
   </div>
-
-  <div role="tabpanel" class="tab-pane" id="reviewsreq">
-
+  <div role="tabpanel" class="tab-pane" id="reviews">
     <h4>Loading more Reviews</h4>
 
 <p>
@@ -487,11 +492,8 @@ reviewsRecyclerView.loadAsync(client.prepareCall(reviewsRequest), new Conversati
   Each review should be shown using a <code>ReviewView</code>.
 </p>
 
-
   </div>
-
-  <div role="tabpanel" class="tab-pane" id="qnareq">
-
+  <div role="tabpanel" class="tab-pane" id="questionsanswers">
     <h4>Loading more Questions/Answers</h4>
 
 <p>
@@ -541,7 +543,8 @@ questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new Conver
 
 <pre><code>QuestionsAndAnswersRequest request = new QuestionsAndAnswersRequest.Builder("test1", 10, 0)
        .addFilter(QuestionOptions.Filter.HasPhotos, EqualityOperator.EQ, "")
-       .addSort(QuestionOptions.Sort.TotalAnswerCount, SortOrder.DESC)
+       .addQuestionSort(QuestionOptions.Sort.TotalAnswerCount, SortOrder.DESC)
+       .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.ASC)
        .build();</code></pre>
 
 <h4>Displaying Questions &amp; Answers</h4>
@@ -566,11 +569,8 @@ questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new Conver
   should be shown using an <code>AnswerView</code>.
 </p>
 
-
   </div>
-
-  <div role="tabpanel" class="tab-pane" id="bulkreq">
-
+  <div role="tabpanel" class="tab-pane" id="bulkratings">
     <h4>Showing Bulk Ratings</h4>
 
 <p>
@@ -626,6 +626,59 @@ client.prepareCall(request).loadAsync(new ConversationsCallback&lt;BulkRatingsRe
 });
 </code></pre>
 
+  </div>
+  <div role="tabpanel" class="tab-pane" id="authordisplay">
+    <h4>Showing Authors Profile</h4>
+
+<h5>Badge Display</h5>
+
+<p>
+Please note that image links are not returned from the Conversations API. The display for Conversation API clients is left up to the client's creative interpretation. For more information please see the Conversations Developer <a href="https://developer.bazaarvoice.com/docs/read/conversations_api/tutorials/display/badges">documentation on Badges</a>.
+<p/>
+
+<p>
+  To show an Authors profile, use an <code>AuthorsRequest</code>. For example:
+</p>
+
+<pre><code>AuthorsRequest request = new AuthorsRequest.Builder("authorId")
+    .addIncludeContent(PDPContentType.Reviews, 10)
+    .addIncludeContent(PDPContentType.Questions, 11)
+    .addIncludeContent(PDPContentType.Answers, 12)
+    .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+    .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
+    .addAnswerSort(AnswerOptions.Sort.AuthorId, SortOrder.DESC)
+    .addIncludeStatistics(PDPContentType.Reviews)
+    .addIncludeStatistics(PDPContentType.Questions)
+    .addIncludeStatistics(PDPContentType.Answers)
+    .build();
+</code></pre>
+
+<p>
+  Which can be loaded with:
+</p>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.newCall(request).enqueue(new ConversationsCallback&lt;AuthorsResponse&gt;() {
+  @Override
+  public void onSuccess(AuthorsResponse response) {
+    if (response.getHasErrors()) {
+      // Handle API request errors
+      return;
+    }
+
+    List&lt;Author&gt; authors = response.getResults();
+    if (authors.size() > 0) {
+      Author author = authors.get(0);
+      // Use the author object
+    }
+  }
+
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
+);
+</code></pre>
 
   </div>
 </div>

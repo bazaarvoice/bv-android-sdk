@@ -21,7 +21,7 @@ $(function(){
 	  // also number the id of the content element
 	  var content = $(this).parent().parent().next().find('#objc');
 	  content.attr('id', content.attr('id') + index);
-	  
+
 	  index += 1
 	});
 
@@ -43,7 +43,7 @@ $(function(){
 	// Listen for collapsing elements, to animate their arrow
 	function listenForCollapseAndRotate(collapsable_element, arrow_element, closed_start, closed_end, open_start, open_end) {
 		collapsable_element.on('hide.bs.collapse', function () {
-			
+
 			arrow_element.rotate({
 			    angle:open_start,
 			    animateTo:open_end,
@@ -53,7 +53,7 @@ $(function(){
 
 		});
 		collapsable_element.on('show.bs.collapse', function () {
-			
+
 			arrow_element.rotate({
 			    angle:closed_start,
 			    animateTo:closed_end,
@@ -78,8 +78,25 @@ $(function(){
 	listenForCollapseAndRotate($('#installationBVSDKManager'), $('#installationBVSDKManagerArrow'), 270, 0, 0, 270);
 	listenForCollapseAndRotate($('#manualInstallation'), $('#manualInstallationArrow'), 270, 0, 0, 270);
 
-	
+
 });
+
+
+// NOTE: This doesn't currently work on a page reload. e.g. http://foo.com#target, will not load the target.
+// It only handles the user click interactions.
+function navigateTab(obj) {
+
+  // Handle switching tabs on an anchor and setting the window location to selected tab
+  target = obj.getAttribute("href")
+  if (target.match('#')) {
+
+    $('.nav-tabs a[href="#' + target.split('#')[1] + '"]').tab('show');
+    window.location = target;
+  } else {
+  	console.log('no match')
+  }
+}
+
 
 function setInstallationText(module) {
 
