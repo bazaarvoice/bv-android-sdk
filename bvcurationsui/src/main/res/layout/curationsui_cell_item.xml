@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.bazaarvoice.bvandroidsdk.CurationsView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/curationsView"
+  android:background="?android:attr/selectableItemBackground"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <RelativeLayout
+    android:id="@+id/curationCellContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.bazaarvoice.bvandroidsdk.CurationsAspectRatioImageView
+      android:id="@+id/curationImage"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:widthRatio="1"
+      app:heightRatio="1"/>
+
+    <ImageView
+      android:id="@+id/curationCellBrandIcon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignRight="@id/curationImage"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentEnd="true"
+      android:padding="8dp"/>
+
+  </RelativeLayout>
+
+</com.bazaarvoice.bvandroidsdk.CurationsView>

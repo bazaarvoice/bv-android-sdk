@@ -1,6 +1,20 @@
-/**
- * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
@@ -14,6 +28,8 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
+ * @deprecated  Use the {@link CurationsRecyclerView}
+ *
  * Bazaarvoice Provided {@link GridView} to display {@link CurationsView} objects
  */
 public final class CurationsGridView extends BVGridView implements AbsListView.OnScrollListener, CurationsFeedCallback {
@@ -49,7 +65,7 @@ public final class CurationsGridView extends BVGridView implements AbsListView.O
      * garbage collected if you do not keep a strong reference to it. }.
      */
     public void getCurationsFeedItems(final CurationsFeedRequest request, final String widgetId, final CurationsFeedCallback cb){
-        this.requestExternalId = request.builder.externalId;
+        this.requestExternalId = request.externalId;
         this.widgetId = widgetId;
         this.request = request;
         this.cbWeakRef = new WeakReference(cb);
@@ -70,7 +86,7 @@ public final class CurationsGridView extends BVGridView implements AbsListView.O
 
     @Override
     public void onSuccess(List<CurationsFeedItem> feedItems) {
-        CurationsAnalyticsManager.sendEmbeddedPageView(request.builder.externalId, ReportingGroup.GRIDVIEW);
+        CurationsAnalyticsManager.sendEmbeddedPageView(request.externalId, ReportingGroup.GRIDVIEW);
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onSuccess(feedItems);

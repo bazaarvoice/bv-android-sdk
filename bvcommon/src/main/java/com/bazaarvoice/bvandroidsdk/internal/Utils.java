@@ -13,10 +13,12 @@ import android.graphics.BitmapFactory;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Base64;
 
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.BazaarRuntimeException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -179,5 +181,12 @@ public final class Utils {
         }
 
         return inSampleSize;
+    }
+
+    public static String toBase64(Bitmap bitmap){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.NO_WRAP);
     }
 }

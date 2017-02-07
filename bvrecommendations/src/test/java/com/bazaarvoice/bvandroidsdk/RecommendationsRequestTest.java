@@ -20,7 +20,7 @@ public class RecommendationsRequestTest extends BVBaseTest {
     String userAuthStr = "123abc";
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
         shopperMarketingApiBaseUrl = "/";
         when(bvAuthenticatedUser.getUserAuthString()).thenReturn(userAuthStr);
     }

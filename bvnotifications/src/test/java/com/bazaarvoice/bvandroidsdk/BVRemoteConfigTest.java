@@ -9,7 +9,7 @@ import org.robolectric.RobolectricTestRunner;
 public class BVRemoteConfigTest extends BVBaseTest {
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
         notificationConfigUrl = "baseurl/";
         clientId = "testclient";
     }

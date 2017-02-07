@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertTrue;
 public class ConversationsStoresUnitTest extends BVBaseTest{
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "a different one";
         conversationApiKey = "a differnt key";
     }

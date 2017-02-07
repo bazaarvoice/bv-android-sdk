@@ -16,9 +16,4 @@ interface DemoProductCurationsRowContract {
         void showCurationsMessage(String message);
         void transitionToCurationsFeedItem(int index, List<CurationsFeedItem> curationsFeedItems);
     }
-
-    interface UserActionsListener {
-        void loadCurationsFeedItems(boolean forceRefresh);
-        void onCurationsFeedItemTapped(CurationsFeedItem curationsFeedItem);
-    }
 }

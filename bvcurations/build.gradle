@@ -10,6 +10,7 @@ apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 dependencies {
     compile project(':bvcommon')
     provided sdkDep.gson
+    provided sdkDep.okhttp3
 
     // Dependencies for local unit tests
     testCompile sdkTestDep.junit
@@ -19,6 +20,4 @@ dependencies {
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')
-if (isReleasing) {
-    apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
-}
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

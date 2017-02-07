@@ -3,21 +3,28 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
- * TODO: Describe file here.
+ * Internal Util class for common string operations
  */
 class StringUtils {
 
-    static String componentsSeparatedBy(List list, String splitBy) {
+    static boolean isEmpty(String input) {
+        return input == null || input.isEmpty();
+    }
+
+    static String componentsSeparatedBy(@NonNull List list, String splitBy) {
         return componentsSeparatedBy(list, splitBy, false);
     }
 
-    static String componentsSeparatedByWithEscapes(List list, String splitBy) {
+    static String componentsSeparatedByWithEscapes(@NonNull List list, String splitBy) {
         return componentsSeparatedBy(list, splitBy, true);
     }
 
+    // TODO The should escape option can be removed by refactoring our building/encoding of urls
     private static String componentsSeparatedBy(List list, String splitBy, boolean shouldEscape) {
         StringBuilder builder = new StringBuilder();
 
@@ -40,9 +47,9 @@ class StringUtils {
     }
 
     private static String bvCustomEscape(String string) {
-        string.replace(",", "\\,");
-        string.replace(":", "\\:");
-        string.replace("&", "%26");
+        string = string.replace(",", "\\,");
+        string = string.replace(":", "\\:");
+        string = string.replace("&", "%26");
 
         return string;
     }

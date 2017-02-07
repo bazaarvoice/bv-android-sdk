@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,9 @@ import android.widget.Toast;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
-import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
+import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
+import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
+import com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -36,14 +39,14 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductContract;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -55,8 +58,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DemoFancyProductDetailActivity extends AppCompatActivity implements DemoProductRecContract.View, DemoProductCurationsRowContract.View, DemoProductDetailRecAdapter.ProductTapListener, DemoProductDetailCurationsAdapter.CurationFeedItemTapListener, DemoProductContract.View {
-
+public class DemoFancyProductDetailActivity extends AppCompatActivity implements DemoProductRecContract.View, DemoProductDetailRecAdapter.ProductTapListener, DemoProductDetailCurationsAdapter.CurationFeedItemTapListener, DemoProductContract.View {
+    // region Properties
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
     private static final String EXTRA_PRODUCT_NAME = "extra_product_name";
     private static final String EXTRA_PRODUCT_IMAGE_URL = "extra_product_image_url";
@@ -76,8 +79,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @BindView(R.id.no_recs_found) TextView noRecsFoundTextView;
     @BindView(R.id.get_recs_progress) ProgressBar getRecsProgressBar;
 
-    @BindView(R.id.product_row_curations_recycler_view) CurationsRecyclerView curationsRecyclerView;
-    DemoProductDetailCurationsAdapter curationsAdapter;
+    @BindView(R.id.product_row_curations_recycler_view) CurationsInfiniteRecyclerView curationsRecyclerView;
     @BindView(R.id.no_curations_found) TextView noCurationsFoundTextView;
     @BindView(R.id.get_curations_progress) ProgressBar getCurationsProgressBar;
     @BindView(R.id.curations_submit_container) ViewGroup curationsSubmitViewGroup;
@@ -94,11 +96,13 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @BindView(R.id.conv_questions_loading) ProgressBar convQuestionsProgressBar;
 
     private DemoProductRecContract.UserActionsListener recRowActionListener;
-    private DemoProductCurationsRowPresenter curationsRowActionListener;
     private DemoProductContract.UserActionsListener productDataActionListener;
 
     @Inject DemoDataUtil demoDataUtil;
     @Inject DemoConfigUtils demoConfigUtils;
+    @Inject CurationsImageLoader curationsImageLoader;
+
+    // endregion
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,7 +136,6 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         setupCurationsRow();
 
         recRowActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, false, recommendationsRecyclerView);
-        curationsRowActionListener = new DemoProductCurationsRowPresenter(this, demoConfigUtils, demoDataUtil, productId);
         productDataActionListener = new DemoProductPresenter(demoConfigUtils, demoDataUtil, this, productId);
     }
 
@@ -140,7 +143,6 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         recRowActionListener.loadRecommendationsWithProductId(false, productId);
-        curationsRowActionListener.loadCurationsFeedItems(false);
         productDataActionListener.loadProduct(false);
     }
 
@@ -247,11 +249,45 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupCurationsRow() {
-        curationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        curationsAdapter = new DemoProductDetailCurationsAdapter(this);
-        curationsAdapter.setCurationFeedItemTapListener(this);
-        curationsRecyclerView.setAdapter(curationsAdapter);
         curationsRecyclerView.setNestedScrollingEnabled(false);
+        final CurationsFeedRequest request = new CurationsFeedRequest
+            .Builder(Collections.singletonList("__all__"))
+            .build();
+        curationsRecyclerView
+            .setRequest(request)
+            .setImageLoader(curationsImageLoader)
+            .setSuccessListener(new CurationsInfiniteRecyclerView.OnPageLoadSuccessListener() {
+                @Override
+                public void onPageLoadSuccess(int pageIndex, int pageSize) {
+                    Log.d("CurationPageLoad", "success - pageIndex: " + pageIndex + ", pageSize: " + pageSize);
+                }
+            })
+            .setFailureListener(new CurationsInfiniteRecyclerView.OnPageLoadFailureListener() {
+                @Override
+                public void onPagingLoadFailure(int pageIndex, Throwable throwable) {
+                    DemoFancyProductDetailActivity activity = DemoFancyProductDetailActivity.this;
+                    if (!activity.isFinishing()) {
+                        new AlertDialog.Builder(activity)
+                            .setTitle("Error!")
+                            .setMessage(throwable.getMessage())
+                            .show();
+                        throwable.printStackTrace();
+                    }
+                }
+            })
+            .setOnFeedItemClickListener(new CurationsInfiniteRecyclerView.OnFeedItemClickListener() {
+                @Override
+                public void onClick(CurationsFeedItem curationsFeedItem) {
+                    DemoFancyProductDetailActivity activity = DemoFancyProductDetailActivity.this;
+                    if (!activity.isFinishing()) {
+                        String productId = curationsFeedItem.getProductId();
+                        String feedItemId = String.valueOf(curationsFeedItem);
+                        DemoRouter.transitionToCurationsFeedItem(activity, productId, feedItemId);
+                    }
+                }
+            })
+            .load();
+
         curationsSubmitViewGroup.setOnClickListener(curationsSubmitClickListener);
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         fontAwesomeCameraIcon.setTypeface(fontAwesomeFont);
@@ -263,6 +299,8 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         DialogFragment dialog = DemoSubmitDialogFragment.newInstance(getString(R.string.review_body_hint));
         dialog.show(getSupportFragmentManager(), "SubmitReviewDialogFragment");
     }
+
+    // region Product Recommendations UI API
 
     @Override
     public void showRecommendations(List<BVProduct> bvProducts) {
@@ -293,37 +331,29 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void showCurations(List<CurationsFeedItem> feedItems) {
-        curationsAdapter.refreshFeedItems(feedItems);
+    // endregion
+
+    // region Curations UI API
+
+    public void showCurations() {
         noCurationsFoundTextView.setVisibility(View.GONE);
         getCurationsProgressBar.setVisibility(View.GONE);
     }
 
-    @Override
     public void showLoadingCurations(boolean show) {
         getCurationsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    @Override
     public void showNoCurations() {
         noCurationsFoundTextView.setVisibility(View.VISIBLE);
         getCurationsProgressBar.setVisibility(View.GONE);
-        curationsAdapter.refreshFeedItems(Collections.<CurationsFeedItem>emptyList());
     }
 
-    @Override
     public void showCurationsMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void transitionToCurationsFeedItem(int index, List<CurationsFeedItem> curationsFeedItems) {
-        CurationsFeedItem curationsFeedItem = curationsFeedItems.get(index);
-        String productId = curationsFeedItem != null && curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty() ? curationsFeedItem.getProducts().get(0).getId() : "";
-        String feedItemId = String.valueOf(curationsFeedItem.getId());
-        DemoRouter.transitionToCurationsFeedItem(this, productId, feedItemId);
-    }
+    // endregion
 
     /**
      * Use this to start the activity when the Product is cached, and is accessible with the product id
@@ -368,8 +398,10 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
 
     @Override
     public void onCurationFeedItemTapped(CurationsFeedItem curationsFeedItem) {
-        curationsRowActionListener.onCurationsFeedItemTapped(curationsFeedItem);
+//        curationsRowActionListener.onCurationsFeedItemTapped(curationsFeedItem);
     }
+
+    // region Product Detail UI API
 
     @Override
     public void transitionToReviews() {
@@ -424,6 +456,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         DemoQuestionsActivity.transitionTo(this, productId);
     }
 
+    // endregion
 
     private static class ProductContentContainer implements BVDisplayableProductContent {
         private String id;

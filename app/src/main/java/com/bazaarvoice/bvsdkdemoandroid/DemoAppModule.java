@@ -28,9 +28,12 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
+
+import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
@@ -70,6 +73,8 @@ public class DemoAppModule {
         return new Picasso.Builder(context)
                 .defaultBitmapConfig(Bitmap.Config.RGB_565)
                 .downloader(new OkHttp3Downloader(okHttpClient))
+                .executor(Executors.newFixedThreadPool(8))
+                .memoryCache(new LruCache(context))
                 .build();
     }
 

@@ -5,7 +5,6 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
@@ -62,8 +61,9 @@ public abstract class BVBaseTest {
     AnalyticsManager analyticsManager = mock(AnalyticsManager.class);
     BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
     BVAuthenticatedUser bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
-    Handler handler = new Handler(Looper.getMainLooper());
-    HandlerThread handlerThread = new HandlerThread("TestBgThread");
+    Handler handler = new Handler(RuntimeEnvironment.application.getMainLooper());
+    HandlerThread handlerThread = new HandlerThread("");
+
     @Before
     public void setup() {
         // arrange
@@ -78,6 +78,7 @@ public abstract class BVBaseTest {
         uuid = UUID.fromString(uuidTestStr);
         bvLogLevel = BVLogLevel.VERBOSE;
         bvSdkVersion = BuildConfig.BVSDK_VERSION_NAME;
+        handlerThread.start();
 
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs
@@ -85,9 +86,13 @@ public abstract class BVBaseTest {
         BVApiKeys keys = new BVApiKeys(shopperAdvertisingApiKey, conversationApiKey, conversationStoresApiKey, curationsApiKey, locationApiKey, pinApiKey);
         BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
         BVSDK.singleton = new BVSDK(RuntimeEnvironment.application, clientId, environment, keys, bvLogLevel, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, rootApiUrls, handler, handlerThread);
+
+        afterInitSdk(BVSDK.getInstance());
     }
 
-    abstract void modifyPropertiesToInitSDK();
+    protected void modifyPropertiesToInitSDK() {}
+
+    protected void afterInitSdk(BVSDK bvsdk) {}
 
     String jsonFileAsString(String fileName) {
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);

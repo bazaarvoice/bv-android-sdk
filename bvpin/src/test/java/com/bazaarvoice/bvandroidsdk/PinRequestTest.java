@@ -9,7 +9,7 @@ import org.robolectric.RobolectricTestRunner;
 public class PinRequestTest extends BVBaseTest {
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "https://www.example.com/";
         pinApiKey = "test123";
         clientId = "someclient";

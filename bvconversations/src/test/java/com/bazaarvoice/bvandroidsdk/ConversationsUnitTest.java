@@ -32,7 +32,7 @@ import static org.junit.Assert.assertNotNull;
 public class ConversationsUnitTest extends BVBaseTest{
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "a different one";
         conversationApiKey = "a differnt key";
     }

@@ -1,37 +1,50 @@
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.bazaarvoice.bvandroidsdk;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
-        * Bazaarvoice Provided {@link android.widget.ListView} to display {CurationsView} objects
-        */
-public final class CurationsListView extends BVListView implements CurationsFeedCallback {
+ * Bazaarvoice Provided {@link android.support.v7.widget.RecyclerView} to display {@link CurationsView} objects
+ */
+public final class CurationsRecyclerView extends BVRecyclerView implements CurationsFeedCallback {
 
-    public CurationsListView(Context context) {
-        super(context);
-    }
-
-    public CurationsListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
     private String widgetId = "MainGrid";
     private String requestExternalId;
     private CurationsFeedRequest request;
     private WeakReference<CurationsFeedCallback> cbWeakRef;
 
-    public CurationsListView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+
+    public CurationsRecyclerView(Context context) {
+        super(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public CurationsListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    public CurationsRecyclerView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public CurationsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     /**
@@ -44,7 +57,7 @@ public final class CurationsListView extends BVListView implements CurationsFeed
      * garbage collected if you do not keep a strong reference to it. }.
      */
     public void getCurationsFeedItems(final CurationsFeedRequest request, final String widgetId, final CurationsFeedCallback cb){
-        this.requestExternalId = request.builder.externalId;
+        this.requestExternalId = request.externalId;
         this.widgetId = widgetId;
         this.request = request;
         this.cbWeakRef = new WeakReference(cb);
@@ -54,18 +67,25 @@ public final class CurationsListView extends BVListView implements CurationsFeed
     }
 
     @Override
-    public void onViewGroupInteractedWith() {
-        CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.LISTVIEW);
+    public String getProductId() {
+        return requestExternalId;
     }
 
     @Override
-    public void onAddedToViewHierarchy() {
-        CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.LISTVIEW);
+    public void onViewGroupInteractedWith() {
+        CurationsAnalyticsManager.sendUsedFeatureEventScrolled(requestExternalId, ReportingGroup.RECYCLERVIEW);
+    }
+
+    @Override
+    public void onVisibleOnScreenStateChanged(boolean onScreen) {
+        if (onScreen) {
+            CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(requestExternalId, widgetId, ReportingGroup.RECYCLERVIEW);
+        }
     }
 
     @Override
     public void onSuccess(List<CurationsFeedItem> feedItems) {
-        CurationsAnalyticsManager.sendEmbeddedPageView(request.builder.externalId, ReportingGroup.LISTVIEW);
+        CurationsAnalyticsManager.sendEmbeddedPageView(request.externalId, ReportingGroup.RECYCLERVIEW);
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onSuccess(feedItems);
@@ -78,10 +98,5 @@ public final class CurationsListView extends BVListView implements CurationsFeed
         if (cb != null) {
             cb.onFailure(throwable);
         }
-    }
-
-    @Override
-    public String getProductId() {
-        return requestExternalId;
     }
 }
