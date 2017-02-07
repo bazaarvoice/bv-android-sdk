@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="CurationsAspectRatioImageView">
+    <attr name="widthRatio" format="integer"/>
+    <attr name="heightRatio" format="integer"/>
+  </declare-styleable>
+  <declare-styleable name="CurationsInfiniteRecyclerView">
+    <attr name="curationPageSize" format="integer"/>
+    <attr name="curationSpanCount" format="integer" />
+    <attr name="curationReverseLayout" format="boolean" />
+    <attr name="curationOrientation" format="enum">
+      <enum name="horizontal" value="0" />
+      <enum name="vertical" value="1" />
+    </attr>
+    <attr name="curationCellWidthRatio" format="integer"/>
+    <attr name="curationCellHeightRatio" format="integer"/>
+    <attr name="curationMaxItemCount" format="integer"/>
+  </declare-styleable>
+</resources>

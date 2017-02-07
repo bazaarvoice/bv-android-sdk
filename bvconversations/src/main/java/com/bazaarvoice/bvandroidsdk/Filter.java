@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +43,7 @@ final class Filter {
         this.queryString = this.toString();
     }
 
-    Filter(UGCOption option, EqualityOperator equalityOperator, List<String> values) {
+    Filter(UGCOption option, EqualityOperator equalityOperator, @NonNull List<String> values) {
         this.option = option;
         this.equalityOperator = equalityOperator;
         this.filterValues = values;

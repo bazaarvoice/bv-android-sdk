@@ -65,7 +65,8 @@ ext {
             bvSdkRecommendations: "com.bazaarvoice.bvandroidsdk:recommendations:$demoAppSharedVersions.bvSdkVersion",
             bvSdkPin            : "com.bazaarvoice.bvandroidsdk:pin:$demoAppSharedVersions.bvSdkVersion",
             bvSdkPinNotif       : "com.bazaarvoice.bvandroidsdk:pin-notifications:$demoAppSharedVersions.bvSdkVersion",
-            bvSdkStoreNotif     : "com.bazaarvoice.bvandroidsdk:store-notifications:$demoAppSharedVersions.bvSdkVersion"
+            bvSdkStoreNotif     : "com.bazaarvoice.bvandroidsdk:store-notifications:$demoAppSharedVersions.bvSdkVersion",
+            bvSdkCurationsUi    : "com.bazaarvoice.bvandroidsdk:curations-ui:$demoAppSharedVersions.bvSdkVersion"
     ]
 
     demoAppTestDep = [

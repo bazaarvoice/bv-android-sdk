@@ -27,6 +27,10 @@ class DemoSdkInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        if (demoConfigUtils.isDemoClient()) {
+            return interceptDemoRequests(chain);
+        }
+
         Request originalRequest = chain.request();
         boolean isProdHost = originalRequest.url().host().equals("network.bazaarvoice.com");
         boolean isAnalyticsEvent = originalRequest.url().encodedPath().contains("event");
@@ -41,26 +45,25 @@ class DemoSdkInterceptor implements Interceptor {
             return noResponse;
         }
 
-        if (demoConfigUtils.isDemoClient()) {
-            return interceptDemoRequests(chain);
-        }
-
         return chain.proceed(originalRequest);
     }
 
     private Response interceptDemoRequests(Chain chain) throws IOException {
         Request originalRequest = chain.request();
+        String host = originalRequest.url().host();
         String path = originalRequest.url().encodedPath();
 
-        if (path.contains("curations/content/get")) {
-            String curationsFeedItemsJsonStr = demoDataUtil.getCurationsFeedResponseJsonString();
-            Response response = new Response.Builder()
+        if (host.contains("api.bazaarvoice.com")) {
+            if (path.contains("curations/content/get")) {
+                String curationsFeedItemsJsonStr = demoDataUtil.getCurationsFeedResponseJsonString();
+                Response response = new Response.Builder()
                     .code(200)
                     .body(ResponseBody.create(MediaType.parse("json"), curationsFeedItemsJsonStr))
                     .request(originalRequest)
                     .protocol(Protocol.HTTP_2)
                     .build();
-            return response;
+                return response;
+            }
         }
 
         return chain.proceed(originalRequest);

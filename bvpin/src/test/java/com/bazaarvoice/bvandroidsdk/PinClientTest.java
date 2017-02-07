@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertNotNull;
 public class PinClientTest extends BVBaseTest {
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
 
     }
 

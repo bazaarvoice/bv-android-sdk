@@ -25,7 +25,7 @@ import static junit.framework.Assert.fail;
 @Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
 public class CurationsUnitTest extends BVBaseTest {
 
-    BVCurations curations = new BVCurations();
+    BVCurations curations;
     CurationsFeedRequest request = new CurationsFeedRequest.Builder(new ArrayList<String>(){{add("__all_");}}).build();
     String curationsDisplayFullUrl;
     String curationsPostFullUrl;
@@ -34,15 +34,21 @@ public class CurationsUnitTest extends BVBaseTest {
     private String genericFeedRequestStr;
 
     @Override
-    void modifyPropertiesToInitSDK() {
+    protected void modifyPropertiesToInitSDK() {
         Logger.setLogLevel(bvLogLevel);
         bazaarvoiceApiBaseUrl = server.url("").toString();
-        curationsDisplayFullUrl = bazaarvoiceApiBaseUrl + "curations/content/get?client=" + clientId +"&passKey=" + curationsApiKey;
+        curationsDisplayFullUrl = bazaarvoiceApiBaseUrl + "curations/content/get?client=" + clientId +"&passkey=" + curationsApiKey;
 
         genericFeedBuilder = new CurationsFeedRequest.Builder(Arrays.asList("__all__"));
         genericFeedRequestStr = curationsDisplayFullUrl + "&groups=__all__";
 
         curationsPostFullUrl  = bazaarvoiceApiBaseUrl + "curations/content/add/?client=" + clientId + "&passkey=" + curationsApiKey;
+    }
+
+    @Override
+    protected void afterInitSdk(BVSDK bvsdk) {
+        super.afterInitSdk(bvsdk);
+        curations = new BVCurations();
     }
 
     @Test
@@ -185,7 +191,7 @@ public class CurationsUnitTest extends BVBaseTest {
     @Test
     public void requestSerialization3(){
 
-        String expected = curationsDisplayFullUrl + "&groups=__all__&media={'video':{'width':480,'height':360}}";
+        String expected = curationsDisplayFullUrl + "&groups=__all__&media={%27video%27:{%27width%27:480,%27height%27:360}}";
 
         List<String> groups = new ArrayList<>();
         groups.add("__all__");
@@ -297,7 +303,8 @@ public class CurationsUnitTest extends BVBaseTest {
     @Test
     public void displayFullUrlGeneratedPerGroupLimit() {
         CurationsFeedRequest request = genericFeedBuilder
-                .perGroupLimit(20).build();
+                .perGroupLimit(20)
+                .build();
 
         assertEquals(genericFeedRequestStr + "&per_group_limit=20", request.toUrlQueryString());
     }
@@ -343,6 +350,14 @@ public class CurationsUnitTest extends BVBaseTest {
     }
 
     @Test
+    public void displayFullUrlGeneratedHasPhotoOrVideo() {
+        CurationsFeedRequest request = genericFeedBuilder
+            .hasPhotoOrVideo(true).build();
+
+        assertEquals(genericFeedRequestStr + "&has_photo_or_video=true", request.toUrlQueryString());
+    }
+
+    @Test
     public void displayFullUrlGeneratedIncludeComments() {
         CurationsFeedRequest request = genericFeedBuilder
                 .includeComments(true).build();
@@ -363,7 +378,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsMedia media = new CurationsMedia("potato", 9001, 9002);
         CurationsFeedRequest request = genericFeedBuilder
                 .media(media).build();
-        assertEquals(genericFeedRequestStr + "&media={'potato':{'width':9001,'height':9002}}", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&media={%27potato%27:{%27width%27:9001,%27height%27:9002}}", request.toUrlQueryString());
     }
 
     @Test

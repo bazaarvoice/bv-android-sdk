@@ -45,7 +45,7 @@ public class DemoConfigJsonParser implements DemoConfigParser {
             DemoConstants.PASSKEY_LOCATION,
             DemoConstants.PASSKEY_PIN,
             DemoConstants.BV_CLIENT_ID,
-            "Demo Keys");
+            DemoConfigParser.DEMO_DISPLAY_NAME);
     private Gson gson;
     private DemoConfigs demoConfigs;
     private Context context;
@@ -64,9 +64,6 @@ public class DemoConfigJsonParser implements DemoConfigParser {
                 clientConfig = currConfig;
                 break;
             }
-        }
-        if (clientConfig == DEFAULT_CONFIG) {
-            Log.e(TAG, "Failed to find clientId: " + clientId);
         }
         return clientConfig;
     }

@@ -22,8 +22,11 @@ import android.app.Application;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
+import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 
@@ -66,5 +69,10 @@ public class DemoBvModule {
     @Provides @Singleton
     PinClient providePinClient(BVSDK bvsdk) {
         return new PinClient();
+    }
+
+    @Provides @Singleton
+    CurationsImageLoader provideCurationImageLoader(Picasso picasso) {
+        return new DemoImageLoader(picasso);
     }
 }

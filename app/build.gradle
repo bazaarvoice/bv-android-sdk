@@ -108,6 +108,7 @@ dependencies {
         compile project(':bvpin')
         compile project(':bvpinnotifications')
         compile project(':bvstorenotifications')
+        compile project(':bvcurationsui')
     } else {
         compile demoAppDep.bvSdkAds
         compile demoAppDep.bvSdkRecommendations
@@ -116,6 +117,7 @@ dependencies {
         compile demoAppDep.bvSdkPin
         compile demoAppDep.bvSdkPinNotif
         compile demoAppDep.bvSdkStoreNotif
+        compile demoAppDep.bvSdkCurationsUi
     }
 
     compile demoAppDep.picasso

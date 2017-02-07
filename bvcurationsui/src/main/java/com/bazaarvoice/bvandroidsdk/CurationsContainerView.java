@@ -1,6 +1,20 @@
-/**
- * Copyright 2016 Bazaarvoice Inc. All rights reserved.
+/*
+ * Copyright 2017
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package com.bazaarvoice.bvandroidsdk;
 
 import android.annotation.TargetApi;
@@ -12,11 +26,8 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
- * Created by Bazaarvoice on 4/12/16.
- */
-
-
-/**
+ * @deprecated  Use the {@link CurationsRecyclerView}
+ *
  * Used to wrap around your custom views used to display Curations content to facilitate analytic events
  */
 public final class CurationsContainerView extends BVContainerView implements CurationsFeedCallback {
@@ -53,7 +64,7 @@ public final class CurationsContainerView extends BVContainerView implements Cur
      * garbage collected if you do not keep a strong reference to it. }.
      */
     public void getCurationsFeedItems(final CurationsFeedRequest request, final String widgetId, final CurationsFeedCallback cb){
-        this.requestExternalId = request.builder.externalId;
+        this.requestExternalId = request.externalId;
         this.widgetId = widgetId;
         this.request = request;
         this.cbWeakRef = new WeakReference(cb);
@@ -69,7 +80,7 @@ public final class CurationsContainerView extends BVContainerView implements Cur
 
     @Override
     public void onSuccess(List<CurationsFeedItem> feedItems) {
-        CurationsAnalyticsManager.sendEmbeddedPageView(request.builder.externalId, ReportingGroup.CUSTOM);
+        CurationsAnalyticsManager.sendEmbeddedPageView(request.externalId, ReportingGroup.CUSTOM);
         CurationsFeedCallback cb = cbWeakRef.get();
         if (cb != null) {
             cb.onSuccess(feedItems);

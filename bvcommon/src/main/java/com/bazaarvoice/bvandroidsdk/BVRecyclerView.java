@@ -22,20 +22,20 @@ abstract class BVRecyclerView extends RecyclerView implements BVViewGroupEventLi
 
     public BVRecyclerView(Context context) {
         super(context);
-        init();
+        init(context, null);
     }
 
     public BVRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
     public BVRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init();
+        init(context, attrs);
     }
 
-    void init() {
+    void init(Context context, @Nullable AttributeSet attr) {
         super.addOnScrollListener(onScrollListener);
         setWillNotDraw(false);
         EventView.bind(this, this, this);

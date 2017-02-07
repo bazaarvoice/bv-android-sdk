@@ -19,6 +19,7 @@ package com.bazaarvoice.bvsdkdemoandroid;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
+import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
@@ -62,6 +63,7 @@ import dagger.Component;
 public interface DemoAppComponent {
     BVSDK getBvSdk();
     BVConversationsClient getBvConvClient();
+    CurationsImageLoader getCurationsImageLoader();
     PinClient getPinClient();
     PrettyTime getPrettyTime();
     DemoConfigUtils getDemoConfigUtils();

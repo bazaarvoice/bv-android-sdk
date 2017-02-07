@@ -70,7 +70,7 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
         private Integer limit;
         private Integer offset;
 
-        public Builder(@NonNull  List<String> storeIds) {
+        public Builder(@NonNull List<String> storeIds) {
             this.storeIds = storeIds;
             this.limit = this.offset = null;
             getFilters().add(new Filter(Filter.Type.Id, EqualityOperator.EQ, storeIds));

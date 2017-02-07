@@ -57,7 +57,7 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
         private final BulkRatingOptions.StatsType statsType;
         private final List<String> productIds;
 
-        public Builder(@NonNull  List<String> productIds, BulkRatingOptions.StatsType statsType) {
+        public Builder(@NonNull List<String> productIds, BulkRatingOptions.StatsType statsType) {
             this.productIds = productIds;
             getFilters().add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
             this.statsType = statsType;

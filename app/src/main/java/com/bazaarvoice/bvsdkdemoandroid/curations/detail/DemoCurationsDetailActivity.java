@@ -3,6 +3,7 @@ package com.bazaarvoice.bvsdkdemoandroid.curations.detail;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
@@ -45,6 +46,16 @@ public class DemoCurationsDetailActivity extends AppCompatActivity implements De
     protected void onResume() {
         super.onResume();
         userActionsListener.loadCurationsFeed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
