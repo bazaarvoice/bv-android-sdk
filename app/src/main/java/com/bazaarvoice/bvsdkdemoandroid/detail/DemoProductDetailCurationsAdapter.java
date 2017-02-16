@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
-import com.bazaarvoice.bvandroidsdk.CurationsView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
@@ -58,7 +57,7 @@ public class DemoProductDetailCurationsAdapter extends RecyclerView.Adapter<Recy
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                     .into(demoViewHolder.image);
         }
-        demoViewHolder.curationsView.setCurationsFeedItem(feedItem);
+
         demoViewHolder.row.setTag(feedItem);
         demoViewHolder.row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,18 +80,13 @@ public class DemoProductDetailCurationsAdapter extends RecyclerView.Adapter<Recy
         notifyDataSetChanged();
     }
 
-    public void setCurationFeedItemTapListener(CurationFeedItemTapListener curationFeedItemTapListener) {
-        this.curationFeedItemTapListener = curationFeedItemTapListener;
-    }
 
     private final class DemoProductDetailViewHolder extends RecyclerView.ViewHolder {
-        CurationsView curationsView;
         RelativeLayout row;
         ImageView image;
 
         public DemoProductDetailViewHolder(View itemView) {
             super(itemView);
-            curationsView = (CurationsView) itemView;
             row = (RelativeLayout) itemView.findViewById(R.id.curations_snippet_container);
             image = (ImageView) itemView.findViewById(R.id.productThumbnailImage);
         }

@@ -47,20 +47,18 @@ import java.util.List;
  * curationsRecyclerView
  *  .setRequest(request)
  *  .setImageLoader(curationsImageLoader)
- *  .setFailureListener(new CurationsInfiniteRecyclerView.OnPageLoadFailureListener() {
+ *  .setOnPageLoadListener(new CurationsInfiniteRecyclerView.OnPageLoadListener() {
  *    @Override
- *    public void onPagingLoadFailure(Throwable throwable) {
+ *    public void onPageLoadSuccess(int pageIndex, int pageSize) {
+ *      dismissLoading();
+ *    }
+ *    @Override
+ *    public void onPageLoadFailure(int pageIndex, Throwable throwable) {
  *      throwable.printStackTrace();
+ *      dismissLoading();
  *    }
- *  })
- *  .setOnFeedItemClickListener(new CurationsInfiniteRecyclerView.OnFeedItemClickListener() {
- *    @Override
- *    public void onClick(CurationsFeedItem curationsFeedItem) {
- *      goToDetailPage(curationsFeedItem);
- *    }
- *  })
  *  .load();
- * }</pre>
+ * }
  */
 public class CurationsInfiniteRecyclerView extends BVRecyclerView {
   // region Properties
@@ -81,8 +79,7 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
   private CurationsInfiniteContract.Presenter presenter;
   private CurationsImageLoader imageLoader;
   private CurationsFeedRequest request;
-  private OnPageLoadFailureListener failureListener;
-  private OnPageLoadSuccessListener successListener;
+  private OnPageLoadListener pageLoadListener;
 
   // endregion
 
@@ -143,20 +140,11 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
   }
 
   /**
-   * @param failureListener Your implementaiton of the {@link OnPageLoadFailureListener} interface
+   * @param pageLoadListener Your implementation of the {@link OnPageLoadListener} interface
    * @return this class
    */
-  public CurationsInfiniteRecyclerView setFailureListener(final OnPageLoadFailureListener failureListener) {
-    this.failureListener = failureListener;
-    return this;
-  }
-
-  /**
-   * @param successListener Your implementation of the {@link OnPageLoadSuccessListener} interface
-   * @return this class
-   */
-  public CurationsInfiniteRecyclerView setSuccessListener(final OnPageLoadSuccessListener successListener) {
-    this.successListener = successListener;
+  public CurationsInfiniteRecyclerView setOnPageLoadListener(final OnPageLoadListener pageLoadListener) {
+    this.pageLoadListener = pageLoadListener;
     return this;
   }
 
@@ -233,26 +221,21 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
   }
 
   /**
-   * Listener to be notified when paging requests fail
+   * Listener to be notified when paging requests succeeds or fails
    */
-  public interface OnPageLoadFailureListener {
-    /**
-     * @param pageIndex Index of the page loaded. Zero-based indexing
-     * @param throwable Error for loading the page
-     */
-    void onPagingLoadFailure(int pageIndex, Throwable throwable);
-  }
-
-  /**
-   * Listener to be notified when paging requests succeed
-   */
-  public interface OnPageLoadSuccessListener {
+  public interface OnPageLoadListener {
     /**
      * @param pageIndex Index of the page loaded. Zero-based indexing
      * @param pageSize Number of items returned for this page. Will be less than or
      *                 equal to the passed in page size depending on where we are.
      */
     void onPageLoadSuccess(int pageIndex, int pageSize);
+
+    /**
+     * @param pageIndex Index of the page loaded. Zero-based indexing
+     * @param throwable Error for loading the page
+     */
+    void onPageLoadFailure(int pageIndex, Throwable throwable);
   }
 
   /**
@@ -281,7 +264,7 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
     if (getAdapter() == null) {
       setAdapter(new CurationsInfiniteAdapter(viewPropDelegate, imageLoader, feedItemClickListener));
     }
-    presenter = new CurationsInfinitePresenter(viewDelegate, viewPropDelegate, curations, failureListener, successListener, request);
+    presenter = new CurationsInfinitePresenter(viewDelegate, viewPropDelegate, curations, pageLoadListener, request);
     LinearLayoutManager layoutManager = (LinearLayoutManager) getLayoutManager();
     CurationsScrollListener scrollListener = new CurationsScrollListener(layoutManager, presenter);
     addOnScrollListener(scrollListener);
