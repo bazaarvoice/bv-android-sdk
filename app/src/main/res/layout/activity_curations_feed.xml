@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.bazaarvoice.bvsdkdemoandroid.curations.CurationsFeedFragment">
 
     <RelativeLayout
@@ -14,18 +15,6 @@
             style="@style/Widget.AppCompat.ProgressBar"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
-
-        <com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
-            android:id="@+id/curations_custom_list"
-            android:layout_width="match_parent"
-            android:layout_height="345dp"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView5"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +42,21 @@
             android:layout_marginTop="8dp"
             android:textColor="#265674" />
 
+        <com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView
+            android:id="@+id/product_row_curations_recycler_view"
+            android:layout_below="@id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/snippet_prod_height"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            app:curationSpanCount="1"
+            app:curationCellWidthRatio="1"
+            app:curationCellHeightRatio="1"
+            app:curationPageSize="20"
+            app:curationOrientation="horizontal"/>
 
     </RelativeLayout>
 </ScrollView>

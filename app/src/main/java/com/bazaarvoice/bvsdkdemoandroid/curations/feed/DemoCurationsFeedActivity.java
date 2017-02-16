@@ -1,17 +1,16 @@
 package com.bazaarvoice.bvsdkdemoandroid.curations.feed;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.bazaarvoice.bvandroidsdk.CurationsFeedCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
-import com.bazaarvoice.bvandroidsdk.CurationsRecyclerView;
+import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
+import com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
@@ -19,19 +18,16 @@ import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-public class DemoCurationsFeedActivity extends AppCompatActivity implements CurationsFeedCallback {
+public class DemoCurationsFeedActivity extends AppCompatActivity {
 
-    private DemoCurationsAdapter curationsAdapter;
-    private List<CurationsFeedItem> curationsFeedItems;
     private ProgressBar progressBar;
-    private CurationsRecyclerView recyclerView;
+    private CurationsInfiniteRecyclerView curationsInfiniteRecyclerView;
 
     @Inject DemoConfigUtils demoConfigUtils;
     @Inject DemoDataUtil demoDataUtil;
+    @Inject CurationsImageLoader curationsImageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,68 +39,70 @@ public class DemoCurationsFeedActivity extends AppCompatActivity implements Cura
         progressBar = (ProgressBar) findViewById(R.id.curations_loading);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView = (CurationsRecyclerView) findViewById(R.id.curations_custom_list);
-        recyclerView.setLayoutManager(layoutManager);
-
-        curationsAdapter = new DemoCurationsAdapter();
-        curationsAdapter.setOnItemClickListener(new DemoCurationsAdapter.OnCurationsUpdatePressedListener() {
-            @Override
-            public void onCurationsUpdatePressed(CurationsFeedItem update, View row) {
-                transitionToCurationsDetail(curationsFeedItems, curationsFeedItems.indexOf(update));
-            }
-        });
-
-        recyclerView.setAdapter(curationsAdapter);
+        curationsInfiniteRecyclerView = (CurationsInfiniteRecyclerView) findViewById(R.id.product_row_curations_recycler_view);
+        curationsInfiniteRecyclerView.setLayoutManager(layoutManager);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadCurationsFeed(recyclerView);
+        loadCurationsFeed(curationsInfiniteRecyclerView);
     }
 
-    private void loadCurationsFeed(CurationsRecyclerView recyclerView) {
-        if (demoConfigUtils.isDemoClient()) {
-            curationsFeedItems = demoDataUtil.getCurationsFeedItems();
-            curationsAdapter.setValues(curationsFeedItems);
-            dismissLoading();
-            return;
-        }
+    private void loadCurationsFeed(CurationsInfiniteRecyclerView recyclerView) {
 
         CurationsFeedRequest request = new CurationsFeedRequest.Builder(DemoConstants.CURATIONS_GROUPS)
-                .limit(20)
-                .withProductData(true)
-                .build();
+            .limit(20)
+            .withProductData(true)
+            .build();
 
-        recyclerView.getCurationsFeedItems(request, "MainGrid", this);
+        recyclerView.setRequest(request)
+            .setRequest(request)
+            .setImageLoader(curationsImageLoader)
+            .setOnPageLoadListener(new CurationsInfiniteRecyclerView.OnPageLoadListener() {
+                @Override
+                public void onPageLoadSuccess(int pageIndex, int pageSize) {
+                    dismissLoading();
+                }
+
+                @Override
+                public void onPageLoadFailure(int pageIndex, Throwable throwable) {
+                    throwable.printStackTrace();
+                    dismissLoading();
+                }
+            })
+            .setOnFeedItemClickListener(new CurationsInfiniteRecyclerView.OnFeedItemClickListener() {
+                @Override
+                public void onClick(CurationsFeedItem curationsFeedItem) {
+                    DemoCurationsFeedActivity activity = DemoCurationsFeedActivity.this;
+                    if (!activity.isFinishing()) {
+                        String productId = "";
+                        String feedItemId = "";
+                        if (curationsFeedItem != null) {
+                            if (curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty()) {
+                                productId = curationsFeedItem.getProducts().get(0).getId();
+                            }
+                            feedItemId = String.valueOf(curationsFeedItem.getId());
+                        }
+                        DemoRouter.transitionToCurationsFeedItem(activity, productId, feedItemId);
+                    }
+                }
+            })
+            .load();
     }
 
-
-    @Override
-    public void onSuccess(List<CurationsFeedItem> feedItems) {
-        curationsFeedItems = feedItems;
-        curationsAdapter.setValues(feedItems);
-        dismissLoading();
-    }
-
-    @Override
-    public void onFailure(Throwable throwable) {
-        dismissLoading();
-    }
 
     private void dismissLoading() {
         progressBar.setVisibility(View.GONE);
     }
 
-    public void transitionToCurationsDetail(List<CurationsFeedItem> updates, int idxOfSelected) {
-        CurationsFeedItem curationsFeedItem = updates.get(idxOfSelected);
-        String productId = curationsFeedItem != null && curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty() ? curationsFeedItem.getProducts().get(0).getId() : "";
-        String feedItemId = String.valueOf(curationsFeedItem.getId());
-        DemoRouter.transitionToCurationsFeedItem(this, productId, feedItemId);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    public static void transitionTo(Activity fromActivity) {
-        Intent intent = new Intent(fromActivity, DemoCurationsFeedActivity.class);
-        fromActivity.startActivity(intent);
-    }
 }

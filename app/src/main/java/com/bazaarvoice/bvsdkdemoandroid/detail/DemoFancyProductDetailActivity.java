@@ -256,15 +256,14 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         curationsRecyclerView
             .setRequest(request)
             .setImageLoader(curationsImageLoader)
-            .setSuccessListener(new CurationsInfiniteRecyclerView.OnPageLoadSuccessListener() {
+            .setOnPageLoadListener(new CurationsInfiniteRecyclerView.OnPageLoadListener() {
                 @Override
                 public void onPageLoadSuccess(int pageIndex, int pageSize) {
                     Log.d("CurationPageLoad", "success - pageIndex: " + pageIndex + ", pageSize: " + pageSize);
                 }
-            })
-            .setFailureListener(new CurationsInfiniteRecyclerView.OnPageLoadFailureListener() {
+
                 @Override
-                public void onPagingLoadFailure(int pageIndex, Throwable throwable) {
+                public void onPageLoadFailure(int pageIndex, Throwable throwable) {
                     DemoFancyProductDetailActivity activity = DemoFancyProductDetailActivity.this;
                     if (!activity.isFinishing()) {
                         new AlertDialog.Builder(activity)

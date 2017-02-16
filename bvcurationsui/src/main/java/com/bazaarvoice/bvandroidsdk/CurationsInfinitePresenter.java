@@ -21,8 +21,7 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
   private final CurationsInfiniteContract.ViewProps viewProps;
   private final BVCurations curations;
   private final CurationsFeedRequest request;
-  private final CurationsInfiniteRecyclerView.OnPageLoadFailureListener failureListener;
-  private final CurationsInfiniteRecyclerView.OnPageLoadSuccessListener successListener;
+  private final CurationsInfiniteRecyclerView.OnPageLoadListener pageLoadListener;
   private PagingFeedCallback pagingCb;
   private List<CurationsFeedItem> feedItems = new ArrayList<>();
   private int pageIndex = 0;
@@ -33,12 +32,11 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
 
   // region Constructor
 
-  CurationsInfinitePresenter(final CurationsInfiniteContract.View view, final CurationsInfiniteContract.ViewProps viewProps, final BVCurations curations, @Nullable final CurationsInfiniteRecyclerView.OnPageLoadFailureListener failureListener, final CurationsInfiniteRecyclerView.OnPageLoadSuccessListener successListener, final CurationsFeedRequest request) {
+  CurationsInfinitePresenter(final CurationsInfiniteContract.View view, final CurationsInfiniteContract.ViewProps viewProps, final BVCurations curations, @Nullable final CurationsInfiniteRecyclerView.OnPageLoadListener pageLoadListener, final CurationsFeedRequest request) {
     this.view = view;
     this.viewProps = viewProps;
     this.curations = curations;
-    this.failureListener = failureListener;
-    this.successListener = successListener;
+    this.pageLoadListener = pageLoadListener;
     this.request = request;
   }
 
@@ -124,7 +122,7 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
     builder.hasPhotoOrVideo(true);
 
     final CurationsFeedRequest request = builder.build();
-    pagingCb = new PagingFeedCallback(pageIndex++, failureListener, successListener, this, pageSize);
+    pagingCb = new PagingFeedCallback(pageIndex++, pageLoadListener, this, pageSize);
     curations.getCurationsFeedItems(request, pagingCb);
   }
 
@@ -207,15 +205,13 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
   }
 
   private final static class PagingFeedCallback extends CurationsPagingFeedCallback {
-    private final CurationsInfiniteRecyclerView.OnPageLoadFailureListener failureListener;
-    private final CurationsInfiniteRecyclerView.OnPageLoadSuccessListener successListener;
+    private final CurationsInfiniteRecyclerView.OnPageLoadListener pageLoadListener;
     private final CurationsInfinitePresenter presenter;
     private final int expectedPageSize;
 
-    PagingFeedCallback(int pageIndex, @Nullable final CurationsInfiniteRecyclerView.OnPageLoadFailureListener failureListener, @Nullable final CurationsInfiniteRecyclerView.OnPageLoadSuccessListener successListener, final CurationsInfinitePresenter presenter, int expectedPageSize) {
+    PagingFeedCallback(int pageIndex, @Nullable final CurationsInfiniteRecyclerView.OnPageLoadListener pageLoadListener, final CurationsInfinitePresenter presenter, int expectedPageSize) {
       super(pageIndex);
-      this.failureListener = failureListener;
-      this.successListener = successListener;
+      this.pageLoadListener = pageLoadListener;
       this.presenter = presenter;
       this.expectedPageSize = expectedPageSize;
     }
@@ -223,16 +219,16 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
     @Override
     public void onSuccess(List<CurationsFeedItem> feedItems) {
       presenter.updateContent(expectedPageSize, feedItems);
-      if (successListener != null) {
-        successListener.onPageLoadSuccess(getPageIndex(), feedItems.size());
+      if (pageLoadListener != null) {
+        pageLoadListener.onPageLoadSuccess(getPageIndex(), feedItems.size());
       }
     }
 
     @Override
     public void onFailure(Throwable throwable) {
       presenter.failed();
-      if (failureListener != null) {
-        failureListener.onPagingLoadFailure(getPageIndex(), throwable);
+      if (pageLoadListener != null) {
+        pageLoadListener.onPageLoadFailure(getPageIndex(), throwable);
       }
     }
   }

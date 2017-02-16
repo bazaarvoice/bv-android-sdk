@@ -28,7 +28,7 @@ import android.widget.FrameLayout;
  * This view will allow Bazaarvoice to receive feedback
  * about the users interaction with the item in order to help build ROI reports
  */
-public final class CurationsView extends BVView {
+final class CurationsView extends BVView {
 
     private static final String TAG = CurationsView.class.getSimpleName();
 
