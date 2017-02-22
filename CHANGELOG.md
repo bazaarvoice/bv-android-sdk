@@ -1,5 +1,13 @@
 # Changelog
 
+# 6.4.0
+
+## **NEW** Curations UI
+* Added Curations UI module which depends on the Curations Module
+* Added ```CurationsInfiniteRecyclerView``` widget which manages paging network requests, as well as analytic events
+* Removed all old unused Curations UI Widgets
+* Updated Code Sample App and Demo App to use the new ```CurationsInfiniteRecyclerView```
+
 # 6.3.0
 
 ## Conversations
