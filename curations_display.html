@@ -109,7 +109,13 @@ $(function(){
                             <span>Installation and Configuration</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="example_projects.html">
+                         <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
+                        </a>
+                    </li>
                 </ul>
+
             </li>
             <li class="nav-item">
                 <span class="nav-link" href="modules.html">
@@ -210,11 +216,6 @@ $(function(){
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="example_projects.html">
-                    <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
                     <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
@@ -244,17 +245,42 @@ $(function(){
               <div class="page-container">
 
                 <div class="flex flex-row" id="content_title">
-	Curations
+	Curations Display
 </div>
 
-<p>Use the Curations module of the Bazaarvoice Mobile SDKs to harness a wealth of social media content tailored for your marketing needs, and display it where it can deliver engagement, trust, and conversion: your Android app.</p>
-<br>
+<p>
+  Use the Curations module of the Bazaarvoice Mobile SDKs to harness a wealth
+  of social media content tailored for your marketing needs, and display it
+  where it can deliver engagement, trust, and conversion: your Android app.
+</p>
+
+<p>
+  Depending on your application requirements, there are two ways to fetch your
+  Curations data for display:
+  <ul>
+    <li>
+      <a href="#curationsui">CurationsInfiniteRecyclerView </a>(recommended)
+      - Use our custom, sub-classed RecyclerView to handle the entire display,
+      scrolling, and paging.
+    </li>
+    <li>
+      <a href="#curationsapi">API Direct</a> - If you have UI customization
+      that don't fit a RecyclerView, you can call the API directly to fetch the
+      Curations feed items you need for display.
+    </li>
+  </ul>
+</p>
+
+<p>
+  An example code walk-through can be found in
+  <code>com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity</code>.
+  For a more comprehensive demonstration of the Conversations API, please also
+  see <code>com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity</code>
+</p>
 
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  You must have Bazaarvoice Curations enabled to use the Curations module. Contact Bazaarvoice to set up Curations and to get your <code>apiKeyCurations</code>.</p>
 
 <hr>
-<br>
-
 
 
 
@@ -280,7 +306,8 @@ $(function(){
 
 
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'
+    compile 'com.bazaarvoice.bvandroidsdk:curations:6.+' // Provides API Direct
+    compile 'com.bazaarvoice.bvandroidsdk:curations-ui:6.+' // Provides View that Handles API Direct + Analytics for you
     compile 'com.google.android.gms:play-services-ads:9.{your_play_services_version}'
     compile 'com.android.support:recyclerview-v7:25.{your_support_library_version}'
 }
@@ -328,222 +355,140 @@ repositories {
 <br>
 
 
+<div id="curationsui">
+<h3>CurationsInfiniteRecyclerView</h3>
 
-<h3>Getting a Curations Feed</h3>
+<p>
+  The BVSDK comes with <code>CurationsInfiniteRecyclerView</code> class, which
+  you can simply drop into your xml layout, and define the desired attributes
+  there. The View will manage creation of its own adapter, the layout of each
+  cell (including the proper badges for the social channel), fetching of
+  Curations Feed Items, paging to give it an infinite scroll, as well as
+  sending off all of the required analytic events.
+</p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  This page assumes you have a new application with a launch Activity called <code>MainActivity</code>.</p>
+<img src="android-img/curations/curations_infinite_view.png" style="width: 200px;">
 
-<p>MainActivity's XML layout has a <code>CurationsRecyclerView</code> with the "curations_demo_list" id. The following XML code provides more information about Curations UI Containers.</p>
+<h5>Creating the Image Loader Class</h5>
 
-<pre><code class="xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.bazaarvoice.curationsexample.MainActivity"&gt;
+<p>
+  First you should provide an image loader class which should implement
+  the <code>com.bazaarvoice.bvandroidsdk.CurationsImageLoader</code> interface.
+  This is done to ensure optimal image loading for a large grid of images, while
+  allowing you to tie this into your own image loading solution so that we do
+  not enforce this View to use any specific library. An example implementation
+  with Picasso is visible in the
+  <code>com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader</code> class.
+  This implements tagging of the <code>ImageView</code> when creating the request
+  in order to implement cancelling of network requests which could prevent a
+  long request queue from forming, and delaying the display of images.
+</p>
 
-    &lt;com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
-        android:id="@+id/curations_demo_list"
-        android:layout_width="match_parent"
-        android:layout_height="345dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" /&gt;
+<h5>Adding the View</h5>
 
-&lt;/RelativeLayout&gt;</code></pre>
-<br>
-<p>The following code builds a request, sends it with <code>CurationsRecyclerView</code>, and receives a callback that either successfully provides a List of <code>CurationsFeedItem</code> or fails and provides a <code>Throwable</code> with a descriptive message.</p>
-<pre><code class="java">public class MainActivity extends AppCompatActivity implements CurationsFeedCallback {
+<p>
+  Add the view to your layout file:
+  <pre><code>&lt;com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView
+  android:id="@+id/my_curations_view"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/my_row_height"
+  app:curationSpanCount="1"
+  app:curationReverseLayout="false"
+  app:curationCellWidthRatio="1"
+  app:curationCellHeightRatio="1"
+  app:curationPageSize="50"
+  app:curationOrientation="horizontal"/&gt;</pre></code>
+</p>
 
+<h5>Start Loading in Activity</h5>
+
+<p>
+  Then in your <code>Activity#onCreate()</code>, get the View:
+  <pre><code>CurationsInfiniteRecyclerView myCurationsView =
+  (CurationsInfiniteRecyclerView) findViewById(R.id.my_curations_view);</pre></code>
+</p>
+<p>
+  Create a <code>CurationsFeedRequest</code> with your desired parameters (the
+  view will handle the paging):
+  <pre><code>final CurationsFeedRequest request = new CurationsFeedRequest
+  .Builder(Arrays.asList("feed1", "feed2"))
+  .build();</pre></code>
+</p>
+<p>
+  Enable the view to start loading, by passing it the required parameters, and
+  then calling load. This can be implemented with the following fluent API:
+  <pre><code>myCurationsView
+  .setRequest(request)
+  .setImageLoader(curationsImageLoader)
+  .setOnPageLoadListener(new CurationsInfiniteRecyclerView.OnPageLoadListener() {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        final CurationsRecyclerView recyclerView = (CurationsRecyclerView) findViewById(R.id.curations_demo_list);
-        //Create list of desired groups to retrieve feed for.
-        ArrayList<String> groups = new ArrayList&lt;&gt;();
-        groups.add("__all__");
-
-        //Builder used to construct CurationsRequest. Builder must be constructed with List of groups
-        CurationsRequest request = new CurationsRequest.Builder(groups)
-            //add other params. visit https://developer.bazaarvoice.com/docs/read/curations/content_display for full list
-            .limit(20)
-            .location(12.345, -12.345) // get curations content based on user's current location
-            .build();
-
-       //use CurationsRecyclerView instance to get Curations Feed and a CurationsFeedCallback to get handle successful and unsuccessful attempts to get Curations Feed
-        recyclerView.getCurationsFeedItems(request, "MainGrid", this);
+    public void onPageLoadSuccess(int pageIndex, int pageSize) {
+      // onSuccess, could cancel a spinner here when pageIndex == 0
+      // pageSize will alway be <= the provided page size in xml
     }
 
     @Override
-    public void onSuccess(List&lt;CurationsFeedItem&gt; list) {
-        //successfully completed. Use feedItems to populate UI
+    public void onPageLoadFailure(int pageIndex, Throwable throwable) {
+      // onFailure, could cancel a spinner here when pageIndex == 0
+      // throwable contains the reason for a page load failure
     }
-
+  })
+  .setOnFeedItemClickListener(new CurationsInfiniteRecyclerView.OnFeedItemClickListener() {
     @Override
-    public void onFailure(Throwable throwable) {
-        //failed to get feed. Descriptive throwable can be used to debug
-    }</code></pre>
-<br>
-
-<h3>Viewing an Example App</h3>
-<p>Refer to the <a href="example_projects.html">Example Projects</a> page for a working example app that gets and displays a Curations feed, and demonstrates the correct use of Curations UI Containers for analytic events</p>
-<br>
-
-<h3>Using Curations UI Containers</h3>
-<p>Providing feedback about user interaction helps Bazaarvoice produce useful ROI (return on investment) reports. To send feedback, use one of the provided views to wrap either a single <code>CurationsFeedItem</code> view or a group of <code>CurationsFeedItem</code> views.</p>
-<h4>Wrapping a single CurationsFeedItem view</h4>
-<p>In this example, you would use the following layout to display a single <code>CurationsFeedItem</code> after fetching it with the method explained in the "Getting the Curations Feed" section on this page:</p>
-<pre><code class="xml">&lt;LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="90dp"&gt;
-        &lt;ImageView
-            android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"/&gt;
-        &lt;TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="90dp" /&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<br>
-
-<p>To provide Bazaarvoice with feedback in this layout, wrap the <code>LinearLayout</code> with the provided <code>CurationsView</code>, as shown in the following example:</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"&gt;
-    &lt;LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"&gt;
-            &lt;ImageView
-                android:id="@+id/image"
-                android:layout_width="90dp"
-                android:layout_height="90dp"/&gt;
-            &lt;TextView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="90dp" /&gt;
-    &lt;/LinearLayout&gt;
-&lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;</code></pre>
-<br>
-
-<p>In the code, associate the inflated <code>CurationsView</code> object with the correlating <code>CurationsFeedItem</code> it correlates to. The following example uses the <code>getView</code> method of an Adapter:</p>
-<pre><code class="java">class MyAdapter extends ArrayAdapter<CurationsFeedItem> {
-    private List<CurationsFeedItem> feedItems;
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ...
-        CurationsFeedItem currentFeedItem = getItem(position);
-        CurationsView curationsView = (curationsView) convertView.findViewById(R.id.curationsView);
-        curationsView.setCurationsFeedItem(currentFeedItem);
-        ...
+    public void onClick(CurationsFeedItem curationsFeedItem) {
+      MyActivity activity = MyActivity.this;
+      if (!activity.isFinishing()) {
+          String productId = curationsFeedItem.getProductId();
+          String feedItemId = String.valueOf(curationsFeedItem);
+          MyRouter.transitionToCurationsFeedItem(activity, productId, feedItemId);
+      }
     }
-}</code></pre>
-<br>
+  })
+  .load();</pre></code>
+</p>
 
-<h4>Wrapping a group of CurationFeedItem views</h4>
-<p>In this example, you would use the following layout to display a group of <code>BVProducts</code> after fetching them with the method explained in the "Getting the Curations Feed" section on this page:</p>
-<pre><code class="xml">&lt;android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-<br>
+</div>
+<br/>
+<div id="curationsapi">
+<h3>API Direct</h3>
 
-<p>To provide Bazaarvoice with feedback in this layout, swap the <code>RecyclerView</code> with the provided <code>CurationsRecyclerView</code>, as shown in the following example:</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsRecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsRecyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-<br>
+<p>
+  To request a list of Curations Feed Items programatically simply create a
+  request object with the
+  <code>com.bazaarvoice.bvandroidsdk.CurationsFeedRequest.Builder</code> class,
+  a callback object with the
+  <code>com.bazaarvoice.bvandroidsdk.CurationsFeedCallback</code> class,
+  and provide them to an instance of the
+  <code>com.bazaarvoice.bvandroidsdk.BVCurations</code> class:
+  <pre><code>// For a full list of options, check out the Builder class
+final List<String> myGroups = Arrays.asList("__group1__", "__group2");
+final List<String> myTags = Arrays.asList("tag1", "tag2");
+final CurationsFeedRequest request = new CurationsFeedRequest
+  .Builder(myGroups)
+  .withProductData(true)
+  .tags(myTags)
+  .location(latitude, longitude)
+  .build();
 
-<h4>Other options for wrapping a group of CurationFeedItem views</h4>
-<p>If you want to use other <code>ViewGroups</code> in place of a <code>RecyclerView</code>, the Mobile SDK offers three options:</p>
-<ul>
-	<li>
-		<p><strong>CurationsListView</strong></p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsListView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsListView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-	</li>
-	<li>
-		<p><strong>CurationsGridView</strong></p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsGridView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsGridView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/&gt;</code></pre>
-	</li>
-	<li>
-		<p><strong>CurationsContainerView</strong>&#8212;If you want to use a different <code>ViewGroup</code> than <code>ListView</code>, <code>GridView</code>, or <code>RecyclerView</code>&#8212;such as a <code>LinearLayout</code>&#8212; to display <code>CurationsView</code> objects, wrap the ViewGroup with a <code>CurationsContainerView</code>, as shown in the following example.</p>
-<pre><code class="xml">&lt;com.bazaarvoice.bvandroidsdk.CurationsContainerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/curationsContainerView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"&gt;
+// This callback will be weakly held, so make sure that you retain it for as
+// long as you would like
+final CurationsFeedCallback callback = new CurationsFeedCallback() {
+  @Override
+  public void onSuccess(List<CurationsFeedItem> feedItems) {
+     // List of feed items loaded from the request
+  }
 
-    &lt;LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"&gt;
+  @Override
+  public void onFailure(Throwable throwable) {
+     // Throwable describing failure to fetch feed items
+  }
+}
 
-        &lt;com.bazaarvoice.bvandroidsdk.CurationsView
-            android:id="@+id/curationsView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"&gt;
-            &lt;LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"&gt;
-                    &lt;ImageView
-                        android:id="@+id/image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"/&gt;
-                    &lt;TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" /&gt;
-            &lt;/LinearLayout&gt;
-        &lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;
-
-        &lt;com.bazaarvoice.bvandroidsdk.CurationsView
-            android:id="@+id/curationsView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"&gt;
-            &lt;LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"&gt;
-                    &lt;ImageView
-                        android:id="@+id/image"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"/&gt;
-                    &lt;TextView
-                        android:id="@+id/text"
-                        android:layout_width="match_parent"
-                        android:layout_height="90dp" /&gt;
-            &lt;/LinearLayout&gt;
-        &lt;/com.bazaarvoice.bvandroidsdk.CurationsView&gt;
-
-    &lt;/LinearLayout&gt;
-
-&lt;/com.bazaarvoice.bvandroidsdk.CurationsContainerView&gt;</code></pre>
-	</li>
-</ul>
-<br>
+// It is best to instantiate the BVCurations object once and reuse it as a
+// singleton
+bvCurations.getCurationsFeedItems(request, callback);</pre></code>
+</p>
+</div>
 
 
 

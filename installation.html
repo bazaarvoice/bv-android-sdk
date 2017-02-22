@@ -109,7 +109,13 @@ $(function(){
                             <span>Installation and Configuration</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="example_projects.html">
+                         <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
+                        </a>
+                    </li>
                 </ul>
+
             </li>
             <li class="nav-item">
                 <span class="nav-link" href="modules.html">
@@ -210,11 +216,6 @@ $(function(){
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="example_projects.html">
-                    <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
                     <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
                 </a>
@@ -278,14 +279,15 @@ $(function(){
 
 <p>Add the following dependencies to include the Maven Central repository and add Bazaarvoice Mobile SDK modules. You only need to add the dependencies for the products you have an API key for.</p>
 <pre><code>dependencies {<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:curations:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:location:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:pin:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:pin-notifications:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:5.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:store-notifications:5.+'
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:curations:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:curations-ui:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:location:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:pin:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:pin-notifications:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:6.+'<br/>
+    compile 'com.bazaarvoice.bvandroidsdk:store-notifications:6.+'
 }<br/>
 repositories {<br/>
     mavenCentral()<br/>
@@ -344,6 +346,8 @@ Once you have install the source code for the SDK, you are now ready to initiali
             <tr>
                 <td>
                     <input type="checkbox" class="cb_BVCurations"/> <b>Curations</b>
+                    <br/>
+                    <input type="checkbox" class="cb_BVCurationsUI"/> <b>Curations UI</b>
                 </td>
                 <td>
                     <input type="text" class="key_BVCurations" placeholder="Curations API Key here" style="width:100%"/>
@@ -410,7 +414,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
         }
 
       // API key checkboxes
-      if ($('.cb_BVCurations:checked').length > 0 && !$('.key_BVCurations').val()){
+      if (($('.cb_BVCurations:checked').length > 0 && !$('.key_BVCurations').val()) || ($('.cb_BVCurationsUI:checked').length > 0 && !$('.key_BVCurations').val())){
           $('.key_BVCurations').css('border-color', 'red');
       } else {
           $('.key_BVCurations').css('border-color', '');
@@ -441,7 +445,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
           $('.key_BVCLocation').css('border-color', '');
       }
 
-      if (($('.cb_BVPIN:checked').length > 0 && !$('.key_BVPIN').val()) || ($('.cb_BVPINNotifications:checked').length > 0 && !$('.key_BVPINNotifications').val())){
+      if (($('.cb_BVPIN:checked').length > 0 && !$('.key_BVPIN').val()) || ($('.cb_BVPINNotifications:checked').length > 0 && !$('.key_BVPIN').val())){
           $('.key_BVPIN').css('border-color', 'red');
       } else {
           $('.key_BVPIN').css('border-color', '');
@@ -464,7 +468,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
               $('#java-bvsdkmanager').append('      .apiKeyShopperAdvertising("' + shopperKey + '")<br/>');
             }
 
-            if ($('.cb_BVCurations:checked').length > 0){
+            if (($('.cb_BVCurations:checked').length > 0) || $('.cb_BVCurationsUI:checked').length > 0){
                var curationsKey = $('.key_BVCurations').val()
                $('#java-bvsdkmanager').append('      .apiKeyCurations("' + curationsKey + '")<br/>');
             }
@@ -484,7 +488,7 @@ Once you have install the source code for the SDK, you are now ready to initiali
               $('#java-bvsdkmanager').append('      .apiKeyLocation("' + locationKey + '")<br/>');
             }
 
-            if ($('.cb_BVPIN:checked').length > 0 || $('.cb_BVPIN:checked').length > 0){
+            if ($('.cb_BVPIN:checked').length > 0 || $('.cb_BVPINNotifications:checked').length > 0){
               var pinKey = $('.key_BVPIN').val()
               $('#java-bvsdkmanager').append('      .apiKeyPin("' + pinKey + '")<br/>');
             }
