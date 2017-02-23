@@ -142,7 +142,7 @@ public class DemoConversationsAPIFragment extends Fragment {
             File localImageFile = null;
 
             try {
-                InputStream stream = getContext().getAssets().open("puppy.jpg");
+                InputStream stream = getContext().getAssets().open("puppy_thumbnail.jpg");
                 localImageFile = createFileFromInputStream(stream);
 
             } catch (IOException e) {

@@ -1,6 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Internal API: Custom schema for notification used feature events
  */
 class NotificationUsedFeatureSchema extends UsedFeatureCanonicalSchema {

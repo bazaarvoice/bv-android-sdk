@@ -60,7 +60,7 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
 
     @Override
     String getAPIKey(){
-        return BVSDK.getInstance().getApiKeys().getApiKeyConversationsStores();
+        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
     }
 
     public static final class Builder extends ConversationsDisplayRequest.Builder {

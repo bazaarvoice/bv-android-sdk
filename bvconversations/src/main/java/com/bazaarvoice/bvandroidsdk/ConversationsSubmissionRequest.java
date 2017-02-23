@@ -82,13 +82,15 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         return params;
     }
     private Map<String, Object> makeCommonQueryParams() {
+        BVMobileInfo mobileInfo = BVSDK.getInstance().getBvUserProvidedData().getBvMobileInfo();
+
         Map<String, Object> params = new HashMap<>();
         mapPutSafe(params, kAPI_VERSION, API_VERSION);
         mapPutSafe(params, kPASS_KEY, getApiKey());
-        mapPutSafe(params, kAPP_ID, BVSDK.getInstance().analyticsManager.getPackageName());
-        mapPutSafe(params, kAPP_VERSION, BVSDK.getInstance().analyticsManager.getVersionName());
-        mapPutSafe(params, kBUILD_NUM, BVSDK.getInstance().analyticsManager.getVersionCode());
-        mapPutSafe(params, kSDK_VERSION, BVSDK.SDK_VERSION);
+        mapPutSafe(params, kAPP_ID, mobileInfo.getMobileAppIdentifier());
+        mapPutSafe(params, kAPP_VERSION, mobileInfo.getMobileAppVersion());
+        mapPutSafe(params, kBUILD_NUM, mobileInfo.getMobileAppCode());
+        mapPutSafe(params, kSDK_VERSION, mobileInfo.getBvSdkVersion());
         mapPutSafe(params, kCAMPAIGN_ID, builder.campaignId);
         mapPutSafe(params, kFINGER_PRINT, builder.fingerPrint);
         mapPutSafe(params, kHOSTED_AUTH_EMAIL, builder.hostedAuthenticationEmail);

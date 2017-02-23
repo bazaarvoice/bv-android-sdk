@@ -7,7 +7,7 @@ final class BVRemoteConfig {
     static String getFeatureConfigUrl(String remoteFeatureName, String remoteFileName) {
         BVSDK bvsdk = BVSDK.getInstance();
         String amazonS3Url = bvsdk.getRootApiUrls().getNotificationConfigUrl();
-        String clientId = bvsdk.getClientId();
+        String clientId = bvsdk.getBvUserProvidedData().getClientId();
         return amazonS3Url + String.format(RELATIVE_CONFIG_TEMPLATE_URL,
                 clientId, remoteFeatureName, remoteFileName);
     }

@@ -92,7 +92,9 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
 
     private void trySendUsedFeatureInViewEvent() {
         if (onScreen && productId != null) {
-            ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            convAnalyticsManager.sendUsedFeatureInViewEvent(
+                productId, "QuestionsContainerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
         }
     }
 

@@ -37,13 +37,15 @@ public class CurationsPostRequest {
     }
 
     protected String toUrlQueryString() {
-        StringBuilder strBuilder = new StringBuilder(BVSDK.getInstance().getRootApiUrls().getBazaarvoiceApiRootUrl() );
+        BVSDK bvsdk = BVSDK.getInstance();
+        BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
+        StringBuilder strBuilder = new StringBuilder(bvsdk.getRootApiUrls().getBazaarvoiceApiRootUrl() );
 
         strBuilder.append("curations/content/add/");
         strBuilder.append("?client=");
-        strBuilder.append(BVSDK.getInstance().getClientId());
+        strBuilder.append(bvUserProvidedData.getClientId());
         strBuilder.append("&passkey=");
-        strBuilder.append(BVSDK.getInstance().getApiKeys().getApiKeyCurations());
+        strBuilder.append(bvUserProvidedData.getBvApiKeys().getApiKeyCurations());
 
         return strBuilder.toString();
     }

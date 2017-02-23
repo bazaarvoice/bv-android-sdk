@@ -127,10 +127,11 @@ public final class PinClient {
         Throwable throwable = null;
 
         BVSDK bvsdk = BVSDK.getInstance();
-        Context appContext = bvsdk.getApplicationContext();
+        Context appContext = bvsdk.getBvUserProvidedData().getAppContext();
         OkHttpClient okHttpClient = bvsdk.getOkHttpClient();
         Gson gson = bvsdk.getGson();
         String bvUserAgent = bvsdk.getBvsdkUserAgent();
+        BVLogger bvLogger = bvsdk.getBvLogger();
 
         AdIdResult adIdResult = AdIdRequestTask.getAdId(appContext);
         String adId = adIdResult.getAdId();
@@ -139,7 +140,7 @@ public final class PinClient {
             pendingPins = new ArrayList<>();
         } else {
             String pinRequestUrl = new PinRequest().getUrlString(adId);
-            Logger.d(TAG, pinRequestUrl);
+            bvLogger.d(TAG, pinRequestUrl);
             Request pinRequest = new Request.Builder()
                     .url(pinRequestUrl)
                     .addHeader("User-Agent", bvUserAgent)
@@ -148,7 +149,7 @@ public final class PinClient {
             try {
                 pinResponse = okHttpClient.newCall(pinRequest).execute();
                 if (!pinResponse.isSuccessful()) {
-                    Logger.e(TAG, "Unexpected code: " + pinResponse);
+                    bvLogger.e(TAG, "Unexpected code: " + pinResponse);
                     throwable = new Exception("Unexpected code: " + pinResponse);
                 } else {
                     Pin[] pinsArr = gson.fromJson(pinResponse.body().charStream(), Pin[].class);
@@ -159,10 +160,10 @@ public final class PinClient {
                     }
                 }
             } catch (IOException e) {
-                Logger.e(TAG, "Failed get pending pins", e);
+                bvLogger.e(TAG, "Failed get pending pins", e);
                 throwable = e;
             } catch (JsonIOException | JsonSyntaxException e) {
-                Logger.e(TAG, "Failed parse response", e);
+                bvLogger.e(TAG, "Failed parse response", e);
                 throwable = e;
             } finally {
                 if (pinResponse != null && pinResponse.body() != null) {

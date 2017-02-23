@@ -23,7 +23,7 @@ public class BVAds {
     public static Map<String, String> getCustomTargeting(){
         BVSDK bvsdk = BVSDK.getInstance();
 
-        String apiKeyShopperAdvertising = bvsdk.getApiKeys().getApiKeyShopperAdvertising();
+        String apiKeyShopperAdvertising = bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyShopperAdvertising();
         if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
             throw new IllegalStateException("BVAds SDK requires a shopper advertising api key");
         }
@@ -31,7 +31,7 @@ public class BVAds {
         ShopperProfile shopperProfile = bvsdk.getAuthenticatedUser().getShopperProfile();
         Map<String, String> targetingKeywords = (shopperProfile == null || shopperProfile.getProfile() == null) ? new HashMap<String, String>() : shopperProfile.getProfile().getTargetingKeywords();
 
-        Logger.d(TAG, "getCustomTargeting() - numTargetingKeywords: " + targetingKeywords.entrySet().size());
+        bvsdk.getBvLogger().d(TAG, "getCustomTargeting() - numTargetingKeywords: " + targetingKeywords.entrySet().size());
 
         return targetingKeywords;
     }

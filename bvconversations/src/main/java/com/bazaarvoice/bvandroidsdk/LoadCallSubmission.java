@@ -17,8 +17,6 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -31,6 +29,8 @@ import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static android.util.Log.d;
 
 /**
  * Wrapper for a {@link Call} for a Conversations request to
@@ -83,7 +83,8 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                     //if User intended to only Preview or if a Submit has already been previewed we are done and can callback
                     if (submissionRequest.getBuilder().getAction() == Action.Preview || (!submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit)) {
                         loadCallSubmission.successOnMainThread(conversationsCallback, conversationResponse);
-                        ConversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+                        convAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
                     }
                     //We know that a Submit was succesfully previewed so now we Submit for real
                     else {
@@ -134,7 +135,8 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                     if (submissionRequest.getForcePreview()) {
                         LoadCall loadCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest);
                         ResponseType finalResponse = (ResponseType) loadCall.loadSync();
-                        ConversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+                        convAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
                         return finalResponse;
                     }
                 } finally {
@@ -151,7 +153,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
     }
 
     private ResponseType postPhotosAndSubmissionSync(List<PhotoUpload> photoUploads, ConversationsSubmissionRequest submission) throws BazaarException {
-        Log.d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
+        d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
         final List<Photo> photos = new ArrayList<>();
 
         try {
@@ -178,7 +180,8 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
     }
 
     private void postPhotosAndSubmissionAsync(final ConversationsCallback<ResponseType> conversationsCallback, final List<PhotoUpload> photoUploads, final ConversationsSubmissionRequest submission) {
-        Logger.d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
+        final BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
+        bvLogger.d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
         final List<Photo> photos = Collections.synchronizedList(new ArrayList<Photo>());
 
         for (final PhotoUpload upload : photoUploads) {
@@ -193,10 +196,11 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
-                        ConversationsAnalyticsManager.sendSuccessfulConversationsPhotoUpload(upload);
                         Photo photo = deserializePhotoResponse(response);
                         photo.setCaption(upload.getCaption());
                         photos.add(photo);
+                        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+                        convAnalyticsManager.sendSuccessfulConversationsPhotoUpload(submission);
                         //whenever we have received successful responses for every expect photo upload we can
                         // reconstruct the submissionRequest request with the photo upload response details
                         if (photos.size() == photoUploads.size()) {

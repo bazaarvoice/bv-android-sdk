@@ -32,6 +32,7 @@ import okhttp3.RequestBody;
  */
 public final class BVConversationsClient {
     private static final OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
+    private static final BVLogger BV_LOGGER = BVSDK.getInstance().getBvLogger();
     private static final String CONVERSATIONS_RELATIVE_URL = "data/";
     static final String conversationsBaseUrl = BVSDK.getInstance().getRootApiUrls().getBazaarvoiceApiRootUrl() + CONVERSATIONS_RELATIVE_URL;
     private static final MediaType URL_ENCODED = MediaType.parse("application/x-www-form-urlencoded");
@@ -110,7 +111,7 @@ public final class BVConversationsClient {
 
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType request) {
         String fullUrl = String.format("%s%s?%s", conversationsBaseUrl, request.getEndPoint(), request.getUrlQueryString());
-        Logger.d("url", fullUrl);
+        BV_LOGGER.d("url", fullUrl);
         Request okRequest = new Request.Builder()
                 .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                 .url(fullUrl)
@@ -137,7 +138,7 @@ public final class BVConversationsClient {
                 .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
                 .url(fullUrl)
                 .build();
-        return new LoadCallSubmission<RequestType, ResponseType>(submission, responseTypeClass, okHttpClient.newCall(okRequest));
+        return new LoadCallSubmission<>(submission, responseTypeClass, okHttpClient.newCall(okRequest));
     }
 
     static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallWithPhotos(Class<ResponseType> responseTypeClass, RequestType submission, List<Photo> photos) {

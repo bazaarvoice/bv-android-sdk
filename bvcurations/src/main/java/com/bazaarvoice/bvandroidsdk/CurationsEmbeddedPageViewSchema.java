@@ -18,6 +18,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Analytic event for a Curations PageView
  */
 class CurationsEmbeddedPageViewSchema extends EmbeddedPageViewSchema {

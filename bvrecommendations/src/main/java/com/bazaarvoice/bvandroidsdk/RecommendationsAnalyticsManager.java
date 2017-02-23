@@ -30,7 +30,8 @@ public class RecommendationsAnalyticsManager {
      * @param bvProduct
      */
     public static void sendProductImpressionEvent(BVProduct bvProduct) {
-        Logger.d("RecAnalytics", "bvProduct " + bvProduct.getId() + " is impressed?" + bvProduct.impressed);
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
+        bvLogger.d("RecAnalytics", "bvProduct " + bvProduct.getId() + " is impressed?" + bvProduct.impressed);
         if (!shouldSendProductEvent(bvProduct) || bvProduct.impressed) {
             return;
         }
@@ -61,9 +62,10 @@ public class RecommendationsAnalyticsManager {
     }
 
     private static boolean shouldSendProductEvent(BVProduct bvProduct) {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         String productId = bvProduct == null ? "null_product" : bvProduct.getId();
         if (!isProductValid(bvProduct)) {
-            Logger.w(TAG, "Product impression not sent for invalid product: " + productId);
+            bvLogger.w(TAG, "Product impression not sent for invalid product: " + productId);
             return false;
         } else {
             return true;

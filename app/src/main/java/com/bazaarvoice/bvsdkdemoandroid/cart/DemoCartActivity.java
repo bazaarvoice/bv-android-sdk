@@ -16,9 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.BVTransactionEvent;
 import com.bazaarvoice.bvandroidsdk.BVPixel;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
-import com.bazaarvoice.bvandroidsdk.Transaction;
+import com.bazaarvoice.bvandroidsdk.BVTransaction;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 
 import butterknife.BindView;
@@ -84,8 +85,9 @@ public class DemoCartActivity extends AppCompatActivity {
         cartCheckoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Transaction transaction = cart.completeTransaction();
-                BVPixel.sendConversionTransactionEvent(transaction);
+                BVTransaction transaction = cart.completeTransaction();
+                BVTransactionEvent event = new BVTransactionEvent(transaction);
+                BVPixel.getInstance().track(event);
                 Toast toast = Toast.makeText(DemoCartActivity.this, "Successfully Checked Out", Toast.LENGTH_LONG);
                 toast.show();
                 updateViewVisibility();

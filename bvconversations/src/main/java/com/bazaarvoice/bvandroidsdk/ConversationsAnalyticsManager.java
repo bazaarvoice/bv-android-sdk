@@ -20,233 +20,398 @@ package com.bazaarvoice.bvandroidsdk;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class that wraps {@code AnalyticsManger}, builds and enqueues
  * Conversations specific Analytic events.
  */
-public class ConversationsAnalyticsManager {
+class ConversationsAnalyticsManager {
+  // region Properties
 
-    public static void sendUsedFeatureInViewEvent(String productId, MagpieBvProduct magpieBvProduct) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        ConversationSchemas.InViewUsedFeatureSchema schema = new ConversationSchemas.InViewUsedFeatureSchema(productId, magpieBvProduct, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema);
+  private static ConversationsAnalyticsManager instance;
+
+  private final BVPixel bvPixel;
+
+  // endregion
+
+  // region Constructor
+
+  ConversationsAnalyticsManager(BVPixel bvPixel) {
+    this.bvPixel = bvPixel;
+  }
+
+  // endregion
+
+  // region API
+
+  public static ConversationsAnalyticsManager getInstance(BVSDK bvsdk) {
+    if (instance == null) {
+      instance = new ConversationsAnalyticsManager(bvsdk.getBvPixel());
     }
+    return instance;
+  }
 
-    public static void sendUgcImpressionEvent(String productId, String contentId, ConversationSchemas.AnalyticsContentType analyticsContentType, MagpieBvProduct magpieBvProduct) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        ConversationSchemas.UgcImpressionSchema schema = new ConversationSchemas.UgcImpressionSchema(magpieMobileAppPartialSchema, productId, contentId, analyticsContentType, magpieBvProduct);
-        analyticsManager.enqueueEvent(schema);
+  /**
+   * Route all Display API Responses here to dispatch events
+   *
+   * @param conversationResponse
+   */
+  void sendSuccessfulConversationsDisplayResponse(ConversationsResponse conversationResponse) {
+    if (conversationResponse instanceof ReviewResponse) {
+      ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
+      sendUgcImpressionEventReviews(reviewResponse.getResults());
+      sendReviewsProductPageView(reviewResponse.getResults());
     }
+    else if (conversationResponse instanceof StoreReviewResponse) {
+      StoreReviewResponse storeReviewResponse = (StoreReviewResponse) conversationResponse;
+      sendUgcImpressionEventStoreReviews(storeReviewResponse.getResults());
+    }
+    else if (conversationResponse instanceof BulkStoreResponse) {
+      BulkStoreResponse bulkStoresResponse = (BulkStoreResponse) conversationResponse;
+      sendUgcImpressionEventStores(bulkStoresResponse.getResults());
+    }
+    else if (conversationResponse instanceof QuestionAndAnswerResponse) {
+      QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
+      sendUgcImpressionEventQAndA(questionAndAnswerResponse.getResults());
+      sendQAndAProductPageView(questionAndAnswerResponse.getResults());
+    }
+    else if (conversationResponse instanceof ProductDisplayPageResponse) {
+      ProductDisplayPageResponse productDisplayPageResponse = (ProductDisplayPageResponse) conversationResponse;
+      sendPdpProductPageView(productDisplayPageResponse.getResults());
+    } else if (conversationResponse instanceof AuthorsResponse) {
+      AuthorsResponse authorsResponse = (AuthorsResponse) conversationResponse;
+      sendUsedFeatureDisplayAuthors(authorsResponse);
+    }
+  }
 
-    public static void sendUgcImpressionEventReviews(List<Review> reviews) {
-        for (Review review : reviews) {
-            String productId = "", contentId = "";
-            if (review != null) {
-                productId = review.getProductId();
-                contentId = review.getId();
+  /**
+   * Route all Submit API Responses here to dispatch events
+   *
+   * @param request
+   */
+  void sendSuccessfulConversationsSubmitResponse(ConversationsSubmissionRequest request) {
+    boolean hasFingerPrint = request.getFingerprint() != null && !request.getFingerprint().isEmpty();
+
+    if (request instanceof QuestionSubmissionRequest) {
+      QuestionSubmissionRequest questionSubmissionRequest = (QuestionSubmissionRequest) request;
+      String productId = questionSubmissionRequest.getProductId();
+      sendUsedFeatureUgcContentSubmission(
+          BVEventValues.BVProductType.CONVERSATIONS_QANDA,
+          BVEventValues.BVFeatureUsedEventType.ASK_QUESTION,
+          productId,
+          hasFingerPrint);
+    }
+    if (request instanceof AnswerSubmissionRequest) {
+      AnswerSubmissionRequest answerSubmissionRequest = (AnswerSubmissionRequest) request;
+      String questionId = answerSubmissionRequest.getProductId();
+      sendUsedFeatureUgcContentSubmission(
+          BVEventValues.BVProductType.CONVERSATIONS_QANDA,
+          BVEventValues.BVFeatureUsedEventType.ANSWER_QUESTION,
+          // TODO: might be able to get this if we were parsing response instead of request
+          "none",
+          hasFingerPrint,
+          // TODO: might make more sense to use answerId here which we could also get if we were parsing response instead of request
+          questionId,
+          BVEventValues.BVImpressionContentType.QUESTION.toString());
+    }
+    if (request instanceof ReviewSubmissionRequest) {
+      ReviewSubmissionRequest reviewSubmissionRequest = (ReviewSubmissionRequest) request;
+      String productId = reviewSubmissionRequest.getProductId();
+      sendUsedFeatureUgcContentSubmission(
+          BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
+          BVEventValues.BVFeatureUsedEventType.WRITE_REVIEW,
+          productId,
+          hasFingerPrint);
+    }
+    if (request instanceof FeedbackSubmissionRequest) {
+      FeedbackSubmissionRequest feedbackSubmissionRequest = (FeedbackSubmissionRequest) request;
+      String contentId = feedbackSubmissionRequest.getContentId();
+      String contentType = feedbackSubmissionRequest.getContentType();
+      String feedbackType = feedbackSubmissionRequest.getFeedbackType();
+      sendUsedFeatureUgcFeedbackSubmission(
+          // TODO: might be able to get this if we were parsing response instead of request
+          "none",
+          contentId,
+          contentType,
+          feedbackType);
+    }
+  }
+
+  /**
+   * Route all Photo Upload Responses here to dispatch events
+   *
+   * @param request
+   */
+  void sendSuccessfulConversationsPhotoUpload(ConversationsSubmissionRequest request) {
+    if (request instanceof ReviewSubmissionRequest) {
+      ReviewSubmissionRequest reviewSubmissionRequest = (ReviewSubmissionRequest) request;
+      ReviewSubmissionRequest.Builder reviewSubmissionBuilder = (ReviewSubmissionRequest.Builder) reviewSubmissionRequest.getBuilder();
+      String productId = reviewSubmissionBuilder.productId;
+
+      BVFeatureUsedEvent event = new BVFeatureUsedEvent(
+          productId,
+          BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
+          BVEventValues.BVFeatureUsedEventType.PHOTO,
+          null);
+      bvPixel.track(event);
+    }
+  }
+
+  /**
+   * Route non-response dependent Used-Feature events dispatching here
+   *
+   * @param productId
+   * @param containerId
+   * @param bvProductType
+   */
+  public void sendUsedFeatureInViewEvent(String productId, String containerId, BVEventValues.BVProductType bvProductType) {
+    // TODO: Add Integration Test for all the Views calling this
+    if (productId == null || containerId == null) {
+      return;
+    }
+    BVInViewEvent event = new BVInViewEvent(productId, containerId, bvProductType, null);
+    bvPixel.track(event);
+  }
+
+  /**
+   * Route non-response dependent Used-Feature events dispatching here
+   *
+   * @param productId
+   * @param bvProductType
+   */
+  public void sendUsedFeatureScrolledEvent(String productId, BVEventValues.BVProductType bvProductType) {
+    productId = productId == null ? "" : productId;
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(
+        productId,
+        bvProductType,
+        BVEventValues.BVFeatureUsedEventType.SCROLLED,
+        null);
+    bvPixel.track(event);
+  }
+
+  // endregion
+
+  // region Helper Methods
+
+  private void sendUgcImpressionEvent(String productId, String contentId, BVEventValues.BVProductType bvProductType, BVEventValues.BVImpressionContentType bvImpressionContentType, String categoryId, String brand) {
+    BVImpressionEvent event = new BVImpressionEvent(
+        productId, contentId, bvProductType, bvImpressionContentType, categoryId, brand);
+    bvPixel.track(event);
+  }
+
+  private void sendUgcImpressionEventReviews(List<Review> reviews) {
+    for (Review review : reviews) {
+      String productId = "", contentId = "";
+      if (review != null) {
+        productId = review.getProductId();
+        contentId = review.getId();
+      }
+      sendUgcImpressionEvent(productId, contentId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, BVEventValues.BVImpressionContentType.REVIEW, null, null);
+    }
+  }
+
+  private void sendUgcImpressionEventStoreReviews(List<StoreReview> reviews) {
+    for (StoreReview review : reviews) {
+      String productId = "", contentId = "";
+      if (review != null) {
+        productId = review.getProductId();
+        contentId = review.getId();
+      }
+      sendUgcImpressionEvent(productId, contentId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, BVEventValues.BVImpressionContentType.STORE_REVIEW, null, null);
+    }
+  }
+
+  private void sendUgcImpressionEventStores(List<Store> stores) {
+    for (Store store : stores) {
+      String productId = "";
+      if (store != null) {
+        productId = store.getId();
+      }
+      sendUgcImpressionEvent(productId, "", BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, BVEventValues.BVImpressionContentType.STORE, null, null);
+    }
+  }
+
+  private void sendUgcImpressionEventQAndA(List<Question> questions) {
+    for (Question question : questions) {
+      String productId = "", questionId = "";
+      if (question != null) {
+        productId = question.getProductId();
+        questionId = question.getId();
+
+        List<Answer> answers = question.getAnswers();
+        if (answers != null) {
+          for (Answer answer : answers) {
+            String answerId = "";
+            if (answer != null) {
+              answerId = answer.getId();
             }
-            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, contentId, ConversationSchemas.AnalyticsContentType.Review, MagpieBvProduct.RATINGS_AND_REVIEWS);
+            sendUgcImpressionEvent(productId, answerId, BVEventValues.BVProductType.CONVERSATIONS_QANDA, BVEventValues.BVImpressionContentType.ANSWER, null, null);
+          }
         }
+      }
+      sendUgcImpressionEvent(productId, questionId, BVEventValues.BVProductType.CONVERSATIONS_QANDA, BVEventValues.BVImpressionContentType.QUESTION, null, null);
+    }
+  }
+
+  private void sendReviewsProductPageView(List<Review> reviews) {
+    if (reviews == null || reviews.isEmpty()) {
+      return;
+    }
+    Review review = reviews.get(0);
+    if (review != null) {
+      Product product = review.getProduct();
+      String productId = review.getProductId();
+      sendProductPageView(BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, productId, product);
+    }
+  }
+
+  private void sendQAndAProductPageView(List<Question> questions) {
+    if (questions == null || questions.isEmpty()) {
+      return;
+    }
+    Question question = questions.get(0);
+    if (question != null) {
+      Product product = question.getProduct();
+      String productId = question.getProductId();
+      sendProductPageView(BVEventValues.BVProductType.CONVERSATIONS_QANDA, productId, product);
+    }
+  }
+
+  private void sendPdpProductPageView(List<Product> products) {
+    if (products == null || products.isEmpty()) {
+      return;
+    }
+    Product product = products.get(0);
+    String productId = product.getId();
+    sendProductPageView(BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, productId, product);
+  }
+
+  private void sendProductPageView(@NonNull BVEventValues.BVProductType bvProductType, @NonNull String productId, @Nullable Product product) {
+    Map<String, Object> extraParams = new HashMap<>();
+    String categoryId = null;
+    if (product != null) {
+      categoryId = product.getCategoryId() == null ? "" : product.getCategoryId();
+
+      if (product.getQaStatistics() != null) {
+        int numQuestions = product.getQaStatistics().getTotalQuestionCount();
+        extraParams.put("numQuestions", numQuestions);
+      }
+      if (product.getQaStatistics() != null) {
+        int numAnswers = product.getQaStatistics().getTotalAnswerCount();
+        extraParams.put("numAnswers", numAnswers);
+      }
+      if (product.getReviewStatistics() != null) {
+        int numReviews = product.getReviewStatistics().getTotalReviewCount();
+        extraParams.put("numReviews", numReviews);
+      }
+      if (product.getBrand() != null && product.getBrand().get("name") != null) {
+        extraParams.put("brand", product.getBrandExternalId());
+      }
+    }
+    BVPageViewEvent event = new BVPageViewEvent(productId, bvProductType, categoryId);
+    event.setAdditionalParams(extraParams);
+    bvPixel.track(event);
+  }
+
+  private void sendUsedFeatureUgcContentSubmission(
+      @NonNull BVEventValues.BVProductType bvProductType,
+      @NonNull BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType,
+      @Nullable String productId, boolean hasFingerprint) {
+    sendUsedFeatureUgcContentSubmission(bvProductType, bvFeatureUsedEventType, productId, hasFingerprint, null, null);
+  }
+
+  private void sendUsedFeatureUgcContentSubmission(
+      @NonNull BVEventValues.BVProductType bvProductType,
+      @NonNull BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType,
+      @Nullable String productId, boolean hasFingerprint,
+      @Nullable String contentId,
+      @Nullable String contentType) {
+    productId = productId == null ? "none" : productId;
+
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(productId, bvProductType, bvFeatureUsedEventType, null);
+
+    Map<String, Object> extraParams = new HashMap<>();
+    extraParams.put(BVEventKeys.FeatureUsedEvent.HAS_FINGERPRINT, hasFingerprint);
+
+    if (contentId != null) {
+      extraParams.put(BVEventKeys.FeatureUsedEvent.CONTENT_ID, contentId);
+    }
+    if (contentType != null) {
+      extraParams.put(BVEventKeys.FeatureUsedEvent.BV_CONTENT_TYPE, contentType);
     }
 
-    public static void sendUgcImpressionEventStoreReviews(List<StoreReview> reviews) {
-        for (StoreReview review : reviews) {
-            String productId = "", contentId = "";
-            if (review != null) {
-                productId = review.getProductId();
-                contentId = review.getId();
-            }
-            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, contentId, ConversationSchemas.AnalyticsContentType.StoreReview, MagpieBvProduct.RATINGS_AND_REVIEWS);
-        }
+    event.setAdditionalParams(extraParams);
+
+    bvPixel.track(event);
+  }
+
+  private void sendUsedFeatureUgcFeedbackSubmission(
+      @NonNull String productId,
+      @Nullable String contentId,
+      @Nullable String contentType,
+      @Nullable String feedbackType) {
+    // TODO: These should be required nonnull params for building these feedback submission events
+    Map<String, Object> extraParams = new HashMap<>();
+    if (contentId != null) {
+      extraParams.put(BVEventKeys.FeatureUsedEvent.CONTENT_ID, contentId);
+    }
+    if (contentType != null) {
+      extraParams.put(BVEventKeys.FeatureUsedEvent.BV_CONTENT_TYPE, contentType);
+    }
+    if (feedbackType != null) {
+      extraParams.put(BVEventKeys.FeatureUsedEvent.DETAIL_1, feedbackType);
     }
 
-    public static void sendUgcImpressionEventStores(List<Store> stores) {
-        for (Store store : stores) {
-            String productId = "";
-            if (store != null) {
-                productId = store.getId();
-            }
-            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, "", ConversationSchemas.AnalyticsContentType.Store, MagpieBvProduct.RATINGS_AND_REVIEWS);
-        }
+    BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType = feedbackTypeToFeatureUsedEventType(feedbackType);
+
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, bvFeatureUsedEventType, null);
+    event.setAdditionalParams(extraParams);
+    bvPixel.track(event);
+  }
+
+  private BVEventValues.BVFeatureUsedEventType feedbackTypeToFeatureUsedEventType(String feedbackType) {
+    BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.FEEDBACK;
+
+    if (feedbackType == null || feedbackType.isEmpty()) {
+      return bvFeatureUsedEventType;
     }
 
-    public static void sendUgcImpressionEventQAndA(List<Question> questions) {
-        for (Question question : questions) {
-            String productId = "", questionId = "";
-            if (question != null) {
-                productId = question.getProductId();
-                questionId = question.getId();
-
-                List<Answer> answers = question.getAnswers();
-                if (answers != null) {
-                    for (Answer answer : answers) {
-                        String answerId = "";
-                        if (answer != null) {
-                            answerId = answer.getId();
-                        }
-                        ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, answerId, ConversationSchemas.AnalyticsContentType.Answer, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
-                    }
-                }
-            }
-            ConversationsAnalyticsManager.sendUgcImpressionEvent(productId, questionId, ConversationSchemas.AnalyticsContentType.Question, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
-        }
+    if (feedbackType.equals(FeedbackType.HELPFULNESS.getTypeString())) {
+      bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.FEEDBACK;
+    } else if (feedbackType.equals(FeedbackType.INAPPROPRIATE.getTypeString())) {
+      bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.INAPPROPRIATE;
     }
 
-    public static void sendUsedFeatureScrolledEvent(String productId, MagpieBvProduct magpieBvProduct) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        ConversationSchemas.ScrolledUsedFeatureSchema schema = new ConversationSchemas.ScrolledUsedFeatureSchema(productId, magpieBvProduct, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema);
+    return bvFeatureUsedEventType;
+  }
+
+  private void sendUsedFeatureDisplayAuthors(AuthorsResponse authorsResponse) {
+    if (!authorsResponse.getHasErrors()) {
+      List<Author> authors = authorsResponse.getResults();
+      for (Author author : authors) {
+        sendUsedFeatureDisplayAuthor(author.getId());
+      }
     }
+  }
 
-    public static void sendProductPageView(@NonNull MagpieBvProduct magpieBvProduct, @Nullable Product product) {
-        if (product != null) {
-            int numQuestions = product.getQaStatistics() != null ? product.getQaStatistics().getTotalQuestionCount() : 0;
-            int numAnswers = product.getQaStatistics() != null ? product.getQaStatistics().getTotalAnswerCount() : 0;
-            int numReviews = product.getReviewStatistics() != null ? product.getReviewStatistics().getTotalReviewCount() : 0;
-            String brand = product.getBrandExternalId();
-            String categoryId = product.getCategoryId();
+  private void sendUsedFeatureDisplayAuthor(String profileId) {
+    String productId = "none"; // TODO GOATZ This matches iOS but seems wrong
+    BVEventValues.BVProductType bvProductType = BVEventValues.BVProductType.CONVERSATIONS_PROFILE;
+    BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.PROFILE;
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(productId, bvProductType, bvFeatureUsedEventType, null);
 
-            AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-            MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-            ProductPageViewSchema schema = new ProductPageViewSchema.Builder(product.getId(), magpieMobileAppPartialSchema)
-                    .numQuestions(numQuestions)
-                    .numAnswers(numAnswers)
-                    .numReviews(numReviews)
-                    .brand(brand)
-                    .categoryId(categoryId)
-                    .magpieBvProduct(magpieBvProduct)
-                    .build();
-            analyticsManager.enqueueEvent(schema);
-        }
-    }
+    Map<String, Object> extraParams = new HashMap<>();
+    extraParams.put("interaction", false);
+    extraParams.put("page", profileId);
+    event.setAdditionalParams(extraParams);
 
-    static void sendSuccessfulConversationsDisplayResponse(ConversationsResponse conversationResponse) {
-        if (conversationResponse instanceof ReviewResponse) {
-            ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
-            ConversationsAnalyticsManager.sendUgcImpressionEventReviews(reviewResponse.getResults());
-        }
-        else if (conversationResponse instanceof StoreReviewResponse) {
-            StoreReviewResponse storeReviewResponse = (StoreReviewResponse) conversationResponse;
-            ConversationsAnalyticsManager.sendUgcImpressionEventStoreReviews(storeReviewResponse.getResults());
-        }
-        else if (conversationResponse instanceof BulkStoreResponse) {
-            BulkStoreResponse bulkStoresResponse = (BulkStoreResponse) conversationResponse;
-            ConversationsAnalyticsManager.sendUgcImpressionEventStores(bulkStoresResponse.getResults());
-        }
-        else if (conversationResponse instanceof QuestionAndAnswerResponse) {
-            QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
-            ConversationsAnalyticsManager.sendUgcImpressionEventQAndA(questionAndAnswerResponse.getResults());
-        }
-        else if (conversationResponse instanceof ProductDisplayPageResponse) {
-            ProductDisplayPageResponse productDisplayPageResponse = (ProductDisplayPageResponse) conversationResponse;
-            List<Product> products = productDisplayPageResponse.getResults();
-            if (products == null || products.isEmpty()) {
-                return;
-            }
-            Product product = products.get(0);
-            sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
-        }
-        else if (conversationResponse instanceof ReviewResponse) {
-            ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
-            List<Review> reviews = reviewResponse.getResults();
-            if (reviews == null || reviews.isEmpty()) {
-                return;
-            }
-            Review review = reviews.get(0);
-            if (review != null) {
-                Product product = review.getProduct();
-                sendProductPageView(MagpieBvProduct.RATINGS_AND_REVIEWS, product);
-            }
-        }
-        else if (conversationResponse instanceof QuestionAndAnswerResponse) {
-            QuestionAndAnswerResponse questionAndAnswerResponse = (QuestionAndAnswerResponse) conversationResponse;
-            List<Question> questions = questionAndAnswerResponse.getResults();
-            if (questions == null || questions.isEmpty()) {
-                return;
-            }
-            Question question = questions.get(0);
-            if (question != null) {
-                Product product = question.getProduct();
-                sendProductPageView(MagpieBvProduct.QUESTIONS_AND_ANSWERS, product);
-            }
-        } else if (conversationResponse instanceof AuthorsResponse) {
-            AuthorsResponse authorsResponse = (AuthorsResponse) conversationResponse;
-            if (!authorsResponse.getHasErrors()) {
-                List<Author> authors = authorsResponse.getResults();
-                for (Author author : authors) {
-                    sendUsedFeatureAuthorDisplayEvent(author.getId());
-                }
-            }
-        }
-    }
+    bvPixel.track(event);
+  }
 
-    public static void sendUsedFeatureUgcContentSubmission(@NonNull SubmitUsedFeatureSchema.SubmitFeature submitFeature, @Nullable String productId, boolean hasFingerprint) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(submitFeature, magpieMobileAppPartialSchema)
-                .productId(productId)
-                .fingerprint(hasFingerprint)
-                .build();
-        analyticsManager.enqueueEvent(schema);
-    }
-
-    public static void sendUsedFeatureUgcFeedbackSubmission(@NonNull SubmitUsedFeatureSchema.SubmitFeature submitFeature, @Nullable String contentId, @Nullable String contentType, @Nullable String feedbackType, boolean hasFingerprint) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(submitFeature, magpieMobileAppPartialSchema)
-                .contentId(contentId)
-                .contentType(contentType)
-                .detail1(feedbackType)
-                .fingerprint(hasFingerprint)
-                .build();
-        analyticsManager.enqueueEvent(schema);
-    }
-
-    public static void sendUsedFeatureAuthorDisplayEvent(String profileId) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        AuthorUsedFeatureSchema schema = new AuthorUsedFeatureSchema(profileId, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema);
-    }
-
-    static void sendSuccessfulConversationsSubmitResponse(ConversationsSubmissionRequest request) {
-        boolean hasFingerPrint = request.getFingerprint() != null && !request.getFingerprint().isEmpty();
-
-        if (request instanceof QuestionSubmissionRequest) {
-            QuestionSubmissionRequest questionSubmissionRequest = (QuestionSubmissionRequest) request;
-            String productId = questionSubmissionRequest.getProductId();
-            sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.ASK, productId, hasFingerPrint);
-        }
-        if (request instanceof AnswerSubmissionRequest) {
-            AnswerSubmissionRequest answerSubmissionRequest = (AnswerSubmissionRequest) request;
-            String productId = answerSubmissionRequest.getProductId();
-            sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.ANSWER, productId, hasFingerPrint);
-        }
-        if (request instanceof ReviewSubmissionRequest) {
-            ReviewSubmissionRequest reviewSubmissionRequest = (ReviewSubmissionRequest) request;
-            String productId = reviewSubmissionRequest.getProductId();
-            sendUsedFeatureUgcContentSubmission(SubmitUsedFeatureSchema.SubmitFeature.WRITE, productId, hasFingerPrint);
-        }
-        if (request instanceof FeedbackSubmissionRequest) {
-            FeedbackSubmissionRequest feedbackSubmissionRequest = (FeedbackSubmissionRequest) request;
-            String contentId = feedbackSubmissionRequest.getContentId();
-            String contentType = feedbackSubmissionRequest.getContentType();
-            String feedbackType = feedbackSubmissionRequest.getFeedbackType();
-            sendUsedFeatureUgcFeedbackSubmission(SubmitUsedFeatureSchema.SubmitFeature.FEEDBACK, contentId, contentType, feedbackType, hasFingerPrint);
-        }
-    }
-
-    static void sendSuccessfulConversationsPhotoUpload(PhotoUpload request) {
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        SubmitUsedFeatureSchema schema = new SubmitUsedFeatureSchema.Builder(SubmitUsedFeatureSchema.SubmitFeature.PHOTO, magpieMobileAppPartialSchema)
-                .build();
-        analyticsManager.enqueueEvent(schema);
-    }
-
+  // endregion
 }

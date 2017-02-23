@@ -8,6 +8,9 @@ import java.util.Map;
 
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
+/**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ */
 class ProfileCommonPartialSchema extends BvPartialSchema {
 
     private static final String KEY_PROFILE_ID = "profileId";

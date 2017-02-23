@@ -2,6 +2,7 @@ buildscript {
     dependencies {
         classpath sdkBuildDep.androidPlugin
         classpath sdkBuildDep.credentialsPlugin
+        classpath sdkBuildDep.jacocoPlugin
     }
 }
 

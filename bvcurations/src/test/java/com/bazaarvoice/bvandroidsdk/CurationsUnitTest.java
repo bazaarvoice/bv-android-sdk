@@ -22,7 +22,7 @@ import static junit.framework.Assert.fail;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class CurationsUnitTest extends BVBaseTest {
 
     BVCurations curations;
@@ -35,14 +35,13 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Override
     protected void modifyPropertiesToInitSDK() {
-        Logger.setLogLevel(bvLogLevel);
         bazaarvoiceApiBaseUrl = server.url("").toString();
-        curationsDisplayFullUrl = bazaarvoiceApiBaseUrl + "curations/content/get?client=" + clientId +"&passkey=" + curationsApiKey;
+        curationsDisplayFullUrl = bazaarvoiceApiBaseUrl + "curations/content/get?client=" + bvUserProvidedData.getClientId() +"&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyCurations();
 
         genericFeedBuilder = new CurationsFeedRequest.Builder(Arrays.asList("__all__"));
         genericFeedRequestStr = curationsDisplayFullUrl + "&groups=__all__";
 
-        curationsPostFullUrl  = bazaarvoiceApiBaseUrl + "curations/content/add/?client=" + clientId + "&passkey=" + curationsApiKey;
+        curationsPostFullUrl  = bazaarvoiceApiBaseUrl + "curations/content/add/?client=" + bvUserProvidedData.getClientId() + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyCurations();
     }
 
     @Override

@@ -28,7 +28,7 @@ public class ReviewSubmissionRequest extends BaseReviewSubmissionRequest {
 
     @Override
     protected String getApiKey() {
-        return BVSDK.getInstance().getApiKeys().getApiKeyConversations();
+        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
     }
 
     public static class Builder extends BaseReviewBuilder<Builder> {

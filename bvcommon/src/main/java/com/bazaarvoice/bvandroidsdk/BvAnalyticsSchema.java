@@ -12,6 +12,8 @@ import java.util.Map;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Internal SDK Base class for forming Analytics.
  * Requires a class, type, and source to be passed in.
  * Has helper methods to safely add non-null values to the data map,

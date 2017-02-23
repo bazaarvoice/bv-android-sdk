@@ -64,23 +64,24 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
         return params;
     }
 
-   private Map<String, Object> makeCommonQueryParams() {
-        Map<String, Object> params = new HashMap<>();
-        params.put(kAPI_VERSION, API_VERSION);
-        params.put(kPASS_KEY, getAPIKey());
-       AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
-        params.put(kAPP_ID, analyticsManager.getPackageName());
-        params.put(kAPP_VERSION, analyticsManager.getVersionName());
-        params.put(kBUILD_NUM, analyticsManager.getVersionCode());
-        params.put(kSDK_VERSION, BVSDK.SDK_VERSION);
+    private Map<String, Object> makeCommonQueryParams() {
+      BVMobileInfo mobileInfo = BVSDK.getInstance().getBvUserProvidedData().getBvMobileInfo();
 
-       List<String> filterQueries = new ArrayList<>();
-       for (Filter filter : builder.getFilters()) {
-            filterQueries.add(filter.getQueryString());
-       }
-       params.put(kFILTER, StringUtils.componentsSeparatedBy(filterQueries, "&"));
+      Map<String, Object> params = new HashMap<>();
+      params.put(kAPI_VERSION, API_VERSION);
+      params.put(kPASS_KEY, getAPIKey());
+      params.put(kAPP_ID, mobileInfo.getMobileAppIdentifier());
+      params.put(kAPP_VERSION, mobileInfo.getMobileAppVersion());
+      params.put(kBUILD_NUM, mobileInfo.getMobileAppCode());
+      params.put(kSDK_VERSION, mobileInfo.getBvSdkVersion());
 
-       return params;
+      List<String> filterQueries = new ArrayList<>();
+      for (Filter filter : builder.getFilters()) {
+        filterQueries.add(filter.getQueryString());
+      }
+      params.put(kFILTER, StringUtils.componentsSeparatedBy(filterQueries, "&"));
+
+      return params;
     }
 
     String getUrlQueryString() {
@@ -88,7 +89,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
     }
 
     String getAPIKey(){
-        return BVSDK.getInstance().getApiKeys().getApiKeyConversations();
+        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
     }
 
     abstract void addRequestQueryParams(Map<String, Object> queryParams);

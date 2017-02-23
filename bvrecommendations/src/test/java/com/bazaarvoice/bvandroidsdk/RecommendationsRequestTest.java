@@ -10,7 +10,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class})
 public class RecommendationsRequestTest extends BVBaseTest {
 
     String adId = "testAdId";
@@ -30,7 +30,7 @@ public class RecommendationsRequestTest extends BVBaseTest {
         RecommendationsRequest request = new RecommendationsRequest.Builder(limit)
                 .productId("foo")
                 .build();
-        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, shopperAdvertisingApiKey, clientId, request);
+        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), bvUserProvidedData.getClientId(), request);
         checkUrlStr(actualUrlStr, request);
     }
 
@@ -39,18 +39,18 @@ public class RecommendationsRequestTest extends BVBaseTest {
         RecommendationsRequest request = new RecommendationsRequest.Builder(limit)
                 .categoryId("foo")
                 .build();
-        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, shopperAdvertisingApiKey, clientId, request);
+        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), bvUserProvidedData.getClientId(), request);
         checkUrlStr(actualUrlStr, request);
     }
 
     private void checkUrlStr(String actualUrlStr, RecommendationsRequest request) {
-        assertEquals(expectedRequestUrl(shopperMarketingApiBaseUrl, adId, shopperAdvertisingApiKey, limit, clientId, request.getProductId(), request.getCategoryId()), actualUrlStr);
+        assertEquals(expectedRequestUrl(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), limit, bvUserProvidedData.getClientId(), request.getProductId(), request.getCategoryId()), actualUrlStr);
     }
 
     @Test
     public void canFormRequestWithOnlyLimit() {
         RecommendationsRequest request = new RecommendationsRequest.Builder(limit).build();
-        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, shopperAdvertisingApiKey, clientId, request);
+        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), bvUserProvidedData.getClientId(), request);
         checkUrlStr(actualUrlStr, request);
     }
 
@@ -66,20 +66,14 @@ public class RecommendationsRequestTest extends BVBaseTest {
         return requestUrl;
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void limitTooSmall() {
-        try {
-            new RecommendationsRequest.Builder(limitTooSmall).build();
-            fail();
-        } catch (IllegalArgumentException expected) { /** expected **/ }
+        new RecommendationsRequest.Builder(limitTooSmall).build();
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void limitTooBig() {
-        try {
-            new RecommendationsRequest.Builder(limitTooBig).build();
-            fail();
-        } catch (IllegalArgumentException expected) { /** expected **/ }
+        new RecommendationsRequest.Builder(limitTooBig).build();
     }
 
     @Test

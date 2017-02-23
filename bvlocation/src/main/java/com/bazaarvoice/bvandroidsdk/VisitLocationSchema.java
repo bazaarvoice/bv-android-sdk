@@ -3,6 +3,9 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+/**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ */
 class VisitLocationSchema extends BvAnalyticsSchema {
 
     private static final String eventClass = "Location";

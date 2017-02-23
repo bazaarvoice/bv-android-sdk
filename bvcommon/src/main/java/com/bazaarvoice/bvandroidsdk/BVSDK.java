@@ -5,7 +5,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -64,50 +63,36 @@ public class BVSDK {
 
     static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
 
-    final Application application;
+    final BVUserProvidedData bvUserProvidedData;
     final OkHttpClient okHttpClient;
     final AnalyticsManager analyticsManager;
     final BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
-    final String clientId;
-    final BazaarEnvironment environment;
     final BVAuthenticatedUser bvAuthenticatedUser;
     final Gson gson;
     final BVRootApiUrls rootApiUrls;
-    final BVApiKeys apiKeys;
     final Handler handler;
     final HandlerThread backgroundThread;
+    final BVPixel bvPixel;
+    final BVLogger bvLogger;
 
     // endregion
 
     // region Constructor
 
-    BVSDK(Application application, String clientId, BazaarEnvironment environment, BVApiKeys apiKeys, BVLogLevel logLevel, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, BVRootApiUrls rootApiUrls, Handler handler, HandlerThread backgroundThread) {
-        this.application = application;
+    BVSDK(BVUserProvidedData bvUserProvidedData, BVLogger bvLogger, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, BVRootApiUrls rootApiUrls, Handler handler, HandlerThread backgroundThread, BVPixel bvPixel) {
+        this.bvUserProvidedData = bvUserProvidedData;
+        this.bvLogger = bvLogger;
         this.okHttpClient = okHttpClient;
         this.analyticsManager = analyticsManager;
         this.bvActivityLifecycleCallbacks = bvActivityLifecycleCallbacks;
-        this.clientId = clientId;
-        this.environment = environment;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
         this.gson = gson;
         this.rootApiUrls = rootApiUrls;
-        this.apiKeys = apiKeys;
         this.handler = handler;
         this.backgroundThread = backgroundThread;
+        this.bvPixel = bvPixel;
 
-        // Also set here for when the constructor is used during tests
-        Logger.setLogLevel(logLevel);
-
-        /**
-         * Register with ActivityLifeCycleCallbacks for App lifecycle analaytics, and
-         * for triggering user profile updates
-         */
-        application.registerActivityLifecycleCallbacks(bvActivityLifecycleCallbacks);
-
-        /**
-         * Send Magpie lifecycle analytics signalling app launch
-         */
-        analyticsManager.enqueueAppStateEvent(MobileAppLifecycleSchema.AppState.LAUNCHED);
+        startAppLifecycleMonitoring();
     }
 
     // endregion
@@ -129,22 +114,15 @@ public class BVSDK {
     @MainThread
     public void setUserAuthString(@NonNull String userAuthString) {
         if (userAuthString == null || userAuthString.isEmpty()) {
-            Logger.w(TAG, "userAuthString must not be empty");
+            bvLogger.w(TAG, "userAuthString must not be empty");
             return;
         }
 
         bvAuthenticatedUser.setUserAuthString(userAuthString);
-        analyticsManager.dispatchSendPersonalizationEvent();
+        BVPersonalizationEvent event = new BVPersonalizationEvent(userAuthString);
+        bvPixel.track(event);
 
         bvAuthenticatedUser.updateUser("user auth string update");
-    }
-
-    void sendConversionTransactionEvent(Transaction transaction) {
-        analyticsManager.enqueueConversionTransactionEvent(transaction);
-    }
-
-    void sendNonCommerceConversionEvent(Conversion conversion) {
-        analyticsManager.enqueueNonCommerceConversionEvent(conversion);
     }
 
     public static Builder builder(Application application, String clientId) {
@@ -154,6 +132,20 @@ public class BVSDK {
     // endregion
 
     // region Internal API
+
+    private void startAppLifecycleMonitoring() {
+        /*
+         * Register with ActivityLifeCycleCallbacks for App lifecycle analytics, and
+         * for triggering user profile updates
+         */
+        bvUserProvidedData.getApplication().registerActivityLifecycleCallbacks(bvActivityLifecycleCallbacks);
+
+        /*
+         * Send Magpie lifecycle analytics signaling app launch
+         */
+        BVMobileAppLifecycleEvent event = new BVMobileAppLifecycleEvent(BVEventValues.AppState.LAUNCHED);
+        bvPixel.track(event);
+    }
 
     private static void confirmBVSDKCreated() {
         if (singleton == null) {
@@ -387,26 +379,28 @@ public class BVSDK {
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .build();
 
-            Logger.setLogLevel(logLevel);
-
+            BVLogger bvLogger = new BVLogger(logLevel);
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
             ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String versionName = Utils.getVersionName(application.getApplicationContext());
-            String versionCode = Utils.getVersionCode(application.getApplicationContext());
-            String packageName = Utils.getPackageName(application.getApplicationContext());
             UUID uuid = Utils.getUuid(application.getApplicationContext());
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
             String analyticsRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
             BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL);
-            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, gson, profilePollTimes);
-            AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), versionName, versionCode, clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
-            BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(analyticsManager);
             BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyConversationsStores, apiKeyCurations, apiKeyLocation, apiKeyPin);
+            BVMobileInfo bvMobileInfo = new BVMobileInfo(application.getApplicationContext());
+            BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, clientId, apiKeys, bvMobileInfo);
             BackgroundThread backgroundThread = new BackgroundThread();
             backgroundThread.start();
+            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, bvLogger, gson, profilePollTimes, backgroundThread);
+            AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, uuid);
+            BVPixel bvPixel = new BVPixel.Builder(application, clientId, bazaarEnvironment == BazaarEnvironment.STAGING)
+                .bgHandlerThread(backgroundThread)
+                .okHttpClient(okHttpClient)
+                .build();
+            BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(bvPixel, bvLogger);
 
             Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
                 @Override
@@ -423,19 +417,17 @@ public class BVSDK {
             });
 
             singleton = new BVSDK(
-                    application,
-                    clientId,
-                    bazaarEnvironment,
-                    apiKeys,
-                    logLevel,
-                    okHttpClient,
-                    analyticsManager,
-                    bvActivityLifecycleCallbacks,
-                    bvAuthenticatedUser,
-                    gson,
-                    endPoints,
-                    handler,
-                    backgroundThread);
+                bvUserProvidedData,
+                bvLogger,
+                okHttpClient,
+                analyticsManager,
+                bvActivityLifecycleCallbacks,
+                bvAuthenticatedUser,
+                gson,
+                endPoints,
+                handler,
+                backgroundThread,
+                bvPixel);
             return singleton;
         }
     }
@@ -444,26 +436,26 @@ public class BVSDK {
 
     // region BVSDK Helper Objects
 
-    Context getApplicationContext() {
-        return application.getApplicationContext();
+    BVUserProvidedData getBvUserProvidedData() {
+        return bvUserProvidedData;
     }
 
-    String getClientId() {
-        return clientId;
-    }
-
+    // TODO Remove
     AnalyticsManager getAnalyticsManager() {
         return analyticsManager;
     }
 
+    // TODO Child of BVWorkerData
     Gson getGson() {
         return gson;
     }
 
+    // TODO Child of BVWorkerData
     BVRootApiUrls getRootApiUrls() {
         return rootApiUrls;
     }
 
+    // TODO Child of BVWorkerData
     OkHttpClient getOkHttpClient() {
         return okHttpClient;
     }
@@ -472,20 +464,22 @@ public class BVSDK {
         return bvAuthenticatedUser;
     }
 
-    BVApiKeys getApiKeys() {
-        return apiKeys;
-    }
-
+    // TODO Child of BVWorkerData
     String getBvsdkUserAgent() {
         return BVSDK_USER_AGENT;
     }
 
-    Application getApplication() {
-        return application;
-    }
-
+    // TODO Child of BVWorkerData
     Looper getBackgroundLooper() {
         return backgroundThread.getLooper();
+    }
+
+    BVLogger getBvLogger() {
+        return bvLogger;
+    }
+
+    BVPixel getBvPixel() {
+        return bvPixel;
     }
 
     // endregion

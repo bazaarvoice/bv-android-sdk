@@ -43,16 +43,24 @@ public final class AnswersRecyclerView extends BVRecyclerView {
 
     @Override
     public void onFirstTimeOnScreen() {
-        ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureInViewEvent(
+            productId, "AnswersRecyclerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager.sendUsedFeatureScrolledEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override
     public String getProductId() {
+        // TODO: This is never being set
+        // With other conversations views there is a request associated with the
+        // view, and the product id is pulled from that. There is no request associated
+        // with this answer view as it's assumed the user has cached q&a response to
+        // load up the answers view with content
         return productId;
     }
 }

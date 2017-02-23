@@ -89,12 +89,15 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager.sendUsedFeatureScrolledEvent(productId, getMagpieBvProduct());
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, getBvProductType());
     }
 
     private void trySendUsedFeatureInViewEvent() {
         if (onScreen && productId != null) {
-            ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, getMagpieBvProduct());
+            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            convAnalyticsManager.sendUsedFeatureInViewEvent(
+                productId, getContainerId(), getBvProductType());
         }
     }
 
@@ -103,5 +106,9 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
         return productId;
     }
 
-    abstract MagpieBvProduct getMagpieBvProduct();
+    abstract BVEventValues.BVProductType getBVProductType();
+
+    abstract String getContainerId();
+
+    abstract BVEventValues.BVProductType getBvProductType();
 }

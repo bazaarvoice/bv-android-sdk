@@ -1,0 +1,36 @@
+buildscript {
+  dependencies {
+    classpath sdkBuildDep.androidPlugin
+    classpath sdkBuildDep.credentialsPlugin
+    classpath sdkBuildDep.jacocoPlugin
+  }
+}
+
+apply from: rootProject.file('gradle/base-module-android.gradle')
+
+android {
+  testOptions {
+    unitTests.all {
+      systemProperty 'robolectric.logging.enabled', 'true'
+    }
+  }
+}
+
+dependencies {
+  compile sdkDep.supportAnnotations
+  compile sdkDep.playServiceAds
+  compile sdkDep.okhttp3
+
+  // Dependencies for local unit tests
+  testCompile sdkTestDep.junit
+  testCompile sdkTestDep.mockito
+  testCompile sdkTestDep.mockWebServer
+  testCompile sdkTestDep.robolectric
+  testCompile sdkTestDep.roboPlayServices
+  testCompile sdkDep.gson
+  testCompile sdkTestDep.androidJson
+}
+
+apply from: rootProject.file('gradle/setup-signing.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+

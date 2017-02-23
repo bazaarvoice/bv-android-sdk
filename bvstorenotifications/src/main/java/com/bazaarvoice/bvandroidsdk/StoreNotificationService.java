@@ -37,6 +37,7 @@ public final class StoreNotificationService extends IntentService {
     }
 
     private void onNotificationButtonTappedEvent(Intent intent) {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         String featureName = BVNotificationService.getFeatureName(intent);
         switch (featureName) {
             case StoreNotificationManager.FEATURE_NAME: {
@@ -58,7 +59,7 @@ public final class StoreNotificationService extends IntentService {
                         break;
                     }
                 }
-                Logger.d(TAG, "Store notification tapped " + buttonTapped + " for storeId " + storeId);
+                bvLogger.d(TAG, "Store notification tapped " + buttonTapped + " for storeId " + storeId);
                 break;
             }
         }

@@ -45,8 +45,18 @@ public final class ReviewsRecyclerView extends ConversationsDisplayRecyclerView<
     }
 
     @Override
-    MagpieBvProduct getMagpieBvProduct() {
-        return MagpieBvProduct.RATINGS_AND_REVIEWS;
+    BVEventValues.BVProductType getBVProductType() {
+        return BVEventValues.BVProductType.CONVERSATIONS_REVIEWS;
+    }
+
+    @Override
+    String getContainerId() {
+        return "ReviewsRecyclerView";
+    }
+
+    @Override
+    BVEventValues.BVProductType getBvProductType() {
+        return BVEventValues.BVProductType.CONVERSATIONS_REVIEWS;
     }
 
 }

@@ -11,15 +11,13 @@ public class PinRequestTest extends BVBaseTest {
     @Override
     protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "https://www.example.com/";
-        pinApiKey = "test123";
-        clientId = "someclient";
     }
 
     @Test
     public void bvPinRequestFormat() {
         PinRequest pinRequest = new PinRequest();
         String urlString = pinRequest.getUrlString("adId");
-        String expectedString = "https://www.example.com/pin/toreview?passkey=test123&bvid=magpie_idfa_adId&client=someclient";
+        String expectedString = "https://www.example.com/pin/toreview?passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyPin() + "&bvid=magpie_idfa_adId&client=" + bvUserProvidedData.getClientId();
         Assert.assertEquals(expectedString, urlString);
     }
 

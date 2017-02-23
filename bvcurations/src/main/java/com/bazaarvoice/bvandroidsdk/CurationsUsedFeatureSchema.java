@@ -18,6 +18,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Curation UsedFeature Analytics Schema builder
  */
 class CurationsUsedFeatureSchema extends UsedFeatureCanonicalSchema {

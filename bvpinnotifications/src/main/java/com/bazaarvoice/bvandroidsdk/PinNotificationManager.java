@@ -89,22 +89,23 @@ public class PinNotificationManager {
 
     @WorkerThread
     private void dispatchScheduleNotification(String productId, boolean initialSchedule) {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         PinNotificationData pinNotificationData = BVNotificationUtil.getNotificationData(
                 REMOTE_CONFIG_FEATURE_NAME, REMOTE_CONFIG_FILE_NAME, PinNotificationData.class);
         if (pinNotificationData == null) {
-            Logger.e(TAG, "Failed to get PIN config data. Cancelling schedule call");
+            bvLogger.e(TAG, "Failed to get PIN config data. Cancelling schedule call");
             return;
         }
         if (!pinNotificationData.isNotificationsEnabled()) {
-            Logger.d(TAG, "PIN notifications are not enabled. Cancelling schedule call");
+            bvLogger.d(TAG, "PIN notifications are not enabled. Cancelling schedule call");
             return;
         }
         String productImageUrl = PinNotificationManager.getProductImageUrl(productId);
         if (productImageUrl == null) {
-            Logger.d(TAG, "Failed to get product info. Cancelling schedule call");
+            bvLogger.d(TAG, "Failed to get product info. Cancelling schedule call");
             return;
         }
-        Context appContext = BVSDK.getInstance().getApplicationContext();
+        Context appContext = BVSDK.getInstance().getBvUserProvidedData().getAppContext();
 
         BVNotificationUtil.ScheduleNotificationData<PinNotificationData> scheduleNotificationData =
                 new BVNotificationUtil.ScheduleNotificationData<>(
@@ -133,6 +134,7 @@ public class PinNotificationManager {
      */
     @WorkerThread @Nullable
     private static String getProductImageUrl(String productId) {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         String productImageUrl = null;
 
         ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder(productId).build();
@@ -144,10 +146,10 @@ public class PinNotificationManager {
                 Product product = products.get(0);
                 productImageUrl = product.getDisplayImageUrl();
             } else {
-                Logger.e(TAG, "No products found for " + productId);
+                bvLogger.e(TAG, "No products found for " + productId);
             }
         } catch (BazaarException e) {
-            Logger.e(TAG, "Failed to get PDPResponse for " + productId, e);
+            bvLogger.e(TAG, "Failed to get PDPResponse for " + productId, e);
         }
 
         return productImageUrl;

@@ -56,7 +56,9 @@ public final class AnswersContainerView extends BVContainerView implements Event
 
     @Override
     public void onFirstTimeOnScreen() {
-        ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureInViewEvent(
+            productId, "AnswersContainerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override
