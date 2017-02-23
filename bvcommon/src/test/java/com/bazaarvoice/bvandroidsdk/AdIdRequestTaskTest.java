@@ -9,30 +9,22 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.fail;
-
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class AdIdRequestTaskTest {
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void shouldFailWithNullCallback() {
-        try {
-            new AdIdRequestTask(RuntimeEnvironment.application.getApplicationContext(), null);
-            fail();
-        } catch (IllegalArgumentException expected) {}
+        new AdIdRequestTask(RuntimeEnvironment.application.getApplicationContext(), null);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void shouldFailWithNullContext() {
         AdIdRequestTask.AdIdCallback adIdCallback = new AdIdRequestTask.AdIdCallback() {
             @Override
             public void onAdInfoComplete(AdIdResult result) {}
         };
-        try {
-            new AdIdRequestTask(null, adIdCallback);
-            fail();
-        } catch (IllegalArgumentException expected) {}
+        new AdIdRequestTask(null, adIdCallback);
     }
 
 }

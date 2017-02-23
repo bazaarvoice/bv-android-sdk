@@ -72,7 +72,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
                     loadCallDisplay.successOnMainThread(conversationsCallback, conversationResponse);
                     // Route callbacks to Analytics Manager to handle any analytics that are associated
                     // with a successful display response
-                    ConversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+                    ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+                    convAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
                 }
             } finally {
                 if (response != null) {
@@ -101,7 +102,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             conversationResponse = deserializeAndCloseResponse(response);
             // Route callbacks to Analytics Manager to handle any analytics that are associated
             // with a successful display response
-            ConversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+            ConversationsAnalyticsManager convAnalyticManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            convAnalyticManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
         } catch (Throwable t) {
             throw new BazaarException(t.getMessage());
         } finally {

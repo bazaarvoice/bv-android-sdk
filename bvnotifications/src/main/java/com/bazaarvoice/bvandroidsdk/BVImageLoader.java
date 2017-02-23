@@ -16,10 +16,12 @@ import static android.content.ContentValues.TAG;
 
 final class BVImageLoader implements ImageLoader {
 
-    private OkHttpClient okHttpClient;
+    private final OkHttpClient okHttpClient;
+    private final BVLogger bvLogger;
 
-    BVImageLoader(OkHttpClient okHttpClient) {
+    BVImageLoader(OkHttpClient okHttpClient, BVLogger bvLogger) {
         this.okHttpClient = okHttpClient;
+        this.bvLogger = bvLogger;
     }
 
     @Override @WorkerThread
@@ -33,7 +35,7 @@ final class BVImageLoader implements ImageLoader {
         try {
             Response response = okHttpClient.newCall(staticMapRequest).execute();
             if (!response.isSuccessful()) {
-                Logger.e(TAG, "Unexpected code " + response);
+                bvLogger.e(TAG, "Unexpected code " + response);
             } else {
                 bitmap = Utils.decodeBitmapFromBytes(response.body().bytes(), 400, 260);
             }

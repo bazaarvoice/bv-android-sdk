@@ -23,6 +23,8 @@ import android.util.AttributeSet;
 import java.lang.ref.WeakReference;
 
 /**
+ * @deprecated Used the {@link QuestionsRecyclerView} instead
+ *
  * {@link android.widget.GridView} container for many
  * {@link QuestionView}s providing usage Analytic events.
  */
@@ -86,12 +88,15 @@ public final class QuestionsGridView extends BVGridView implements BVConversatio
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager.sendUsedFeatureScrolledEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     private void trySendUsedFeatureInViewEvent() {
         if (onScreen && productId != null) {
-            ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            convAnalyticsManager.sendUsedFeatureInViewEvent(
+                productId, "QuestionsGridView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
         }
     }
 

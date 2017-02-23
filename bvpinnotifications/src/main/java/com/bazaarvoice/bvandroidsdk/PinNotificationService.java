@@ -27,6 +27,7 @@ public class PinNotificationService extends IntentService {
     }
 
     private void onNotificationButtonTapped(Intent intent) {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         String featureName = BVNotificationService.getFeatureName(intent);
         switch (featureName) {
             case PinNotificationManager.FEATURE_NAME: {
@@ -48,7 +49,7 @@ public class PinNotificationService extends IntentService {
                         break;
                     }
                 }
-                Logger.d(TAG, "PIN notification tapped " + buttonTapped + " for productId " + productId);
+                bvLogger.d(TAG, "PIN notification tapped " + buttonTapped + " for productId " + productId);
                 break;
             }
         }

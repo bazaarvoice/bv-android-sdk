@@ -49,7 +49,7 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
 
     @Override
     protected String getApiKey() {
-        return BVSDK.getInstance().getApiKeys().getApiKeyConversations();
+        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
     }
 
     @Override

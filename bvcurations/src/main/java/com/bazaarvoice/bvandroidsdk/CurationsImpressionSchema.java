@@ -18,6 +18,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Curation Impression Analytics Schema builder
  */
 class CurationsImpressionSchema extends UgcImpressionCanonicalSchema {

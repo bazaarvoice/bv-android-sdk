@@ -30,7 +30,7 @@ public class BVRecommendations {
     public BVRecommendations() {
         BVSDK bvsdk = BVSDK.getInstance();
 
-        String apiKeyShopperAdvertising = bvsdk.getApiKeys().getApiKeyShopperAdvertising();
+        String apiKeyShopperAdvertising = bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyShopperAdvertising();
         if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
             throw new IllegalStateException("BVRecommendations SDK requires a shopper advertising api key");
         }
@@ -40,7 +40,7 @@ public class BVRecommendations {
         WeakReference<BVRecommendationsCallback> cbWeakRef = new WeakReference<BVRecommendationsCallback>(callback);
         RecAdIdCallback recAdIdCallback = new RecAdIdCallback(this, recommendationsRequest, cbWeakRef);
         BVSDK bvsdk = BVSDK.getInstance();
-        AdIdRequestTask adIdRequestTask = new AdIdRequestTask(bvsdk.getApplicationContext(), recAdIdCallback);
+        AdIdRequestTask adIdRequestTask = new AdIdRequestTask(bvsdk.getBvUserProvidedData().getAppContext(), recAdIdCallback);
         adIdRequestTask.execute();
     }
 
@@ -73,8 +73,9 @@ public class BVRecommendations {
         try {
             BVSDK bvsdk = BVSDK.getInstance();
             String baseUrlStr = bvsdk.getRootApiUrls().getShopperMarketingApiRootUrl();
-            String apiKey = bvsdk.getApiKeys().getApiKeyShopperAdvertising();
-            String clientId = bvsdk.getClientId();
+            BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
+            String apiKey = bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising();
+            String clientId = bvUserProvidedData.getClientId();
             String recRequestUrlStr = RecommendationsRequest.toUrlString(baseUrlStr, adId, apiKey, clientId, request);
             requestUrl = new URL(recRequestUrlStr);
         } catch (MalformedURLException e) {
@@ -88,7 +89,7 @@ public class BVRecommendations {
         }
 
         RequestData requestData = new RequestData(requestUrl);
-        new GetRecommendationsTask(cbWeakRef).execute(requestData);
+        new GetRecommendationsTask(cbWeakRef, BVSDK.getInstance().getBvLogger()).execute(requestData);
     }
 
     /**
@@ -142,9 +143,11 @@ public class BVRecommendations {
     private static final class GetRecommendationsTask extends AsyncTask<RequestData, Void, ResponseData> {
 
         private final WeakReference<BVRecommendationsCallback> cbWeakRef;
+        private final BVLogger bvLogger;
 
-        GetRecommendationsTask(WeakReference<BVRecommendationsCallback> cbWeakRef) {
+        GetRecommendationsTask(WeakReference<BVRecommendationsCallback> cbWeakRef, BVLogger bvLogger) {
             this.cbWeakRef = cbWeakRef;
+            this.bvLogger = bvLogger;
         }
 
         @Override
@@ -190,11 +193,11 @@ public class BVRecommendations {
             super.onPostExecute(responseData);
             BVRecommendationsCallback recommendationsCallback = cbWeakRef.get();
             if (recommendationsCallback == null) {
-                Logger.w(TAG, "Your Recommendations callback was recycled.");
+                bvLogger.w(TAG, "Your Recommendations callback was recycled.");
                 return;
             }
             if (responseData.isDidSucceed()) {
-                Logger.d(TAG, "Succesfully received the following recommendations:\n" + responseData.getRecommendedProducts().toString());
+                bvLogger.d(TAG, "Succesfully received the following recommendations:\n" + responseData.getRecommendedProducts().toString());
                 recommendationsCallback.onSuccess(responseData.getRecommendedProducts());
             } else {
                 responseData.getErrorThrowable().printStackTrace();

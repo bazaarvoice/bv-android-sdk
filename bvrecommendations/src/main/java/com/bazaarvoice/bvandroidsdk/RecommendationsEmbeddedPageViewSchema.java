@@ -1,6 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Created by Bazaarvoice on 4/8/16.
  */
 class RecommendationsEmbeddedPageViewSchema extends EmbeddedPageViewSchema {

@@ -5,8 +5,8 @@ package com.bazaarvoice.bvsdkdemoandroid.cart;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
-import com.bazaarvoice.bvandroidsdk.Transaction;
-import com.bazaarvoice.bvandroidsdk.TransactionItem;
+import com.bazaarvoice.bvandroidsdk.BVTransaction;
+import com.bazaarvoice.bvandroidsdk.BVTransactionItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +39,18 @@ public enum DemoCart {
         return products.get(i);
     }
 
-    public Transaction completeTransaction() {
-
-        List<TransactionItem> items = new ArrayList<>();
+    public BVTransaction completeTransaction() {
+        List<BVTransactionItem> items = new ArrayList<>();
 
         double total = 0;
 
         for (BVDisplayableProductContent product : products) {
-            TransactionItem item = new TransactionItem.Builder(product.getId())
-                    .name(product.getDisplayName())
-                    .price(0.01)
-                    .quantity(1)
-                    .imageUrl(product.getDisplayImageUrl())
-                    .build();
+            BVTransactionItem item = new BVTransactionItem.Builder(product.getId())
+                .setName(product.getDisplayName())
+                .setPrice(0.01)
+                .setQuantity(1)
+                .setImageUrl(product.getDisplayImageUrl())
+                .build();
 
             total += 0.1;
 
@@ -62,9 +61,12 @@ public enum DemoCart {
 
         String orderId = "123456";
 
-        return new Transaction.Builder(orderId, total, items, null)
-                .shipping(0.00)
-                .tax(0.00)
-                .build();
+        return new BVTransaction.Builder()
+            .setOrderId(orderId)
+            .setTotal(total)
+            .setItems(items)
+            .setShipping(0.00)
+            .setTax(0.00)
+            .build();
     }
 }

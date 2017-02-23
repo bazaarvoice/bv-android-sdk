@@ -24,10 +24,10 @@ package com.bazaarvoice.bvandroidsdk;
 abstract class ConversationsRequest {
     static final String kAPI_VERSION = "apiversion";
     static final String kPASS_KEY = "passkey";
-    static final String kAPP_ID = "appId";
-    static final String kAPP_VERSION = "appVersion";
-    static final String kBUILD_NUM = "buildNumber";
-    static final String kSDK_VERSION = "bvAndroidSdkVersion";
+    static final String kAPP_ID = "_appId";
+    static final String kAPP_VERSION = "_appVersion";
+    static final String kBUILD_NUM = "_buildNumber";
+    static final String kSDK_VERSION = "_bvAndroidSdkVersion";
 
     static final String API_VERSION = "5.4";
     abstract String getEndPoint();

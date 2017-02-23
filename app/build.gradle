@@ -100,6 +100,7 @@ android {
 
 dependencies {
     if (useLocalSdk) {
+        compile project(':bvanalytics')
         compile project(':bvadvertising')
         compile project(':bvrecommendations')
         compile project(':bvconversations')
@@ -110,6 +111,7 @@ dependencies {
         compile project(':bvstorenotifications')
         compile project(':bvcurationsui')
     } else {
+        compile demoAppDep.bvSdkAnalytics
         compile demoAppDep.bvSdkAds
         compile demoAppDep.bvSdkRecommendations
         compile demoAppDep.bvSdkConversations

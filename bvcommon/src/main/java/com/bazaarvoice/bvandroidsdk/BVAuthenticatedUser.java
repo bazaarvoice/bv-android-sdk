@@ -28,7 +28,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 import static com.bazaarvoice.bvandroidsdk.AdIdRequestTask.getAdId;
 
 /**
@@ -49,24 +48,25 @@ class BVAuthenticatedUser {
     private final String apiKey;
     private final Context applicationContext;
     private final OkHttpClient okHttpClient;
+    private final BVLogger bvLogger;
     private final Gson gson;
     private final List<Integer> profilePollTimes;
-    private final ShopperProfileThread shopperProfileThread;
+    private final HandlerThread bgHandlerThread;
     private final Handler shopperProfileHandler;
 
     private ShopperProfile shopperProfile;
     private String userAuthString;
 
-    public BVAuthenticatedUser(final Context applicationContext, final String baseUrl, final String apiKey, OkHttpClient okHttpClient, Gson gson, final List<Integer> profilePollTimes) {
+    public BVAuthenticatedUser(final Context applicationContext, final String baseUrl, final String apiKey, OkHttpClient okHttpClient, final BVLogger bvLogger, Gson gson, final List<Integer> profilePollTimes, final HandlerThread bgHandlerThread) {
         this.applicationContext = applicationContext;
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;
         this.okHttpClient = okHttpClient;
+        this.bvLogger = bvLogger;
         this.gson = gson;
         this.profilePollTimes = profilePollTimes;
-        this.shopperProfileThread = new ShopperProfileThread();
-        this.shopperProfileThread.start();
-        this.shopperProfileHandler= new ShopperProfileHandler(shopperProfileThread.getLooper(), this);
+        this.bgHandlerThread = bgHandlerThread;
+        this.shopperProfileHandler= new ShopperProfileHandler(this.bgHandlerThread.getLooper(), this);
     }
 
     /**
@@ -97,7 +97,7 @@ class BVAuthenticatedUser {
 
         try {
             URL url = getUrl();
-            Logger.d(TAG, "Search for profile at " + url);
+            bvLogger.d(TAG, "Search for profile at " + url);
 
             Request request = new Request.Builder()
                     .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
@@ -107,22 +107,22 @@ class BVAuthenticatedUser {
 
             response = okHttpClient.newCall(request).execute();
 
-            Logger.d(TAG, "Profile response:\n" + response);
+            bvLogger.d(TAG, "Profile response:\n" + response);
 
             if (response.isSuccessful()) {
                 try {
                     shopperProfile = gson.fromJson(response.body().charStream(), ShopperProfile.class);
 
-                    Logger.d("Profile", "Succesfully updated profile");
-                    Logger.d("Profile", shopperProfile.toString());
+                    bvLogger.d("Profile", "Succesfully updated profile");
+                    bvLogger.d("Profile", shopperProfile.toString());
                 } catch (JsonSyntaxException | JsonIOException e) {
-                    Logger.e("Profile", "Failed to parse profile", e);
+                    bvLogger.e("Profile", "Failed to parse profile", e);
                 }
             } else {
-                Logger.d("Profile", "Unsuccesfully updated profile, response code " + response.code() + "\nDid you forget to set a valid shopper advertising passkey?");
+                bvLogger.d("Profile", "Unsuccesfully updated profile, response code " + response.code() + "\nDid you forget to set a valid shopper advertising passkey?");
             }
         } catch (IOException e) {
-            Logger.e("Profile", "Failed to update profile", e);
+            bvLogger.e("Profile", "Failed to update profile", e);
         } finally {
             if (response != null && response.body() != null) {
                 response.body().close();
@@ -228,16 +228,6 @@ class BVAuthenticatedUser {
                 // Subsequent polls will only get a new profile if we don't have a valid one
                 shopperProfileHandler.sendMessageDelayed(shopperProfileHandler.obtainMessage(DISPATCH_SHOPPER_PROFILE_UPDATE_IF_NEEDED), profilePollTime);
             }
-        }
-    }
-
-    /**
-     * Background HandlerThread that shopper profile updating will
-     * be completed on.
-     */
-    static class ShopperProfileThread extends HandlerThread {
-        ShopperProfileThread() {
-            super(Utils.THREAD_PREFIX + SHOPPER_PROFILE_THREAD_NAME, THREAD_PRIORITY_BACKGROUND);
         }
     }
 

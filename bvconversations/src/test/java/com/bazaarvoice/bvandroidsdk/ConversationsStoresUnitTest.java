@@ -21,7 +21,6 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
     @Override
     protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "a different one";
-        conversationApiKey = "a differnt key";
     }
 
     @Test

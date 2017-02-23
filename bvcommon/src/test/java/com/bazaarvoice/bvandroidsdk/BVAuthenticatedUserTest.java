@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class BVAuthenticatedUserTest {
 
     BVAuthenticatedUser subject;
@@ -34,6 +34,7 @@ public class BVAuthenticatedUserTest {
     Gson gson;
     List<Integer> profilePollTimes;
     MockWebServer server;
+    BVLogger bvLogger;
 
     @Before
     public void setup() throws Exception {
@@ -44,9 +45,9 @@ public class BVAuthenticatedUserTest {
         shopperApiKey = "testString123";
         okHttpClient = new OkHttpClient();
         gson = new Gson();
+        bvLogger = new BVLogger(BVLogLevel.VERBOSE);
         profilePollTimes = Arrays.asList(0, 10, 20, 30);
-        Logger.setLogLevel(BVLogLevel.VERBOSE);
-        subject = new BVAuthenticatedUser(RuntimeEnvironment.application, baseurl, shopperApiKey, okHttpClient, gson, profilePollTimes);
+        subject = new BVAuthenticatedUser(RuntimeEnvironment.application, baseurl, shopperApiKey, okHttpClient, bvLogger, gson, profilePollTimes, new BaseTestUtils.TestHandlerThread());
     }
 
     @Test

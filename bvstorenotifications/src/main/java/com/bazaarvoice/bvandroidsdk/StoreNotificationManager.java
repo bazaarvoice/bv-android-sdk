@@ -115,25 +115,27 @@ public class StoreNotificationManager {
 
     @WorkerThread
     private void dispatchScheduleNotification(String storeId, long dwellTimeMillis, boolean initialSchedule) {
-        String clientId = BVSDK.getInstance().getClientId();
+        BVUserProvidedData bvUserProvidedData = BVSDK.getInstance().getBvUserProvidedData();
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
+        String clientId = bvUserProvidedData.getClientId();
         StoreNotificationData storeNotificationData = BVNotificationUtil.getNotificationData(
                 REMOTE_CONFIG_FEATURE_NAME, REMOTE_CONFIG_FILE_NAME, StoreNotificationData.class);
         if (storeNotificationData == null) {
-            Logger.e(TAG, "Failed to get PIN config data. Cancelling schedule call");
+            bvLogger.e(TAG, "Failed to get PIN config data. Cancelling schedule call");
             return;
         }
         if (!storeNotificationData.isNotificationsEnabled()) {
-            Logger.d(TAG, "PIN notifications are not enabled. Cancelling schedule call");
+            bvLogger.d(TAG, "PIN notifications are not enabled. Cancelling schedule call");
             return;
         }
         boolean dwelledLongEnough = dwellTimeMillis >= storeNotificationData.getVisitDurationMillis();
         if (!dwelledLongEnough && initialSchedule) {
             // Only valid for the initial exit geofence event. Not valid for reschedule button tap
-            Logger.d(TAG, "Was at geofence, but not long enough to trigger PIN. Cancelling schedule call");
+            bvLogger.d(TAG, "Was at geofence, but not long enough to trigger PIN. Cancelling schedule call");
             return;
         }
         String productImageUrl = StoreNotificationManager.getGoogleMapScreenShot(storeId, clientId);
-        Context appContext = BVSDK.getInstance().getApplicationContext();
+        Context appContext = bvUserProvidedData.getAppContext();
         BVNotificationUtil.ScheduleNotificationData<StoreNotificationData> scheduleNotificationData =
                 new BVNotificationUtil.ScheduleNotificationData<>(
                         appContext,

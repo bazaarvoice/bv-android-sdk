@@ -3,9 +3,6 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-/**
- * TODO: Describe file here.
- */
 class BVHandlerCallbackPayload {
     private final BVCallback externalCB;
     private final BVHandlerCallback internalCB;

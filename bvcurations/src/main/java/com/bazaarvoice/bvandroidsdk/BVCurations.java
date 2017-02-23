@@ -104,13 +104,14 @@ public class BVCurations {
     List<CurationsFeedItem> getCurationsFeedItems(CurationsFeedRequest request) throws Throwable {
         OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
         Gson gson = BVSDK.getInstance().getGson();
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
 
         Request httpRequest = new Request.Builder()
             .url(request.toUrlQueryString())
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
             .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
             .build();
-        Logger.v(getClass().getSimpleName(), httpRequest.url().toString());
+        bvLogger.v(getClass().getSimpleName(), httpRequest.url().toString());
 
         Response response = null;
         try {
@@ -157,6 +158,7 @@ public class BVCurations {
     private void dispatchPostContent(RequestData<CurationsPostResponse> requestData) {
         CurationsPostRequest request = (CurationsPostRequest) requestData.getObj1();
         OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
 
         Gson gson = BVSDK.getInstance().getGson();
 
@@ -173,8 +175,8 @@ public class BVCurations {
             .url(request.toUrlQueryString())
             .post(bodyBuilder.build())
             .build();
-        Logger.v(getClass().getSimpleName(), "POST: " + request.toUrlQueryString());
-        Logger.v(getClass().getSimpleName(), "MultiPart: " + jsonPayload);
+        bvLogger.v(getClass().getSimpleName(), "POST: " + request.toUrlQueryString());
+        bvLogger.v(getClass().getSimpleName(), "MultiPart: " + jsonPayload);
 
         Throwable errorThrowable = null;
         CurationsPostResponse curationsResponse = null;

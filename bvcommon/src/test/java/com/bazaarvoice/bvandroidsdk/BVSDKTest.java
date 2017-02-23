@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
@@ -21,13 +22,14 @@ import okhttp3.OkHttpClient;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class BVSDKTest {
 
     String clientId;
@@ -48,9 +50,11 @@ public class BVSDKTest {
     @Mock BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     @Mock BVAuthenticatedUser bvAuthenticatedUser;
     @Mock AdIdRequestTask adIdRequestTask;
+    @Mock BVUserProvidedData bvUserProvidedData;
+    @Mock BVPixel bvPixel;
     Gson gson;
     Handler handler = new Handler(Looper.getMainLooper());
-    HandlerThread bgHandlerThread = new HandlerThread("TestBgThread");
+    HandlerThread bgHandlerThread = new BaseTestUtils.TestHandlerThread();
     BVApiKeys keys;
     BVRootApiUrls rootApiUrls;
 
@@ -68,28 +72,17 @@ public class BVSDKTest {
         gson = new Gson();
         shopperAdvertisingApiKey = "/";
 
-        executorService = mock(ExecutorService.class);
-        analyticsManager = mock(AnalyticsManager.class);
-        bvActivityLifecycleCallbacks = mock(BVActivityLifecycleCallbacks.class);
-        bvAuthenticatedUser = mock(BVAuthenticatedUser.class);
         keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, conversationsStoresApiKey, curationsApiKey, locationApiKey, pinApiKey);
         rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
 
         RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");
+      when(bvUserProvidedData.getApplication()).thenReturn(RuntimeEnvironment.application);
     }
 
-    @Test
+    @Test(expected=IllegalStateException.class)
     public void bvSdkShouldRequireInit() {
         // Trying to use bvsdkCommon before initializing BVSDK should throw exception
-        try {
-            BVSDK.getInstance();
-        } catch (IllegalStateException e) {
-            // Should get here
-            return;
-        }
-
-        // Should not get here
-        fail();
+        BVSDK.getInstance();
     }
 
     @Test
@@ -100,7 +93,7 @@ public class BVSDKTest {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(RuntimeEnvironment.application.getApplicationContext(), bvsdk.getApplicationContext());
+        assertEquals(RuntimeEnvironment.application.getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
     }
 
     @Test
@@ -122,20 +115,21 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkShouldSetupLogLevel() {
-        BVSDK.destroy();
+      BVSDK.destroy();
+      BVPixel.destroy();
 
-        // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-                .bazaarEnvironment(environment)
-                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                .logLevel(BVLogLevel.VERBOSE)
-                .build();
+      // Builder used to initialize the Bazaarvoice SDKs
+      BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+          .bazaarEnvironment(environment)
+          .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+          .logLevel(BVLogLevel.VERBOSE)
+          .build();
 
-        // Should not throw NPE if the logger was set correctly
-        Logger.d("foo", "bar");
-        Logger.w("baz", "quux");
-        Logger.e("blerg", "mazerg");
-        Logger.i("erma", "gerd");
+      // Should not throw NPE if the BVLogger was set correctly
+      bvsdk.getBvLogger().d("foo", "bar");
+      bvsdk.getBvLogger().w("baz", "quux");
+      bvsdk.getBvLogger().e("blerg", "mazerg");
+      bvsdk.getBvLogger().i("erma", "gerd");
     }
 
     @Test
@@ -146,7 +140,7 @@ public class BVSDKTest {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(clientId, bvsdk.getClientId());
+        assertEquals(clientId, bvsdk.getBvUserProvidedData().getClientId());
     }
 
     @Test
@@ -158,40 +152,50 @@ public class BVSDKTest {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(conversationsApiKey, bvsdk.getApiKeys().getApiKeyConversations());
+        assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyConversations());
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void bvSdkBuilderShouldRequireValidApplication() {
-        try {
-            // Builder used to initialize the Bazaarvoice SDKs
-            new BVSDK.Builder(null, clientId);
-            fail();
-        } catch (IllegalArgumentException exception) {
-            // expected to fail here
-        }
+        // Builder used to initialize the Bazaarvoice SDKs
+        new BVSDK.Builder(null, clientId);
     }
 
-    @Test
+    @Test(expected=IllegalArgumentException.class)
     public void bvSdkBuilderShouldRequireValidClientId() {
-        try {
-            // Builder used to initialize the Bazaarvoice SDKs
-            new BVSDK.Builder(RuntimeEnvironment.application, null);
-            fail();
-        } catch (IllegalArgumentException exception) {
-            // expected to fail here
-        }
+        new BVSDK.Builder(RuntimeEnvironment.application, null);
     }
 
     private BVSDK createTestBvSdk() {
-        return new BVSDK(RuntimeEnvironment.application, clientId, environment,keys, BVLogLevel.VERBOSE, new OkHttpClient(), analyticsManager, bvActivityLifecycleCallbacks, bvAuthenticatedUser, gson, rootApiUrls, handler, bgHandlerThread);
+        return new BVSDK(
+            bvUserProvidedData,
+            new BVLogger(BVLogLevel.VERBOSE),
+            new OkHttpClient(),
+            analyticsManager,
+            bvActivityLifecycleCallbacks,
+            bvAuthenticatedUser,
+            gson,
+            rootApiUrls,
+            handler,
+            bgHandlerThread,
+            bvPixel);
     }
 
+    // TODO: Need to verify activity foreground/background as well
     @Test
-    public void bvSdkConstructorShouldSendAppLaunchedEvent() {
-        BVSDK bvsdk = createTestBvSdk();
+    public void bvSdkConstructorShouldSetupAppLifecycleAnalytics() throws Exception {
+      BVSDK bvsdk = createTestBvSdk();
 
-        verify(analyticsManager, times(1)).enqueueAppStateEvent(MobileAppLifecycleSchema.AppState.LAUNCHED);
+      ArgumentCaptor<BVMobileAppLifecycleEvent> eventArgumentCaptor = ArgumentCaptor.forClass(BVMobileAppLifecycleEvent.class);
+      // Check to see that track was called with a mobile app lifecycle event
+      verify(bvPixel).track(eventArgumentCaptor.capture());
+
+      // Check to see that the appState field was set to "launched"
+      BVMobileParams bvMobileParams = new BVMobileParams(RuntimeEnvironment.application, clientId);
+      BVMobileAppLifecycleEvent capturedEvent = eventArgumentCaptor.getValue();
+      capturedEvent.setBvMobileParams(bvMobileParams);
+      String actualAppState = (String) capturedEvent.toRaw().get(BVEventKeys.MobileAppLifecycleEvent.APP_STATE);
+      assertEquals(BVEventValues.AppState.LAUNCHED.getValue(), actualAppState);
     }
 
     @Test
@@ -210,27 +214,28 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkSetNewUserAuth() {
-        BVSDK bvsdk = createTestBvSdk();
+      BVSDK bvsdk = createTestBvSdk();
+      String expectedUserAuthStr = "newuserauthstr";
+      bvsdk.setUserAuthString(expectedUserAuthStr);
 
-        bvsdk.setUserAuthString("newuserauthstr");
-
-        verify(bvAuthenticatedUser).setUserAuthString("newuserauthstr");
-        verify(analyticsManager).dispatchSendPersonalizationEvent();
+      verify(bvAuthenticatedUser).setUserAuthString("newuserauthstr");
+      verify(bvPixel, times(1)).track(any(BVPersonalizationEvent.class));
     }
 
     @Test
     public void bvSdkSetNullUserAuthString() {
-        BVSDK bvsdk = createTestBvSdk();
+      BVSDK bvsdk = createTestBvSdk();
 
-        bvsdk.setUserAuthString(null);
+      bvsdk.setUserAuthString(null);
 
-        verify(bvAuthenticatedUser, times(0)).setUserAuthString("newuserauthstr");
-        verify(analyticsManager, times(0)).dispatchSendPersonalizationEvent();
+      verify(bvAuthenticatedUser, times(0)).setUserAuthString("newuserauthstr");
+      verify(bvPixel, times(0)).track(any(BVPersonalizationEvent.class));
     }
 
     @After
     public void tearDown() {
         BVSDK.destroy();
+        BVPixel.destroy();
     }
-    
+
 }

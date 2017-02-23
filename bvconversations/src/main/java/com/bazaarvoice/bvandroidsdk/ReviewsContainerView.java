@@ -97,7 +97,9 @@ public final class ReviewsContainerView extends BVContainerView implements BVCon
 
     private void trySendUsedFeatureInViewEvent() {
         if (onScreen && productId != null) {
-            ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.RATINGS_AND_REVIEWS);
+            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            convAnalyticsManager.sendUsedFeatureInViewEvent(
+                productId, "ReviewsContainerView", BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
         }
     }
 

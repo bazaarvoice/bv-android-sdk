@@ -4,6 +4,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Internal API: Helper class to build embedded page view schema events for recommendations analytics
  */
 class EmbeddedPageViewSchema extends BvAnalyticsSchema {

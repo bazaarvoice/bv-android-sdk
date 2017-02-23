@@ -1,7 +1,5 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.app.Application;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +8,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
 
@@ -27,9 +24,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.robolectric.RuntimeEnvironment.application;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {Shadows.ShadowNetwork.class, Shadows.BvShadowAsyncTask.class, Shadows.ShadowAdIdClient.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class AnalyticsManagerTest {
     String versionName;
     String versionCode;
@@ -43,7 +41,7 @@ public class AnalyticsManagerTest {
     @Mock ExecutorService immediateExecutorService;
     String shopperAdvertisingApiKey;
     @Mock BVAuthenticatedUser bvAuthenticatedUser;
-    @Mock Application application;
+    @Mock BVSDK bvsdk;
     String analyticsUrl;
     AnalyticsManager subject;
 
@@ -61,13 +59,7 @@ public class AnalyticsManagerTest {
         shopperAdvertisingApiKey = "foobar-bvtestshopperadvertisingid";
         uuid = UUID.fromString(uuidTestStr);
 
-        // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-                .bazaarEnvironment(BazaarEnvironment.STAGING)
-                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                .build();
-
-        subject = new AnalyticsManager(RuntimeEnvironment.application.getApplicationContext(), versionName, versionCode, clientId, analyticsUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, packageName, uuid);
+        subject = new AnalyticsManager(application.getApplicationContext(), clientId, analyticsUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, uuid);
     }
 
     ArgumentCaptor<Long> initialDelayCaptor = ArgumentCaptor.forClass(Long.class);

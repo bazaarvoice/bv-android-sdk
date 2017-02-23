@@ -45,7 +45,17 @@ public final class QuestionsRecyclerView extends ConversationsDisplayRecyclerVie
     }
 
     @Override
-    MagpieBvProduct getMagpieBvProduct() {
-        return MagpieBvProduct.QUESTIONS_AND_ANSWERS;
+    BVEventValues.BVProductType getBVProductType() {
+        return BVEventValues.BVProductType.CONVERSATIONS_QANDA;
+    }
+
+    @Override
+    String getContainerId() {
+        return "QuestionsRecyclerView";
+    }
+
+    @Override
+    BVEventValues.BVProductType getBvProductType() {
+        return BVEventValues.BVProductType.CONVERSATIONS_QANDA;
     }
 }

@@ -21,6 +21,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
+ * @deprecated Used the {@link AnswersRecyclerView} instead
+ *
  * {@link android.widget.ListView} container for many
  * {@link AnswerView}s providing usage Analytic events.
  */
@@ -45,12 +47,15 @@ public final class AnswersListView extends BVListView {
 
     @Override
     public void onFirstTimeOnScreen() {
-        ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureInViewEvent(
+            productId, "AnswersListView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager.sendUsedFeatureScrolledEvent(productId, MagpieBvProduct.QUESTIONS_AND_ANSWERS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override

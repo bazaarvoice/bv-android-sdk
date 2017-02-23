@@ -5,6 +5,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Internal API: Canonical schema for used feature events
  */
 abstract class UsedFeatureCanonicalSchema extends BvAnalyticsSchema {

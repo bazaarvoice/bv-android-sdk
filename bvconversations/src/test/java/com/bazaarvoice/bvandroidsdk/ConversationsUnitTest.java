@@ -12,11 +12,13 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import static java.net.URLEncoder.encode;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
@@ -30,11 +32,11 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 19)
 public class ConversationsUnitTest extends BVBaseTest{
+    private static final String UTF_8 = "UTF-8";
 
     @Override
     protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "a different one";
-        conversationApiKey = "a differnt key";
     }
 
     @Test
@@ -224,22 +226,86 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewSubmissionBuilder(){
+    public void testReviewSubmissionBuilder() throws Exception {
+        String userNickname = "userNickname";
+        int rating = 4;
+        String reviewText = "This is the review text the user adds about how great the product is!";
+        boolean agreeToTerms = true;
+        String title = "Android SDK Testing";
+        String fp = "abcdef+123345/ham+bacon+eggs+caseylovestaters";
+        String productId = "123987";
+        String userEmail = "foo@bar.com";
+        boolean sendEmailAlertWhenCommented = true;
+        String userId = "user1234";
+        Action action = Action.Submit;
+        boolean sendEmailAlertWhenPublished = true;
 
         // Make sure the string is encoded properly
-        String expectedResult = "bvAndroidSdkVersion=" + bvSdkVersion + "&passkey=a+differnt+key&UserNickname=nickname&Rating=5&ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21&agreedToTermsAndConditions=true&Title=Android+SDK+Testing&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&SendEmailAlertWhenCommented=true&UserId=user1234&action=Submit&sendemailalertwhenpublished=true";
+        String expectedTemplate = "_appVersion=%1$s&passkey=%2$s&UserNickname=%3$s&Rating=%4$s&ReviewText=%5$s&agreedToTermsAndConditions=%6$s&Title=%7$s&apiversion=%8$s&fp=%9$s&ProductId=%10$s&UserEmail=%11$s&SendEmailAlertWhenCommented=%12$s&UserId=%13$s&action=%14$s&_appId=%15$s&_bvAndroidSdkVersion=%16$s&sendemailalertwhenpublished=%17$s&_buildNumber=%18$s";
+        String expectedResult = String.format(expectedTemplate,
+            bvUserProvidedData.getBvMobileInfo().getMobileAppVersion(),
+            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
+            userNickname,
+            String.valueOf(rating),
+            encode(reviewText, UTF_8),
+            String.valueOf(agreeToTerms),
+            encode(title, UTF_8),
+            "5.4",
+            encode(fp, UTF_8),
+            productId,
+            encode(userEmail, UTF_8),
+            String.valueOf(sendEmailAlertWhenCommented),
+            userId,
+            action.getKey(),
+            bvUserProvidedData.getBvMobileInfo().getMobileAppIdentifier(),
+            bvUserProvidedData.getBvMobileInfo().getBvSdkVersion(),
+            String.valueOf(sendEmailAlertWhenPublished),
+            bvUserProvidedData.getBvMobileInfo().getMobileAppCode());
 
-        ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Submit, "123987")
-                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-                .userNickname("nickname")
-                .userEmail("foo@bar.com")
-                .userId("user1234") // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-                .rating(5)
-                .title("Android SDK Testing")
-                .reviewText("This is the review text the user adds about how great the product is!")
-                .sendEmailAlertWhenCommented(true)
-                .sendEmailAlertWhenPublished(true)
-                .agreedToTermsAndConditions(true)
+        ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(action, productId)
+                .fingerPrint(fp)
+                .userNickname(userNickname)
+                .userEmail(userEmail)
+                .userId(userId) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                .rating(rating)
+                .title(title)
+                .reviewText(reviewText)
+                .sendEmailAlertWhenCommented(sendEmailAlertWhenCommented)
+                .sendEmailAlertWhenPublished(sendEmailAlertWhenPublished)
+                .agreedToTermsAndConditions(agreeToTerms)
+                .build();
+
+        String testString = submission.createUrlQueryString(submission.makeQueryParams());
+        assertEquals(expectedResult, testString);
+    }
+
+    @Test
+    public void testQuestionSubmissionBuilder() throws UnsupportedEncodingException {
+        String userNickname = "nickname";
+        String productId = "123987";
+        String fp = "abcdef+123345/ham+taters";
+        String userEmail = "foo@bar.com";
+        Action action = Action.Submit;
+
+        String expectedTemplate = "_appVersion=%1$s&passkey=%2$s&UserNickname=%3$s&apiversion=%4$s&fp=%5$s&ProductId=%6$s&UserEmail=%7$s&action=%8$s&_appId=%9$s&_bvAndroidSdkVersion=%10$s&_buildNumber=%11$s";
+
+        String expectedResult = String.format(expectedTemplate,
+            bvUserProvidedData.getBvMobileInfo().getMobileAppVersion(),
+            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
+            userNickname,
+            "5.4",
+            encode(fp, UTF_8),
+            productId,
+            encode(userEmail, UTF_8),
+            action.getKey(),
+            bvUserProvidedData.getBvMobileInfo().getMobileAppIdentifier(),
+            bvUserProvidedData.getBvMobileInfo().getBvSdkVersion(),
+            bvUserProvidedData.getBvMobileInfo().getMobileAppCode());
+
+        QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(action, productId)
+                .fingerPrint(fp)
+                .userNickname(userNickname)
+                .userEmail(userEmail)
                 .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
@@ -248,39 +314,39 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testQuestionSubmissionBuilder(){
+    public void testQuestionAnswerBuilder() throws Exception {
+        String userNickname = "nickname";
+        String questionId = "123987";
+        String fp = "abcdef+123345/ham+taters";
+        String userEmail = "foo@bar.com";
+        Action action = Action.Submit;
+        String answerText = "Let me google that for you....";
 
         // Make sure the string is encoded properly
-        String expectedResult = "bvAndroidSdkVersion=" + bvSdkVersion + "&passkey=a+differnt+key&UserNickname=nickname&action=Submit&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com";
+        String expectedTemplate = "_appVersion=%1$s&passkey=%2$s&UserNickname=%3$s&QuestionId=%4$s&action=%5$s&apiversion=%6$s&_appId=%7$s&fp=%8$s&AnswerText=%9$s&UserEmail=%10$s&_bvAndroidSdkVersion=%11$s&_buildNumber=%12$s";
+        String expectedResult = String.format(expectedTemplate,
+            bvUserProvidedData.getBvMobileInfo().getMobileAppVersion(),
+            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
+            userNickname,
+            questionId,
+            action,
+            "5.4",
+            bvUserProvidedData.getBvMobileInfo().getMobileAppIdentifier(),
+            encode(fp, UTF_8),
+            encode(answerText, UTF_8),
+            encode(userEmail, UTF_8),
+            bvUserProvidedData.getBvMobileInfo().getBvSdkVersion(),
+            bvUserProvidedData.getBvMobileInfo().getMobileAppCode());
 
-        QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Action.Submit, "123987")
-                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-                .userNickname("nickname")
-                .userEmail("foo@bar.com")
+       AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(action, questionId, answerText)
+                .fingerPrint(fp)
+                .userNickname(userNickname)
+                .userEmail(userEmail)
                 .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
         assertEquals(expectedResult, testString);
-
     }
-
-    @Test
-    public void testQuestionAnswerBuilder(){
-
-        // Make sure the string is encoded properly
-        String expectedResult = "bvAndroidSdkVersion=" + bvSdkVersion + "&passkey=a+differnt+key&UserNickname=nickname&QuestionId=123987&action=Submit&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&AnswerText=Let+me+google+that+for+you....&UserEmail=foo%40bar.com";
-
-       AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Action.Submit, "123987", "Let me google that for you....")
-                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-                .userNickname("nickname")
-                .userEmail("foo@bar.com")
-                .build();
-
-        String testString = submission.createUrlQueryString(submission.makeQueryParams());
-        assertEquals(expectedResult, testString);
-
-    }
-
 
     @Test
     public void testFeedbackSubmitHelpfulVote() {

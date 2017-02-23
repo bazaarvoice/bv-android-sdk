@@ -3,51 +3,57 @@ import java.util.logging.Logger
 ext {
     // Sdk and tools
     sdkBuildInfo = [
-            minSdkVersion : 15,
-            targetSdkVersion : 25,
-            compileSdkVersion : 25,
-            buildToolsVersion : '25.0.1',
-            sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
-            targetCompatibilityVersion : JavaVersion.VERSION_1_7
+        minSdkVersion : 15,
+        targetSdkVersion : 25,
+        compileSdkVersion : 25,
+        buildToolsVersion : '25.0.1',
+        sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
+        targetCompatibilityVersion : JavaVersion.VERSION_1_7
     ]
 
     // Projects that were published with multiple artifacts must build
     // all artifacts with the same version number. This block is for sharing
     // the version number in one location for those artifacts
     sdkSharedVersions = [
-            okhttp3Version : '3.2.0',
-            supportLibraryVersion : '25.0.0',
-            gimbalVersion : '2.46',
-            playServicesVersion : '9.0.0',
-            robolectric: '3.1.4'
+        okhttp3Version : '3.2.0',
+        supportLibraryVersion : '25.0.0',
+        gimbalVersion : '2.46',
+        playServicesVersion : '9.0.0',
+        robolectric: '3.2.2'
     ]
 
     sdkBuildDep = [
-            androidPlugin       : 'com.android.tools.build:gradle:2.2.1',
-            credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
-            playServicesPlugin  : 'com.google.gms:google-services:3.0.0'
+        androidPlugin       : 'com.android.tools.build:gradle:2.3.0',
+        credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
+        playServicesPlugin  : 'com.google.gms:google-services:3.0.0',
+        jacocoPlugin        : 'com.dicedmelon.gradle:jacoco-android:0.1.1'
     ]
 
     sdkDep = [
-            // common
-            okhttp3             : "com.squareup.okhttp3:okhttp:$sdkSharedVersions.okhttp3Version",
-            gson                : 'com.google.code.gson:gson:2.5',
-            playServiceAds      : "com.google.android.gms:play-services-ads:$sdkSharedVersions.playServicesVersion",
-            recyclerview        : "com.android.support:recyclerview-v7:$sdkSharedVersions.supportLibraryVersion",
+        // base
+        supportAnnotations  : "com.android.support:support-annotations:$sdkSharedVersions.supportLibraryVersion",
 
-            // location
-            gimbal              : "com.gimbal.android.v2:gimbal-sdk:$sdkSharedVersions.gimbalVersion",
-            gimbalSLF4J         : "com.gimbal.android.v2:gimbal-slf4j-impl:$sdkSharedVersions.gimbalVersion",
-            slf4jApi            : 'org.slf4j:slf4j-api:1.7.21',
-            supportV4           : "com.android.support:support-v4:$sdkSharedVersions.supportLibraryVersion",
-            appCompatV7         : "com.android.support:appcompat-v7:$sdkSharedVersions.supportLibraryVersion",
+        // common
+        okhttp3             : "com.squareup.okhttp3:okhttp:$sdkSharedVersions.okhttp3Version",
+        gson                : 'com.google.code.gson:gson:2.5',
+        playServiceAds      : "com.google.android.gms:play-services-ads:$sdkSharedVersions.playServicesVersion",
+        recyclerview        : "com.android.support:recyclerview-v7:$sdkSharedVersions.supportLibraryVersion",
+
+        // location
+        gimbal              : "com.gimbal.android.v2:gimbal-sdk:$sdkSharedVersions.gimbalVersion",
+        gimbalSLF4J         : "com.gimbal.android.v2:gimbal-slf4j-impl:$sdkSharedVersions.gimbalVersion",
+        slf4jApi            : 'org.slf4j:slf4j-api:1.7.21',
+        supportV4           : "com.android.support:support-v4:$sdkSharedVersions.supportLibraryVersion",
+        appCompatV7         : "com.android.support:appcompat-v7:$sdkSharedVersions.supportLibraryVersion",
     ]
 
     sdkTestDep = [
-            mockWebServer       : "com.squareup.okhttp3:mockwebserver:$sdkSharedVersions.okhttp3Version",
-            junit               : 'junit:junit:4.12',
-            mockito             : 'org.mockito:mockito-core:1.10.19',
-            robolectric         : "org.robolectric:robolectric:$sdkSharedVersions.robolectric"
+        mockWebServer       : "com.squareup.okhttp3:mockwebserver:$sdkSharedVersions.okhttp3Version",
+        junit               : 'junit:junit:4.12',
+        mockito             : 'org.mockito:mockito-core:2.7.17',
+        robolectric         : "org.robolectric:robolectric:$sdkSharedVersions.robolectric",
+        roboPlayServices    : "org.robolectric:shadows-play-services:$sdkSharedVersions.robolectric",
+        androidJson         : "org.json:json:20160810"
     ]
 
     isCi = "true".equals(System.getenv('CI'))

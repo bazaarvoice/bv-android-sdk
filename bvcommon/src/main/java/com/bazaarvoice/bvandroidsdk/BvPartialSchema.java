@@ -7,6 +7,8 @@ package com.bazaarvoice.bvandroidsdk;
 import java.util.Map;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Base class for Bazaarvoice Analytics Partial Schemas
  */
 abstract class BvPartialSchema {

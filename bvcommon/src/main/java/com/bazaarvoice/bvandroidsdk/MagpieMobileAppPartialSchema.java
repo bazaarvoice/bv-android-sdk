@@ -5,6 +5,8 @@ import java.util.Map;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Copyright 2016 Bazaarvoice Inc. All rights reserved.
  */
 class MagpieMobileAppPartialSchema extends BvPartialSchema {

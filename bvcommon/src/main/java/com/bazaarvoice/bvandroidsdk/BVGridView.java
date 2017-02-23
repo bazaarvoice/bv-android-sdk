@@ -12,6 +12,8 @@ import android.widget.AbsListView;
 import android.widget.GridView;
 
 /**
+ * @deprecated Only supporting {@link BVRecyclerView} for {@link android.view.ViewGroup}s moving forward
+ *
  * Bazaarvoice Provided {@link GridView} to display {@link BVView} objects
  */
 abstract class BVGridView extends GridView implements AbsListView.OnScrollListener, BVViewGroupEventListener, EventView.EventViewListener<BVGridView>, EventView.ProductView {

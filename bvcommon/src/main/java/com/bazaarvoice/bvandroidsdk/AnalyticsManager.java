@@ -5,7 +5,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -34,6 +33,8 @@ import okhttp3.Response;
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 
 /**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ *
  * Internal SDK API for sending analytics events
  */
 class AnalyticsManager {
@@ -51,10 +52,6 @@ class AnalyticsManager {
     private static final String PATH = "event";
 
     static final int ENQUEUE_EVENT = 1;
-    static final int ENQUEUE_APP_STATE_EVENT = 2;
-    static final int ENQUEUE_CONVERSION_TRANSACTION_EVENT = 3;
-    static final int ENQUEUE_NON_COMMERCE_CONVERSION_EVENT = 4;
-    static final int DISPATCH_SEND_PERSONALIZATION_EVENT = 5;
     static final int DISPATCH_SEND_EVENTS = 6;
 
     private final AnalyticsThread analyticsThread;
@@ -65,7 +62,6 @@ class AnalyticsManager {
     private final ExecutorService immediateExecutorService;
     private final OkHttpClient okHttpClient;
     private final String clientId;
-    private final String versionName, versionCode, packageName;
     private final UUID uuid;
     private final BVAuthenticatedUser bvAuthenticatedUser;
 
@@ -73,16 +69,13 @@ class AnalyticsManager {
 
     // region Constructor
 
-    AnalyticsManager(final Context applicationContext, final String versionName, final String versionCode, final String clientId, final String baseUrl, final OkHttpClient okHttpClient, final ExecutorService immediateExecutorService, final ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final String packageName, final UUID uuid) {
+    AnalyticsManager(final Context applicationContext, final String clientId, final String baseUrl, final OkHttpClient okHttpClient, final ExecutorService immediateExecutorService, final ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final UUID uuid) {
         this.analyticsBatch = new AnalyticsBatch();
         this.analyticsThread = new AnalyticsThread();
         this.analyticsThread.start();
         this.analyticsHandler = new AnalyticsHandler(analyticsThread.getLooper(), this);
         this.url = Utils.toUrl(baseUrl + PATH);
         this.applicationContext = applicationContext;
-        this.versionName = versionName;
-        this.versionCode = versionCode;
-        this.packageName = packageName;
         this.okHttpClient = okHttpClient;
         this.clientId = clientId;
         scheduledExecutorService.scheduleWithFixedDelay(new AnalyticsTask(this), ANALYTICS_START_DELAY_SECONDS, ANALYTICS_DELAY_SECONDS, TimeUnit.SECONDS);
@@ -145,19 +138,18 @@ class AnalyticsManager {
         }
 
         public void log(boolean full) {
+            BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
             String tag = "BVAnalyticsVerify";
 
             for (Map<String, Object> event : eventQueue) {
                 if (full) {
-                    Logger.d(tag, "{");
+                    bvLogger.d(tag, "{");
                     for (Map.Entry<String, Object> entry : event.entrySet()) {
-                        Logger.d(tag, "  " + entry.getKey() + ":" + entry.getValue());
+                        bvLogger.d(tag, "  " + entry.getKey() + ":" + entry.getValue());
                     }
-                    Logger.d(tag, "}");
+                    bvLogger.d(tag, "}");
                 } else {
-                    Logger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source") + getSmartExtraInfo(event));
-                    //JSONObject log = new JSONObject(event);
-                    //Logger.d(tag, log.toString());
+                    bvLogger.d(tag, event.get("type") + " - " + event.get("cl") + " - " + event.get("source") + getSmartExtraInfo(event));
                 }
             }
         }
@@ -202,25 +194,6 @@ class AnalyticsManager {
                     analyticsManager.addEventToBatch(schema);
                     break;
                 }
-                case ENQUEUE_APP_STATE_EVENT: {
-                    MobileAppLifecycleSchema.AppState appState = (MobileAppLifecycleSchema.AppState) msg.obj;
-                    analyticsManager.addAppStateEvent(appState);
-                    break;
-                }
-                case ENQUEUE_CONVERSION_TRANSACTION_EVENT: {
-                    Transaction transaction = (Transaction) msg.obj;
-                    analyticsManager.addConversionTransactionEvent(transaction);
-                    break;
-                }
-                case ENQUEUE_NON_COMMERCE_CONVERSION_EVENT: {
-                    Conversion conversion = (Conversion) msg.obj;
-                    analyticsManager.addNonCommerceConversionEvent(conversion);
-                    break;
-                }
-                case DISPATCH_SEND_PERSONALIZATION_EVENT: {
-                    analyticsManager.sendPersonalizationEvent();
-                    break;
-                }
                 case DISPATCH_SEND_EVENTS: {
                     analyticsManager.sendAnalytics();
                     break;
@@ -233,10 +206,6 @@ class AnalyticsManager {
 
     // region API - send analytics through these methods on the main looper
 
-    void dispatchSendPersonalizationEvent() {
-        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(DISPATCH_SEND_PERSONALIZATION_EVENT));
-    }
-
     void dispatchSendEvents() {
         analyticsHandler.sendMessage(analyticsHandler.obtainMessage(DISPATCH_SEND_EVENTS));
     }
@@ -245,32 +214,9 @@ class AnalyticsManager {
         analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_EVENT, analyticsSchema));
     }
 
-    void enqueueAppStateEvent(MobileAppLifecycleSchema.AppState appState) {
-        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_APP_STATE_EVENT, appState));
-    }
-
-    void enqueueConversionTransactionEvent(Transaction transaction) {
-        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_CONVERSION_TRANSACTION_EVENT, transaction));
-    }
-
-    void enqueueNonCommerceConversionEvent(Conversion conversion) {
-        analyticsHandler.sendMessage(analyticsHandler.obtainMessage(ENQUEUE_NON_COMMERCE_CONVERSION_EVENT, conversion));
-    }
-
     // endregion
 
     // region Internal Methods - that manage building and sending analytics events on the AnalyticsThread
-
-    private MobileAppLifecycleSchema getMobileAppLifecycleSchema(MobileAppLifecycleSchema.AppState appState) {
-        MobileAppLifecycleSchema.Builder builder = new MobileAppLifecycleSchema.Builder(appState, getMagpieMobileAppPartialSchema(), getProfileCommonPartialSchema())
-                .mobileAppIdentifier(packageName)
-                .mobileAppVersion(versionName)
-                .mobileDeviceName(Build.MODEL)
-                .mobileOSVersion(Build.VERSION.RELEASE)
-                .bvSDKVersion(BVSDK.SDK_VERSION);
-
-        return builder.build();
-    }
 
     ProfileCommonPartialSchema getProfileCommonPartialSchema() {
         return new ProfileCommonPartialSchema(bvAuthenticatedUser.getUserAuthString());
@@ -290,11 +236,6 @@ class AnalyticsManager {
         analyticsBatch.putEvent(schema);
     }
 
-    void addAppStateEvent(MobileAppLifecycleSchema.AppState appState) {
-        MobileAppLifecycleSchema schema = getMobileAppLifecycleSchema(appState);
-        addEventToBatch(schema);
-    }
-
     void sendPersonalizationEvent() {
         ProfileMobilePersonalizationSchema schema = new ProfileMobilePersonalizationSchema(getMagpieMobileAppPartialSchema(), getProfileCommonPartialSchema());
         addEventToBatch(schema);
@@ -303,27 +244,8 @@ class AnalyticsManager {
         immediateExecutorService.execute(new AnalyticsTask(this));
     }
 
-    void addConversionTransactionEvent(Transaction transaction) {
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
-        ConversionTransactionSchema transactionSchema = new ConversionTransactionSchema(magpieMobileAppPartialSchema, transaction);
-
-        addEventToBatch(transactionSchema);
-        if (transactionSchema.getPIIEvent() != null){
-            addEventToBatch(transactionSchema);
-        }
-    }
-
-    void addNonCommerceConversionEvent(Conversion conversion) {
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = getMagpieMobileAppPartialSchema();
-        ConversionNonCommerceSchema conversionSchema = new ConversionNonCommerceSchema(magpieMobileAppPartialSchema, conversion);
-
-        addEventToBatch(conversionSchema);
-        if (conversionSchema.getPIIEvent() != null){
-            addEventToBatch(conversionSchema);
-        }
-    }
-
     void sendAnalytics() {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         Response response = null;
         try {
             if (analyticsBatch.isEmpty()) {
@@ -333,7 +255,7 @@ class AnalyticsManager {
             analyticsBatch.log(false);
 
             RequestBody body = analyticsBatch.toPostPayload();
-            Logger.v(TAG, url.toString() + "\n" + analyticsBatch.toString());
+            bvLogger.v(TAG, url.toString() + "\n" + analyticsBatch.toString());
             Request request = new Request.Builder()
                     .url(url)
                     .header("Content-Type", "application/json")
@@ -345,30 +267,18 @@ class AnalyticsManager {
             response = okHttpClient.newCall(request).execute();
 
             if (response.isSuccessful()) {
-                Logger.d("Analytics", "Successfully posted " + analyticsBatch.size() + " events");
+                bvLogger.d("Analytics", "Successfully posted " + analyticsBatch.size() + " events");
             } else {
-                Logger.d("Analytics", "Unsuccessfully posted Events: " + response.code() + ", message: " + response.message());
+                bvLogger.d("Analytics", "Unsuccessfully posted Events: " + response.code() + ", message: " + response.message());
             }
         } catch (IOException e) {
-            Logger.e(TAG, "Failed to send analytics event", e);
+            bvLogger.e(TAG, "Failed to send analytics event", e);
         } finally {
             analyticsBatch.clear();
             if (response != null && response.body() != null) {
                 response.body().close();
             }
         }
-    }
-
-    String getVersionName() {
-        return versionName;
-    }
-
-    String getVersionCode() {
-        return versionCode;
-    }
-
-    String getPackageName() {
-        return packageName;
     }
 
     // endregion

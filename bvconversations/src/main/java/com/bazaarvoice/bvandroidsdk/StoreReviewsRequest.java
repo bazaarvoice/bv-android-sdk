@@ -40,7 +40,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
 
     @Override
     String getAPIKey(){
-        return BVSDK.getInstance().getApiKeys().getApiKeyConversationsStores();
+        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
     }
 
     @Override

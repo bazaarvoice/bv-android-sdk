@@ -198,7 +198,8 @@ class BVNotificationUtil {
     @Nullable @WorkerThread
     private static Bitmap getBigPictureBitmap(String bitmapUrl) {
         OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
-        ImageLoader imageLoader = new BVImageLoader(okHttpClient);
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
+        ImageLoader imageLoader = new BVImageLoader(okHttpClient, bvLogger);
         if (bitmapUrl == null) {
             return null;
         }
@@ -287,9 +288,10 @@ class BVNotificationUtil {
 
     @WorkerThread @Nullable
     static <NotificationDataType extends BVNotificationData> NotificationDataType getNotificationData(String remoteFeatureName, String remoteFileName, Class<NotificationDataType> notificationDataTypeClass) {
+        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         NotificationDataType notificationData = null;
         String pinConfigDataUrl = BVRemoteConfig.getFeatureConfigUrl(remoteFeatureName, remoteFileName);
-        Logger.d(TAG, pinConfigDataUrl);
+        bvLogger.d(TAG, pinConfigDataUrl);
         Request request = new Request.Builder()
                 .url(pinConfigDataUrl)
                 .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
@@ -300,12 +302,12 @@ class BVNotificationUtil {
         try {
             response = okHttpClient.newCall(request).execute();
             if (!response.isSuccessful()) {
-                Logger.e(TAG, "Unexpected code: " + response);
+                bvLogger.e(TAG, "Unexpected code: " + response);
                 return null;
             }
             notificationData = gson.fromJson(response.body().charStream(), notificationDataTypeClass);
         } catch (IOException e) {
-            Logger.e(TAG, "Failed to get pin notification config", e);
+            bvLogger.e(TAG, "Failed to get pin notification config", e);
         } finally {
             if (response != null && response.body() != null) {
                 response.body().close();

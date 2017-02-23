@@ -1,0 +1,59 @@
+/**
+ * Base Android settings for new modules.
+ * <br/>
+ * Use the bvsdk-module-android instead (which extends this) if you want
+ * to add a new bvsdk specific module
+ * <br/>
+ * To use...
+ * apply from: rootProject.file('gradle/base-module-android.gradle')
+ */
+apply plugin: 'com.android.library'
+apply plugin: 'jacoco-android'
+
+android {
+  compileSdkVersion sdkBuildInfo.compileSdkVersion
+  buildToolsVersion sdkBuildInfo.buildToolsVersion
+
+  compileOptions {
+    sourceCompatibility sdkBuildInfo.sourceCompatibilityVersion
+    targetCompatibility sdkBuildInfo.targetCompatibilityVersion
+  }
+
+  dexOptions {
+    // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+    preDexLibraries = preDexEnabled && !isCi
+  }
+
+  defaultConfig {
+    minSdkVersion sdkBuildInfo.minSdkVersion
+    targetSdkVersion sdkBuildInfo.targetSdkVersion
+  }
+  buildTypes {
+    NEXUS_USER {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  buildTypes.each {
+    it.buildConfigField 'String', 'BVSDK_VERSION_NAME', '"' + VERSION_NAME + '"'
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  testOptions {
+    unitTests.all {
+      systemProperty 'robolectric.dependency.repo.url', 'https://repo.bazaarvoice.com:443/nexus/content/groups/public'
+      systemProperty 'robolectric.dependency.repo.id', 'nexus'
+    }
+  }
+
+  sourceSets {
+    String sharedTestDir = '../bvanalytics/src/sharedTest/java'
+    test {
+      java.srcDir sharedTestDir
+    }
+  }
+}

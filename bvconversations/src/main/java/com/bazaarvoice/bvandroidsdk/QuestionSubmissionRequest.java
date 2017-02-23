@@ -36,7 +36,7 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
 
     @Override
     protected String getApiKey() {
-        return BVSDK.getInstance().getApiKeys().getApiKeyConversations();
+        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
     }
 
     String getProductId() {

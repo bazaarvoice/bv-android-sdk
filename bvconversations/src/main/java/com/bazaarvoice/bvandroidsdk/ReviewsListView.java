@@ -23,6 +23,8 @@ import android.util.AttributeSet;
 import java.lang.ref.WeakReference;
 
 /**
+ * @deprecated Used the {@link ReviewsRecyclerView} instead
+ *
  * {@link android.widget.ListView} container for many
  * {@link ReviewView}s providing usage Analytic events.
  */
@@ -86,12 +88,15 @@ public final class ReviewsListView extends BVListView implements BVConversations
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager.sendUsedFeatureScrolledEvent(productId, MagpieBvProduct.RATINGS_AND_REVIEWS);
+        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
     }
 
     private void trySendUsedFeatureInViewEvent() {
         if (onScreen && productId != null) {
-            ConversationsAnalyticsManager.sendUsedFeatureInViewEvent(productId, MagpieBvProduct.RATINGS_AND_REVIEWS);
+            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            convAnalyticsManager.sendUsedFeatureInViewEvent(
+                productId, "ReviewsListView", BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
         }
     }
 

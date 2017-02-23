@@ -4,6 +4,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+/**
+ * @deprecated TODO remove after full BVPixel swap is complete
+ */
 class RecommendationImpressionSchema extends BvAnalyticsSchema {
 
     private static final String source = "recommendation-mob";
