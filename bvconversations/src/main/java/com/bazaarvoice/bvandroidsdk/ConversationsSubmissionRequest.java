@@ -157,6 +157,9 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     abstract void addRequestQueryParams(Map<String, Object> queryParams);
 
+    /*
+     * TODO: Change this to match {@link ConversationsDisplayRequest#toHttpUrl()}
+     */
     String getUrlQueryString() {
         final Map<String, Object> queryParams = makeQueryParams();
         urlQueryString = createUrlQueryString(queryParams);

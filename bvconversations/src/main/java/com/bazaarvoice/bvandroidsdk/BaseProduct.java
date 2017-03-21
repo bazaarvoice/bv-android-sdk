@@ -62,6 +62,8 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent impl
     private String id;
     @SerializedName("ReviewStatistics")
     private ReviewStatistics reviewStatistics;
+    @SerializedName("FilteredReviewStatistics")
+    private ReviewStatistics filteredReviewStatistics;
     @SerializedName("ReviewIds")
     private List<String> reviewsIds;
 
@@ -151,6 +153,9 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent impl
 
     @Nullable
     public ReviewStatistics getReviewStatistics() {
+        if (filteredReviewStatistics != null) {
+            return filteredReviewStatistics;
+        }
         return reviewStatistics;
     }
 

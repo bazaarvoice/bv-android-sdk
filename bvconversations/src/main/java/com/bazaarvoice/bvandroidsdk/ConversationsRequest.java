@@ -30,6 +30,11 @@ abstract class ConversationsRequest {
     static final String kSDK_VERSION = "_bvAndroidSdkVersion";
 
     static final String API_VERSION = "5.4";
+
+    /**
+     * TODO: Remove when stores code is separated from conversations module
+     * @return which endpoint to use for the specific request, usually plain conversations
+     */
     abstract String getEndPoint();
 
     /*

@@ -22,99 +22,96 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.HttpUrl;
+
 /**
  * Common options for a Conversations display request
  */
 abstract class ConversationsDisplayRequest extends ConversationsRequest {
-    static final String kFILTER = "Filter";
-    static final String kSORT= "Sort";
-    static final String kSORT_REVIEW = "Sort_Reviews";
-    static final String kSORT_QUESTIONS = "Sort_Questions";
-    static final String kSORT_ANSWERS= "Sort_Answers";
-    static final String kINCLUDE = "Include";
-    static final String kSTATS = "Stats";
-    static final String kLIMIT = "Limit";
-    static final String kOFFSET = "Offset";
-    static final String kSEARCH = "Search";
+  static final String kFILTER = "Filter";
+  static final String kSORT= "Sort";
+  static final String kSORT_REVIEW = "Sort_Reviews";
+  static final String kSORT_QUESTIONS = "Sort_Questions";
+  static final String kSORT_ANSWERS= "Sort_Answers";
+  static final String kINCLUDE = "Include";
+  static final String kSTATS = "Stats";
+  static final String kLIMIT = "Limit";
+  static final String kOFFSET = "Offset";
+  static final String kSEARCH = "Search";
 
-    static final String INCLUDE_ANSWERS = "Answers";
+  static final String INCLUDE_ANSWERS = "Answers";
 
-    private final Builder builder;
-    private final String urlQueryString;
+  private final List<Filter> filters;
+  private final Map<String, String> extraParams;
 
-    ConversationsDisplayRequest(Builder builder) {
-        this.builder = builder;
-        final Map<String, Object> queryParams = makeQueryParams();
-        urlQueryString = createUrlQueryString(queryParams);
+  ConversationsDisplayRequest(Builder builder) {
+    filters = builder.filters;
+    extraParams = builder.extraParams;
+  }
+
+  HttpUrl toHttpUrl() {
+    String rootBvApiUrl = BVSDK.getInstance().getRootApiUrls().getBazaarvoiceApiRootUrl();
+
+    HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(rootBvApiUrl)
+        .newBuilder()
+        .addPathSegments(getEndPoint());
+
+    addCommonQueryParams(httpUrlBuilder);
+    addFilterQueryParams(httpUrlBuilder);
+    addExtraQueryParams(httpUrlBuilder);
+
+    return httpUrlBuilder.build();
+  }
+
+  private void addCommonQueryParams(HttpUrl.Builder httpUrlBuilder) {
+    BVMobileInfo mobileInfo = BVSDK.getInstance().getBvUserProvidedData().getBvMobileInfo();
+
+    httpUrlBuilder.addQueryParameter(kAPI_VERSION, API_VERSION)
+        .addQueryParameter(kPASS_KEY, getAPIKey())
+        .addQueryParameter(kAPP_ID, mobileInfo.getMobileAppIdentifier())
+        .addQueryParameter(kAPP_VERSION, mobileInfo.getMobileAppVersion())
+        .addQueryParameter(kBUILD_NUM, mobileInfo.getMobileAppCode())
+        .addQueryParameter(kSDK_VERSION, mobileInfo.getBvSdkVersion());
+  }
+
+  private void addFilterQueryParams(HttpUrl.Builder httpUrlBuilder) {
+    for (Filter filter : filters) {
+      httpUrlBuilder
+          .addEncodedQueryParameter(kFILTER, filter.toString());
+    }
+  }
+
+  private void addExtraQueryParams(HttpUrl.Builder httpUrlBuilder) {
+    for (Map.Entry<String, String> extraEntry : extraParams.entrySet()) {
+      httpUrlBuilder
+          .addQueryParameter(extraEntry.getKey(), extraEntry.getValue());
+    }
+  }
+
+  /**
+   * TODO: Remove when stores code is separated from conversations module
+   * @return api key for the correct service, typically just plain conversations
+   */
+  protected String getAPIKey(){
+    return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
+  }
+
+  static abstract class Builder<BuilderType> {
+    private final List<Filter> filters;
+    private final Map<String, String> extraParams;
+
+    public Builder() {
+      filters = new ArrayList<>();
+      extraParams = new HashMap<>();
     }
 
-    ConversationsDisplayRequest(List<String> productIds, Builder builder) {
-        this.builder = builder;
-        final Map<String, Object> queryParams = makeQueryParams();
-        urlQueryString = createUrlQueryString(queryParams);
+    protected void addFilter(Filter filter) {
+      filters.add(filter);
     }
 
-    Builder getBuilder() {
-        return this.builder;
+    public BuilderType addAdditionalField(String key, String value) {
+      extraParams.put(key, value);
+      return (BuilderType) this;
     }
-
-    Map<String, Object> makeQueryParams() {
-        Map<String, Object> params = makeCommonQueryParams();
-        addRequestQueryParams(params);
-        return params;
-    }
-
-    private Map<String, Object> makeCommonQueryParams() {
-      BVMobileInfo mobileInfo = BVSDK.getInstance().getBvUserProvidedData().getBvMobileInfo();
-
-      Map<String, Object> params = new HashMap<>();
-      params.put(kAPI_VERSION, API_VERSION);
-      params.put(kPASS_KEY, getAPIKey());
-      params.put(kAPP_ID, mobileInfo.getMobileAppIdentifier());
-      params.put(kAPP_VERSION, mobileInfo.getMobileAppVersion());
-      params.put(kBUILD_NUM, mobileInfo.getMobileAppCode());
-      params.put(kSDK_VERSION, mobileInfo.getBvSdkVersion());
-
-      List<String> filterQueries = new ArrayList<>();
-      for (Filter filter : builder.getFilters()) {
-        filterQueries.add(filter.getQueryString());
-      }
-      params.put(kFILTER, StringUtils.componentsSeparatedBy(filterQueries, "&"));
-
-      return params;
-    }
-
-    String getUrlQueryString() {
-        return this.urlQueryString;
-    }
-
-    String getAPIKey(){
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
-    }
-
-    abstract void addRequestQueryParams(Map<String, Object> queryParams);
-
-    private String createUrlQueryString(Map<String, Object> queryParams) {
-
-        StringBuilder builder = new StringBuilder();
-        for (String key : queryParams.keySet()) {
-            if (kFILTER.equals(key)){
-                builder.append(queryParams.get(key));
-            }else {
-                builder.append(String.format("%s=%s", key, queryParams.get(key)));
-            }
-            builder.append("&");
-        }
-
-        builder.deleteCharAt(builder.length() - 1);
-        return builder.toString();
-    }
-
-    static abstract class Builder{
-        private final List<Filter> filters = new ArrayList<>();
-
-        List<Filter> getFilters() {
-            return filters;
-        }
-    }
+  }
 }

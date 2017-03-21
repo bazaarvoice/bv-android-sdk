@@ -21,100 +21,133 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import okhttp3.HttpUrl;
 
 /**
  * Request to get {@link Author}s
  */
 public final class AuthorsRequest extends ConversationsDisplayRequest {
-    private static final String ENDPOINT = "authors.json";
+  private static final String ENDPOINT = "data/authors.json";
 
-    private AuthorsRequest(Builder builder) {
-        super(builder);
+  private final List<Sort> reviewSorts, questionSorts, answerSorts;
+  private final List<Include> includes;
+  private final List<PDPContentType> statistics;
+
+  private AuthorsRequest(Builder builder) {
+    super(builder);
+    reviewSorts = builder.reviewSorts;
+    questionSorts = builder.questionSorts;
+    answerSorts = builder.answerSorts;
+    includes = builder.includes;
+    statistics = builder.statistics;
+  }
+
+  List<Sort> getReviewSorts() {
+    return reviewSorts;
+  }
+
+  List<Sort> getQuestionSorts() {
+    return questionSorts;
+  }
+
+  List<Sort> getAnswerSorts() {
+    return answerSorts;
+  }
+
+  List<Include> getIncludes() {
+    return includes;
+  }
+
+  List<PDPContentType> getStatistics() {
+    return statistics;
+  }
+
+  @Override
+  String getEndPoint() {
+    return ENDPOINT;
+  }
+
+  @Override
+  BazaarException getError() {
+    return null;
+  }
+
+  @Override
+  HttpUrl toHttpUrl() {
+    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+
+    if (!reviewSorts.isEmpty()){
+      httpUrlBuilder.addQueryParameter(kSORT_REVIEW, StringUtils.componentsSeparatedBy(reviewSorts, ","));
     }
 
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        AuthorsRequest.Builder builder = (AuthorsRequest.Builder)super.getBuilder();
-
-        if (!builder.reviewSorts.isEmpty()){
-            queryParams.put(kSORT_REVIEW, StringUtils.componentsSeparatedBy(builder.reviewSorts, ","));
-        }
-
-        if (!builder.questionSorts.isEmpty()){
-            queryParams.put(kSORT_QUESTIONS, StringUtils.componentsSeparatedBy(builder.questionSorts, ","));
-        }
-
-        if (!builder.answerSorts.isEmpty()){
-            queryParams.put(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(builder.answerSorts, ","));
-        }
-
-        if (!builder.includes.isEmpty()) {
-            queryParams.put(kINCLUDE, StringUtils.componentsSeparatedBy(builder.includes, ","));
-        }
-
-        for (Include include : builder.includes) {
-            if (include.getLimit() != null) {
-                queryParams.put(include.getLimitParamKey(), include.getLimit());
-            }
-        }
-
-        if (!builder.statistics.isEmpty()) {
-            queryParams.put(kSTATS, StringUtils.componentsSeparatedBy(builder.statistics, ","));
-        }
+    if (!questionSorts.isEmpty()){
+      httpUrlBuilder.addQueryParameter(kSORT_QUESTIONS, StringUtils.componentsSeparatedBy(questionSorts, ","));
     }
 
-    @Override
-    String getEndPoint() {
-        return ENDPOINT;
+    if (!answerSorts.isEmpty()){
+      httpUrlBuilder.addQueryParameter(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(answerSorts, ","));
     }
 
-    @Override
-    BazaarException getError() {
-        return null;
+    if (!includes.isEmpty()) {
+      httpUrlBuilder.addQueryParameter(kINCLUDE, StringUtils.componentsSeparatedBy(includes, ","));
     }
 
-    public static final class Builder extends ConversationsDisplayRequest.Builder {
-        private final List<Sort> reviewSorts, questionSorts, answerSorts;
-        private final List<Include> includes;
-        private final List<PDPContentType> statistics;
-
-        public Builder(@NonNull String authorId) {
-            this.reviewSorts = new ArrayList<>();
-            this.questionSorts = new ArrayList<>();
-            this.answerSorts = new ArrayList<>();
-            includes = new ArrayList<>();
-            this.statistics = new ArrayList<>();
-            getFilters().add(new Filter(Filter.Type.Id, EqualityOperator.EQ, authorId));
-        }
-
-        public Builder addReviewSort(@NonNull ReviewOptions.Sort sort, @NonNull SortOrder order) {
-            reviewSorts.add(new Sort(sort, order));
-            return this;
-        }
-
-        public Builder addQuestionSort(@NonNull QuestionOptions.Sort sort, @NonNull SortOrder order) {
-            questionSorts.add(new Sort(sort, order));
-            return this;
-        }
-
-        public Builder addAnswerSort(@NonNull AnswerOptions.Sort sort, @NonNull SortOrder order) {
-            answerSorts.add(new Sort(sort, order));
-            return this;
-        }
-
-        public Builder addIncludeContent(@NonNull PDPContentType type, int limit) {
-            this.includes.add(new Include(type, limit));
-            return this;
-        }
-
-        public Builder addIncludeStatistics(@NonNull PDPContentType type) {
-            this.statistics.add(type);
-            return this;
-        }
-
-        public AuthorsRequest build() {
-            return new AuthorsRequest(this);
-        }
+    for (Include include : includes) {
+      if (include.getLimit() != null) {
+        httpUrlBuilder.addQueryParameter(include.getLimitParamKey(), String.valueOf(include.getLimit()));
+      }
     }
+
+    if (!statistics.isEmpty()) {
+      httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(statistics, ","));
+    }
+
+    return httpUrlBuilder.build();
+  }
+
+  public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
+    private final List<Sort> reviewSorts, questionSorts, answerSorts;
+    private final List<Include> includes;
+    private final List<PDPContentType> statistics;
+
+    public Builder(@NonNull String authorId) {
+      super();
+      this.reviewSorts = new ArrayList<>();
+      this.questionSorts = new ArrayList<>();
+      this.answerSorts = new ArrayList<>();
+      includes = new ArrayList<>();
+      this.statistics = new ArrayList<>();
+      addFilter(new Filter(Filter.Type.Id, EqualityOperator.EQ, authorId));
+    }
+
+    public Builder addReviewSort(@NonNull ReviewOptions.Sort sort, @NonNull SortOrder order) {
+      reviewSorts.add(new Sort(sort, order));
+      return this;
+    }
+
+    public Builder addQuestionSort(@NonNull QuestionOptions.Sort sort, @NonNull SortOrder order) {
+      questionSorts.add(new Sort(sort, order));
+      return this;
+    }
+
+    public Builder addAnswerSort(@NonNull AnswerOptions.Sort sort, @NonNull SortOrder order) {
+      answerSorts.add(new Sort(sort, order));
+      return this;
+    }
+
+    public Builder addIncludeContent(@NonNull PDPContentType type, int limit) {
+      this.includes.add(new Include(type, limit));
+      return this;
+    }
+
+    public Builder addIncludeStatistics(@NonNull PDPContentType type) {
+      this.statistics.add(type);
+      return this;
+    }
+
+    public AuthorsRequest build() {
+      return new AuthorsRequest(this);
+    }
+  }
 }

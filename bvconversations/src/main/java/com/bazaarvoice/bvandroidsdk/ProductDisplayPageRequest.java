@@ -22,21 +22,49 @@ import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import okhttp3.HttpUrl;
 
 /**
  * Request to get info and stats for a {@link Product}
  */
 public class ProductDisplayPageRequest extends ConversationsDisplayRequest {
-
+    private final List<Sort> reviewSorts, questionSorts, answerSorts;
+    private final List<Include> includes;
+    private final List<PDPContentType> statistics;
 
     private ProductDisplayPageRequest(Builder builder) {
         super(builder);
+        reviewSorts = builder.reviewSorts;
+        questionSorts = builder.questionSorts;
+        answerSorts = builder.answerSorts;
+        includes = builder.includes;
+        statistics = builder.statistics;
+    }
+
+    List<Sort> getReviewSorts() {
+        return reviewSorts;
+    }
+
+    List<Sort> getQuestionSorts() {
+        return questionSorts;
+    }
+
+    List<Sort> getAnswerSorts() {
+        return answerSorts;
+    }
+
+    List<Include> getIncludes() {
+        return includes;
+    }
+
+    List<PDPContentType> getStatistics() {
+        return statistics;
     }
 
     @Override
     public String getEndPoint() {
-        return "products.json";
+        return "data/products.json";
     }
 
     @Override
@@ -45,49 +73,51 @@ public class ProductDisplayPageRequest extends ConversationsDisplayRequest {
     }
 
     @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
+    HttpUrl toHttpUrl() {
+        HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
 
-        Builder builder = (Builder)super.getBuilder();
-
-        if (!builder.reviewSorts.isEmpty()){
-            queryParams.put(kSORT_REVIEW, StringUtils.componentsSeparatedBy(builder.reviewSorts, ","));
+        if (!reviewSorts.isEmpty()){
+            httpUrlBuilder.addQueryParameter(kSORT_REVIEW, StringUtils.componentsSeparatedBy(reviewSorts, ","));
         }
 
-        if (!builder.questionSorts.isEmpty()){
-            queryParams.put(kSORT_QUESTIONS, StringUtils.componentsSeparatedBy(builder.questionSorts, ","));
+        if (!questionSorts.isEmpty()){
+            httpUrlBuilder.addQueryParameter(kSORT_QUESTIONS, StringUtils.componentsSeparatedBy(questionSorts, ","));
         }
 
-        if (!builder.answerSorts.isEmpty()){
-            queryParams.put(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(builder.answerSorts, ","));
+        if (!answerSorts.isEmpty()){
+            httpUrlBuilder.addQueryParameter(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(answerSorts, ","));
         }
 
-        if (!builder.includes.isEmpty()) {
-            queryParams.put(kINCLUDE, StringUtils.componentsSeparatedBy(builder.includes, ","));
+        if (!includes.isEmpty()) {
+            httpUrlBuilder.addQueryParameter(kINCLUDE, StringUtils.componentsSeparatedBy(includes, ","));
         }
 
-        for (Include include : builder.includes) {
+        for (Include include : includes) {
             if (include.getLimit() != null) {
-                queryParams.put(include.getLimitParamKey(), include.getLimit());
+                httpUrlBuilder.addQueryParameter(include.getLimitParamKey(), String.valueOf(include.getLimit()));
             }
         }
 
-        if (!builder.statistics.isEmpty()) {
-            queryParams.put(kSTATS, StringUtils.componentsSeparatedBy(builder.statistics, ","));
+        if (!statistics.isEmpty()) {
+            httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(statistics, ","));
         }
+
+        return httpUrlBuilder.build();
     }
 
-    public static final class Builder extends ConversationsDisplayRequest.Builder{
+    public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
         private final List<Sort> reviewSorts, questionSorts, answerSorts;
         private final List<Include> includes;
         private final List<PDPContentType> statistics;
 
         public Builder(@NonNull String productId) {
+            super();
             this.reviewSorts = new ArrayList<>();
             this.questionSorts = new ArrayList<>();
             this.answerSorts = new ArrayList<>();
             this.includes = new ArrayList<>();
             this.statistics = new ArrayList<>();
-            getFilters().add(new Filter(Filter.Type.Id, EqualityOperator.EQ, productId));
+            addFilter(new Filter(Filter.Type.Id, EqualityOperator.EQ, productId));
         }
 
         public Builder addReviewSort(ReviewOptions.Sort sort, SortOrder order) {
