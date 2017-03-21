@@ -19,68 +19,101 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.support.annotation.NonNull;
 
-import java.util.Map;
+import java.util.List;
+
+import okhttp3.HttpUrl;
 
 /**
  * Request to get {@link Review}s for a {@link Product}
  */
 public class ReviewsRequest extends ConversationsDisplayRequest {
+  private static final String REVIEWS_ENDPOINT = "data/reviews.json";
+  private final String productId;
+  private final int limit;
+  private final int offset;
+  private final List<Sort> sorts;
+  private final String searchPhrase;
 
-    private static final String REVIEWS_ENDPOINT = "reviews.json";
+  private ReviewsRequest(Builder builder) {
+    super(builder);
+    this.productId = builder.productId;
+    this.limit = builder.limit;
+    this.offset = builder.offset;
+    this.sorts = builder.sorts;
+    this.searchPhrase = builder.searchPhrase;
+  }
+
+  String getProductId() {
+    return productId;
+  }
+
+  int getLimit() {
+    return limit;
+  }
+
+  int getOffset() {
+    return offset;
+  }
+
+  List<Sort> getSorts() {
+    return sorts;
+  }
+
+  String getSearchPhrase() {
+    return searchPhrase;
+  }
+
+  @Override
+  String getEndPoint() {
+    return REVIEWS_ENDPOINT;
+  }
+
+  @Override
+  BazaarException getError() {
+    if (limit < 1 || limit > 100) {
+        return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", limit));
+    }
+    return null;
+  }
+
+  @Override
+  HttpUrl toHttpUrl() {
+    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+
+    httpUrlBuilder
+        .addQueryParameter(kLIMIT, String.valueOf(limit))
+        .addQueryParameter(kOFFSET, String.valueOf(offset))
+        .addQueryParameter(kINCLUDE, INCLUDE_ANSWERS);
+
+    if (!sorts.isEmpty()) {
+      httpUrlBuilder
+          .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(sorts, ","));
+    }
+
+    if (searchPhrase != null) {
+      httpUrlBuilder
+          .addQueryParameter(kSEARCH, searchPhrase);
+    }
+
+    return httpUrlBuilder.build();
+  }
+
+  public static final class Builder extends ReviewDisplayRequestBuilder<Builder, ReviewsRequest> {
     private final String productId;
+    private final int limit;
+    private final int offset;
 
-    private ReviewsRequest(Builder builder) {
-        super(builder);
-        this.productId = builder.productId;
-    }
-
-    String getProductId() {
-        return productId;
-    }
-
-    @Override
-    String getEndPoint() {
-        return REVIEWS_ENDPOINT;
+    public Builder(@NonNull String productId, int limit, int offset) {
+      super(productId, limit, offset);
+      this.productId = productId;
+      this.limit = limit;
+      this.offset = offset;
     }
 
     @Override
-    BazaarException getError() {
-        Builder builder = (Builder) super.getBuilder();
-
-        if (builder.limit < 1 || builder.limit > 100) {
-            return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", builder.limit));
-        }
-        return null;
+    public ReviewsRequest build() {
+      return new ReviewsRequest(this);
     }
 
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (Builder) super.getBuilder();
-
-        queryParams.put(kLIMIT, "" + builder.limit);
-        queryParams.put(kOFFSET, "" + builder.offset);
-        queryParams.put(kINCLUDE, INCLUDE_ANSWERS);
-
-        if (!builder.sorts.isEmpty()){
-            queryParams.put(kSORT, StringUtils.componentsSeparatedBy(builder.sorts, ","));
-        }
-
-        if (builder.searchPhrase != null) {
-            queryParams.put(kSEARCH, builder.searchPhrase);
-        }
-    }
-
-
-    public static final class Builder extends ReviewDisplayRequestBuilder<ReviewsRequest> {
-
-        public Builder(@NonNull String productId, int limit, int offset) {
-            super(productId, limit, offset);
-        }
-
-        @Override
-        public ReviewsRequest build() {
-            return new ReviewsRequest(this);
-        }
-
-    }
+  }
 }

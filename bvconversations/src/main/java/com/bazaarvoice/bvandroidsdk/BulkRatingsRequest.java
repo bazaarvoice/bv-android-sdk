@@ -20,56 +20,70 @@ package com.bazaarvoice.bvandroidsdk;
 import android.support.annotation.NonNull;
 
 import java.util.List;
-import java.util.Map;
+
+import okhttp3.HttpUrl;
 
 /**
  * Request used to obtain statistics such as Ratings on multiple productIds
  */
 public class BulkRatingsRequest extends ConversationsDisplayRequest {
+  private final BulkRatingOptions.StatsType statsType;
+  private final List<String> productIds;
 
-    private BulkRatingsRequest(Builder builder) {
-        super(builder);
+  private BulkRatingsRequest(Builder builder) {
+    super(builder);
+    statsType = builder.statsType;
+    productIds = builder.productIds;
+  }
+
+  BulkRatingOptions.StatsType getStatsType() {
+    return statsType;
+  }
+
+  List<String> getProductIds() {
+    return productIds;
+  }
+
+  @Override
+  String getEndPoint() {
+    return "data/statistics.json";
+  }
+
+  @Override
+  BazaarException getError() {
+    if (productIds.size() < 1 || productIds.size() > 50) {
+        return new BazaarException(String.format("Too many productIds requested: %d. Must be between 1 and 50.", productIds.size()));
+    }
+    return null;
+  }
+
+  @Override
+  HttpUrl toHttpUrl() {
+    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+
+    httpUrlBuilder.addQueryParameter(kSTATS, statsType.getKey());
+
+    return httpUrlBuilder.build();
+  }
+
+  public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
+    private final BulkRatingOptions.StatsType statsType;
+    private final List<String> productIds;
+
+    public Builder(@NonNull List<String> productIds, BulkRatingOptions.StatsType statsType) {
+      super();
+      this.productIds = productIds;
+      addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
+      this.statsType = statsType;
     }
 
-    @Override
-    String getEndPoint() {
-        return "statistics.json";
+    public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
+      addFilter(new Filter(filter, equalityOperator, value));
+      return this;
     }
 
-    @Override
-    BazaarException getError() {
-        Builder builder = (Builder) super.getBuilder();
-
-        if (builder.productIds.size() < 1 || builder.productIds.size() > 50) {
-            return new BazaarException(String.format("Too many productIds requested: %d. Must be between 1 and 50.", builder.productIds.size()));
-        }
-        return null;
+    public BulkRatingsRequest build() {
+      return new BulkRatingsRequest(this);
     }
-
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (BulkRatingsRequest.Builder) getBuilder();
-        queryParams.put(kSTATS, builder.statsType.getKey());
-    }
-
-    public static final class Builder extends ConversationsDisplayRequest.Builder {
-
-        private final BulkRatingOptions.StatsType statsType;
-        private final List<String> productIds;
-
-        public Builder(@NonNull List<String> productIds, BulkRatingOptions.StatsType statsType) {
-            this.productIds = productIds;
-            getFilters().add(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
-            this.statsType = statsType;
-        }
-
-        public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
-            getFilters().add(new Filter(filter, equalityOperator, value));
-            return this;
-        }
-
-        public BulkRatingsRequest build() {
-            return new BulkRatingsRequest(this);
-        }
-    }
+  }
 }

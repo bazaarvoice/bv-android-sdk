@@ -13,21 +13,20 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import static java.net.URLEncoder.encode;
+import okhttp3.HttpUrl;
+
+import static com.bazaarvoice.bvandroidsdk.Action.Submit;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
-
-/**
- * To work on unit tests, switch the Test Artifact in the Build Variants view.
- */
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 19)
@@ -36,7 +35,94 @@ public class ConversationsUnitTest extends BVBaseTest{
 
     @Override
     protected void modifyPropertiesToInitSDK() {
-        bazaarvoiceApiBaseUrl = "a different one";
+        bazaarvoiceApiBaseUrl = "https://examplesite/";
+    }
+
+    @Test
+    public void testReviewDisplayRequest() throws Exception {
+        String productId = "productId";
+        int limit = 50;
+        int offset = 0;
+        String authorId = "author1";
+        String customKey = "a custom + key";
+        String customValue = "a custom & value";
+
+        ReviewsRequest request = new ReviewsRequest.Builder(productId, limit, offset)
+            .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, authorId)
+            .addSort(ReviewOptions.Sort.IsFeatured, SortOrder.DESC)
+            .addAdditionalField(customKey, customValue)
+            .build();
+        String actualUrlStr = request.toHttpUrl().toString();
+
+        String expectedTemplate = "https://examplesite/data/reviews.json?apiversion=%1$s&passkey=%2$s&_appId=%3$s&_appVersion=%4$s&_buildNumber=%5$s&_bvAndroidSdkVersion=%6$s&Filter=%7$s&Filter=%8$s&%9$s=%10$s&Limit=%11$s&Offset=%12$s&Include=%13$s&Sort=%14$s";
+        String expectedStr = String.format(expectedTemplate,
+            "5.4",
+            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
+            packageName,
+            versionName,
+            versionCode,
+            bvSdkVersion,
+            "ProductId:eq:productId",
+            "AuthorId:eq:author1",
+            URLEncoder.encode(customKey, "UTF-8")
+                .replaceAll("\\+", "%20"),
+            URLEncoder.encode(customValue, "UTF-8")
+                .replaceAll("\\+", "%20"),
+            limit,
+            offset,
+            "Answers",
+            "IsFeatured:desc");
+
+        assertEquals(expectedStr, actualUrlStr);
+    }
+
+    @Test
+    public void basicReviewDisplayRequest() {
+        ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0).build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
+    }
+
+    @Test
+    public void basicStoreReviewDisplayRequest() {
+        StoreReviewsRequest request = new StoreReviewsRequest.Builder("product123", 20, 0).build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
+    }
+
+    @Test
+    public void basicQuestionDisplayRequest() {
+        QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("product123", 20, 0).build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/questions.json"));
+    }
+
+    @Test
+    public void basicPdpDisplayRequest() {
+        ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder("product123").build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
+    }
+
+    @Test
+    public void basicBulkReviewDisplayRequest() {
+        BulkRatingsRequest request = new BulkRatingsRequest.Builder(new ArrayList<String>(), BulkRatingOptions.StatsType.All).build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/statistics.json"));
+    }
+
+    @Test
+    public void basicBulkStoreReviewDisplayRequest() {
+        BulkStoreRequest request = new BulkStoreRequest.Builder(20, 0).build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
+    }
+
+    @Test
+    public void basicAuthorDisplayRequest() {
+        AuthorsRequest request = new AuthorsRequest.Builder("authorId").build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/authors.json"));
     }
 
     @Test
@@ -174,6 +260,16 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
+    public void testReviewsForAllReviewsIncludeFilteredRevStatsParsing() {
+        ReviewResponse response = testParsing("reviews_all_reviews_include_filtered_rev_stats.json", ReviewResponse.class);
+        List<Product> products = response.getIncludes().getProducts();
+        assertEquals(1, products.size());
+        Product product = products.get(0);
+        ReviewStatistics reviewStatistics = product.getReviewStatistics();
+        assertEquals(8, reviewStatistics.getTotalReviewCount().intValue());
+    }
+
+    @Test
     public void testReviewsForSingleReviewParsing() {
         testParsing("reviews_single_review.json", ReviewResponse.class);
     }
@@ -226,53 +322,21 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewSubmissionBuilder() throws Exception {
-        String userNickname = "userNickname";
-        int rating = 4;
-        String reviewText = "This is the review text the user adds about how great the product is!";
-        boolean agreeToTerms = true;
-        String title = "Android SDK Testing";
-        String fp = "abcdef+123345/ham+bacon+eggs+caseylovestaters";
-        String productId = "123987";
-        String userEmail = "foo@bar.com";
-        boolean sendEmailAlertWhenCommented = true;
-        String userId = "user1234";
-        Action action = Action.Submit;
-        boolean sendEmailAlertWhenPublished = true;
-
+    public void testReviewSubmissionBuilder(){
         // Make sure the string is encoded properly
-        String expectedTemplate = "_appVersion=%1$s&passkey=%2$s&UserNickname=%3$s&Rating=%4$s&ReviewText=%5$s&agreedToTermsAndConditions=%6$s&Title=%7$s&apiversion=%8$s&fp=%9$s&ProductId=%10$s&UserEmail=%11$s&SendEmailAlertWhenCommented=%12$s&UserId=%13$s&action=%14$s&_appId=%15$s&_bvAndroidSdkVersion=%16$s&sendemailalertwhenpublished=%17$s&_buildNumber=%18$s";
-        String expectedResult = String.format(expectedTemplate,
-            bvUserProvidedData.getBvMobileInfo().getMobileAppVersion(),
-            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
-            userNickname,
-            String.valueOf(rating),
-            encode(reviewText, UTF_8),
-            String.valueOf(agreeToTerms),
-            encode(title, UTF_8),
-            "5.4",
-            encode(fp, UTF_8),
-            productId,
-            encode(userEmail, UTF_8),
-            String.valueOf(sendEmailAlertWhenCommented),
-            userId,
-            action.getKey(),
-            bvUserProvidedData.getBvMobileInfo().getMobileAppIdentifier(),
-            bvUserProvidedData.getBvMobileInfo().getBvSdkVersion(),
-            String.valueOf(sendEmailAlertWhenPublished),
-            bvUserProvidedData.getBvMobileInfo().getMobileAppCode());
+        String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&Rating=5&ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21&agreedToTermsAndConditions=true&Title=Android+SDK+Testing&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&SendEmailAlertWhenCommented=true&UserId=user1234&action=Submit&_appId=" + packageName + "&_bvAndroidSdkVersion=" + bvSdkVersion + "&sendemailalertwhenpublished=true&_buildNumber=" + versionCode;
 
-        ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(action, productId)
-                .fingerPrint(fp)
-                .userNickname(userNickname)
-                .userEmail(userEmail)
-                .userId(userId) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-                .rating(rating)
-                .title(title)
-                .reviewText(reviewText)
-                .sendEmailAlertWhenCommented(sendEmailAlertWhenCommented)
-                .sendEmailAlertWhenPublished(sendEmailAlertWhenPublished)
-                .agreedToTermsAndConditions(agreeToTerms)
+        ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Submit, "123987")
+                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
+                .userNickname("nickname")
+                .userEmail("foo@bar.com")
+                .userId("user1234") // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+                .rating(5)
+                .title("Android SDK Testing")
+                .reviewText("This is the review text the user adds about how great the product is!")
+                .sendEmailAlertWhenCommented(true)
+                .sendEmailAlertWhenPublished(true)
+                .agreedToTermsAndConditions(true)
                 .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
@@ -287,25 +351,13 @@ public class ConversationsUnitTest extends BVBaseTest{
         String userEmail = "foo@bar.com";
         Action action = Action.Submit;
 
-        String expectedTemplate = "_appVersion=%1$s&passkey=%2$s&UserNickname=%3$s&apiversion=%4$s&fp=%5$s&ProductId=%6$s&UserEmail=%7$s&action=%8$s&_appId=%9$s&_bvAndroidSdkVersion=%10$s&_buildNumber=%11$s";
+        // Make sure the string is encoded properly
+        String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&action=Submit&_appId=" + packageName + "&_bvAndroidSdkVersion=" + bvSdkVersion + "&_buildNumber=" + versionCode;
 
-        String expectedResult = String.format(expectedTemplate,
-            bvUserProvidedData.getBvMobileInfo().getMobileAppVersion(),
-            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
-            userNickname,
-            "5.4",
-            encode(fp, UTF_8),
-            productId,
-            encode(userEmail, UTF_8),
-            action.getKey(),
-            bvUserProvidedData.getBvMobileInfo().getMobileAppIdentifier(),
-            bvUserProvidedData.getBvMobileInfo().getBvSdkVersion(),
-            bvUserProvidedData.getBvMobileInfo().getMobileAppCode());
-
-        QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(action, productId)
-                .fingerPrint(fp)
-                .userNickname(userNickname)
-                .userEmail(userEmail)
+        QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Submit, "123987")
+                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
+                .userNickname("nickname")
+                .userEmail("foo@bar.com")
                 .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
@@ -323,25 +375,12 @@ public class ConversationsUnitTest extends BVBaseTest{
         String answerText = "Let me google that for you....";
 
         // Make sure the string is encoded properly
-        String expectedTemplate = "_appVersion=%1$s&passkey=%2$s&UserNickname=%3$s&QuestionId=%4$s&action=%5$s&apiversion=%6$s&_appId=%7$s&fp=%8$s&AnswerText=%9$s&UserEmail=%10$s&_bvAndroidSdkVersion=%11$s&_buildNumber=%12$s";
-        String expectedResult = String.format(expectedTemplate,
-            bvUserProvidedData.getBvMobileInfo().getMobileAppVersion(),
-            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
-            userNickname,
-            questionId,
-            action,
-            "5.4",
-            bvUserProvidedData.getBvMobileInfo().getMobileAppIdentifier(),
-            encode(fp, UTF_8),
-            encode(answerText, UTF_8),
-            encode(userEmail, UTF_8),
-            bvUserProvidedData.getBvMobileInfo().getBvSdkVersion(),
-            bvUserProvidedData.getBvMobileInfo().getMobileAppCode());
+        String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&QuestionId=123987&action=Submit&apiversion=5.4&_appId=" + packageName + "&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&AnswerText=Let+me+google+that+for+you....&UserEmail=foo%40bar.com&_bvAndroidSdkVersion=" + bvSdkVersion + "&_buildNumber=" + versionCode;
 
-       AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(action, questionId, answerText)
-                .fingerPrint(fp)
-                .userNickname(userNickname)
-                .userEmail(userEmail)
+       AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Submit, "123987", "Let me google that for you....")
+                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
+                .userNickname("nickname")
+                .userEmail("foo@bar.com")
                 .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());

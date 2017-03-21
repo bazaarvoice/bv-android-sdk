@@ -20,85 +20,83 @@ package com.bazaarvoice.bvandroidsdk;
 import android.support.annotation.NonNull;
 
 import java.util.List;
-import java.util.Map;
+
+import okhttp3.HttpUrl;
 
 /**
  * Request used to obtain multiple {@link Store}s.
  */
 public class BulkStoreRequest extends ConversationsDisplayRequest {
+  private final BulkRatingOptions.StatsType statsType;
+  private final List<String> storeIds;
+  private int limit;
+  private int offset;
 
-    private BulkStoreRequest(Builder builder) {
-        super(builder);
+  private BulkStoreRequest(Builder builder) {
+    super(builder);
+    statsType = builder.statsType;
+    storeIds = builder.storeIds;
+    limit = builder.limit;
+    offset = builder.offset;
+  }
+
+  @Override
+  String getEndPoint() {
+    return "data/products.json";
+  }
+
+  @Override
+  BazaarException getError() {
+    if (storeIds != null && (storeIds.size() < 1 || storeIds.size() > 20)) {
+      return new BazaarException(String.format("Too many store Ids requested: %d. Must be between 1 and 20.", storeIds.size()));
+    }
+    return null;
+  }
+
+  @Override
+  protected String getAPIKey(){
+      return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
+  }
+
+  @Override
+  HttpUrl toHttpUrl() {
+    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+
+    httpUrlBuilder.addQueryParameter(kLIMIT, String.valueOf(limit));
+    httpUrlBuilder.addQueryParameter(kOFFSET, String.valueOf(offset));
+    httpUrlBuilder.addQueryParameter(kSTATS, statsType.getKey());
+
+    return httpUrlBuilder.build();
+  }
+
+  public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
+    private final BulkRatingOptions.StatsType statsType;
+    private final List<String> storeIds;
+    private int limit;
+    private int offset;
+
+    public Builder(@NonNull List<String> storeIds) {
+      super();
+      this.storeIds = storeIds;
+      addFilter(new Filter(Filter.Type.Id, EqualityOperator.EQ, storeIds));
+      this.statsType = BulkRatingOptions.StatsType.Reviews;
     }
 
-    @Override
-    String getEndPoint() {
-        return "products.json";
+    public Builder(int limit, int offset) {
+      super();
+      this.storeIds = null;
+      this.limit = limit;
+      this.offset = offset;
+      this.statsType = BulkRatingOptions.StatsType.Reviews;
     }
 
-    @Override
-    BazaarException getError() {
-        Builder builder = (Builder) super.getBuilder();
-
-        if (builder.storeIds != null && (builder.storeIds.size() < 1 || builder.storeIds.size() > 20)) {
-            return new BazaarException(String.format("Too many store Ids requested: %d. Must be between 1 and 20.", builder.storeIds.size()));
-        }
-        return null;
+    public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
+      addFilter(new Filter(filter, equalityOperator, value));
+      return this;
     }
 
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (BulkStoreRequest.Builder) getBuilder();
-
-        if (builder.getLimit() != null){
-            queryParams.put(kLIMIT, builder.getLimit().intValue());
-            queryParams.put(kOFFSET, builder.getOffset().intValue());
-        }
-
-        queryParams.put(kSTATS, builder.statsType.getKey());
+    public BulkStoreRequest build() {
+      return new BulkStoreRequest(this);
     }
-
-    @Override
-    String getAPIKey(){
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
-    }
-
-    public static final class Builder extends ConversationsDisplayRequest.Builder {
-
-        private final BulkRatingOptions.StatsType statsType;
-        private final List<String> storeIds;
-        private Integer limit;
-        private Integer offset;
-
-        public Builder(@NonNull List<String> storeIds) {
-            this.storeIds = storeIds;
-            this.limit = this.offset = null;
-            getFilters().add(new Filter(Filter.Type.Id, EqualityOperator.EQ, storeIds));
-            this.statsType = BulkRatingOptions.StatsType.Reviews;
-        }
-
-        public Builder(Integer limit, Integer offset) {
-            this.storeIds = null;
-            this.limit = new Integer(limit);
-            this.offset = new Integer(offset);
-            this.statsType = BulkRatingOptions.StatsType.Reviews;
-        }
-
-        public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
-            getFilters().add(new Filter(filter, equalityOperator, value));
-            return this;
-        }
-
-        public BulkStoreRequest build() {
-            return new BulkStoreRequest(this);
-        }
-
-        public Integer getLimit() {
-            return limit;
-        }
-
-        public Integer getOffset() {
-            return offset;
-        }
-    }
+  }
 }

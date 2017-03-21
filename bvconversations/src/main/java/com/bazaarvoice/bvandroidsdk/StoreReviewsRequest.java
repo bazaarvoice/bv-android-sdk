@@ -19,73 +19,102 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.support.annotation.NonNull;
 
-import java.util.Map;
+import java.util.List;
+
+import okhttp3.HttpUrl;
 
 /**
  * Request to get {@link StoreReview}s for a {@link Store}
  */
 public class StoreReviewsRequest extends ConversationsDisplayRequest {
 
-    private static final String REVIEWS_ENDPOINT = "reviews.json";
+  private static final String REVIEWS_ENDPOINT = "data/reviews.json";
+  private final String storeId;
+  private final int limit;
+  private final int offset;
+  private final List<Sort> sorts;
+  private final String searchPhrase;
+
+  private StoreReviewsRequest(Builder builder) {
+    super(builder);
+    storeId = builder.storeId;
+    limit = builder.limit;
+    offset = builder.offset;
+    sorts = builder.sorts;
+    searchPhrase = builder.searchPhrase;
+  }
+
+  String getStoreId() {
+    return storeId;
+  }
+
+  int getLimit() {
+    return limit;
+  }
+
+  int getOffset() {
+    return offset;
+  }
+
+  public List<Sort> getSorts() {
+    return sorts;
+  }
+
+  public String getSearchPhrase() {
+    return searchPhrase;
+  }
+
+  @Override
+  String getEndPoint() {
+    return REVIEWS_ENDPOINT;
+  }
+
+  @Override
+  BazaarException getError() {
+    if (limit < 1 || limit > 100) {
+      return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", limit));
+    }
+    return null;
+  }
+
+  @Override
+  protected String getAPIKey(){
+    return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
+  }
+
+  @Override
+  HttpUrl toHttpUrl() {
+    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+
+    httpUrlBuilder.addQueryParameter(kLIMIT, String.valueOf(limit));
+    httpUrlBuilder.addQueryParameter(kOFFSET, String.valueOf(offset));
+    httpUrlBuilder.addQueryParameter(kINCLUDE, "Products");
+
+    if (!sorts.isEmpty()){
+      httpUrlBuilder.addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(sorts, ","));
+    }
+
+    if (searchPhrase != null) {
+      httpUrlBuilder.addQueryParameter(kSEARCH, searchPhrase);
+    }
+
+    return httpUrlBuilder.build();
+  }
+
+  public static final class Builder extends ReviewDisplayRequestBuilder<Builder, StoreReviewsRequest> {
     private final String storeId;
+    private final int limit;
+    private final int offset;
 
-    private StoreReviewsRequest(Builder builder) {
-        super(builder);
-        this.storeId = builder.productId;
+    public Builder(@NonNull String storeId, int limit, int offset) {
+      super(storeId, limit, offset);
+      this.storeId = storeId;
+      this.limit = limit;
+      this.offset = offset;
     }
 
-    String getStoreId() {
-        return storeId;
+    public StoreReviewsRequest build() {
+      return new StoreReviewsRequest(this);
     }
-
-    @Override
-    String getAPIKey(){
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
-    }
-
-    @Override
-    String getEndPoint() {
-        return REVIEWS_ENDPOINT;
-    }
-
-    @Override
-    BazaarException getError() {
-        Builder builder = (Builder) super.getBuilder();
-
-        if (builder.limit < 1 || builder.limit > 100) {
-            return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", builder.limit));
-        }
-        return null;
-    }
-
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (Builder) super.getBuilder();
-
-        queryParams.put(kLIMIT, "" + builder.limit);
-        queryParams.put(kOFFSET, "" + builder.offset);
-        queryParams.put(kINCLUDE, "Products");
-
-        if (!builder.sorts.isEmpty()){
-            queryParams.put(kSORT, StringUtils.componentsSeparatedBy(builder.sorts, ","));
-        }
-
-        if (builder.searchPhrase != null) {
-            queryParams.put(kSEARCH, builder.searchPhrase);
-        }
-    }
-
-
-    public static final class Builder extends ReviewDisplayRequestBuilder<StoreReviewsRequest> {
-
-        public Builder(@NonNull String storeId, int limit, int offset) {
-            super(storeId, limit, offset);
-        }
-
-        public StoreReviewsRequest build() {
-            return new StoreReviewsRequest(this);
-        }
-
-
-    }
+  }
 }

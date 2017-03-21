@@ -35,7 +35,6 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
 
     @Test
     public void testBulkStoreRatingsLimitAndOffset() {
-
         BulkStoreRequest request = new BulkStoreRequest.Builder(20, 0)
                 .build();
 

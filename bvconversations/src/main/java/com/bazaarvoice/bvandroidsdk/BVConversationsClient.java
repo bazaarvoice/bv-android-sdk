@@ -21,6 +21,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -110,11 +111,11 @@ public final class BVConversationsClient {
     }
 
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType request) {
-        String fullUrl = String.format("%s%s?%s", conversationsBaseUrl, request.getEndPoint(), request.getUrlQueryString());
-        BV_LOGGER.d("url", fullUrl);
+        HttpUrl httpUrl = request.toHttpUrl();
+        BV_LOGGER.d("url", httpUrl.toString());
         Request okRequest = new Request.Builder()
                 .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
-                .url(fullUrl)
+                .url(httpUrl)
                 .build();
         return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest));
     }

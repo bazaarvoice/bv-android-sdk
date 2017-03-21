@@ -30,7 +30,6 @@ final class Filter {
 
     static final String paramKey = "Filter";
 
-    private final String queryString;
     private final UGCOption option;
     private final EqualityOperator equalityOperator;
     private final List<String> filterValues;
@@ -40,7 +39,6 @@ final class Filter {
         this.equalityOperator = equalityOperator;
         this.filterValues = new ArrayList<>();
         filterValues.add(value);
-        this.queryString = this.toString();
     }
 
     Filter(UGCOption option, EqualityOperator equalityOperator, @NonNull List<String> values) {
@@ -48,16 +46,14 @@ final class Filter {
         this.equalityOperator = equalityOperator;
         this.filterValues = values;
         Collections.sort(this.filterValues);
-        this.queryString = this.toString();
     }
 
      public String toString() {
         Collections.sort(filterValues);
-        return String.format("Filter=%s:%s:%s",option.getKey(), equalityOperator.getKey(), StringUtils.componentsSeparatedByWithEscapes(filterValues, ","));
-    }
-
-    String getQueryString() {
-        return queryString;
+        return String.format("%s:%s:%s",
+            option.getKey(),
+            equalityOperator.getKey(),
+            StringUtils.componentsSeparatedByWithEscapes(filterValues, ","));
     }
 
     enum Type implements UGCOption{
