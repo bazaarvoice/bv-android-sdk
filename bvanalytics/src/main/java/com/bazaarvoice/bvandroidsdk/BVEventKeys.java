@@ -45,6 +45,7 @@ class BVEventKeys {
     static final String BV_PRODUCT_TYPE = "bvProduct";
     static final String PRODUCT_ID = "productId";
     static final String CATEGORY_ID = "categoryId";
+    static final String REPORTING_GROUP = "reportingGroup";
   }
 
   static class ImpressionEvent {

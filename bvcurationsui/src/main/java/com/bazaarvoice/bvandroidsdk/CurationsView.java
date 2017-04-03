@@ -28,10 +28,10 @@ import android.widget.FrameLayout;
  * This view will allow Bazaarvoice to receive feedback
  * about the users interaction with the item in order to help build ROI reports
  */
-final class CurationsView extends BVView {
-
+public final class CurationsView extends BVView {
     private static final String TAG = CurationsView.class.getSimpleName();
 
+    private CurationsAnalyticsManager curationsAnalyticsManager;
     private CurationsFeedItem curationsFeedItem;
 
     public CurationsView(Context context) {
@@ -49,6 +49,12 @@ final class CurationsView extends BVView {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CurationsView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    void init() {
+        curationsAnalyticsManager = new CurationsAnalyticsManager(BVSDK.getInstance());
+        super.init();
     }
 
     /**
@@ -69,7 +75,7 @@ final class CurationsView extends BVView {
 
     @Override
     public void onAddedToViewHierarchy() {
-        CurationsAnalyticsManager.sendUGCImpressionEvent(curationsFeedItem);
+        curationsAnalyticsManager.sendUGCImpressionEvent(curationsFeedItem);
     }
 
     @Override
@@ -77,6 +83,6 @@ final class CurationsView extends BVView {
         if (curationsFeedItem == null) {
             throw new IllegalStateException("Must associate CurationsFeedItem with CurationsView");
         }
-        CurationsAnalyticsManager.sendUsedFeatureEventTapped(curationsFeedItem);
+        curationsAnalyticsManager.sendUsedFeatureEventTapped(curationsFeedItem);
     }
 }

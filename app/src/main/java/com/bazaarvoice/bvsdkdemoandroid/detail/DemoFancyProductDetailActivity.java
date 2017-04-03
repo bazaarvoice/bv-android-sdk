@@ -252,6 +252,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         curationsRecyclerView.setNestedScrollingEnabled(false);
         final CurationsFeedRequest request = new CurationsFeedRequest
             .Builder(Collections.singletonList("__all__"))
+            .externalId(productId)
             .build();
         curationsRecyclerView
             .setRequest(request)

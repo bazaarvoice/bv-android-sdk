@@ -80,6 +80,7 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
   private CurationsImageLoader imageLoader;
   private CurationsFeedRequest request;
   private OnPageLoadListener pageLoadListener;
+  private CurationsAnalyticsManager curationsAnalyticsManager;
 
   // endregion
 
@@ -99,6 +100,8 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
 
   @Override
   protected void init(Context context, @Nullable AttributeSet attr) {
+    super.init(context, attr);
+    curationsAnalyticsManager = new CurationsAnalyticsManager(BVSDK.getInstance());
     curations = new BVCurations();
     setHasFixedSize(true);
     viewDelegate = new CurationsViewDelegate();
@@ -524,24 +527,24 @@ public class CurationsInfiniteRecyclerView extends BVRecyclerView {
   }
 
   @Override
-    public void onViewGroupInteractedWith() {
-        if (isNestedScrollingEnabled()) {
-          CurationsAnalyticsManager.sendUsedFeatureEventScrolled(getExternalId(), ReportingGroup.RECYCLERVIEW);
-        }
+  public void onViewGroupInteractedWith() {
+    if (isNestedScrollingEnabled()) {
+      curationsAnalyticsManager.sendUsedFeatureEventScrolled(getExternalId());
     }
+  }
 
-    @Override
-    public void onAddedToViewHierarchy() {
-        CurationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(getExternalId(), WIDGET_ID, ReportingGroup.RECYCLERVIEW);
-    }
+  @Override
+  public void onAddedToViewHierarchy() {
+    curationsAnalyticsManager.sendBvViewGroupAddedToHierarchyEvent(WIDGET_ID, ReportingGroup.RECYCLERVIEW);
+  }
 
-    @Override
-    public boolean startNestedScroll(int axes) {
-        if (!isNestedScrollingEnabled()) {
-          CurationsAnalyticsManager.sendUsedFeatureEventScrolled(getExternalId(), ReportingGroup.RECYCLERVIEW);
-        }
-        return super.startNestedScroll(axes);
+  @Override
+  public boolean startNestedScroll(int axes) {
+    if (!isNestedScrollingEnabled()) {
+      curationsAnalyticsManager.sendUsedFeatureEventScrolled(getExternalId());
     }
+    return super.startNestedScroll(axes);
+  }
 
   // endregion
 }

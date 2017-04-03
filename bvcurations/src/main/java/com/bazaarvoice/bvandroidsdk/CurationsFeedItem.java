@@ -80,6 +80,10 @@ public class CurationsFeedItem {
     public String getExplicitPermissionStatus(){return explicit_permission_status;}
     public String getProductId(){return product_id;}
 
+    String getExternalIdInQuery() {
+        return externalIdInQuery;
+    }
+
     protected Integer praises;
     public Integer getPraises(){return praises;}
 

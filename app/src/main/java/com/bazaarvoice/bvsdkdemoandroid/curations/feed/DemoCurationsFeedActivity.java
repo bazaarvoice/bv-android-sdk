@@ -57,7 +57,6 @@ public class DemoCurationsFeedActivity extends AppCompatActivity {
             .build();
 
         recyclerView.setRequest(request)
-            .setRequest(request)
             .setImageLoader(curationsImageLoader)
             .setOnPageLoadListener(new CurationsInfiniteRecyclerView.OnPageLoadListener() {
                 @Override

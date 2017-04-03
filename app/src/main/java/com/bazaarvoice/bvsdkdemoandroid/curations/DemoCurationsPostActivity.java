@@ -64,11 +64,6 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (demoConfigUtils.isDemoClient()) {
-                    DemoCurationsPostActivity.this.onSuccess(demoDataUtil.getCurationsPostResponse());
-                    return;
-                }
-
                 postCurationsContent();
             }
         });
@@ -132,7 +127,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
                     //                .links(links)
                     .build();
 
-            // curations.postContentToCurations(request, this);
+             curations.postContentToCurations(request, this);
         } else {
             onSuccess(demoDataUtil.getCurationsPostResponse());
         }

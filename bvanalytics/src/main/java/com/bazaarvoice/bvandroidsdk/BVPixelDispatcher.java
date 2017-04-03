@@ -169,7 +169,13 @@ class BVPixelDispatcher {
         Map<String, Object> eventJson = iterator.next();
         StringBuilder eventLog = new StringBuilder();
         if (full) {
-          eventLog.append(eventJson.toString());
+          for (Map.Entry<String, Object> entry : eventJson.entrySet()) {
+            eventLog.append("\t")
+                .append(entry.getKey())
+                .append(" : ")
+                .append(entry.getValue())
+                .append("\n");
+          }
         } else {
           String basicEventLogTemplate = "type: %1$s, class: %2$s, source: %3$s";
           String basicEventLog = String.format(basicEventLogTemplate,

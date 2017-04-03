@@ -51,8 +51,9 @@ public class BVCurations {
     private static final int MSG_DELIVER_GET_FEED = 3;
     private static final int MSG_DELIVER_POST_CONTENT = 4;
 
-    private CurationsBgHandler bgHandler;
-    private CurationsUiHandler uiHandler;
+    private final CurationsBgHandler bgHandler;
+    private final CurationsUiHandler uiHandler;
+    private final CurationsAnalyticsManager curationsAnalyticsManager;
 
     // endregion
 
@@ -61,6 +62,7 @@ public class BVCurations {
     public BVCurations() {
         this.bgHandler = new CurationsBgHandler(BVSDK.getInstance().getBackgroundLooper(), this);
         this.uiHandler = new CurationsUiHandler(this);
+        this.curationsAnalyticsManager = new CurationsAnalyticsManager(BVSDK.getInstance());
     }
 
     // endregion
@@ -238,6 +240,7 @@ public class BVCurations {
         BVCallback<CurationsPostResponse> cb = responseData.getRequestData().getCallback();
         if (responseData.isSuccess()) {
             cb.onSuccess(response);
+            curationsAnalyticsManager.sendUploadPhotoFeatureEvent("none");
         } else {
             cb.onFailure(new BazaarException("Failed to get curations feed", throwable));
         }

@@ -17,74 +17,167 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Wrapper around {@link AnalyticsManager} for forming and sending
  * Curations specific Analytics events
  */
 public class CurationsAnalyticsManager {
-    private static AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+  private final BVPixel bvPixel;
+  private final BVEventValues.BVProductType bvProductType;
 
-    /**
-     * Event should be sent whenever a CurationsFeedItem appears on the screen. Should only be fired once per CurationsFeedItem.
-     * @param curationsFeedItem CurationsFeedItem that has appeared on screen.
-     */
-    public static void sendUGCImpressionEvent(CurationsFeedItem curationsFeedItem){
+  public CurationsAnalyticsManager(BVSDK bvsdk) {
+    this.bvPixel = bvsdk.getBvPixel();
+    this.bvProductType = BVEventValues.BVProductType.CURATIONS;
+  }
 
-        if (curationsFeedItem.impressed){
-            return;
-        }
-
-        curationsFeedItem.impressed = true;
-
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        CurationsImpressionSchema schema = new CurationsImpressionSchema(curationsFeedItem, magpieMobileAppPartialSchema);
-
-        analyticsManager.enqueueEvent(schema);
+  /**
+   * Event should be sent whenever a CurationsFeedItem appears on the screen. Should only be fired once per CurationsFeedItem.
+   * @param curationsFeedItem CurationsFeedItem that has appeared on screen.
+   */
+  public void sendUGCImpressionEvent(CurationsFeedItem curationsFeedItem) {
+    if (curationsFeedItem != null && curationsFeedItem.impressed){
+      return;
+    } else if (curationsFeedItem != null) {
+      curationsFeedItem.impressed = true;
+    } else {
+      return;
     }
 
-    /**
-     * Event should be sent whenever a Curations ViewGroup appears on the screen. Should only be fired once per Curations ViewGroup.
-     * @param externalId If an externalId was used in the CurationsFeedRequest when the Curations feed was loaded, it should be used in this event.
-     * @param widgetId ID given to the Curations ViewGroup used to distinguish events.
-     * @param reportingGroup The type of Curations ViewGroup used to present Curations feed (RecyclerView, ListView ...)
-     */
-    public static void sendBvViewGroupAddedToHierarchyEvent(String externalId, String widgetId, ReportingGroup reportingGroup){
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        CurationsUsedFeatureSchema schema = new CurationsUsedFeatureSchema(Feature.INVIEW, externalId, widgetId, reportingGroup, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema);
+    String productId = curationsFeedItem.getExternalIdInQuery() != null ?
+        curationsFeedItem.getExternalIdInQuery() : "none";
+    String contentId = curationsFeedItem.getId() != null ?
+        String.valueOf(curationsFeedItem.getId()) : "none";
+    String categoryId = null;
+    String brand = null;
+
+    BVImpressionEvent event = new BVImpressionEvent(
+        productId,
+        contentId,
+        bvProductType,
+        BVEventValues.BVImpressionContentType.CURATIONS_FEED_ITEM,
+        categoryId,
+        brand);
+
+    Map<String, Object> additionalParams = new HashMap<>();
+    additionalParams.put("syndicationSource", curationsFeedItem.getSourceClient());
+
+    event.setAdditionalParams(additionalParams);
+
+    bvPixel.track(event);
+  }
+
+  /**
+   * Event should be sent whenever a Curations ViewGroup appears on the screen. Should only be fired once per Curations ViewGroup.
+   * @param widgetId ID given to the Curations ViewGroup used to distinguish events.
+   * @param reportingGroup The type of Curations ViewGroup used to present Curations feed (RecyclerView, ListView ...)
+   */
+  public void sendBvViewGroupAddedToHierarchyEvent(String widgetId, ReportingGroup reportingGroup) {
+    String productId = "none";
+    String brand = null;
+
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(
+        productId,
+        bvProductType,
+        BVEventValues.BVFeatureUsedEventType.IN_VIEW,
+        brand);
+
+    Map<String, Object> additionalParams = new HashMap<>();
+    additionalParams.put(BVEventKeys.FeatureUsedEvent.CONTAINER_ID, reportingGroup.toString());
+    additionalParams.put(BVEventKeys.FeatureUsedEvent.DETAIL_1, widgetId);
+
+    event.setAdditionalParams(additionalParams);
+
+    bvPixel.track(event);
+  }
+
+  /**
+   * Event should be sent whenever a CurationsView is tapped.
+   * @param curationsFeedItem The CurationsFeedItem used to populate the CurationsView UI
+   */
+  public void sendUsedFeatureEventTapped(CurationsFeedItem curationsFeedItem) {
+    if (curationsFeedItem == null) {
+      return;
     }
 
-    /**
-     * Event should be sent whenever a CurationsView is tapped.
-     * @param curationsFeedItem The CurationsFeedItem used to populate the CurationsView UI
-     */
-    public static void sendUsedFeatureEventTapped(CurationsFeedItem curationsFeedItem){
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        CurationsUsedFeatureSchema schema = new CurationsUsedFeatureSchema(Feature.CONTENT_CLICK, curationsFeedItem, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema);
-    }
+    String brand = null;
+    String channel = curationsFeedItem.getChannel();
+    String productId = externalIdToProductId(curationsFeedItem.getExternalIdInQuery());
 
-    /**
-     * Should be sent when a ViewGroup displaying Curations feed is scrolled. Typically this is fired once on the first interaction with a UI container and when scrolling stops.
-     * @param externalId If an externalId was used in the CurationsFeedRequest when the Curations feed was loaded, it should be used in this event.
-     * @param reportingGroup The type of Curations ViewGroup used to present Curations feed (RecyclerView, ListView ...)
-     */
-    public static void sendUsedFeatureEventScrolled(String externalId, ReportingGroup reportingGroup){
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        CurationsUsedFeatureSchema schema = new CurationsUsedFeatureSchema(Feature.SCROLLED, externalId, null, reportingGroup, magpieMobileAppPartialSchema);
-        analyticsManager.enqueueEvent(schema);
-    }
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(
+        productId,
+        bvProductType,
+        BVEventValues.BVFeatureUsedEventType.CONTENT_CLICK,
+        brand);
 
-    /**
-     * Event should be sent whenever a Curations ViewGroup is created, but not necessarily displayed on screen.
-     * @param externalId If an externalId was used in the CurationsFeedRequest when the Curations feed was loaded, it should be used in this event.
-     * @param reportingGroup The type of Curations ViewGroup used to present Curations feed (RecyclerView, ListView ...)
-     */
-    public static void sendEmbeddedPageView(String externalId, ReportingGroup reportingGroup){
-        BVSDK bvsdk = BVSDK.getInstance();
-        AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        CurationsEmbeddedPageViewSchema schema = new CurationsEmbeddedPageViewSchema(magpieMobileAppPartialSchema, externalId, reportingGroup);
-        analyticsManager.enqueueEvent(schema);
-    }
+    Map<String, Object> additionalParams = new HashMap<>();
+    additionalParams.put(BVEventKeys.FeatureUsedEvent.DETAIL_1, channel);
+    additionalParams.put(BVEventKeys.FeatureUsedEvent.INTERACTION, true);
+
+    event.setAdditionalParams(additionalParams);
+
+    bvPixel.track(event);
+  }
+
+  /**
+   * Should be sent when a ViewGroup displaying Curations feed is scrolled. Typically this is fired once on the first interaction with a UI container and when scrolling stops.
+   * @param externalId If an externalId was used in the CurationsFeedRequest when the Curations feed was loaded, it should be used in this event.
+   */
+  public void sendUsedFeatureEventScrolled(String externalId) {
+    String productId = externalIdToProductId(externalId);
+    String brand = null;
+
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(
+        productId,
+        BVEventValues.BVProductType.CURATIONS,
+        BVEventValues.BVFeatureUsedEventType.SCROLLED,
+        brand);
+
+    bvPixel.track(event);
+  }
+
+  /**
+   * Event should be sent whenever a Curations ViewGroup is created, but not necessarily displayed on screen.
+   * @param externalId If an externalId was used in the CurationsFeedRequest when the Curations feed was loaded, it should be used in this event.
+   * @param reportingGroup The type of Curations ViewGroup used to present Curations feed (RecyclerView, ListView ...)
+   */
+  public void sendEmbeddedPageView(String externalId, ReportingGroup reportingGroup) {
+    String productId = externalIdToProductId(externalId);
+    String categoryId = null;
+
+    BVPageViewEvent event = new BVPageViewEvent(
+        productId,
+        bvProductType,
+        categoryId);
+
+    Map<String, Object> additionalParams = new HashMap<>();
+    additionalParams.put(BVEventKeys.PageViewEvent.REPORTING_GROUP, reportingGroup.toString());
+
+    event.setAdditionalParams(additionalParams);
+
+    bvPixel.track(event);
+  }
+
+  public void sendUploadPhotoFeatureEvent(String externalId) {
+    String productId = externalIdToProductId(externalId);
+    String brand = null;
+
+    BVFeatureUsedEvent event = new BVFeatureUsedEvent(
+        productId,
+        bvProductType,
+        BVEventValues.BVFeatureUsedEventType.PHOTO,
+        brand);
+
+    bvPixel.track(event);
+  }
+
+  @NonNull
+  private String externalIdToProductId(@Nullable String externalId) {
+    return externalId != null && !externalId.isEmpty() ? externalId : "none";
+  }
 }
