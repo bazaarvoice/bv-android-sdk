@@ -53,12 +53,32 @@ class DemoSdkInterceptor implements Interceptor {
         String host = originalRequest.url().host();
         String path = originalRequest.url().encodedPath();
 
+        if (originalRequest.url().toString().contains("REPLACE_ME")) {
+            String doNotSendInvalidRequestsMessage = "{ \"demoInterceptMessage\" : \"Query params contain REPLACE_ME, so this is not being sent to the endpoint\" }";
+            Response response = new Response.Builder()
+                .code(403)
+                .body(ResponseBody.create(MediaType.parse("json"), doNotSendInvalidRequestsMessage))
+                .request(originalRequest)
+                .protocol(Protocol.HTTP_2)
+                .build();
+            return response;
+        }
+
         if (host.contains("api.bazaarvoice.com")) {
             if (path.contains("curations/content/get")) {
                 String curationsFeedItemsJsonStr = demoDataUtil.getCurationsFeedResponseJsonString();
                 Response response = new Response.Builder()
                     .code(200)
                     .body(ResponseBody.create(MediaType.parse("json"), curationsFeedItemsJsonStr))
+                    .request(originalRequest)
+                    .protocol(Protocol.HTTP_2)
+                    .build();
+                return response;
+            } else if (path.contains("curations/content/add")) {
+                String curationsPostResponseJsonString = demoDataUtil.getCurationsPostResponseJsonString();
+                Response response = new Response.Builder()
+                    .code(200)
+                    .body(ResponseBody.create(MediaType.parse("json"), curationsPostResponseJsonString))
                     .request(originalRequest)
                     .protocol(Protocol.HTTP_2)
                     .build();

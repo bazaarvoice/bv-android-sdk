@@ -239,6 +239,10 @@ public class DemoDataUtil {
         return curationsPostResponse;
     }
 
+    public String getCurationsPostResponseJsonString() {
+        return gson.toJson(getCurationsPostResponse());
+    }
+
     public String getAdUnitId() {
         return AD_UNIT_ID;
     }

@@ -30,6 +30,10 @@ public final class BVFeatureUsedEvent extends BVMobileAnalyticsEvent {
     if (brand != null) {
       mapPutSafe(map, BVEventKeys.FeatureUsedEvent.BRAND, brand);
     }
+
+    boolean isInteractionEvent = bvFeatureUsedEventType != BVEventValues.BVFeatureUsedEventType.IN_VIEW;
+    mapPutSafe(map, BVEventKeys.FeatureUsedEvent.INTERACTION, isInteractionEvent);
+
     mapPutSafe(map, BVEventKeys.FeatureUsedEvent.PRODUCT_ID, productId);
     mapPutSafe(map, BVEventKeys.FeatureUsedEvent.BV_PRODUCT_TYPE, bvProductType.toString());
     mapPutSafe(map, BVEventKeys.FeatureUsedEvent.BV_FEATURE_TYPE, bvFeatureUsedEventType.toString());
