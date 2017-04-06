@@ -73,7 +73,8 @@ public class BVEventValues {
     PRODUCT("Product"),
     PROFILE("ProfileMobile"),
     UGC("UGC"),
-    MOBILE_APP("MobileApp");
+    MOBILE_APP("MobileApp"),
+    VIEWED_CGC("UsedViewedUGC");
 
     private String value;
 
