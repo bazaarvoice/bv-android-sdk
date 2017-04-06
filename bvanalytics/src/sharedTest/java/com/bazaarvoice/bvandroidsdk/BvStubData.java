@@ -353,6 +353,21 @@ public class BvStubData {
     return "testClientId";
   }
 
+  public String getRootCategoryId() {
+    return "rootCategory123";
+  }
+
+  public BVViewedCgcEvent getViewedCgcEvent() {
+    BVViewedCgcEvent event = new BVViewedCgcEvent(
+        getProductId(),
+        BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
+        getRootCategoryId(),
+        getCategoryId(),
+        getBrand());
+    event.setBvMobileParams(getBvMobileParams());
+    return event;
+  }
+
   private static class TestAdIdCallable implements Callable<String> {
     private final Context context;
 

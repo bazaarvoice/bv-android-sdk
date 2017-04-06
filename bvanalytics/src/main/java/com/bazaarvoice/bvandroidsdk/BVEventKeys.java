@@ -89,5 +89,13 @@ class BVEventKeys {
     static final String PROFILE_ID = "profileId";
   }
 
+  static class ViewedCgcEvent {
+    static final String PRODUCT_ID = "productId";
+    static final String BV_PRODUCT_TYPE = "bvProduct";
+    static final String ROOT_CATEGORY_ID = "rootCategoryId";
+    static final String CATEGORY_ID = "categoryId";
+    static final String BRAND = "brand";
+  }
+
   static final String BATCH = "batch";
 }
