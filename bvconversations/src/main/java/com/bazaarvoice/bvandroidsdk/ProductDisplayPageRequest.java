@@ -100,17 +100,25 @@ public class ProductDisplayPageRequest extends ConversationsDisplayRequest {
             return this;
         }
 
+        /**
+         * @deprecated Including answers is not supported on product calls.
+         * @param sort Answer Sort options
+         * @param order Sort Order
+         * @return this builder
+         */
         public Builder addAnswerSort(AnswerOptions.Sort sort, SortOrder order) {
             answerSorts.add(new Sort(sort, order));
             return this;
         }
 
-        // TODO: Might need this?
-//        public Builder addSort(ProductOptions.Sort sort, SortOrder order) {
-//            productSorts.add(new Sort(sort, order));
-//            return this;
-//        }
-
+        /**
+         * Type of social content to inlcude with the product request.
+         * NOTE: PDPContentType is only supported for statistics, not for Includes.
+         *
+         * @param type Type of CGC to include
+         * @param limit Max number of items to include
+         * @return this builder
+         */
         public Builder addIncludeContent(PDPContentType type, @Nullable Integer limit) {
             this.includes.add(new Include(type, limit));
             return this;
