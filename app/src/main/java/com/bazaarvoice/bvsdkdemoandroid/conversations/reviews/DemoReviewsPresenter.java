@@ -8,6 +8,7 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.ReviewIncludeType;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
@@ -64,6 +65,7 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         if (shouldHitNetwork) {
             ReviewsRequest request = new ReviewsRequest.Builder(productId, 20, 0)
                     .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+                    .addIncludeContent(ReviewIncludeType.PRODUCTS)
                     .build();
             reviewsLoader.loadAsync(client.prepareCall(request), this);
         } else {
