@@ -31,6 +31,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected final int limit;
   protected final int offset;
   protected String searchPhrase;
+  protected ReviewIncludeType reviewIncludeType;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
     super();
@@ -39,6 +40,11 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.offset = offset;
     addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
     this.productId = productId;
+  }
+
+  public BuilderType addIncludeContent(ReviewIncludeType reviewIncludeType) {
+    this.reviewIncludeType = reviewIncludeType;
+    return (BuilderType) this;
   }
 
   public BuilderType addSort(ReviewOptions.Sort sort, SortOrder sortOrder) {
@@ -57,4 +63,5 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   }
 
   public abstract RequestType build();
+
 }

@@ -51,6 +51,7 @@ public class ConversationsUnitTest extends BVBaseTest{
             .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, authorId)
             .addSort(ReviewOptions.Sort.IsFeatured, SortOrder.DESC)
             .addAdditionalField(customKey, customValue)
+            .addIncludeContent(ReviewIncludeType.PRODUCTS)
             .build();
         String actualUrlStr = request.toHttpUrl().toString();
 
@@ -70,7 +71,7 @@ public class ConversationsUnitTest extends BVBaseTest{
                 .replaceAll("\\+", "%20"),
             limit,
             offset,
-            "Answers",
+            "products",
             "IsFeatured:desc");
 
         assertEquals(expectedStr, actualUrlStr);
@@ -78,16 +79,22 @@ public class ConversationsUnitTest extends BVBaseTest{
 
     @Test
     public void basicReviewDisplayRequest() {
-        ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0).build();
+        ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0)
+            .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .build();
         HttpUrl httpUrl = request.toHttpUrl();
         assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
+        assertTrue(httpUrl.query().contains("Include=products"));
     }
 
     @Test
     public void basicStoreReviewDisplayRequest() {
-        StoreReviewsRequest request = new StoreReviewsRequest.Builder("product123", 20, 0).build();
+        StoreReviewsRequest request = new StoreReviewsRequest.Builder("product123", 20, 0)
+            .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .build();
         HttpUrl httpUrl = request.toHttpUrl();
         assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
+        assertTrue(httpUrl.query().contains("Include=products"));
     }
 
     @Test
