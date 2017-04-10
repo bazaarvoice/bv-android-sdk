@@ -1,5 +1,15 @@
 # Changelog
 
+# 6.5.0
+
+## **NEW** BVPixel (Analytics) 
+* Added analytics module with ```BVPixel``` interface. Now allow a simple interface to build and send analytic events without having to get into the nitty gritty of each required field
+* Added BVPixel under the hood for Curations analytics
+* Deprecated ```include=answers``` which our sdk allows, but does nothing for ```ProductDisplayPageRequest```s
+* Added ```ConversationsDisplayRequest#addAdditionalField(String key, String value)``` to match ```BaseReviewBuilder#addAdditionalField(String key, String value)```
+* Added ```ReviewIncludeType``` which only contains ```products``` at the moment
+* Added ```ReviewDisplayRequestBuilder#addIncludeContent(ReviewIncludeType reviewIncludeType)```
+
 # 6.4.0
 
 ## **NEW** Curations UI
