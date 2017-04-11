@@ -23,9 +23,9 @@ import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvandroidsdk.QuestionsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
@@ -55,8 +55,8 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     private boolean forceLoadFromProductId; // Meaning, a BVProduct is explicitly not provided
     private String productId;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoClient demoClient;
+    @Inject DemoMockDataUtil demoMockDataUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
 
-        if (!forceLoadFromProductId && demoConfigUtils.isDemoClient()) {
-            List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
+        if (!forceLoadFromProductId && demoClient.isMockClient()) {
+            List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
                 if (currRecProd.getId().equals(productId)) {
                     bvProduct = currRecProd;
@@ -82,7 +82,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         setupToolbarViews();
         setupRecyclerView();
 
-        questionsActionsListener = new DemoQuestionsPresenter(this, demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId, questionsRecyclerView);
+        questionsActionsListener = new DemoQuestionsPresenter(this, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView);
     }
 
     @Override

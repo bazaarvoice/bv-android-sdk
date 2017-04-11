@@ -50,7 +50,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
   }
 
   HttpUrl toHttpUrl() {
-    String rootBvApiUrl = BVSDK.getInstance().getRootApiUrls().getBazaarvoiceApiRootUrl();
+    String rootBvApiUrl = BVSDK.getInstance().getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl();
 
     HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(rootBvApiUrl)
         .newBuilder()

@@ -25,8 +25,8 @@ import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
@@ -77,14 +77,13 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         setupToolbarViews();
         setupRecyclerView();
 
-        DemoConfigUtils demoConfigUtils = getConfigUtils();
-        DemoDataUtil demoDataUtil = getDataUtil();
-        reviewsUserActionListener = getReviewsUserActionListener(this,demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+        DemoMockDataUtil demoMockDataUtil = getDataUtil();
+        reviewsUserActionListener = getReviewsUserActionListener(this, getDemoClient(), demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
-    abstract DemoConfigUtils getConfigUtils();
+    abstract DemoClient getDemoClient();
 
-    abstract DemoDataUtil getDataUtil();
+    abstract DemoMockDataUtil getDataUtil();
 
     abstract Picasso getPicasso();
 
@@ -94,8 +93,8 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         reviewsRecyclerView = (ConversationsDisplayRecyclerView) findViewById(R.id.reviews_recycler_view);
     }
 
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoReviewsPresenter(view, demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
+        return new DemoReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     private void setupToolbarViews() {

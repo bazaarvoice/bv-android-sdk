@@ -60,7 +60,7 @@ public class BVCurations {
     // region Constructor
 
     public BVCurations() {
-        this.bgHandler = new CurationsBgHandler(BVSDK.getInstance().getBackgroundLooper(), this);
+        this.bgHandler = new CurationsBgHandler(BVSDK.getInstance().getBvWorkerData().getBackgroundLooper(), this);
         this.uiHandler = new CurationsUiHandler(this);
         this.curationsAnalyticsManager = new CurationsAnalyticsManager(BVSDK.getInstance());
     }
@@ -104,14 +104,14 @@ public class BVCurations {
 
     @WorkerThread
     List<CurationsFeedItem> getCurationsFeedItems(CurationsFeedRequest request) throws Throwable {
-        OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
-        Gson gson = BVSDK.getInstance().getGson();
+        OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
+        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
 
         Request httpRequest = new Request.Builder()
             .url(request.toUrlQueryString())
             .addHeader("Content-Type", "application/x-www-form-urlencoded")
-            .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+            .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
             .build();
         bvLogger.v(getClass().getSimpleName(), httpRequest.url().toString());
 
@@ -159,10 +159,10 @@ public class BVCurations {
     @WorkerThread
     private void dispatchPostContent(RequestData<CurationsPostResponse> requestData) {
         CurationsPostRequest request = (CurationsPostRequest) requestData.getObj1();
-        OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
+        OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
         BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
 
-        Gson gson = BVSDK.getInstance().getGson();
+        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
 
         String jsonPayload = request.getJsonPayload();
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("jsonpayload", jsonPayload);
@@ -173,7 +173,7 @@ public class BVCurations {
         }
 
         Request httpRequest = new Request.Builder()
-            .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+            .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
             .url(request.toUrlQueryString())
             .post(bodyBuilder.build())
             .build();

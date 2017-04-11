@@ -119,7 +119,7 @@ class BVNotificationUtil {
         Intent notificationIntent = new Intent(appContext, BVNotificationService.class);
         notificationIntent.setAction(BVNotificationService.ACTION_SHOW_NOTIF);
 
-        Gson gson = BVSDK.getInstance().getGson();
+        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         String displayDataStr = gson.toJson(displayData);
         notificationIntent.putExtra(EXTRA_DISPLAY_DATA, displayDataStr);
         notificationIntent.putExtra(EXTRA_CGC_ID, cgcId);
@@ -197,7 +197,7 @@ class BVNotificationUtil {
      */
     @Nullable @WorkerThread
     private static Bitmap getBigPictureBitmap(String bitmapUrl) {
-        OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
+        OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
         BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
         ImageLoader imageLoader = new BVImageLoader(okHttpClient, bvLogger);
         if (bitmapUrl == null) {
@@ -294,10 +294,10 @@ class BVNotificationUtil {
         bvLogger.d(TAG, pinConfigDataUrl);
         Request request = new Request.Builder()
                 .url(pinConfigDataUrl)
-                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                 .build();
-        OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
-        Gson gson = BVSDK.getInstance().getGson();
+        OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
+        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         Response response = null;
         try {
             response = okHttpClient.newCall(request).execute();

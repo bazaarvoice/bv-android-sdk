@@ -9,8 +9,8 @@ import android.widget.Toast;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ public class DemoCurationsDetailActivity extends AppCompatActivity implements De
     private DemoCurationsDetailPagerAdapter pagerAdapter;
     private DemoCurationsDetailContract.UserActionsListener userActionsListener;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoClient demoClient;
+    @Inject DemoMockDataUtil demoMockDataUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class DemoCurationsDetailActivity extends AppCompatActivity implements De
         DemoApp.get(this).getAppComponent().inject(this);
         String productId = getIntent().getStringExtra(KEY_PRODUCT_ITEM);
         String startCurationsItemId = getIntent().getStringExtra(KEY_CURATIONS_ITEM_ID);
-        userActionsListener = new DemoCurationsDetailPresenter(this, demoConfigUtils, demoDataUtil, productId, startCurationsItemId);
+        userActionsListener = new DemoCurationsDetailPresenter(this, demoClient, demoMockDataUtil, productId, startCurationsItemId);
         viewPager = (ViewPager) findViewById(R.id.curations_view_pager);
         pagerAdapter = new DemoCurationsDetailPagerAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);

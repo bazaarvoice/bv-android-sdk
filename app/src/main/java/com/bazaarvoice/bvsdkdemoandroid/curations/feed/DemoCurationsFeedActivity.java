@@ -15,8 +15,8 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import javax.inject.Inject;
 
@@ -25,8 +25,10 @@ public class DemoCurationsFeedActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private CurationsInfiniteRecyclerView curationsInfiniteRecyclerView;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject
+    DemoClientConfigUtils demoClientConfigUtils;
+    @Inject
+    DemoMockDataUtil demoMockDataUtil;
     @Inject CurationsImageLoader curationsImageLoader;
 
     @Override

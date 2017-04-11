@@ -32,7 +32,7 @@ public final class PinClient {
 
     public PinClient() {
         BVSDK bvsdk = BVSDK.getInstance();
-        pinBgHandler = new PinBgHandler(bvsdk.getBackgroundLooper(), this);
+        pinBgHandler = new PinBgHandler(bvsdk.getBvWorkerData().getBackgroundLooper(), this);
         pinMainHandler = new PinMainHandler(this);
     }
 
@@ -128,9 +128,9 @@ public final class PinClient {
 
         BVSDK bvsdk = BVSDK.getInstance();
         Context appContext = bvsdk.getBvUserProvidedData().getAppContext();
-        OkHttpClient okHttpClient = bvsdk.getOkHttpClient();
-        Gson gson = bvsdk.getGson();
-        String bvUserAgent = bvsdk.getBvsdkUserAgent();
+        OkHttpClient okHttpClient = bvsdk.getBvWorkerData().getOkHttpClient();
+        Gson gson = bvsdk.getBvWorkerData().getGson();
+        String bvUserAgent = bvsdk.getBvWorkerData().getBvSdkUserAgent();
         BVLogger bvLogger = bvsdk.getBvLogger();
 
         AdIdResult adIdResult = AdIdRequestTask.getAdId(appContext);

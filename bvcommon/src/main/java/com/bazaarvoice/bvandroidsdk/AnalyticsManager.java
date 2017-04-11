@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 
@@ -64,12 +65,13 @@ class AnalyticsManager {
     private final String clientId;
     private final UUID uuid;
     private final BVAuthenticatedUser bvAuthenticatedUser;
+    private final boolean dryRunAnalytics;
 
     // endregion
 
     // region Constructor
 
-    AnalyticsManager(final Context applicationContext, final String clientId, final String baseUrl, final OkHttpClient okHttpClient, final ExecutorService immediateExecutorService, final ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final UUID uuid) {
+    AnalyticsManager(final Context applicationContext, final String clientId, final String baseUrl, final OkHttpClient okHttpClient, final ExecutorService immediateExecutorService, final ScheduledExecutorService scheduledExecutorService, final BVAuthenticatedUser bvAuthenticatedUser, final UUID uuid, boolean dryRunAnalytics) {
         this.analyticsBatch = new AnalyticsBatch();
         this.analyticsThread = new AnalyticsThread();
         this.analyticsThread.start();
@@ -82,6 +84,7 @@ class AnalyticsManager {
         this.immediateExecutorService = immediateExecutorService;
         this.uuid = uuid;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
+        this.dryRunAnalytics = dryRunAnalytics;
     }
 
     // endregion
@@ -254,13 +257,18 @@ class AnalyticsManager {
 
             analyticsBatch.log(false);
 
+            if (dryRunAnalytics) {
+                Log.d("Analytics", "Not sending analytics for dry run");
+                return;
+            }
+
             RequestBody body = analyticsBatch.toPostPayload();
             bvLogger.v(TAG, url.toString() + "\n" + analyticsBatch.toString());
             Request request = new Request.Builder()
                     .url(url)
                     .header("Content-Type", "application/json")
                     .header("X-Requested-With", "XMLHttpRequest")
-                    .header("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                    .header("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                     .post(body)
                     .build();
 

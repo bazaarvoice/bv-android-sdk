@@ -64,6 +64,7 @@ public class BVPixel {
     private final String analyticsRootUrl;
     private HandlerThread bgHandlerThread;
     private OkHttpClient okHttpClient;
+    private boolean dryRunAnalytics;
 
     public Builder(Context context, String clientId, boolean isStaging) {
       this.appContext = context.getApplicationContext();
@@ -72,6 +73,7 @@ public class BVPixel {
       this.analyticsRootUrl = isStaging ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
       this.bgHandlerThread = new BVPixelDispatcher.BvAnalyticsThread();
       this.okHttpClient = new OkHttpClient();
+      this.dryRunAnalytics = false;
     }
 
     public Builder bgHandlerThread(@NonNull HandlerThread bgHandlerThread) {
@@ -83,6 +85,11 @@ public class BVPixel {
     public Builder okHttpClient(@NonNull OkHttpClient okHttpClient) {
       warnShouldNotBeEmpty("okHttpClient", okHttpClient);
       this.okHttpClient = okHttpClient;
+      return this;
+    }
+
+    public Builder dryRunAnalytics(boolean dryRunAnalytics) {
+      this.dryRunAnalytics = dryRunAnalytics;
       return this;
     }
 
@@ -100,7 +107,8 @@ public class BVPixel {
           bvAnalyticsBatch,
           okHttpClient,
           analyticsRootUrl,
-          TimeUnit.SECONDS.toMillis(ANALYTICS_DELAY_SECONDS));
+          TimeUnit.SECONDS.toMillis(ANALYTICS_DELAY_SECONDS),
+          dryRunAnalytics);
 
       singleton = new BVPixel(bvPixelDispatcher);
       return singleton;

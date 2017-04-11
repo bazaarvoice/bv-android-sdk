@@ -32,10 +32,10 @@ import okhttp3.RequestBody;
  * BVConversationsClient as a single instance in your app.
  */
 public final class BVConversationsClient {
-    private static final OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
+    private static final OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
     private static final BVLogger BV_LOGGER = BVSDK.getInstance().getBvLogger();
     private static final String CONVERSATIONS_RELATIVE_URL = "data/";
-    static final String conversationsBaseUrl = BVSDK.getInstance().getRootApiUrls().getBazaarvoiceApiRootUrl() + CONVERSATIONS_RELATIVE_URL;
+    static final String conversationsBaseUrl = BVSDK.getInstance().getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl() + CONVERSATIONS_RELATIVE_URL;
     private static final MediaType URL_ENCODED = MediaType.parse("application/x-www-form-urlencoded");
 
     /**
@@ -114,7 +114,7 @@ public final class BVConversationsClient {
         HttpUrl httpUrl = request.toHttpUrl();
         BV_LOGGER.d("url", httpUrl.toString());
         Request okRequest = new Request.Builder()
-                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                 .url(httpUrl)
                 .build();
         return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest));
@@ -136,7 +136,7 @@ public final class BVConversationsClient {
         Request okRequest = new Request.Builder()
                 .post(body)
                 .addHeader("Content-type", "application/x-www-form-urlencoded")
-                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                 .url(fullUrl)
                 .build();
         return new LoadCallSubmission<>(submission, responseTypeClass, okHttpClient.newCall(okRequest));

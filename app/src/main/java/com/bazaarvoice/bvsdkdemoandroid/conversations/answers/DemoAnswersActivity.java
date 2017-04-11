@@ -22,9 +22,9 @@ import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
@@ -52,8 +52,8 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
 
     private String questionId;
 
-    @Inject DemoDataUtil demoDataUtil;
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoMockDataUtil demoMockDataUtil;
+    @Inject DemoClient demoClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,8 +66,8 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);
 
-        if (bvProduct != null && demoConfigUtils.isDemoClient()) {
-            List<BVProduct> recommendedProducts = demoDataUtil.getRecommendedProducts();
+        if (bvProduct != null && demoClient.isMockClient()) {
+            List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
                 if (currRecProd.getId().equals(productId)) {
                     bvProduct = currRecProd;
@@ -81,7 +81,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         setupToolbarViews();
         setupRecyclerView();
 
-        this.answerUserActionListener = new DemoAnswersPresenter(this, demoConfigUtils, demoDataUtil, productId, questionId, bvProduct == null);
+        this.answerUserActionListener = new DemoAnswersPresenter(this, demoClient, demoMockDataUtil, productId, questionId, bvProduct == null);
     }
 
     @Override

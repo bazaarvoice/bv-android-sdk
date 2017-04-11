@@ -19,3 +19,5 @@ misc/assets/
 # ignore internal testing files
 /app/src/main/assets/DemoAppConfigs.plist
 /app/src/main/assets/demo_app_configs.json
+/app/src/main/assets/bvsdk_config_staging.json
+/app/src/main/assets/bvsdk_config_prod.json

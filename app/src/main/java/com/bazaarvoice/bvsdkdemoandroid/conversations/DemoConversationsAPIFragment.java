@@ -28,8 +28,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,7 +62,7 @@ public class DemoConversationsAPIFragment extends Fragment {
     private Unbinder unbinder;
 
     @Inject BVConversationsClient client;
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClient demoClient;
 
     public DemoConversationsAPIFragment() {
         // Required empty public constructor
@@ -124,7 +123,7 @@ public class DemoConversationsAPIFragment extends Fragment {
 
     @OnClick(R.id.displayAuthorBtn)
     public void onDisplayAuthorButtonTapped() {
-        if (readyForDemo() && setAuthorId()) {
+        if (demoClient.isMockClient() || (readyForDemo() && setAuthorId())) {
             DemoAuthorActivity.transitionTo(getActivity(), AUTHOR_ID);
         }
     }
@@ -293,12 +292,10 @@ public class DemoConversationsAPIFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
+        String conversationsKey = demoClient.getApiKeyConversations();
+        String displayName = demoClient.getDisplayName();
 
-        String conversationsKey = currentConfig.apiKeyConversations;
-        String displayName = currentConfig.displayName;
-
-        if (!DemoConstants.isSet(conversationsKey)) {
+        if (!demoClient.isMockClient() && !DemoConstants.isSet(conversationsKey)) {
             String errorMessage = String.format(
                     getString(R.string.view_demo_error_message),
                     displayName, getString(R.string.demo_conversations)

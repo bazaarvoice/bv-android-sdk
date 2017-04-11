@@ -19,12 +19,14 @@ package com.bazaarvoice.bvsdkdemoandroid;
 
 import android.app.Application;
 
+import com.bazaarvoice.bvandroidsdk.BVConfig;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
+import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.PinClient;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader;
 import com.squareup.picasso.Picasso;
 
@@ -34,31 +36,22 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 
+import static com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient.mapToBvConfig;
+
 @Module
 public class DemoBvModule {
     @Provides @Singleton
-    BVSDK provideBvSdk(Application application, DemoConfigUtils demoConfigUtils, OkHttpClient okHttpClient) {
-        String clientId = demoConfigUtils.getClientId();
-        String shopperAdvertisingApiKey = demoConfigUtils.getShopperAdPasskey();
-        String conversationsApiKey = demoConfigUtils.getConversationsPasskey();
-        String conversationsStoresApiKey = demoConfigUtils.getConversationsStoresPasskey();
-        String curationsApiKey = demoConfigUtils.getCurationsPasskey();
-        String locationApiKey = demoConfigUtils.getLocationPasskey();
-        String pinApiKey = demoConfigUtils.getPinPasskey();
-
-
+    BVSDK provideBvSdk(
+        Application application,
+        BazaarEnvironment bazaarEnvironment,
+        BVConfig bvConfig,
+        OkHttpClient okHttpClient,
+        BVLogLevel bvLogLevel) {
         // Builder used to initialize the Bazaarvoice SDKs
-        return BVSDK.builder(application, clientId)
-                .bazaarEnvironment(DemoConstants.ENVIRONMENT)
-                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                .apiKeyConversations(conversationsApiKey)
-                .apiKeyConversationsStores(conversationsStoresApiKey)
-                .apiKeyCurations(curationsApiKey)
-                .apiKeyLocation(locationApiKey)
-                .apiKeyPin(pinApiKey)
-                .logLevel(BVLogLevel.VERBOSE)
-                .okHttpClient(okHttpClient)
-                .build();
+        return BVSDK.builderWithConfig(application, bazaarEnvironment, bvConfig)
+            .logLevel(bvLogLevel)
+            .okHttpClient(okHttpClient)
+            .build();
     }
 
     @Provides @Singleton
@@ -67,8 +60,23 @@ public class DemoBvModule {
     }
 
     @Provides @Singleton
+    BazaarEnvironment provideBazaarEnvironment() {
+        return DemoConstants.ENVIRONMENT;
+    }
+
+    @Provides @Singleton
+    BVLogLevel provideBVLogLevel() {
+        return DemoConstants.LOG_LEVEL;
+    }
+
+    @Provides @Singleton
     PinClient providePinClient(BVSDK bvsdk) {
         return new PinClient();
+    }
+
+    @Provides @Singleton
+    BVConfig provideBVConfig(DemoClientConfigUtils demoClientConfigUtils) {
+        return mapToBvConfig(demoClientConfigUtils.getCurrentConfig());
     }
 
     @Provides @Singleton

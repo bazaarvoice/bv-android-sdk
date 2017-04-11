@@ -33,7 +33,9 @@ public class BannerAdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner_ad);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         bannerAdLoading = (TextView) findViewById(R.id.banner_ad_loading);
         bannerAdSuccess = (TextView) findViewById(R.id.banner_ad_success);
         bannerAdFailure = (TextView) findViewById(R.id.banner_ad_failure);

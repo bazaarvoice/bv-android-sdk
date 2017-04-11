@@ -45,6 +45,7 @@ class BVPixelDispatcher {
   private final OkHttpClient okHttpClient;
   private final HttpUrl url;
   private final long analyticsDelayMillis;
+  private final boolean dryRunAnalytics;
 
   // endregion
 
@@ -64,7 +65,8 @@ class BVPixelDispatcher {
       BvAnalyticsBatch analyticsBatch,
       OkHttpClient okHttpClient,
       String analyticsRootUrl,
-      long analyticsDelayMillis) {
+      long analyticsDelayMillis,
+      boolean dryRunAnalytics) {
     this.bgHandlerThread = bgHandlerThread;
     if (!this.bgHandlerThread.isAlive()) {
       throw new IllegalStateException("Must start bgHandlerThread before building BVPixel");
@@ -76,6 +78,7 @@ class BVPixelDispatcher {
         .newBuilder()
         .addPathSegment(PATH).build();
     this.analyticsDelayMillis = analyticsDelayMillis;
+    this.dryRunAnalytics = dryRunAnalytics;
   }
   // endregion
 
@@ -234,6 +237,11 @@ class BVPixelDispatcher {
       }
 
       analyticsBatch.log(FULL_LOGGING);
+
+      if (dryRunAnalytics) {
+        Log.d("Analytics", "Not sending analytics for dry run");
+        return;
+      }
 
       RequestBody body = analyticsBatch.toPostPayload();
       Log.v(TAG, url.toString() + "\n" + analyticsBatch.toString());

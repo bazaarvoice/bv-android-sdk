@@ -22,8 +22,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -89,8 +90,8 @@ public class DemoAppModule {
     }
 
     @Provides @Singleton
-    DemoSdkInterceptor provideSdkInterceptor(DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil) {
-        return new DemoSdkInterceptor(demoConfigUtils, demoDataUtil);
+    DemoSdkInterceptor provideSdkInterceptor(DemoClient demoClient, DemoMockDataUtil demoMockDataUtil) {
+        return new DemoSdkInterceptor(demoClient, demoMockDataUtil);
     }
 
     @Provides @Singleton
@@ -106,4 +107,8 @@ public class DemoAppModule {
                 .build();
     }
 
+    @Provides @Singleton
+    DemoAssetsUtil provideDemoAssetsUtil(Context context, Gson gson) {
+        return new DemoAssetsUtil(context, gson);
+    }
 }

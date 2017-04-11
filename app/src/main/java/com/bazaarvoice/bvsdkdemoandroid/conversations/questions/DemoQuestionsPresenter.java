@@ -16,10 +16,9 @@ import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerRequest;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
 import com.bazaarvoice.bvandroidsdk.QuestionOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.Collections;
 import java.util.Date;
@@ -29,18 +28,18 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
 
     private static final String TAG = "DemoQsPresenter";
     private DemoQuestionsContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClient demoClient;
+    private DemoMockDataUtil demoMockDataUtil;
     private String productId;
     private BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader;
     private boolean fetched = false;
     private BVConversationsClient conversationsClient = new BVConversationsClient();
     private boolean forceAPICall;
 
-    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader) {
+    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
         this.loader = loader;
@@ -57,9 +56,8 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
     @Override
     public void loadQuestions(boolean forceRefresh) {
         fetched = false;
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (!forceAPICall && currentConfig.isDemoClient()) {
-            showQuestions(demoDataUtil.getConversationsQuestions());
+        if (!forceAPICall && demoClient.isMockClient()) {
+            showQuestions(demoMockDataUtil.getConversationsQuestions().getResults());
             return;
         }
 

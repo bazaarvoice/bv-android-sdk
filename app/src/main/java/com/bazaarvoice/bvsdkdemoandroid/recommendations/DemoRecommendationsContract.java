@@ -22,6 +22,5 @@ public interface DemoRecommendationsContract {
     interface UserActionsListener {
         void onRecommendationProductTapped(BVProduct recommendationProduct);
         void loadRecommendationProducts(boolean forceRefresh);
-        void onResume();
     }
 }

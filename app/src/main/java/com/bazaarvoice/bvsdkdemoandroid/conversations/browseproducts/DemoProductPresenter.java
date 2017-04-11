@@ -10,8 +10,8 @@ import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.util.List;
 
@@ -23,21 +23,21 @@ public class DemoProductPresenter implements DemoProductContract.UserActionsList
     private DemoProductContract.View view;
     private Product product;
     private String productId;
-    private DemoDataUtil demoDataUtil;
-    private DemoConfigUtils demoConfigUtils;
+    private DemoMockDataUtil demoMockDataUtil;
+    private DemoClient demoClient;
     private BVConversationsClient conversationsClient = new BVConversationsClient();
 
-    public DemoProductPresenter(DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, DemoProductContract.View view, String productId) {
+    public DemoProductPresenter(DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, DemoProductContract.View view, String productId) {
         this.view = view;
         this.productId = productId;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
     }
 
     @Override
     public void loadProduct(boolean forceRefresh) {
-        if (demoConfigUtils.isDemoClient()) {
-            product = demoDataUtil.getBazaarProductWithStats();
+        if (demoClient.isMockClient()) {
+            product = demoMockDataUtil.getConversationsPdp().getResults().get(0);
             showProduct(product);
             return;
         }

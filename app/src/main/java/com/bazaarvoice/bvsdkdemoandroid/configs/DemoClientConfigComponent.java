@@ -17,23 +17,16 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.configs;
 
-import com.google.gson.annotations.SerializedName;
+import com.bazaarvoice.bvsdkdemoandroid.DemoAppComponent;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 
-import java.util.List;
+import dagger.Component;
 
-public class DemoConfigs {
-
-    @SerializedName("prod_configs")
-    private List<DemoConfig> prodConfigs;
-
-    @SerializedName("stg_configs")
-    private List<DemoConfig> stgConfigs;
-
-    public List<DemoConfig> getProdConfigs() {
-        return prodConfigs;
-    }
-
-    public List<DemoConfig> getStgConfigs() {
-        return stgConfigs;
-    }
+@DemoAppScope
+@Component(dependencies = DemoAppComponent.class, modules = DemoClientConfigModule.class)
+public interface DemoClientConfigComponent {
+    void inject(DemoClientConfigUtils demoClientConfigUtils);
+    void inject(DemoMockDataUtil demoMockDataUtil);
+    void inject(DemoMultiTenantSource demoMultiTenantSource);
+    void inject(DemoSingleTenantSource demoSingleTenantSource);
 }

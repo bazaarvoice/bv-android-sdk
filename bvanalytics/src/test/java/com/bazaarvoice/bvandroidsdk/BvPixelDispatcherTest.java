@@ -122,6 +122,6 @@ public class BvPixelDispatcherTest {
   }
 
   private BVPixelDispatcher createBvPixelDispatcher(String baseUrl) {
-    return new BVPixelDispatcher(RuntimeEnvironment.application, stubData.getClientId(), bgHandlerThread, analyticsBatch, okHttpClient, baseUrl, delayMillis);
+    return new BVPixelDispatcher(RuntimeEnvironment.application, stubData.getClientId(), bgHandlerThread, analyticsBatch, okHttpClient, baseUrl, delayMillis, false);
   }
 }

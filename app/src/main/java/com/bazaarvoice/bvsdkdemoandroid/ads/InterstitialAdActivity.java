@@ -32,7 +32,9 @@ public class InterstitialAdActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interstitial_ad);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         interstitialButton = (Button) findViewById(R.id.interstitial_button);
 
         String demoAdUnitId = DemoConstants.INTERSTITIAL_AD_UNIT_ID;

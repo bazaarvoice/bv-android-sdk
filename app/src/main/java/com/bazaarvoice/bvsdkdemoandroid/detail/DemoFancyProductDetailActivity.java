@@ -39,8 +39,8 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductContract;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProductPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
@@ -57,6 +57,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoRequiredKeyUiUtil.getNoReccosApiKeyDialog;
 
 public class DemoFancyProductDetailActivity extends AppCompatActivity implements DemoProductRecContract.View, DemoProductDetailRecAdapter.ProductTapListener, DemoProductDetailCurationsAdapter.CurationFeedItemTapListener, DemoProductContract.View {
     // region Properties
@@ -98,9 +100,9 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     private DemoProductRecContract.UserActionsListener recRowActionListener;
     private DemoProductContract.UserActionsListener productDataActionListener;
 
-    @Inject DemoDataUtil demoDataUtil;
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoMockDataUtil demoMockDataUtil;
     @Inject CurationsImageLoader curationsImageLoader;
+    @Inject DemoClient demoClient;
 
     // endregion
 
@@ -135,8 +137,8 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         setupRecommendationsRow();
         setupCurationsRow();
 
-        recRowActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, false, recommendationsRecyclerView);
-        productDataActionListener = new DemoProductPresenter(demoConfigUtils, demoDataUtil, this, productId);
+        recRowActionListener = new DemoProductRecPresenter(this, demoClient, demoMockDataUtil, false, recommendationsRecyclerView);
+        productDataActionListener = new DemoProductPresenter(demoClient, demoMockDataUtil, this, productId);
     }
 
     @Override
@@ -329,6 +331,11 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @Override
     public void showRecMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showNoApiKey(String clientDisplayName) {
+        getNoReccosApiKeyDialog(this, clientDisplayName).show();
     }
 
     // endregion

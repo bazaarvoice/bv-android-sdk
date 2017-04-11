@@ -35,8 +35,8 @@ import okhttp3.Response;
 abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType extends ConversationsResponse> {
     final Call call;
     final Class responseTypeClass;
-    final OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
-    final Gson gson = BVSDK.getInstance().getGson();
+    final OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
+    final Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
     final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
     LoadCall(Class<ResponseType> responseTypeClass, Call call) {
@@ -60,7 +60,7 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
     public abstract void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback);
 
     ResponseType deserializeAndCloseResponse(Response response) throws BazaarException {
-        Gson gson = BVSDK.getInstance().getGson();
+        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         ResponseType conversationResponse = null;
         BazaarException error = null;
         try {

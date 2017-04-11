@@ -12,6 +12,7 @@ public interface DemoProductRecContract {
         void showNoRecommendations();
         void showError();
         void showRecMessage(String message);
+        void showNoApiKey(String clientDisplayName);
     }
 
     interface UserActionsListener {

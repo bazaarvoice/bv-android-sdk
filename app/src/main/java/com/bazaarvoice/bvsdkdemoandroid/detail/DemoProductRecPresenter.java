@@ -6,10 +6,9 @@ package com.bazaarvoice.bvsdkdemoandroid.detail;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,15 +18,15 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
     private static final int NUM_RECS = 20;
 
     private DemoProductRecContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClient demoClient;
+    private DemoMockDataUtil demoMockDataUtil;
     private boolean isHomePage;
     private BVRecommendations.BVRecommendationsLoader recommendationsLoader;
 
-    public DemoProductRecPresenter(DemoProductRecContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, boolean isHomePage, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
+    public DemoProductRecPresenter(DemoProductRecContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, boolean isHomePage, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.isHomePage = isHomePage;
         this.recommendationsLoader = recommendationsLoader;
     }
@@ -48,10 +47,16 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
     }
 
     private void loadRecommendations(boolean forceRefresh, String productId, String categoryId) {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        List<BVProduct> demoBvProds = demoDataUtil.getRecommendedProducts();
-        if (currentConfig.isDemoClient()) {
+        if (!demoClient.hasShopperAds() && !demoClient.isMockClient()) {
+            view.showNoApiKey(demoClient.getDisplayName());
+            view.showNoRecommendations();
+            return;
+        }
+
+        List<BVProduct> demoBvProds = demoMockDataUtil.getRecommendedProducts();
+        if (demoClient.isMockClient()) {
             showRecommendedProducts(demoBvProds, true);
+            view.showLoadingRecs(false);
             return;
         }
 

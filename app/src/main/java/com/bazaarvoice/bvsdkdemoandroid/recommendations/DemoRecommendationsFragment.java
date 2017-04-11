@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,19 +16,23 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCart;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DividerItemDecoration;
+
 import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoRequiredKeyUiUtil.getNoReccosApiKeyDialog;
 
 public class DemoRecommendationsFragment extends Fragment implements DemoRecommendationsContract.View {
     private static final String TAG = DemoRecommendationsFragment.class.getSimpleName();
@@ -40,8 +43,8 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     private TextView noRecsFoundTextView;
     private ProgressBar getRecsProgressBar;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoClient demoClient;
+    @Inject DemoMockDataUtil demoMockDataUtil;
 
     public static DemoRecommendationsFragment newInstance() {
         return new DemoRecommendationsFragment();
@@ -91,7 +94,7 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        userActionsListener = new DemoRecommendationsPresenter(this, demoConfigUtils, demoDataUtil, recyclerView);
+        userActionsListener = new DemoRecommendationsPresenter(this, demoClient, demoMockDataUtil, recyclerView);
     }
     @Override
     public void onPause() {
@@ -100,7 +103,6 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     @Override
     public void onResume() {
         super.onResume();
-        userActionsListener.onResume();
         userActionsListener.loadRecommendationProducts(false);
     }
     @Override
@@ -130,11 +132,8 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     }
     @Override
     public void showNotConfiguredDialog(String displayName) {
-        String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_recommendations));
-        String acceptButton = "Ok";
-        new AlertDialog.Builder(getActivity())
-                .setMessage(errorMessage)
-                .setPositiveButton(acceptButton, null).create().show();
+        if (getActivity() == null || !isAdded()) { return; }
+        getNoReccosApiKeyDialog(getContext(), displayName).show();
     }
     private void showDetailScreen(BVProduct bvProduct) {
         ((DemoMainActivity) getActivity()).transitionToBvProductDetail(bvProduct);

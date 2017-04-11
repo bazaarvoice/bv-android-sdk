@@ -6,8 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.ads;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.BVAds;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
@@ -20,20 +19,22 @@ public class DemoAdPresenter implements DemoAdContract.UserActionsListener, Nati
 
     private static final String TAG = DemoAdPresenter.class.getSimpleName();
     private DemoAdContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
     private AdLoader targetedAdLoader;
     private NativeContentAd nativeContentAd;
+    private DemoClient demoClient;
 
-    public DemoAdPresenter(DemoAdContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, AdLoader.Builder targetedAdBuilder) {
+    public DemoAdPresenter(DemoAdContract.View view, AdLoader.Builder targetedAdBuilder, DemoClient demoClient) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
         this.targetedAdLoader = targetedAdBuilder.forContentAd(this).withAdListener(adListener).build();
+        this.demoClient = demoClient;
     }
 
     @Override
     public void loadAd(boolean forceRefresh) {
+        if (!demoClient.hasShopperAds() && !demoClient.isMockClient()) {
+            view.showNoApiKey(demoClient.getDisplayName());
+            return;
+        }
         // Add Bazaarvoice targeting keywords
         PublisherAdRequest.Builder publisherAdRequest = new PublisherAdRequest.Builder();
         Map<String, String> targetingKeywords = BVAds.getCustomTargeting();

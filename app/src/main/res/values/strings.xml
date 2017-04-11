@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">BV Sample</string>
+    <string name="app_name">BV API</string>
+    <string name="settings_launcher_name">BV Settings</string>
     <string name="info_circle">&#xf05a;</string>
     <string name="title_activity_bvconversation_detail">BVConversationDetailActivity</string>
 
@@ -21,7 +22,7 @@
     <string name="title_activity_settings">Demo Settings</string>
     <string name="title_activity_cart">Demo Cart</string>
     <string name="title_activity_fancy_product_detail">Product Detail</string>
-    <string name="title_activity_demo_app">BVSDK Demo</string>
+    <string name="title_activity_demo_app">BV Demo</string>
     <string name="title_activity_reviews">Product Reviews</string>
     <string name="title_activity_store_reviews">Store Reviews</string>
     <string name="title_activity_bulkratings">Bulk Ratings</string>

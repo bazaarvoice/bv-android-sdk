@@ -12,16 +12,6 @@ import java.util.Arrays;
 public class DemoConstants {
 
     /******************* MAIN CONFIG OPTIONS **********************/
-    // Bazaarvoice client id
-    public static final String BV_CLIENT_ID = "REPLACE_ME";
-
-    public static final String PASSKEY_SHOPPER_AD = "REPLACE_ME";
-    public static final String PASSKEY_CONVERSATIONS = "REPLACE_ME";
-    public static final String PASSKEY_CONVERSATIONS_STORES = "REPLACE_ME";
-    public static final String PASSKEY_CURATIONS = "REPLACE_ME";
-    public static final String PASSKEY_LOCATION = "REPLACE_ME";
-    public static final String PASSKEY_PIN = "REPLACE_ME";
-
     // Bazaarvoice environments, NOTE! Turn to PRODUCTION for production apps
     public static final BazaarEnvironment ENVIRONMENT = BazaarEnvironment.STAGING;
     /**************************************************************/
@@ -44,9 +34,6 @@ public class DemoConstants {
 
     // Curations Other Config Options
     public static final ArrayList<String> CURATIONS_GROUPS = new ArrayList<>(Arrays.asList("__all__"));
-
-    // Production Environment Other Config Options
-    public static final boolean PREVENT_ANALYTICS_IN_PROD = true;
     /**************************************************************/
 
     public static boolean isSet(String constant) {

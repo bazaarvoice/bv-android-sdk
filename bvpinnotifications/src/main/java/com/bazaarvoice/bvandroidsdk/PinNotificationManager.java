@@ -33,7 +33,7 @@ public class PinNotificationManager {
 
     private PinNotificationManager() {
         super();
-        pinBgHandler = new PinBgHandler(BVSDK.getInstance().getBackgroundLooper(), this);
+        pinBgHandler = new PinBgHandler(BVSDK.getInstance().getBvWorkerData().getBackgroundLooper(), this);
     }
 
     // endregion

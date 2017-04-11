@@ -13,8 +13,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,7 @@ import javax.inject.Inject;
  */
 public class DemoCurationsFragment extends Fragment {
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClient demoClient;
 
     public static DemoCurationsFragment newInstance() {
         DemoCurationsFragment fragment = new DemoCurationsFragment();
@@ -82,13 +81,12 @@ public class DemoCurationsFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (currentConfig.isDemoClient()) {
+        if (demoClient.isMockClient()) {
             return true;
         }
 
-        String curationsKey = currentConfig.apiKeyCurations;
-        String displayName = currentConfig.displayName;
+        String curationsKey = demoClient.getApiKeyCurations();
+        String displayName = demoClient.getDisplayName();
 
         if (!DemoConstants.isSet(curationsKey)) {
             String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_curations));

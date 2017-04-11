@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
+import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
 
 import org.junit.After;
@@ -21,7 +22,6 @@ import java.util.concurrent.ExecutorService;
 import okhttp3.OkHttpClient;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -52,11 +52,14 @@ public class BVSDKTest {
     @Mock AdIdRequestTask adIdRequestTask;
     @Mock BVUserProvidedData bvUserProvidedData;
     @Mock BVPixel bvPixel;
+    BVSDK.BVWorkerData bvWorkerData;
     Gson gson;
     Handler handler = new Handler(Looper.getMainLooper());
     HandlerThread bgHandlerThread = new BaseTestUtils.TestHandlerThread();
     BVApiKeys keys;
     BVRootApiUrls rootApiUrls;
+    BVConfig bvConfig;
+    boolean dryRunAnalytics;
 
     @Before
     public void setup() {
@@ -67,6 +70,7 @@ public class BVSDKTest {
         conversationsApiKey = "bazquux-bvtestconversationsid";
         curationsApiKey = "bazquux-bvtestcurationsid";
         locationApiKey = "bazquux-bvtestlocationid";
+        dryRunAnalytics = false;
 
         bvLogLevel = BVLogLevel.WARNING;
         gson = new Gson();
@@ -77,6 +81,19 @@ public class BVSDKTest {
 
         RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");
       when(bvUserProvidedData.getApplication()).thenReturn(RuntimeEnvironment.application);
+
+      bvConfig = new BVConfig.Builder()
+        .apiKeyConversations(conversationsApiKey)
+        .apiKeyConversationsStores(conversationsStoresApiKey)
+        .apiKeyCurations(curationsApiKey)
+        .apiKeyLocation(locationApiKey)
+        .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+        .apiKeyPIN(pinApiKey)
+        .clientId(clientId)
+        .dryRunAnalytics(dryRunAnalytics)
+        .build();
+
+        bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, new OkHttpClient(), "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, bgHandlerThread.getLooper());
     }
 
     @Test(expected=IllegalStateException.class)
@@ -85,8 +102,10 @@ public class BVSDKTest {
         BVSDK.getInstance();
     }
 
+    // region Old Builder
+
     @Test
-    public void bvSdkShouldSetupApplicationContext() {
+    public void bvSdkShouldSetupApplicationContextDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
                 .bazaarEnvironment(environment)
@@ -96,25 +115,22 @@ public class BVSDKTest {
         assertEquals(RuntimeEnvironment.application.getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
     }
 
-    @Test
-    public void bvSdkShouldOnlyAllowOneCreation() {
-        try {
-            // Builder used to initialize the Bazaarvoice SDKs
-            BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-                    .bazaarEnvironment(environment)
-                    .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                    .build();
-            // Builder used to initialize the Bazaarvoice SDKs
-            BVSDK bvsdk2 = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-                    .bazaarEnvironment(environment)
-                    .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-                    .build();
-            fail("Should not be able to create multiple BVSDK instances");
-        } catch (IllegalStateException expected) {}
+    @Test(expected = IllegalStateException.class)
+    public void bvSdkShouldOnlyAllowOneCreationDeprecated() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                .bazaarEnvironment(environment)
+                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+                .build();
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk2 = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                .bazaarEnvironment(environment)
+                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+                .build();
     }
 
     @Test
-    public void bvSdkShouldSetupLogLevel() {
+    public void bvSdkShouldSetupLogLevelDeprecated() {
       BVSDK.destroy();
       BVPixel.destroy();
 
@@ -133,7 +149,7 @@ public class BVSDKTest {
     }
 
     @Test
-    public void bvSdkShouldSetupClientId() {
+    public void bvSdkShouldSetupClientIdDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
                 .bazaarEnvironment(environment)
@@ -144,7 +160,7 @@ public class BVSDKTest {
     }
 
     @Test
-    public void bvSdkShouldSetupConversationsApiKey() {
+    public void bvSdkShouldSetupConversationsApiKeyDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
                 .bazaarEnvironment(environment)
@@ -156,29 +172,27 @@ public class BVSDKTest {
     }
 
     @Test(expected=IllegalArgumentException.class)
-    public void bvSdkBuilderShouldRequireValidApplication() {
+    public void bvSdkBuilderShouldRequireValidApplicationDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
         new BVSDK.Builder(null, clientId);
     }
 
     @Test(expected=IllegalArgumentException.class)
-    public void bvSdkBuilderShouldRequireValidClientId() {
-        new BVSDK.Builder(RuntimeEnvironment.application, null);
+    public void bvSdkBuilderShouldRequireValidClientIdDeprecated() {
+        String clientId = null;
+        new BVSDK.Builder(RuntimeEnvironment.application, clientId);
     }
 
     private BVSDK createTestBvSdk() {
         return new BVSDK(
             bvUserProvidedData,
             new BVLogger(BVLogLevel.VERBOSE),
-            new OkHttpClient(),
-            analyticsManager,
             bvActivityLifecycleCallbacks,
             bvAuthenticatedUser,
-            gson,
-            rootApiUrls,
             handler,
             bgHandlerThread,
-            bvPixel);
+            bvPixel,
+            bvWorkerData);
     }
 
     // TODO: Need to verify activity foreground/background as well
@@ -209,7 +223,7 @@ public class BVSDKTest {
     public void bvSdkConstructorShouldSetupAnalyticsManager() {
         BVSDK bvsdk = createTestBvSdk();
 
-        assertEquals(analyticsManager, bvsdk.getAnalyticsManager());
+        assertEquals(analyticsManager, bvsdk.getBvWorkerData().getAnalyticsManager());
     }
 
     @Test
@@ -231,6 +245,86 @@ public class BVSDKTest {
       verify(bvAuthenticatedUser, times(0)).setUserAuthString("newuserauthstr");
       verify(bvPixel, times(0)).track(any(BVPersonalizationEvent.class));
     }
+
+    // endregion
+
+    // region New Builder
+
+    @Test
+    public void bvSdkShouldSetupApplicationContext() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+            .build();
+
+        assertEquals(RuntimeEnvironment.application.getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void bvSdkShouldOnlyAllowOneCreation() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+            .build();
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk2 = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+            .build();
+    }
+
+    @Test
+    public void bvSdkShouldSetupLogLevel() {
+        BVSDK.destroy();
+        BVPixel.destroy();
+
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+            .logLevel(BVLogLevel.VERBOSE)
+            .build();
+
+        // Should not throw NPE if the BVLogger was set correctly
+        bvsdk.getBvLogger().d("foo", "bar");
+        bvsdk.getBvLogger().w("baz", "quux");
+        bvsdk.getBvLogger().e("blerg", "mazerg");
+        bvsdk.getBvLogger().i("erma", "gerd");
+    }
+
+    @Test
+    public void bvSdkShouldSetupClientId() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+            .build();
+
+        assertEquals(clientId, bvsdk.getBvUserProvidedData().getClientId());
+    }
+
+    @Test
+    public void bvSdkShouldSetupConversationsApiKey() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+            .build();
+
+        assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyConversations());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void bvSdkBuilderShouldRequireValidApplication() {
+        // Builder used to initialize the Bazaarvoice SDKs
+        new BVSDK.Builder(null, environment, bvConfig);
+    }
+
+    @Test(expected=IllegalStateException.class)
+    public void bvSdkBuilderShouldRequireValidClientId() {
+        BVConfig badBvConfig = new BVConfig.Builder()
+            .apiKeyConversations(conversationsApiKey)
+            .apiKeyConversationsStores(conversationsStoresApiKey)
+            .apiKeyCurations(curationsApiKey)
+            .apiKeyLocation(locationApiKey)
+            .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+            .apiKeyPIN(pinApiKey)
+            .dryRunAnalytics(dryRunAnalytics)
+            .build();
+        new BVSDK.Builder(RuntimeEnvironment.application, environment, badBvConfig)
+            .build();
+    }
+    // endregion
 
     @After
     public void tearDown() {

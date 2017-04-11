@@ -13,15 +13,16 @@ import android.util.Log;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import javax.inject.Inject;
 
 public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClientConfigUtils demoClientConfigUtils;
+    @Inject DemoClient demoClient;
     @Inject SharedPreferences sharedPrefs;
 
     @Override
@@ -33,7 +34,7 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.preferences_selected);
-        updateSettingsUi(demoConfigUtils.getCurrentConfig());
+        updateSettingsUi(demoClient);
     }
 
     @Override
@@ -52,24 +53,23 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.key_client_id))) {
-            String newClientId = demoConfigUtils.getClientId();
-            DemoConfig newSelectedConfig = demoConfigUtils.getConfigFromClientId(newClientId);
+            String newClientId = demoClientConfigUtils.getSharedPrefsClientId();
+            DemoClient newSelectedConfig = demoClientConfigUtils.getConfigFromClientId(newClientId);
             updateSettingsUi(newSelectedConfig);
             updateNewConfig(newSelectedConfig);
         }
     }
 
-    private void updateSettingsUi(DemoConfig selectedConfig) {
+    private void updateSettingsUi(DemoClient selectedConfig) {
         // Get the ui preference objects
         Preference shopperAdPasskeyPref = findPreference(getString(R.string.key_shopper_ad_passkey));
         Preference conversationsPasskeyPref = findPreference(getString(R.string.key_conversations_passkey));
         Preference curationsPasskeyPref = findPreference(getString(R.string.key_curations_passkey));
 
         // Parse the values from the config
-        String clientId = selectedConfig.clientId;
-        String shopperAdPasskey = selectedConfig.apiKeyShopperAdvertising;
-        String conversationsPasskey = selectedConfig.apiKeyConversations;
-        String curationsPasskey = selectedConfig.apiKeyCurations;
+        String shopperAdPasskey = selectedConfig.getApiKeyShopperAdvertising();
+        String conversationsPasskey = selectedConfig.getApiKeyConversations();
+        String curationsPasskey = selectedConfig.getApiKeyCurations();
 
         // Update the ui preference objects
         shopperAdPasskeyPref.setSummary(selectedConfig.hasShopperAds() ? shopperAdPasskey : getNotSetString());
@@ -77,12 +77,12 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
         curationsPasskeyPref.setSummary(selectedConfig.hasCurations() ? curationsPasskey : getNotSetString());
     }
 
-    private void updateNewConfig(DemoConfig newSelectedConfig) {
+    private void updateNewConfig(DemoClient newSelectedConfig) {
         // Parse the values from the config
-        String clientId = newSelectedConfig.clientId;
-        String shopperAdPasskey = newSelectedConfig.apiKeyShopperAdvertising;
-        String conversationsPasskey = newSelectedConfig.apiKeyConversations;
-        String curationsPasskey = newSelectedConfig.apiKeyCurations;
+        String clientId = newSelectedConfig.getClientId();
+        String shopperAdPasskey = newSelectedConfig.getApiKeyShopperAdvertising();
+        String conversationsPasskey = newSelectedConfig.getApiKeyConversations();
+        String curationsPasskey = newSelectedConfig.getApiKeyCurations();
 
         Log.d("Config", "New client data picked - clientId: " + clientId + ", shopperAdPasskey: " + shopperAdPasskey + ", conversationsPasskey: " + conversationsPasskey + ", curationsPasskey: " + curationsPasskey);
 
@@ -91,7 +91,7 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
             BVSDK bvsdk = BVSDK.getInstance();
             bvsdk = null;
             DemoApp.cleanUp();
-            DemoUtils.restartApp();
+            ProcessPhoenix.triggerRebirth(getContext());
         } else {
             new AlertDialog.Builder(getContext())
                     .setMessage("No profile loaded for this client currently")
@@ -102,6 +102,6 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
     }
 
     private String getNotSetString() {
-        return demoConfigUtils.isDemoClient() ? "" : getString(R.string.product_not_setup);
+        return demoClient.isMockClient() ? "" : getString(R.string.product_not_setup);
     }
 }

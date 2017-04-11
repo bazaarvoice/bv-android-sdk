@@ -88,7 +88,7 @@ public class BVNotificationService extends IntentService {
 
     static BVNotificationDisplayData getDisplayData(Intent intent) {
         String displayDataStr = intent.getStringExtra(EXTRA_DISPLAY_DATA);
-        Gson gson = BVSDK.getInstance().getGson();
+        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         return gson.fromJson(displayDataStr, BVNotificationDisplayData.class);
     }
 

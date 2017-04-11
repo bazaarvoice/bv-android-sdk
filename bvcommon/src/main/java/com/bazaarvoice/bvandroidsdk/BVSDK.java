@@ -64,12 +64,9 @@ public class BVSDK {
     static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
 
     final BVUserProvidedData bvUserProvidedData;
-    final OkHttpClient okHttpClient;
-    final AnalyticsManager analyticsManager;
+    final BVWorkerData bvWorkerData;
     final BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     final BVAuthenticatedUser bvAuthenticatedUser;
-    final Gson gson;
-    final BVRootApiUrls rootApiUrls;
     final Handler handler;
     final HandlerThread backgroundThread;
     final BVPixel bvPixel;
@@ -79,18 +76,15 @@ public class BVSDK {
 
     // region Constructor
 
-    BVSDK(BVUserProvidedData bvUserProvidedData, BVLogger bvLogger, OkHttpClient okHttpClient, final AnalyticsManager analyticsManager, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Gson gson, BVRootApiUrls rootApiUrls, Handler handler, HandlerThread backgroundThread, BVPixel bvPixel) {
+    BVSDK(BVUserProvidedData bvUserProvidedData, BVLogger bvLogger, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Handler handler, HandlerThread backgroundThread, BVPixel bvPixel, BVWorkerData bvWorkerData) {
         this.bvUserProvidedData = bvUserProvidedData;
         this.bvLogger = bvLogger;
-        this.okHttpClient = okHttpClient;
-        this.analyticsManager = analyticsManager;
         this.bvActivityLifecycleCallbacks = bvActivityLifecycleCallbacks;
         this.bvAuthenticatedUser = bvAuthenticatedUser;
-        this.gson = gson;
-        this.rootApiUrls = rootApiUrls;
         this.handler = handler;
         this.backgroundThread = backgroundThread;
         this.bvPixel = bvPixel;
+        this.bvWorkerData = bvWorkerData;
 
         startAppLifecycleMonitoring();
     }
@@ -125,8 +119,35 @@ public class BVSDK {
         bvAuthenticatedUser.updateUser("user auth string update");
     }
 
+    /**
+     * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)}
+     *
+     * @param application Application Object
+     * @param clientId Your Bazaarvoice provided client id (e.g. "mycompany")
+     * @return Builder to configure other options
+     * @see #builder(Application, BazaarEnvironment)
+     */
     public static Builder builder(Application application, String clientId) {
         return new Builder(application, clientId);
+    }
+
+    /**
+     * Uses the configuration file generated at
+     * <a href="https://bazaarvoice.github.io/bv-android-sdk/installation.html#configure-bvsdk">
+     *   the installation and configuration page</a>
+     * to set all of the options for the sdk.
+     *
+     * @param application The application object
+     * @param bazaarEnvironment The environment that will be used for Bazaarvoice requests
+     * @return Builder to configure other options
+     */
+    public static Builder builder(Application application, BazaarEnvironment bazaarEnvironment) {
+        BVConfig bvConfig = BVConfig.BVConfigUtil.getBvConfig(application.getApplicationContext(), bazaarEnvironment);
+        return builderWithConfig(application, bazaarEnvironment, bvConfig);
+    }
+
+    public static Builder builderWithConfig(Application application, BazaarEnvironment bazaarEnvironment, BVConfig bvConfig) {
+        return new Builder(application, bazaarEnvironment, bvConfig);
     }
 
     // endregion
@@ -218,22 +239,19 @@ public class BVSDK {
      * before any Bazaarvoice SDKs can be used.
      */
     public static class Builder {
-
-        private Application application;
-        private String clientId;
+        private final Application application;
         private BazaarEnvironment bazaarEnvironment;
-        private String apiKeyShopperAdvertising;
-        private String apiKeyConversations;
-        private String apiKeyConversationsStores;
-        private String apiKeyCurations;
-        private String apiKeyLocation;
-        private String apiKeyPin;
         private BVLogLevel logLevel;
         private OkHttpClient okHttpClient;
+        private BVConfig.Builder bvConfigBuilder;
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} or
+         * {@link BVSDK#builder(Application, BazaarEnvironment)}
+         *
          * @param application Required Application Object
          * @param clientId Client id used to get custom results
+         * @see BVSDK#builder(Application, BazaarEnvironment)
          */
         public Builder(Application application, String clientId) {
             if (application == null) {
@@ -243,12 +261,37 @@ public class BVSDK {
                 throw new IllegalArgumentException("clientId must be valid");
             }
             this.application = application;
-            this.clientId = clientId;
+            bvConfigBuilder = new BVConfig.Builder();
+            bvConfigBuilder.clientId(clientId);
         }
 
         /**
-         * @param bazaarEnvironment Bazaarvoice environment to get data from. Default is {@link BazaarEnvironment#STAGING}
-         * @return
+         * Uses the configuration file generated at
+         * <a href="https://bazaarvoice.github.io/bv-android-sdk/installation.html#configure-bvsdk">
+         *   the installation and configuration page</a>
+         * to set all of the options for the sdk.
+         *
+         * @param application The application object
+         * @param bazaarEnvironment The environment that will be used for Bazaarvoice requests
+         * @return the builder object
+         */
+        Builder(Application application, BazaarEnvironment bazaarEnvironment, BVConfig bvConfig) {
+            if (application == null) {
+                throw new IllegalArgumentException("Application must not be null");
+            }
+            if (bazaarEnvironment == null) {
+                throw new IllegalArgumentException("bazaarEnvironment must be valid");
+            }
+            this.application = application;
+            this.bazaarEnvironment = bazaarEnvironment;
+            this.bvConfigBuilder = bvConfig.newBuilder();
+        }
+
+        /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)}
+         *
+         * @param bazaarEnvironment Bazaarvoice environment to get data from
+         * @return the builder object
          */
         public Builder bazaarEnvironment(BazaarEnvironment bazaarEnvironment) {
             this.bazaarEnvironment = bazaarEnvironment;
@@ -256,77 +299,111 @@ public class BVSDK {
         }
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
+         * will set this value for you
+         *
          * @param apiKeyShopperAdvertising API Key required to access Recommendations and Ads SDK
-         * @return
+         * @return the builder object
          */
         public Builder apiKeyShopperAdvertising(String apiKeyShopperAdvertising) {
             if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
                 throw new IllegalArgumentException("apiKeyShopperAdvertising must be valid");
             }
-            this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
+            bvConfigBuilder
+                .apiKeyShopperAdvertising(apiKeyShopperAdvertising)
+                .build();
             return this;
         }
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
+         * will set this value for you
+         *
          * @param apiKeyConversations API Key required to access Conversations SDK
-         * @return
+         * @return the builder object
          */
         public Builder apiKeyConversations(String apiKeyConversations) {
             if (apiKeyConversations == null || apiKeyConversations.isEmpty()) {
                 throw new IllegalArgumentException("apiKeyConversations must be valid");
             }
-            this.apiKeyConversations = apiKeyConversations;
+            bvConfigBuilder
+                .apiKeyConversations(apiKeyConversations)
+                .build();
             return this;
         }
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
+         * will set this value for you
+         *
          * @param apiKeyConversationsStores API Key required to access Conversations SDK
-         * @return
+         * @return the builder object
          */
         public Builder apiKeyConversationsStores(String apiKeyConversationsStores) {
             if (apiKeyConversationsStores == null || apiKeyConversationsStores.isEmpty()) {
                 throw new IllegalArgumentException("apiKeyConversationsStores must be valid");
             }
-            this.apiKeyConversationsStores = apiKeyConversationsStores;
+            bvConfigBuilder
+                .apiKeyConversationsStores(apiKeyConversationsStores)
+                .build();
             return this;
         }
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
+         * will set this value for you
+         *
          * @param apiKeyCurations API Key required to access Curations SDK
-         * @return
+         * @return the builder object
          */
         public Builder apiKeyCurations(String apiKeyCurations) {
             if (apiKeyCurations == null || apiKeyCurations.isEmpty()) {
                 throw new IllegalArgumentException("apiKeyCurations must be valid");
             }
-            this.apiKeyCurations = apiKeyCurations;
+            bvConfigBuilder
+                .apiKeyCurations(apiKeyCurations)
+                .build();
             return this;
         }
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
+         * will set this value for you
+         *
          * @param apiKeyLocation API Key required to access Location SDK
-         * @return
+         * @return the builder object
          */
         public Builder apiKeyLocation(String apiKeyLocation) {
             if (apiKeyLocation == null || apiKeyLocation.isEmpty()) {
                 throw new IllegalArgumentException("apiKeyCurations must be valid");
             }
-            this.apiKeyLocation = apiKeyLocation;
+            bvConfigBuilder
+                .apiKeyLocation(apiKeyLocation)
+                .build();
             return this;
         }
 
         /**
+         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
+         * will set this value for you
+         *
          * @param apiKeyPin API Key required to access Post Interaction Notifications API
-         * @return
+         * @return the builder object
          */
         public Builder apiKeyPin(String apiKeyPin) {
             if (apiKeyPin == null || apiKeyPin.isEmpty()) {
                 throw new IllegalArgumentException("apiKeyPin must be valid");
             }
-            this.apiKeyPin = apiKeyPin;
+            bvConfigBuilder
+                .apiKeyPIN(apiKeyPin)
+                .build();
             return this;
         }
 
+        /**
+         * @param logLevel The level at which the Bazaarvoice SDK will decide to log
+         * @return the builder object
+         */
         public Builder logLevel(BVLogLevel logLevel) {
             if (logLevel == null) {
                 throw new IllegalArgumentException("logLevel must not be null");
@@ -335,6 +412,11 @@ public class BVSDK {
             return this;
         }
 
+        /**
+         * @param okHttpClient A custom client instance. This instance will be duplicated and an http cache will
+         *                     be added.
+         * @return the builder object
+         */
         public Builder okHttpClient(OkHttpClient okHttpClient) {
             if (okHttpClient == null) {
                 throw new IllegalArgumentException("OkHttpClient must not be null");
@@ -346,6 +428,20 @@ public class BVSDK {
             return this;
         }
 
+        /**
+         * Disables analytics, but still logs the events sent. Only used to avoid
+         * hitting production with analytics while testing.
+         *
+         * @param dryRunAnalytics If true then analytics events will not be sent
+         * @return the builder object
+         */
+        public Builder dryRunAnalytics(boolean dryRunAnalytics) {
+            bvConfigBuilder
+                .dryRunAnalytics(dryRunAnalytics)
+                .build();
+            return this;
+        }
+
         public BVSDK build() {
             confirmBVSDKNotCreated();
 
@@ -353,7 +449,9 @@ public class BVSDK {
                 throw new IllegalStateException("Must provide an application object");
             }
 
-            if (clientId == null) {
+            BVConfig finalConfig = bvConfigBuilder.build();
+
+            if (finalConfig.getClientId() == null) {
                 throw new IllegalStateException("Must provide a client id");
             }
 
@@ -389,29 +487,59 @@ public class BVSDK {
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
             BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL);
-            BVApiKeys apiKeys = new BVApiKeys(apiKeyShopperAdvertising, apiKeyConversations, apiKeyConversationsStores, apiKeyCurations, apiKeyLocation, apiKeyPin);
+            BVApiKeys apiKeys = new BVApiKeys(
+                finalConfig.getApiKeyShopperAdvertising(),
+                finalConfig.getApiKeyConversations(),
+                finalConfig.getApiKeyConversationsStores(),
+                finalConfig.getApiKeyCurations(),
+                finalConfig.getApiKeyLocation(),
+                finalConfig.getApiKeyPIN());
             BVMobileInfo bvMobileInfo = new BVMobileInfo(application.getApplicationContext());
-            BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, clientId, apiKeys, bvMobileInfo);
+            BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, finalConfig.getClientId(), apiKeys, bvMobileInfo);
             BackgroundThread backgroundThread = new BackgroundThread();
             backgroundThread.start();
-            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(application.getApplicationContext(), shopperMarketingApiRootUrl, apiKeyShopperAdvertising, okHttpClient, bvLogger, gson, profilePollTimes, backgroundThread);
-            AnalyticsManager analyticsManager = new AnalyticsManager(application.getApplicationContext(), clientId, analyticsRootUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, uuid);
-            BVPixel bvPixel = new BVPixel.Builder(application, clientId, bazaarEnvironment == BazaarEnvironment.STAGING)
+            BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(
+                application.getApplicationContext(),
+                shopperMarketingApiRootUrl,
+                finalConfig.getApiKeyShopperAdvertising(),
+                okHttpClient,
+                bvLogger,
+                gson,
+                profilePollTimes,
+                backgroundThread);
+            AnalyticsManager analyticsManager = new AnalyticsManager(
+                application.getApplicationContext(),
+                finalConfig.getClientId(),
+                analyticsRootUrl,
+                okHttpClient,
+                immediateExecutorService,
+                scheduledExecutorService,
+                bvAuthenticatedUser,
+                uuid,
+                finalConfig.isDryRunAnalytics());
+            BVPixel bvPixel = new BVPixel.Builder(application, finalConfig.getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING)
                 .bgHandlerThread(backgroundThread)
                 .okHttpClient(okHttpClient)
+                .dryRunAnalytics(finalConfig.isDryRunAnalytics())
                 .build();
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(bvPixel, bvLogger);
+
+            BVWorkerData bvWorkerData = new BVWorkerData(
+                analyticsManager,
+                gson,
+                endPoints,
+                okHttpClient,
+                BVSDK_USER_AGENT,
+                backgroundThread.getLooper());
 
             Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
                 @Override
                 public boolean handleMessage(Message msg) {
-
                     if (msg.what == BVHandlePayload){
                         BVHandlerCallbackPayload payload = (BVHandlerCallbackPayload) msg.obj;
                         payload.getInternalCB().performOnMainThread(payload);
                         return true;
                     }
-
                     return false;
                 }
             });
@@ -419,15 +547,12 @@ public class BVSDK {
             singleton = new BVSDK(
                 bvUserProvidedData,
                 bvLogger,
-                okHttpClient,
-                analyticsManager,
                 bvActivityLifecycleCallbacks,
                 bvAuthenticatedUser,
-                gson,
-                endPoints,
                 handler,
                 backgroundThread,
-                bvPixel);
+                bvPixel,
+                bvWorkerData);
             return singleton;
         }
     }
@@ -440,38 +565,12 @@ public class BVSDK {
         return bvUserProvidedData;
     }
 
-    // TODO Remove
-    AnalyticsManager getAnalyticsManager() {
-        return analyticsManager;
-    }
-
-    // TODO Child of BVWorkerData
-    Gson getGson() {
-        return gson;
-    }
-
-    // TODO Child of BVWorkerData
-    BVRootApiUrls getRootApiUrls() {
-        return rootApiUrls;
-    }
-
-    // TODO Child of BVWorkerData
-    OkHttpClient getOkHttpClient() {
-        return okHttpClient;
-    }
-
     BVAuthenticatedUser getAuthenticatedUser() {
         return bvAuthenticatedUser;
     }
 
-    // TODO Child of BVWorkerData
-    String getBvsdkUserAgent() {
-        return BVSDK_USER_AGENT;
-    }
-
-    // TODO Child of BVWorkerData
-    Looper getBackgroundLooper() {
-        return backgroundThread.getLooper();
+    BVWorkerData getBvWorkerData() {
+        return bvWorkerData;
     }
 
     BVLogger getBvLogger() {
@@ -480,6 +579,48 @@ public class BVSDK {
 
     BVPixel getBvPixel() {
         return bvPixel;
+    }
+
+    static final class BVWorkerData {
+        private final AnalyticsManager analyticsManager;
+        private final Gson gson;
+        private final BVRootApiUrls bvRootApiUrls;
+        private final OkHttpClient okHttpClient;
+        private final String bvSdkUserAgent;
+        private final Looper backgroundLooper;
+
+        public BVWorkerData(AnalyticsManager analyticsManager, Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, Looper backgroundLooper) {
+            this.analyticsManager = analyticsManager;
+            this.gson = gson;
+            this.bvRootApiUrls = bvRootApiUrls;
+            this.okHttpClient = okHttpClient;
+            this.bvSdkUserAgent = bvSdkUserAgent;
+            this.backgroundLooper = backgroundLooper;
+        }
+
+        public AnalyticsManager getAnalyticsManager() {
+            return analyticsManager;
+        }
+
+        public Gson getGson() {
+            return gson;
+        }
+
+        public BVRootApiUrls getRootApiUrls() {
+            return bvRootApiUrls;
+        }
+
+        public OkHttpClient getOkHttpClient() {
+            return okHttpClient;
+        }
+
+        public String getBvSdkUserAgent() {
+            return bvSdkUserAgent;
+        }
+
+        public Looper getBackgroundLooper() {
+            return backgroundLooper;
+        }
     }
 
     // endregion
