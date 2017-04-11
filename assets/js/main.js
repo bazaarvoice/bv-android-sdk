@@ -71,6 +71,7 @@ $(function(){
 	// sidebar
 	listenForCollapseAndRotate($('#curationsDropdown'), $('#curationsDropdownArrow'), 270, 0, 0, 270);
 	listenForCollapseAndRotate($('#conversationsDropdown'), $('#conversationsDropdownArrow'), 270, 0, 0, 270);
+	listenForCollapseAndRotate($('#bvPixelDropdown'), $('#bvPixelDropdownArrow'), 270, 0, 0, 270);
 
 	// installation page
 	listenForCollapseAndRotate($('#installationCocoaPods'), $('#installationCocoaPodsArrow'), 270, 0, 0, 270);

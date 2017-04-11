@@ -213,4 +213,16 @@ step
 	flex-direction: column;
 }
 
+th {
+    background-color: #003d4c;
+    color: white;
+} 
 
+table {
+	width: 95%;
+ 	margin:0 auto;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}

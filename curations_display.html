@@ -12,6 +12,7 @@
   
   <script type="text/javascript" src="./assets/js/jquery_rotate.js"></script>
   <script type="text/javascript" src="./assets/js/main.js"></script>
+  <script type="text/javascript" src="./assets/js/popover.js"></script>
   
   <script>
     
@@ -30,6 +31,23 @@ $(function(){
 });
   </script>
 
+
+  <script>
+  $(document).ready(function(){
+      $('[data-toggle="popover"]').popover(); 
+  });
+
+  /* Close all the other popovers */
+  $('html').on('mouseup', function(e) {
+      if(!$(e.target).closest('.popover').length) {
+          $('.popover').each(function(){
+              $(this.previousSibling).popover('hide');
+          });
+      }
+  });
+
+  </script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
 
 
@@ -65,7 +83,7 @@ $(function(){
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    ga('create', 'UA-56370630-4', 'auto');
+    ga('create', UA-56370630-5, 'auto');
     ga('set', {
       title: 'Curations Display'
     });
@@ -105,51 +123,35 @@ $(function(){
                 </a>
                 <ul>
                     <li class="nav-item">
+                        <a class="nav-link" href="requirements.html">
+                            <span>Requirements</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="installation.html">
                             <span>Installation and Configuration</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="example_projects.html">
-                         <span><i class="m-r-1 fa fa-file-code-o"></i>Example Projects</span>
+                            <span>Example Projects</span>
                         </a>
                     </li>
                 </ul>
-
             </li>
             <li class="nav-item">
                 <span class="nav-link" href="modules.html">
                     <span><i class="m-r-1 fa fa-cogs"></i>Modules</span>
                 </span>
                 <ul>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations (Beta)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
-                    </li>
-                    <li class="nav-item">
 
-                        <a class="nav-link" role="button" data-toggle="collapse" href="#curationsDropdown"
-                           aria-expanded="false" aria-controls="curationsDropdown">
-                                <span><span>Curations</span><span style="float:right;"><i id="curationsDropdownArrow"
-                                                                                          class="fa fa-sort-desc  fa-rotate-270"></i></span></span>
-                        </a>
-                        <div class="collapse in"
-                             id="curationsDropdown">
-                            <ul>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="curations_display.html"><span>Curations Display</span></a>
+                    
+                    <!-- BV Pixel -->
+					<li class="nav-item">
+                                    <a class="nav-link" href="bvpixel_implementation.html"><span>BV Pixel</span></a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="curations_custom_posts.html"><span>Curations Custom Posts</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="curations_example_app.html"><span>Curations Example App</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+
+                     <!-- Conversations -->
                     <li class="nav-item">
                         <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsDropdown"
                            aria-expanded="false" aria-controls="conversationsDropdown">
@@ -160,27 +162,57 @@ $(function(){
                         <div class="collapse "
                              id="conversationsDropdown">
                             <ul>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="conversations_display.html"><span>Conversations Display</span></a>
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="conversations_display.html"><span>Content Display</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="conversations_submission.html"><span>Conversations Submission</span></a>
+                                    <a class="nav-link" href="conversations_submission.html"><span>Content Submission</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="upgrading_conversations.html"><span>Upgrading Conversations</span></a>
                                 </li>
                             </ul>
                         </div>
 
                     </li>
 
+                    <!-- Curations -->
                     <li class="nav-item">
+                        <a class="nav-link" role="button" data-toggle="collapse" href="#curationsDropdown"
+                           aria-expanded="false" aria-controls="curationsDropdown">
+                                <span><span>Curations</span><span style="float:right;">
+                                    <i id="curationsDropdownArrow" class="fa fa-sort-desc  fa-rotate-270"></i>
+                                </span></span>
+                        </a>
+                        <div class="collapse in"
+                             id="curationsDropdown">
+                            <ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="curations_display.html"><span>Curations Display</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="curations_custom_posts.html"><span>Curations Custom Posts</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Product Recommendations -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations (Beta)</span></a>
+                    </li>
+                    
+                    <!-- Advertising -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
+                    </li>
+
+                    
+                    <!-- Ratings Reviews Stores -->
+                     <li class="nav-item">
                         <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsStoresDropdown"
                            aria-expanded="false" aria-controls="conversationsStoresDropdown">
-                                <span><span>Conversations for Stores</span><span style="float:right;"><i
+                                <span><span>Ratings and Reviews for Stores</span><span style="float:right;"><i
                                         id="conversationsStoresDropdownArrow"
                                         class="fa fa-sort-desc fa-rotate-270"></i></span></span>
                         </a>
@@ -188,33 +220,34 @@ $(function(){
                              id="conversationsStoresDropdown">
                             <ul>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="conversations_stores.html"><span>Conversations for Stores</span></a>
+                                    <a class="nav-link" href="conversations_stores.html"><span>Display and Submit API</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_stores_push.html"><span>Stores Push Notifications</span></a>
                                 </li>
                             </ul>
                         </div>
-
                     </li>
-                     <li class="nav-item">
+                    
+                    <!-- PIN -->
+                    <li class="nav-item">
                         <a class="nav-link" href="pin.html"><span>Post Interaction Notifications (Beta)</span></a>
                     </li>
+
+                    <!-- Location -->
                     <li class="nav-item">
                         <a class="nav-link" href="location.html"><span>Location (Beta)</span></a>
                     </li>
+
                 </ul>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="bv_pixel.html">
-                    <span><i class="m-r-1 fa fa-dot-circle-o"></i>BV Pixel</span>
-                </a>
-            </li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="user_authentication_token.html">
                     <span><i class="m-r-1 fa fa-lock"></i>User Authentication Token</span>
                 </a>
             </li>
+            
             <li class="nav-item">
                 <a class="nav-link" href="faq_support.html">
                     <span><i class="m-r-1 fa fa-question-circle"></i>FAQ and Support</span>
@@ -236,7 +269,6 @@ $(function(){
         </ul>
     </div>
 </nav>
-
 
       <div id="application_container">
         <div id="task_container">
@@ -329,13 +361,13 @@ repositories {
     @Override
     public void onCreate(){
         super.onCreate();
-
+        
         // Builder used to initialize the Bazaarvoice SDKs
         BVSDK.builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
-            .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
-            .apiKeyCurations(YOUR_CURATIONS_KEY) //Required for Curations
-            .logLevel(BVLogLevel.INFO)
-            .build();
+          .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
+          .apiKeyCurations(YOUR_CURATIONS_KEY) //Required for Curations
+          .logLevel(BVLogLevel.INFO)
+          .build();
     }
 }
 </code></pre>
@@ -494,9 +526,9 @@ bvCurations.getCurationsFeedItems(request, callback);</pre></code>
 
 <div class="well well-sm">
 	<h5>Author</h5>
-	<p>Copyright 2016 Bazaarvoice, Inc. All rights reserved.</p>
+	<p>Copyright 2017 Bazaarvoice, Inc. All rights reserved.</p>
 	<h5>License</h5>
-	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice iOS SDK is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
+	<p>Use of the Bazaarvoice Mobile SDKs is contingent on your agreement and conformance with <a href="http://www.bazaarvoice.com/legal/api-terms-of-use.html">Bazaarvoice's API Terms of Use</a>. Additionally, you agree to store all data acquired by the SDK or Bazaarvoice's API only within the storage of the individual application instance using the SDK or API. You also agree to use the data acquired by the SDK or API only within the context of the same individual application instance and only for purposes consistent with that application's purpose. Except as otherwise noted, the Bazaarvoice Android and iOS SDKs are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a>.</p>
 </div>
 <br>
 
