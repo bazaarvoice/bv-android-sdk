@@ -263,7 +263,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 .addFormDataPart("photo", "photo.png", RequestBody.create(MEDIA_TYPE_PNG, upload.getPhotoFile())).build();
 
         Request request = new Request.Builder()
-                .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                 .url(fullUrl)
                 .post(req)
                 .build();

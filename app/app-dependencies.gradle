@@ -59,6 +59,7 @@ ext {
         crashlytics         : 'com.crashlytics.sdk.android:crashlytics:2.5.7@aar',
         leakCanary          : "com.squareup.leakcanary:leakcanary-android:$demoAppSharedVersions.leakCanaryVersion",
         leakCanaryNoOp      : "com.squareup.leakcanary:leakcanary-android-no-op:$demoAppSharedVersions.leakCanaryVersion",
+        processPhoenix      : "com.jakewharton:process-phoenix:2.0.0",
         bvSdkAnalytics      : "com.bazaarvoice.bvandroidsdk:analytics:$demoAppSharedVersions.bvSdkVersion",
         bvSdkAds            : "com.bazaarvoice.bvandroidsdk:advertising:$demoAppSharedVersions.bvSdkVersion",
         bvSdkConversations  : "com.bazaarvoice.bvandroidsdk:conversations:$demoAppSharedVersions.bvSdkVersion",

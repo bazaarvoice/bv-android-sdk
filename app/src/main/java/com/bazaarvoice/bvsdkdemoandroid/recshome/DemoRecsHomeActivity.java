@@ -28,8 +28,9 @@ import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdContract;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecContract;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecPresenter;
@@ -45,6 +46,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.relex.circleindicator.CircleIndicator;
+
+import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoRequiredKeyUiUtil.getNoReccosApiKeyDialog;
 
 public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsAdapter.RecTapListener, DemoProductRecContract.View, DemoAdContract.View {
 
@@ -65,8 +68,9 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     @BindView(R.id.error_recs) TextView errorTextView;
     private String clientId;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoClientConfigUtils demoClientConfigUtils;
+    @Inject DemoMockDataUtil demoMockDataUtil;
+    @Inject DemoClient demoClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,9 +82,9 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         setupHeaderViewPager();
         setupRecsViews();
 
-        recsUserActionListener = new DemoProductRecPresenter(this, demoConfigUtils, demoDataUtil, true, recyclerView);
-        AdLoader.Builder adLoaderBuilder = new AdLoader.Builder(this, demoDataUtil.getAdUnitId());
-        adUserActionListener = new DemoAdPresenter(this, demoConfigUtils, demoDataUtil, adLoaderBuilder);
+        recsUserActionListener = new DemoProductRecPresenter(this, demoClient, demoMockDataUtil, true, recyclerView);
+        AdLoader.Builder adLoaderBuilder = new AdLoader.Builder(this, demoMockDataUtil.getAdUnitId());
+        adUserActionListener = new DemoAdPresenter(this, adLoaderBuilder, demoClient);
 
         swipeRefreshLayout.setOnRefreshListener(new RecRefreshListener(recsUserActionListener));
         clientId = savedInstanceState != null ? savedInstanceState.getString(HOME_CLIENT_KEY, "") : "";
@@ -92,7 +96,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         super.onResume();
         adUserActionListener.loadAd(false);
         boolean haveRecs = adapter.getRecommendationCount() > 0;
-        String currentClient = demoConfigUtils.getCurrentConfig().clientId;
+        String currentClient = demoClient.getClientId();
         boolean newClient = TextUtils.isEmpty(clientId);
         boolean clientChanged = !clientId.equals(currentClient);
         clientId = currentClient;
@@ -112,7 +116,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
 
         getMenuInflater().inflate(R.menu.toolbar_actions, menu);
 
-        if (!demoConfigUtils.configFileExists()) {
+        if (!demoClientConfigUtils.otherSourcesExist()) {
             menu.findItem(R.id.settings_action).setVisible(false);
         }
 
@@ -202,9 +206,6 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
     public void showLoadingRecs(boolean show) {
         getRecsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
         swipeRefreshLayout.setRefreshing(show);
-        recyclerView.setVisibility(View.GONE);
-        noRecsTextView.setVisibility(View.GONE);
-        errorTextView.setVisibility(View.GONE);
     }
 
     @Override
@@ -246,6 +247,11 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void showNoApiKey(String clientDisplayName) {
+        getNoReccosApiKeyDialog(this, clientDisplayName).show();
     }
 
 }

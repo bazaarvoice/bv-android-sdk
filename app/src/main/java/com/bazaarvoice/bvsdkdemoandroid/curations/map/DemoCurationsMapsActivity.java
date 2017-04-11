@@ -26,7 +26,7 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoRouter;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -71,7 +71,8 @@ public class DemoCurationsMapsActivity extends FragmentActivity implements OnMap
      */
     private GoogleApiClient client;
 
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject
+    DemoMockDataUtil demoMockDataUtil;
     @Inject Picasso picasso;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -90,7 +91,7 @@ public class DemoCurationsMapsActivity extends FragmentActivity implements OnMap
 
         int detailRowHeight = getResources().getDimensionPixelSize(R.dimen.snippet_prod_image_side);
         boolean haveFineLocPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-        mapUserActionListener = new DemoCurationsMapsPresenter(this, demoDataUtil, picasso, productId, detailRowHeight, haveFineLocPermission);
+        mapUserActionListener = new DemoCurationsMapsPresenter(this, demoMockDataUtil, picasso, productId, detailRowHeight, haveFineLocPermission);
         client = new GoogleApiClient.Builder(this)
                 .addApi(AppIndex.API)
                 .addConnectionCallbacks(this)

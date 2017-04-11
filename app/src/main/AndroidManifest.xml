@@ -16,7 +16,13 @@
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity" />
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity"
@@ -41,7 +47,8 @@
             android:label="@string/title_activity_curations_post"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/settings_launcher_name"
+            android:icon="@mipmap/ic_settings_launcher"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity"
@@ -56,7 +63,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

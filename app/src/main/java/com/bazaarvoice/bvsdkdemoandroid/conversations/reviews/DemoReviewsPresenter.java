@@ -13,10 +13,9 @@ import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,18 +23,18 @@ import java.util.List;
 public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener, ConversationsCallback {
 
     protected DemoReviewsContract.View view;
-    protected DemoConfigUtils demoConfigUtils;
-    protected DemoDataUtil demoDataUtil;
+    protected DemoClient demoClient;
+    protected DemoMockDataUtil demoMockDataUtil;
     protected BVConversationsClient.DisplayLoader reviewsLoader;
     protected String productId;
     protected boolean fetched = false;
     protected final BVConversationsClient client = new BVConversationsClient();
     protected boolean forceAPICall;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.reviewsLoader = reviewsLoader;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
@@ -52,9 +51,8 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     @Override
     public void loadReviews(boolean forceRefresh) {
         fetched = false;
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (!forceAPICall && currentConfig.isDemoClient()) {
-            showReviews(demoDataUtil.getConversationsReviews());
+        if (!forceAPICall && demoClient.isMockClient()) {
+            showReviews(demoMockDataUtil.getConversationsReviews().getResults());
             return;
         }
 

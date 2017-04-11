@@ -10,11 +10,11 @@ package com.bazaarvoice.bvandroidsdk;
 public class RecommendationsAnalyticsManager {
     private static final String TAG = RecommendationsAnalyticsManager.class.getSimpleName();
 
-    private static AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+    private static AnalyticsManager analyticsManager = BVSDK.getInstance().getBvWorkerData().getAnalyticsManager();
 
     public static void sendEmbeddedPageView(ReportingGroup reportingGroup, String productId, String categoryId, int numRecommendations) {
         BVSDK bvsdk = BVSDK.getInstance();
-        AnalyticsManager analyticsManager = bvsdk.getAnalyticsManager();
+        AnalyticsManager analyticsManager = bvsdk.getBvWorkerData().getAnalyticsManager();
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         RecommendationsEmbeddedPageViewSchema schema = new RecommendationsEmbeddedPageViewSchema.Builder(magpieMobileAppPartialSchema, reportingGroup)
                 .productId(productId)

@@ -17,20 +17,23 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.configs;
 
-import android.support.annotation.NonNull;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public interface DemoConfigParser {
+public class DemoMultiTenantContainer {
 
-    String DEMO_DISPLAY_NAME = "demo";
+    @SerializedName("prod_configs")
+    private List<DemoClient> prodConfigs;
 
-    @NonNull DemoConfig getConfigFromClientId(String clientId);
+    @SerializedName("stg_configs")
+    private List<DemoClient> stgConfigs;
 
-    DemoConfig getDefaultConfig();
+    public List<DemoClient> getProdConfigs() {
+        return prodConfigs;
+    }
 
-    boolean configFileExists();
-
-    List<DemoConfig> getConfigList();
-
+    public List<DemoClient> getStagingConfigs() {
+        return stgConfigs;
+    }
 }

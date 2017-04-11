@@ -24,8 +24,8 @@ import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -46,8 +46,9 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
     private Button postBtn;
     private Uri imageUri;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject DemoClientConfigUtils demoClientConfigUtils;
+    @Inject DemoMockDataUtil demoMockDataUtil;
+    @Inject BazaarEnvironment bazaarEnvironment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
 
         long timestampInSeconds = System.currentTimeMillis() / 1000;
 
-        if (DemoConstants.ENVIRONMENT == BazaarEnvironment.STAGING) {
+        if (bazaarEnvironment == BazaarEnvironment.STAGING) {
             CurationsPostRequest request = new CurationsPostRequest.Builder(author, DemoConstants.CURATIONS_GROUPS, text, chosenBmp) //required params
                     //Optional Params
                     .timestampInSeconds(timestampInSeconds)
@@ -129,7 +130,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
 
              curations.postContentToCurations(request, this);
         } else {
-            onSuccess(demoDataUtil.getCurationsPostResponse());
+            onSuccess(demoMockDataUtil.getCurationsPostResponse());
         }
     }
 

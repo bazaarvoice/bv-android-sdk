@@ -29,7 +29,7 @@ public class StoreNotificationManager {
 
     private StoreNotificationManager() {
         super();
-        storeBgHandler = new StoreBgHandler(BVSDK.getInstance().getBackgroundLooper(), this);
+        storeBgHandler = new StoreBgHandler(BVSDK.getInstance().getBvWorkerData().getBackgroundLooper(), this);
     }
 
     // endregion

@@ -39,7 +39,7 @@ public class CurationsPostRequest {
     protected String toUrlQueryString() {
         BVSDK bvsdk = BVSDK.getInstance();
         BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
-        StringBuilder strBuilder = new StringBuilder(bvsdk.getRootApiUrls().getBazaarvoiceApiRootUrl() );
+        StringBuilder strBuilder = new StringBuilder(bvsdk.getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl() );
 
         strBuilder.append("curations/content/add/");
         strBuilder.append("?client=");
@@ -64,7 +64,7 @@ public class CurationsPostRequest {
         Utils.mapPutSafe(payload, "links", builder.links);
         Utils.mapPutSafe(payload, "photos", builder.photos);
 
-        return  BVSDK.getInstance().getGson().toJson(payload);
+        return BVSDK.getInstance().getBvWorkerData().getGson().toJson(payload);
     }
 
     public static final class Builder {

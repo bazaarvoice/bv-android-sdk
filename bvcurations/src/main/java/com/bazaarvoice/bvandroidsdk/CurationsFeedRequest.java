@@ -83,7 +83,7 @@ public final class CurationsFeedRequest {
     String toUrlQueryString() {
         BVSDK bvsdk = BVSDK.getInstance();
         BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
-        HttpUrl.Builder builder = HttpUrl.parse(bvsdk.getRootApiUrls().getBazaarvoiceApiRootUrl()).newBuilder();
+        HttpUrl.Builder builder = HttpUrl.parse(bvsdk.getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl()).newBuilder();
 
         builder.addEncodedPathSegments("curations/content/get")
             .addEncodedQueryParameter("client", bvUserProvidedData.getClientId())

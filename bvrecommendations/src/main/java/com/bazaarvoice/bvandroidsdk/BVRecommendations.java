@@ -72,7 +72,7 @@ public class BVRecommendations {
         URL requestUrl;
         try {
             BVSDK bvsdk = BVSDK.getInstance();
-            String baseUrlStr = bvsdk.getRootApiUrls().getShopperMarketingApiRootUrl();
+            String baseUrlStr = bvsdk.getBvWorkerData().getRootApiUrls().getShopperMarketingApiRootUrl();
             BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
             String apiKey = bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising();
             String clientId = bvUserProvidedData.getClientId();
@@ -153,15 +153,15 @@ public class BVRecommendations {
         @Override
         protected ResponseData doInBackground(RequestData... params) {
             RequestData requestData = params[0];
-            OkHttpClient okHttpClient = BVSDK.getInstance().getOkHttpClient();
-            Gson gson = BVSDK.getInstance().getGson();
+            OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
+            Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
             boolean didSucceed = false;
             Throwable errorThrowable = null;
             List<BVProduct> recommendedProducts = null;
             Request request = new Request.Builder()
                     .url(requestData.getRequestUrl())
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                    .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                     .build();
             Response response = null;
             try {

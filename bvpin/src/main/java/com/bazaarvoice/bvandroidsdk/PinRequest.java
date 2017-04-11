@@ -7,7 +7,7 @@ class PinRequest {
 
     String getUrlString(@NonNull String advertisingId) {
         BVSDK bvsdk = BVSDK.getInstance();
-        String baseUrl = bvsdk.getRootApiUrls().getBazaarvoiceApiRootUrl();
+        String baseUrl = bvsdk.getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl();
         BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
         String pinApiKey = bvUserProvidedData.getBvApiKeys().getApiKeyPin();
         String clientId = bvUserProvidedData.getClientId();

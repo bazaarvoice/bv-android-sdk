@@ -8,7 +8,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.bazaarvoice.bvandroidsdk.BVSDK;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigModule;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
@@ -48,7 +48,7 @@ public class DemoApp extends Application {
 
         appComponent = DaggerDemoAppComponent.builder()
                 .demoAppModule(new DemoAppModule(this))
-                .demoConfigModule(new DemoConfigModule())
+                .demoClientConfigModule(new DemoClientConfigModule())
                 .demoBvModule(new DemoBvModule())
                 .build();
         BVSDK bvsdk = appComponent.getBvSdk();

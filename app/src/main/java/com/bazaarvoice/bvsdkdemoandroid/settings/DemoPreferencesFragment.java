@@ -10,44 +10,50 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class DemoPreferencesFragment extends PreferenceFragmentCompat {
 
     private ListPreference selectedConfigPref;
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClientConfigUtils demoClientConfigUtils;
+    @Inject DemoClient demoClient;
+    @Inject @Named("SettingsDisplayNames") CharSequence[] displayNames;
+    @Inject @Named("SettingsClientIdNames") CharSequence[] clientIdNames;
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.profile_preferences);
 
-        CharSequence[] displayNames = demoConfigUtils.getDisplayNames();
-        CharSequence[] clientIdNames = demoConfigUtils.getClientIdNames();
-
-        String defaultClientId = demoConfigUtils.getCurrentConfig().clientId;
+        String defaultClientId = demoClient.getClientId();
 
         selectedConfigPref = (ListPreference) findPreference(getString(R.string.key_selected_config));
         selectedConfigPref.setDefaultValue(defaultClientId);
         selectedConfigPref.setEntries(displayNames);
         selectedConfigPref.setEntryValues(clientIdNames);
 
-        DemoConfig selectedConfig = demoConfigUtils.getCurrentConfig();
-        updateUserProfile(selectedConfig);
+        updateUserProfile(demoClient);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DaggerDemoSettingsComponent.builder()
+            .demoAppComponent(DemoApp.get(getActivity()).getAppComponent())
+            .demoSettingsModule(new DemoSettingsModule())
+            .build()
+            .inject(this);
+
         super.onCreate(savedInstanceState);
+
         selectedConfigPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 String selectedClient = (String) o;
-                DemoConfig selectedConfig = demoConfigUtils.getConfigFromClientId(selectedClient);
+                DemoClient selectedConfig = demoClientConfigUtils.getConfigFromClientId(selectedClient);
                 updateUserProfile(selectedConfig);
                 return true;
             }
@@ -55,19 +61,19 @@ public class DemoPreferencesFragment extends PreferenceFragmentCompat {
 
     }
 
-    private void updateUserProfile(DemoConfig newSelectedConfig) {
+    private void updateUserProfile(DemoClient newSelectedConfig) {
         ListPreference selectedProfilePref = (ListPreference) findPreference(getString(R.string.key_selected_config));
-        String oldClientId = demoConfigUtils.getClientId();
+        String oldClientId = demoClient.getClientId();
 
         // Parse the values from the config
-        String clientId = newSelectedConfig.clientId;
+        String clientId = newSelectedConfig.getClientId();
 
         // Update the ui preference objects
         selectedProfilePref.setSummary(newSelectedConfig.toString());
 
         // Update values on disk if the clientId has changed
         if (!oldClientId.equals(clientId)) {
-            demoConfigUtils.putClientId(clientId);
+            demoClientConfigUtils.putSharedPrefsClientId(clientId);
         }
     }
 

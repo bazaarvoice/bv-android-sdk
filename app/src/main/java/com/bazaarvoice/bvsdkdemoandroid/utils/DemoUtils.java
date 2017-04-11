@@ -78,9 +78,4 @@ public class DemoUtils {
         display.getSize(size);
         return size;
     }
-
-    public static void restartApp() {
-        System.exit(0);
-    }
-
 }

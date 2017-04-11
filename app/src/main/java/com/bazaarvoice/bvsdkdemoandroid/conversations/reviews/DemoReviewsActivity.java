@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -18,8 +18,8 @@ import javax.inject.Inject;
 
 public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
 
-    @Inject DemoDataUtil demoDataUtil;
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoMockDataUtil demoMockDataUtil;
+    @Inject DemoClient demoClient;
     @Inject PrettyTime prettyTime;
     @Inject Picasso picasso;
 
@@ -30,13 +30,13 @@ public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
     }
 
     @Override
-    DemoDataUtil getDataUtil() {
-        return demoDataUtil;
+    DemoMockDataUtil getDataUtil() {
+        return demoMockDataUtil;
     }
 
     @Override
-    DemoConfigUtils getConfigUtils() {
-        return demoConfigUtils;
+    DemoClient getDemoClient() {
+        return demoClient;
     }
 
     @Override

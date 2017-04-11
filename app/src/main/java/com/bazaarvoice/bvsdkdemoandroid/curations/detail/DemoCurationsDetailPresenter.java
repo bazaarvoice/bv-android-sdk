@@ -9,9 +9,8 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsMedia;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 
 import java.util.Collections;
@@ -20,25 +19,24 @@ import java.util.List;
 public class DemoCurationsDetailPresenter implements DemoCurationsDetailContract.UserActionsListener, CurationsFeedCallback {
 
     private DemoCurationsDetailContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClient demoClient;
+    private DemoMockDataUtil demoMockDataUtil;
     private String productId;
     private List<CurationsFeedItem> curationsFeedItems = Collections.emptyList();
     private String currentFeedItemId;
 
-    public DemoCurationsDetailPresenter(DemoCurationsDetailContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, String startFeedItemId) {
+    public DemoCurationsDetailPresenter(DemoCurationsDetailContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, String startFeedItemId) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.productId = productId;
         this.currentFeedItemId = startFeedItemId;
     }
 
     @Override
     public void loadCurationsFeed() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        List<CurationsFeedItem> demoFeedItems = demoDataUtil.getCurationsFeedItems();
-        if (currentConfig.isDemoClient()) {
+        List<CurationsFeedItem> demoFeedItems = demoMockDataUtil.getCurationsFeedReponse().getUpdates();
+        if (demoClient.isMockClient()) {
             showCurationsFeedItems(demoFeedItems);
             return;
         }

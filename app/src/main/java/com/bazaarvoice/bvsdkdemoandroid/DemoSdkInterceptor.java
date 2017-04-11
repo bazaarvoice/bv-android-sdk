@@ -3,8 +3,15 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid;
 
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
+import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
+import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
+import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
+import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
+import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
+import com.bazaarvoice.bvandroidsdk.ReviewResponse;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.io.IOException;
 
@@ -17,75 +24,74 @@ import okhttp3.ResponseBody;
 
 class DemoSdkInterceptor implements Interceptor {
 
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClient demoClient;
+    private DemoMockDataUtil demoMockDataUtil;
 
-    public DemoSdkInterceptor(DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil) {
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+    public DemoSdkInterceptor(DemoClient demoClient, DemoMockDataUtil demoMockDataUtil) {
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        if (demoConfigUtils.isDemoClient()) {
-            return interceptDemoRequests(chain);
+        if (demoClient.isMockClient()) {
+            return interceptMockRequests(chain);
+        } else {
+            if (isInvalidRequest(chain)) {
+                return getInvalidResponse(chain);
+            }
         }
 
         Request originalRequest = chain.request();
-        boolean isProdHost = originalRequest.url().host().equals("network.bazaarvoice.com");
-        boolean isAnalyticsEvent = originalRequest.url().encodedPath().contains("event");
-        if (DemoConstants.PREVENT_ANALYTICS_IN_PROD && isProdHost && isAnalyticsEvent) {
-            Response noResponse = new Response.Builder()
-                    .code(999)
-                    .message("Not sending analytics to production while testing")
-                    .body(ResponseBody.create(MediaType.parse("json"), "{\"appResponse\":\"Not sending analytics to production while testing\"}"))
-                    .request(originalRequest)
-                    .protocol(Protocol.HTTP_2)
-                    .build();
-            return noResponse;
+        return chain.proceed(originalRequest);
+    }
+
+    private Response interceptMockRequests(Chain chain) throws IOException {
+        Request originalRequest = chain.request();
+        String host = originalRequest.url().host();
+        String path = originalRequest.url().encodedPath();
+
+        if (host.contains("api.bazaarvoice.com")) {
+            if (path.contains("curations/content/get")) {
+                CurationsFeedResponse curationsFeedResponse = demoMockDataUtil.getCurationsFeedReponse();
+                return demoMockDataUtil.getHttpResponse(originalRequest, curationsFeedResponse);
+            } else if (path.contains("curations/content/add")) {
+                CurationsPostResponse curationsPostResponse = demoMockDataUtil.getCurationsPostResponse();
+                return demoMockDataUtil.getHttpResponse(originalRequest, curationsPostResponse);
+            } else if (path.contains("data/reviews.json")) {
+                ReviewResponse reviewsResponse = demoMockDataUtil.getConversationsReviews();
+                return demoMockDataUtil.getHttpResponse(originalRequest, reviewsResponse);
+            } else if (path.contains("data/questions.json")) {
+                QuestionAndAnswerResponse qAndAResponse = demoMockDataUtil.getConversationsQuestions();
+                return demoMockDataUtil.getHttpResponse(originalRequest, qAndAResponse);
+            } else if (path.contains("data/products.json")) {
+                ProductDisplayPageResponse pdpResponse = demoMockDataUtil.getConversationsPdp();
+                return demoMockDataUtil.getHttpResponse(originalRequest, pdpResponse);
+            } else if (path.contains("data/statistics.json")) {
+                BulkRatingsResponse bulkRatingsResponse = demoMockDataUtil.getConversationsBulkRatings();
+                return demoMockDataUtil.getHttpResponse(originalRequest, bulkRatingsResponse);
+            } else if (path.contains("data/authors.json")) {
+                AuthorsResponse authorsResponse = demoMockDataUtil.getConversationsAuthors();
+                return demoMockDataUtil.getHttpResponse(originalRequest, authorsResponse);
+            }
         }
 
         return chain.proceed(originalRequest);
     }
 
-    private Response interceptDemoRequests(Chain chain) throws IOException {
+    private boolean isInvalidRequest(Chain chain) {
+        return chain.request().url().toString().contains("REPLACE_ME");
+    }
+
+    private Response getInvalidResponse(Chain chain) throws IOException {
         Request originalRequest = chain.request();
-        String host = originalRequest.url().host();
-        String path = originalRequest.url().encodedPath();
-
-        if (originalRequest.url().toString().contains("REPLACE_ME")) {
-            String doNotSendInvalidRequestsMessage = "{ \"demoInterceptMessage\" : \"Query params contain REPLACE_ME, so this is not being sent to the endpoint\" }";
-            Response response = new Response.Builder()
-                .code(403)
-                .body(ResponseBody.create(MediaType.parse("json"), doNotSendInvalidRequestsMessage))
-                .request(originalRequest)
-                .protocol(Protocol.HTTP_2)
-                .build();
-            return response;
-        }
-
-        if (host.contains("api.bazaarvoice.com")) {
-            if (path.contains("curations/content/get")) {
-                String curationsFeedItemsJsonStr = demoDataUtil.getCurationsFeedResponseJsonString();
-                Response response = new Response.Builder()
-                    .code(200)
-                    .body(ResponseBody.create(MediaType.parse("json"), curationsFeedItemsJsonStr))
-                    .request(originalRequest)
-                    .protocol(Protocol.HTTP_2)
-                    .build();
-                return response;
-            } else if (path.contains("curations/content/add")) {
-                String curationsPostResponseJsonString = demoDataUtil.getCurationsPostResponseJsonString();
-                Response response = new Response.Builder()
-                    .code(200)
-                    .body(ResponseBody.create(MediaType.parse("json"), curationsPostResponseJsonString))
-                    .request(originalRequest)
-                    .protocol(Protocol.HTTP_2)
-                    .build();
-                return response;
-            }
-        }
-
-        return chain.proceed(originalRequest);
+        String doNotSendInvalidRequestsMessage = "{ \"demoInterceptMessage\" : \"Query params contain REPLACE_ME, so this is not being sent to the endpoint\" }";
+        Response response = new Response.Builder()
+            .code(403)
+            .body(ResponseBody.create(MediaType.parse("json"), doNotSendInvalidRequestsMessage))
+            .request(originalRequest)
+            .protocol(Protocol.HTTP_2)
+            .build();
+        return response;
     }
 }

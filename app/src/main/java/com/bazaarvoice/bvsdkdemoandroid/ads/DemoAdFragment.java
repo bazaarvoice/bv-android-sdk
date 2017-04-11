@@ -18,14 +18,13 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 
 import javax.inject.Inject;
 
 public class DemoAdFragment extends Fragment {
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClient demoClient;
 
     public static DemoAdFragment newInstance() {
         DemoAdFragment fragment = new DemoAdFragment();
@@ -81,9 +80,8 @@ public class DemoAdFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        String shopperAdKey = currentConfig.apiKeyShopperAdvertising;
-        String displayName = currentConfig.displayName;
+        String shopperAdKey = demoClient.getApiKeyShopperAdvertising();
+        String displayName = demoClient.getDisplayName();
 
         if (!DemoConstants.isSet(shopperAdKey)) {
             String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_ads));

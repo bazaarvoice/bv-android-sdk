@@ -10,24 +10,22 @@ import com.bazaarvoice.bvandroidsdk.Store;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
 import com.bazaarvoice.bvandroidsdk.StoreReviewsRequest;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.util.List;
 
 public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
 
-    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
-        super(view, demoConfigUtils, demoDataUtil, productId, forceAPICall, reviewsLoader);
+    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
+        super(view, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader);
     }
 
     @Override
     public void loadReviews(boolean forceRefresh) {
         fetched = false;
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (!forceAPICall && currentConfig.isDemoClient()) {
-            showStoreReviews(demoDataUtil.getConversationsStoreReviews());
+        if (!forceAPICall && demoClient.isMockClient()) {
+            showStoreReviews(demoMockDataUtil.getConversationsStoreReviews());
             return;
         }
 

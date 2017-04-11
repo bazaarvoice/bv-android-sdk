@@ -32,8 +32,8 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,8 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     private static final int REQUEST_LOC = 3;
     private TextView lastLocEventTv;
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClient demoClient;
+    @Inject DemoClientConfigUtils demoClientConfigUtils;
 
     private LocationListener locationListener = new LocationListener() {
         @Override
@@ -141,9 +142,8 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        String locationKey = currentConfig.apiKeyLocationAndroid;
-        String displayName = currentConfig.displayName;
+        String locationKey = demoClient.getApiKeyLocationAndroid();
+        String displayName = demoClient.getDisplayName();
 
         if (!DemoConstants.isSet(locationKey)) {
             String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_location));
@@ -172,13 +172,13 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_demo_location, container, false);
         lastLocEventTv = (TextView) view.findViewById(R.id.lastLocEvent);
-        String lastLocEvent = demoConfigUtils.getLastLocationEvent();
+        String lastLocEvent = demoClientConfigUtils.getLastLocationEvent();
         updateLastLocEvent(lastLocEvent);
         return view;
     }
 
     private void updateLastLocEvent(String lastLocEvent) {
-        demoConfigUtils.putLastLocationEvent(lastLocEvent);
+        demoClientConfigUtils.putLastLocationEvent(lastLocEvent);
         String formattedLocEvent = String.format(getString(R.string.last_loc_event_template), lastLocEvent);
         Log.d(TAG, "updateLastLocEvent: " + formattedLocEvent);
         lastLocEventTv.setText(formattedLocEvent);

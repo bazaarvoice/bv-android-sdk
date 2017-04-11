@@ -22,8 +22,7 @@ import com.bazaarvoice.bvandroidsdk.PinNotificationManager;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class DemoPinFragment extends Fragment {
     private static final String PRODUCT_ID = "1-bv";
     private PinClient pinClient;
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClient demoClient;
 
     public static Fragment newInstance() {
         return new DemoPinFragment();
@@ -92,11 +91,10 @@ public class DemoPinFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        String pinApiKey = currentConfig.apiKeyPIN;
-        String displayName = currentConfig.displayName;
+        String pinApiKey = demoClient.getApiKeyPIN();
+        String displayName = demoClient.getDisplayName();
 
-        if (!DemoConstants.isSet(pinApiKey) || currentConfig.isDemoClient()) {
+        if (!DemoConstants.isSet(pinApiKey) || demoClient.isMockClient()) {
             String errorMessage = String.format(getString(R.string.view_demo_error_message), displayName, getString(R.string.demo_pin));
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(errorMessage);

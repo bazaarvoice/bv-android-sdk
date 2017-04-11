@@ -24,8 +24,8 @@ import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Statistics;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
@@ -52,8 +52,10 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
     @BindView(R.id.recyclerViewStub)
     ViewStub recyclerViewStub;
 
-    @Inject DemoConfigUtils demoConfigUtils;
-    @Inject DemoDataUtil demoDataUtil;
+    @Inject
+    DemoClientConfigUtils demoClientConfigUtils;
+    @Inject
+    DemoMockDataUtil demoMockDataUtil;
 
     private ArrayList<String> bulkProductIds = new ArrayList<String>();
 
@@ -71,7 +73,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
         setupRecyclerView();
 
         DemoApp.get(this).getAppComponent().inject(this);
-        bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, demoConfigUtils, demoDataUtil, bulkProductIds);
+        bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, demoClientConfigUtils, demoMockDataUtil, bulkProductIds);
     }
 
     void inflateRecyclerView() {

@@ -7,10 +7,8 @@ package com.bazaarvoice.bvsdkdemoandroid.recommendations;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
-import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,15 +18,15 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
     private static final int NUM_RECS = 20;
 
     private DemoRecommendationsContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClient demoClient;
+    private DemoMockDataUtil demoMockDataUtil;
     private BVRecommendations.BVRecommendationsLoader recommendationsLoader;
 
-    public DemoRecommendationsPresenter(DemoRecommendationsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
+    public DemoRecommendationsPresenter(DemoRecommendationsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, BVRecommendations.BVRecommendationsLoader recommendationsLoader) {
         this.view = view;
         view.showLoading(true);
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.recommendationsLoader = recommendationsLoader;
     }
 
@@ -39,10 +37,14 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
 
     @Override
     public void loadRecommendationProducts(boolean forceRefresh) {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        List<BVProduct> demoBvProds = demoDataUtil.getRecommendedProducts();
-        if (currentConfig.isDemoClient()) {
+        List<BVProduct> demoBvProds = demoMockDataUtil.getRecommendedProducts();
+        if (demoClient.isMockClient()) {
             showRecommendedProducts(demoBvProds);
+            return;
+        } else if (!demoClient.hasShopperAds()) {
+            view.showNotConfiguredDialog(demoClient.getDisplayName());
+            view.showLoading(false);
+            view.showSwipeRefreshLoading(false);
             return;
         }
 
@@ -56,17 +58,6 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
             recommendationsLoader.loadRecommendations(request, this);
         } else {
             showRecommendedProducts(DemoProductsCache.getInstance().getData());
-        }
-    }
-
-    @Override
-    public void onResume() {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        String shopperAdKey = currentConfig.apiKeyShopperAdvertising;
-        String displayName = currentConfig.displayName;
-
-        if (!DemoConstants.isSet(shopperAdKey) && !currentConfig.isDemoClient()) {
-            view.showNotConfiguredDialog(displayName);
         }
     }
 

@@ -38,7 +38,9 @@ public class NativeAdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_native_ad);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         progressBar = (ProgressBar) findViewById(R.id.native_ad_loading);
         loadFailed = (TextView) findViewById(R.id.native_ad_load_failed);

@@ -10,8 +10,8 @@ import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,15 +19,15 @@ import java.util.List;
 public class DemoProductStatsPresenter implements DemoProductStatsContract.UserActionsListener {
 
     private DemoProductStatsContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClientConfigUtils demoClientConfigUtils;
+    private DemoMockDataUtil demoMockDataUtil;
     private String productId;
     private final BVConversationsClient client = new BVConversationsClient();
 
-    public DemoProductStatsPresenter(DemoProductStatsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId) {
+    public DemoProductStatsPresenter(DemoProductStatsContract.View view, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, String productId) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClientConfigUtils = demoClientConfigUtils;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.productId = productId;
     }
 

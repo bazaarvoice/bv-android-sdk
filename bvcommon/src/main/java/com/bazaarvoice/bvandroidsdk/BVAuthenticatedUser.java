@@ -100,7 +100,7 @@ class BVAuthenticatedUser {
             bvLogger.d(TAG, "Search for profile at " + url);
 
             Request request = new Request.Builder()
-                    .addHeader("User-Agent", BVSDK.getInstance().getBvsdkUserAgent())
+                    .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                     .url(url)
                     .get()
                     .build();

@@ -20,9 +20,8 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,7 +50,7 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
 
     private BVConversationsClient client = new BVConversationsClient();
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoClient demoClient;
 
     public static DemoConversationsStoresAPIFragment newInstance() {
         DemoConversationsStoresAPIFragment fragment = new DemoConversationsStoresAPIFragment();
@@ -203,11 +202,8 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
     }
 
     private boolean readyForDemo() {
-
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-
-        String conversationsStoresKey = currentConfig.apiKeyConversationsStores;
-        String displayName = currentConfig.displayName;
+        String conversationsStoresKey = demoClient.getApiKeyConversationsStores();
+        String displayName = demoClient.getDisplayName();
 
         if (!DemoConstants.isSet(conversationsStoresKey)) {
             String errorMessage = String.format(

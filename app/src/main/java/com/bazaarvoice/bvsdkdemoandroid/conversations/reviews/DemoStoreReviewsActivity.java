@@ -10,8 +10,8 @@ import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreReview> {
 
-    @Inject DemoDataUtil demoDataUtil;
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject DemoMockDataUtil demoMockDataUtil;
+    @Inject DemoClient demoClient;
     @Inject Picasso picasso;
     @Inject PrettyTime prettyTime;
 
@@ -32,13 +32,13 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     }
 
     @Override
-    DemoDataUtil getDataUtil() {
-        return demoDataUtil;
+    DemoMockDataUtil getDataUtil() {
+        return demoMockDataUtil;
     }
 
     @Override
-    DemoConfigUtils getConfigUtils() {
-        return demoConfigUtils;
+    DemoClient getDemoClient() {
+        return demoClient;
     }
 
     @Override
@@ -47,8 +47,8 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     }
 
     @Override
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoStoreReviewsPresenter(view, demoConfigUtils, demoDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
+        return new DemoStoreReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     @Override

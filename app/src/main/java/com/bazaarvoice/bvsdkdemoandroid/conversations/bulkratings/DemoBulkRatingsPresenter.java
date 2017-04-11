@@ -10,8 +10,8 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Statistics;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,15 +20,15 @@ import java.util.List;
 public class DemoBulkRatingsPresenter implements DemoBulkRatingsContract.UserActionsListener {
 
     private DemoBulkRatingsContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClientConfigUtils demoClientConfigUtils;
+    private DemoMockDataUtil demoMockDataUtil;
     private ArrayList<String> bulkProductIds = new ArrayList<String>();
     private final BVConversationsClient client = new BVConversationsClient();
 
-    public DemoBulkRatingsPresenter(DemoBulkRatingsContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, ArrayList<String> bulkProductIds) {
+    public DemoBulkRatingsPresenter(DemoBulkRatingsContract.View view, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, ArrayList<String> bulkProductIds) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClientConfigUtils = demoClientConfigUtils;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.bulkProductIds = bulkProductIds;
     }
 

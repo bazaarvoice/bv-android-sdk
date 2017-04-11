@@ -34,7 +34,8 @@ import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -48,26 +49,28 @@ import javax.inject.Named;
 public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
     private static final String TAG = "DemoAuthorPresenter";
 
-    private DemoAuthorContract.View view;
-    private String authorId;
-    private BVConversationsClient conversationsClient;
-    private PrettyTime prettyTime;
-    private DemoConfigUtils demoConfigUtils;
+    private final DemoAuthorContract.View view;
+    private final String authorId;
+    private final BVConversationsClient conversationsClient;
+    private final PrettyTime prettyTime;
+    private final DemoClient demoClient;
+    private final DemoMockDataUtil demoMockDataUtil;
 
     @Inject
-    DemoAuthorPresenter(DemoAuthorContract.View view, @Named("AuthorId") String authorId, BVConversationsClient conversationsClient, PrettyTime prettyTime, DemoConfigUtils demoConfigUtils) {
+    DemoAuthorPresenter(DemoAuthorContract.View view, @Named("AuthorId") String authorId, BVConversationsClient conversationsClient, PrettyTime prettyTime, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil) {
         this.view = view;
         this.authorId = authorId;
         this.conversationsClient = conversationsClient;
         this.prettyTime = prettyTime;
-        this.demoConfigUtils = demoConfigUtils;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
     }
 
     @Override
     public void start() {
         view.showRecentReview(false); // Wait until we have a review to show it
 
-        boolean showPinFeature = demoConfigUtils.getCurrentConfig().hasPin();
+        boolean showPinFeature = demoClient.hasPin();
         view.showProductsToReview(showPinFeature);
 
         AuthorsRequest request = new AuthorsRequest.Builder(authorId)

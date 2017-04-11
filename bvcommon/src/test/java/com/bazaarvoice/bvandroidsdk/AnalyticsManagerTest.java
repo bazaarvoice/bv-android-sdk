@@ -59,7 +59,7 @@ public class AnalyticsManagerTest {
         shopperAdvertisingApiKey = "foobar-bvtestshopperadvertisingid";
         uuid = UUID.fromString(uuidTestStr);
 
-        subject = new AnalyticsManager(application.getApplicationContext(), clientId, analyticsUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, uuid);
+        subject = new AnalyticsManager(application.getApplicationContext(), clientId, analyticsUrl, okHttpClient, immediateExecutorService, scheduledExecutorService, bvAuthenticatedUser, uuid, false);
     }
 
     ArgumentCaptor<Long> initialDelayCaptor = ArgumentCaptor.forClass(Long.class);

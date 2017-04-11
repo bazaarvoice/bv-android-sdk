@@ -64,7 +64,7 @@ ext {
     // use -Prelease=true when building to enable release
     // Example releasing internally
     //   "./gradlew clean uploadArchives -Prelease=true"
-    // Example releasing publically
+    // Example releasing publicly
     //   "./gradlew clean uploadArchives -Prelease=true -PopenSourceRelease=true"
     isReleasing = rootProject.hasProperty('release') && release.toBoolean()
 }

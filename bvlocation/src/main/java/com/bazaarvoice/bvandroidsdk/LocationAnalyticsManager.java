@@ -15,7 +15,7 @@ class LocationAnalyticsManager {
 
         long seconds = (visit.getDepartureTimeInMillis() > 0) ? visit.getDwellTimeInMillis() / 1000 : 0;
 
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getAnalyticsManager();
+        AnalyticsManager analyticsManager = BVSDK.getInstance().getBvWorkerData().getAnalyticsManager();
 
         MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
         VisitLocationSchema visitLocationSchema = new VisitLocationSchema(magpieMobileAppPartialSchema, id, transitionState, seconds);

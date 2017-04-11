@@ -12,7 +12,7 @@ import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsMedia;
 import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,7 +29,7 @@ public class DemoCurationsMapsPresenter implements DemoCurationsMapContract.User
     private static final String TAG = DemoCurationsMapsPresenter.class.getSimpleName();
 
     private DemoCurationsMapContract.View view;
-    private DemoDataUtil demoDataUtil;
+    private DemoMockDataUtil demoMockDataUtil;
     private Picasso picasso;
     private List<CurationsFeedItem> curationsFeedItems = new ArrayList<>();
     private DemoMarkerManager markerManager;
@@ -41,9 +41,9 @@ public class DemoCurationsMapsPresenter implements DemoCurationsMapContract.User
     private GoogleMap googleMap;
     private Double lastKnownLatitude, lastKnownLongitude;
 
-    public DemoCurationsMapsPresenter(DemoCurationsMapContract.View view, DemoDataUtil demoDataUtil, Picasso picasso, String productId, int detailRowHeight, boolean haveFineLocationPermission) {
+    public DemoCurationsMapsPresenter(DemoCurationsMapContract.View view, DemoMockDataUtil demoMockDataUtil, Picasso picasso, String productId, int detailRowHeight, boolean haveFineLocationPermission) {
         this.view = view;
-        this.demoDataUtil = demoDataUtil;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.picasso = picasso;
         this.productId = productId;
         this.detailRowHeight = detailRowHeight;

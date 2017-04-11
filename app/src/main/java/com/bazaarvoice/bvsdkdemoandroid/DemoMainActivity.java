@@ -40,6 +40,7 @@ import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
@@ -55,7 +56,6 @@ import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
 
 import java.util.ArrayList;
 
@@ -71,7 +71,8 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     private Toolbar toolbar;
 
-    @Inject DemoConfigUtils demoConfigUtils;
+    @Inject
+    DemoClientConfigUtils demoClientConfigUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
         // Set up the toolbar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Welcome");
+        toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(onToolbarMenuItemClickListener);
         ActionBar ab = getSupportActionBar();
@@ -124,7 +125,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
         getMenuInflater().inflate(R.menu.toolbar_actions, menu);
 
-        if (!demoConfigUtils.configFileExists()) {
+        if (!demoClientConfigUtils.otherSourcesExist()) {
             menu.findItem(R.id.settings_action).setVisible(false);
         }
 
@@ -162,7 +163,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
                 switch (item.getItemId()) {
                     case R.id.home_page:
-                        toolbar.setTitle("Welcome");
+                        toolbar.setTitle(getString(R.string.app_name));
                         transitionTo(DemoHomePageFragment.newInstance());
                         break;
                     case R.id.recommendations:

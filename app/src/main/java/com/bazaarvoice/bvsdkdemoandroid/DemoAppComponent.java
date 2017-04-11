@@ -23,8 +23,10 @@ import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigModule;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
@@ -49,7 +51,6 @@ import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragm
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHeaderPagerAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHomeActivity;
-import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesFragment;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -59,14 +60,16 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {DemoAppModule.class, DemoConfigModule.class, DemoBvModule.class})
+@Component(modules = {DemoAppModule.class, DemoClientConfigModule.class, DemoBvModule.class})
 public interface DemoAppComponent {
     BVSDK getBvSdk();
     BVConversationsClient getBvConvClient();
     CurationsImageLoader getCurationsImageLoader();
     PinClient getPinClient();
     PrettyTime getPrettyTime();
-    DemoConfigUtils getDemoConfigUtils();
+    DemoClientConfigUtils getDemoConfigUtils();
+    DemoClient getDemoClient();
+    DemoMockDataUtil getDemoMockDataUtil();
 
     void inject(DemoAdFragment adsFragment);
     void inject(DemoMainActivity activity);
@@ -88,7 +91,6 @@ public interface DemoAppComponent {
     void inject(DemoPinFragment fragment);
     void inject(DemoRecommendationsFragment fragment);
     void inject(DemoRecsHomeActivity activity);
-    void inject(DemoPreferencesFragment fragment);
     void inject(DemoPreferencesSelectedFragment fragment);
     void inject(DemoApp app);
     void inject(DemoCurationsDetailFragment fragment);

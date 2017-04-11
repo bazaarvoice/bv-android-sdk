@@ -7,11 +7,10 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.Question;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
+import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfig;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.configs.DemoDataUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +18,16 @@ import java.util.List;
 public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsListener {
 
     private DemoAnswersContract.View view;
-    private DemoConfigUtils demoConfigUtils;
-    private DemoDataUtil demoDataUtil;
+    private DemoClient demoClient;
+    private DemoMockDataUtil demoMockDataUtil;
     private String productId;
     private String questionId;
     private boolean forceAPICall;
 
-    public DemoAnswersPresenter(DemoAnswersContract.View view, DemoConfigUtils demoConfigUtils, DemoDataUtil demoDataUtil, String productId, String questionId,  boolean forceAPICall) {
+    public DemoAnswersPresenter(DemoAnswersContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, String questionId, boolean forceAPICall) {
         this.view = view;
-        this.demoConfigUtils = demoConfigUtils;
-        this.demoDataUtil = demoDataUtil;
+        this.demoClient = demoClient;
+        this.demoMockDataUtil = demoMockDataUtil;
         this.productId = productId;
         this.questionId = questionId;
         this.forceAPICall = forceAPICall;
@@ -44,9 +43,8 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
 
     @Override
     public void loadAnswers(boolean forceRefresh) {
-        DemoConfig currentConfig = demoConfigUtils.getCurrentConfig();
-        if (!forceAPICall && currentConfig.isDemoClient()) {
-            view.showAnswers(demoDataUtil.getConversationsAnswers(questionId));
+        if (!forceAPICall && demoClient.isMockClient()) {
+            view.showAnswers(demoMockDataUtil.getConversationsAnswers(questionId));
             return;
         }
 

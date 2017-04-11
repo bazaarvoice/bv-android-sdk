@@ -10,6 +10,7 @@ public interface DemoAdContract {
     interface View {
         void showAd(NativeContentAd nativeContentAd);
         void transitionToAdInWebview(String url);
+        void showNoApiKey(String clientDisplayName);
     }
 
     interface UserActionsListener {
