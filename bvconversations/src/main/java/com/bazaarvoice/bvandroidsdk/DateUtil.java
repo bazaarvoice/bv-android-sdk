@@ -19,6 +19,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Helper for formatting date strings returned from
@@ -41,7 +43,8 @@ class DateUtil {
 
     private static void initDateFormat() {
         if (dateFormat == null) {
-            dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         }
     }
 }
