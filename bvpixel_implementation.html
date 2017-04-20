@@ -324,7 +324,6 @@ repositories {
     @Override
     public void onCreate(){
         super.onCreate();
-        
         BVPixel.builder(context, YOUR_CLIENT_ID, isStaging)
           .bgHandlerThread(optionalBackgroundHandlerThread)
           .okHttpClient(optionalOkHttpClient)
@@ -336,9 +335,9 @@ repositories {
 
 <h3>AndroidManifest</h3>
 <hr>
-<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;<br/>
-&lt;application<br/>
-    android:name=".MyApplication"&gt;<br/>
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
+&lt;application
+    android:name=".MyApplication"&gt;
 &lt;/application&gt;</code></pre>
 
 

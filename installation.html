@@ -310,20 +310,20 @@ $(function(){
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  For manual installation using archive builds (.aar), use the latest archive version on the  <a href="http://repo1.maven.org/maven2/com/bazaarvoice/bvandroidsdk/">BVSDK Maven repository</a>.</p>
 
 <p>Add the following dependencies to include the Maven Central repository and add Bazaarvoice Mobile SDK modules. You only need to add the dependencies for the products you have an API key for.</p>
-<pre><code>dependencies {<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:curations:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:curations-ui:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:location:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:pin:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:pin-notifications:6.+'<br/>
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:6.+'<br/>
+<pre><code>dependencies {
+    compile 'com.bazaarvoice.bvandroidsdk:advertising:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:conversations:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:curations:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:curations-ui:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:location:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:pin:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:pin-notifications:6.+'
+    compile 'com.bazaarvoice.bvandroidsdk:recommendations:6.+'
     compile 'com.bazaarvoice.bvandroidsdk:store-notifications:6.+'
 }<br/>
-repositories {<br/>
-    mavenCentral()<br/>
-}<br/>
+repositories {
+    mavenCentral()
+}
 </code></pre>
 <br>
 </div>
@@ -353,6 +353,16 @@ Once you have install the source code for the SDK, you are now ready to initiali
   <div id="configurationCollapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body">
 
+     <div class="flex flex-row">
+        <p>Each client application should have its own API key. If you need to generate a new key for Conversations
+              please see <a
+                    href='https://developer.bazaarvoice.com/docs/read/conversations_api/api_key_processes/requesting_api_keys'>Conversations Requesting API Keys</a>.
+            <br><br>
+            For all other API keys or if you don't know your client ID, contact <a
+                    href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.
+        </p>
+    </div>
+
     <div class="flex flex-row" style="align-items: center">
         <div class="cel-fl-2">
             Enter your Client ID:
@@ -361,202 +371,184 @@ Once you have install the source code for the SDK, you are now ready to initiali
             <input type="text" class="edit_ClientID" id="clientId" placeholder="your client name, such as bazaarvoice" style="border-color:red" size="40"/>
         </div>
     </div>
-    <div class="flex flex-row">
-        <p>If you don't know your client ID or API key values, contact <a href="https://developer.bazaarvoice.com/support">Client Care</a> or your implementation team.</p>
-    </div>
 
+    <br>
     <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>
-                    Select one or more module(s):
-                </th>
-                <th>
-                    Enter API key:
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" class="cb_BVCurations"/> <b>Curations</b>
-                    <br/>
-                    <input type="checkbox" class="cb_BVCurationsUI"/> <b>Curations UI</b>
-                </td>
-                <td>
-                    <input type="text" class="key_BVCurations" placeholder="Curations API Key here" style="width:100%"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" class="cb_BVConversations"/> <b>Conversations</b>
-                </td>
-                <td>
-                    <input type="text" class="key_BVConversations" placeholder="Conversations API Key here" style="width:100%"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" class="cb_BVConversationsStores"/> <b>Conversations for Stores</b>
-                </td>
-                <td>
-                    <input type="text" class="key_BVConversationsStores" placeholder="Conversations for Stores API Key here" style="width:100%"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" class="cb_BVAdvertising"/> <b>Advertising</b>
-                    <br/>
-                    <input type="checkbox" class="cb_BVRecommendations"/> <b>Product Recommendations</b>
-                </td>
-                <td>
-                    <input type="text" class="key_ShopperAdvertising" placeholder="Shopper Advertising API Key here" style="width:100%"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" class="cb_BVLocation"/> <b>Location</b>
-                </td>
-                <td>
-                    <input type="text" class="key_BVCLocation" placeholder="Location API Key here" style="width:100%"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="checkbox" class="cb_BVPIN"/> <b>PIN</b>
-                    <br/>
-                    <input type="checkbox" class="cb_BVPINNotifications"/> <b>PIN Notifications</b>
-                </td>
-                <td>
-                    <input type="text" class="key_BVPIN" placeholder="PIN API Key here" style="width:100%"/>
-                </td>
-            </tr>
+        <table class="table" id="keyTable">
         </table>
     </div>
 
-    <script type="text/javascript">
+    <div class="flex flex-row" id="download">
+        <p id = "downloadInstructions"></p>
+    </div>
 
-    // Determine whether or not to put red border on invalid text entry
-    function validateTextInputs(){
+ <script type="text/javascript">
 
-      // client id text box
-        if ($('.edit_ClientID').val() == '') {
-        $('.edit_ClientID').css('border-color', 'red');
+        if (!String.format) {
+            String.format = function(format) {
+                var args = Array.prototype.slice.call(arguments, 1);
+                return format.replace(/{(\d+)}/g, function(match, number) {
+                    return typeof args[number] != 'undefined'
+                        ? args[number]
+                        : match
+                        ;
+                });
+            };
         }
-        else {
-        $('.edit_ClientID').css('border-color', '');
+
+        var prodKeyCount = 0
+        var stagingKeyCount = 0
+
+        function KeyRow(key, title, ph) {
+            this.title = title
+            this.key = key
+            this.ph = ph
         }
 
-      // API key checkboxes
-      if (($('.cb_BVCurations:checked').length > 0 && !$('.key_BVCurations').val()) || ($('.cb_BVCurationsUI:checked').length > 0 && !$('.key_BVCurations').val())){
-          $('.key_BVCurations').css('border-color', 'red');
-      } else {
-          $('.key_BVCurations').css('border-color', '');
-      }
+        var rows= [new KeyRow("apiKeyCurations", "Curations", "Curations"),
+            new KeyRow("apiKeyConversations", "Conversations", "Conversations"),
+            new KeyRow("apiKeyConversationsStores", "Conversations for Stores", "Conversations for Stores"),
+            new KeyRow("apiKeyShopperAdvertising", "Product Recommendations & Advertising","Shopper Advertising"),
+            new KeyRow("apiKeyLocation", "Location" , "Location"),
+            new KeyRow("apiKeyPIN", "Post Interaction Notifications" , "PIN")]
 
-      if ($('.cb_BVConversations:checked').length > 0 && !$('.key_BVConversations').val()){
-        $('.key_BVConversations').css('border-color', 'red');
-      } else {
-        $('.key_BVConversations').css('border-color', '');
-      }
+        function getTableHTML() {
+            var html = ["<tr class=\"odd\" style=\" background-color: #F7F7F7;\"><th style=\" width:30%;\">Products</th><th>Production API Keys</th><th>Staging API Keys</th></tr>"]
 
-       if ($('.cb_BVConversationsStores:checked').length > 0 && !$('.key_BVConversationsStores').val()){
-        $('.key_BVConversationsStores').css('border-color', 'red');
-      } else {
-        $('.key_BVConversationsStores').css('border-color', '');
-      }
-
-      if ( ($('.cb_BVAdvertising:checked').length > 0 || $('.cb_BVRecommendations:checked').length > 0)
-                  && !$('.key_ShoppeAdvertising').val()){
-          $('.key_ShoppeAdvertising').css('border-color', 'red');
-      } else {
-          $('.key_ShoppeAdvertising').css('border-color', '');
-      }
-
-      if ($('.cb_BVLocation:checked').length > 0 && !$('.key_BVCLocation').val()){
-          $('.key_BVCLocation').css('border-color', 'red');
-      } else {
-          $('.key_BVCLocation').css('border-color', '');
-      }
-
-      if (($('.cb_BVPIN:checked').length > 0 && !$('.key_BVPIN').val()) || ($('.cb_BVPINNotifications:checked').length > 0 && !$('.key_BVPIN').val())){
-          $('.key_BVPIN').css('border-color', 'red');
-      } else {
-          $('.key_BVPIN').css('border-color', '');
-      }
-    }
-
-    function updateCodeSnippets(){
-            var REPLACE_ME  = "ERROR"
-            if ($('.edit_ClientID#clientId').val().length > 0){
-             clientId = $('.edit_ClientID#clientId').val()
-            } else {
-             clientId = REPLACE_ME
+            for (row in rows) {
+                html.push(String.format("<tr><th>{0}</th><td><input type=\"text\" onfocus=\"this.oldValue = this.value;\" class= \"prodKeyText\" id=\"{1}Prod\" placeholder=\"{2} Production API Key\" style=\"width:100%\"/></td>" +
+                    "<td><input type=\"text\" class= \"stagingKeyText\" id=\"{1}Staging\" onfocus=\"this.oldValue = this.value;\" placeholder=\"{2} Staging API Key\" style=\"width:100%\"/></td></tr>", rows[row].title, rows[row].key, rows[row].ph))
             }
 
-            $('#java-bvsdkmanager').text('    BVSDK.builder(application, "' + clientId + '")')
-            $('#java-bvsdkmanager').append('<br/>      .bazaarEnvironment(BazaarEnvironment.STAGING) // Change to BazaarEnvironment.PRODUCTION for release<br/>')
+            return html.join("")
+        }
 
-            if ($('.cb_BVAdvertising:checked').length > 0 || $('.cb_BVRecommendations:checked').length > 0) {
-              var shopperKey = $('.key_ShopperAdvertising').val()
-              $('#java-bvsdkmanager').append('      .apiKeyShopperAdvertising("' + shopperKey + '")<br/>');
-            }
+        document.getElementById("keyTable").innerHTML = getTableHTML()
 
-            if (($('.cb_BVCurations:checked').length > 0) || $('.cb_BVCurationsUI:checked').length > 0){
-               var curationsKey = $('.key_BVCurations').val()
-               $('#java-bvsdkmanager').append('      .apiKeyCurations("' + curationsKey + '")<br/>');
-            }
-
-            if ($('.cb_BVConversations:checked').length > 0){
-              var conversationsKey = $('.key_BVConversations').val()
-              $('#java-bvsdkmanager').append('      .apiKeyConversations("' + conversationsKey + '")<br/>');
-            }
-
-            if ($('.cb_BVConversationsStores:checked').length > 0){
-              var conversationsStoresKey = $('.key_BVConversationsStores').val()
-              $('#java-bvsdkmanager').append('      .apiKeyConversationsStores("' + conversationsStoresKey + '")<br/>');
-            }
-
-            if ($('.cb_BVLocation:checked').length > 0 || $('.cb_BVLocation:checked').length > 0){
-              var locationKey = $('.key_BVCLocation').val()
-              $('#java-bvsdkmanager').append('      .apiKeyLocation("' + locationKey + '")<br/>');
-            }
-
-            if ($('.cb_BVPIN:checked').length > 0 || $('.cb_BVPINNotifications:checked').length > 0){
-              var pinKey = $('.key_BVPIN').val()
-              $('#java-bvsdkmanager').append('      .apiKeyPin("' + pinKey + '")<br/>');
-            }
-
-            $('#java-bvsdkmanager').append('      .build();<br/>')
-    }
-
-    function formatCode() {
-
-      // You can use highlightBlock to highlight blocks dynamically inserted into the page. Just make sure you don't do it twice for already highlighted blocks.
-
-      //If your code container relies on <br> tags instead of line breaks (i.e. if it's not <pre>) set the useBR option to true:
-      hljs.configure({useBR: true});
-      $('pre code').each(function(i, block) {
-          hljs.highlightBlock(block);
+        $('.prodKeyText').on('input', function(){
+            processChange(this, true)
         });
 
-    }
+        $('.stagingKeyText').on('input', function(){
+            processChange(this, false)
+        });
 
-    // Handle text box input changes
-    $(':text').on('input',function(e){
-        validateTextInputs()
-      updateCodeSnippets()
-      // formatCode()
-    });
+        function processChange(el, isProd) {
+            if (el.value.length > 0) {
+                if ( el.oldValue.length == 0) {
+                    isProd ? prodKeyCount++ : stagingKeyCount++
+                    el.style.borderColor = 'green'
+                }
+            }else {
+                isProd ? prodKeyCount-- : stagingKeyCount--
+                el.style.borderColor = ''
+            }
+            el.oldValue = el.value
+            updateDownloadHint()
+        }
 
+        $('.edit_ClientID#clientId').on('input', function(){
+            if (this.value.length > 0) {
+                this.style.borderColor = 'green'
+            }else {
+                this.style.borderColor = 'red'
+            }
 
-    // Handle checkbox toggles
-    $(':checkbox').on('click', function() {
-      validateTextInputs()
-      updateCodeSnippets()
-      // formatCode()
+            updateDownloadHint()
+        });
 
-    });
+        function getInstructionStr(isPlural, hasProdConfig) {
+          var androidSdkTitle = 'bv-android-sdk'
+          var sdkTitle = 'bv-android-sdk'
+          var isAndroid = sdkTitle === androidSdkTitle
+          var instructionsFormat = '<strong id="configCallOut" style="font-size:250%; color: green">✓    </strong>You have successfully configured for {0}. After you <a id="exportJSON" onclick="exportJson()" style="cursor: pointer; cursor: hand;"><strong style="font-size: 120%">download your config {1}</strong></a> ' +
+                  'you will need to {2}. Once this is done you may proceed to {3}.'
+          var needTo = ''
+          var steps = ''
+          if (isAndroid) {
+            var needToFormat = 'add {0} to your assets directory'
+            needTo = String.format(needToFormat, isPlural? "them" : "it")
+            steps = 'step 2'
+          } else {
+            var needToFormat = 'add {0} to your Xcode project and ensure {1} included in your main app bundle'
+            needTo = String.format(needToFormat, isPlural? "them" : "it",  isPlural? "they are" : "it is")
+            steps = 'steps 2 and 3'
+          }
+          var instructionStr = String.format(instructionsFormat, ((isPlural)? '<strong style="font-size: 120%">Production and Staging</strong>' : (hasProdConfig ? '<strong style="font-size: 125%">Production</strong>' : '<strong style="font-size: 120%">Staging</strong>')),
+                  (isPlural)? "files" : "file", needTo, steps)
+          return instructionStr
+        }
+        
+        function updateDownloadHint() {
+            var instructions = document.getElementById("downloadInstructions")
+            var clientId = $('.edit_ClientID#clientId').val()
 
-    formatCode()
+            if (clientId.length == 0){
+                instructions.innerHTML = '<strong id="configCallOut" style="font-size:250%; color: red">X    </strong><strong>You must enter your Bazaarvoice client id in step 1 before proceeding.</strong>'
+                return
+            }
+
+            var hasProdConfig = prodKeyCount > 0
+            var hasStagingConfig = stagingKeyCount > 0
+
+            if (!hasProdConfig && !hasStagingConfig) {
+                instructions.innerHTML = '<strong id="configCallOut" style="font-size:250%; color: red">X    </strong><strong>You must enter your API keys in Step 1 before proceeding.</strong>'
+                return
+            }
+
+            var isPlural = (hasProdConfig && hasStagingConfig)
+            instructions.innerHTML = getInstructionStr(isPlural, hasProdConfig)
+        }
+
+        updateDownloadHint()
+
+        
+
+        function getJSONProd() {
+            return getJSON("Prod")
+        }
+
+        function getJSONStaging() {
+            return getJSON("Staging")
+        }
+
+        function getJSON(env) {
+            var clientId = $('.edit_ClientID#clientId').val()
+            var json = {"clientId": clientId}
+            for (row in rows) {
+                var apiKey = document.getElementById(rows[row].key + env).value
+                if (apiKey.length > 0) {
+                    json[rows[row].key] = apiKey
+                }
+            }
+
+            return json
+        }
+
+        function exportJson() {
+
+            if (prodKeyCount > 0) {
+                downloadJson(getJSONProd(), "prod")
+            }
+
+            if (stagingKeyCount > 0) {
+                downloadJson(getJSONStaging(), "staging")
+            }
+        }
+        function downloadJson(config, env) {
+            var el = document.createElement('a')
+            el.style.display = 'none';
+            document.body.appendChild(el);
+
+            var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(config));
+
+            el.setAttribute("href", "data:"+data);
+            el.setAttribute("download", "bvsdk_config_" + env + ".json");
+            el.click()
+            document.body.removeChild(el)
+        }
+
+        
     </script>
 
     		</div>
@@ -582,34 +574,37 @@ Once you have install the source code for the SDK, you are now ready to initiali
   <div id="installationBVSDKManager" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body">
 
-    <p>Insert the following code in your <code>Application#onCreate(...)</code></p>
 
-</code></pre>
-<pre><code class="java">public class MyApplication extends Application {<br/>
-  @Override<br/>
-  public void onCreate(){<br/>
-    super.onCreate();<br/>
-    // Builder used to initialize the Bazaarvoice SDKs
-    <div id="java-bvsdkmanager">    // You haven't selected a configuration option yet in Step 1!</div>
-  }<br/>
-}<br/>
-</code></pre>
+     <p id = "installInstructions"></p>
+
+      </code></pre>
+      <pre><code class="java" id="bvskdmanager-sample">public class MyApplication extends Application {
+  @Override
+  public void onCreate(){
+    super.onCreate();
+    // BazaarEnvironment.PRODUCTION reads from bvsdk_config_prod.json
+    // BazaarEnvironment.STAGING reads from bvsdk_config_staging.json
+    BVSDK.builder(application, BazaarEnvironment.PRODUCTION)
+          .logLevel(BVLogLevel.VERBOSE) // Optional: Set the log level. Default level is ERROR.
+          .dryRunAnalytics(false)       // Optional: Set analytics to log only, not make a network request. Default is false.
+          .okHttpClient(okHttpClient)   // Optional: Use you own okHttpClient instance
+          .build();
+  }
+}</code></pre>
 
     		</div>
     </div>
   </div>
-
 </div>
-
 <br>
 </div>
 
 <div id="android-manifest">
 <h3>AndroidManifest</h3>
 <hr>
-<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;<br/>
-&lt;application<br/>
-    android:name=".MyApplication"&gt;<br/>
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
+&lt;application
+    android:name=".MyApplication"&gt;
 &lt;/application&gt;</code></pre>
 
 <br>
@@ -630,10 +625,16 @@ Once you have install the source code for the SDK, you are now ready to initiali
   with the explicit version you would like. This will avoid any 'duplicate
   class' issues while compiling.</p>
 
+<h4>Analytics</h4>
+<pre><code>compile "com.squareup.okhttp3:okhttp:3.2.0"
+compile "com.google.android.gms:play-services-ads:9.0.0"
+compile "com.android.support:support-annotations:25.0.0"</code></pre>
+
 <h4>Common</h4>
-<pre><code>compile "com.google.code.gson:gson:2.5"<br/>
-compile "com.squareup.okhttp3:okhttp:3.2.0"<br/>
-compile "com.google.android.gms:play-services-ads:9.0.0"<br/>
+
+<p>Inherits from analytics, and adds:</p>
+
+<pre><code>compile "com.google.code.gson:gson:2.5"
 compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
 
 <h4>Advertising</h4>
@@ -652,9 +653,9 @@ compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
 
 <p>Inherits from common, and adds:</p>
 
-<pre><code>compile "com.gimbal.android.v2:gimbal-sdk:2.46"<br/>
-compile "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"<br/>
-compile "org.slf4j:slf4j-api:1.7.21"<br/>
+<pre><code>compile "com.gimbal.android.v2:gimbal-sdk:2.46"
+compile "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"
+compile "org.slf4j:slf4j-api:1.7.21"
 compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
 
 <h4>Notifications</h4>

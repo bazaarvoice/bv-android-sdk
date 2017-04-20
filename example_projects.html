@@ -315,22 +315,101 @@ $(function(){
     Navigate to the root directory of the project, and click <b>OK</b>
     <img src="android-img/examples/open_sdk.png" style="max-width:50%" class="center-block img-fluid" />
   </li>
+  <li>
+    Add your <a href="installation.html#configure-bvsdk">BV generated config files</a> to the
+    demo apps asset directory.
+    <img src="android-img/examples/bvsdk_as_config.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    To set the environment (production versus staging configuation), set the <code>public static final BazaarEnvironment ENVIRONMENT</code> value in the <code>DemoConstants.java</code> project file.
+  </li>
 </ol>
+
+<p><span class="bg-info well-lg" style="padding:4px;"> <i class="fa fa-hand-o-right"></i> TIP: When running the Conversations API demo, you can set your own test product Ids in the <code>DemoConversationsAPIFragment.java</code> file. </a></span></p>
+
 
 		</div>
     </div>
   </div>
 
 
-<h3>Basic Example Project</h3>
-<hr>
-<p>The BVSDK contains basic example projects for each module as well as a full demo project highlighting a full integration of all the BVSDK components. Preview any of the samples in the SDK to help you get your implementation up and running quickly.</p>
+<div class="panel-group flex" id="bvdemoapp" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
+	
 
-If you want to drop in your own API keys to run any of the demos from the drawer menu, just open <code>DemoConstants.java</code> and set your client ID and API key values for the API demos you want to explore.<p/>
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-bvdemoappId">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#bvdemoappId" aria-expanded="false" aria-controls="bvdemoappId" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="bvdemoappArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;"><span>BV Demo app</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">The BV Demo app can be used as an example of best practices to use when integrating the BVSDK into your app mobile application. It features a mock eCommerce application known as Endurance Cycles. Think of this as a Kitchen Sink style app.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="bvdemoappId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
 
 <p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
 
 <br>
+
+<ol>
+  <li>
+    <p>Right click the <code>DemoRecsHomeActivity.java</code> file, and select Run.</p>
+    <img src="android-img/examples/demo_example_run.png" style="height:auto; border:1px solid gray" class="center-block img-fluid" />
+  </li>
+  <br><br>
+  <li>
+    <p>
+      On your device, you should see a home page like the one below. This app can be used as an
+      example of best practices to use when integrating the BVSDK into your app mobile application.
+    </p>
+    <img src="android-img/examples/bvdemoapp_default_home.png" style="max-width:30%" class="center-block img-fluid" />
+  </li>
+  <li>
+    <p>
+      To see your own data in this app, tap the settings cog to go to the settings page, then
+      tap "Select Preloaded Profile". You will be presented with the choice to change the data
+      source between "Mock Endurance Cycles" (which is a Bazaarvoice demo source), and your BV
+      generated config. The BV generated config will automatically display the environment set
+      in the <code>DemoConstants.java</code> file.
+    </p>
+    <img src="android-img/examples/bvapp_settings_page.png" style="max-width:30%" class="center-block img-fluid" />
+  </li>
+</ol>
+
+
+		</div>
+    </div>
+  </div>
+</div>
+
+
+<div class="panel-group flex" id="bvcodeapp" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
+	
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-bvcodeappId">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#bvcodeappId" aria-expanded="false" aria-controls="bvcodeappId" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="bvcodeappArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;"><span>BV API app</h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">The BV API app contains simple minimal code examples for each of the products and how to set up the API calls for specific use cases.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="bvcodeappId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
 
 <ol>
   <li>
@@ -341,39 +420,30 @@ If you want to drop in your own API keys to run any of the demos from the drawer
   <li>
     <p>On your device, you should see a home page like this. This app can be used to view example implementations of the different
     parts of the BVSDK.</p>
-    <img src="android-img/examples/code_example_home.png" style="max-width:30%" class="center-block img-fluid" />
+    <img src="android-img/examples/bvcodeapp_default_home.png" style="max-width:30%" class="center-block img-fluid" />
   </li>
   <br><br>
   <li>
     <p>There will be a drawer with simple code example for each of the products.</p>
-    <img src="android-img/examples/code_example_drawer.png" style="max-width: 30%" class="center-block img-fluid" />
+    <img src="android-img/examples/bvcodeapp_drawer.png" style="max-width: 30%" class="center-block img-fluid" />
+  </li>
+  <li>
+    <p>
+      To see your own data in this app, tap the settings cog to go to the settings page, then
+      tap "Select Preloaded Profile". You will be presented with the choice to chance the data
+      source between "Mock Endurance Cycles" (which is a Bazaarvoice demo source), and your BV
+      generated config. The BV generated config will automatically display the environment chosen
+      in the <code>DemoConstants.java</code> file.
+    </p>
+    <img src="android-img/examples/bvapp_settings_page.png" style="max-width:30%" class="center-block img-fluid" />
   </li>
 </ol>
 
 
-<h3>BVSDKDemo: Full SDK Integration Examples</h3>
-<hr>
-<p>The BVSDK contains basic example projects for each module as well as a full demo project highlighting a full integration of all the BVSDK components. Preview any of the samples in the SDK to help you get your implementation up and running quickly.</p>
-
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
-
-<br>
-
-<ol>
-  <li>
-    <p>Right click the <code>DemoRecsHomeActivity.java</code> file, and select Run.</p>
-    <img src="android-img/examples/demo_example_run.png" style="height:auto; border:1px solid gray"" class="center-block img-fluid" />
-  </li>
-  <br><br>
-  <li>
-    <p>On your device, you should see a home page like the one below. This app can be used as an example of best practices to use when integrating BVSDK into your app mobile application.</p>
-    <img src="android-img/examples/demo_example_home.png" style="max-width:30%" class="center-block img-fluid" />
-  </li>
-</ol>
-
-
-<br>
-
+		</div>
+    </div>
+  </div>
+</div>
 
 
 <div class="well well-sm">

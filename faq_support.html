@@ -281,24 +281,40 @@ $(function(){
 </div>
 <hr>
 <h3>Frequently Asked Questions</h3>
+
+
+<p><b>Contents</b></p>
+
+<ol>
+    <li><a href="#one">How do I upgrade from version 2?</a></li>
+    <li><a href="#two">How do I check out older versions of the SDK?</a></li>
+    <li><a href="#three">How do I upgrade the Advertising module of the SDK?</a></li>
+    <li><a href="#four">Does the Bazaarvoice Mobile SDK for Android use the Android Advertising ID?</a></li>
+    <li><a href="#five">How do I get support?</a></li>
+</ol>
 <br>
 
+<a name="one"></a>
 		<h5 class="question">How do I upgrade from version 2?</h5>
 		<p class="answer">If you were previously using version 2 of the Bazaarvoice Mobile SDK, it only supported the Conversations API. You'll have to make minimal code changes. Follow the installation and configuration instructions on the <a href="using_conversations.html">Conversations</a> page of this guide, and remove the version 2 source code.</p>
 	
+<a name="two"></a>
 		<h5 class="question">How do I check out older versions of the SDK?</h5>
     <p class="answer">You can check out the latest version, as well as older versions after v3.0.1, on <a href="http://search.maven.org/#search%7Cga%7C1%7Ccom.bazaarvoice.bvandroidsdk">Maven Central.</a> Bazaarvoice strongly recommends you use the latest version to take advantage of the most up-to-date features and bug fixes. In addition, older versions of the SDK are tagged by to version number in the <a href="https://github.com/bazaarvoice/bv-android-sdk">Github Repo</a>. You can list available versions with <code>git tag</code> and switch to a previous release with <code>git checkout [tag]</code>
     </p>
 	
+<a name="three"></a>
 		<h5 class="question">How do I upgrade the Advertising module of the SDK?</h5>
 		<p class="answer">Bazaarvoice has removed the need to use DFP bundled with this SDK, to make it easier to implement.
     For more information, follow the instructions listed for installation and configuration on the <a href="advertising.html">Advertising</a> page of this guide.</p>
 	
+<a name="four"></a>
 		<h5 class="question">Does the Bazaarvoice Mobile SDK for Android use the Android Advertising ID?</h5>
 		<p class="answer">Yes, the SDK uses the <a href="https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient">Android advertising ID</a> for both the Advertising and Product Recommendations modules. The SDK checks whether the user has "Limit Ad Tracking" enabled, and respects the option if enabled.</p>
 	
 <br>
 
+<a name="five"></a>
 <h3>Support</h3>
 <p>If you have problems/questions implementing the Bazaarvoice Mobile SDKs, contact <a href="mailto:mobilecoreteam@bazaarvoice.com">Mobile Development at Bazaarvoice</a>.</p>
 <p>If you have questions about licensing or general configuration of the Conversations API, contact <a href="mailto:support@bazaarvoice.com">Bazaarvoice Client Care</a>.</p>

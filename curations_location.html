@@ -331,12 +331,10 @@ repositories {
     @Override
     public void onCreate(){
         super.onCreate();
-        
-        // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK.builder(this, YOUR_CLIENT_ID) //your client name, e.g. 'bazaarvoice'.
-          .bazaarEnvironment(BazaarEnvironment.PRODUCTION) // production or staging
-          .apiKeyConversations(YOUR_CONVERSATIONS_KEY) //Required for Conversations
-          .logLevel(BVLogLevel.INFO)
+        BVSDK.builder(application, BazaarEnvironment.PRODUCTION)
+          .logLevel(BVLogLevel.VERBOSE) // Optional: Set the log level. Default level is ERROR.
+          .dryRunAnalytics(false)       // Optional: Set analytics to log only, not make a network request. Default is false.
+          .okHttpClient(okHttpClient)   // Optional: Use you own okHttpClient instance
           .build();
     }
 }
@@ -345,9 +343,9 @@ repositories {
 
 <h3>AndroidManifest</h3>
 <hr>
-<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;<br/>
-&lt;application<br/>
-    android:name=".MyApplication"&gt;<br/>
+<pre><code class="xml">&lt;!-- set the name of the class for the application entry --&gt;
+&lt;application
+    android:name=".MyApplication"&gt;
 &lt;/application&gt;</code></pre>
 
 
