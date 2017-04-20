@@ -119,10 +119,10 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
 
         TextView productRating = headerDetailViewHolder.prodRating;
         if (detailProduct.getNumReviews() > 0) {
-            String reviews = "Average Rating: ";
-            for (int i=0; i<detailProduct.getAverageRating(); i++) {
-                reviews += "⭐";
-            }
+            String reviews = "Average Rating: ⭐⭐⭐⭐⭐"; // TODO RATING
+//            for (int i=0; i<detailProduct.getAverageRating(); i++) {
+//                reviews += "⭐";
+//            }
             productRating.setText(reviews);
             productRating.setVisibility(View.VISIBLE);
         } else {

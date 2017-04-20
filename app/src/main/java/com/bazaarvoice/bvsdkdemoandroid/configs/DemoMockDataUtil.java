@@ -18,7 +18,6 @@ package com.bazaarvoice.bvsdkdemoandroid.configs;
 
 import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
-import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
@@ -45,7 +44,7 @@ import okhttp3.ResponseBody;
 
 public class DemoMockDataUtil {
     private static final String AD_UNIT_ID = "/5705/bv-incubator/IncubatorEnduranceCycles";
-    private List<BVProduct> savedDemoRecProds;
+    private ShopperProfile shopperProfile;
     private CurationsFeedResponse savedCurationsFeedResponse;
     private ReviewResponse savedConversationsReviews;
     private List<StoreReview> savedConversationsStoreReviews;
@@ -63,14 +62,14 @@ public class DemoMockDataUtil {
         this.demoAssetsUtil = demoAssetsUtil;
     }
 
-    public List<BVProduct> getRecommendedProducts() {
-        if (savedDemoRecProds != null) {
-            return savedDemoRecProds;
+    public ShopperProfile getRecommendationsProfile() {
+        if (shopperProfile != null) {
+            return shopperProfile;
         }
-        savedDemoRecProds = demoAssetsUtil.parseJsonFileFromAssets(
+        shopperProfile = demoAssetsUtil.parseJsonFileFromAssets(
             "recommendationsResult.json",
-            ShopperProfile.class).getProfile().getRecommendedProducts();
-        return savedDemoRecProds;
+            ShopperProfile.class);
+        return shopperProfile;
     }
 
     public CurationsFeedResponse getCurationsFeedReponse() {

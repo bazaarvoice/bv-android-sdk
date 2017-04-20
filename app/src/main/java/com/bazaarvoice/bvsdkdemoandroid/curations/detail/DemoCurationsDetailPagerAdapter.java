@@ -24,7 +24,7 @@ public class DemoCurationsDetailPagerAdapter extends FragmentPagerAdapter {
 
     public DemoCurationsDetailPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
-        DemoApp.get(context).getAppComponent().inject(this);
+        DemoApp.getAppComponent(context).inject(this);
     }
 
     @Override

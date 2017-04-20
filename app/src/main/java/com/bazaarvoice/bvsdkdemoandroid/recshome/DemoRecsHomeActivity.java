@@ -35,6 +35,7 @@ import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecContract;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductRecPresenter;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoLaunchIntentUtil;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.formats.NativeContentAd;
 
@@ -77,7 +78,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recs_home);
         ButterKnife.bind(this);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         setupToolbar();
         setupHeaderViewPager();
         setupRecsViews();
@@ -128,7 +129,7 @@ public class DemoRecsHomeActivity extends AppCompatActivity implements DemoRecsA
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.settings_action:
-                    DemoSettingsActivity.transitionTo(DemoRecsHomeActivity.this);
+                    DemoSettingsActivity.transitionTo(DemoRecsHomeActivity.this, DemoLaunchIntentUtil.LaunchCode.DEMO);
                     break;
                 case R.id.cart_action:
                     DemoCartActivity.transitionTo(DemoRecsHomeActivity.this);

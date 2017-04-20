@@ -19,12 +19,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Answer;
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
@@ -40,7 +41,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
     private static final String EXTRA_QUESTION_ID = "extra_question_id";
 
-    private BVProduct bvProduct;
+    private BVDisplayableProductContent bvProduct;
     private DemoAnswersContract.UserActionsListener answerUserActionListener;
 
     @BindView(R.id.product_image) ImageView productImageView;
@@ -61,13 +62,13 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         setContentView(R.layout.activity_conversations_answers);
         ButterKnife.bind(this);
 
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
 
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);
 
         if (bvProduct != null && demoClient.isMockClient()) {
-            List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendedProducts();
+            List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendationsProfile().getProfile().getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
                 if (currRecProd.getId().equals(productId)) {
                     bvProduct = currRecProd;
@@ -75,7 +76,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
                 }
             }
         } else {
-            bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
         }
 
         setupToolbarViews();

@@ -22,7 +22,7 @@ public class DemoRecsHeaderPagerAdapter extends PagerAdapter {
     @Inject Picasso picasso;
 
     public DemoRecsHeaderPagerAdapter(Context context) {
-        DemoApp.get(context).getAppComponent().inject(this);
+        DemoApp.getAppComponent(context).inject(this);
     }
 
     @Override

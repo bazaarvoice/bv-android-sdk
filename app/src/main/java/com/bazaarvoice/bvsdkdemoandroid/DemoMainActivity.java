@@ -56,6 +56,7 @@ import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoLaunchIntentUtil;
 
 import java.util.ArrayList;
 
@@ -71,8 +72,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     private Toolbar toolbar;
 
-    @Inject
-    DemoClientConfigUtils demoClientConfigUtils;
+    @Inject DemoClientConfigUtils demoClientConfigUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         // Uncomment me for iovation suppoort
         //start(getApplicationContext());
 
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.settings_action:
-                    DemoSettingsActivity.transitionTo(DemoMainActivity.this);
+                    DemoSettingsActivity.transitionTo(DemoMainActivity.this, DemoLaunchIntentUtil.LaunchCode.API);
                     break;
                 case R.id.cart_action:
                     DemoCartActivity.transitionTo(DemoMainActivity.this);

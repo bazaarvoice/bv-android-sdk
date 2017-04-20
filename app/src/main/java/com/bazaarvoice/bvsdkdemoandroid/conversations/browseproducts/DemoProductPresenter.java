@@ -70,7 +70,7 @@ public class DemoProductPresenter implements DemoProductContract.UserActionsList
 
     @Override
     public void onQandATapped() {
-        if (product != null && product.getQaStatistics().getTotalQuestionCount() > 0) {
+        if (product != null && product.getQaStatistics() != null && product.getQaStatistics().getTotalQuestionCount() > 0) {
             view.transitionToQandA();
         } else if (product != null) {
             view.showAskQuestionDialog();

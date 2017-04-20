@@ -78,7 +78,7 @@ public class DemoCarouselAdapter<ProductType extends BVDisplayableProductContent
         // Set content
         picasso.load(content.getDisplayImageUrl()).into(viewHolder.productThumbnailImage);
         viewHolder.productThumbnailTitle.setText(content.getDisplayName());
-        viewHolder.productThumbnailRating.setRating(content.getAverageRating());
+        viewHolder.productThumbnailRating.setRating(5); //TODO RATING content.getAverageRating());
 
         // Set visibility
         viewHolder.productThumbnailImage.setVisibility(carouselItemShowImage ? View.VISIBLE : View.GONE);

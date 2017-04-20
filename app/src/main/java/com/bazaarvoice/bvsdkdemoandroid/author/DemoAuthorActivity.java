@@ -51,7 +51,7 @@ public class DemoAuthorActivity extends AppCompatActivity {
         DaggerDemoAuthorComponent.builder()
                 .demoAuthorPresenterModule(new DemoAuthorPresenterModule(demoAuthorView, authorId))
                 .demoPinCarouselPresenterModule(new DemoPinCarouselPresenterModule(demoCarouselView))
-                .demoAppComponent(DemoApp.get(this).getAppComponent())
+                .demoAppComponent(DemoApp.getAppComponent(this))
                 .build()
                 .inject(this);
     }

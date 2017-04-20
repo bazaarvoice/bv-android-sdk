@@ -54,6 +54,10 @@ public final class BVConversationsClient {
         return createCall(ProductDisplayPageResponse.class, request);
     }
 
+    public LoadCallDisplay<BulkProductRequest, BulkProductResponse> prepareCall(BulkProductRequest request) {
+        return createCall(BulkProductResponse.class, request);
+    }
+
     /**
      * @param request BulkRatingsRequest to be sent
      * @return LoadCall object with the request ready to be sent

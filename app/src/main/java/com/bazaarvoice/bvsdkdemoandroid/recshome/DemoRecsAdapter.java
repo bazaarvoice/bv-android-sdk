@@ -108,7 +108,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
     private RecTapListener recTapListener;
 
     public DemoRecsAdapter(Context context) {
-        DemoApp.get(context).getAppComponent().inject(this);
+        DemoApp.getAppComponent(context).inject(this);
     }
 
     @Override
@@ -190,7 +190,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                 .into(leftRec.image);
         leftRec.prodName.setText(leftProduct.getDisplayName());
 
-        leftRec.prodRating.setRating((int)leftProduct.getAverageRating());
+        leftRec.prodRating.setRating(5); // TODO RATING (int)leftProduct.getAverageRating());
         leftRec.recView.setBvProduct(leftProduct);
         leftRec.recView.setTag(leftProduct);
         leftRec.recView.setOnClickListener(new android.view.View.OnClickListener() {
@@ -211,7 +211,7 @@ public class DemoRecsAdapter extends RecommendationsRecyclerView.Adapter<Recycle
                     .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                     .into(rightRec.image);
             rightRec.prodName.setText(rightProduct.getDisplayName());
-            rightRec.prodRating.setRating((int)rightProduct.getAverageRating());
+            rightRec.prodRating.setRating(5); // TODO RATING (int)rightProduct.getAverageRating());
             rightRec.recView.setBvProduct(rightProduct);
             rightRec.recView.setTag(rightProduct);
             rightRec.recView.setOnClickListener(new android.view.View.OnClickListener() {

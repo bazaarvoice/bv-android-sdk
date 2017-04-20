@@ -1,18 +1,26 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="android:textColorPrimary">@color/bv_white_1</item>
+        <item name="android:textColorSecondary">@color/bv_black_1</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- Same base properties -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="android:textColorPrimary">@color/bv_white_1</item>
+        <item name="android:textColorSecondary">@color/bv_black_1</item>
     </style>
 
     <style name="bvRatingBar" parent="@android:style/Widget.RatingBar">
@@ -21,23 +29,9 @@
         <item name="android:maxHeight">23dp</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="Widget.CardContent" parent="android:Widget">
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">24dp</item>
-        <item name="android:paddingBottom">24dp</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
     <style name="AppTheme.TextAppearance.Body1" parent="TextAppearance.AppCompat.Body1" />
     <style name="AppTheme.TextAppearance.Body2" parent="TextAppearance.AppCompat.Body2" />
     <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button" />
     <style name="AppTheme.TextAppearance.Headline" parent="TextAppearance.AppCompat.Headline" />
     <style name="AppTheme.TextAppearance.Caption" parent="TextAppearance.AppCompat.Caption" />
-
-
 </resources>

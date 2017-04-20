@@ -36,7 +36,7 @@ public class DemoCurationsFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curations_feed);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
 
         progressBar = (ProgressBar) findViewById(R.id.curations_loading);
 

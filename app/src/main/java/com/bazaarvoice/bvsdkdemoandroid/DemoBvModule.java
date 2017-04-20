@@ -22,15 +22,15 @@ import android.app.Application;
 import com.bazaarvoice.bvandroidsdk.BVConfig;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
+import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.squareup.picasso.Picasso;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -40,7 +40,7 @@ import static com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient.mapToBvConfig;
 
 @Module
 public class DemoBvModule {
-    @Provides @Singleton
+    @Provides @DemoAppScope
     BVSDK provideBvSdk(
         Application application,
         BazaarEnvironment bazaarEnvironment,
@@ -54,32 +54,37 @@ public class DemoBvModule {
             .build();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     BVConversationsClient provideConversationsClient() {
         return new BVConversationsClient();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     BazaarEnvironment provideBazaarEnvironment() {
         return DemoConstants.ENVIRONMENT;
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     BVLogLevel provideBVLogLevel() {
         return DemoConstants.LOG_LEVEL;
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     PinClient providePinClient(BVSDK bvsdk) {
         return new PinClient();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
+    BVRecommendations provideBvRecommendations(BVSDK bvsdk) {
+        return new BVRecommendations();
+    }
+
+    @Provides @DemoAppScope
     BVConfig provideBVConfig(DemoClientConfigUtils demoClientConfigUtils) {
         return mapToBvConfig(demoClientConfigUtils.getCurrentConfig());
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     CurationsImageLoader provideCurationImageLoader(Picasso picasso) {
         return new DemoImageLoader(picasso);
     }

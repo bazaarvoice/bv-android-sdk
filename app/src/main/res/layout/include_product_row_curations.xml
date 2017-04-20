@@ -6,6 +6,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_marginTop="@dimen/margin_3"
   android:layout_marginBottom="@dimen/margin_3"
+  android:id="@+id/rowCurations"
   android:background="@android:color/white">
 
     <LinearLayout

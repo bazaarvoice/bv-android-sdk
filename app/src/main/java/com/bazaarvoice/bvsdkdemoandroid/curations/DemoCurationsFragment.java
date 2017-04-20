@@ -34,7 +34,7 @@ public class DemoCurationsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
     }
 
     @Override

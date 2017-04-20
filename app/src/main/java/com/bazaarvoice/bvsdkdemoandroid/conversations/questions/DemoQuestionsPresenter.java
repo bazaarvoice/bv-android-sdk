@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.AnswerOptions;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Product;
@@ -18,7 +18,7 @@ import com.bazaarvoice.bvandroidsdk.QuestionOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.Collections;
 import java.util.Date;
@@ -45,10 +45,10 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
         this.loader = loader;
 
         if (productId != null && !productId.isEmpty()) {
-            BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
             String imageUrl = bvProduct == null ? null : bvProduct.getDisplayImageUrl();
             String productName = bvProduct == null ? "" : bvProduct.getDisplayName();
-            float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
+            float averageOverallRating = 5; //TODO RATING bvProduct == null ? -1 : bvProduct.getAverageRating();
             view.showHeaderView(imageUrl, productName, averageOverallRating);
         }
     }

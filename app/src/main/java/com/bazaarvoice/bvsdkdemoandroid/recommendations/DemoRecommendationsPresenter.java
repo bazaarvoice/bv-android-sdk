@@ -4,11 +4,13 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.recommendations;
 
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +39,7 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
 
     @Override
     public void loadRecommendationProducts(boolean forceRefresh) {
-        List<BVProduct> demoBvProds = demoMockDataUtil.getRecommendedProducts();
+        List<BVProduct> demoBvProds = demoMockDataUtil.getRecommendationsProfile().getProfile().getRecommendedProducts();
         if (demoClient.isMockClient()) {
             showRecommendedProducts(demoBvProds);
             return;
@@ -50,14 +52,14 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
 
         view.showSwipeRefreshLoading(true);
 
-        boolean haveLocalCache = !DemoProductsCache.getInstance().getData().isEmpty();
+        boolean haveLocalCache = !DemoDisplayableProductsCache.getInstance().getData().isEmpty();
         boolean shouldHitNetwork = forceRefresh || !haveLocalCache;
 
         if (shouldHitNetwork) {
             RecommendationsRequest request = new RecommendationsRequest.Builder(NUM_RECS).build();
             recommendationsLoader.loadRecommendations(request, this);
         } else {
-            showRecommendedProducts(DemoProductsCache.getInstance().getData());
+            showRecommendedProducts(DemoDisplayableProductsCache.getInstance().getData());
         }
     }
 
@@ -73,13 +75,13 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
         showRecommendedProducts(Collections.<BVProduct>emptyList());
     }
 
-    private void showRecommendedProducts(List<BVProduct> recommendedProducts) {
+    private <ProductType extends BVDisplayableProductContent> void showRecommendedProducts(List<ProductType> recommendedProducts) {
         view.showSwipeRefreshLoading(false);
         view.showLoading(false);
-        DemoProductsCache.getInstance().putData(recommendedProducts);
+        DemoDisplayableProductsCache.getInstance().putData((List<BVDisplayableProductContent>) recommendedProducts);
 
         if (recommendedProducts.size() > 0) {
-            view.showRecommendations(recommendedProducts);
+            view.showRecommendations((List<BVProduct>) recommendedProducts);
         } else {
             view.showNoRecommendationsFound();
         }

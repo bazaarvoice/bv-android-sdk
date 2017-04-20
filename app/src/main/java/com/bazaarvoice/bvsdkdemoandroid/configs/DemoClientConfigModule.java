@@ -21,17 +21,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.google.gson.Gson;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class DemoClientConfigModule {
-    @Provides @Singleton
+    @Provides @DemoAppScope
     DemoClientConfigUtils provideDemoConfigUtils(Context context, BazaarEnvironment bazaarEnvironment,
                                                  DemoMultiTenantSource demoMultiTenantSource,
                                                  DemoSingleTenantSource demoSingleTenantSource, SharedPreferences sharedPrefs) {
@@ -43,12 +42,12 @@ public class DemoClientConfigModule {
             sharedPrefs);
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     DemoClient provideDemoClient(DemoClientConfigUtils demoClientConfigUtils) {
         return demoClientConfigUtils.getCurrentConfig();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     DemoMockDataUtil provideMockDataUtil(Gson gson, DemoAssetsUtil demoAssetsUtil) {
         return new DemoMockDataUtil(gson, demoAssetsUtil);
     }

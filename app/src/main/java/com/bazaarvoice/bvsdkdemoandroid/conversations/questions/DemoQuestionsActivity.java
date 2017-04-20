@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvandroidsdk.QuestionsRecyclerView;
@@ -25,7 +26,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +42,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
     private static final String FORCE_LOAD_API = "extra_force_api_load";
 
-    private BVProduct bvProduct;
+    private BVDisplayableProductContent bvProduct;
     private DemoQuestionsContract.UserActionsListener questionsActionsListener;
 
     @BindView(R.id.product_image) ImageView productImageView;
@@ -63,12 +64,12 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_qanda);
         ButterKnife.bind(this);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
 
         if (!forceLoadFromProductId && demoClient.isMockClient()) {
-            List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendedProducts();
+            List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendationsProfile().getProfile().getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {
                 if (currRecProd.getId().equals(productId)) {
                     bvProduct = currRecProd;
@@ -76,7 +77,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
                 }
             }
         } else {
-            bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
         }
 
         setupToolbarViews();

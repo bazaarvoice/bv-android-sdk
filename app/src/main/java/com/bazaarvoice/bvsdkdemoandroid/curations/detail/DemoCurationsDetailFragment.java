@@ -30,7 +30,7 @@ import com.bazaarvoice.bvandroidsdk.CurationsVideo;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoUtils;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -78,7 +78,7 @@ public class DemoCurationsDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
         if (getArguments() != null) {
             feedItem = gson.fromJson(getArguments().getString(ITEM_PARAM), CurationsFeedItem.class);
             itemIDX = getArguments().getInt(IDX_PARAM);
@@ -158,7 +158,7 @@ public class DemoCurationsDetailFragment extends Fragment {
             @Override
             public void onCurationsProductClicked(CurationsProduct product) {
                 if (!getActivity().isFinishing() && product!=null && !TextUtils.isEmpty(product.getId())) {
-                    boolean productIsCached = DemoProductsCache.getInstance().getDataItem(product.getId()) != null;
+                    boolean productIsCached = DemoDisplayableProductsCache.getInstance().getDataItem(product.getId()) != null;
                     if (productIsCached) {
                         DemoFancyProductDetailActivity.transitionTo(getActivity(), product.getId());
                     } else {

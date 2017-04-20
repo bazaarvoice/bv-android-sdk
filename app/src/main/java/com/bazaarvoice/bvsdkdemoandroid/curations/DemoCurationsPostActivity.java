@@ -54,7 +54,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curations_post);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         progressBar = (ProgressBar) findViewById(R.id.curations_post_loading);
         progressBar.setVisibility(View.GONE);
         commentText = (TextView) findViewById(R.id.curationsCommentText);

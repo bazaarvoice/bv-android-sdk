@@ -62,7 +62,7 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversations_reviews);
         ButterKnife.bind(this);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         inflateRecyclerView();
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
 

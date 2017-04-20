@@ -21,13 +21,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +41,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
     private static final String FORCE_LOAD_API = "extra_force_api_load";
 
-    private BVProduct bvProduct;
+    private BVDisplayableProductContent bvProduct;
     private DemoReviewsContract.UserActionsListener reviewsUserActionListener;
 
     @BindView(R.id.product_row_header)
@@ -72,7 +72,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         inflateRecyclerView();
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
-        bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+        bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
 
         setupToolbarViews();
         setupRecyclerView();

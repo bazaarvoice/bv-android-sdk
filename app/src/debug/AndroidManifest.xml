@@ -11,15 +11,16 @@
         android:name="com.bazaarvoice.bvsdkdemoandroid.DemoApp"
         android:allowBackup="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.DarkActionBar">
 
         <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.DemoMainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
             tools:replace="android:icon"
             android:icon="@mipmap/ic_code_sample_launcher"
-            android:taskAffinity="com.bazaarvoice.bvsdkdemoandroid.codesamples">
+            android:roundIcon="@mipmap/ic_code_sample_launcher"
+            android:taskAffinity="com.bazaarvoice.bvsdkdemoandroid.codesamples"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

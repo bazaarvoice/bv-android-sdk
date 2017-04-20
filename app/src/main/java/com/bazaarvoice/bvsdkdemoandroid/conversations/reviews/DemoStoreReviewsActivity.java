@@ -27,7 +27,7 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         super.onCreate(savedInstanceState);
     }
 

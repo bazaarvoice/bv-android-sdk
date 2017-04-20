@@ -83,10 +83,10 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         bvViewHolder.productName.setText(bvProduct.getDisplayName());
 
         if (bvProduct.getNumReviews() > 0) {
-            String reviews = "Average Rating: ";
-            for (int i=0; i<bvProduct.getAverageRating(); i++) {
-                reviews += "⭐";
-            }
+            String reviews = "Average Rating: ⭐⭐⭐⭐⭐"; // TODO RATING
+//            for (int i=0; i<bvProduct.getAverageRating(); i++) {
+//                reviews += "⭐";
+//            }
             bvViewHolder.productRating.setText(reviews);
             bvViewHolder.productRating.setVisibility(View.VISIBLE);
         } else {

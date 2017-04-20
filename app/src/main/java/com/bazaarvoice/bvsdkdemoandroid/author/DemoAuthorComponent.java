@@ -18,12 +18,12 @@
 package com.bazaarvoice.bvsdkdemoandroid.author;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoAppComponent;
-import com.bazaarvoice.bvsdkdemoandroid.di.DemoFragmentScope;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoActivityScope;
 import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinCarouselPresenterModule;
 
 import dagger.Component;
 
-@DemoFragmentScope
+@DemoActivityScope
 @Component(dependencies = DemoAppComponent.class, modules = {DemoAuthorPresenterModule.class, DemoPinCarouselPresenterModule.class})
 public interface DemoAuthorComponent {
     void inject(DemoAuthorActivity activity);

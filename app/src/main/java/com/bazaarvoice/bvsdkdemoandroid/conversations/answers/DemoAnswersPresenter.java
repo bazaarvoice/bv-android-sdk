@@ -5,12 +5,12 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 
 
 import com.bazaarvoice.bvandroidsdk.Answer;
-import com.bazaarvoice.bvandroidsdk.BVProduct;
+import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +33,10 @@ public class DemoAnswersPresenter implements DemoAnswersContract.UserActionsList
         this.forceAPICall = forceAPICall;
 
         if (productId != null && !productId.isEmpty()) {
-            BVProduct bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+            BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
             String imageUrl = bvProduct == null ? null : bvProduct.getDisplayImageUrl();
             String productName = bvProduct == null ? "" : bvProduct.getDisplayName();
-            float averageOverallRating = bvProduct == null ? -1 : bvProduct.getAverageRating();
+            float averageOverallRating = 5; //TODO RATING bvProduct == null ? -1 : bvProduct.getAverageRating();
             view.showHeaderView(imageUrl, productName, averageOverallRating);
         }
     }

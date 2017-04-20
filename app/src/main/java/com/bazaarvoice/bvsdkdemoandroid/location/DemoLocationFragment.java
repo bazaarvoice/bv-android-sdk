@@ -85,7 +85,7 @@ public class DemoLocationFragment extends Fragment implements ActivityCompat.OnR
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
         locationManager = (LocationManager) getContext().getSystemService(Service.LOCATION_SERVICE);
     }
 

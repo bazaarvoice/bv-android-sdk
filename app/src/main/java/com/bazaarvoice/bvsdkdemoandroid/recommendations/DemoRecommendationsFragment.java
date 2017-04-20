@@ -53,7 +53,7 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
     }
 
     @Nullable

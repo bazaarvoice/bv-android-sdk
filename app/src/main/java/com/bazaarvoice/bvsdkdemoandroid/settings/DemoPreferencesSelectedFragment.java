@@ -3,6 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.settings;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoLaunchIntentUtil;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import javax.inject.Inject;
@@ -27,7 +29,7 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -91,7 +93,11 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
             BVSDK bvsdk = BVSDK.getInstance();
             bvsdk = null;
             DemoApp.cleanUp();
-            ProcessPhoenix.triggerRebirth(getContext());
+            if (getActivity() != null && !getActivity().isFinishing()) {
+                int launchCode = ((DemoSettingsActivity) getActivity()).getLaunchCode();
+                Intent nextIntent = DemoLaunchIntentUtil.getLaunchIntent(getContext(), launchCode);
+                ProcessPhoenix.triggerRebirth(getContext(), nextIntent);
+            }
         } else {
             new AlertDialog.Builder(getContext())
                     .setMessage("No profile loaded for this client currently")
