@@ -112,6 +112,13 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
+    public void basicBulkProductDisplayRequest() {
+        BulkProductRequest request = new BulkProductRequest.Builder().build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
+    }
+
+    @Test
     public void basicBulkReviewDisplayRequest() {
         BulkRatingsRequest request = new BulkRatingsRequest.Builder(new ArrayList<String>(), BulkRatingOptions.StatsType.All).build();
         HttpUrl httpUrl = request.toHttpUrl();
@@ -199,8 +206,8 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testPdpForAllProductsParsing() {
-        testParsing("product_catalog_all_products.json", ProductDisplayPageResponse.class);
+    public void testBulkProductsForAllProductsParsing() {
+        testParsing("product_catalog_all_products.json", BulkProductResponse.class);
     }
 
     @Test

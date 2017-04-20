@@ -158,6 +158,9 @@ public class BVRecommendations {
             boolean didSucceed = false;
             Throwable errorThrowable = null;
             List<BVProduct> recommendedProducts = null;
+
+            bvLogger.v(TAG, "Getting recommendations: " + requestData.getRequestUrl());
+
             Request request = new Request.Builder()
                     .url(requestData.getRequestUrl())
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")

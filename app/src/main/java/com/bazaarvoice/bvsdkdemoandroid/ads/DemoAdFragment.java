@@ -68,7 +68,7 @@ public class DemoAdFragment extends Fragment {
             }
         });
 
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
 
         return view;
     }

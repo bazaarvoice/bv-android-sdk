@@ -72,7 +72,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
         setupHeaderViews();
         setupRecyclerView();
 
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, demoClientConfigUtils, demoMockDataUtil, bulkProductIds);
     }
 

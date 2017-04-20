@@ -16,6 +16,8 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.configs;
 
+import android.support.annotation.Nullable;
+
 import com.bazaarvoice.bvandroidsdk.BVConfig;
 
 /**
@@ -156,14 +158,18 @@ public class DemoClient {
 
     public static BVConfig mapToBvConfig(DemoClient demoClient) {
         return new BVConfig.Builder()
-            .apiKeyConversations(demoClient.getApiKeyConversations())
-            .apiKeyConversationsStores(demoClient.getApiKeyConversationsStores())
-            .apiKeyCurations(demoClient.getApiKeyCurations())
-            .apiKeyLocation(demoClient.getApiKeyLocationAndroid())
-            .apiKeyShopperAdvertising(demoClient.getApiKeyShopperAdvertising())
-            .apiKeyPIN(demoClient.getApiKeyPIN())
-            .clientId(demoClient.getClientId())
+            .apiKeyConversations(getKeyOrReplaceMe(demoClient.getApiKeyConversations()))
+            .apiKeyConversationsStores(getKeyOrReplaceMe(demoClient.getApiKeyConversationsStores()))
+            .apiKeyCurations(getKeyOrReplaceMe(demoClient.getApiKeyCurations()))
+            .apiKeyLocation(getKeyOrReplaceMe(demoClient.getApiKeyLocationAndroid()))
+            .apiKeyShopperAdvertising(getKeyOrReplaceMe(demoClient.getApiKeyShopperAdvertising()))
+            .apiKeyPIN(getKeyOrReplaceMe(demoClient.getApiKeyPIN()))
+            .clientId(getKeyOrReplaceMe(demoClient.getClientId()))
             .dryRunAnalytics(demoClient.isDryRunAnalytics())
             .build();
+    }
+
+    private static String getKeyOrReplaceMe(@Nullable String key) {
+        return key != null ? key : "REPLACE_ME";
     }
 }

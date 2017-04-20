@@ -4,6 +4,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.detail;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts.DemoProduct
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -80,6 +81,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     DemoProductDetailRecAdapter recAdapter;
     @BindView(R.id.no_recs_found) TextView noRecsFoundTextView;
     @BindView(R.id.get_recs_progress) ProgressBar getRecsProgressBar;
+    @BindView(R.id.rowRecs) View rowRecs;
 
     @BindView(R.id.product_row_curations_recycler_view) CurationsInfiniteRecyclerView curationsRecyclerView;
     @BindView(R.id.no_curations_found) TextView noCurationsFoundTextView;
@@ -89,6 +91,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @BindView(R.id.curations_locations) ViewGroup curationsLocationsContainer;
     @BindView(R.id.curations_locations_image) TextView fontAwesomeLocationIcon;
     @BindView(R.id.curations_seperator_2) View curationsSnippetSpacer2;
+    @BindView(R.id.rowCurations) View rowCurations;
 
     @BindView(R.id.conv_reviews) TextView convReviews;
     @BindView(R.id.conv_questions_image) TextView fontAwesomeQuestionIcon;
@@ -111,7 +114,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fancy_product_detail);
         ButterKnife.bind(this);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(EXTRA_PRODUCT_ID)) {
             productId = savedInstanceState.getString(EXTRA_PRODUCT_ID);
@@ -123,10 +126,10 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
                 productName = getIntent().getStringExtra(EXTRA_PRODUCT_NAME);
                 productImageUrl = getIntent().getStringExtra(EXTRA_PRODUCT_IMAGE_URL);
             } else {
-                BVDisplayableProductContent bvProduct = DemoProductsCache.getInstance().getDataItem(productId);
+                BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
                 productName = bvProduct.getDisplayName();
                 productImageUrl = bvProduct.getDisplayImageUrl();
-                productAverageRating = bvProduct.getAverageRating();
+                productAverageRating = 5.0f; //bvProduct.getAverageRating();
             }
         }
 
@@ -243,6 +246,10 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupRecommendationsRow() {
+        if (!demoClient.hasShopperAds() && !demoClient.isMockClient()) {
+            rowRecs.setVisibility(View.GONE);
+            return;
+        }
         recommendationsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recAdapter = new DemoProductDetailRecAdapter(this);
         recAdapter.setProductTapListener(this);
@@ -251,6 +258,10 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupCurationsRow() {
+        if (!demoClient.hasCurations() && !demoClient.isMockClient()) {
+            rowCurations.setVisibility(View.GONE);
+            return;
+        }
         curationsRecyclerView.setNestedScrollingEnabled(false);
         final CurationsFeedRequest request = new CurationsFeedRequest
             .Builder(Collections.singletonList("__all__"))
@@ -361,6 +372,12 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     // endregion
+
+    public static void transitionTo(Context fromContext, String productId) {
+        Intent intent = new Intent(fromContext, DemoFancyProductDetailActivity.class);
+        intent.putExtra(EXTRA_PRODUCT_ID, productId);
+        fromContext.startActivity(intent);
+    }
 
     /**
      * Use this to start the activity when the Product is cached, and is accessible with the product id

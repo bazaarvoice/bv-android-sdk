@@ -37,7 +37,7 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
     private ProductTapListener productTapListener;
 
     public DemoProductDetailRecAdapter(Context context) {
-        DemoApp.get(context).getAppComponent().inject(this);
+        DemoApp.getAppComponent(context).inject(this);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
                 .resizeDimen(R.dimen.side_not_set, R.dimen.snippet_prod_image_side)
                 .into(demoViewHolder.image);
         demoViewHolder.productName.setText(bvProduct.getDisplayName());
-        demoViewHolder.productRating.setRating((int) bvProduct.getAverageRating());
+        demoViewHolder.productRating.setRating(5); // TODO RATING (int) bvProduct.getAverageRating());
 
         demoViewHolder.recommendationView.setBvProduct(bvProduct);
 

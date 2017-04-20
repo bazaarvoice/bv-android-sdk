@@ -42,7 +42,7 @@ public class DemoPreferencesFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         DaggerDemoSettingsComponent.builder()
-            .demoAppComponent(DemoApp.get(getActivity()).getAppComponent())
+            .demoAppComponent(DemoApp.getAppComponent(getActivity()))
             .demoSettingsModule(new DemoSettingsModule())
             .build()
             .inject(this);

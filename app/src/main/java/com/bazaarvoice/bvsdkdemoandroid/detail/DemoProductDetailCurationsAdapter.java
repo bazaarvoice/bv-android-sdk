@@ -36,7 +36,7 @@ public class DemoProductDetailCurationsAdapter extends RecyclerView.Adapter<Recy
     private CurationFeedItemTapListener curationFeedItemTapListener;
 
     public DemoProductDetailCurationsAdapter(Context context) {
-        DemoApp.get(context).getAppComponent().inject(this);
+        DemoApp.getAppComponent(context).inject(this);
     }
 
     @Override

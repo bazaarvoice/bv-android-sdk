@@ -11,7 +11,7 @@ import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
-import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoProductsCache;
+import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.stetho.Stetho;
@@ -23,7 +23,6 @@ import static com.bazaarvoice.bvsdkdemoandroid.BuildConfig.DEBUG;
 import static com.bazaarvoice.bvsdkdemoandroid.BuildConfig.HAS_CRASHLYTICS_KEY;
 
 public class DemoApp extends Application {
-
     private DemoAppComponent appComponent;
 
     @Override
@@ -47,7 +46,8 @@ public class DemoApp extends Application {
         }
 
         appComponent = DaggerDemoAppComponent.builder()
-                .demoAppModule(new DemoAppModule(this))
+                .demoAppModule(new DemoAppModule())
+                .demoAndroidModule(new DemoAndroidModule(this))
                 .demoClientConfigModule(new DemoClientConfigModule())
                 .demoBvModule(new DemoBvModule())
                 .build();
@@ -57,16 +57,13 @@ public class DemoApp extends Application {
     }
 
     public static void cleanUp() {
-        DemoProductsCache.getInstance().clear();
+        DemoDisplayableProductsCache.getInstance().clear();
         DemoReviewsCache.getInstance().clear();
         DemoQuestionsCache.getInstance().clear();
     }
 
-    public static DemoApp get(Context context) {
-        return (DemoApp) context.getApplicationContext();
-    }
-
-    public DemoAppComponent getAppComponent() {
-        return appComponent;
+    public static DemoAppComponent getAppComponent(Context context) {
+        DemoApp demoApp = (DemoApp) context.getApplicationContext();
+        return demoApp.appComponent;
     }
 }

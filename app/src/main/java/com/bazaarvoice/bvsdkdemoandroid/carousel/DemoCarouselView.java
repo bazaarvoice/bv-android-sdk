@@ -67,7 +67,7 @@ public class DemoCarouselView extends FrameLayout implements DemoCarouselContrac
         if (isInEditMode()) {
             return;
         }
-        DemoApp.get(getContext()).getAppComponent().inject(this);
+        DemoApp.getAppComponent(getContext()).inject(this);
         adapter = new DemoCarouselAdapter(
                 carouselItemShowImage,
                 carouselItemShowTitle,

@@ -17,13 +17,12 @@
 
 package com.bazaarvoice.bvsdkdemoandroid;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
@@ -36,40 +35,20 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.concurrent.Executors;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 
 @Module
 public class DemoAppModule {
-
-    public static final String CONFIG_SHARED_PREFS = "config_shared_prefs";
-    private final Application application;
-
-    DemoAppModule(Application application) {
-        this.application = application;
-    }
-
-    @Provides
-    Context provideContext(Application application) {
-        return application.getApplicationContext();
-    }
-
-    @Provides
-    Application provideApplication() {
-        return application;
-    }
-
-    @Provides @Singleton
+    @Provides @DemoAppScope
     Gson provideGson() {
         return new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     Picasso providePicasso(Context context, OkHttpClient okHttpClient) {
         return new Picasso.Builder(context)
                 .defaultBitmapConfig(Bitmap.Config.RGB_565)
@@ -79,27 +58,22 @@ public class DemoAppModule {
                 .build();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     PrettyTime providePrettyTime() {
         return new PrettyTime();
     }
 
-    @Provides @Singleton
-    SharedPreferences provideSharedPrefs(Context context) {
-        return context.getSharedPreferences(CONFIG_SHARED_PREFS, Context.MODE_PRIVATE);
-    }
-
-    @Provides @Singleton
+    @Provides @DemoAppScope
     DemoSdkInterceptor provideSdkInterceptor(DemoClient demoClient, DemoMockDataUtil demoMockDataUtil) {
         return new DemoSdkInterceptor(demoClient, demoMockDataUtil);
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     StethoInterceptor provideStethoInterceptor() {
         return new StethoInterceptor();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     OkHttpClient provideHttpClient(DemoSdkInterceptor demoSdkInterceptor, StethoInterceptor stethoInterceptor) {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(stethoInterceptor)
@@ -107,7 +81,7 @@ public class DemoAppModule {
                 .build();
     }
 
-    @Provides @Singleton
+    @Provides @DemoAppScope
     DemoAssetsUtil provideDemoAssetsUtil(Context context, Gson gson) {
         return new DemoAssetsUtil(context, gson);
     }

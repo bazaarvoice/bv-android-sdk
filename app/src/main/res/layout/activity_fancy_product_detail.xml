@@ -40,11 +40,11 @@
                 layout="@layout/include_product_row_conv" />
 
             <include
-                layout="@layout/include_product_row_recs" />
+              layout="@layout/include_product_row_curations" />
 
             <include
-                layout="@layout/include_product_row_curations" />
-
+                layout="@layout/include_product_row_recs" />
+            
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -3,7 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.cart;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bazaarvoice.bvandroidsdk.BVTransactionEvent;
 import com.bazaarvoice.bvandroidsdk.BVPixel;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVTransaction;
+import com.bazaarvoice.bvandroidsdk.BVTransactionEvent;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 
 import butterknife.BindView;
@@ -103,9 +103,9 @@ public class DemoCartActivity extends AppCompatActivity {
             cartCheckoutButton.setVisibility(View.GONE);
         }
     }
-    public static void transitionTo(Activity activity) {
-        Intent intent = new Intent(activity, DemoCartActivity.class);
-        activity.startActivity(intent);
+    public static void transitionTo(Context activityContext) {
+        Intent intent = new Intent(activityContext, DemoCartActivity.class);
+        activityContext.startActivity(intent);
     }
 
     @Override

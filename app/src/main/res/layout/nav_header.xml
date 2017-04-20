@@ -27,7 +27,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_demo_launcher" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

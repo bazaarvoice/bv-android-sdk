@@ -33,7 +33,7 @@ public class DemoCurationsDetailActivity extends AppCompatActivity implements De
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_curations_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DemoApp.get(this).getAppComponent().inject(this);
+        DemoApp.getAppComponent(this).inject(this);
         String productId = getIntent().getStringExtra(KEY_PRODUCT_ITEM);
         String startCurationsItemId = getIntent().getStringExtra(KEY_CURATIONS_ITEM_ID);
         userActionsListener = new DemoCurationsDetailPresenter(this, demoClient, demoMockDataUtil, productId, startCurationsItemId);

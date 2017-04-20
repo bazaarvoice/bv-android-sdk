@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/bv_green_1</color>
-    <color name="colorPrimaryDark">@color/bv_green_3</color>
-    <color name="colorAccent">@color/bv_blue_1</color>
-    
+    <color name="colorPrimary">#336470</color>
+    <color name="colorPrimaryDark">#003a45</color>
+    <color name="colorAccent">#26a69a</color>
+
     <color name="bv_green_1">#2dac9a</color>
     <color name="bv_green_2">#00ab8e</color>
     <color name="bv_green_3">#336470</color>

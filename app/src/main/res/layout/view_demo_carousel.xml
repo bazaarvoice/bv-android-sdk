@@ -9,64 +9,66 @@
     android:background="@android:color/white">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/demoCarouselContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+      android:id="@+id/demoCarouselContainer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/carouselHeader"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/bv_green_1"
-            android:textSize="18sp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Carousel Header" />
+          android:id="@+id/carouselHeader"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginLeft="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="8dp"
+          android:textColor="@color/bv_green_1"
+          android:textSize="18sp"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="Carousel Header"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/carousel"
-            android:layout_width="0dp"
-            android:layout_height="190dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carouselHeader"
-            tools:listitem="@layout/include_product_row_common" />
+          android:id="@+id/carousel"
+          android:layout_width="0dp"
+          android:layout_height="190dp"
+          android:layout_marginTop="0dp"
+          android:background="@android:color/white"
+          android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintHorizontal_bias="0.5"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/carouselHeader"
+          app:layout_constraintVertical_bias="0.5"
+          tools:listitem="@layout/include_product_row_common"/>
 
         <ProgressBar
-            android:id="@+id/carouselProgressBar"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+          android:id="@+id/carouselProgressBar"
+          style="@style/Widget.AppCompat.ProgressBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:visibility="gone"/>
 
         <TextView
-            android:id="@+id/carouselEmptyMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Failed to find stuff" />
+          android:id="@+id/carouselEmptyMessage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="TextView"
+          android:textAlignment="center"
+          android:textSize="14sp"
+          android:visibility="gone"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="Failed to find stuff"/>
 
     </android.support.constraint.ConstraintLayout>
 
