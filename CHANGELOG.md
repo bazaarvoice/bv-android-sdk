@@ -1,5 +1,12 @@
 # Changelog
 
+# 6.6.0
+
+## Conversations
+* Added ```BVSDK.builder(application, bazaarEnvironment)``` static factory to build the sdk with which uses Bazaarvoice generated config files to configure the BVSDK instance for you
+* Deprecated ```BVSDK.builder(application, clientId)```
+* Fixed Issue #26 - Now correctly parsing Bazaarvoice API response date fields as UTC timezone rather than local timezone
+
 # 6.5.0
 
 ## **NEW** BVPixel (Analytics) 
