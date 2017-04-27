@@ -1,10 +1,21 @@
 # Changelog
 
-# 6.6.0
+# 6.6.1
+
+## BV Demo and BV API apps
+* Added defaulting to Conversations Product Catalog on homepage of BV Demo app if Recommendations keys are not available
+* Updated theme in both apps
 
 ## Conversations
+* ```BulkProductRequest``` and ```BulkProductResponse``` classes added. They are the same as ```ProductDisplayPageRequest``` and ```ProductDisplayPageResponse```, but do not require a product id to construct.
+
+# 6.6.0
+
+## Common
 * Added ```BVSDK.builder(application, bazaarEnvironment)``` static factory to build the sdk with which uses Bazaarvoice generated config files to configure the BVSDK instance for you
 * Deprecated ```BVSDK.builder(application, clientId)```
+
+## Conversations
 * Fixed Issue #26 - Now correctly parsing Bazaarvoice API response date fields as UTC timezone rather than local timezone
 
 # 6.5.0
