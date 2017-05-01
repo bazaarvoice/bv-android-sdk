@@ -69,11 +69,11 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
                 if (error != null) {
                     loadCallDisplay.errorOnMainThread(conversationsCallback, error);
                 } else {
-                    loadCallDisplay.successOnMainThread(conversationsCallback, conversationResponse);
                     // Route callbacks to Analytics Manager to handle any analytics that are associated
                     // with a successful display response
                     ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
                     convAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+                    loadCallDisplay.successOnMainThread(conversationsCallback, conversationResponse);
                 }
             } finally {
                 if (response != null) {
