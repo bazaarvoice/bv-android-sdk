@@ -306,6 +306,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertNotNull(firstReview.getClientResponses());
         assertNotNull(firstReview.getCampaignId());
         assertNotNull(firstReview.getFeatured());
+        assertFalse("IsSyndicated should be false", firstReview.getSyndicated());
     }
 
     @Test

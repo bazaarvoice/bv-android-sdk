@@ -42,6 +42,8 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
     private String reviewText;
     @SerializedName("IsRecommended")
     private Boolean isRecommended;
+    @SerializedName("IsSyndicated")
+    private Boolean isSyndicated;
     @SerializedName("IsRatingsOnly")
     private Boolean isRatingsOnly;
     @SerializedName("Rating")
@@ -85,6 +87,10 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
 
     public Boolean getRecommended() {
         return isRecommended;
+    }
+
+    public Boolean getSyndicated() {
+        return isSyndicated;
     }
 
     public Boolean getRatingsOnly() {
