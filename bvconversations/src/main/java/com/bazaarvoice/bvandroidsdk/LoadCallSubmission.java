@@ -82,9 +82,9 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 } else {
                     //if User intended to only Preview or if a Submit has already been previewed we are done and can callback
                     if (submissionRequest.getBuilder().getAction() == Action.Preview || (!submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit)) {
-                        loadCallSubmission.successOnMainThread(conversationsCallback, conversationResponse);
                         ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
                         convAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                        loadCallSubmission.successOnMainThread(conversationsCallback, conversationResponse);
                     }
                     //We know that a Submit was succesfully previewed so now we Submit for real
                     else {
