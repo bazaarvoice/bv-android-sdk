@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.6.2
+
+# Conversations
+* Fixed an issue where the results were still being used by the background thread after delivering them to the user on the UI thread, which could cause a ```ConcurrentModificationException```.
+* Added ```getSyndicated()``` to the ```BaseReview``` object so that the ```IsSyndicated``` flag will now be parsed for reviews
+
 # 6.6.1
 
 ## BV Demo and BV API apps
