@@ -56,6 +56,8 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
     private Map<String, SecondaryRating> secondaryRatings;
     @SerializedName("CommentIds")
     private List<Integer> commentIds;
+    @SerializedName("SyndicationSource")
+    private SyndicatedSource syndicatedSource;
 
     public Map<String, DimensionElement> getTagDimensions() {
         return tagDimensions;
@@ -91,6 +93,10 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
 
     public Boolean getSyndicated() {
         return isSyndicated;
+    }
+
+    public SyndicatedSource getSyndicatedSource(){
+        return syndicatedSource;
     }
 
     public Boolean getRatingsOnly() {
