@@ -307,6 +307,20 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertNotNull(firstReview.getCampaignId());
         assertNotNull(firstReview.getFeatured());
         assertFalse("IsSyndicated should be false", firstReview.getSyndicated());
+        assertNull(firstReview.getSyndicatedSource());
+    }
+
+    @Test
+    public void testReviewForSyndicatedSource(){
+
+        ReviewResponse response = testParsing("reviews_syndicated_source.json", ReviewResponse.class);
+        Review firstReview = response.getResults().get(0);
+
+        assertTrue("IsSyndicated should be true", firstReview.getSyndicated());
+        assertNotNull(firstReview.getSyndicatedSource());
+        assertEquals("bazaarvoice", firstReview.getSyndicatedSource().getName());
+        assertEquals("https://foo.com/hihowareyou.png", firstReview.getSyndicatedSource().getLogoImageUrl());
+
     }
 
     @Test
