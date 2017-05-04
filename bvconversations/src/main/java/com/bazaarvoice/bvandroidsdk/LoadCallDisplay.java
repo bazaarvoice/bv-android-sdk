@@ -128,4 +128,10 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         this.displayDelegateCallback = new DisplayDelegateCallback<RequestType, ResponseType>(this, conversationsCallback);
         this.call.enqueue(displayDelegateCallback);
     }
+
+    @Override
+    public void cancel() {
+        super.cancel();
+        displayDelegateCallback = null;
+    }
 }

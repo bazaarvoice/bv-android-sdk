@@ -21,8 +21,6 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
-import java.lang.ref.WeakReference;
-
 /**
  * {@link android.support.v7.widget.RecyclerView} container for
  * many reviews providing usage Analytic events.
@@ -31,8 +29,7 @@ import java.lang.ref.WeakReference;
  * @param <ResponseType> Type of {@link ConversationsDisplayResponse}
  */
 public abstract class ConversationsDisplayRecyclerView<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends BVRecyclerView implements BVConversationsClient.DisplayLoader<RequestType, ResponseType> {
-
-    WeakReference<ConversationsCallback<ResponseType>> delegateCbWeakRef;
+    LoadCallDisplay<RequestType, ResponseType> call;
     String productId;
     boolean onScreen = false;
 
@@ -52,34 +49,12 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
     public void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback) {
         final RequestType request = call.getRequest();
         productId = getProductIdFromRequest(request);
-        delegateCbWeakRef = new WeakReference<>(callback);
-        call.loadAsync(receiverCb);
+        this.call = call;
+        this.call.loadAsync(callback);
         trySendUsedFeatureInViewEvent();
     }
 
     abstract String getProductIdFromRequest(RequestType requestType);
-
-    private ConversationsCallback<ResponseType> receiverCb = new ConversationsCallback<ResponseType>() {
-        @Override
-        public void onSuccess(ResponseType response) {
-            ConversationsCallback<ResponseType> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onSuccess(response);
-        }
-
-        @Override
-        public void onFailure(BazaarException exception) {
-            ConversationsCallback<ResponseType> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onFailure(exception);
-        }
-    };
 
     @Override
     public void onFirstTimeOnScreen() {
@@ -91,6 +66,15 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
     public void onViewGroupInteractedWith() {
         ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
         convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, getBvProductType());
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (call != null) {
+            call.cancel();
+            call = null;
+        }
     }
 
     private void trySendUsedFeatureInViewEvent() {

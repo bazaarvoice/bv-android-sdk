@@ -59,6 +59,10 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
      */
     public abstract void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback);
 
+    public void cancel() {
+        call.cancel();
+    }
+
     ResponseType deserializeAndCloseResponse(Response response) throws BazaarException {
         Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         ResponseType conversationResponse = null;
