@@ -1,5 +1,12 @@
 # Changelog
 
+# 6.6.3
+
+# Conversations
+* Added ```SyndicationSource``` to the ```BaseReview``` object for when ```IsSyndicated``` is true
+* Added ```LoadCall#cancel()``` to be able to cancel a network request
+* Updated ```ConversationsRecyclerView``` to retain a strong reference to the passed in ```LoadCallDisplay``` object, making sure to cancel the network request, and null out the ```LoadCallDisplay``` reference in ```View#onDetachedFromWindow()```. This will ensure that anonymous ```ConversationsCallbacks``` are not GC'ed before the request ends
+
 # 6.6.2
 
 # Conversations
