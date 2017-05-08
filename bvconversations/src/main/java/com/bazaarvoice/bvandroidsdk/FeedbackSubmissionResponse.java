@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
  * Response for a successful FeedbackSubmissionRequest from either
  * a helpfulness vote or inappropriate feedback response.
  */
-public class FeedbackSubmissionResponse extends ConversationsResponse {
+public class FeedbackSubmissionResponse extends ConversationsSubmissionResponse {
 
     @SerializedName("Locale")
     private String locale;

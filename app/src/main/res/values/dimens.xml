@@ -36,4 +36,6 @@
 
     <dimen name="call_to_action_button_height">56dp</dimen>
     <dimen name="call_to_action_image_side">48dp</dimen>
+
+    <dimen name="spinner_height">48dp</dimen>
 </resources>

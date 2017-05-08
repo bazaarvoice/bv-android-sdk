@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Common options for a Conversations display response
  */
-class ConversationsDisplayResponse<ResultType> extends ConversationsResponse {
+public abstract class ConversationsDisplayResponse<ResultType> extends ConversationsResponse {
     @SerializedName("Offset")
     private Integer offset;
     @SerializedName("TotalResults")

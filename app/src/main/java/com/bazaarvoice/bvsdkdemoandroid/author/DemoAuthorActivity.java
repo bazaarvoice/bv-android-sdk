@@ -17,7 +17,7 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.author;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -62,7 +62,7 @@ public class DemoAuthorActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    public static void transitionTo(Activity fromActivity, String authorId) {
+    public static void transitionTo(Context fromActivity, String authorId) {
         Intent intent = new Intent(fromActivity, DemoAuthorActivity.class);
         intent.putExtra(EXTRA_AUTHOR_ID, authorId);
         fromActivity.startActivity(intent);

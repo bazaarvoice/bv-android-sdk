@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
@@ -27,6 +27,7 @@ import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
@@ -58,6 +59,8 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     ProgressBar reviewsLoading;
     @BindView(R.id.recyclerViewStub)
     ViewStub recyclerViewStub;
+    @BindView(R.id.empty_message)
+    TextView emptyMessage;
 
     private DemoReviewsAdapter<ReviewType> reviewsAdapter;
 
@@ -87,6 +90,8 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
 
     abstract Picasso getPicasso();
 
+    abstract DemoConvResponseHandler getDemoConvResponseHandler();
+
     void inflateRecyclerView() {
         recyclerViewStub.setLayoutResource(R.layout.reviews_recyclerview);
         recyclerViewStub.inflate();
@@ -94,7 +99,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     }
 
     protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+        return new DemoReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
     }
 
     private void setupToolbarViews() {
@@ -158,12 +163,14 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
 
     @Override
     public void showNoReviews() {
-
+        emptyMessage.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showReviewsMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void showDialogWithMessage(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setNegativeButton("OK", null).create().show();
     }
 
     @Override

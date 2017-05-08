@@ -12,6 +12,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -24,6 +25,8 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     @Inject DemoClient demoClient;
     @Inject Picasso picasso;
     @Inject PrettyTime prettyTime;
+    @Inject
+    DemoConvResponseHandler demoConvResponseHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +50,13 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     }
 
     @Override
+    public DemoConvResponseHandler getDemoConvResponseHandler() {
+        return demoConvResponseHandler;
+    }
+
+    @Override
     protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoStoreReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+        return new DemoStoreReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
     }
 
     @Override

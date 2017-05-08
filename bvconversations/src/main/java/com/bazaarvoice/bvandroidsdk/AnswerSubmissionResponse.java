@@ -22,7 +22,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Response for an {@link AnswerSubmissionRequest}
  */
-public class AnswerSubmissionResponse extends ConversationsResponse {
+public class AnswerSubmissionResponse extends ConversationsSubmissionResponse {
 
     @SerializedName("Locale")
     private String locale;

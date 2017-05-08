@@ -80,12 +80,8 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
         }
 
         if (conversationResponse != null && conversationResponse.getHasErrors()) {
-
             if (conversationResponse.getErrors().size() > 0) {
                 error = new BazaarException(gson.toJson(conversationResponse.getErrors()));
-            }else {
-                error = new BazaarException(gson.toJson(conversationResponse.getFormErrors().getFieldErrorMap()));
-
             }
         }
 

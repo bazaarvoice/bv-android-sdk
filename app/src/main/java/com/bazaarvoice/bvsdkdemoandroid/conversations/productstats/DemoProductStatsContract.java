@@ -13,8 +13,8 @@ public interface DemoProductStatsContract {
         void showProductStats(List<Product> bazaarStatistics);
         void showLoadingProductStats(boolean show);
         void showNoProductStats();
-        void showProductStatsMessage(String message);
         void transitionToProductStats();
+        void showDialogWithMessage(String message);
     }
 
     interface UserActionsListener {

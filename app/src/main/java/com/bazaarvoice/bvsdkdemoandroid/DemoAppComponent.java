@@ -17,6 +17,7 @@
 
 package com.bazaarvoice.bvsdkdemoandroid;
 
+import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
@@ -27,7 +28,7 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
@@ -54,6 +55,7 @@ import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHeaderPagerAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHomeActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
+import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -70,12 +72,13 @@ public interface DemoAppComponent {
     DemoClientConfigUtils getDemoConfigUtils();
     DemoClient getDemoClient();
     DemoMockDataUtil getDemoMockDataUtil();
+    DemoAssetsUtil getDemoAssetsUtil();
+    DemoConvResponseHandler getConvResponseHandler();
+    Action getSubmitAction();
 
     void inject(DemoAdFragment adsFragment);
-    void inject(DemoMainActivity activity);
     void inject(DemoAnswersActivity activity);
     void inject(DemoBulkRatingsActivity activity);
-    void inject(DemoConversationsAPIFragment fragment);
     void inject(DemoConversationsStoresAPIFragment fragment);
     void inject(DemoProductStatsActivity activity);
     void inject(DemoQuestionsActivity demoQuestionsActivity);

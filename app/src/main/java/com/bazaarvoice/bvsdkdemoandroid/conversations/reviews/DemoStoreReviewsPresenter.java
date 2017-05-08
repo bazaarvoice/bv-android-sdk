@@ -12,13 +12,14 @@ import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
 import com.bazaarvoice.bvandroidsdk.StoreReviewsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 
 import java.util.List;
 
 public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
 
-    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
-        super(view, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader);
+    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
+        super(view, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader, demoConvResponseHandler);
     }
 
     @Override

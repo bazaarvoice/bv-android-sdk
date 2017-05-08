@@ -16,6 +16,7 @@ public interface DemoQuestionsContract {
         void showNoQuestions();
         void transitionToQandA();
         void showAskQuestionDialog();
+        void showDialogWithMessage(String message);
     }
 
     interface UserActionsListener {

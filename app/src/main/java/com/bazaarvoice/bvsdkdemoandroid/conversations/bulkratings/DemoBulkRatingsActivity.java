@@ -51,6 +51,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
     private ProgressBar reviewsLoading;
     @BindView(R.id.recyclerViewStub)
     ViewStub recyclerViewStub;
+    @BindView(R.id.empty_message) TextView emptyMessage;
 
     @Inject
     DemoClientConfigUtils demoClientConfigUtils;
@@ -65,8 +66,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
         setContentView(R.layout.activity_conversations_reviews);
         ButterKnife.bind(this);
         inflateRecyclerView();
-        Bundle extra = getIntent().getBundleExtra("extra");
-        this.bulkProductIds = (ArrayList<String>) extra.getSerializable(EXTRA_PRODUCT_IDS);
+        this.bulkProductIds = (ArrayList<String>) getIntent().getSerializableExtra(EXTRA_PRODUCT_IDS);
 
         setupToolbarViews();
         setupHeaderViews();
@@ -140,7 +140,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
 
     @Override
     public void showNoRatings() {
-
+        emptyMessage.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.Collections;
@@ -30,14 +31,16 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     protected boolean fetched = false;
     protected final BVConversationsClient client = new BVConversationsClient();
     protected boolean forceAPICall;
+    private final DemoConvResponseHandler demoConvResponseHandler;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
         this.view = view;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;
         this.reviewsLoader = reviewsLoader;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
+        this.demoConvResponseHandler = demoConvResponseHandler;
 
         if (productId != null && !productId.isEmpty()) {
             BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
@@ -97,11 +100,23 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     @Override
     public void onSuccess(Object object) {
         ReviewResponse response = (ReviewResponse) object;
+        demoConvResponseHandler.handleDisplaySuccessResponse(response, new DemoConvResponseHandler.DisplayMessage() {
+            @Override
+            public void onSuccessMessage(String message) {
+
+            }
+
+            @Override
+            public void onErrorMessage(String errorMessage) {
+                view.showDialogWithMessage(errorMessage);
+            }
+        });
         showReviews(response.getResults());
     }
 
     @Override
     public void onFailure(BazaarException exception) {
+        view.showDialogWithMessage(exception.getMessage());
         exception.printStackTrace();
         showReviews(Collections.<Review>emptyList());
     }

@@ -18,6 +18,7 @@ import com.bazaarvoice.bvandroidsdk.QuestionOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.Collections;
@@ -34,12 +35,14 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
     private BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader;
     private boolean fetched = false;
     private BVConversationsClient conversationsClient = new BVConversationsClient();
+    private DemoConvResponseHandler demoConvResponseHandler;
     private boolean forceAPICall;
 
-    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader) {
+    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader, DemoConvResponseHandler demoConvResponseHandler) {
         this.view = view;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;
+        this.demoConvResponseHandler = demoConvResponseHandler;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
         this.loader = loader;
@@ -117,11 +120,23 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
 
     @Override
     public void onSuccess(QuestionAndAnswerResponse response) {
+        demoConvResponseHandler.handleDisplaySuccessResponse(response, new DemoConvResponseHandler.DisplayMessage() {
+            @Override
+            public void onSuccessMessage(String message) {
+
+            }
+
+            @Override
+            public void onErrorMessage(String errorMessage) {
+                view.showDialogWithMessage(errorMessage);
+            }
+        });
         showQuestions(response.getResults());
     }
 
     @Override
     public void onFailure(BazaarException exception) {
+        view.showDialogWithMessage(exception.getMessage());
         exception.printStackTrace();
         showQuestions(Collections.<Question>emptyList());
     }

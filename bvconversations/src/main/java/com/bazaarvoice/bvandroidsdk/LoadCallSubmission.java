@@ -77,11 +77,13 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                     }
                 }
 
+                boolean isPreview = submissionRequest.getBuilder().getAction() == Action.Preview;
                 if (error != null) {
                     loadCallSubmission.errorOnMainThread(conversationsCallback, error);
                 } else {
                     //if User intended to only Preview or if a Submit has already been previewed we are done and can callback
-                    if (submissionRequest.getBuilder().getAction() == Action.Preview || (!submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit)) {
+                    boolean readyToDeliverResult = isPreview || !submissionRequest.getForcePreview();
+                    if (readyToDeliverResult) {
                         ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
                         convAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
                         loadCallSubmission.successOnMainThread(conversationsCallback, conversationResponse);

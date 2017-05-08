@@ -3,6 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid;
 
+import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 
@@ -34,6 +35,9 @@ public class DemoConstants {
 
     // Curations Other Config Options
     public static final ArrayList<String> CURATIONS_GROUPS = new ArrayList<>(Arrays.asList("__all__"));
+
+    public static ArrayList<String> TEST_BULK_PRODUCT_IDS = new ArrayList<>(Arrays.asList("test1", "test2", "test3", "test4", "test5", "test6"));
+    public static Action SUBMIT_ACTION = Action.Preview;
     /**************************************************************/
 
     public static boolean isSet(String constant) {

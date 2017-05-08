@@ -35,18 +35,16 @@ import android.view.MenuItem;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsPostCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
-import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
+import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsAPIFragment;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvApiFragment;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvApiPresenter;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvApiPresenterModule;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoStoreReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
@@ -57,8 +55,6 @@ import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragm
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoLaunchIntentUtil;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -73,6 +69,9 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
     private Toolbar toolbar;
 
     @Inject DemoClientConfigUtils demoClientConfigUtils;
+    @Inject DemoConvApiPresenter demoConvApiPresenter;
+
+    private DemoConvApiFragment demoConvApiFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +104,14 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         // Uncomment me for iovation suppoort
         //start(getApplicationContext());
 
-        DemoApp.getAppComponent(this).inject(this);
+        demoConvApiFragment = DemoConvApiFragment.newInstance();
+
+        DaggerDemoCodeHomeComponent.builder()
+            .demoAppComponent(DemoApp.getAppComponent(this))
+            .demoActivityModule(new DemoActivityModule(this))
+            .demoConvApiPresenterModule(new DemoConvApiPresenterModule(demoConvApiFragment))
+            .build()
+            .inject(this);
     }
 
     @Override
@@ -176,7 +182,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                         break;
                     case R.id.conversations_demo:
                         toolbar.setTitle(getString(R.string.demo_conversations) + ": API Demo");
-                        transitionTo(DemoConversationsAPIFragment.newInstance());
+                        transitionTo(demoConvApiFragment);
                         break;
                     case R.id.conversations_demo_stores:
                         toolbar.setTitle(getString(R.string.demo_conversations_stores) + ": API Demo");
@@ -238,38 +244,10 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         startActivity(intent);
     }
 
-    public void transitionToReviewsActivity(String productId){
-        Intent intent = new Intent(this, DemoReviewsActivity.class);
-        intent.putExtra("extra_product_id", productId);
-        intent.putExtra("extra_force_api_load", true);
-        startActivity(intent);
-    }
-
     public void transitionToStoreReviewsActivity(String productId){
         Intent intent = new Intent(this, DemoStoreReviewsActivity.class);
         intent.putExtra("extra_product_id", productId);
         intent.putExtra("extra_force_api_load", true);
-        startActivity(intent);
-    }
-
-    public void transitionToQuestionsActivity(String productId){
-        Intent intent = new Intent(this, DemoQuestionsActivity.class);
-        intent.putExtra("extra_product_id", productId);
-        intent.putExtra("extra_force_api_load", true);
-        startActivity(intent);
-    }
-
-    public void transitionToProductStatsActivity(String productId){
-        Intent intent = new Intent(this, DemoProductStatsActivity.class);
-        intent.putExtra("extra_product_id", productId);
-        startActivity(intent);
-    }
-
-    public void transitionToBulkRatingsActivity(ArrayList<String> productIds){
-        Intent intent = new Intent(this, DemoBulkRatingsActivity.class);
-        Bundle extra = new Bundle();
-        extra.putSerializable("extra_bulk_product_ids", productIds);
-        intent.putExtra("extra", extra);
         startActivity(intent);
     }
 

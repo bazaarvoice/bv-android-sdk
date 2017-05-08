@@ -47,28 +47,54 @@ public class DemoProductStatsAdapter extends RecyclerView.Adapter<RecyclerView.V
         ReviewStatistics reviewStats = product.getReviewStatistics();
         QAStatistics qaStats = product.getQaStatistics();
 
-        String bodyText = "Product Review Statistics\n" +
-                "----------------------------------\n" +
-                "\tTotal Review Count: " + reviewStats.getTotalReviewCount().toString() + "\n" +
-                "\tAverage Overall Rating: " + reviewStats.getAverageOverallRating().toString() + "\n" +
-                "\tHelpful Vote Count: " + reviewStats.getHelpfulVoteCount().toString() + "\n" +
-                "\tNonHelpful Vote Count: " + reviewStats.getNotHelpfulVoteCount().toString() + "\n" +
-                "\tRecommended Count: " + reviewStats.getRecommendedCount().toString() + "\n" +
-                "\tNot Recommended Count: " + reviewStats.getNotRecommendedCount().toString() + "\n" +
-                "\tOverall Rating Range: " + reviewStats.getOverallRatingRange().toString() + "\n" +
-                "\n" +
-                "Question & Answer Statistics\n" +
-                "----------------------------------\n" +
-                "\tTotal Questions: " + qaStats.getTotalQuestionCount().toString() + "\n" +
-                "\tTotal Answers: " + qaStats.getTotalAnswerCount().toString() + "\n" +
-                "\tAnswer Helpful Vote Count: " + qaStats.getAnswerHelpfulVoteCount().toString() + "\n" +
-                "\tAnswer Not Helpful Vote Count: " + qaStats.getAnswerNotHelpfulVoteCount().toString() + "\n" +
-                "\tQuestion Helpful Vote Count: " + qaStats.getQuestionHelpfulVoteCount().toString() + "\n" +
-                "\tQuestion Not Helpful Vote Count: " + qaStats.getQuestionNotHelpfulVoteCount().toString() + "\n" +
-                "";
+        StringBuilder bodyText = new StringBuilder()
+            .append("Product Review Statistics\n")
+            .append("----------------------------------\n")
+            .append("\tTotal Review Count: ")
+            .append(reviewStats.getTotalReviewCount().toString())
+            .append("\n")
+            .append("\tAverage Overall Rating: ")
+            .append(reviewStats.getAverageOverallRating().toString())
+            .append("\n")
+            .append("\tHelpful Vote Count: ")
+            .append(reviewStats.getHelpfulVoteCount().toString())
+            .append("\n")
+            .append("\tNonHelpful Vote Count: ")
+            .append(reviewStats.getNotHelpfulVoteCount().toString())
+            .append("\n")
+            .append("\tRecommended Count: ")
+            .append(reviewStats.getRecommendedCount().toString())
+            .append("\n")
+            .append("\tNot Recommended Count: ")
+            .append(reviewStats.getNotRecommendedCount().toString())
+            .append("\n")
+            .append("\tOverall Rating Range: ")
+            .append(reviewStats.getOverallRatingRange().toString())
+            .append("\n")
+            .append("\n");
 
+        if (qaStats != null) {
+            bodyText.append("Question & Answer Statistics\n")
+                .append("----------------------------------\n")
+                .append("\tTotal Questions: ")
+                .append(qaStats.getTotalQuestionCount().toString())
+                .append("\n")
+                .append("\tTotal Answers: ")
+                .append(qaStats.getTotalAnswerCount().toString())
+                .append("\n")
+                .append("\tAnswer Helpful Vote Count: ")
+                .append(qaStats.getAnswerHelpfulVoteCount().toString())
+                .append("\n")
+                .append("\tAnswer Not Helpful Vote Count: ")
+                .append(qaStats.getAnswerNotHelpfulVoteCount().toString())
+                .append("\n").append("\tQuestion Helpful Vote Count: ")
+                .append(qaStats.getQuestionHelpfulVoteCount().toString()).append("\n")
+                .append("\tQuestion Not Helpful Vote Count: ")
+                .append(qaStats.getQuestionNotHelpfulVoteCount().toString()).append("\n")
+                .append("");
+        }
 
-        viewHolder.body.setText(bodyText);
+        viewHolder.body.setText(bodyText.toString());
     }
 
     @Override

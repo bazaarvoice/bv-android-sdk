@@ -3,10 +3,11 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.productstats;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Product;
@@ -26,6 +26,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
 import java.util.List;
@@ -49,11 +50,14 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
     @BindView(R.id.reviews_loading) ProgressBar reviewsLoading;
     @BindView(R.id.recyclerViewStub)
     ViewStub recyclerViewStub;
+    @BindView(R.id.empty_message)
+    TextView emptyMessage;
 
     @Inject
     DemoClientConfigUtils demoClientConfigUtils;
     @Inject
     DemoMockDataUtil demoMockDataUtil;
+    @Inject DemoConvResponseHandler demoConvResponseHandler;
 
     private String productId;
 
@@ -70,7 +74,7 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         setupHeaderViews();
         setupRecyclerView();
 
-        bulkRatingsUserActionListener = new DemoProductStatsPresenter(this, demoClientConfigUtils, demoMockDataUtil, productId);
+        bulkRatingsUserActionListener = new DemoProductStatsPresenter(this, demoClientConfigUtils, demoMockDataUtil, productId, demoConvResponseHandler);
     }
 
     void inflateRecyclerView() {
@@ -81,7 +85,6 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
 
     private void setupToolbarViews() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -129,12 +132,14 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
 
     @Override
     public void showNoProductStats() {
-
+        emptyMessage.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showProductStatsMessage(String message) {
-        Toast.makeText(DemoProductStatsActivity.this, message, Toast.LENGTH_SHORT).show();
+    public void showDialogWithMessage(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setNegativeButton("OK", null).create().show();
     }
 
     @Override
@@ -142,7 +147,7 @@ public class DemoProductStatsActivity extends AppCompatActivity implements DemoP
         // no-op
     }
 
-    public static void transitionTo(Activity fromActivity, String productId) {
+    public static void transitionTo(Context fromActivity, String productId) {
         Intent intent = new Intent(fromActivity, DemoProductStatsActivity.class);
         intent.putExtra(EXTRA_PRODUCT_ID, productId);
         fromActivity.startActivity(intent);
