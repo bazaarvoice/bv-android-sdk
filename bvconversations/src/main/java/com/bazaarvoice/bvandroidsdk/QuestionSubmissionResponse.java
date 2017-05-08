@@ -20,5 +20,5 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response for submitting {@link Question}s
  */
-public class QuestionSubmissionResponse extends ConversationsResponse {
+public class QuestionSubmissionResponse extends ConversationsSubmissionResponse {
 }

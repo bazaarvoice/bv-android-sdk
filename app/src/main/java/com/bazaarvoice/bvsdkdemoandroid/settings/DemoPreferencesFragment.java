@@ -32,9 +32,9 @@ public class DemoPreferencesFragment extends PreferenceFragmentCompat {
         String defaultClientId = demoClient.getClientId();
 
         selectedConfigPref = (ListPreference) findPreference(getString(R.string.key_selected_config));
-        selectedConfigPref.setDefaultValue(defaultClientId);
         selectedConfigPref.setEntries(displayNames);
         selectedConfigPref.setEntryValues(clientIdNames);
+        selectedConfigPref.setValue(defaultClientId);
 
         updateUserProfile(demoClient);
     }

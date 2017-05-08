@@ -12,6 +12,7 @@ import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,10 +24,12 @@ public class DemoProductStatsPresenter implements DemoProductStatsContract.UserA
     private DemoMockDataUtil demoMockDataUtil;
     private String productId;
     private final BVConversationsClient client = new BVConversationsClient();
+    private final DemoConvResponseHandler demoConvResponseHandler;
 
-    public DemoProductStatsPresenter(DemoProductStatsContract.View view, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, String productId) {
+    public DemoProductStatsPresenter(DemoProductStatsContract.View view, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, String productId, DemoConvResponseHandler demoConvResponseHandler) {
         this.view = view;
         this.demoClientConfigUtils = demoClientConfigUtils;
+        this.demoConvResponseHandler = demoConvResponseHandler;
         this.demoMockDataUtil = demoMockDataUtil;
         this.productId = productId;
     }
@@ -44,12 +47,22 @@ public class DemoProductStatsPresenter implements DemoProductStatsContract.UserA
             @Override
             public void onSuccess(ProductDisplayPageResponse response) {
                 // called on Main Thread
+                demoConvResponseHandler.handleDisplaySuccessResponse(response, new DemoConvResponseHandler.DisplayMessage() {
+                    @Override
+                    public void onSuccessMessage(String message) {}
+
+                    @Override
+                    public void onErrorMessage(String errorMessage) {
+                        view.showDialogWithMessage(errorMessage);
+                    }
+                });
                 showProductStats(response.getResults());
             }
 
             @Override
             public void onFailure(BazaarException exception) {
                 //called on Main Thread
+                view.showDialogWithMessage(exception.getMessage());
                 exception.printStackTrace();
                 showProductStats(Collections.<Product>emptyList());
             }

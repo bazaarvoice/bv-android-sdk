@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="conv_api_methods">
+    <item>Display Reviews</item>
+    <item>Display QandA</item>
+    <item>Display PDP</item>
+    <item>Display Bulk Ratings</item>
+    <item>Display Author</item>
+    <item>Submit Review</item>
+    <item>Submit Question</item>
+    <item>Submit Answer</item>
+    <item>Submit Feedback</item>
+  </string-array>
+</resources>

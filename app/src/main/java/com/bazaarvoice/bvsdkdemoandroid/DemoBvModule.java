@@ -19,6 +19,7 @@ package com.bazaarvoice.bvsdkdemoandroid;
 
 import android.app.Application;
 
+import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConfig;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
@@ -28,6 +29,7 @@ import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.squareup.picasso.Picasso;
@@ -70,6 +72,11 @@ public class DemoBvModule {
     }
 
     @Provides @DemoAppScope
+    Action provideSubmitAction() {
+        return DemoConstants.SUBMIT_ACTION;
+    }
+
+    @Provides @DemoAppScope
     PinClient providePinClient(BVSDK bvsdk) {
         return new PinClient();
     }
@@ -87,5 +94,10 @@ public class DemoBvModule {
     @Provides @DemoAppScope
     CurationsImageLoader provideCurationImageLoader(Picasso picasso) {
         return new DemoImageLoader(picasso);
+    }
+
+    @Provides @DemoAppScope
+    DemoConvResponseHandler provideConvResponseHandler() {
+        return new DemoConvResponseHandler();
     }
 }

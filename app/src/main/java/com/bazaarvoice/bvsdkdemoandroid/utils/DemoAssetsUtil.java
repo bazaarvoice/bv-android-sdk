@@ -7,8 +7,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 
 public class DemoAssetsUtil {
@@ -49,5 +53,43 @@ public class DemoAssetsUtil {
       e.printStackTrace();
     }
     return exists;
+  }
+
+  public File parseImageFileFromAssets(String fileName) {
+    File localImageFile = null;
+
+    try {
+      InputStream stream = context.getAssets().open("puppy_thumbnail.jpg");
+      localImageFile = createFileFromInputStream(stream);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return localImageFile;
+  }
+
+  private File createFileFromInputStream(InputStream inputStream) {
+    try{
+      File f = File.createTempFile("tmp", "png");
+      OutputStream outputStream = new FileOutputStream(f);
+      byte buffer[] = new byte[1024];
+      int length = 0;
+
+      while((length=inputStream.read(buffer)) > 0) {
+        outputStream.write(buffer,0,length);
+      }
+
+      outputStream.close();
+      inputStream.close();
+
+      return f;
+
+    }catch (IOException e) {
+      //Logging exception
+      e.printStackTrace();
+    }
+
+    return null;
   }
 }

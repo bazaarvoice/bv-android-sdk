@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,7 @@ import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
@@ -52,12 +54,14 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     @BindView(R.id.questions_recycler_view) QuestionsRecyclerView questionsRecyclerView;
     private DemoQuestionsAdapter questionsAdapter;
     @BindView(R.id.questions_loading) ProgressBar questionLoading;
+    @BindView(R.id.empty_message) TextView emptyMessage;
 
     private boolean forceLoadFromProductId; // Meaning, a BVProduct is explicitly not provided
     private String productId;
 
     @Inject DemoClient demoClient;
     @Inject DemoMockDataUtil demoMockDataUtil;
+    @Inject DemoConvResponseHandler demoConvResponseHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +87,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         setupToolbarViews();
         setupRecyclerView();
 
-        questionsActionsListener = new DemoQuestionsPresenter(this, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView);
+        questionsActionsListener = new DemoQuestionsPresenter(this, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView, demoConvResponseHandler);
     }
 
     @Override
@@ -144,7 +148,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
 
     @Override
     public void showNoQuestions() {
-
+        emptyMessage.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -155,6 +159,13 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     @Override
     public void showAskQuestionDialog() {
         // TODO maybe
+    }
+
+    @Override
+    public void showDialogWithMessage(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setNegativeButton("OK", null).create().show();
     }
 
     public static void transitionTo(Activity fromActivity, String productId) {

@@ -20,5 +20,5 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Response for submitting {@link StoreReview}s
  */
-public class StoreReviewSubmissionResponse extends ConversationsResponse {
+public class StoreReviewSubmissionResponse extends ConversationsSubmissionResponse {
 }

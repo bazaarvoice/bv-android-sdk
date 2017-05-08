@@ -25,13 +25,11 @@ import java.util.List;
  * Base options for a conversations response, to display
  * or submission endpoints.
  */
-class ConversationsResponse {
+public abstract class ConversationsResponse {
     @SerializedName("HasErrors")
     private Boolean hasErrors;
     @SerializedName("Errors")
     private List<Error> errors;
-    @SerializedName("FormErrors")
-    private FormError formErrors;
 
     public Boolean getHasErrors() {
         return hasErrors;
@@ -39,9 +37,5 @@ class ConversationsResponse {
 
     public List<Error> getErrors() {
         return errors;
-    }
-
-    public FormError getFormErrors() {
-        return formErrors;
     }
 }

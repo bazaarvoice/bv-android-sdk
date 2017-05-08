@@ -19,7 +19,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-class PhotoUploadResponse extends ConversationsResponse {
+class PhotoUploadResponse extends ConversationsSubmissionResponse {
     @SerializedName("Photo")
     private Photo photo;
 

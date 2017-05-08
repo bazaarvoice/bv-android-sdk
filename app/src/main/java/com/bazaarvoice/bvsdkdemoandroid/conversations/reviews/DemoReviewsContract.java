@@ -14,7 +14,7 @@ public interface DemoReviewsContract<ReviewType extends BaseReview> {
         void showReviews(List<ReviewType> reviews);
         void showLoadingReviews(boolean show);
         void showNoReviews();
-        void showReviewsMessage(String message);
+        void showDialogWithMessage(String message);
         void transitionToReviews();
         void showSubmitReviewDialog();
     }

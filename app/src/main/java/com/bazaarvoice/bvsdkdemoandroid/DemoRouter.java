@@ -8,11 +8,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
+
+import java.util.ArrayList;
 
 public class DemoRouter {
     private final Context currentActivityContext;
@@ -62,7 +69,39 @@ public class DemoRouter {
         DemoSettingsActivity.transitionTo(currentActivityContext, launchCode);
     }
 
+    private void transitionToActivityWithExtras(Class toActivityClass, Bundle extras) {
+        transitionToActivityWithExtras(currentActivityContext, toActivityClass, extras);
+    }
+
     public void transitionToCart() {
         DemoCartActivity.transitionTo(currentActivityContext);
+    }
+
+    public void transitionToReviewsActivity(String productId){
+        Bundle bundle = new Bundle();
+        bundle.putString("extra_product_id", productId);
+        bundle.putBoolean("extra_force_api_load", true);
+        transitionToActivityWithExtras(DemoReviewsActivity.class, bundle);
+    }
+
+    public void transitionToQuestionsActivity(String productId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("extra_product_id", productId);
+        bundle.putBoolean("extra_force_api_load", true);
+        transitionToActivityWithExtras(DemoQuestionsActivity.class, bundle);
+    }
+
+    public void transitionToProductStatsActivity(String productId) {
+        DemoProductStatsActivity.transitionTo(currentActivityContext, productId);
+    }
+
+    public void transitionToBulkRatingsActivity(ArrayList<String> bulkProductIds) {
+        Bundle bulkExtra = new Bundle();
+        bulkExtra.putSerializable("extra_bulk_product_ids", bulkProductIds);
+        transitionToActivityWithExtras(DemoBulkRatingsActivity.class, bulkExtra);
+    }
+
+    public void transitionToAuthorActivity(String authorId) {
+        DemoAuthorActivity.transitionTo(currentActivityContext, authorId);
     }
 }
