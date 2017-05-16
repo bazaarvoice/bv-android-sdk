@@ -1,15 +1,21 @@
 # Changelog
 
+# 6.6.4
+
+## Conversations
+* Added ```FormData``` to parse form fields in ```ConversationsCallback#onSuccess(response)```
+* Now routing ```FormError``` to ```ConversationsCallback#onSuccess(response)```
+
 # 6.6.3
 
-# Conversations
+## Conversations
 * Added ```SyndicationSource``` to the ```BaseReview``` object for when ```IsSyndicated``` is true
 * Added ```LoadCall#cancel()``` to be able to cancel a network request
 * Updated ```ConversationsRecyclerView``` to retain a strong reference to the passed in ```LoadCallDisplay``` object, making sure to cancel the network request, and null out the ```LoadCallDisplay``` reference in ```View#onDetachedFromWindow()```. This will ensure that anonymous ```ConversationsCallbacks``` are not GC'ed before the request ends
 
 # 6.6.2
 
-# Conversations
+## Conversations
 * Fixed an issue where the results were still being used by the background thread after delivering them to the user on the UI thread, which could cause a ```ConcurrentModificationException```.
 * Added ```getSyndicated()``` to the ```BaseReview``` object so that the ```IsSyndicated``` flag will now be parsed for reviews
 
