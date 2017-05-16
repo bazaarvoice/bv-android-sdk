@@ -71,6 +71,13 @@ a {
 	 border-right: 1px solid rgb(213, 213, 213);
 	 border-bottom: 1px solid rgb(213, 213, 213);
 }
+.pane {
+	padding:12px;
+	border-left: 1px solid rgb(213, 213, 213);
+	border-right: 1px solid rgb(213, 213, 213);
+	border-top: 1px solid rgb(213, 213, 213);
+	border-bottom: 1px solid rgb(213, 213, 213);
+}
 blockquote {
 	font-size: 14px;
 }

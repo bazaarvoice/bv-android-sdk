@@ -282,6 +282,14 @@ $(function(){
 
 <p>Use the Bazaarvoice Mobile SDKs to enable Conversations functionality, such as Ratings and Reviews. The Conversations module provides an easy-to-use wrapper around the <a href="https://developer.bazaarvoice.com/apis/conversations/">Conversations API</a>. Contact Bazaarvoice to set up Conversations.</p>
 
+<ol>
+  <li><a href="#reviewsub" onclick="navigateTab(this);">Review Submission</a></li>
+  <li><a href="#questionsub" onclick="navigateTab(this);">Question Submission</li>
+  <li><a href="#answersub" onclick="navigateTab(this);">Answer Submission</a></li>
+  <li><a href="#feedbacksub" onclick="navigateTab(this);">Feedback Submission</a></li>
+  <li><a href="#formparsing" onclick="navigateTab(this);">Form Parsing</a></li>
+</ol>
+
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
 
 <hr>
@@ -368,137 +376,172 @@ Use an instance of the <code>BVConversationsClient</code> to make all your Conve
 <br>
 
 <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#reviewsub" aria-controls="reviewssub" role="tab" data-toggle="tab">ReviewSubmission</a></li>
-    <li role="presentation"><a href="#questionub" aria-controls="questionub" role="tab" data-toggle="tab">QuestionSubmission</a></li>
-    <li role="presentation"><a href="#answersub" aria-controls="answersub" role="tab" data-toggle="tab">AnswerSubmission</a></li>
-     <li role="presentation"><a href="#feedbacksub" aria-controls="feedbacksub" role="tab" data-toggle="tab">FeedbackSubmission</a></li>
+  <li role="presentation" class="active"><a href="#reviewsub" aria-controls="reviewssub" role="tab" data-toggle="tab">ReviewSubmission</a></li>
+  <li role="presentation"><a href="#questionsub" aria-controls="questionsub" role="tab" data-toggle="tab">QuestionSubmission</a></li>
+  <li role="presentation"><a href="#answersub" aria-controls="answersub" role="tab" data-toggle="tab">AnswerSubmission</a></li>
+  <li role="presentation"><a href="#feedbacksub" aria-controls="feedbacksub" role="tab" data-toggle="tab">FeedbackSubmission</a></li>
 </ul>
 
 <div class="tab-content code-switcher">
     <div role="tabpanel" class="tab-pane active" id="reviewsub">
 <h4>Submitting Reviews</h4>
-<p>When submitting Reviews you will use the <code>ReviewSubmission</code> class to build your POST request. For a <code>ReviewSubmission</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Reviews. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Reviews. Reference <code>ReviewSubmission.java</code> for the other request values you can set.</p>
-<pre><code>ReviewSubmission submission = new ReviewSubmission.Builder(Action.Submit, productId)
-                .userNickname(userNickname)
-                .build();</code></pre>
-<p>Once the ReviewSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+<p>
+  To submit content, form the proper <code>ConversationsSubmissionRequest</code> subclass,
+  and send it through the <code>BVConversationsClient</code>.
+</p>
+<pre><code>ReviewSubmissionRequest previewSubmission = new ReviewSubmissionRequest
+  .Builder(Action.Preview, productId)
+  .userNickname(userNickname)
+  .build();
 
-<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;ReviewSubmissionResponse&gt;() {
-    @Override
-    public void onSuccess(ReviewSubmissionResponse response) {
+BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;ReviewSubmissionResponse&gt;() {
+  @Override
+  public void onSuccess(ReviewSubmissionResponse response) {
+    FormData formData = response.getFormData(); // To view required/optional form fields
+    boolean hasErrors = response.getHasErrors(); // If form data was not sent correctly, or some other backend processing issues exist
+    FormError formErrors = response.getFormErrors(); // Object containing the form errors
+    List&lt;Error&gt; genericBvErrors = response.getErrors(); // Object containing the other backend processing issues
 
-    }
-
-    @Override
-    public void onFailure(BazaarException exception) {
-
-    }
+    // If hasErrors is false, then the submission succeeded
+    // Make sure to send with Action.SUBMIT for it to fully complete
+  }
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
-<pre><code>try {
-    ReviewSubmissionResponse response = client.prepareCall(submission).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-
             </div>
-    <div role="tabpanel" class="tab-pane" id="questionub">
+    <div role="tabpanel" class="tab-pane" id="questionsub">
 <h4>Submitting Questions</h4>
-<p>When submitting Questions you will use the <code>QuestionSubmission</code> class to build your POST request. For a <code>QuestionSubmission</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Questions. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Questions. Reference <code>QuestionSubmission.java</code> for the other request values you can set.</p>
-<pre><code>QuestionSubmission submission = new QuestionSubmission.Builder(Action.Submit,productId)
-                .userNickname(userNickname)
-                .questionDetails(questionDetails)
-                .questionSummary(questionSummary)
-                .agreedToTermsAndConditions(agreedToTC)
-                .build();</code></pre>
-<p>Once the QuestionSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+<p>
+  To submit content, form the proper <code>ConversationsSubmissionRequest</code> subclass,
+  and send it through the <code>BVConversationsClient</code>.
+</p>
+<pre><code>QuestionSubmissionRequest previewSubmission = new QuestionSubmissionRequest
+  .Builder(Action.Preview, productId)
+  .userNickname(userNickname)
+  .questionDetails(questionDetails)
+  .questionSummary(questionSummary)
+  .agreedToTermsAndConditions(agreedToTC)
+  .build();
 
-<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;QuestionSubmissionResponse&gt;() {
-    @Override
-    public void onSuccess(QuestionSubmissionResponse response) {
+BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;QuestionSubmissionResponse&gt;() {
+  @Override
+  public void onSuccess(QuestionSubmissionResponse response) {
+    FormData formData = response.getFormData(); // To view required/optional form fields
+    boolean hasErrors = response.getHasErrors(); // If form data was not sent correctly, or some other backend processing issues exist
+    FormError formErrors = response.getFormErrors(); // Object containing the form errors
+    List&lt;Error&gt; genericBvErrors = response.getErrors(); // Object containing the other backend processing issues
 
-    }
-
-    @Override
-    public void onFailure(BazaarException exception) {
-
-    }
+    // If hasErrors is false, then the submission succeeded
+    // Make sure to send with Action.SUBMIT for it to fully complete
+  }
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
-<pre><code>try {
-    QuestionSubmissionResponse response = client.prepareCall(submission).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-
                     </div>
     <div role="tabpanel" class="tab-pane" id="answersub">
 <h4>Submitting Answers</h4>
-<p>When submitting Answers you will use the <code>AnswerSubmission</code> class to build your POST request. For a <code>AnswerSubmission</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Answers. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Answers. Reference <code>AnswerSubmission.java</code> for the other request values you can set.</p>
-<pre><code>AnswerSubmission submission = new AnswerSubmission.Builder(Action.Submit, questionId, answerText)
-                            .userNickname(userNickname)
-                            .build();</code></pre>
-<p>Once the AnswerSubmission is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+<p>
+  To submit content, form the proper <code>ConversationsSubmissionRequest</code> subclass,
+  and send it through the <code>BVConversationsClient</code>.
+</p>
+<pre><code>AnswerSubmissionRequest previewSubmission = new AnswerSubmissionRequest
+  .Builder(Action.Preview, questionId, answerText)
+  .userNickname(userNickname)
+  .build();
 
-<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;AnswerSubmissionResponse&gt;() {
-    @Override
-    public void onSuccess(AnswerSubmissionResponse response) {
+BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;AnswerSubmissionResponse&gt;() {
+  @Override
+  public void onSuccess(AnswerSubmissionResponse response) {
+    FormData formData = response.getFormData(); // To view required/optional form fields
+    boolean hasErrors = response.getHasErrors(); // If form data was not sent correctly, or some other backend processing issues exist
+    FormError formErrors = response.getFormErrors(); // Object containing the form errors
+    List&lt;Error&gt; genericBvErrors = response.getErrors(); // Object containing the other backend processing issues
 
-    }
-
-    @Override
-    public void onFailure(BazaarException exception) {
-
-    }
+    // If hasErrors is false, then the submission succeeded
+    // Make sure to send with Action.SUBMIT for it to fully complete
+  }
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
-<pre><code>try {
-    AnswerSubmissionResponse response = client.prepareCall(submission).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-
     </div>
     <div role="tabpanel" class="tab-pane" id="feedbacksub">
 <h4>Submitting Feedback</h4>
-<p>When submitting Feedback you will use the <code>FeedbackSubmissionRequest</code> class to build your POST request. For a <code>FeedbackSubmissionRequest</code> you will use its <code>Builder</code> class to add the desired request parameters. The <code>Builder</code> constructor contains the minimum required fields to submit Feedback. Note that required fields are at a per client basis, so the contructor fields may not be all required fields. You may experience errors relating to missing fields which will be represented as a <code>BazaarException</code>. The <code>Builder</code> also has the optional fields that are valid for submitting Feedback. Reference <code>FeedbackSubmissionRequest.java</code> for the other request values you can set.</p>
-<pre><code>FeedbackSubmission submission = new FeedbackSubmission.Builder(contentId)
-                .feedbackType(FeedbackType.HELPFULNESS) // You can also flag for inappropriateness.
-                .feedbackContentType(FeedbackContentType.REVIEW)
-                .feedbackVote(FeedbackVoteType.POSITIVE)
-                .userId(theUserId)
-                .userNickname(userNickname)
-                .build();</code></pre>
-<p>Once the FeedbackSubmissionRequest is created you will use your instance of <code>BVConversationsClient</code> to Submit the content</p>
+<p>
+  To submit content, form the proper <code>ConversationsSubmissionRequest</code> subclass,
+  and send it through the <code>BVConversationsClient</code>.
+</p>
+<pre><code>FeedbackSubmissionRequest previewSubmission = new FeedbackSubmissionRequest
+  .Builder(contentId)
+  .feedbackType(FeedbackType.HELPFULNESS) // You can also flag for inappropriateness.
+  .feedbackContentType(FeedbackContentType.REVIEW)
+  .feedbackVote(FeedbackVoteType.POSITIVE)
+  .userId(theUserId)
+  .userNickname(userNickname)
+  .build();
 
-<p>Submissions can be processed asynchronously as follows. Note callbacks will be performed on the Main Thread (UI Thread)</p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
-client.prepareCall(submission).loadAsync(new ConversationsCallback&lt;FeedbackSubmissionResponse&gt;() {
-    @Override
-    public void onSuccess(FeedbackSubmissionResponse response) {
+BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;FeedbackSubmissionResponse&gt;() {
+  @Override
+  public void onSuccess(FeedbackSubmissionResponse response) {
+    FormData formData = response.getFormData(); // To view required/optional form fields
+    boolean hasErrors = response.getHasErrors(); // If form data was not sent correctly, or some other backend processing issues exist
+    FormError formErrors = response.getFormErrors(); // Object containing the form errors
+    List&lt;Error&gt; genericBvErrors = response.getErrors(); // Object containing the other backend processing issues
 
-    }
-
-    @Override
-    public void onFailure(BazaarException exception) {
-
-    }
+    // If hasErrors is false, then the submission succeeded
+    // Make sure to send with Action.SUBMIT for it to fully complete
+  }
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
 });</code></pre>
-<p>If you prefer to handle your own concurrecy then requests may also be processed synchronously as follows.</p>
-<pre><code>try {
-    FeedbackSubmissionResponse response = client.prepareCall(submission).loadSync();
-} catch (BazaarException e) {
-    e.printStackTrace();
-}</code></pre>
-
     </div>
 </div>
+<br/>
+
+<div class="tab-content code-switcher">
+  <div role="tabpanel" class="pane active" id="formparsing">
+    <h4>Parsing Form Data</h4>
+<p>
+  Form Data can be accessed in the onSuccess callback for any <code>ConversationsSubmissionRequest</code>
+  with <code>Action.Preview</code>. It will contain a list of all the form fields, with the keys that you need
+  for a request, and a boolean for whether it is a required field or not, as well as other important metadata.
+</p>
+<p>
+  For more information on how the API processes Form Data please see:
+  <a href="https://developer.bazaarvoice.com/conversations-api/getting-started/submission-fundamentals#1.-request-form-information">Submission Fundamentals: Request Form Information</a>
+</p>
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;&gt;() {
+  @Override
+  public void onSuccess( response) {
+    FormData formData = response.getFormData(); // To view required/optional form fields
+    Map&lt;String, FormField> formFieldMap = formData.getFormFieldMap();
+    for (Map.Entry&lt;String, FormField&gt; fieldEntry : formFieldMap.entrySet()) {
+      String key = fieldEntry.getKey(); // Name of the key that must be used for submission
+      FormField formField = fieldEntry.getValue(); // Field containing metadata
+      boolean isRequired = formField.isRequired(); // Whether this field is required or optional
+    }
+  }
+
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
+});</code></pre>
+  </div>
+</div>
+<br/>
 
 
 
