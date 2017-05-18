@@ -90,6 +90,10 @@ public final class BVConversationsClient {
         return createCall(AuthorsResponse.class, request);
     }
 
+    public LoadCallDisplay<CommentsRequest, CommentsResponse> prepareCall(CommentsRequest request) {
+        return createCall(CommentsResponse.class, request);
+    }
+
     public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
         void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
     }

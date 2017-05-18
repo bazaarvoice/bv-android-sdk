@@ -4,6 +4,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.comments.DemoCommentsActivity;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -68,13 +70,14 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         Integer helpfulVoteCount = bazaarReview.getTotalPositiveFeedbackCount();
         Integer notHelpfulVoteCount = bazaarReview.getTotalNegativeFeedbackCount();
         String authorId = bazaarReview.getAuthorId();
+        int commentCount = bazaarReview.getTotalCommentCount();
 
         populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location,
-                submissionDate, nickName, photos, helpfulVoteCount, notHelpfulVoteCount, authorId);
+                submissionDate, nickName, photos, helpfulVoteCount, notHelpfulVoteCount, authorId, commentCount);
     }
 
     void populateViewHolder(final ReviewType reviewItem, final ReviewRowViewHolder viewHolder, String title, String reviewText, Integer rating, String location,
-                            Date submissionDate, final String nickName, List<Photo> photos, final Integer helpfulVoteCount, final Integer notHelpfulVoteCount, final String authorId) {
+                            Date submissionDate, final String nickName, List<Photo> photos, final Integer helpfulVoteCount, final Integer notHelpfulVoteCount, final String authorId, int commentCount) {
 
         viewHolder.reviewTitle.setText(title);
         viewHolder.reviewBody.setText(reviewText);
@@ -101,6 +104,26 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
                 }
             });
 
+        }
+
+        if (commentCount > 0) {
+            viewHolder.commentsButton.setVisibility(View.VISIBLE);
+            String commentCountTemplate = viewHolder.commentsButton.getResources().getString(R.string.conv_comments_count);
+            String commentCountStr = String.format(commentCountTemplate, commentCount);
+            viewHolder.commentsButton.setText(commentCountStr);
+            viewHolder.commentsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context activityContext = viewHolder.commentsButton.getContext();
+                    Activity activity = (Activity) activityContext;
+                    if (activity != null && !activity.isFinishing()) {
+                        DemoCommentsActivity.transitionToCommentsActivity(activity, reviewItem.getId(), false);
+                    }
+                }
+            });
+        } else {
+            viewHolder.commentsButton.setVisibility(View.GONE);
+            viewHolder.commentsButton.setOnClickListener(null);
         }
 
         boolean hasLocation = !TextUtils.isEmpty(location) && !location.equals("null");
@@ -232,7 +255,7 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         TextView reviewTitle, reviewTimeAgo, reviewLocation, reviewBody;
         RatingBar reviewRating;
         ImageView reviewImage;
-        Button helpfulButton, notHelpfulButton;
+        Button helpfulButton, notHelpfulButton, commentsButton;
         TextView helpfulTextHeader;
 
         public ReviewRowViewHolder(View itemView) {
@@ -245,6 +268,7 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
             reviewImage = (ImageView) itemView.findViewById(R.id.review_header_info_image);
             helpfulButton = (Button) itemView.findViewById(R.id.helpfulButton);
             notHelpfulButton = (Button) itemView.findViewById(R.id.notHelpfulButton);
+            commentsButton = (Button) itemView.findViewById(R.id.commentsButton);
             helpfulTextHeader = (TextView) itemView.findViewById(R.id.helpfulTextView);
         }
     }

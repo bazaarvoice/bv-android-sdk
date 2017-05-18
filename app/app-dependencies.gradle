@@ -29,7 +29,7 @@ ext {
     ]
 
     demoAppBuildDep = [
-        androidPlugin       : 'com.android.tools.build:gradle:2.3.0',
+        androidPlugin       : 'com.android.tools.build:gradle:2.3.2',
         crashlyticsPlugin   : 'io.fabric.tools:gradle:1.21.6',
     ]
 

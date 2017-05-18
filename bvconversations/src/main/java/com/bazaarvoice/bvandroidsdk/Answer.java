@@ -22,7 +22,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Answer for a {@link Question} about a CGC item.
  */
-public class Answer extends IncludedContentBase {
+public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
     @SerializedName("QuestionId")
     private String questionId;
     @SerializedName("AnswerText")

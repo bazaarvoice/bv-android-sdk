@@ -1,11 +1,11 @@
 package com.bazaarvoice.bvandroidsdk;
 
-public enum ReviewIncludeType implements IncludeType {
-  PRODUCTS("products"), COMMENTS("comments");
+public enum CommentIncludeType implements IncludeType {
+  PRODUCTS("products"), REVIEWS("reviews"), AUTHORS("authors");
 
   private String value;
 
-  ReviewIncludeType(String value) {
+  CommentIncludeType(String value) {
     this.value = value;
   }
 
@@ -13,4 +13,5 @@ public enum ReviewIncludeType implements IncludeType {
   public String toString() {
     return value;
   }
+
 }

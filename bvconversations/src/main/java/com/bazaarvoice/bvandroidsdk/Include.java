@@ -22,25 +22,24 @@ package com.bazaarvoice.bvandroidsdk;
  * be included in a conversations response
  */
 class Include {
+  private final IncludeType type;
+  private final int limit;
 
-    private final PDPContentType type;
-    private final Integer limit;
+  Include(IncludeType type, int limit) {
+    this.type = type;
+    this.limit = limit;
+  }
 
-    Include(PDPContentType type, Integer limit) {
-        this.type = type;
-        this.limit = limit;
-    }
+  @Override
+  public String toString() {
+    return type.toString();
+  }
 
-    @Override
-    public String toString() {
-        return type.toString();
-    }
+  String getLimitParamKey() {
+    return String.format("Limit_%s", type.toString());
+  }
 
-    String getLimitParamKey() {
-        return String.format("Limit_%s", this.type.toString());
-    }
-
-    Integer getLimit() {
-        return this.limit;
-    }
+  int getLimit() {
+    return limit;
+  }
 }

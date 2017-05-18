@@ -87,6 +87,10 @@
             android:label="@string/title_activity_answers"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+          android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.comments.DemoCommentsActivity"
+          android:label="@string/title_activity_comments"
+          android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name="com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity"
             android:label="@string/title_activity_bulkratings"
             android:theme="@style/AppTheme.NoActionBar"/>

@@ -72,9 +72,7 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     }
 
     for (Include include : includes) {
-      if (include.getLimit() != null) {
         httpUrlBuilder.addQueryParameter(include.getLimitParamKey(), String.valueOf(include.getLimit()));
-      }
     }
 
     if (!statistics.isEmpty()) {

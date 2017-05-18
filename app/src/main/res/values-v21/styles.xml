@@ -10,6 +10,7 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/bv_black_1</item>
         <item name="android:textColorSecondary">@color/bv_gray_2</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -27,5 +28,6 @@
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:textColorPrimary">@color/bv_black_1</item>
         <item name="android:textColorSecondary">@color/bv_gray_2</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 </resources>

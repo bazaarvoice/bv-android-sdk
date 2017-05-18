@@ -180,9 +180,10 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
 
         private transient Product product;
 
+        @Nullable
         public Product getProduct() {
 
-            if (this.product == null && super.getIncludedIn() != null && super.getIncludedIn().getItems() != null) {
+            if (this.product == null && super.getIncludedIn() != null && super.getIncludedIn().getItemMap() != null) {
                 this.product = (Product) getIncludedIn().getItemMap().get(productId);
             }
 

@@ -133,6 +133,17 @@
                 android:layout_toRightOf="@+id/helpfulButton"
                 android:layout_toEndOf="@+id/helpfulButton"
                 android:layout_below="@+id/helpfulTextView" />
+
+            <Button
+              android:id="@+id/commentsButton"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:layout_alignParentRight="true"
+              android:layout_alignParentBottom="true"
+              android:layout_marginTop="19dp"
+              android:text="@string/conv_comments_count"
+              android:visibility="gone"/>
         </RelativeLayout>
 
 

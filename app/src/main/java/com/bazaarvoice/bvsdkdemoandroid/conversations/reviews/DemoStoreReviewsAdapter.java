@@ -35,7 +35,8 @@ public class DemoStoreReviewsAdapter extends DemoReviewsAdapter<StoreReview> {
         String nickName = bazaarReview.getUserNickname();
         List<Photo> photos = bazaarReview.getPhotos();
         String authorId = bazaarReview.getAuthorId();
+        int commentCount = bazaarReview.getTotalCommentCount();
 
-        populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos, -1, -1, authorId);
+        populateViewHolder(bazaarReview, viewHolder, title, reviewText, rating, location, submissionDate, nickName, photos, -1, -1, authorId, commentCount);
     }
 }

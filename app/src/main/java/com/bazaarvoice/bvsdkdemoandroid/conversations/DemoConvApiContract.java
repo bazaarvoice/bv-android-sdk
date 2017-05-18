@@ -24,6 +24,7 @@ public interface DemoConvApiContract {
     DISPLAY_PDP("Display PDP"),
     DISPLAY_BULK_RATINGS("Display Bulk Ratings"),
     DISPLAY_AUTHOR("Display Author"),
+    DISPLAY_COMMENTS("Display Comments"),
     SUBMIT_REVIEW("Submit Review"),
     SUBMIT_QUESTION("Submit Question"),
     SUBMIT_ANSWER("Submit Answer"),
@@ -46,6 +47,8 @@ public interface DemoConvApiContract {
         return DISPLAY_BULK_RATINGS;
       } else if (input.equals(DISPLAY_AUTHOR.getMethod())) {
         return DISPLAY_AUTHOR;
+      } else if (input.equals(DISPLAY_COMMENTS.getMethod())) {
+        return DISPLAY_COMMENTS;
       } else if (input.equals(SUBMIT_REVIEW.getMethod())) {
         return SUBMIT_REVIEW;
       } else if (input.equals(SUBMIT_QUESTION.getMethod())) {

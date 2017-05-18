@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ public class ConversationsUnitTest extends BVBaseTest{
             .addSort(ReviewOptions.Sort.IsFeatured, SortOrder.DESC)
             .addAdditionalField(customKey, customValue)
             .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .addIncludeContent(ReviewIncludeType.COMMENTS)
             .build();
         String actualUrlStr = request.toHttpUrl().toString();
 
@@ -71,7 +73,7 @@ public class ConversationsUnitTest extends BVBaseTest{
                 .replaceAll("\\+", "%20"),
             limit,
             offset,
-            "products",
+            "products,comments",
             "IsFeatured:desc");
 
         assertEquals(expectedStr, actualUrlStr);
@@ -81,6 +83,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void basicReviewDisplayRequest() {
         ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0)
             .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .addIncludeContent(ReviewIncludeType.COMMENTS)
             .build();
         HttpUrl httpUrl = request.toHttpUrl();
         assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
@@ -91,6 +94,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void basicStoreReviewDisplayRequest() {
         StoreReviewsRequest request = new StoreReviewsRequest.Builder("product123", 20, 0)
             .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .addIncludeContent(ReviewIncludeType.COMMENTS)
             .build();
         HttpUrl httpUrl = request.toHttpUrl();
         assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
@@ -109,6 +113,13 @@ public class ConversationsUnitTest extends BVBaseTest{
         ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder("product123").build();
         HttpUrl httpUrl = request.toHttpUrl();
         assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
+    }
+
+    @Test
+    public void basicCommentsDisplayRequest() {
+        CommentsRequest request = new CommentsRequest.Builder("review123", 20, 0).build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.toString().contains("https://examplesite/data/reviewcomments.json"));
     }
 
     @Test
@@ -192,6 +203,17 @@ public class ConversationsUnitTest extends BVBaseTest{
                 .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
+    }
+
+    @Test
+    public void testReviewsRequestIncludes() {
+        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 20 , 0)
+            .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .addIncludeContent(ReviewIncludeType.COMMENTS)
+            .build();
+
+        String requestUrl = request.toHttpUrl().toString();
+        assertTrue(requestUrl.contains("Include=products,comments"));
     }
 
     @Test
@@ -321,6 +343,33 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals("bazaarvoice", firstReview.getSyndicatedSource().getName());
         assertEquals("https://foo.com/hihowareyou.png", firstReview.getSyndicatedSource().getLogoImageUrl());
 
+    }
+
+    @Test
+    public void testReviewsForCommentsParsing() {
+        ReviewResponse response = testParsing("reviews_include_comments.json", ReviewResponse.class);
+        Review review = response.getResults().get(0);
+        List<Comment> comments = review.getComments();
+        Comment firstComment = comments.get(0);
+
+        assertEquals("338201", firstComment.getId());
+        assertEquals("16970457", firstComment.getReviewId());
+        assertEquals("data-gen-user-poaouvr127us1ijhpafkfacb9", firstComment.getAuthorId());
+        assertEquals("ferdinand255", firstComment.getUserNickname());
+        assertEquals("Proin accumsan tempor orci, nec condimentum enim malesuadaet.", firstComment.getCommentText());
+        assertEquals("Aliquam lacinia auctoraccumsan.", firstComment.getTitle());
+
+        Date submissionDate = firstComment.getSubmissionDate();
+    }
+
+    @Test
+    public void testCommentsForReviewParsing() {
+        CommentsResponse response = testParsing("comments_for_review.json", CommentsResponse.class);
+        Comment firstComment = response.getResults().get(0);
+        assertEquals("338201", firstComment.getId());
+        assertEquals("ferdinand255", firstComment.getUserNickname());
+        assertEquals("Proin accumsan tempor orci, nec condimentum enim malesuadaet.\n\nMaecenas sagittis, purus ac pulvinar dignissim, urna lacus lobortis elit, ac mollis magna elit velest.", firstComment.getCommentText());
+        assertEquals(Integer.valueOf(9), firstComment.getTotalFeedbackCount());
     }
 
     @Test
