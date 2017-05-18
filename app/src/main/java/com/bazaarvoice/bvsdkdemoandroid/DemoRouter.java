@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.comments.DemoCommentsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
@@ -103,5 +104,9 @@ public class DemoRouter {
 
     public void transitionToAuthorActivity(String authorId) {
         DemoAuthorActivity.transitionTo(currentActivityContext, authorId);
+    }
+
+    public void transitionToCommentsActivity(String contentId, boolean isCommentId) {
+        DemoCommentsActivity.transitionToCommentsActivity(currentActivityContext, contentId, isCommentId);
     }
 }

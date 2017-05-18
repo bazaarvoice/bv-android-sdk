@@ -20,7 +20,7 @@ package com.bazaarvoice.bvandroidsdk;
 /**
  * Enum used to include certain content or statistics
  */
-public enum PDPContentType {
+public enum PDPContentType implements IncludeType {
     Reviews("Reviews"),
     Questions("Questions"),
     Answers("Answers");

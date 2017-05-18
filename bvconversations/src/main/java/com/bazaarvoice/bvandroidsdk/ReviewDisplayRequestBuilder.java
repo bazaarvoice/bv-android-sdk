@@ -31,11 +31,12 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected final int limit;
   protected final int offset;
   protected String searchPhrase;
-  protected ReviewIncludeType reviewIncludeType;
+  protected List<ReviewIncludeType> reviewIncludeTypes;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
     super();
     this.sorts = new ArrayList<>();
+    this.reviewIncludeTypes = new ArrayList<>();
     this.limit = limit;
     this.offset = offset;
     addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
@@ -43,7 +44,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   }
 
   public BuilderType addIncludeContent(ReviewIncludeType reviewIncludeType) {
-    this.reviewIncludeType = reviewIncludeType;
+    this.reviewIncludeTypes.add(reviewIncludeType);
     return (BuilderType) this;
   }
 

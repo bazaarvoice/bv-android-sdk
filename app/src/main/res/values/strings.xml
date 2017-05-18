@@ -29,6 +29,7 @@
     <string name="title_activity_product_stats">Product Review Stats</string>
     <string name="title_activity_questions">Product Questions</string>
     <string name="title_activity_answers">Product Answers</string>
+    <string name="title_activity_comments">Comments</string>
     <string name="title_activity_curations_map">Curations Photo Map</string>
     <string name="title_activity_curations_feed">Curations Feed</string>
     <string name="title_activity_curations_detail">Curations Detail</string>
@@ -76,6 +77,7 @@
     <string name="question_body_hint">Ask a question</string>
     <string name="answer_body_hint">Answer a question</string>
 
+    <string name="conv_comments_count">Comments (%d)</string>
     <string name="conv_reviews_photos">"%1$d Reviews</string>
     <string name="conv_questions">"%1$d Questions, %2$d Answers"</string>
     <string name="conv_answers">"Read %s Answers"</string>
@@ -84,7 +86,7 @@
     <string name="no_curations_found">No social content to show - upload your own photo</string>
     <string name="demo_sdk_not_configured">BVSDK not configured!</string>
     <string name="demo_need_curations_key">You need to add your Curations API key and Client ID to test this feature.</string>
-    <string name="answer_found_helpful">"%1$s of %2$s users found this answer helpful"</string>
+    <string name="answer_found_helpful">"%1$d of %2$d users found this answer helpful"</string>
     <string name="title_activity_demo_curations_maps">Map</string>
     <string name="curations_map_subtitle_template">"via %1$s"</string>
     <string name="last_loc_event_template">"Last Location Event: %s"</string>

@@ -17,6 +17,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -26,75 +29,86 @@ import java.util.Map;
 /**
  * Common options for included Product and Review
  *
- * @param <P> Product Type
- * @param <R> Review Type
+ * @param <ProductType> Product Type
+ * @param <ReviewType> Review Type
  */
-class ConversationsInclude<P extends BaseProduct, R extends BaseReview> {
-    @SerializedName("Products")
-    private Map<String, P> itemMap;
-    @SerializedName("Answers")
-    private Map<String, Answer> answerMap;
-    @SerializedName("Questions")
-    private Map<String, Question> questionMap;
-    @SerializedName("Reviews")
-    private Map<String, R> reviewMap;
+class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends BaseReview> {
+  @SerializedName("Products") private Map<String, ProductType> itemMap;
+  @SerializedName("Answers") private Map<String, Answer> answerMap;
+  @SerializedName("Questions") private Map<String, Question> questionMap;
+  @SerializedName("Reviews") private Map<String, ReviewType> reviewMap;
+  @SerializedName("Comments") private Map<String, Comment> commentMap;
 
-    private transient List<P> items;
-    private transient List<Answer> answers;
-    private transient List<Question> questions;
-    private transient List<R> reviews;
+  private transient List<ProductType> items;
+  private transient List<Answer> answers;
+  private transient List<Question> questions;
+  private transient List<ReviewType> reviews;
+  private transient List<Comment> comments;
 
-    protected Map<String, P> getItemMap() {
-        return itemMap;
+  protected Map<String, ProductType> getItemMap() {
+    return itemMap;
+  }
+
+  protected Map<String, Answer> getAnswerMap() {
+    return answerMap;
+  }
+
+  protected Map<String, Question> getQuestionMap() {
+    return questionMap;
+  }
+
+  protected Map<String, ReviewType> getReviewMap() {
+    return reviewMap;
+  }
+
+  protected Map<String, Comment> getCommentMap() {
+    return commentMap;
+  }
+
+  protected List<ReviewType> getReviewsList() {
+    if (reviews == null) {
+      reviews = processContent(reviewMap);
     }
+    return reviews;
+  }
 
-    protected Map<String, Answer> getAnswerMap() {
-        return answerMap;
+  public List<Question> getQuestions() {
+    if (questions == null) {
+      questions = processContent(questionMap);
     }
+    return questions;
+  }
 
-    protected Map<String, Question> getQuestionMap() {
-        return questionMap;
+  protected List<ProductType> getItems() {
+    if (items == null) {
+      this.items = processContent(itemMap);
     }
+    return this.items;
+  }
 
-    protected Map<String, R> getReviewMap() {
-        return reviewMap;
+  public List<Answer> getAnswers() {
+    if (answers == null) {
+      answers = processContent(answerMap);
     }
+    return answers;
+  }
 
-    protected List<R> getReviewsList() {
-        if (this.reviews == null && this.reviewMap != null) {
-            this.reviews = processContent(this.reviewMap);
-        }
-        return reviews;
+  protected List<Comment> getComments() {
+    if (comments == null) {
+      comments = processContent(commentMap);
     }
+    return comments;
+  }
 
-    public List<Question> getQuestions() {
-        if (this.questions == null && this.questionMap != null) {
-            this.questions = processContent(this.questionMap);
-        }
-        return this.questions;
+  @NonNull
+  private <ContentType extends IncludeableContent> List<ContentType> processContent(@Nullable Map<String, ContentType> contents) {
+    List<ContentType> contentList = new ArrayList<>();
+    if (contents != null) {
+      for (ContentType content : contents.values()) {
+        content.setIncludedIn(this);
+        contentList.add(content);
+      }
     }
-
-    protected List<P> getItems() {
-        if (this.items == null && this.itemMap != null) {
-            this.items = processContent(this.itemMap);
-        }
-        return this.items;
-    }
-
-    public List<Answer> getAnswers() {
-        if (this.answers == null && this.answerMap != null) {
-            this.answers = processContent(this.answerMap);
-        }
-        return this.answers;
-    }
-
-    private <T extends IncludeableContent> List<T> processContent(Map<String, T> contents) {
-        List<T> contentList = new ArrayList<>();
-        for (T content : contents.values()) {
-            content.setIncludedIn(this);
-            contentList.add(content);
-        }
-
-        return contentList;
-    }
+    return contentList;
+  }
 }

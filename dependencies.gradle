@@ -23,7 +23,7 @@ ext {
     ]
 
     sdkBuildDep = [
-        androidPlugin       : 'com.android.tools.build:gradle:2.3.0',
+        androidPlugin       : 'com.android.tools.build:gradle:2.3.2',
         credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
         playServicesPlugin  : 'com.google.gms:google-services:3.0.0',
         jacocoPlugin        : 'com.dicedmelon.gradle:jacoco-android:0.1.1'

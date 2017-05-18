@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * Common Review attributes
  */
-public abstract class BaseReview extends IncludedContentBase.ProductIncludedContentBase{
+public abstract class BaseReview extends IncludedContentBase.ProductIncludedContentBase {
     @SerializedName("TagDimensions")
     private Map<String, DimensionElement> tagDimensions;
     @SerializedName("Cons")
@@ -123,4 +123,7 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
         return commentIds;
     }
 
+    public List<Comment> getComments() {
+        return getIncludedIn().getComments();
+    }
 }

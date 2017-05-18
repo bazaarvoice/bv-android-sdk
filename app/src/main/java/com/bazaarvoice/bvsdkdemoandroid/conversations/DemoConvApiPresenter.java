@@ -87,6 +87,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         view.showRequiredIdTitle("Question Id");
         break;
       }
+      case DISPLAY_COMMENTS:
       case SUBMIT_FEEDBACK: {
         view.showRequiredIdTitle("Review Id");
         break;
@@ -126,6 +127,10 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
       }
       case DISPLAY_AUTHOR: {
         demoRouter.transitionToAuthorActivity(requiredId);
+        break;
+      }
+      case DISPLAY_COMMENTS: {
+        demoRouter.transitionToCommentsActivity(requiredId, false);
         break;
       }
       case SUBMIT_REVIEW: {

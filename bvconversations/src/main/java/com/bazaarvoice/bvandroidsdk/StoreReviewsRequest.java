@@ -34,7 +34,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
   private final int offset;
   private final List<Sort> sorts;
   private final String searchPhrase;
-  private final ReviewIncludeType reviewIncludeType;
+  private final List<ReviewIncludeType> reviewIncludeTypes;
 
   private StoreReviewsRequest(Builder builder) {
     super(builder);
@@ -43,7 +43,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
     offset = builder.offset;
     sorts = builder.sorts;
     searchPhrase = builder.searchPhrase;
-    this.reviewIncludeType = builder.reviewIncludeType;
+    this.reviewIncludeTypes = builder.reviewIncludeTypes;
   }
 
   String getStoreId() {
@@ -66,8 +66,8 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
     return searchPhrase;
   }
 
-  ReviewIncludeType getReviewIncludeType() {
-    return reviewIncludeType;
+  List<ReviewIncludeType> getReviewIncludeTypes() {
+    return reviewIncludeTypes;
   }
 
   @Override
@@ -96,8 +96,9 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
         .addQueryParameter(kLIMIT, String.valueOf(limit))
         .addQueryParameter(kOFFSET, String.valueOf(offset));
 
-    if (reviewIncludeType != null) {
-      httpUrlBuilder.addQueryParameter(kINCLUDE, reviewIncludeType.toString());
+    if (!reviewIncludeTypes.isEmpty()) {
+      String includeStr = StringUtils.componentsSeparatedBy(reviewIncludeTypes, ",");
+      httpUrlBuilder.addQueryParameter(kINCLUDE, includeStr);
     }
 
     if (!sorts.isEmpty()){
