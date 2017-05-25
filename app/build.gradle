@@ -71,6 +71,7 @@ android {
         targetSdkVersion demoAppBuildInfo.targetSdkVersion
         versionCode demoAppVersionCode
         versionName demoAppVersionName
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {

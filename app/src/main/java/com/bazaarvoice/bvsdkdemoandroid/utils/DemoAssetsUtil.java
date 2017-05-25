@@ -59,7 +59,7 @@ public class DemoAssetsUtil {
     File localImageFile = null;
 
     try {
-      InputStream stream = context.getAssets().open("puppy_thumbnail.jpg");
+      InputStream stream = context.getAssets().open(fileName);
       localImageFile = createFileFromInputStream(stream);
 
     } catch (IOException e) {

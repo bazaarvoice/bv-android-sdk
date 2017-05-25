@@ -287,10 +287,13 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
 
     String commentText = "Test comment from Android SDK";
     String commentTitle = "Android SDK";
+    File localImageFile = demoAssetsUtil.parseImageFileFromAssets("bike_shop_photo.png");
+
     CommentSubmissionRequest request = new CommentSubmissionRequest.Builder(submitAction, reviewId, commentText)
         .title(commentTitle)
         .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
         .userNickname("androidsdkUserNick")
+        .addPhoto(localImageFile, "Cute puppy there")
         .build();
 
     bvConversationsClient.prepareCall(request).loadAsync(new ConversationsCallback<CommentSubmissionResponse>() {

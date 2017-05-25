@@ -129,7 +129,7 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
         @Override
         PhotoUpload.ContentType getPhotoContentType() {
             // TODO: Return unsupported?
-            return PhotoUpload.ContentType.Question;
+            return PhotoUpload.ContentType.QUESTION;
         }
     }
 
