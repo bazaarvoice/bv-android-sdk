@@ -53,7 +53,7 @@ class PhotoUpload {
     }
 
     enum ContentType {
-        Review("review"), Question("question"), Answer("answer");
+        REVIEW("review"), QUESTION("question"), ANSWER("answer"), COMMENT("review_comment");
 
         private final String key;
         ContentType(String key) {

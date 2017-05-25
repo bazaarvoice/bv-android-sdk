@@ -120,6 +120,6 @@ abstract class BaseReviewBuilder<ChildBuilderType extends BaseReviewBuilder> ext
 
     @Override
     PhotoUpload.ContentType getPhotoContentType() {
-        return PhotoUpload.ContentType.Review;
+        return PhotoUpload.ContentType.REVIEW;
     }
 }

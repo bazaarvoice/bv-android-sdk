@@ -78,7 +78,7 @@ public class CommentSubmissionRequest extends ConversationsSubmissionRequest {
 
     @Override
     PhotoUpload.ContentType getPhotoContentType() {
-      return null;
+      return PhotoUpload.ContentType.COMMENT;
     }
 
     public CommentSubmissionRequest build() {

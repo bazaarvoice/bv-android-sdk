@@ -104,7 +104,7 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
 
         @Override
         PhotoUpload.ContentType getPhotoContentType() {
-            return PhotoUpload.ContentType.Question;
+            return PhotoUpload.ContentType.QUESTION;
         }
     }
 }

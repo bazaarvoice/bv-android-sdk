@@ -1,151 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white" >
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@android:color/white" >
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@android:color/white"
+      tools:layout_editor_absoluteX="0dp"
+      tools:layout_editor_absoluteY="81dp">
 
-        <RelativeLayout
-            android:id="@+id/review_header_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintRight_creator="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="16dp"
-            tools:layout_constraintLeft_creator="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
+        <TextView
+          android:id="@+id/reviewTitleText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="8dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:textColor="@color/bv_green_2"
+          android:textSize="@dimen/text_size_title"
+          app:layout_constraintEnd_toStartOf="@+id/reviewImage"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="Review Title Here (With some extra words to test long titles)"
+          android:layout_marginRight="8dp"
+          android:layout_marginLeft="16dp"
+          app:layout_constraintHorizontal_bias="0.5"/>
 
-            <RelativeLayout
-                android:id="@+id/review_header_info_text"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content">
+        <TextView
+          android:id="@+id/reviewTimeAgoText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="0dp"
+          android:layout_marginStart="0dp"
+          android:layout_marginTop="8dp"
+          android:textSize="@dimen/text_size_caption"
+          app:layout_constraintEnd_toEndOf="@+id/reviewTitleText"
+          app:layout_constraintStart_toStartOf="@+id/reviewTitleText"
+          app:layout_constraintTop_toBottomOf="@+id/reviewTitleText"
+          tools:text="X Days Ago by User Name"
+          app:layout_constraintHorizontal_bias="0.5"/>
 
-                <TextView
-                    android:id="@+id/review_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_2"
-                    android:textSize="@dimen/text_size_title"
-                    android:textColor="@color/bv_green_2"
-                    tools:text="Review Title Here (With some extra words to test long titles)" />
+        <TextView
+          android:id="@+id/reviewLocationText"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="0dp"
+          android:layout_marginStart="0dp"
+          android:layout_marginTop="8dp"
+          android:textSize="@dimen/text_size_caption"
+          app:layout_constraintEnd_toEndOf="@+id/reviewTimeAgoText"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="@+id/reviewTimeAgoText"
+          app:layout_constraintTop_toBottomOf="@+id/reviewTimeAgoText"
+          tools:text="from Austin, TX"/>
 
-                <TextView
-                    android:id="@+id/review_time_ago"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/review_title"
-                    android:layout_marginBottom="@dimen/margin_2"
-                    android:textSize="@dimen/text_size_caption"
-                    tools:text="X Days Ago by User Name" />
+        <RatingBar
+          android:id="@+id/reviewRatingBar"
+          style="@style/Base.Widget.AppCompat.RatingBar.Small"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="0dp"
+          android:layout_marginStart="0dp"
+          android:layout_marginTop="8dp"
+          android:isIndicator="true"
+          android:numStars="5"
+          android:visibility="visible"
+          app:layout_constraintEnd_toEndOf="@+id/reviewLocationText"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="@+id/reviewLocationText"
+          app:layout_constraintTop_toBottomOf="@+id/reviewLocationText"
+          tools:rating="4.3"/>
 
-                <TextView
-                    android:id="@+id/review_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/review_time_ago"
-                    android:layout_marginBottom="@dimen/margin_2"
-                    android:textSize="@dimen/text_size_caption"
-                    tools:text="from Austin, TX" />
+        <ImageView
+          android:id="@+id/reviewImage"
+          android:layout_width="@dimen/snippet_prod_image_side"
+          android:layout_height="@dimen/snippet_prod_image_side"
+          android:layout_alignParentRight="true"
+          android:layout_marginBottom="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="16dp"
+          android:layout_marginStart="8dp"
+          android:layout_marginTop="8dp"
+          android:visibility="visible"
+          app:layout_constraintBottom_toBottomOf="@+id/reviewRatingBar"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/reviewTitleText"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.0"
+          tools:background="@color/bv_green_1"/>
 
-                <RatingBar
-                    android:id="@+id/review_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/review_location"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    tools:rating="4.3"
-                    style="@style/Base.Widget.AppCompat.RatingBar.Small" />
+        <TextView
+          android:id="@+id/reviewHelpfulText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true"
+          android:layout_marginTop="8dp"
+          android:text="Was this review helpful?"
+          app:layout_constraintEnd_toEndOf="@+id/reviewBodyText"
+          app:layout_constraintStart_toStartOf="@+id/reviewBodyText"
+          app:layout_constraintTop_toBottomOf="@+id/reviewBodyText"
+          app:layout_constraintHorizontal_bias="0.0"/>
 
-            </RelativeLayout>
+        <TextView
+          android:id="@+id/reviewBodyText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:textSize="@dimen/text_size_body_1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/reviewRatingBar"
+          tools:text="@string/bacon_ipsum"
+          app:layout_constraintStart_toStartOf="@+id/reviewRatingBar"
+          app:layout_constraintHorizontal_bias="0.0"
+          android:layout_marginEnd="8dp"/>
 
-            <ImageView
-                android:id="@+id/review_header_info_image"
-                android:layout_width="@dimen/snippet_prod_image_side"
-                android:layout_height="@dimen/snippet_prod_image_side"
-                android:layout_alignRight="@id/review_header_info_text"
-                android:layout_alignParentRight="true"
-                tools:background="@color/bv_green_1" />
+        <ImageView
+          android:id="@+id/thumbsUpImage"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:background="?android:attr/selectableItemBackground"
+          android:padding="12dp"
+          app:layout_constraintTop_toTopOf="@+id/thumbsDownImage"
+          app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+          app:layout_constraintStart_toStartOf="@+id/reviewHelpfulText"
+          android:layout_marginStart="0dp"
+          android:layout_marginLeft="0dp"/>
 
-        </RelativeLayout>
+        <ImageView
+          android:id="@+id/thumbsDownImage"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:layout_marginBottom="0dp"
+          android:layout_marginTop="0dp"
+          android:background="?android:attr/selectableItemBackground"
+          android:padding="12dp"
+          app:layout_constraintBottom_toTopOf="@+id/thumbsDownCountText"
+          app:layout_constraintTop_toBottomOf="@+id/reviewHelpfulText"
+          app:srcCompat="@drawable/ic_thumb_down_black_24dp"
+          app:layout_constraintStart_toEndOf="@+id/thumbsUpImage"
+          android:layout_marginStart="16dp"
+          app:layout_constraintVertical_chainStyle="packed"
+          android:layout_marginLeft="16dp"/>
 
-        <RelativeLayout
-            android:id="@+id/review_footer_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintRight_creator="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/review_header_info"
-            tools:layout_constraintLeft_creator="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
+        <ImageView
+          android:id="@+id/commentsImage"
+          android:layout_width="0dp"
+          android:layout_height="48dp"
+          android:background="?android:attr/selectableItemBackground"
+          android:padding="12dp"
+          app:layout_constraintTop_toTopOf="@+id/thumbsDownImage"
+          app:srcCompat="@drawable/ic_comment_black_24dp"
+          app:layout_constraintEnd_toEndOf="@+id/reviewHelpfulText"
+          android:layout_marginEnd="0dp"
+          android:layout_marginRight="0dp"/>
 
-            <TextView
-                android:id="@+id/review_body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_2"
-                android:textSize="@dimen/text_size_body_1"
-                tools:text="@string/bacon_ipsum" />
+        <TextView
+          android:id="@+id/thumbUpCountText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="0dp"
+          android:layout_marginStart="0dp"
+          android:layout_marginTop="0dp"
+          android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="@+id/thumbsDownCountText"
+          app:layout_constraintEnd_toEndOf="@+id/thumbsUpImage"
+          app:layout_constraintStart_toStartOf="@+id/thumbsUpImage"
+          app:layout_constraintTop_toTopOf="@+id/thumbsDownCountText"
+          tools:text="1234"/>
 
-            <TextView
-                android:text="Was this review helpful?"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/helpfulTextView"
-                android:layout_below="@+id/review_body"
-                android:layout_marginTop="@dimen/margin_2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+        <TextView
+          android:id="@+id/thumbsDownCountText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          android:layout_marginEnd="0dp"
+          android:layout_marginStart="0dp"
+          android:layout_marginTop="0dp"
+          android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="@+id/thumbsDownImage"
+          app:layout_constraintStart_toStartOf="@+id/thumbsDownImage"
+          app:layout_constraintTop_toBottomOf="@+id/thumbsDownImage"
+          tools:text="3"/>
 
-            <Button
-                android:text="Yes (0)"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/helpfulButton"
-                android:layout_alignBottom="@+id/notHelpfulButton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/helpfulTextView" />
-
-            <Button
-                android:text="No (0)"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/notHelpfulButton"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/helpfulButton"
-                android:layout_toEndOf="@+id/helpfulButton"
-                android:layout_below="@+id/helpfulTextView" />
-
-            <Button
-              android:id="@+id/commentsButton"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentEnd="true"
-              android:layout_alignParentRight="true"
-              android:layout_alignParentBottom="true"
-              android:layout_marginTop="19dp"
-              android:text="@string/conv_comments_count"
-              android:visibility="gone"/>
-        </RelativeLayout>
-
+        <TextView
+          android:id="@+id/commentsCountText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="0dp"
+          android:textAlignment="center"
+          app:layout_constraintBottom_toBottomOf="@+id/thumbsDownCountText"
+          app:layout_constraintEnd_toEndOf="@+id/commentsImage"
+          app:layout_constraintStart_toStartOf="@+id/commentsImage"
+          app:layout_constraintTop_toTopOf="@+id/thumbsDownCountText"
+          tools:text="23"/>
 
     </android.support.constraint.ConstraintLayout>
 
