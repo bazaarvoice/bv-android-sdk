@@ -64,12 +64,18 @@ class ConversationsAnalyticsManager {
   void sendSuccessfulConversationsDisplayResponse(ConversationsResponse conversationResponse) {
     if (conversationResponse instanceof ReviewResponse) {
       ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
-      sendUgcImpressionEventReviews(reviewResponse.getResults());
+      sendUgcImpressionEvent(
+          reviewResponse.getResults(),
+          BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
+          BVEventValues.BVImpressionContentType.REVIEW);
       sendReviewsProductPageView(reviewResponse.getResults());
     }
     else if (conversationResponse instanceof StoreReviewResponse) {
       StoreReviewResponse storeReviewResponse = (StoreReviewResponse) conversationResponse;
-      sendUgcImpressionEventStoreReviews(storeReviewResponse.getResults());
+      sendUgcImpressionEvent(
+          storeReviewResponse.getResults(),
+          BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
+          BVEventValues.BVImpressionContentType.STORE_REVIEW);
     }
     else if (conversationResponse instanceof BulkStoreResponse) {
       BulkStoreResponse bulkStoresResponse = (BulkStoreResponse) conversationResponse;
@@ -83,9 +89,17 @@ class ConversationsAnalyticsManager {
     else if (conversationResponse instanceof ProductDisplayPageResponse) {
       ProductDisplayPageResponse productDisplayPageResponse = (ProductDisplayPageResponse) conversationResponse;
       sendPdpProductPageView(productDisplayPageResponse.getResults());
-    } else if (conversationResponse instanceof AuthorsResponse) {
+    }
+    else if (conversationResponse instanceof AuthorsResponse) {
       AuthorsResponse authorsResponse = (AuthorsResponse) conversationResponse;
       sendUsedFeatureDisplayAuthors(authorsResponse);
+    }
+    else if (conversationResponse instanceof CommentsResponse) {
+      CommentsResponse commentsResponse = (CommentsResponse) conversationResponse;
+      sendUgcImpressionEvent(
+          commentsResponse.getResults(),
+          BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
+          BVEventValues.BVImpressionContentType.COMMENT);
     }
   }
 
@@ -204,28 +218,6 @@ class ConversationsAnalyticsManager {
     bvPixel.track(event);
   }
 
-  private void sendUgcImpressionEventReviews(List<Review> reviews) {
-    for (Review review : reviews) {
-      String productId = "", contentId = "";
-      if (review != null) {
-        productId = review.getProductId();
-        contentId = review.getId();
-      }
-      sendUgcImpressionEvent(productId, contentId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, BVEventValues.BVImpressionContentType.REVIEW, null, null);
-    }
-  }
-
-  private void sendUgcImpressionEventStoreReviews(List<StoreReview> reviews) {
-    for (StoreReview review : reviews) {
-      String productId = "", contentId = "";
-      if (review != null) {
-        productId = review.getProductId();
-        contentId = review.getId();
-      }
-      sendUgcImpressionEvent(productId, contentId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, BVEventValues.BVImpressionContentType.STORE_REVIEW, null, null);
-    }
-  }
-
   private void sendUgcImpressionEventStores(List<Store> stores) {
     for (Store store : stores) {
       String productId = "";
@@ -255,6 +247,17 @@ class ConversationsAnalyticsManager {
         }
       }
       sendUgcImpressionEvent(productId, questionId, BVEventValues.BVProductType.CONVERSATIONS_QANDA, BVEventValues.BVImpressionContentType.QUESTION, null, null);
+    }
+  }
+
+  private <CgcType extends IncludedContentBase.ProductIncludedContentBase> void sendUgcImpressionEvent(List<CgcType> cgcItems, BVEventValues.BVProductType bvProductType, BVEventValues.BVImpressionContentType bvImpressionContentType) {
+    for (IncludedContentBase.ProductIncludedContentBase cgcItem : cgcItems) {
+      String productId = "", contentId = "";
+      if (cgcItem != null) {
+        productId = cgcItem.getProductId();
+        contentId = cgcItem.getId();
+      }
+      sendUgcImpressionEvent(productId, contentId, bvProductType, bvImpressionContentType, null, null);
     }
   }
 
