@@ -474,6 +474,9 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Ans
 });</code></pre>
     </div>
     <div role="tabpanel" class="tab-pane" id="feedbacksub">
+
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>   Important: You cannot submit feedback for syndicated content. Make sure to check the <code>IsSyndicated</code> flag before you display your feedback UI. </p>
+      
 <h4>Submitting Feedback</h4>
 <p>
   To submit content, form the proper <code>ConversationsSubmissionRequest</code> subclass,

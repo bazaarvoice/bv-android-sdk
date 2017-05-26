@@ -316,6 +316,7 @@ $(function(){
   <li><a href="#pdp" onclick="navigateTab(this);">Product Display Page Statistics</a></li>
   <li><a href="#reviews" onclick="navigateTab(this);">Reviews</li>
   <li><a href="#questionsanswers" onclick="navigateTab(this);">Questions and Answers</li>
+  <li><a href="#comments" onclick="navigateTab(this);">Comments</li>
   <li><a href="#bulkratings" onclick="navigateTab(this);">Bulk Ratings</a></li>
   <li><a href="#authordisplay" onclick="navigateTab(this);">Author Profile Display</a></li>
 </ol>
@@ -417,6 +418,7 @@ Use a Bazaarvoice ViewGroup class to make all your Conversations Display API req
   <li role="presentation" class="active"><a href="#pdp" aria-controls="pdp" role="tab" data-toggle="tab">Product Display Page</a></li>
 	<li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
 	<li role="presentation"><a href="#questionsanswers" aria-controls="questionsanswers" role="tab" data-toggle="tab">Questions &amp; Answers</a></li>
+  <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
 	<li role="presentation"><a href="#bulkratings" aria-controls="bulkratings" role="tab" data-toggle="tab">Bulk Ratings</a></li>
   <li role="presentation"><a href="#authordisplay" aria-controls="authordisplay" role="tab" data-toggle="tab">Author Profile</a></li>
 </ul>
@@ -629,6 +631,35 @@ questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new Conver
   Each question should be shown using a <code>QuestionView</code>, and each answer
   should be shown using an <code>AnswerView</code>.
 </p>
+
+  </div>
+   <div role="tabpanel" class="tab-pane" id="comments">
+    <h4>Loading Review Comments</h4>
+
+<p>Comments can be loaded either by a single comment ID, or you can load comments by a review ID with limit and offset parameters. Simply construct a <code>CommentsRequest</code> object and choose one of the default constructors provided. The example provided below demonstrate how to fetch a list of comments from a given review ID.</p>
+
+<pre><code>BVConversationsClient client = new BVConversationsClient();
+
+CommentsRequest request = new CommentsRequest.Builder(reviewId, 20, 0)
+        // Add other optional parameters
+        .addSort(CommentOptions.Sort.SUBMISSION_TIME, SortOrder.DESC)
+        .addIncludeContent(CommentIncludeType.PRODUCTS, 99)
+        .addFilter(CommentOptions.Filter.CONTENT_LOCALE, EqualityOperator.EQ, "en_US")
+        .build();
+
+client.prepareCall(request).loadAsync(new ConversationsCallback<CommentsResponse>() {
+  @Override
+  public void onSuccess(CommentsResponse response) {
+    // successful response, get the comments and draw your UI
+  }
+
+  @Override
+  public void onFailure(BazaarException exception) {
+    // add your error handling logic here
+  }
+});</code></pre>
+
+
 
   </div>
   <div role="tabpanel" class="tab-pane" id="bulkratings">
