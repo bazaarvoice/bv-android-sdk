@@ -1,5 +1,10 @@
 # Changelog
 
+# 6.7.0
+
+## Conversations
+* Added ```CommentsRequest``` and ```CommentsResponse```
+
 # 6.6.4
 
 ## Conversations
