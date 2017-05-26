@@ -29,6 +29,7 @@ public class BVEventValues {
     REVIEW("Review"),
     QUESTION("Question"),
     ANSWER("Answer"),
+    COMMENT("Comment"),
     PRODUCT_RECOMMENDATION("Recommendation"),
     CURATIONS_FEED_ITEM("SocialPost"),
     STORE("Store"),
