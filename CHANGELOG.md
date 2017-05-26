@@ -4,6 +4,7 @@
 
 ## Conversations
 * Added ```CommentsRequest``` and ```CommentsResponse```
+* Added ```ReviewIncludeType.COMMENTS``` for ```ReviewsRequest```s
 
 # 6.6.4
 
