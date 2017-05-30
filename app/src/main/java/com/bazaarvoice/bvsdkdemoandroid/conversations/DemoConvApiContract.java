@@ -28,7 +28,8 @@ public interface DemoConvApiContract {
     SUBMIT_REVIEW("Submit Review"),
     SUBMIT_QUESTION("Submit Question"),
     SUBMIT_ANSWER("Submit Answer"),
-    SUBMIT_FEEDBACK("Submit Feedback");
+    SUBMIT_FEEDBACK("Submit Feedback"),
+    SUBMIT_COMMENT("Submit Comment");
 
     private String method;
 
@@ -57,6 +58,8 @@ public interface DemoConvApiContract {
         return SUBMIT_ANSWER;
       } else if (input.equals(SUBMIT_FEEDBACK.getMethod())) {
         return SUBMIT_FEEDBACK;
+      } else if (input.equals(SUBMIT_COMMENT.getMethod())) {
+        return SUBMIT_COMMENT;
       } else {
         throw new IllegalStateException("Not an available API method");
       }

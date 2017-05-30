@@ -11,5 +11,6 @@
     <item>Submit Question</item>
     <item>Submit Answer</item>
     <item>Submit Feedback</item>
+    <item>Submit Comment</item>
   </string-array>
 </resources>

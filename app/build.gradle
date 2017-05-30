@@ -75,7 +75,7 @@ android {
 
     buildTypes {
         NEXUS_USER {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.NEXUS_USER
         }
@@ -99,69 +99,65 @@ android {
 }
 
 dependencies {
-    if (useLocalSdk) {
-        compile project(':bvanalytics')
-        compile project(':bvadvertising')
-        compile project(':bvrecommendations')
-        compile project(':bvconversations')
-        compile project(':bvcurations')
-        compile project(':bvlocation')
-        compile project(':bvpin')
-        compile project(':bvpinnotifications')
-        compile project(':bvstorenotifications')
-        compile project(':bvcurationsui')
-    } else {
-        compile demoAppDep.bvSdkAnalytics
-        compile demoAppDep.bvSdkAds
-        compile demoAppDep.bvSdkRecommendations
-        compile demoAppDep.bvSdkConversations
-        compile demoAppDep.bvSdkCurations
-        compile demoAppDep.bvSdkPin
-        compile demoAppDep.bvSdkPinNotif
-        compile demoAppDep.bvSdkStoreNotif
-        compile demoAppDep.bvSdkCurationsUi
-    }
-
-    compile demoAppDep.picasso
-    compile demoAppDep.picassoDownloader
-    compile demoAppDep.prettyTime
-    compile demoAppDep.appCompatV7
-    compile demoAppDep.designCompat
-    compile demoAppDep.supportV4
-    compile demoAppDep.cardview
-    compile demoAppDep.preferenceV7
-    compile demoAppDep.preferenceV14
-    compile demoAppDep.constraintLayout
-    compile demoAppDep.playServiceAds
-    compile demoAppDep.playServiceMaps
-    compile demoAppDep.playServiceLocation
-    compile demoAppDep.playAppIndexing
-    compile demoAppDep.ddPlist
-    compile demoAppDep.circleIndicator
-    compile demoAppDep.dagger
-    annotationProcessor demoAppDep.daggerProcessor
-    compile demoAppDep.stetho
-    compile demoAppDep.stethoOkhttp3
-    compile demoAppDep.butterknife
-    compile demoAppDep.processPhoenix
-    annotationProcessor demoAppDep.butterknifeCompiler
-
-    // iovation aar dependency
-    // Uncomment the following lines to add iovation support
-    // Make sure the iovation arr is in the app/libs folder
-//    dependencies {
-//        compile fileTree(dir: 'libs', include: ['*.jar'])
-//        compile(name:'deviceprint-NEXUS_USER-2.3.0', ext:'aar')
-//        compile(group:'com.android.support', name:'support-v4', version:'23.0.1')
-//    }
-
-    NEXUS_USERCompile demoAppDep.leakCanaryNoOp
-
-    debugCompile demoAppDep.leakCanary
-    testCompile demoAppTestDep.junit
-    compile(demoAppDep.crashlytics) {
-        transitive = true;
-    }
+  if (useLocalSdk) {
+    compile project(':bvanalytics')
+    compile project(':bvadvertising')
+    compile project(':bvrecommendations')
+    compile project(':bvconversations')
+    compile project(':bvcurations')
+    compile project(':bvlocation')
+    compile project(':bvpin')
+    compile project(':bvpinnotifications')
+    compile project(':bvstorenotifications')
+    compile project(':bvcurationsui')
+  } else {
+    compile demoAppDep.bvSdkAnalytics
+    compile demoAppDep.bvSdkAds
+    compile demoAppDep.bvSdkRecommendations
+    compile demoAppDep.bvSdkConversations
+    compile demoAppDep.bvSdkCurations
+    compile demoAppDep.bvSdkPin
+    compile demoAppDep.bvSdkPinNotif
+    compile demoAppDep.bvSdkStoreNotif
+    compile demoAppDep.bvSdkCurationsUi
+  }
+  compile demoAppDep.picasso
+  compile demoAppDep.picassoDownloader
+  compile demoAppDep.prettyTime
+  compile demoAppDep.appCompatV7
+  compile demoAppDep.designCompat
+  compile demoAppDep.supportV4
+  compile demoAppDep.cardview
+  compile demoAppDep.preferenceV7
+  compile demoAppDep.preferenceV14
+  compile demoAppDep.constraintLayout
+  compile demoAppDep.playServiceAds
+  compile demoAppDep.playServiceMaps
+  compile demoAppDep.playServiceLocation
+//  compile demoAppDep.playAppIndexing
+  compile demoAppDep.ddPlist
+  compile demoAppDep.circleIndicator
+  compile demoAppDep.dagger
+  annotationProcessor demoAppDep.daggerProcessor
+  compile demoAppDep.stetho
+  compile demoAppDep.stethoOkhttp3
+  compile demoAppDep.butterknife
+  compile demoAppDep.processPhoenix
+  annotationProcessor demoAppDep.butterknifeCompiler
+  // iovation aar dependency
+  // Uncomment the following lines to add iovation support
+  // Make sure the iovation arr is in the app/libs folder
+  //    dependencies {
+  //        compile fileTree(dir: 'libs', include: ['*.jar'])
+  //        compile(name:'deviceprint-NEXUS_USER-2.3.0', ext:'aar')
+  //        compile(group:'com.android.support', name:'support-v4', version:'23.0.1')
+  //    }
+  NEXUS_USERCompile demoAppDep.leakCanaryNoOp
+  debugCompile demoAppDep.leakCanary
+  testCompile demoAppTestDep.junit
+  compile(demoAppDep.crashlytics) {
+    transitive = true;
+  }
 }
 
 

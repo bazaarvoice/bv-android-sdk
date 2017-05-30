@@ -5,6 +5,8 @@ import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
+import com.bazaarvoice.bvandroidsdk.CommentSubmissionRequest;
+import com.bazaarvoice.bvandroidsdk.CommentSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionRequest;
@@ -24,6 +26,7 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import java.io.File;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   private final DemoConvApiContract.View view;
@@ -37,7 +40,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   private String requiredId;
 
   @Inject
-  DemoConvApiPresenter(DemoConvApiContract.View view, DemoAssetsUtil demoAssetsUtil, DemoRouter demoRouter, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoConvResponseHandler demoConvResponseHandler, Action submitAction) {
+  DemoConvApiPresenter(DemoConvApiContract.View view, DemoAssetsUtil demoAssetsUtil, DemoRouter demoRouter, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoConvResponseHandler demoConvResponseHandler, Action submitAction, @Named("DefaultRequiredId") String defaultRequiredId) {
     this.view = view;
     this.bvConversationsClient = bvConversationsClient;
     this.demoClient = demoClient;
@@ -46,7 +49,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     this.demoConvResponseHandler = demoConvResponseHandler;
     this.submitAction = submitAction;
     this.convApiMethod = DemoConvApiContract.ConvApiMethod.DISPLAY_REVIEWS;
-    this.requiredId = "test1";
+    this.requiredId = defaultRequiredId;
   }
 
   @Override
@@ -88,6 +91,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         break;
       }
       case DISPLAY_COMMENTS:
+      case SUBMIT_COMMENT:
       case SUBMIT_FEEDBACK: {
         view.showRequiredIdTitle("Review Id");
         break;
@@ -147,6 +151,10 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
       }
       case SUBMIT_FEEDBACK: {
         submitFeedback(requiredId);
+        break;
+      }
+      case SUBMIT_COMMENT: {
+        submitComment(requiredId);
         break;
       }
     }
@@ -265,6 +273,30 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
       @Override
       public void onSuccess(FeedbackSubmissionResponse response) {
         handleSubmissionSuccessResponse(response, "feedback");
+      }
+
+      @Override
+      public void onFailure(BazaarException exception) {
+        handleSubmissionFailureResponse(exception);
+      }
+    });
+  }
+
+  private void submitComment(String reviewId) {
+    view.showProgressWithTitle("Submitting Comment...");
+
+    String commentText = "Test comment from Android SDK";
+    String commentTitle = "Android SDK";
+    CommentSubmissionRequest request = new CommentSubmissionRequest.Builder(submitAction, reviewId, commentText)
+        .title(commentTitle)
+        .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
+        .userNickname("androidsdkUserNick")
+        .build();
+
+    bvConversationsClient.prepareCall(request).loadAsync(new ConversationsCallback<CommentSubmissionResponse>() {
+      @Override
+      public void onSuccess(CommentSubmissionResponse response) {
+        handleSubmissionSuccessResponse(response, "comment");
       }
 
       @Override

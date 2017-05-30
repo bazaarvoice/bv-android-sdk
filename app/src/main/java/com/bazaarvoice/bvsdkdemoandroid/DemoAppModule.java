@@ -35,6 +35,8 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.concurrent.Executors;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -49,7 +51,7 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    Picasso providePicasso(Context context, OkHttpClient okHttpClient) {
+    Picasso providePicasso(@Named("AppContext") Context context, OkHttpClient okHttpClient) {
         return new Picasso.Builder(context)
                 .defaultBitmapConfig(Bitmap.Config.RGB_565)
                 .downloader(new OkHttp3Downloader(okHttpClient))
@@ -82,7 +84,7 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    DemoAssetsUtil provideDemoAssetsUtil(Context context, Gson gson) {
+    DemoAssetsUtil provideDemoAssetsUtil(@Named("AppContext") Context context, Gson gson) {
         return new DemoAssetsUtil(context, gson);
     }
 }
