@@ -29,8 +29,9 @@ import okhttp3.HttpUrl;
 public class BulkStoreRequest extends ConversationsDisplayRequest {
   private final BulkRatingOptions.StatsType statsType;
   private final List<String> storeIds;
-  private int limit;
-  private int offset;
+  private final int limit;
+  private final int offset;
+  private final String apiKey;
 
   private BulkStoreRequest(Builder builder) {
     super(builder);
@@ -38,6 +39,7 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
     storeIds = builder.storeIds;
     limit = builder.limit;
     offset = builder.offset;
+    apiKey = BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores(); // TODO: Inject
   }
 
   @Override
@@ -55,7 +57,7 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
 
   @Override
   protected String getAPIKey(){
-      return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores();
+      return apiKey;
   }
 
   @Override

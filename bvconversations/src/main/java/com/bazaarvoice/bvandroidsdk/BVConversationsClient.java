@@ -118,6 +118,10 @@ public final class BVConversationsClient {
         return createCall(FeedbackSubmissionResponse.class, submission);
     }
 
+    public LoadCallSubmission<CommentSubmissionRequest, CommentSubmissionResponse> prepareCall(CommentSubmissionRequest submission) {
+        return createCall(CommentSubmissionResponse.class, submission);
+    }
+
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType request) {
         HttpUrl httpUrl = request.toHttpUrl();
         BV_LOGGER.d("url", httpUrl.toString());

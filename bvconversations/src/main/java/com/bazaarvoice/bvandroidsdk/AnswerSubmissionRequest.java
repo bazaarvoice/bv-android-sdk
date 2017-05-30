@@ -28,8 +28,11 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
     private static final String kANSWERTEXT = "AnswerText";
     public static final String ANSWER_ENDPOINT = "submitanswer.json";
 
+    private final String apiKey;
+
     private AnswerSubmissionRequest(Builder builder) {
         super(builder);
+        this.apiKey = BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations(); // TODO: Inject
     }
 
     @Override
@@ -49,7 +52,7 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
 
     @Override
     protected String getApiKey() {
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
+        return apiKey;
     }
 
     @Override

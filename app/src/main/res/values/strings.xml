@@ -93,4 +93,5 @@
     <string name="view_all_my_reviews">View All My Reviews</string>
     <string name="author_id_empty_message">Must pick an Author ID to test. Set the variable DemoConversationsAPIFragment#AUTHOR_ID to an author id that exists with the current client+environment</string>
     <string name="no_content_found">No content found</string>
+    <string name="required_id">test1</string>
 </resources>

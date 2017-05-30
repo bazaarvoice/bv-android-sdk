@@ -25,13 +25,15 @@ import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.google.gson.Gson;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class DemoClientConfigModule {
     @Provides @DemoAppScope
-    DemoClientConfigUtils provideDemoConfigUtils(Context context, BazaarEnvironment bazaarEnvironment,
+    DemoClientConfigUtils provideDemoConfigUtils(@Named("AppContext") Context context, BazaarEnvironment bazaarEnvironment,
                                                  DemoMultiTenantSource demoMultiTenantSource,
                                                  DemoSingleTenantSource demoSingleTenantSource, SharedPreferences sharedPrefs) {
         return new DemoClientConfigUtils(

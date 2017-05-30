@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvsdkdemoandroid;
 
+import android.content.Context;
+
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
@@ -59,6 +61,8 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import javax.inject.Named;
+
 import dagger.Component;
 
 @DemoAppScope
@@ -75,6 +79,7 @@ public interface DemoAppComponent {
     DemoAssetsUtil getDemoAssetsUtil();
     DemoConvResponseHandler getConvResponseHandler();
     Action getSubmitAction();
+    @Named("AppContext") Context getAppContext();
 
     void inject(DemoAdFragment adsFragment);
     void inject(DemoAnswersActivity activity);
