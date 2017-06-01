@@ -20,6 +20,7 @@ package com.bazaarvoice.bvsdkdemoandroid.author;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.Author;
+import com.bazaarvoice.bvandroidsdk.AuthorIncludeType;
 import com.bazaarvoice.bvandroidsdk.AuthorsRequest;
 import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
@@ -27,7 +28,6 @@ import com.bazaarvoice.bvandroidsdk.Badge;
 import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
 import com.bazaarvoice.bvandroidsdk.Error;
-import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
@@ -74,10 +74,10 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
         view.showProductsToReview(showPinFeature);
 
         AuthorsRequest request = new AuthorsRequest.Builder(authorId)
-                .addIncludeContent(PDPContentType.Reviews, 1)
+                .addIncludeContent(AuthorIncludeType.REVIEWS, 1)
                 .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
-                .addIncludeStatistics(PDPContentType.Reviews)
-                .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addIncludeContent(AuthorIncludeType.COMMENTS, 1)
+                .addIncludeStatistics(AuthorIncludeType.REVIEWS)
                 .build();
         conversationsClient.prepareCall(request).loadAsync(authorsCb);
     }

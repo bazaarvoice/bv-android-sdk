@@ -32,7 +32,7 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
 
   private final List<Sort> reviewSorts, questionSorts, answerSorts;
   private final List<Include> includes;
-  private final List<PDPContentType> statistics;
+  private final List<IncludeType> statistics;
 
   private AuthorsRequest(Builder builder) {
     super(builder);
@@ -59,7 +59,7 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
     return includes;
   }
 
-  List<PDPContentType> getStatistics() {
+  List<IncludeType> getStatistics() {
     return statistics;
   }
 
@@ -107,7 +107,7 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
   public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
     private final List<Sort> reviewSorts, questionSorts, answerSorts;
     private final List<Include> includes;
-    private final List<PDPContentType> statistics;
+    private final List<IncludeType> statistics;
 
     public Builder(@NonNull String authorId) {
       super();
@@ -134,12 +134,37 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
       return this;
     }
 
+    /**
+     * @deprecated This method works, but the input param is technically of the
+     * wrong type. See {@link #addIncludeContent(AuthorIncludeType, int)} instead
+     *
+     * @param type Type to include
+     * @param limit Limit of type to include
+     * @return this builder object
+     */
     public Builder addIncludeContent(@NonNull PDPContentType type, int limit) {
       this.includes.add(new Include(type, limit));
       return this;
     }
 
+    /**
+     * @deprecated This method works, but the input param is technically of the
+     * wrong type. See {@link #addIncludeStatistics(AuthorIncludeType)} instead
+     *
+     * @param type Type to include
+     * @return this builder object
+     */
     public Builder addIncludeStatistics(@NonNull PDPContentType type) {
+      this.statistics.add(type);
+      return this;
+    }
+
+    public Builder addIncludeContent(@NonNull AuthorIncludeType type, int limit) {
+      this.includes.add(new Include(type, limit));
+      return this;
+    }
+
+    public Builder addIncludeStatistics(@NonNull AuthorIncludeType type) {
       this.statistics.add(type);
       return this;
     }
