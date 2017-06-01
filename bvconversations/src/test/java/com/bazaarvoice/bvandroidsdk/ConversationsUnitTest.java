@@ -153,7 +153,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testQnARequestOverLimitError() {
         QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("testProductId", 101, 0)
-                .build();
+            .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
     }
@@ -161,7 +161,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testQnARequestValidLimit() {
         QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("testProductId", 20, 0)
-                .build();
+            .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
     }
@@ -172,7 +172,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         List<String> prodIds = getProdIds(51);
 
         BulkRatingsRequest request = new BulkRatingsRequest.Builder(prodIds, BulkRatingOptions.StatsType.NativeReviews)
-                .build();
+            .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
     }
@@ -182,7 +182,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         List<String> prodIds = getProdIds(20);
 
         BulkRatingsRequest request = new BulkRatingsRequest.Builder(prodIds, BulkRatingOptions.StatsType.NativeReviews)
-                .build();
+            .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
     }
@@ -191,7 +191,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testReviewsRequestOverLimitError() {
 
         ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 101 , 0)
-                .build();
+            .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
     }
@@ -200,7 +200,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testReviewsRequestValidLimit() {
 
         ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 20 , 0)
-                .build();
+            .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
     }
@@ -250,7 +250,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals(139, ratingDistribution.getFiveStarCount().intValue());
 
         Map<String, SecondaryRatingsAverages> secondaryRatingsAvgs =
-                reviewStats.getSecondaryRatingsAverages();
+            reviewStats.getSecondaryRatingsAverages();
         float qualityRating = secondaryRatingsAvgs.get("Quality").getAverageOverallRating();
         assertEquals(2.0f, qualityRating);
     }
@@ -405,17 +405,17 @@ public class ConversationsUnitTest extends BVBaseTest{
         String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&Rating=5&ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21&agreedToTermsAndConditions=true&Title=Android+SDK+Testing&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&SendEmailAlertWhenCommented=true&UserId=user1234&action=Submit&_appId=" + packageName + "&_bvAndroidSdkVersion=" + bvSdkVersion + "&sendemailalertwhenpublished=true&_buildNumber=" + versionCode;
 
         ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Submit, "123987")
-                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-                .userNickname("nickname")
-                .userEmail("foo@bar.com")
-                .userId("user1234") // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-                .rating(5)
-                .title("Android SDK Testing")
-                .reviewText("This is the review text the user adds about how great the product is!")
-                .sendEmailAlertWhenCommented(true)
-                .sendEmailAlertWhenPublished(true)
-                .agreedToTermsAndConditions(true)
-                .build();
+            .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
+            .userNickname("nickname")
+            .userEmail("foo@bar.com")
+            .userId("user1234") // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+            .rating(5)
+            .title("Android SDK Testing")
+            .reviewText("This is the review text the user adds about how great the product is!")
+            .sendEmailAlertWhenCommented(true)
+            .sendEmailAlertWhenPublished(true)
+            .agreedToTermsAndConditions(true)
+            .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
         assertEquals(expectedResult, testString);
@@ -433,10 +433,10 @@ public class ConversationsUnitTest extends BVBaseTest{
         String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&action=Submit&_appId=" + packageName + "&_bvAndroidSdkVersion=" + bvSdkVersion + "&_buildNumber=" + versionCode;
 
         QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Submit, "123987")
-                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-                .userNickname("nickname")
-                .userEmail("foo@bar.com")
-                .build();
+            .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
+            .userNickname("nickname")
+            .userEmail("foo@bar.com")
+            .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
         assertEquals(expectedResult, testString);
@@ -455,11 +455,11 @@ public class ConversationsUnitTest extends BVBaseTest{
         // Make sure the string is encoded properly
         String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&QuestionId=123987&action=Submit&apiversion=5.4&_appId=" + packageName + "&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&AnswerText=Let+me+google+that+for+you....&UserEmail=foo%40bar.com&_bvAndroidSdkVersion=" + bvSdkVersion + "&_buildNumber=" + versionCode;
 
-       AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Submit, "123987", "Let me google that for you....")
-                .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-                .userNickname("nickname")
-                .userEmail("foo@bar.com")
-                .build();
+        AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Submit, "123987", "Let me google that for you....")
+            .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
+            .userNickname("nickname")
+            .userEmail("foo@bar.com")
+            .build();
 
         String testString = submission.createUrlQueryString(submission.makeQueryParams());
         assertEquals(expectedResult, testString);
@@ -469,11 +469,11 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testFeedbackSubmitHelpfulVote() {
 
         FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
-                .feedbackType(FeedbackType.HELPFULNESS)
-                .feedbackContentType(FeedbackContentType.REVIEW)
-                .feedbackVote(FeedbackVoteType.POSITIVE)
-                .userId("theUserId")
-                .build();
+            .feedbackType(FeedbackType.HELPFULNESS)
+            .feedbackContentType(FeedbackContentType.REVIEW)
+            .feedbackVote(FeedbackVoteType.POSITIVE)
+            .userId("theUserId")
+            .build();
 
         assertTrue("Request should not contain error", request.getError() == null);
     }
@@ -482,10 +482,10 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testFeedbackSubmitInappropriateFeedback(){
 
         FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
-                .feedbackType(FeedbackType.INAPPROPRIATE)
-                .feedbackContentType(FeedbackContentType.QUESTION)
-                .userId("theUserId")
-                .build();
+            .feedbackType(FeedbackType.INAPPROPRIATE)
+            .feedbackContentType(FeedbackContentType.QUESTION)
+            .userId("theUserId")
+            .build();
 
         assertTrue("Request should not contain error.", request.getError() == null);
 
@@ -494,13 +494,13 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testProductDisplayPageRequest() {
         ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
-                .addIncludeContent(PDPContentType.Answers, 20)
-                .addIncludeContent(PDPContentType.Questions, 20)
-                .addIncludeContent(PDPContentType.Reviews, 20)
-                .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.DESC)
-                .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
-                .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
-                .build();
+            .addIncludeContent(PDPContentType.Answers, 20)
+            .addIncludeContent(PDPContentType.Questions, 20)
+            .addIncludeContent(PDPContentType.Reviews, 20)
+            .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.DESC)
+            .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
+            .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+            .build();
 
         assertTrue("Request should not contain error", pdpRequest.getError() == null);
     }
@@ -617,15 +617,29 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testAuthorRequest() {
         AuthorsRequest request = new AuthorsRequest.Builder("authorId")
-                .addIncludeContent(PDPContentType.Reviews, 10)
-                .addIncludeContent(PDPContentType.Questions, 11)
-                .addIncludeContent(PDPContentType.Answers, 12)
-                .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
-                .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
-                .addAnswerSort(AnswerOptions.Sort.AuthorId, SortOrder.DESC)
-                .addIncludeStatistics(PDPContentType.Reviews)
-                .addIncludeStatistics(PDPContentType.Questions)
-                .addIncludeStatistics(PDPContentType.Answers)
-                .build();
+            .addIncludeContent(AuthorIncludeType.REVIEWS, 10)
+            .addIncludeContent(AuthorIncludeType.QUESTIONS, 11)
+            .addIncludeContent(AuthorIncludeType.ANSWERS, 12)
+            .addIncludeContent(AuthorIncludeType.COMMENTS, 4)
+            .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+            .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.ASC)
+            .addAnswerSort(AnswerOptions.Sort.AuthorId, SortOrder.DESC)
+            .addIncludeStatistics(AuthorIncludeType.REVIEWS)
+            .addIncludeStatistics(AuthorIncludeType.QUESTIONS)
+            .addIncludeStatistics(AuthorIncludeType.ANSWERS)
+            .addIncludeStatistics(AuthorIncludeType.COMMENTS)
+            .build();
+
+        HttpUrl url = request.toHttpUrl();
+
+        assertEquals("Reviews,Questions,Answers,Comments", url.queryParameter("Include"));
+        assertEquals(Integer.valueOf(10), Integer.valueOf(url.queryParameter("Limit_Reviews")));
+        assertEquals(Integer.valueOf(11), Integer.valueOf(url.queryParameter("Limit_Questions")));
+        assertEquals(Integer.valueOf(12), Integer.valueOf(url.queryParameter("Limit_Answers")));
+        assertEquals(Integer.valueOf(4), Integer.valueOf(url.queryParameter("Limit_Comments")));
+        assertEquals("Reviews,Questions,Answers,Comments", url.queryParameter("Stats"));
+        assertEquals("SubmissionTime:desc", url.queryParameter("Sort_Reviews"));
+        assertEquals("SubmissionTime:asc", url.queryParameter("Sort_Questions"));
+        assertEquals("AuthorId:desc", url.queryParameter("Sort_Answers"));
     }
 }
