@@ -1,5 +1,12 @@
 # Changelog
 
+# 6.7.1
+
+## Conversations
+* Added ```CommentSubmissionRequest``` and ```CommentSubmissionResponse```
+* Added ability to include ```Comment```s in ```AuthorsRequest```s
+* Added ```AuthorIncludeType``` to be used for includes in ```AuthorsRequest```s instead of ```PDPContentType```
+
 # 6.7.0
 
 ## Conversations

@@ -5,6 +5,7 @@ package com.bazaarvoice.bvsdkdemoandroid;
 
 import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
+import com.bazaarvoice.bvandroidsdk.CommentsResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
@@ -74,6 +75,9 @@ class DemoSdkInterceptor implements Interceptor {
             } else if (path.contains("data/authors.json")) {
                 AuthorsResponse authorsResponse = demoMockDataUtil.getConversationsAuthors();
                 return demoMockDataUtil.getHttpResponse(originalRequest, authorsResponse);
+            } else if (path.contains("data/reviewcomments.json")) {
+                CommentsResponse commentsResponse = demoMockDataUtil.getConversationsComments();
+                return demoMockDataUtil.getHttpResponse(originalRequest, commentsResponse);
             }
         } else if (host.contains("my.network-stg.bazaarvoice") || host.contains("my.network.bazaarvoice.com")) {
             if (path.contains("recommendations")) {

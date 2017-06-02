@@ -108,6 +108,7 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
     private final List<Sort> reviewSorts, questionSorts, answerSorts;
     private final List<Include> includes;
     private final List<IncludeType> statistics;
+    private final BVLogger bvLogger;
 
     public Builder(@NonNull String authorId) {
       super();
@@ -117,6 +118,7 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
       includes = new ArrayList<>();
       this.statistics = new ArrayList<>();
       addFilter(new Filter(Filter.Type.Id, EqualityOperator.EQ, authorId));
+      bvLogger = BVSDK.getInstance().getBvLogger();
     }
 
     public Builder addReviewSort(@NonNull ReviewOptions.Sort sort, @NonNull SortOrder order) {
@@ -165,7 +167,11 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
     }
 
     public Builder addIncludeStatistics(@NonNull AuthorIncludeType type) {
-      this.statistics.add(type);
+      if (type == AuthorIncludeType.COMMENTS) {
+        bvLogger.w("BVSDK", "Including Review Comment Statistics is not supported with an authors request. Skipping.");
+      } else {
+        this.statistics.add(type);
+      }
       return this;
     }
 

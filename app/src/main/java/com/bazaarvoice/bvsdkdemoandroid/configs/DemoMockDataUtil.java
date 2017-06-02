@@ -19,6 +19,7 @@ package com.bazaarvoice.bvsdkdemoandroid.configs;
 import com.bazaarvoice.bvandroidsdk.Answer;
 import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
+import com.bazaarvoice.bvandroidsdk.CommentsResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
@@ -52,6 +53,7 @@ public class DemoMockDataUtil {
     private ProductDisplayPageResponse savedConversationsPdp;
     private BulkRatingsResponse savedBulkRatings;
     private AuthorsResponse savedAuthors;
+    private CommentsResponse savedComments;
     private CurationsPostResponse savedCurationsPostResponse;
     private final DemoAssetsUtil demoAssetsUtil;
     private final Gson gson;
@@ -169,6 +171,17 @@ public class DemoMockDataUtil {
             "conversationsAuthors.json",
             AuthorsResponse.class);
         return savedAuthors;
+    }
+
+    public CommentsResponse getConversationsComments() {
+        if (savedComments != null) {
+            return savedComments;
+        }
+        savedComments = demoAssetsUtil.parseJsonFileFromAssets(
+            "conversationsComments.json",
+            CommentsResponse.class
+        );
+        return savedComments;
     }
 
     public CurationsPostResponse getCurationsPostResponse() {
