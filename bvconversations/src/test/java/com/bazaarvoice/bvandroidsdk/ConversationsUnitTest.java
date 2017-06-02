@@ -637,7 +637,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals(Integer.valueOf(11), Integer.valueOf(url.queryParameter("Limit_Questions")));
         assertEquals(Integer.valueOf(12), Integer.valueOf(url.queryParameter("Limit_Answers")));
         assertEquals(Integer.valueOf(4), Integer.valueOf(url.queryParameter("Limit_Comments")));
-        assertEquals("Reviews,Questions,Answers,Comments", url.queryParameter("Stats"));
+        assertEquals("Reviews,Questions,Answers", url.queryParameter("Stats"));
         assertEquals("SubmissionTime:desc", url.queryParameter("Sort_Reviews"));
         assertEquals("SubmissionTime:asc", url.queryParameter("Sort_Questions"));
         assertEquals("AuthorId:desc", url.queryParameter("Sort_Answers"));
