@@ -284,6 +284,7 @@ $(function(){
 
 <ol>
   <li><a href="#reviewsub" onclick="navigateTab(this);">Review Submission</a></li>
+  <li><a href="#reviewcommentsub" onclick="navigateTab(this);">Review Comment Submission</a></li>
   <li><a href="#questionsub" onclick="navigateTab(this);">Question Submission</li>
   <li><a href="#answersub" onclick="navigateTab(this);">Answer Submission</a></li>
   <li><a href="#feedbacksub" onclick="navigateTab(this);">Feedback Submission</a></li>
@@ -377,6 +378,7 @@ Use an instance of the <code>BVConversationsClient</code> to make all your Conve
 
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#reviewsub" aria-controls="reviewssub" role="tab" data-toggle="tab">ReviewSubmission</a></li>
+   <li role="presentation"><a href="#reviewcommentsub" aria-controls="reviewcommentsub" role="tab" data-toggle="tab">ReviewCommentSubmission</a></li>
   <li role="presentation"><a href="#questionsub" aria-controls="questionsub" role="tab" data-toggle="tab">QuestionSubmission</a></li>
   <li role="presentation"><a href="#answersub" aria-controls="answersub" role="tab" data-toggle="tab">AnswerSubmission</a></li>
   <li role="presentation"><a href="#feedbacksub" aria-controls="feedbacksub" role="tab" data-toggle="tab">FeedbackSubmission</a></li>
@@ -412,6 +414,37 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Rev
   }
 });</code></pre>
             </div>
+
+    <div role="tabpanel" class="tab-pane active" id="reviewcommentsub">
+<h4>Submitting Review Comments</h4>
+<p>
+  To submit content, form the proper <code>ConversationsSubmissionRequest</code> subclass,
+  and send it through the <code>BVConversationsClient</code>.
+</p>
+<pre><code>CommentSubmissionRequest previewSubmission = new CommentSubmissionRequest
+  .Builder(Action.Preview, productId)
+  .userNickname(userNickname)
+  .build();
+
+BVConversationsClient client = new BVConversationsClient();
+client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;CommentSubmissionResponse&gt;() {
+  @Override
+  public void onSuccess(CommentSubmissionResponse response) {
+    FormData formData = response.getFormData(); // To view required/optional form fields
+    boolean hasErrors = response.getHasErrors(); // If form data was not sent correctly, or some other backend processing issues exist
+    FormError formErrors = response.getFormErrors(); // Object containing the form errors
+    List&lt;Error&gt; genericBvErrors = response.getErrors(); // Object containing the other backend processing issues
+
+    // If hasErrors is false, then the submission succeeded
+    // Make sure to send with Action.SUBMIT for it to fully complete
+  }
+  @Override
+  public void onFailure(BazaarException exception) {
+    exception.printStackTrace();
+  }
+});</code></pre>
+            </div>
+
     <div role="tabpanel" class="tab-pane" id="questionsub">
 <h4>Submitting Questions</h4>
 <p>
@@ -443,7 +476,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Que
     exception.printStackTrace();
   }
 });</code></pre>
-                    </div>
+              </div>
     <div role="tabpanel" class="tab-pane" id="answersub">
 <h4>Submitting Answers</h4>
 <p>

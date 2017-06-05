@@ -733,15 +733,16 @@ Please note that image links are not returned from the Conversations API. The di
 </p>
 
 <pre><code>AuthorsRequest request = new AuthorsRequest.Builder("authorId")
-    .addIncludeContent(PDPContentType.Reviews, 10)
-    .addIncludeContent(PDPContentType.Questions, 11)
-    .addIncludeContent(PDPContentType.Answers, 12)
+    .addIncludeContent(AuthorIncludeType.REVIEWS, 10)
+    .addIncludeContent(AuthorIncludeType.QUESTIONS, 11)
+    .addIncludeContent(AuthorIncludeType.ANSWERS, 12)
+    .addIncludeContent(AuthorIncludeType.COMMENTS, 12)
     .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
     .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
     .addAnswerSort(AnswerOptions.Sort.AuthorId, SortOrder.DESC)
-    .addIncludeStatistics(PDPContentType.Reviews)
-    .addIncludeStatistics(PDPContentType.Questions)
-    .addIncludeStatistics(PDPContentType.Answers)
+    .addIncludeStatistics(AuthorIncludeType.REVIEWS)
+    .addIncludeStatistics(AuthorIncludeType.QUESTIONS)
+    .addIncludeStatistics(AuthorIncludeType.ANSWERS)
     .build();
 </code></pre>
 
