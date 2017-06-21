@@ -17,7 +17,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,13 +36,14 @@ abstract class BaseReviewBuilder<ChildBuilderType extends BaseReviewBuilder> ext
     protected Integer netPromoterScore;
     protected String title;
     protected String reviewText;
-    protected  String netPromoterComment;
-    protected  final Map<String, String> freeFormTags = new HashMap<>();
-    protected  final Map<String, String> predefinedTags = new HashMap<>();
-    protected  final Map<String, String> additionalFields = new HashMap<>();
-    protected  final Map<String, String> contextDataValues = new HashMap<>();
-    protected  final Map<String, String> ratingSliders = new HashMap<>();
-    protected  final Map<String, Integer> ratingQuestions = new HashMap<>();
+    protected String netPromoterComment;
+    protected final Map<String, String> freeFormTags = new HashMap<>();
+    protected final Map<String, String> predefinedTags = new HashMap<>();
+    protected final Map<String, String> additionalFields = new HashMap<>();
+    protected final Map<String, String> contextDataValues = new HashMap<>();
+    protected final Map<String, String> ratingSliders = new HashMap<>();
+    protected final Map<String, Integer> ratingQuestions = new HashMap<>();
+    protected List<VideoSubmissionData> videoSubmissionData = new ArrayList<>();
 
     BaseReviewBuilder(Action action, String productId) {
         super(action);
@@ -115,6 +118,11 @@ abstract class BaseReviewBuilder<ChildBuilderType extends BaseReviewBuilder> ext
 
     public ChildBuilderType addRatingSlider(String questionName, String value) {
         ratingSliders.put(questionName, value);
+        return (ChildBuilderType) this;
+    }
+
+    public ChildBuilderType addVideoUrl(String videoUrl, String videoCaption) {
+        videoSubmissionData.add(new VideoSubmissionData(videoUrl, videoCaption));
         return (ChildBuilderType) this;
     }
 
