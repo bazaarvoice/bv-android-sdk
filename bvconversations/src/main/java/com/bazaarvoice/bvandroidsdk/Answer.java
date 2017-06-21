@@ -29,6 +29,8 @@ public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
     private String answerText;
     @SerializedName("BrandImageLogoURL")
     private String brandImageLogoUrl;
+    @SerializedName("IsSyndicated")
+    private boolean isSyndicated;
     private transient Question question;
 
     public Question getQuestion() {
@@ -45,5 +47,9 @@ public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
 
     public String getAnswerText() {
         return answerText;
+    }
+
+    public boolean isSyndicated() {
+        return isSyndicated;
     }
 }
