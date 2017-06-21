@@ -394,9 +394,11 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertNotNull(firstQuestion.getLastModificationDate());
         assertNotNull(firstQuestion.getModerationStatus());
         assertNotNull(firstQuestion.getProductId());
+        assertFalse(firstQuestion.isSyndicated());
 
         Answer firstAnswer = firstQuestion.getAnswers().get(0);
         assertNotNull(firstAnswer.getBrandImageLogoUrl());
+        assertFalse(firstAnswer.isSyndicated());
     }
 
     @Test
