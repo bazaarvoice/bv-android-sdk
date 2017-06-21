@@ -394,6 +394,7 @@ Use an instance of the <code>BVConversationsClient</code> to make all your Conve
 <pre><code>ReviewSubmissionRequest previewSubmission = new ReviewSubmissionRequest
   .Builder(Action.Preview, productId)
   .userNickname(userNickname)
+  .addVideoUrl(videoUrl, optionalVideoCaption) // add youtube video link, if your configuration supports it
   .build();
 
 BVConversationsClient client = new BVConversationsClient();
