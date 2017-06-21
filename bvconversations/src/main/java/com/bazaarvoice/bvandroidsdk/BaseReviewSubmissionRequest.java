@@ -103,7 +103,9 @@ abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionReques
             VideoSubmissionData videoData = videoDataList.get(i);
             int submitIndex = i+1;
             queryParams.put(String.format(VIDEO_URL_TEMPLATE, submitIndex), videoData.getVideoUrl());
-            queryParams.put(String.format(VIDEO_CAPTION_TEMPLATE, submitIndex), videoData.getVideoCaption());
+            if (videoData.getVideoCaption() != null) {
+                queryParams.put(String.format(VIDEO_CAPTION_TEMPLATE, submitIndex), videoData.getVideoCaption());
+            }
         }
     }
 }
