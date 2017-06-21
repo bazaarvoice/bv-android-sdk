@@ -17,6 +17,7 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,6 +34,8 @@ abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionReques
     private static final String kTITLE = "Title";
     private static final String kREVIEW_TEXT = "ReviewText";
     private static final String kNET_PROMOTER_COMMENT = "NetPromoterComment";
+    private static final String VIDEO_URL_TEMPLATE = "VideoUrl_%d";
+    private static final String VIDEO_CAPTION_TEMPLATE = "VideoCaption_%d";
 
     BaseReviewSubmissionRequest(BaseReviewBuilder builder) {
         super(builder);
@@ -93,6 +96,14 @@ abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionReques
         Set<String> additionalFieldsKeys = builder.additionalFields.keySet();
         for (String key : additionalFieldsKeys) {
             queryParams.put("additionalfield_" + key, builder.additionalFields.get(key));
+        }
+
+        List<VideoSubmissionData> videoDataList = builder.videoSubmissionData;
+        for (int i=0; i<videoDataList.size(); i++) {
+            VideoSubmissionData videoData = videoDataList.get(i);
+            int submitIndex = i+1;
+            queryParams.put(String.format(VIDEO_URL_TEMPLATE, submitIndex), videoData.getVideoUrl());
+            queryParams.put(String.format(VIDEO_CAPTION_TEMPLATE, submitIndex), videoData.getVideoCaption());
         }
     }
 }

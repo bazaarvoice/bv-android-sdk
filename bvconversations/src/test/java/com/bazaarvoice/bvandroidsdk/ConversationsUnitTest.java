@@ -404,8 +404,6 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testReviewSubmissionBuilder(){
         // Make sure the string is encoded properly
-        String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&Rating=5&ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21&agreedToTermsAndConditions=true&Title=Android+SDK+Testing&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&SendEmailAlertWhenCommented=true&UserId=user1234&action=Submit&_appId=" + packageName + "&_bvAndroidSdkVersion=" + bvSdkVersion + "&sendemailalertwhenpublished=true&_buildNumber=" + versionCode;
-
         ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Submit, "123987")
             .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
             .userNickname("nickname")
@@ -417,10 +415,33 @@ public class ConversationsUnitTest extends BVBaseTest{
             .sendEmailAlertWhenCommented(true)
             .sendEmailAlertWhenPublished(true)
             .agreedToTermsAndConditions(true)
+            .addVideoUrl("https://www.website.com/path/to/video12.mp4", "how to farm taters")
+            .addVideoUrl("https://www.website.com/path/to/video8.mp4", "how to market taters")
             .build();
 
-        String testString = submission.createUrlQueryString(submission.makeQueryParams());
-        assertEquals(expectedResult, testString);
+        String formBody = submission.createUrlQueryString(submission.makeQueryParams());
+        assertTrue(formBody.contains("fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters"));
+        assertTrue(formBody.contains("UserNickname=nickname"));
+        assertTrue(formBody.contains("_appVersion=" + versionName));
+        assertTrue(formBody.contains("passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations()));
+        assertTrue(formBody.contains("Rating=5"));
+        assertTrue(formBody.contains("ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21"));
+        assertTrue(formBody.contains("agreedToTermsAndConditions=true"));
+        assertTrue(formBody.contains("Title=Android+SDK+Testing"));
+        assertTrue(formBody.contains("apiversion=5.4"));
+        assertTrue(formBody.contains("ProductId=123987"));
+        assertTrue(formBody.contains("UserEmail=foo%40bar.com"));
+        assertTrue(formBody.contains("SendEmailAlertWhenCommented=true"));
+        assertTrue(formBody.contains("UserId=user1234"));
+        assertTrue(formBody.contains("action=Submit"));
+        assertTrue(formBody.contains("_appId=" + packageName));
+        assertTrue(formBody.contains("_bvAndroidSdkVersion=" + bvSdkVersion));
+        assertTrue(formBody.contains("sendemailalertwhenpublished=true"));
+        assertTrue(formBody.contains("_buildNumber=" + versionCode));
+        assertTrue(formBody.contains("VideoUrl_1=https%3A%2F%2Fwww.website.com%2Fpath%2Fto%2Fvideo12.mp4"));
+        assertTrue(formBody.contains("VideoUrl_2=https%3A%2F%2Fwww.website.com%2Fpath%2Fto%2Fvideo8.mp4"));
+        assertTrue(formBody.contains("VideoCaption_1=how+to+farm+taters"));
+        assertTrue(formBody.contains("VideoCaption_2=how+to+market+taters"));
     }
 
     @Test
