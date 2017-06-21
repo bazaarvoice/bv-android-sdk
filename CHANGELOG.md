@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.7.2
+
+## Conversations
+* Added ```ReviewSubmissionRequest.Builder#addVideoUrl(videoUrl, optionalVideoCaption)```
+* Added ```Question#isSyndicated()``` and ```Review#isSyndicated```
+
 # 6.7.1
 
 ## Conversations
