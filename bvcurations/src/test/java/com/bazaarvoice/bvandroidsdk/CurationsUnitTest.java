@@ -462,7 +462,7 @@ public class CurationsUnitTest extends BVBaseTest {
     }
 
     @Test
-    public void postMalformedResponse(){
+    public void postMalformedResponse() throws Exception {
         String json = jsonFileAsString("curationsMalformedPostResponse.json");
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")

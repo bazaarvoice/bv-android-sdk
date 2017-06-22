@@ -31,6 +31,8 @@ public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
     private String brandImageLogoUrl;
     @SerializedName("IsSyndicated")
     private boolean isSyndicated;
+    @SerializedName("SyndicationSource")
+    private SyndicatedSource syndicatedSource;
     private transient Question question;
 
     public Question getQuestion() {
@@ -51,5 +53,9 @@ public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
 
     public boolean isSyndicated() {
         return isSyndicated;
+    }
+
+    public SyndicatedSource getSyndicatedSource() {
+        return syndicatedSource;
     }
 }

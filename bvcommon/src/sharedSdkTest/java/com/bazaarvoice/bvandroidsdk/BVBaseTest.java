@@ -5,6 +5,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
@@ -17,12 +18,14 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
 import java.util.UUID;
 
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockWebServer;
+import okio.BufferedSource;
+import okio.Okio;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -103,13 +106,21 @@ public abstract class BVBaseTest {
 
     protected void afterInitSdk(BVSDK bvsdk) {}
 
-    String jsonFileAsString(String fileName) {
+    String jsonFileAsString(String fileName) throws IOException {
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);
-        return convertStreamToString(in);
+        return readFile(in);
     }
 
-    private String convertStreamToString(InputStream is) {
-        Scanner s = new Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
+    /**
+     * Reads InputStream and returns a String. It will close stream after usage.
+     *
+     * @param stream the stream to read
+     * @return the string content
+     */
+    @NonNull
+    public static String readFile(@NonNull final InputStream stream) throws IOException {
+        try (final BufferedSource source = Okio.buffer(Okio.source(stream))) {
+            return source.readUtf8();
+        }
     }
 }
