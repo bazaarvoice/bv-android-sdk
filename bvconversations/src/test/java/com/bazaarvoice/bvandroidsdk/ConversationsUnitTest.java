@@ -370,6 +370,10 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals("ferdinand255", firstComment.getUserNickname());
         assertEquals("Proin accumsan tempor orci, nec condimentum enim malesuadaet.\n\nMaecenas sagittis, purus ac pulvinar dignissim, urna lacus lobortis elit, ac mollis magna elit velest.", firstComment.getCommentText());
         assertEquals(Integer.valueOf(9), firstComment.getTotalFeedbackCount());
+        assertTrue(firstComment.isSyndicated());
+        assertEquals("https://www.website.com/content/here", firstComment.getSyndicatedSource().getContentLink());
+        assertEquals("https://www.website.com/image.png", firstComment.getSyndicatedSource().getLogoImageUrl());
+        assertEquals("SourceName", firstComment.getSyndicatedSource().getName());
     }
 
     @Test

@@ -18,11 +18,13 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
 import okhttp3.OkHttpClient;
+import okhttp3.internal.io.FileSystem;
 import okhttp3.mockwebserver.MockWebServer;
 import okio.BufferedSource;
 import okio.Okio;
@@ -107,8 +109,8 @@ public abstract class BVBaseTest {
     protected void afterInitSdk(BVSDK bvsdk) {}
 
     String jsonFileAsString(String fileName) throws IOException {
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);
-        return readFile(in);
+        File file = new File("src/test/resources/" + fileName);
+        return readFile(file);
     }
 
     /**
@@ -120,6 +122,19 @@ public abstract class BVBaseTest {
     @NonNull
     public static String readFile(@NonNull final InputStream stream) throws IOException {
         try (final BufferedSource source = Okio.buffer(Okio.source(stream))) {
+            return source.readUtf8();
+        }
+    }
+
+    /**
+     * Reads file and returns a String.
+     *
+     * @param file the file to read
+     * @return the string content
+     */
+    @NonNull
+    public static String readFile(@NonNull final File file) throws IOException {
+        try (final BufferedSource source = Okio.buffer(FileSystem.SYSTEM.source(file))) {
             return source.readUtf8();
         }
     }
