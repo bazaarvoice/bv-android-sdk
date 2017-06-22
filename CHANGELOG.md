@@ -1,5 +1,10 @@
 # Changelog
 
+# 6.7.3
+
+## Conversations
+* Added ```Question#getSyndicatedSource()```, ```Answer#getSyndicatedSource()```, and ```Comment#getSyndicatedSource()```
+
 # 6.7.2
 
 ## Conversations
