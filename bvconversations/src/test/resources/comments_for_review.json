@@ -41,7 +41,12 @@
       "UserNickname": "ferdinand255",
       "SubmissionId": null,
       "ProductRecommendationIds": [],
-      "IsSyndicated": false,
+      "IsSyndicated":true,
+      "SyndicationSource": {
+        "LogoImageUrl": "https://www.website.com/image.png",
+        "ContentLink": "https://www.website.com/content/here",
+        "Name": "SourceName"
+      },
       "StoryId": null,
       "Photos": [],
       "Videos": [],

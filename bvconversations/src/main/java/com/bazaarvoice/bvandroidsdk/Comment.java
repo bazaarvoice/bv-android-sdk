@@ -11,6 +11,7 @@ public class Comment extends IncludedContentBase.ProductIncludedContentBase{
   @SerializedName("CommentText") @Nullable private String commentText;
   @SerializedName("Title") @Nullable private String title;
   @SerializedName("IsSyndicated") private boolean isSyndicated;
+  @SerializedName("SyndicationSource") private SyndicatedSource syndicatedSource;
 
   @Nullable
   public String getCid() {
@@ -39,5 +40,10 @@ public class Comment extends IncludedContentBase.ProductIncludedContentBase{
 
   public boolean isSyndicated() {
     return isSyndicated;
+  }
+
+  @Nullable
+  public SyndicatedSource getSyndicatedSource() {
+    return syndicatedSource;
   }
 }
