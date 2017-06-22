@@ -91,13 +91,13 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
                 .build();
     }
 
-    private Object testParsing(String filename, Class responseClass) {
+    private Object testParsing(String filename, Class responseClass) throws Exception {
         String reviewsForProdResponse = jsonFileAsString(filename);
         return gson.fromJson(reviewsForProdResponse, responseClass);
     }
 
     @Test
-    public void testReviewsForSingleStoreReviewIncludeProdStatsParsing() {
+    public void testReviewsForSingleStoreReviewIncludeProdStatsParsing() throws Exception {
         // Parse a json result where a single store is fetched and the Results contain Review objects
         // and the Includes contain the store and statistics for which the reviews are returned.
         StoreReviewResponse response = (StoreReviewResponse) testParsing("store_reviews_include_statistics.json", StoreReviewResponse.class);
@@ -113,7 +113,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
 
 
     @Test
-    public void testBulkStoresResponseParsing() {
+    public void testBulkStoresResponseParsing() throws Exception {
         // Parse a json result where a single store is fetched by explicit it
         BulkStoreResponse response = (BulkStoreResponse) testParsing("store_product_feed_fetch.json", BulkStoreResponse.class);
         List<Store> stores = response.getResults();

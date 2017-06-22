@@ -222,23 +222,23 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals("Sort to string incorrect", sort.toString(), "AuthorId:asc");
     }
 
-    private <ResponseType> ResponseType testParsing(String filename, Class<ResponseType> responseClass) {
+    private <ResponseType> ResponseType testParsing(String filename, Class<ResponseType> responseClass) throws Exception {
         String reviewsForProdResponse = jsonFileAsString(filename);
         return gson.fromJson(reviewsForProdResponse, responseClass);
     }
 
     @Test
-    public void testBulkProductsForAllProductsParsing() {
+    public void testBulkProductsForAllProductsParsing() throws Exception {
         testParsing("product_catalog_all_products.json", BulkProductResponse.class);
     }
 
     @Test
-    public void testPdpForProductIdParsing() {
+    public void testPdpForProductIdParsing() throws Exception {
         testParsing("product_catalog_product_id.json", ProductDisplayPageResponse.class);
     }
 
     @Test
-    public void testPdpForProductIdIncludeRevStatsParsing() {
+    public void testPdpForProductIdIncludeRevStatsParsing() throws Exception {
         ProductDisplayPageResponse response = testParsing("product_catalog_prod_include_rev_stats.json", ProductDisplayPageResponse.class);
 
         ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
@@ -256,22 +256,22 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testPdpForAllProductsSortedParsing() {
+    public void testPdpForAllProductsSortedParsing() throws Exception {
         testParsing("product_catalog_all_prods_sorted.json", ProductDisplayPageResponse.class);
     }
 
     @Test
-    public void testPdpForAllProductsInCategoryParsing() {
+    public void testPdpForAllProductsInCategoryParsing() throws Exception {
         testParsing("product_catalog_all_prods_in_category.json", ProductDisplayPageResponse.class);
     }
 
     @Test
-    public void testPdpForTextSearchParsing() {
+    public void testPdpForTextSearchParsing() throws Exception {
         testParsing("product_catalog_text_search.json", ProductDisplayPageResponse.class);
     }
 
     @Test
-    public void testReviewsForAllReviewsParsing() {
+    public void testReviewsForAllReviewsParsing() throws Exception {
         ReviewResponse response = testParsing("reviews_all_reviews.json", ReviewResponse.class);
 
         assertEquals(10, response.getResults().size());
@@ -286,17 +286,17 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewsForProdParsing() {
+    public void testReviewsForProdParsing() throws Exception {
         testParsing("reviews_for_prod.json", ReviewResponse.class);
     }
 
     @Test
-    public void testReviewsForAllReviewsIncludeRevStatsParsing() {
+    public void testReviewsForAllReviewsIncludeRevStatsParsing() throws Exception {
         testParsing("reviews_all_reviews_include_rev_stats.json", ReviewResponse.class);
     }
 
     @Test
-    public void testReviewsForAllReviewsIncludeFilteredRevStatsParsing() {
+    public void testReviewsForAllReviewsIncludeFilteredRevStatsParsing() throws Exception {
         ReviewResponse response = testParsing("reviews_all_reviews_include_filtered_rev_stats.json", ReviewResponse.class);
         List<Product> products = response.getIncludes().getProducts();
         assertEquals(1, products.size());
@@ -306,17 +306,17 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewsForSingleReviewParsing() {
+    public void testReviewsForSingleReviewParsing() throws Exception {
         testParsing("reviews_single_review.json", ReviewResponse.class);
     }
 
     @Test
-    public void testReviewsForSingleReviewIncludeProdStatsParsing() {
+    public void testReviewsForSingleReviewIncludeProdStatsParsing() throws Exception {
         testParsing("reviews_single_review_include_prod_stats.json", ReviewResponse.class);
     }
 
     @Test
-    public void testReviewsForSomeReviewsParsing() {
+    public void testReviewsForSomeReviewsParsing() throws Exception {
         ReviewResponse response = testParsing("reviews_some_reviews.json", ReviewResponse.class);
         Review firstReview = response.getResults().get(0);
         assertNotNull(firstReview.getAuthorId());
@@ -333,7 +333,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewForSyndicatedSource(){
+    public void testReviewForSyndicatedSource() throws Exception {
 
         ReviewResponse response = testParsing("reviews_syndicated_source.json", ReviewResponse.class);
         Review firstReview = response.getResults().get(0);
@@ -346,7 +346,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewsForCommentsParsing() {
+    public void testReviewsForCommentsParsing() throws Exception {
         ReviewResponse response = testParsing("reviews_include_comments.json", ReviewResponse.class);
         Review review = response.getResults().get(0);
         List<Comment> comments = review.getComments();
@@ -363,7 +363,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testCommentsForReviewParsing() {
+    public void testCommentsForReviewParsing() throws Exception {
         CommentsResponse response = testParsing("comments_for_review.json", CommentsResponse.class);
         Comment firstComment = response.getResults().get(0);
         assertEquals("338201", firstComment.getId());
@@ -373,7 +373,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testQandAForSomeQuestionsWithAnswersParsing() {
+    public void testQandAForSomeQuestionsWithAnswersParsing() throws Exception {
         QuestionAndAnswerResponse response = testParsing("qanda_some_questions_with_answers.json", QuestionAndAnswerResponse.class);
         Question firstQuestion = response.getResults().get(0);
         assertNotNull(firstQuestion.getQuestionDetails());
@@ -394,11 +394,17 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertNotNull(firstQuestion.getLastModificationDate());
         assertNotNull(firstQuestion.getModerationStatus());
         assertNotNull(firstQuestion.getProductId());
-        assertFalse(firstQuestion.isSyndicated());
+        assertTrue(firstQuestion.isSyndicated());
+        assertEquals("https://www.website.com/content/here", firstQuestion.getSyndicatedSource().getContentLink());
+        assertEquals("https://www.website.com/image.png", firstQuestion.getSyndicatedSource().getLogoImageUrl());
+        assertEquals("SourceName", firstQuestion.getSyndicatedSource().getName());
 
         Answer firstAnswer = firstQuestion.getAnswers().get(0);
         assertNotNull(firstAnswer.getBrandImageLogoUrl());
-        assertFalse(firstAnswer.isSyndicated());
+        assertTrue(firstAnswer.isSyndicated());
+        assertEquals("https://www.website.com/content/here", firstAnswer.getSyndicatedSource().getContentLink());
+        assertEquals("https://www.website.com/image.png", firstAnswer.getSyndicatedSource().getLogoImageUrl());
+        assertEquals("SourceName", firstAnswer.getSyndicatedSource().getName());
     }
 
     @Test
@@ -529,7 +535,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testParsingFeedbackHelpfulnessResponse() {
+    public void testParsingFeedbackHelpfulnessResponse() throws Exception {
 
         FeedbackSubmissionResponse response = testParsing("feedback_helpfulness_response.json", FeedbackSubmissionResponse.class);
 
@@ -546,7 +552,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testParsingFeedbackInappropriateResponse() {
+    public void testParsingFeedbackInappropriateResponse() throws Exception {
 
         FeedbackSubmissionResponse response = testParsing("feedback_inappropriate_response.json", FeedbackSubmissionResponse.class);
 
@@ -562,7 +568,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testErrorResponseNoAPIKey() {
+    public void testErrorResponseNoAPIKey() throws Exception {
         ConversationsResponse errorResponse = testParsing("conversations_error_no_apikey.json", ReviewResponse.class);
 
         assertTrue(errorResponse.getHasErrors());
@@ -584,7 +590,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testParsingAuthorsByIdWithIncludesSorted() {
+    public void testParsingAuthorsByIdWithIncludesSorted() throws Exception {
         AuthorsResponse response = testParsing("author_by_id_with_options.json", AuthorsResponse.class);
         List<Author> authors = response.getResults();
         assertEquals(1, authors.size());
