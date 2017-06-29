@@ -28,6 +28,8 @@ import okhttp3.HttpUrl;
  */
 public class ReviewsRequest extends ConversationsDisplayRequest {
   private static final String REVIEWS_ENDPOINT = "data/reviews.json";
+  private static final String KEY_STATS = "Stats";
+  private static final String STATS_REVIEWS = "Reviews";
   private final String productId;
   private final int limit;
   private final int offset;
@@ -91,6 +93,11 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         .addQueryParameter(kOFFSET, String.valueOf(offset));
 
     if (!reviewIncludeTypes.isEmpty()) {
+      if (reviewIncludeTypes.contains(ReviewIncludeType.PRODUCTS)) {
+        // "Stats=Reviews must be used in conjunction with Include=Products"
+        // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
+        httpUrlBuilder.addQueryParameter(KEY_STATS, STATS_REVIEWS);
+      }
       String includeStr = StringUtils.componentsSeparatedBy(reviewIncludeTypes, ",");
       httpUrlBuilder.addQueryParameter(kINCLUDE, includeStr);
     }

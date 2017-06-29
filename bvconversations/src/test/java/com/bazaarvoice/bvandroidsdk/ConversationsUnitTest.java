@@ -57,7 +57,7 @@ public class ConversationsUnitTest extends BVBaseTest{
             .build();
         String actualUrlStr = request.toHttpUrl().toString();
 
-        String expectedTemplate = "https://examplesite/data/reviews.json?apiversion=%1$s&passkey=%2$s&_appId=%3$s&_appVersion=%4$s&_buildNumber=%5$s&_bvAndroidSdkVersion=%6$s&Filter=%7$s&Filter=%8$s&%9$s=%10$s&Limit=%11$s&Offset=%12$s&Include=%13$s&Sort=%14$s";
+        String expectedTemplate = "https://examplesite/data/reviews.json?apiversion=%1$s&passkey=%2$s&_appId=%3$s&_appVersion=%4$s&_buildNumber=%5$s&_bvAndroidSdkVersion=%6$s&Filter=%7$s&Filter=%8$s&%9$s=%10$s&Limit=%11$s&Offset=%12$s&Stats=Reviews&Include=%13$s&Sort=%14$s";
         String expectedStr = String.format(expectedTemplate,
             "5.4",
             bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
@@ -148,6 +148,18 @@ public class ConversationsUnitTest extends BVBaseTest{
         AuthorsRequest request = new AuthorsRequest.Builder("authorId").build();
         HttpUrl httpUrl = request.toHttpUrl();
         assertTrue(httpUrl.toString().contains("https://examplesite/data/authors.json"));
+    }
+
+    @Test
+    public void reviewDisplayRequestWithIncludeProductShouldHaveStatsReviews() {
+        // "Stats=Reviews must be used in conjunction with Include=Products"
+        // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
+        ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0)
+            .addIncludeContent(ReviewIncludeType.PRODUCTS)
+            .build();
+        HttpUrl httpUrl = request.toHttpUrl();
+        assertTrue(httpUrl.queryParameterNames().contains("Stats"));
+        assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
     }
 
     @Test
