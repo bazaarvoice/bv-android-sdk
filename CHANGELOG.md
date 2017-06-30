@@ -1,5 +1,10 @@
 # Changelog
 
+# 6.7.4
+
+## Conversations
+* Added back ```ReviewStatistics``` for the Products in the Includes section of ```ReviewsRequest```s
+
 # 6.7.3
 
 ## Conversations
