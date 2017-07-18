@@ -27,6 +27,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
@@ -106,6 +107,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @Inject DemoMockDataUtil demoMockDataUtil;
     @Inject CurationsImageLoader curationsImageLoader;
     @Inject DemoClient demoClient;
+    @Inject BVConversationsClient bvConversationsClient;
 
     // endregion
 
@@ -141,7 +143,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         setupCurationsRow();
 
         recRowActionListener = new DemoProductRecPresenter(this, demoClient, demoMockDataUtil, false, recommendationsRecyclerView);
-        productDataActionListener = new DemoProductPresenter(demoClient, demoMockDataUtil, this, productId);
+        productDataActionListener = new DemoProductPresenter(demoClient, bvConversationsClient, demoMockDataUtil, this, productId);
     }
 
     @Override

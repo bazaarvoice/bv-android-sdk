@@ -57,7 +57,7 @@ public class DemoBvModule {
     }
 
     @Provides @DemoAppScope
-    BVConversationsClient provideConversationsClient() {
+    BVConversationsClient provideConversationsClient(BVSDK bvsdk) {
         return new BVConversationsClient();
     }
 

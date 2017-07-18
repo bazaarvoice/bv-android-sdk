@@ -53,7 +53,7 @@ public class BvPixelDispatcherTest {
     BVPixelDispatcher subject = createBvPixelDispatcher(baseUrl.toString());
 
     subject.beginDispatchWithDelay();
-    subject.enqueueEvent(stubData.getPageViewEvent());
+    subject.enqueueEvent(stubData.getPageViewEvent(), stubData.getClientId());
     assertEquals(1, analyticsBatch.size());
 
     server.shutdown();
@@ -69,7 +69,7 @@ public class BvPixelDispatcherTest {
     BVPixelDispatcher subject = createBvPixelDispatcher(baseUrl.toString());
 
     subject.beginDispatchWithDelay();
-    subject.enqueueEvent(stubData.getPageViewEvent());
+    subject.enqueueEvent(stubData.getPageViewEvent(), stubData.getClientId());
     ShadowLooper.runUiThreadTasksIncludingDelayedTasks();
 
     // assert
@@ -89,7 +89,7 @@ public class BvPixelDispatcherTest {
     BVPixelDispatcher subject = createBvPixelDispatcher(baseUrl.toString());
 
     subject.beginDispatchWithDelay();
-    subject.enqueueEvent(stubData.getPageViewEvent());
+    subject.enqueueEvent(stubData.getPageViewEvent(), stubData.getClientId());
     ShadowLooper.runUiThreadTasksIncludingDelayedTasks();
 
     // assert
@@ -111,7 +111,7 @@ public class BvPixelDispatcherTest {
     BVPixelDispatcher subject = createBvPixelDispatcher(baseUrl.toString());
 
     subject.beginDispatchWithDelay();
-    subject.enqueueEvent(stubData.getPageViewEvent());
+    subject.enqueueEvent(stubData.getPageViewEvent(), stubData.getClientId());
     ShadowLooper.runUiThreadTasksIncludingDelayedTasks();
 
     // assert
@@ -122,6 +122,6 @@ public class BvPixelDispatcherTest {
   }
 
   private BVPixelDispatcher createBvPixelDispatcher(String baseUrl) {
-    return new BVPixelDispatcher(RuntimeEnvironment.application, stubData.getClientId(), bgHandlerThread, analyticsBatch, okHttpClient, baseUrl, delayMillis, false);
+    return new BVPixelDispatcher(RuntimeEnvironment.application, bgHandlerThread, analyticsBatch, okHttpClient, baseUrl, delayMillis, false);
   }
 }

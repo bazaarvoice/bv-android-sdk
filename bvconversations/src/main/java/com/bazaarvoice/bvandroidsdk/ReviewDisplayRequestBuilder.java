@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract class for parameter build for {@link Review}s
+ * Common options for building a Review Display Request.
  */
 public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> extends ConversationsDisplayRequest.Builder<BuilderType> {
   protected final String productId;

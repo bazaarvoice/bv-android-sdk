@@ -23,11 +23,12 @@ public class DemoProductStatsPresenter implements DemoProductStatsContract.UserA
     private DemoClientConfigUtils demoClientConfigUtils;
     private DemoMockDataUtil demoMockDataUtil;
     private String productId;
-    private final BVConversationsClient client = new BVConversationsClient();
+    private final BVConversationsClient client;
     private final DemoConvResponseHandler demoConvResponseHandler;
 
-    public DemoProductStatsPresenter(DemoProductStatsContract.View view, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, String productId, DemoConvResponseHandler demoConvResponseHandler) {
+    public DemoProductStatsPresenter(DemoProductStatsContract.View view, BVConversationsClient client, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, String productId, DemoConvResponseHandler demoConvResponseHandler) {
         this.view = view;
+        this.client = client;
         this.demoClientConfigUtils = demoClientConfigUtils;
         this.demoConvResponseHandler = demoConvResponseHandler;
         this.demoMockDataUtil = demoMockDataUtil;

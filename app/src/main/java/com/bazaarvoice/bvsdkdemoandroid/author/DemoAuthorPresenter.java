@@ -148,6 +148,10 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
 
             Product firstProduct = products.get(0);
 
+            if (firstProduct == null) {
+                return;
+            }
+
             if (firstProduct.getDisplayName() != null && !firstProduct.getDisplayImageUrl().isEmpty()) {
                 view.showRecentReviewProductName(firstProduct.getDisplayName());
             }

@@ -21,8 +21,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import okhttp3.HttpUrl;
-
 /**
  * Request used to obtain statistics such as Ratings on multiple productIds
  */
@@ -45,25 +43,11 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
   }
 
   @Override
-  String getEndPoint() {
-    return "data/statistics.json";
-  }
-
-  @Override
   BazaarException getError() {
     if (productIds.size() < 1 || productIds.size() > 50) {
         return new BazaarException(String.format("Too many productIds requested: %d. Must be between 1 and 50.", productIds.size()));
     }
     return null;
-  }
-
-  @Override
-  HttpUrl toHttpUrl() {
-    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
-
-    httpUrlBuilder.addQueryParameter(kSTATS, statsType.getKey());
-
-    return httpUrlBuilder.build();
   }
 
   public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {

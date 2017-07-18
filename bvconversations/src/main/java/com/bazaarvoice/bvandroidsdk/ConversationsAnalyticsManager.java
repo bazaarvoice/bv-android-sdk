@@ -32,29 +32,20 @@ import java.util.Map;
  */
 class ConversationsAnalyticsManager {
   // region Properties
-
-  private static ConversationsAnalyticsManager instance;
-
   private final BVPixel bvPixel;
-
+  private final String clientId;
   // endregion
 
   // region Constructor
 
-  ConversationsAnalyticsManager(BVPixel bvPixel) {
+  ConversationsAnalyticsManager(BVPixel bvPixel, String clientId) {
     this.bvPixel = bvPixel;
+    this.clientId = clientId;
   }
 
   // endregion
 
   // region API
-
-  public static ConversationsAnalyticsManager getInstance(BVSDK bvsdk) {
-    if (instance == null) {
-      instance = new ConversationsAnalyticsManager(bvsdk.getBvPixel());
-    }
-    return instance;
-  }
 
   /**
    * Route all Display API Responses here to dispatch events
@@ -109,7 +100,7 @@ class ConversationsAnalyticsManager {
    * @param request
    */
   void sendSuccessfulConversationsSubmitResponse(ConversationsSubmissionRequest request) {
-    boolean hasFingerPrint = request.getFingerprint() != null && !request.getFingerprint().isEmpty();
+    boolean hasFingerPrint = request.getFingerPrint() != null && !request.getFingerPrint().isEmpty();
 
     if (request instanceof QuestionSubmissionRequest) {
       QuestionSubmissionRequest questionSubmissionRequest = (QuestionSubmissionRequest) request;
@@ -122,7 +113,7 @@ class ConversationsAnalyticsManager {
     }
     if (request instanceof AnswerSubmissionRequest) {
       AnswerSubmissionRequest answerSubmissionRequest = (AnswerSubmissionRequest) request;
-      String questionId = answerSubmissionRequest.getProductId();
+      String questionId = answerSubmissionRequest.getQuestionId();
       sendUsedFeatureUgcContentSubmission(
           BVEventValues.BVProductType.CONVERSATIONS_QANDA,
           BVEventValues.BVFeatureUsedEventType.ANSWER_QUESTION,
@@ -172,7 +163,7 @@ class ConversationsAnalyticsManager {
           BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
           BVEventValues.BVFeatureUsedEventType.PHOTO,
           null);
-      bvPixel.track(event);
+      bvPixel.trackEventForClient(event, clientId);
     }
   }
 
@@ -189,7 +180,7 @@ class ConversationsAnalyticsManager {
       return;
     }
     BVInViewEvent event = new BVInViewEvent(productId, containerId, bvProductType, null);
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   /**
@@ -205,7 +196,7 @@ class ConversationsAnalyticsManager {
         bvProductType,
         BVEventValues.BVFeatureUsedEventType.SCROLLED,
         null);
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   // endregion
@@ -215,7 +206,7 @@ class ConversationsAnalyticsManager {
   private void sendUgcImpressionEvent(String productId, String contentId, BVEventValues.BVProductType bvProductType, BVEventValues.BVImpressionContentType bvImpressionContentType, String categoryId, String brand) {
     BVImpressionEvent event = new BVImpressionEvent(
         productId, contentId, bvProductType, bvImpressionContentType, categoryId, brand);
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   private void sendUgcImpressionEventStores(List<Store> stores) {
@@ -318,7 +309,7 @@ class ConversationsAnalyticsManager {
     }
     BVPageViewEvent event = new BVPageViewEvent(productId, bvProductType, categoryId);
     event.setAdditionalParams(extraParams);
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   private void sendUsedFeatureUgcContentSubmission(
@@ -350,7 +341,7 @@ class ConversationsAnalyticsManager {
 
     event.setAdditionalParams(extraParams);
 
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   private void sendUsedFeatureUgcFeedbackSubmission(
@@ -374,7 +365,7 @@ class ConversationsAnalyticsManager {
 
     BVFeatureUsedEvent event = new BVFeatureUsedEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS, bvFeatureUsedEventType, null);
     event.setAdditionalParams(extraParams);
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   private BVEventValues.BVFeatureUsedEventType feedbackTypeToFeatureUsedEventType(String feedbackType) {
@@ -403,7 +394,7 @@ class ConversationsAnalyticsManager {
   }
 
   private void sendUsedFeatureDisplayAuthor(String profileId) {
-    String productId = "none"; // TODO GOATZ This matches iOS but seems wrong
+    String productId = "none"; // TODO This matches iOS but seems wrong
     BVEventValues.BVProductType bvProductType = BVEventValues.BVProductType.CONVERSATIONS_PROFILE;
     BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.PROFILE;
     BVFeatureUsedEvent event = new BVFeatureUsedEvent(productId, bvProductType, bvFeatureUsedEventType, null);
@@ -413,7 +404,7 @@ class ConversationsAnalyticsManager {
     extraParams.put("page", profileId);
     event.setAdditionalParams(extraParams);
 
-    bvPixel.track(event);
+    bvPixel.trackEventForClient(event, clientId);
   }
 
   // endregion

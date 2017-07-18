@@ -56,7 +56,9 @@ public final class AnswersContainerView extends BVContainerView implements Event
 
     @Override
     public void onFirstTimeOnScreen() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        ConversationsAnalyticsManager convAnalyticsManager = new ConversationsAnalyticsManager(
+            BVSDK.getInstance().getBvPixel(),
+            BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         convAnalyticsManager.sendUsedFeatureInViewEvent(
             productId, "AnswersContainerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }

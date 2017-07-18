@@ -22,8 +22,6 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.HttpUrl;
-
 /**
  * Request to get {@link Question}s and {@link Answer}s
  * for a particular {@link Product}
@@ -49,9 +47,24 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
     return productId;
   }
 
-  @Override
-  String getEndPoint() {
-    return "data/questions.json";
+  List<Sort> getQuestionSorts() {
+    return questionSorts;
+  }
+
+  List<Sort> getAnswerSorts() {
+    return answerSorts;
+  }
+
+  int getLimit() {
+    return limit;
+  }
+
+  int getOffset() {
+    return offset;
+  }
+
+  String getSearchPhrase() {
+    return searchPhrase;
   }
 
   @Override
@@ -60,29 +73,6 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
       return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", limit));
     }
     return null;
-  }
-
-  @Override
-  HttpUrl toHttpUrl() {
-    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
-
-    httpUrlBuilder.addQueryParameter(kLIMIT, String.valueOf(limit));
-    httpUrlBuilder.addQueryParameter(kOFFSET, String.valueOf(offset));
-    httpUrlBuilder.addQueryParameter(kINCLUDE, INCLUDE_ANSWERS);
-
-    if (!questionSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(questionSorts, ","));
-    }
-
-    if (!answerSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(answerSorts, ","));
-    }
-
-    if (searchPhrase != null) {
-      httpUrlBuilder.addQueryParameter(kSEARCH, searchPhrase);
-    }
-
-    return httpUrlBuilder.build();
   }
 
   public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {

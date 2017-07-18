@@ -9,17 +9,14 @@ import android.support.annotation.NonNull;
  */
 class BVUserProvidedData {
   private final Application application;
-  private final String clientId;
-  private final BVApiKeys bvApiKeys;
+  private final BVConfig bvConfig;
   private final BVMobileInfo bvMobileInfo;
 
   BVUserProvidedData(@NonNull Application application,
-                     @NonNull String clientId,
-                     @NonNull BVApiKeys bvApiKeys,
+                     @NonNull BVConfig bvConfig,
                      @NonNull BVMobileInfo bvMobileInfo) {
     this.application = application;
-    this.clientId = clientId;
-    this.bvApiKeys = bvApiKeys;
+    this.bvConfig = bvConfig;
     this.bvMobileInfo = bvMobileInfo;
   }
 
@@ -31,12 +28,8 @@ class BVUserProvidedData {
     return application;
   }
 
-  public String getClientId() {
-    return clientId;
-  }
-
-  public BVApiKeys getBvApiKeys() {
-    return bvApiKeys;
+  public BVConfig getBvConfig() {
+    return bvConfig;
   }
 
   public BVMobileInfo getBvMobileInfo() {

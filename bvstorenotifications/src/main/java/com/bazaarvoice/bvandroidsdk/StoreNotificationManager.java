@@ -117,7 +117,7 @@ public class StoreNotificationManager {
     private void dispatchScheduleNotification(String storeId, long dwellTimeMillis, boolean initialSchedule) {
         BVUserProvidedData bvUserProvidedData = BVSDK.getInstance().getBvUserProvidedData();
         BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
-        String clientId = bvUserProvidedData.getClientId();
+        String clientId = bvUserProvidedData.getBvConfig().getClientId();
         StoreNotificationData storeNotificationData = BVNotificationUtil.getNotificationData(
                 REMOTE_CONFIG_FEATURE_NAME, REMOTE_CONFIG_FILE_NAME, StoreNotificationData.class);
         if (storeNotificationData == null) {

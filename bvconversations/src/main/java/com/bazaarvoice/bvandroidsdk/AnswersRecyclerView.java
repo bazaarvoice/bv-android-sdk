@@ -43,14 +43,23 @@ public final class AnswersRecyclerView extends BVRecyclerView {
 
     @Override
     public void onFirstTimeOnScreen() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        // TODO: Need BVConfig instance from BVConversationsClient, not global one
+        // As stated in getProductId(), there is never a request associated with
+        // this class, and the request instances are where we get the BVConfig from
+        // This applies to all Answer Views, however only AnswerContainerView and
+        // AnswerRecyclerView are supported.
+        ConversationsAnalyticsManager convAnalyticsManager = new ConversationsAnalyticsManager(
+            BVSDK.getInstance().getBvPixel(),
+            BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         convAnalyticsManager.sendUsedFeatureInViewEvent(
             productId, "AnswersRecyclerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        ConversationsAnalyticsManager convAnalyticsManager = new ConversationsAnalyticsManager(
+            BVSDK.getInstance().getBvPixel(),
+            BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 

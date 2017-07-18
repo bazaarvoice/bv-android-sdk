@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.Question;
@@ -62,6 +63,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     @Inject DemoClient demoClient;
     @Inject DemoMockDataUtil demoMockDataUtil;
     @Inject DemoConvResponseHandler demoConvResponseHandler;
+    @Inject BVConversationsClient bvConversationsClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +89,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         setupToolbarViews();
         setupRecyclerView();
 
-        questionsActionsListener = new DemoQuestionsPresenter(this, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView, demoConvResponseHandler);
+        questionsActionsListener = new DemoQuestionsPresenter(this, bvConversationsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView, demoConvResponseHandler);
     }
 
     @Override

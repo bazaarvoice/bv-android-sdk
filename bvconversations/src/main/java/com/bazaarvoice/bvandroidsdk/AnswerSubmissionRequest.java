@@ -17,27 +17,17 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import java.util.Map;
-
 /**
  * Request to submit an {@link Answer}
  */
 public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
-
-    private static final String kQUESTIONID = "QuestionId";
-    private static final String kANSWERTEXT = "AnswerText";
-    public static final String ANSWER_ENDPOINT = "submitanswer.json";
-
-    private final String apiKey;
+    private final String questionId;
+    private final String answerText;
 
     private AnswerSubmissionRequest(Builder builder) {
         super(builder);
-        this.apiKey = BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations(); // TODO: Inject
-    }
-
-    @Override
-    String getEndPoint() {
-        return ANSWER_ENDPOINT;
+        this.questionId = builder.questionId;
+        this.answerText = builder.answerText;
     }
 
     @Override
@@ -45,21 +35,12 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
         return null;
     }
 
-    String getProductId() {
-        Map<String, Object> queryParams = makeQueryParams();
-        return queryParams.containsKey(kQUESTIONID) ? (String) queryParams.get(kQUESTIONID) : "";
+    String getQuestionId() {
+        return questionId;
     }
 
-    @Override
-    protected String getApiKey() {
-        return apiKey;
-    }
-
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        Builder builder = (AnswerSubmissionRequest.Builder) getBuilder();
-        queryParams.put(kQUESTIONID, builder.questionId);
-        queryParams.put(kANSWERTEXT, builder.answerText);
+    String getAnswerText() {
+        return answerText;
     }
 
     public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder>{

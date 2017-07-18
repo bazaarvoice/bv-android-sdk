@@ -71,12 +71,13 @@ public class BVSDK {
     final HandlerThread backgroundThread;
     final BVPixel bvPixel;
     final BVLogger bvLogger;
+    final BazaarEnvironment bazaarEnvironment;
 
     // endregion
 
     // region Constructor
 
-    BVSDK(BVUserProvidedData bvUserProvidedData, BVLogger bvLogger, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Handler handler, HandlerThread backgroundThread, BVPixel bvPixel, BVWorkerData bvWorkerData) {
+    BVSDK(BVUserProvidedData bvUserProvidedData, BVLogger bvLogger, BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks, final BVAuthenticatedUser bvAuthenticatedUser, Handler handler, HandlerThread backgroundThread, BVPixel bvPixel, BVWorkerData bvWorkerData, BazaarEnvironment bazaarEnvironment) {
         this.bvUserProvidedData = bvUserProvidedData;
         this.bvLogger = bvLogger;
         this.bvActivityLifecycleCallbacks = bvActivityLifecycleCallbacks;
@@ -85,6 +86,7 @@ public class BVSDK {
         this.backgroundThread = backgroundThread;
         this.bvPixel = bvPixel;
         this.bvWorkerData = bvWorkerData;
+        this.bazaarEnvironment = bazaarEnvironment;
 
         startAppLifecycleMonitoring();
     }
@@ -487,21 +489,14 @@ public class BVSDK {
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
             BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL);
-            BVApiKeys apiKeys = new BVApiKeys(
-                finalConfig.getApiKeyShopperAdvertising(),
-                finalConfig.getApiKeyConversations(),
-                finalConfig.getApiKeyConversationsStores(),
-                finalConfig.getApiKeyCurations(),
-                finalConfig.getApiKeyLocation(),
-                finalConfig.getApiKeyPIN());
             BVMobileInfo bvMobileInfo = new BVMobileInfo(application.getApplicationContext());
-            BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, finalConfig.getClientId(), apiKeys, bvMobileInfo);
+            BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, finalConfig, bvMobileInfo);
             BackgroundThread backgroundThread = new BackgroundThread();
             backgroundThread.start();
             BVAuthenticatedUser bvAuthenticatedUser = new BVAuthenticatedUser(
                 application.getApplicationContext(),
                 shopperMarketingApiRootUrl,
-                finalConfig.getApiKeyShopperAdvertising(),
+                bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(),
                 okHttpClient,
                 bvLogger,
                 gson,
@@ -509,18 +504,18 @@ public class BVSDK {
                 backgroundThread);
             AnalyticsManager analyticsManager = new AnalyticsManager(
                 application.getApplicationContext(),
-                finalConfig.getClientId(),
+                bvUserProvidedData.getBvConfig().getClientId(),
                 analyticsRootUrl,
                 okHttpClient,
                 immediateExecutorService,
                 scheduledExecutorService,
                 bvAuthenticatedUser,
                 uuid,
-                finalConfig.isDryRunAnalytics());
-            BVPixel bvPixel = new BVPixel.Builder(application, finalConfig.getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING)
+                bvUserProvidedData.getBvConfig().isDryRunAnalytics());
+            BVPixel bvPixel = new BVPixel.Builder(application, bvUserProvidedData.getBvConfig().getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING)
                 .bgHandlerThread(backgroundThread)
                 .okHttpClient(okHttpClient)
-                .dryRunAnalytics(finalConfig.isDryRunAnalytics())
+                .dryRunAnalytics(bvUserProvidedData.getBvConfig().isDryRunAnalytics())
                 .build();
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(bvPixel, bvLogger);
 
@@ -530,6 +525,7 @@ public class BVSDK {
                 endPoints,
                 okHttpClient,
                 BVSDK_USER_AGENT,
+                backgroundThread,
                 backgroundThread.getLooper());
 
             Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
@@ -552,7 +548,8 @@ public class BVSDK {
                 handler,
                 backgroundThread,
                 bvPixel,
-                bvWorkerData);
+                bvWorkerData,
+                bazaarEnvironment);
             return singleton;
         }
     }
@@ -581,6 +578,10 @@ public class BVSDK {
         return bvPixel;
     }
 
+    BazaarEnvironment getBazaarEnvironment() {
+        return bazaarEnvironment;
+    }
+
     static final class BVWorkerData {
         private final AnalyticsManager analyticsManager;
         private final Gson gson;
@@ -588,13 +589,15 @@ public class BVSDK {
         private final OkHttpClient okHttpClient;
         private final String bvSdkUserAgent;
         private final Looper backgroundLooper;
+        private final HandlerThread backgroundThread;
 
-        public BVWorkerData(AnalyticsManager analyticsManager, Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, Looper backgroundLooper) {
+        public BVWorkerData(AnalyticsManager analyticsManager, Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, HandlerThread backgroundThread, Looper backgroundLooper) {
             this.analyticsManager = analyticsManager;
             this.gson = gson;
             this.bvRootApiUrls = bvRootApiUrls;
             this.okHttpClient = okHttpClient;
             this.bvSdkUserAgent = bvSdkUserAgent;
+            this.backgroundThread = backgroundThread;
             this.backgroundLooper = backgroundLooper;
         }
 
@@ -616,6 +619,10 @@ public class BVSDK {
 
         public String getBvSdkUserAgent() {
             return bvSdkUserAgent;
+        }
+
+        public HandlerThread getBackgroundThread() {
+            return backgroundThread;
         }
 
         public Looper getBackgroundLooper() {
