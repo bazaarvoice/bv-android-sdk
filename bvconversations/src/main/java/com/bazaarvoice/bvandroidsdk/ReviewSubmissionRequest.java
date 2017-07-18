@@ -21,14 +21,8 @@ package com.bazaarvoice.bvandroidsdk;
  * Request for submitting {@link Review}s
  */
 public class ReviewSubmissionRequest extends BaseReviewSubmissionRequest {
-
     ReviewSubmissionRequest(Builder builder) {
         super(builder);
-    }
-
-    @Override
-    protected String getApiKey() {
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
     }
 
     public static class Builder extends BaseReviewBuilder<Builder> {

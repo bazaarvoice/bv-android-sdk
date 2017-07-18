@@ -19,12 +19,14 @@ public class BVPixel {
   private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/";
   private static final int ANALYTICS_DELAY_SECONDS = 10;
   private final BVPixelDispatcher bvPixelDispatcher;
+  private final String defaultClientId;
 
   // endregion
 
   // region Constructor
 
-  BVPixel(BVPixelDispatcher bvPixelDispatcher) {
+  BVPixel(BVPixelDispatcher bvPixelDispatcher, String defaultClientId) {
+    this.defaultClientId = defaultClientId;
     this.bvPixelDispatcher = bvPixelDispatcher;
     // Start the polling dispatch
     this.bvPixelDispatcher.beginDispatchWithDelay();
@@ -38,6 +40,9 @@ public class BVPixel {
     return new BVPixel.Builder(context, clientId, isStaging);
   }
 
+  /**
+   * @return Singleton instance with settings provided in the {@link Builder}
+   */
   public static BVPixel getInstance() {
     confirmBvPixelCreated();
     return singleton;
@@ -50,7 +55,11 @@ public class BVPixel {
    * @param <EventType> Type of event to send
    */
   public <EventType extends BVAnalyticsEvent> void track(EventType event) {
-    bvPixelDispatcher.enqueueEvent(event);
+    trackEventForClient(event, defaultClientId);
+  }
+
+  public <EventType extends BVAnalyticsEvent> void trackEventForClient(EventType event, String clientId) {
+    bvPixelDispatcher.enqueueEvent(event, clientId);
 
     if (shouldDispatchImmediately(event)) {
       bvPixelDispatcher.dispatchBatchImmediately();
@@ -102,7 +111,6 @@ public class BVPixel {
 
       BVPixelDispatcher bvPixelDispatcher = new BVPixelDispatcher(
           appContext,
-          clientId,
           bgHandlerThread,
           bvAnalyticsBatch,
           okHttpClient,
@@ -110,7 +118,7 @@ public class BVPixel {
           TimeUnit.SECONDS.toMillis(ANALYTICS_DELAY_SECONDS),
           dryRunAnalytics);
 
-      singleton = new BVPixel(bvPixelDispatcher);
+      singleton = new BVPixel(bvPixelDispatcher, clientId);
       return singleton;
     }
   }

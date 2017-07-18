@@ -30,7 +30,7 @@ public class BVRecommendations {
     public BVRecommendations() {
         BVSDK bvsdk = BVSDK.getInstance();
 
-        String apiKeyShopperAdvertising = bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyShopperAdvertising();
+        String apiKeyShopperAdvertising = bvsdk.getBvUserProvidedData().getBvConfig().getApiKeyShopperAdvertising();
         if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
             throw new IllegalStateException("BVRecommendations SDK requires a shopper advertising api key");
         }
@@ -74,8 +74,8 @@ public class BVRecommendations {
             BVSDK bvsdk = BVSDK.getInstance();
             String baseUrlStr = bvsdk.getBvWorkerData().getRootApiUrls().getShopperMarketingApiRootUrl();
             BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
-            String apiKey = bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising();
-            String clientId = bvUserProvidedData.getClientId();
+            String apiKey = bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising();
+            String clientId = bvUserProvidedData.getBvConfig().getClientId();
             String recRequestUrlStr = RecommendationsRequest.toUrlString(baseUrlStr, adId, apiKey, clientId, request);
             requestUrl = new URL(recRequestUrlStr);
         } catch (MalformedURLException e) {

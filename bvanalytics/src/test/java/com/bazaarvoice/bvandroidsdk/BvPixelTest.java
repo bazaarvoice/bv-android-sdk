@@ -23,11 +23,11 @@ public class BvPixelTest {
   @Test
   public void shouldEnqueueEvent() throws Exception {
     BVAnalyticsEvent event = stubData.getEvent();
-    BVPixel bvPixel = new BVPixel(dispatcher);
+    BVPixel bvPixel = new BVPixel(dispatcher, stubData.getClientId());
 
     bvPixel.track(event);
 
-    verify(dispatcher).enqueueEvent(event);
+    verify(dispatcher).enqueueEvent(event, stubData.getClientId());
   }
 
   @Test
@@ -46,7 +46,7 @@ public class BvPixelTest {
 
   @Test
   public void shouldDispatchADispatchImmediatelyEvent() throws Exception {
-    BVPixel bvPixel = new BVPixel(dispatcher);
+    BVPixel bvPixel = new BVPixel(dispatcher, stubData.getClientId());
     BVPersonalizationEvent event = stubData.getPersonalizationEvent();
     BVPageViewEvent event2 = stubData.getPageViewEvent();
 
@@ -58,7 +58,7 @@ public class BvPixelTest {
 
   @Test
   public void shouldBeginScheduleOfDispatching() {
-    BVPixel bvPixel = new BVPixel(dispatcher);
+    BVPixel bvPixel = new BVPixel(dispatcher, stubData.getClientId());
     verify(dispatcher).beginDispatchWithDelay();
   }
 }

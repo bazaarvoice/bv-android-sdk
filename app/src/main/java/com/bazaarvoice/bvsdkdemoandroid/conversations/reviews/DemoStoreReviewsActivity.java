@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -25,8 +26,8 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     @Inject DemoClient demoClient;
     @Inject Picasso picasso;
     @Inject PrettyTime prettyTime;
-    @Inject
-    DemoConvResponseHandler demoConvResponseHandler;
+    @Inject DemoConvResponseHandler demoConvResponseHandler;
+    @Inject BVConversationsClient bvConversationsClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,8 +56,13 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     }
 
     @Override
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoStoreReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
+    BVConversationsClient getConvClient() {
+        return bvConversationsClient;
+    }
+
+    @Override
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
+        return new DemoStoreReviewsPresenter(view, bvConversationsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
     }
 
     @Override
@@ -68,7 +74,7 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
 
     @Override
     protected DemoReviewsAdapter<StoreReview> createAdapter() {
-        return new DemoStoreReviewsAdapter(picasso, prettyTime);
+        return new DemoStoreReviewsAdapter(picasso, prettyTime, bvConversationsClient);
     }
 
 }

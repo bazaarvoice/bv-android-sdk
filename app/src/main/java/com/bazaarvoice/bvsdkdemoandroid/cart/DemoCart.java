@@ -3,7 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.cart;
 
-import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVTransaction;
 import com.bazaarvoice.bvandroidsdk.BVTransactionItem;
@@ -18,8 +17,6 @@ public enum DemoCart {
     public DemoCart getSharedInstance() {
         return INSTANCE;
     }
-
-    private static final BVConversationsClient bvClient = new BVConversationsClient();
 
     private final List<BVDisplayableProductContent> products = new ArrayList<>();
 

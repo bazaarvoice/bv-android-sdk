@@ -21,61 +21,26 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 
-import java.util.Map;
-
 /**
  * Request class for submitting feedback on {@link Review}s, {@link Question}s,
  * and {@link Answer}s.
  */
 public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
+    private final String contentId;
+    private final String contentType;
+    private final String feedbackType;
+    private final String userId;
+    private final String feedbackVote;
+    private final String reasonFlaggedText;
 
-    private static final String kCONTENT_ID = "ContentId";
-    private static final String kCONTENT_TYPE = "ContentType";
-    private static final String kFEEDBACK_TYPE = "FeedbackType";
-    private static final String kUSER_ID = "UserId";
-    private static final String kVOTE = "Vote";
-    private static final String kREASON_TEXT = "ReasonText";
-
-    public FeedbackSubmissionRequest(ConversationsSubmissionRequest.Builder builder) {
+    public FeedbackSubmissionRequest(Builder builder) {
         super(builder);
-    }
-
-    String getContentId() {
-        Map<String, Object> queryParams = makeQueryParams();
-        return queryParams.containsKey(kCONTENT_ID) ? (String) queryParams.get(kCONTENT_ID) : "";
-    }
-
-    String getContentType() {
-        Map<String, Object> queryParams = makeQueryParams();
-        return queryParams.containsKey(kCONTENT_TYPE) ? (String) queryParams.get(kCONTENT_TYPE) : "";
-    }
-
-    String getFeedbackType() {
-        Map<String, Object> queryParams = makeQueryParams();
-        return queryParams.containsKey(kFEEDBACK_TYPE) ? (String) queryParams.get(kFEEDBACK_TYPE) : "";
-    }
-
-    @Override
-    protected String getApiKey() {
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
-    }
-
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-
-        FeedbackSubmissionRequest.Builder builder = (FeedbackSubmissionRequest.Builder) getBuilder();
-        queryParams.put(kCONTENT_ID, builder.contentId);
-        queryParams.put(kCONTENT_TYPE, builder.contentType);
-        queryParams.put(kFEEDBACK_TYPE, builder.feedbackType);
-        queryParams.put(kUSER_ID, builder.userId);
-        queryParams.put(kVOTE, builder.feedbackVote);
-        queryParams.put(kREASON_TEXT, builder.reasonFlaggedText);
-
-    }
-
-    @Override
-    String getEndPoint() {
-        return "submitfeedback.json";
+        this.contentId = builder.contentId;
+        this.contentType = builder.contentType;
+        this.feedbackType = builder.feedbackType;
+        this.userId = builder.userId;
+        this.feedbackVote = builder.feedbackVote;
+        this.reasonFlaggedText = builder.reasonFlaggedText;
     }
 
     @Override
@@ -83,7 +48,31 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
         return null;
     }
 
-    public static final class Builder extends ConversationsSubmissionRequest.Builder<FeedbackSubmissionRequest.Builder> {
+    String getContentId() {
+        return contentId;
+    }
+
+    String getContentType() {
+        return contentType;
+    }
+
+    String getFeedbackType() {
+        return feedbackType;
+    }
+
+    String getUserId() {
+        return userId;
+    }
+
+    String getFeedbackVote() {
+        return feedbackVote;
+    }
+
+    String getReasonFlaggedText() {
+        return reasonFlaggedText;
+    }
+
+    public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder> {
 
         private final String contentId;
         private String contentType;
@@ -97,27 +86,27 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
             this.contentId = contentId;
         }
 
-        public FeedbackSubmissionRequest.Builder feedbackContentType(FeedbackContentType feedbackContentType) {
+        public Builder feedbackContentType(FeedbackContentType feedbackContentType) {
             this.contentType = feedbackContentType.getTypeString();
             return this;
         }
 
-        public FeedbackSubmissionRequest.Builder feedbackType(FeedbackType feedbackType) {
+        public Builder feedbackType(FeedbackType feedbackType) {
             this.feedbackType = feedbackType.getTypeString();
             return this;
         }
 
-        public FeedbackSubmissionRequest.Builder feedbackVote(FeedbackVoteType feedbackVote){
+        public Builder feedbackVote(FeedbackVoteType feedbackVote){
             this.feedbackVote = feedbackVote.getTypeString();
             return this;
         }
 
-        public FeedbackSubmissionRequest.Builder userId(String userId){
+        public Builder userId(String userId){
             this.userId = userId;
             return this;
         }
 
-        public FeedbackSubmissionRequest.Builder reasonFlaggedText(String reasonFlaggedText){
+        public Builder reasonFlaggedText(String reasonFlaggedText){
             this.reasonFlaggedText = reasonFlaggedText;
             return this;
         }

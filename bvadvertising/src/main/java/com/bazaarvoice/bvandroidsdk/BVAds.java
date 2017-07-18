@@ -23,7 +23,7 @@ public class BVAds {
     public static Map<String, String> getCustomTargeting(){
         BVSDK bvsdk = BVSDK.getInstance();
 
-        String apiKeyShopperAdvertising = bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyShopperAdvertising();
+        String apiKeyShopperAdvertising = bvsdk.getBvUserProvidedData().getBvConfig().getApiKeyShopperAdvertising();
         if (apiKeyShopperAdvertising == null || apiKeyShopperAdvertising.isEmpty()) {
             throw new IllegalStateException("BVAds SDK requires a shopper advertising api key");
         }

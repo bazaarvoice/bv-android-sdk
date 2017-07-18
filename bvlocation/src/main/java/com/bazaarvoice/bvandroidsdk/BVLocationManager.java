@@ -35,7 +35,7 @@ public class BVLocationManager {
         BVSDK bvsdk = BVSDK.getInstance();
         BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
         appContext = bvUserProvidedData.getAppContext();
-        Gimbal.setApiKey(bvUserProvidedData.getApplication(), bvUserProvidedData.getBvApiKeys().getApiKeyLocations());
+        Gimbal.setApiKey(bvUserProvidedData.getApplication(), bvUserProvidedData.getBvConfig().getApiKeyLocation());
         visitListeners = new ListenerContainer<>();
         proxyLocationListener = new LocationListener(this, visitListeners, bvsdk.getBvWorkerData().getGson());
         placeManager = PlaceManager.getInstance();
@@ -157,7 +157,7 @@ public class BVLocationManager {
                 return;
             }
 
-            if (!client.equalsIgnoreCase(BVSDK.getInstance().getBvUserProvidedData().getClientId())) {
+            if (!client.equalsIgnoreCase(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId())) {
                 return;
             }
 

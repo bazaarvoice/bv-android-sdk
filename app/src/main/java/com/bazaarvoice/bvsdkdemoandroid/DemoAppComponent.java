@@ -57,6 +57,7 @@ import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHeaderPagerAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHomeActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
+import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -109,4 +110,5 @@ public interface DemoAppComponent {
     void inject(DemoRecsHeaderPagerAdapter adapter);
     void inject(DemoCarouselView carousel);
     void inject(DemoProductsView view);
+    void inject(DemoStoresActivity activity);
 }

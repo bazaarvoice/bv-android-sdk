@@ -20,30 +20,29 @@ package com.bazaarvoice.bvandroidsdk;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
- * Common options for building a Review Request.
+ * Common options for building a Review Submission Request.
  *
  * @param <ChildBuilderType> Type of the final Builder class implementation
  */
 abstract class BaseReviewBuilder<ChildBuilderType extends BaseReviewBuilder> extends ConversationsSubmissionRequest.Builder<ChildBuilderType> {
-    protected final String productId;
-    protected Boolean isRecommended;
-    protected Boolean sendEmailAlertWhenCommented;
-    protected int rating;
-    protected Integer netPromoterScore;
-    protected String title;
-    protected String reviewText;
-    protected String netPromoterComment;
-    protected final Map<String, String> freeFormTags = new HashMap<>();
-    protected final Map<String, String> predefinedTags = new HashMap<>();
-    protected final Map<String, String> additionalFields = new HashMap<>();
-    protected final Map<String, String> contextDataValues = new HashMap<>();
-    protected final Map<String, String> ratingSliders = new HashMap<>();
-    protected final Map<String, Integer> ratingQuestions = new HashMap<>();
-    protected List<VideoSubmissionData> videoSubmissionData = new ArrayList<>();
+    final String productId;
+    Boolean isRecommended;
+    Boolean sendEmailAlertWhenCommented;
+    int rating;
+    Integer netPromoterScore;
+    String title;
+    String reviewText;
+    String netPromoterComment;
+    final Map<String, String> freeFormTags = new HashMap<>();
+    final List<BaseReviewSubmissionRequest.PredefinedTag> predefinedTags = new ArrayList<>();
+    final Map<String, String> additionalFields = new HashMap<>();
+    final Map<String, String> contextDataValues = new HashMap<>();
+    final Map<String, String> ratingSliders = new HashMap<>();
+    final Map<String, Integer> ratingQuestions = new HashMap<>();
+    List<VideoSubmissionData> videoSubmissionData = new ArrayList<>();
 
     BaseReviewBuilder(Action action, String productId) {
         super(action);
@@ -85,14 +84,13 @@ abstract class BaseReviewBuilder<ChildBuilderType extends BaseReviewBuilder> ext
     }
 
     public ChildBuilderType addFreeFormTag(String questionId, String value) {
-        String key = String.format(Locale.US, "tag_%s_%d", questionId, freeFormTags.size());
-        freeFormTags.put(key, value);
+        freeFormTags.put(questionId, value);
         return (ChildBuilderType) this;
     }
 
     public ChildBuilderType addPredefinedTag(String questionId, String tagId, String value) {
-        String key = String.format(Locale.US, "tagid_%s/%s", questionId, tagId);
-        predefinedTags.put(key, value);
+        final BaseReviewSubmissionRequest.PredefinedTag predefinedTag = new BaseReviewSubmissionRequest.PredefinedTag(questionId, tagId, value);
+        predefinedTags.add(predefinedTag);
         return (ChildBuilderType) this;
     }
 

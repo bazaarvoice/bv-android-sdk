@@ -21,8 +21,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import okhttp3.HttpUrl;
-
 /**
  * Request used to obtain multiple {@link Store}s.
  */
@@ -31,7 +29,6 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
   private final List<String> storeIds;
   private final int limit;
   private final int offset;
-  private final String apiKey;
 
   private BulkStoreRequest(Builder builder) {
     super(builder);
@@ -39,12 +36,6 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
     storeIds = builder.storeIds;
     limit = builder.limit;
     offset = builder.offset;
-    apiKey = BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversationsStores(); // TODO: Inject
-  }
-
-  @Override
-  String getEndPoint() {
-    return "data/products.json";
   }
 
   @Override
@@ -55,20 +46,20 @@ public class BulkStoreRequest extends ConversationsDisplayRequest {
     return null;
   }
 
-  @Override
-  protected String getAPIKey(){
-      return apiKey;
+  BulkRatingOptions.StatsType getStatsType() {
+    return statsType;
   }
 
-  @Override
-  HttpUrl toHttpUrl() {
-    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+  List<String> getStoreIds() {
+    return storeIds;
+  }
 
-    httpUrlBuilder.addQueryParameter(kLIMIT, String.valueOf(limit));
-    httpUrlBuilder.addQueryParameter(kOFFSET, String.valueOf(offset));
-    httpUrlBuilder.addQueryParameter(kSTATS, statsType.getKey());
+  int getLimit() {
+    return limit;
+  }
 
-    return httpUrlBuilder.build();
+  int getOffset() {
+    return offset;
   }
 
   public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {

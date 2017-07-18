@@ -29,12 +29,13 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     protected BVConversationsClient.DisplayLoader reviewsLoader;
     protected String productId;
     protected boolean fetched = false;
-    protected final BVConversationsClient client = new BVConversationsClient();
+    protected final BVConversationsClient client;
     protected boolean forceAPICall;
     private final DemoConvResponseHandler demoConvResponseHandler;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
         this.view = view;
+        this.client = client;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;
         this.reviewsLoader = reviewsLoader;

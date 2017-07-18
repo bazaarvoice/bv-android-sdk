@@ -35,6 +35,9 @@ public class DemoBulkRatingsAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         Statistics stat = statistics.get(position);
         BasicRowViewHolder viewHolder = (BasicRowViewHolder) holder;
 
+        if (stat == null || stat.getProductStatistics() == null) {
+            return;
+        }
         viewHolder.title.setText("Product ID: " + stat.getProductStatistics().getProductId());
 
         ReviewStatistics reviewStats = stat.getProductStatistics().getNativeReviewStatistics();

@@ -19,31 +19,44 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Common Builder to submit an Review
  */
 abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionRequest  {
-
-    private static final String kPRODUCT_ID = "ProductId";
-    private static final String kIS_RECOMMENDED = "IsRecommended";
-    private static final String kSEND_EMAIL_COMMENTED = "SendEmailAlertWhenCommented";
-    private static final String kRATING = "Rating";
-    private static final String kNET_PROMOTER_SCORE = "NetPromoterScore";
-    private static final String kTITLE = "Title";
-    private static final String kREVIEW_TEXT = "ReviewText";
-    private static final String kNET_PROMOTER_COMMENT = "NetPromoterComment";
-    private static final String VIDEO_URL_TEMPLATE = "VideoUrl_%d";
-    private static final String VIDEO_CAPTION_TEMPLATE = "VideoCaption_%d";
-
+    private final String productId;
+    private final Boolean isRecommended;
+    private final Boolean sendEmailAlertWhenCommented;
+    private final int rating;
+    private final Integer netPromoterScore;
+    private final String title;
+    private final String reviewText;
+    private final String netPromoterComment;
+    private final Map<String, String> freeFormTags;
+    private final List<PredefinedTag> predefinedTags;
+    private final Map<String, String> additionalFields;
+    private final Map<String, String> contextDataValues;
+    private final Map<String, String> ratingSliders;
+    private final Map<String, Integer> ratingQuestions;
+    private final List<VideoSubmissionData> videoSubmissionData;
+    
     BaseReviewSubmissionRequest(BaseReviewBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    String getEndPoint() {
-        return "submitreview.json";
+        productId = builder.productId;
+        isRecommended = builder.isRecommended;
+        sendEmailAlertWhenCommented = builder.sendEmailAlertWhenCommented;
+        rating = builder.rating;
+        netPromoterScore = builder.netPromoterScore;
+        title = builder.title;
+        reviewText = builder.reviewText;
+        netPromoterComment = builder.netPromoterComment;
+        freeFormTags = builder.freeFormTags;
+        predefinedTags = builder.predefinedTags;
+        additionalFields = builder.additionalFields;
+        contextDataValues = builder.contextDataValues;
+        ratingSliders = builder.ratingSliders;
+        ratingQuestions = builder.ratingQuestions;
+        videoSubmissionData = builder.videoSubmissionData;
     }
 
     @Override
@@ -52,60 +65,89 @@ abstract class BaseReviewSubmissionRequest extends ConversationsSubmissionReques
     }
 
     String getProductId() {
-        Map<String, Object> queryParams = makeQueryParams();
-        return queryParams.containsKey(kPRODUCT_ID) ? (String) queryParams.get(kPRODUCT_ID) : "";
+        return productId;
     }
 
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-        BaseReviewBuilder builder = (BaseReviewBuilder) getBuilder();
-        queryParams.put(kPRODUCT_ID, builder.productId);
-        queryParams.put(kIS_RECOMMENDED, builder.isRecommended);
-        queryParams.put(kSEND_EMAIL_COMMENTED, builder.sendEmailAlertWhenCommented);
-        queryParams.put(kRATING, builder.rating);
-        queryParams.put(kNET_PROMOTER_SCORE, builder.netPromoterScore);
-        queryParams.put(kNET_PROMOTER_COMMENT, builder.netPromoterComment);
-        queryParams.put(kTITLE, builder.title);
-        queryParams.put(kREVIEW_TEXT, builder.reviewText);
+    Boolean getRecommended() {
+        return isRecommended;
+    }
 
-        Set<String> predefinedTagKeys = builder.predefinedTags.keySet();
-        for (String key : predefinedTagKeys) {
-            queryParams.put(key, builder.predefinedTags.get(key));
+    Boolean getSendEmailAlertWhenCommented() {
+        return sendEmailAlertWhenCommented;
+    }
+
+    int getRating() {
+        return rating;
+    }
+
+    Integer getNetPromoterScore() {
+        return netPromoterScore;
+    }
+
+    String getTitle() {
+        return title;
+    }
+
+    String getReviewText() {
+        return reviewText;
+    }
+
+    String getNetPromoterComment() {
+        return netPromoterComment;
+    }
+
+    Map<String, String> getFreeFormTags() {
+        return freeFormTags;
+    }
+
+    List<PredefinedTag> getPredefinedTags() {
+        return predefinedTags;
+    }
+
+    Map<String, String> getAdditionalFields() {
+        return additionalFields;
+    }
+
+    Map<String, String> getContextDataValues() {
+        return contextDataValues;
+    }
+
+    Map<String, String> getRatingSliders() {
+        return ratingSliders;
+    }
+
+    Map<String, Integer> getRatingQuestions() {
+        return ratingQuestions;
+    }
+
+    List<VideoSubmissionData> getVideoSubmissionData() {
+        return videoSubmissionData;
+    }
+
+    /**
+     * Internal class for predefined tag values
+     */
+    static final class PredefinedTag {
+        private final String questionId;
+        private final String tagId;
+        private final String value;
+
+        public PredefinedTag(String questionId, String tagId, String value) {
+            this.questionId = questionId;
+            this.tagId = tagId;
+            this.value = value;
         }
 
-        Set<String> freeFormTagKeys = builder.freeFormTags.keySet();
-        for (String key : freeFormTagKeys) {
-            queryParams.put(key, builder.freeFormTags.get(key));
+        public String getQuestionId() {
+            return questionId;
         }
 
-        Set<String> ratingSliderKeys = builder.ratingSliders.keySet();
-        for (String key : ratingSliderKeys) {
-            queryParams.put("rating_" + key, builder.ratingSliders.get(key));
+        public String getTagId() {
+            return tagId;
         }
 
-        Set<String> ratingQuestionsKeys = builder.ratingQuestions.keySet();
-        for (String key : ratingQuestionsKeys) {
-            queryParams.put("rating_" + key, builder.ratingQuestions.get(key));
-        }
-
-        Set<String> contextDataValueKeys = builder.contextDataValues.keySet();
-        for (String key : contextDataValueKeys) {
-            queryParams.put("contextdatavalue_" + key, builder.contextDataValues.get(key));
-        }
-
-        Set<String> additionalFieldsKeys = builder.additionalFields.keySet();
-        for (String key : additionalFieldsKeys) {
-            queryParams.put("additionalfield_" + key, builder.additionalFields.get(key));
-        }
-
-        List<VideoSubmissionData> videoDataList = builder.videoSubmissionData;
-        for (int i=0; i<videoDataList.size(); i++) {
-            VideoSubmissionData videoData = videoDataList.get(i);
-            int submitIndex = i+1;
-            queryParams.put(String.format(VIDEO_URL_TEMPLATE, submitIndex), videoData.getVideoUrl());
-            if (videoData.getVideoCaption() != null) {
-                queryParams.put(String.format(VIDEO_CAPTION_TEMPLATE, submitIndex), videoData.getVideoCaption());
-            }
+        public String getValue() {
+            return value;
         }
     }
 }
