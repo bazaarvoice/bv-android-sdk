@@ -58,6 +58,11 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     return (BuilderType) this;
   }
 
+  public BuilderType addFilter(ReviewOptions.Filter filter, EqualityOperator equalityOperator, List<String> values) {
+    addFilter(new Filter(filter, equalityOperator, values));
+    return (BuilderType) this;
+  }
+
   public BuilderType includeSearchPhrase(String search) {
     this.searchPhrase = search;
     return (BuilderType) this;
