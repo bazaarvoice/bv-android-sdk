@@ -171,6 +171,9 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_multi_config.html"><span>Multi Config</span></a>
+                                </li>
                             </ul>
                         </div>
 
@@ -466,7 +469,7 @@ ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder("test1
   below.
 </p>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ProductDisplayPageResponse&gt;() {
     @Override
     public void onSuccess(ProductDisplayPageResponse response) {
@@ -493,7 +496,7 @@ client.prepareCall(request).loadAsync(new ConversationsCallback&lt;ProductDispla
   <code>ReviewsGridView</code>, or <code>ReviewsContainerView</code> container:
 </p>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("test1", 10, 20).build();
 reviewsRecyclerView = (ReviewsRecyclerView) findViewById(R.id.my_reviews_recycler_view);
 reviewsRecyclerView.loadAsync(client.prepareCall(reviewsRequest), new ConversationsCallback&lt;ReviewResponse&gt;() {
@@ -568,7 +571,7 @@ reviewsRecyclerView.loadAsync(client.prepareCall(reviewsRequest), new Conversati
   container:
 </p>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 QuestionAndAnswerRequest questionsRequest = new QuestionAndAnswerRequest.Builder("test1", 10, 20).build();
 questionsRecyclerView = (QuestionsRecyclerView) findViewById(R.id.my_questions_recycler_view);
 questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new ConversationsCallback&lt;QuestionAndAnswerResponse&gt;() {
@@ -638,7 +641,7 @@ questionsRecyclerView.loadAsync(client.prepareCall(questionsRequest), new Conver
 
 <p>Comments can be loaded either by a single comment ID, or you can load comments by a review ID with limit and offset parameters. Simply construct a <code>CommentsRequest</code> object and choose one of the default constructors provided. The example provided below demonstrate how to fetch a list of comments from a given review ID.</p>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 
 CommentsRequest request = new CommentsRequest.Builder(reviewId, 20, 0)
         // Add other optional parameters
@@ -685,7 +688,7 @@ BulkRatingsRequest request = new BulkRatingsRequest
   Which can be loaded with:
 </p>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(request).loadAsync(new ConversationsCallback&lt;BulkRatingsResponse&gt;() {
     @Override
     public void onSuccess(BulkRatingsResponse response) {
@@ -750,7 +753,7 @@ Please note that image links are not returned from the Conversations API. The di
   Which can be loaded with:
 </p>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.newCall(request).enqueue(new ConversationsCallback&lt;AuthorsResponse&gt;() {
   @Override
   public void onSuccess(AuthorsResponse response) {

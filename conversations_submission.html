@@ -171,6 +171,9 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_multi_config.html"><span>Multi Config</span></a>
+                                </li>
                             </ul>
                         </div>
 
@@ -397,7 +400,7 @@ Use an instance of the <code>BVConversationsClient</code> to make all your Conve
   .addVideoUrl(videoUrl, optionalVideoCaption) // add youtube video link, if your configuration supports it
   .build();
 
-BVConversationsClient client = new BVConversationsClient();
+BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;ReviewSubmissionResponse&gt;() {
   @Override
   public void onSuccess(ReviewSubmissionResponse response) {
@@ -427,7 +430,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Rev
   .userNickname(userNickname)
   .build();
 
-BVConversationsClient client = new BVConversationsClient();
+BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;CommentSubmissionResponse&gt;() {
   @Override
   public void onSuccess(CommentSubmissionResponse response) {
@@ -460,7 +463,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Com
   .agreedToTermsAndConditions(agreedToTC)
   .build();
 
-BVConversationsClient client = new BVConversationsClient();
+BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;QuestionSubmissionResponse&gt;() {
   @Override
   public void onSuccess(QuestionSubmissionResponse response) {
@@ -489,7 +492,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Que
   .userNickname(userNickname)
   .build();
 
-BVConversationsClient client = new BVConversationsClient();
+BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;AnswerSubmissionResponse&gt;() {
   @Override
   public void onSuccess(AnswerSubmissionResponse response) {
@@ -525,7 +528,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Ans
   .userNickname(userNickname)
   .build();
 
-BVConversationsClient client = new BVConversationsClient();
+BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;FeedbackSubmissionResponse&gt;() {
   @Override
   public void onSuccess(FeedbackSubmissionResponse response) {
@@ -558,7 +561,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;Fee
   For more information on how the API processes Form Data please see:
   <a href="https://developer.bazaarvoice.com/conversations-api/getting-started/submission-fundamentals#1.-request-form-information">Submission Fundamentals: Request Form Information</a>
 </p>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 client.prepareCall(previewSubmission).loadAsync(new ConversationsCallback&lt;&gt;() {
   @Override
   public void onSuccess( response) {

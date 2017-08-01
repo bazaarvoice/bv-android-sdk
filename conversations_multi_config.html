@@ -20,7 +20,7 @@ $(function(){
 
 	// select the tab in the sidebar to reflect current page position
 
-	var tabName = "User Authentication Token";
+	var tabName = "Multi Config";
 
 	$('.nav-link.active').removeClass('active');
 	console.log('active tab: ', tabName);
@@ -85,7 +85,7 @@ $(function(){
 
     ga('create', UA-56370630-5, 'auto');
     ga('set', {
-      title: 'User Authentication Token'
+      title: 'Multi Config'
     });
     ga('send', 'pageview');
   </script>
@@ -159,7 +159,7 @@ $(function(){
                                         id="conversationsDropdownArrow"
                                         class="fa fa-sort-desc fa-rotate-270"></i></span></span>
                         </a>
-                        <div class="collapse "
+                        <div class="collapse in"
                              id="conversationsDropdown">
                             <ul>
                                 <li class="nav-item"> 
@@ -279,24 +279,59 @@ $(function(){
             <div class="scroll-container scrollable--scrollbar">
               <div class="page-container">
 
-                <div class="flex flex-row" id="content_title">
-	User Authentication Token
-</div>
-<hr>
-<p>Both the Advertising and Product Recommendations modules sof the Bazaarvoice Mobile SDKs support adding an authenticated user for shopper profile matching.</p>
-<p>After a user is authenticated inside your user login workflow, use the <code>BVSDK</code> instance to set up the user authentication token.</p>
+                <h1>Multi Config</h1>
 
-<h3>Example</h3>
+<h2>Default</h2>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The authentication token created with your existing Bazaarvoice implementation logic needs to be provided to the BVSDKManager. However, the steps to encrypt your authentication token are still applicable even if you are not a Conversations client.</p>
+<p>
+The default way to send Conversations network requests is,
+<pre><code>// Construct the client instance
+BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance())
+  .build();
 
-<br>
-<h5>Adding User Information</h5>
-<p>The user auth string is an encrypted query string. In the documentation above, <code>date=2007­0527&userid=ID12345</code> is used as an example. This is then encrypted/signed appropriately for security. Add information such as identity and demographics in this query string, for example:</p><p> <code>date=2007­0527&userid=ID12345&facebookId=abc123&age=28&gender=female</code></p>
-<p>Allowed keys include: <code>userid, age, email, facebookId, gender, twitterId</code>. This information can then be safely passed to the <code>BVSDK</code> instance, as shown in the following example:</p>
-<pre><code class="java">BVSDK.getInstance().setUserAuthString("0ce436b29697d6bc74f30f724b9b0bb6646174653d31323334267573657269643d5265636f6d6d656e646174696f6e7353646b54657374");</code></pre>
-<p>After <code>setUserAuthString</code> has been called, Bazaarvoice will begin matching data to this user's profile. The process runs nearly in real-time, but is not instant. The Mobile SDK will poll to update the user profile and should reflect the user's interests within seconds.</p>
-<br>
+// Construct a request
+ReviewsRequest request = new ReviewsRequest.Builder("prodId", limit, offset)
+  .build();
+
+// Send the request
+client.prepareCall(request).loadAsync(callback);</code></pre>
+</p>
+
+<p>
+  This will send the requests with the clientId and Conversations API from the file generated from <a href="installation.html">the installation page.</a>
+</p>
+
+<h2>Multi</h2>
+
+<p>
+  The multi-config way to send Conversations network requests is,
+<pre><code>// Construct BVConfig objects for the clientId + apikey you want to send requests with
+BVConfig configA = new BVConfig.Builder()
+  .clientId("clientA")
+  .apiKeyConversations("clientAKey")
+  .build();
+BVConfig configB = new BVConfig.Builder()
+  .clientId("clientB")
+  .apiKeyConversations("clientBKey")
+  .build();
+
+// Construct a client instance for each BVConfig object
+BVConversationsClient clientWithConfigA = new BVConversationsClient.Builder(BVSDK.getInstance())
+  .bvConfig(configA)
+  .build();
+BVConversationsClient clientWithConfigB = new BVConversationsClient.Builder(BVSDK.getInstance())
+  .bvConfig(configB)
+  .build();
+
+// Construct a request
+ReviewsRequest request = new ReviewsRequest.Builder("prodIdFromOneClientInventory", limit, offset)
+  .build();
+
+// Send the request with the desired BVConversationsClient instance
+clientWithConfigA.prepareCall(request).loadAsync(callback);
+// or
+clientWithConfigB.prepareCall(request).loadAsync(callback);</code></pre>
+</p>
 
 
 <div class="well well-sm">

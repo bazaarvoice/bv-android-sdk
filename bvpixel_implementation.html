@@ -171,6 +171,9 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_multi_config.html"><span>Multi Config</span></a>
+                                </li>
                             </ul>
                         </div>
 
@@ -279,6 +282,12 @@ $(function(){
                 <div class="flex flex-row" id="content_title">
 	BV Pixel Implementation
 </div>
+
+<ol>
+  <li><a href="#generating_events" onclick="navigateTab(this);">Generating Events</a></li>
+  <li><a href="#multi_client_analytics" onclick="navigateTab(this);">Multi Client Analytics</a></li>
+</ol>
+
 <p>The Bazaarvoice API Analytics solution, better known as BV Pixel, aims to pass events from all views containing consumer-generated content (CGC) within a client's mobile application to Bazaarvoice. This includes viewing product statistics and CGC display views for Reviews, Questions, and Answers. Using this collected data, Bazaarvoice reports on the influence that CGC has throughout the client's mobile application. </p>
 
 
@@ -347,6 +356,7 @@ repositories {
 <br>
 
 
+<a name="generating_events"></a>
 <h3>Generating Events</h3>
 
 <br/>
@@ -621,6 +631,14 @@ BVTransactionEvent event = new BVTransactionEvent(transaction);</code></pre>
     </div>
   </div>
 </div>
+
+<a name="multi_client_analytics"></a>
+<h3>Multi Client Analytics</h3>
+
+<p>
+There is an additional API for sending an event with a different clientId if necessary,
+<pre><code>bvPixel.trackEventForClient(event, otherClientId);</code></pre>
+</p>
 
 
 

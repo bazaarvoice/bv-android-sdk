@@ -171,6 +171,9 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_multi_config.html"><span>Multi Config</span></a>
+                                </li>
                             </ul>
                         </div>
 
@@ -329,7 +332,7 @@ request.sendDisplayRequest(RequestType.REVIEWS, null, new OnBazaarResponse() {
 
 <p>The example above it's too differnt from the new patter, but it will be a lot easier to construct new request parameters and now worry about JSON parsing with the new design. For example, a request of reviews for a single product now looks like:</p>
 
-<pre><code class="java">BVConversationsClient client = new BVConversationsClient();
+<pre><code class="java">BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 
 ReviewsRequest request = new ReviewsRequest.Builder(productId, reviewsLimit, reviewsOffset)
         .addSort(ReviewOptions.Sort.AuthorId, SortOrder.ASC)
@@ -394,7 +397,7 @@ client.prepareCall(request).loadAsync(new ConversationsCallback<ReviewResponse>(
 <h4>Content Submission - NEW Pattern!</h4>
 
 <p>Doing that same review submission now looks like:</p>
-<pre><code class="java">BVConversationsClient client = new BVConversationsClient();
+<pre><code class="java">BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 
 ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Action.Preview, TEST_PRODUCT_ID)
         .fingerPrint(blackbox) 

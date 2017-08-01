@@ -171,6 +171,9 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_multi_config.html"><span>Multi Config</span></a>
+                                </li>
                             </ul>
                         </div>
 
@@ -378,7 +381,7 @@ Check out the code samples below to get an overview of what functionality you ca
 
 Requesting reviews for stores is done with the <code>StoreReviewsRequest</code> class. Using the limit and offset paging parameters to fold in more <code>BVReview</code> objects as your end-user scrolls through the reviews. Adjust parameters such as filters and sorting on the <code>StoreReviewsRequest#Builder</code> class. An example of requesting reviews is shown below:
 <hr>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 StoreReviewsRequest reviewsRequest = new StoreReviewsRequest.Builder(TEST_PRODUCT_ID, 20, 0)
         .addSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
         .build();
@@ -409,7 +412,7 @@ You can fetch store and store meta-info two ways: by known store ids, or by usin
 <hr>
 <h3>Bulk Stores Request by Store ID</h3>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 BulkStoreRequest storesRequest = new BulkStoreRequest.Builder(TEST_BULK_PRODUCT_IDS)
         .build();
 
@@ -430,7 +433,7 @@ client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreR
 
 <h3>Bulk Stores Request with Limit and Offset</h3>
 
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 BulkStoreRequest storesRequest = new BulkStoreRequest.Builder(20,0)
         .build();
 
@@ -459,7 +462,7 @@ client.prepareCall(storesRequest).loadAsync(new ConversationsCallback<BulkStoreR
 
 Submit a store review using the <code>StoreReviewSubmissionRequest</code> API. An example for how to use this API is below.
 <hr>
-<pre><code>BVConversationsClient client = new BVConversationsClient();
+<pre><code>BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 StoreReviewSubmissionRequest submission = new StoreReviewSubmissionRequest.Builder(Action.Preview, productId)
 	//.fingerPrint(blackbox)  // uncomment me when using iovation SDK
 	.userNickname("mcfly")

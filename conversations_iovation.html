@@ -171,6 +171,9 @@ $(function(){
                                 <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="conversations_multi_config.html"><span>Multi Config</span></a>
+                                </li>
                             </ul>
                         </div>
 
@@ -320,7 +323,7 @@ The iovation SDKs for iOS and Android are available on Github. Simply download t
   just add the <code>blackbox</code> value to the <code>fingerPrint</code>
   parameter like the sampe code below:
 </p>
-<pre><code class="java">BVConversationsClient client = new BVConversationsClient();
+<pre><code class="java">BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance
 
 String blackbox = getBlackbox(getContext().getApplicationContext());
 
