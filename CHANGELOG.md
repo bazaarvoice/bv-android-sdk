@@ -1,5 +1,19 @@
 # Changelog
 
+# 6.8.0
+
+## Conversations
+* Added multi-config support to the ```BVConversationsClient```. To use it, use the new ```BVConversationsClient.Builder``` 
+to construct an instance, and use the ```BVConversationsClient.Builder#bvConfig(bvConfig)``` method to provide a 
+different config than the default provided by the ```BVSDK``` singleton. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/conversations_display.html) 
+for Conversations.
+* Deprecated the default ```BVConversationsClient``` constructor.
+
+## BVPixel (Analytics)
+* Added an additional API to optionally send an analytics event with a different ```clientId``` than the default 
+provided to the ```BVPixel``` singleton instance. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/bvpixel_implementation.html) 
+for BVPixel.
+
 # 6.7.4
 
 ## Conversations

@@ -36,6 +36,8 @@ public final class BVConversationsClient {
     private final ConversationsAnalyticsManager conversationsAnalyticsManager;
 
     /**
+     * @deprecated Now use the {@link Builder} which explicitly requires the {@link BVSDK} singleton instance.
+     *
      * Builds a instance with the {@link BVSDK} defaults
      */
     public BVConversationsClient() {
