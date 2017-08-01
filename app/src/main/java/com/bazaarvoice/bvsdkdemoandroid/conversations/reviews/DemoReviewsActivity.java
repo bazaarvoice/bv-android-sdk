@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
@@ -24,6 +25,7 @@ public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
     @Inject PrettyTime prettyTime;
     @Inject Picasso picasso;
     @Inject DemoConvResponseHandler demoConvResponseHandler;
+    @Inject BVConversationsClient bvConversationsClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +54,13 @@ public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
     }
 
     @Override
+    BVConversationsClient getConvClient() {
+        return bvConversationsClient;
+    }
+
+    @Override
     protected DemoReviewsAdapter<Review> createAdapter() {
-        return new DemoReviewsAdapter<>(picasso, prettyTime);
+        return new DemoReviewsAdapter<>(picasso, prettyTime, bvConversationsClient);
     }
 
 }

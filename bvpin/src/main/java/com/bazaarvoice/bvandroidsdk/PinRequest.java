@@ -9,8 +9,8 @@ class PinRequest {
         BVSDK bvsdk = BVSDK.getInstance();
         String baseUrl = bvsdk.getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl();
         BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
-        String pinApiKey = bvUserProvidedData.getBvApiKeys().getApiKeyPin();
-        String clientId = bvUserProvidedData.getClientId();
+        String pinApiKey = bvUserProvidedData.getBvConfig().getApiKeyPIN();
+        String clientId = bvUserProvidedData.getBvConfig().getClientId();
 
         String formattedAdId = String.format("%s%s", "magpie_idfa_", advertisingId);
 

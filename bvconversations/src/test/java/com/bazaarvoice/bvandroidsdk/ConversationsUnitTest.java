@@ -12,17 +12,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.HttpUrl;
-
-import static com.bazaarvoice.bvandroidsdk.Action.Submit;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
@@ -37,129 +32,6 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Override
     protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "https://examplesite/";
-    }
-
-    @Test
-    public void testReviewDisplayRequest() throws Exception {
-        String productId = "productId";
-        int limit = 50;
-        int offset = 0;
-        String authorId = "author1";
-        String customKey = "a custom + key";
-        String customValue = "a custom & value";
-
-        ReviewsRequest request = new ReviewsRequest.Builder(productId, limit, offset)
-            .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, authorId)
-            .addSort(ReviewOptions.Sort.IsFeatured, SortOrder.DESC)
-            .addAdditionalField(customKey, customValue)
-            .addIncludeContent(ReviewIncludeType.PRODUCTS)
-            .addIncludeContent(ReviewIncludeType.COMMENTS)
-            .build();
-        String actualUrlStr = request.toHttpUrl().toString();
-
-        String expectedTemplate = "https://examplesite/data/reviews.json?apiversion=%1$s&passkey=%2$s&_appId=%3$s&_appVersion=%4$s&_buildNumber=%5$s&_bvAndroidSdkVersion=%6$s&Filter=%7$s&Filter=%8$s&%9$s=%10$s&Limit=%11$s&Offset=%12$s&Stats=Reviews&Include=%13$s&Sort=%14$s";
-        String expectedStr = String.format(expectedTemplate,
-            "5.4",
-            bvUserProvidedData.getBvApiKeys().getApiKeyConversations(),
-            packageName,
-            versionName,
-            versionCode,
-            bvSdkVersion,
-            "ProductId:eq:productId",
-            "AuthorId:eq:author1",
-            URLEncoder.encode(customKey, "UTF-8")
-                .replaceAll("\\+", "%20"),
-            URLEncoder.encode(customValue, "UTF-8")
-                .replaceAll("\\+", "%20"),
-            limit,
-            offset,
-            "products,comments",
-            "IsFeatured:desc");
-
-        assertEquals(expectedStr, actualUrlStr);
-    }
-
-    @Test
-    public void basicReviewDisplayRequest() {
-        ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0)
-            .addIncludeContent(ReviewIncludeType.PRODUCTS)
-            .addIncludeContent(ReviewIncludeType.COMMENTS)
-            .build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
-        assertTrue(httpUrl.query().contains("Include=products"));
-    }
-
-    @Test
-    public void basicStoreReviewDisplayRequest() {
-        StoreReviewsRequest request = new StoreReviewsRequest.Builder("product123", 20, 0)
-            .addIncludeContent(ReviewIncludeType.PRODUCTS)
-            .addIncludeContent(ReviewIncludeType.COMMENTS)
-            .build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/reviews.json"));
-        assertTrue(httpUrl.query().contains("Include=products"));
-    }
-
-    @Test
-    public void basicQuestionDisplayRequest() {
-        QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("product123", 20, 0).build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/questions.json"));
-    }
-
-    @Test
-    public void basicPdpDisplayRequest() {
-        ProductDisplayPageRequest request = new ProductDisplayPageRequest.Builder("product123").build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
-    }
-
-    @Test
-    public void basicCommentsDisplayRequest() {
-        CommentsRequest request = new CommentsRequest.Builder("review123", 20, 0).build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/reviewcomments.json"));
-    }
-
-    @Test
-    public void basicBulkProductDisplayRequest() {
-        BulkProductRequest request = new BulkProductRequest.Builder().build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
-    }
-
-    @Test
-    public void basicBulkReviewDisplayRequest() {
-        BulkRatingsRequest request = new BulkRatingsRequest.Builder(new ArrayList<String>(), BulkRatingOptions.StatsType.All).build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/statistics.json"));
-    }
-
-    @Test
-    public void basicBulkStoreReviewDisplayRequest() {
-        BulkStoreRequest request = new BulkStoreRequest.Builder(20, 0).build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/products.json"));
-    }
-
-    @Test
-    public void basicAuthorDisplayRequest() {
-        AuthorsRequest request = new AuthorsRequest.Builder("authorId").build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.toString().contains("https://examplesite/data/authors.json"));
-    }
-
-    @Test
-    public void reviewDisplayRequestWithIncludeProductShouldHaveStatsReviews() {
-        // "Stats=Reviews must be used in conjunction with Include=Products"
-        // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
-        ReviewsRequest request = new ReviewsRequest.Builder("product123", 20, 0)
-            .addIncludeContent(ReviewIncludeType.PRODUCTS)
-            .build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.queryParameterNames().contains("Stats"));
-        assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
     }
 
     @Test
@@ -215,17 +87,6 @@ public class ConversationsUnitTest extends BVBaseTest{
             .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
-    }
-
-    @Test
-    public void testReviewsRequestIncludes() {
-        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 20 , 0)
-            .addIncludeContent(ReviewIncludeType.PRODUCTS)
-            .addIncludeContent(ReviewIncludeType.COMMENTS)
-            .build();
-
-        String requestUrl = request.toHttpUrl().toString();
-        assertTrue(requestUrl.contains("Include=products,comments"));
     }
 
     @Test
@@ -424,93 +285,6 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
-    public void testReviewSubmissionBuilder(){
-        // Make sure the string is encoded properly
-        ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(Submit, "123987")
-            .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-            .userNickname("nickname")
-            .userEmail("foo@bar.com")
-            .userId("user1234") // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-            .rating(5)
-            .title("Android SDK Testing")
-            .reviewText("This is the review text the user adds about how great the product is!")
-            .sendEmailAlertWhenCommented(true)
-            .sendEmailAlertWhenPublished(true)
-            .agreedToTermsAndConditions(true)
-            .addVideoUrl("https://www.website.com/path/to/video12.mp4", "how to farm taters")
-            .addVideoUrl("https://www.website.com/path/to/video8.mp4", "how to market taters")
-            .build();
-
-        String formBody = submission.createUrlQueryString(submission.makeQueryParams());
-        assertTrue(formBody.contains("fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters"));
-        assertTrue(formBody.contains("UserNickname=nickname"));
-        assertTrue(formBody.contains("_appVersion=" + versionName));
-        assertTrue(formBody.contains("passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations()));
-        assertTrue(formBody.contains("Rating=5"));
-        assertTrue(formBody.contains("ReviewText=This+is+the+review+text+the+user+adds+about+how+great+the+product+is%21"));
-        assertTrue(formBody.contains("agreedToTermsAndConditions=true"));
-        assertTrue(formBody.contains("Title=Android+SDK+Testing"));
-        assertTrue(formBody.contains("apiversion=5.4"));
-        assertTrue(formBody.contains("ProductId=123987"));
-        assertTrue(formBody.contains("UserEmail=foo%40bar.com"));
-        assertTrue(formBody.contains("SendEmailAlertWhenCommented=true"));
-        assertTrue(formBody.contains("UserId=user1234"));
-        assertTrue(formBody.contains("action=Submit"));
-        assertTrue(formBody.contains("_appId=" + packageName));
-        assertTrue(formBody.contains("_bvAndroidSdkVersion=" + bvSdkVersion));
-        assertTrue(formBody.contains("sendemailalertwhenpublished=true"));
-        assertTrue(formBody.contains("_buildNumber=" + versionCode));
-        assertTrue(formBody.contains("VideoUrl_1=https%3A%2F%2Fwww.website.com%2Fpath%2Fto%2Fvideo12.mp4"));
-        assertTrue(formBody.contains("VideoUrl_2=https%3A%2F%2Fwww.website.com%2Fpath%2Fto%2Fvideo8.mp4"));
-        assertTrue(formBody.contains("VideoCaption_1=how+to+farm+taters"));
-        assertTrue(formBody.contains("VideoCaption_2=how+to+market+taters"));
-    }
-
-    @Test
-    public void testQuestionSubmissionBuilder() throws UnsupportedEncodingException {
-        String userNickname = "nickname";
-        String productId = "123987";
-        String fp = "abcdef+123345/ham+taters";
-        String userEmail = "foo@bar.com";
-        Action action = Action.Submit;
-
-        // Make sure the string is encoded properly
-        String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&apiversion=5.4&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&ProductId=123987&UserEmail=foo%40bar.com&action=Submit&_appId=" + packageName + "&_bvAndroidSdkVersion=" + bvSdkVersion + "&_buildNumber=" + versionCode;
-
-        QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(Submit, "123987")
-            .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-            .userNickname("nickname")
-            .userEmail("foo@bar.com")
-            .build();
-
-        String testString = submission.createUrlQueryString(submission.makeQueryParams());
-        assertEquals(expectedResult, testString);
-
-    }
-
-    @Test
-    public void testQuestionAnswerBuilder() throws Exception {
-        String userNickname = "nickname";
-        String questionId = "123987";
-        String fp = "abcdef+123345/ham+taters";
-        String userEmail = "foo@bar.com";
-        Action action = Action.Submit;
-        String answerText = "Let me google that for you....";
-
-        // Make sure the string is encoded properly
-        String expectedResult = "_appVersion=" + versionName + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyConversations() + "&UserNickname=nickname&QuestionId=123987&action=Submit&apiversion=5.4&_appId=" + packageName + "&fp=abcdef%2B123345%2Fham%2Bbacon%2Beggs%2Bcaseylovestaters&AnswerText=Let+me+google+that+for+you....&UserEmail=foo%40bar.com&_bvAndroidSdkVersion=" + bvSdkVersion + "&_buildNumber=" + versionCode;
-
-        AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(Submit, "123987", "Let me google that for you....")
-            .fingerPrint("abcdef+123345/ham+bacon+eggs+caseylovestaters")
-            .userNickname("nickname")
-            .userEmail("foo@bar.com")
-            .build();
-
-        String testString = submission.createUrlQueryString(submission.makeQueryParams());
-        assertEquals(expectedResult, testString);
-    }
-
-    @Test
     public void testFeedbackSubmitHelpfulVote() {
 
         FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
@@ -659,32 +433,4 @@ public class ConversationsUnitTest extends BVBaseTest{
         firstAuthor.getQaStatistics();
     }
 
-    @Test
-    public void testAuthorRequest() {
-        AuthorsRequest request = new AuthorsRequest.Builder("authorId")
-            .addIncludeContent(AuthorIncludeType.REVIEWS, 10)
-            .addIncludeContent(AuthorIncludeType.QUESTIONS, 11)
-            .addIncludeContent(AuthorIncludeType.ANSWERS, 12)
-            .addIncludeContent(AuthorIncludeType.COMMENTS, 4)
-            .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
-            .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.ASC)
-            .addAnswerSort(AnswerOptions.Sort.AuthorId, SortOrder.DESC)
-            .addIncludeStatistics(AuthorIncludeType.REVIEWS)
-            .addIncludeStatistics(AuthorIncludeType.QUESTIONS)
-            .addIncludeStatistics(AuthorIncludeType.ANSWERS)
-            .addIncludeStatistics(AuthorIncludeType.COMMENTS)
-            .build();
-
-        HttpUrl url = request.toHttpUrl();
-
-        assertEquals("Reviews,Questions,Answers,Comments", url.queryParameter("Include"));
-        assertEquals(Integer.valueOf(10), Integer.valueOf(url.queryParameter("Limit_Reviews")));
-        assertEquals(Integer.valueOf(11), Integer.valueOf(url.queryParameter("Limit_Questions")));
-        assertEquals(Integer.valueOf(12), Integer.valueOf(url.queryParameter("Limit_Answers")));
-        assertEquals(Integer.valueOf(4), Integer.valueOf(url.queryParameter("Limit_Comments")));
-        assertEquals("Reviews,Questions,Answers", url.queryParameter("Stats"));
-        assertEquals("SubmissionTime:desc", url.queryParameter("Sort_Reviews"));
-        assertEquals("SubmissionTime:asc", url.queryParameter("Sort_Questions"));
-        assertEquals("AuthorId:desc", url.queryParameter("Sort_Answers"));
-    }
 }

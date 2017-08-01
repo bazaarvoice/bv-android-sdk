@@ -17,15 +17,10 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.util.Log;
-
 import java.util.List;
 
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 
 /**
  * Class used to perform Conversations requests. It is recommended to use
@@ -33,17 +28,37 @@ import okhttp3.RequestBody;
  */
 public final class BVConversationsClient {
     private static final OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
-    private static final BVLogger BV_LOGGER = BVSDK.getInstance().getBvLogger();
     private static final String CONVERSATIONS_RELATIVE_URL = "data/";
     static final String conversationsBaseUrl = BVSDK.getInstance().getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl() + CONVERSATIONS_RELATIVE_URL;
-    private static final MediaType URL_ENCODED = MediaType.parse("application/x-www-form-urlencoded");
+
+    private final RequestFactory requestFactory;
+    private final BVConfig bvConfig;
+    private final ConversationsAnalyticsManager conversationsAnalyticsManager;
+
+    /**
+     * @deprecated Now use the {@link Builder} which explicitly requires the {@link BVSDK} singleton instance.
+     *
+     * Builds a instance with the {@link BVSDK} defaults
+     */
+    public BVConversationsClient() {
+        BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build();
+        bvConfig = client.bvConfig;
+        requestFactory = client.requestFactory;
+        conversationsAnalyticsManager = client.conversationsAnalyticsManager;
+    }
+
+    private BVConversationsClient(Builder builder) {
+        bvConfig = builder.bvConfig;
+        requestFactory = builder.requestFactory;
+        conversationsAnalyticsManager = builder.conversationsAnalyticsManager;
+    }
 
     /**
      * @param request QuestionAndAnswerRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
     public LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> prepareCall(QuestionAndAnswerRequest request) {
-        return createCall(QuestionAndAnswerResponse.class, request);
+        return factoryCreateDisplayCall(QuestionAndAnswerResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     /**
@@ -51,11 +66,11 @@ public final class BVConversationsClient {
      * @return LoadCall object with the request ready to be sent
      */
     public LoadCallDisplay<ProductDisplayPageRequest, ProductDisplayPageResponse> prepareCall(ProductDisplayPageRequest request) {
-        return createCall(ProductDisplayPageResponse.class, request);
+        return factoryCreateDisplayCall(ProductDisplayPageResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     public LoadCallDisplay<BulkProductRequest, BulkProductResponse> prepareCall(BulkProductRequest request) {
-        return createCall(BulkProductResponse.class, request);
+        return factoryCreateDisplayCall(BulkProductResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     /**
@@ -63,7 +78,7 @@ public final class BVConversationsClient {
      * @return LoadCall object with the request ready to be sent
      */
     public LoadCallDisplay<BulkRatingsRequest, BulkRatingsResponse> prepareCall(BulkRatingsRequest request) {
-        return createCall(BulkRatingsResponse.class, request);
+        return factoryCreateDisplayCall(BulkRatingsResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     /**
@@ -71,7 +86,7 @@ public final class BVConversationsClient {
      * @return LoadCall object with the request ready to be sent
      */
     public LoadCallDisplay<BulkStoreRequest, BulkStoreResponse> prepareCall(BulkStoreRequest request) {
-        return createCall(BulkStoreResponse.class, request);
+        return factoryCreateDisplayCall(BulkStoreResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     /**
@@ -79,19 +94,19 @@ public final class BVConversationsClient {
      * @return LoadCall object with the request ready to be sent
      */
     public LoadCallDisplay<ReviewsRequest, ReviewResponse> prepareCall(ReviewsRequest request) {
-        return createCall(ReviewResponse.class, request);
+        return factoryCreateDisplayCall(ReviewResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     public LoadCallDisplay<StoreReviewsRequest, StoreReviewResponse> prepareCall(StoreReviewsRequest request) {
-        return createCall(StoreReviewResponse.class, request);
+        return factoryCreateDisplayCall(StoreReviewResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     public LoadCallDisplay<AuthorsRequest, AuthorsResponse> prepareCall(AuthorsRequest request) {
-        return createCall(AuthorsResponse.class, request);
+        return factoryCreateDisplayCall(AuthorsResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     public LoadCallDisplay<CommentsRequest, CommentsResponse> prepareCall(CommentsRequest request) {
-        return createCall(CommentsResponse.class, request);
+        return factoryCreateDisplayCall(CommentsResponse.class, request, requestFactory, conversationsAnalyticsManager);
     }
 
     public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
@@ -99,72 +114,95 @@ public final class BVConversationsClient {
     }
 
     public LoadCallSubmission<AnswerSubmissionRequest, AnswerSubmissionResponse> prepareCall(AnswerSubmissionRequest submission) {
-        return createCall(AnswerSubmissionResponse.class, submission);
+        return factoryCreateSubmissionCall(AnswerSubmissionResponse.class, submission, requestFactory, conversationsAnalyticsManager, bvConfig.getApiKeyConversations());
     }
 
     public LoadCallSubmission<ReviewSubmissionRequest, ReviewSubmissionResponse> prepareCall(ReviewSubmissionRequest submission) {
-        return createCall(ReviewSubmissionResponse.class, submission);
+        return factoryCreateSubmissionCall(ReviewSubmissionResponse.class, submission, requestFactory, conversationsAnalyticsManager, bvConfig.getApiKeyConversations());
     }
 
     public LoadCallSubmission<StoreReviewSubmissionRequest, StoreReviewSubmissionResponse> prepareCall(StoreReviewSubmissionRequest submission) {
-        return createCall(StoreReviewSubmissionResponse.class, submission);
+        return factoryCreateSubmissionCall(StoreReviewSubmissionResponse.class, submission, requestFactory, conversationsAnalyticsManager, bvConfig.getApiKeyConversationsStores());
     }
 
     public LoadCallSubmission<QuestionSubmissionRequest, QuestionSubmissionResponse> prepareCall(QuestionSubmissionRequest submission) {
-        return createCall(QuestionSubmissionResponse.class, submission);
+        return factoryCreateSubmissionCall(QuestionSubmissionResponse.class, submission, requestFactory, conversationsAnalyticsManager, bvConfig.getApiKeyConversations());
     }
 
     public LoadCallSubmission<FeedbackSubmissionRequest, FeedbackSubmissionResponse> prepareCall(FeedbackSubmissionRequest submission) {
-        return createCall(FeedbackSubmissionResponse.class, submission);
+        return factoryCreateSubmissionCall(FeedbackSubmissionResponse.class, submission, requestFactory, conversationsAnalyticsManager, bvConfig.getApiKeyConversations());
     }
 
     public LoadCallSubmission<CommentSubmissionRequest, CommentSubmissionResponse> prepareCall(CommentSubmissionRequest submission) {
-        return createCall(CommentSubmissionResponse.class, submission);
+        return factoryCreateSubmissionCall(CommentSubmissionResponse.class, submission, requestFactory, conversationsAnalyticsManager, bvConfig.getApiKeyConversations());
     }
 
-    private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType request) {
-        HttpUrl httpUrl = request.toHttpUrl();
-        BV_LOGGER.d("url", httpUrl.toString());
-        Request okRequest = new Request.Builder()
-                .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
-                .url(httpUrl)
-                .build();
-        return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest));
+    private static <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> factoryCreateDisplayCall(Class<ResponseType> responseTypeClass, RequestType request, RequestFactory requestFactory, ConversationsAnalyticsManager conversationsAnalyticsManager) {
+        final Request okRequest = requestFactory.create(request);
+        return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager);
     }
 
-    private static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> createCall(Class<ResponseType> responseTypeClass, RequestType submission) {
-        if (submission.getBuilder().getAction() == Action.Submit) {
-            submission.setForcePreview(true);
+    private static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> factoryCreateSubmissionCall(Class<ResponseType> responseTypeClass, RequestType request, RequestFactory requestFactory, ConversationsAnalyticsManager conversationsAnalyticsManager, String apiKey) {
+        if (request.getAction() == Action.Submit) {
+            request.setForcePreview(true);
         }
-        return loadCallFromSubmission(responseTypeClass, submission);
+        return loadCallFromSubmission(responseTypeClass, request, requestFactory, conversationsAnalyticsManager, apiKey);
     }
 
-    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> loadCallFromSubmission(Class<ResponseType> responseTypeClass, RequestType submission) {
-        String fullUrl = String.format("%s%s", conversationsBaseUrl, submission.getEndPoint());
-        Log.d("url", fullUrl);
-
-        String json = submission.getUrlQueryString();
-        RequestBody body = RequestBody.create(URL_ENCODED, json);
-        Request okRequest = new Request.Builder()
-                .post(body)
-                .addHeader("Content-type", "application/x-www-form-urlencoded")
-                .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
-                .url(fullUrl)
-                .build();
-        return new LoadCallSubmission<>(submission, responseTypeClass, okHttpClient.newCall(okRequest));
+    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType>   loadCallFromSubmission(Class<ResponseType> responseTypeClass, RequestType request, RequestFactory requestFactory, ConversationsAnalyticsManager conversationsAnalyticsManager, String apiKey) {
+        final Request okRequest = requestFactory.create(request);
+        return new LoadCallSubmission<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager, requestFactory, apiKey);
     }
 
-    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallWithPhotos(Class<ResponseType> responseTypeClass, RequestType submission, List<Photo> photos) {
+    // TODO: Remove as part of photo request refactor
+    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallWithPhotos(Class<ResponseType> responseTypeClass, RequestType submission, List<Photo> photos, RequestFactory requestFactory, ConversationsAnalyticsManager conversationsAnalyticsManager, String apiKey) {
         submission.setPhotos(photos);
         submission.getBuilder().photoUploads.clear();
         submission.setForcePreview(false);
 
-        LoadCall loadCall = loadCallFromSubmission(responseTypeClass, submission);
-        return loadCall;
+        return loadCallFromSubmission(responseTypeClass, submission, requestFactory, conversationsAnalyticsManager, apiKey);
     }
 
-    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallNoPreview(Class<ResponseType> responseTypeClass, RequestType submission) {
+    // TODO: Remove as part of photo request refactor
+    static <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCall<RequestType, ResponseType> reCreateCallNoPreview(Class<ResponseType> responseTypeClass, RequestType submission, RequestFactory requestFactory, ConversationsAnalyticsManager conversationsAnalyticsManager, String apiKey) {
         submission.setForcePreview(false);
-        return loadCallFromSubmission(responseTypeClass, submission);
+        return loadCallFromSubmission(responseTypeClass, submission, requestFactory, conversationsAnalyticsManager, apiKey);
+    }
+
+    /**
+     * Builds a instance with the {@link BVSDK} defaults, and/or
+     * optional configuration values.
+     */
+    public static class Builder {
+        private final BVSDK bvsdk;
+        private BVConfig bvConfig;
+        private RequestFactory requestFactory;
+        private ConversationsAnalyticsManager conversationsAnalyticsManager;
+
+        public Builder(BVSDK bvsdk) {
+            this.bvsdk = bvsdk;
+        }
+
+        public Builder bvConfig(BVConfig bvConfig) {
+            this.bvConfig = bvConfig;
+            return this;
+        }
+
+        public BVConversationsClient build() {
+            if (bvConfig == null) {
+                this.bvConfig = bvsdk.getBvUserProvidedData().getBvConfig();
+            }
+
+            final BVMobileInfo bvMobileInfo = bvsdk.getBvUserProvidedData().getBvMobileInfo();
+            final BVRootApiUrls bvRootApiUrls = bvsdk.getBvWorkerData().getRootApiUrls();
+            final String bvSdkUserAgent = bvsdk.getBvWorkerData().getBvSdkUserAgent();
+            requestFactory = new RequestFactory(bvMobileInfo, bvRootApiUrls, bvConfig, bvSdkUserAgent);
+
+            final String clientId = bvConfig.getClientId();
+            final BVPixel bvPixel = bvsdk.getBvPixel();
+            conversationsAnalyticsManager = new ConversationsAnalyticsManager(bvPixel, clientId);
+
+            return new BVConversationsClient(this);
+        }
     }
 }

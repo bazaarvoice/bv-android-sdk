@@ -18,18 +18,15 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.HttpUrl;
 
 /**
  * Request to get {@link Author}s
  */
 public final class AuthorsRequest extends ConversationsDisplayRequest {
-  private static final String ENDPOINT = "data/authors.json";
-
   private final List<Sort> reviewSorts, questionSorts, answerSorts;
   private final List<Include> includes;
   private final List<IncludeType> statistics;
@@ -64,51 +61,14 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
   }
 
   @Override
-  String getEndPoint() {
-    return ENDPOINT;
-  }
-
-  @Override
   BazaarException getError() {
     return null;
-  }
-
-  @Override
-  HttpUrl toHttpUrl() {
-    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
-
-    if (!reviewSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_REVIEW, StringUtils.componentsSeparatedBy(reviewSorts, ","));
-    }
-
-    if (!questionSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_QUESTIONS, StringUtils.componentsSeparatedBy(questionSorts, ","));
-    }
-
-    if (!answerSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(answerSorts, ","));
-    }
-
-    if (!includes.isEmpty()) {
-      httpUrlBuilder.addQueryParameter(kINCLUDE, StringUtils.componentsSeparatedBy(includes, ","));
-    }
-
-    for (Include include : includes) {
-      httpUrlBuilder.addQueryParameter(include.getLimitParamKey(), String.valueOf(include.getLimit()));
-    }
-
-    if (!statistics.isEmpty()) {
-      httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(statistics, ","));
-    }
-
-    return httpUrlBuilder.build();
   }
 
   public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
     private final List<Sort> reviewSorts, questionSorts, answerSorts;
     private final List<Include> includes;
     private final List<IncludeType> statistics;
-    private final BVLogger bvLogger;
 
     public Builder(@NonNull String authorId) {
       super();
@@ -118,7 +78,6 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
       includes = new ArrayList<>();
       this.statistics = new ArrayList<>();
       addFilter(new Filter(Filter.Type.Id, EqualityOperator.EQ, authorId));
-      bvLogger = BVSDK.getInstance().getBvLogger();
     }
 
     public Builder addReviewSort(@NonNull ReviewOptions.Sort sort, @NonNull SortOrder order) {
@@ -168,7 +127,7 @@ public final class AuthorsRequest extends ConversationsDisplayRequest {
 
     public Builder addIncludeStatistics(@NonNull AuthorIncludeType type) {
       if (type == AuthorIncludeType.COMMENTS) {
-        bvLogger.w("BVSDK", "Including Review Comment Statistics is not supported with an authors request. Skipping.");
+        Log.w("BVSDK", "Including Review Comment Statistics is not supported with an authors request. Skipping.");
       } else {
         this.statistics.add(type);
       }

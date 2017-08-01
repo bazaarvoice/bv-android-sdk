@@ -22,25 +22,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.HttpUrl;
-
 /**
  * Common options for a Conversations display request
  */
 abstract class ConversationsDisplayRequest extends ConversationsRequest {
-  static final String kFILTER = "Filter";
-  static final String kSORT= "Sort";
-  static final String kSORT_REVIEW = "Sort_Reviews";
-  static final String kSORT_QUESTIONS = "Sort_Questions";
-  static final String kSORT_ANSWERS= "Sort_Answers";
-  static final String kINCLUDE = "Include";
-  static final String kSTATS = "Stats";
-  static final String kLIMIT = "Limit";
-  static final String kOFFSET = "Offset";
-  static final String kSEARCH = "Search";
-
-  static final String INCLUDE_ANSWERS = "Answers";
-
   private final List<Filter> filters;
   private final Map<String, String> extraParams;
 
@@ -49,51 +34,12 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
     extraParams = builder.extraParams;
   }
 
-  HttpUrl toHttpUrl() {
-    String rootBvApiUrl = BVSDK.getInstance().getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl();
-
-    HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(rootBvApiUrl)
-        .newBuilder()
-        .addPathSegments(getEndPoint());
-
-    addCommonQueryParams(httpUrlBuilder);
-    addFilterQueryParams(httpUrlBuilder);
-    addExtraQueryParams(httpUrlBuilder);
-
-    return httpUrlBuilder.build();
+  List<Filter> getFilters() {
+    return filters;
   }
 
-  private void addCommonQueryParams(HttpUrl.Builder httpUrlBuilder) {
-    BVMobileInfo mobileInfo = BVSDK.getInstance().getBvUserProvidedData().getBvMobileInfo();
-
-    httpUrlBuilder.addQueryParameter(kAPI_VERSION, API_VERSION)
-        .addQueryParameter(kPASS_KEY, getAPIKey())
-        .addQueryParameter(kAPP_ID, mobileInfo.getMobileAppIdentifier())
-        .addQueryParameter(kAPP_VERSION, mobileInfo.getMobileAppVersion())
-        .addQueryParameter(kBUILD_NUM, mobileInfo.getMobileAppCode())
-        .addQueryParameter(kSDK_VERSION, mobileInfo.getBvSdkVersion());
-  }
-
-  private void addFilterQueryParams(HttpUrl.Builder httpUrlBuilder) {
-    for (Filter filter : filters) {
-      httpUrlBuilder
-          .addEncodedQueryParameter(kFILTER, filter.toString());
-    }
-  }
-
-  private void addExtraQueryParams(HttpUrl.Builder httpUrlBuilder) {
-    for (Map.Entry<String, String> extraEntry : extraParams.entrySet()) {
-      httpUrlBuilder
-          .addQueryParameter(extraEntry.getKey(), extraEntry.getValue());
-    }
-  }
-
-  /**
-   * TODO: Remove when stores code is separated from conversations module
-   * @return api key for the correct service, typically just plain conversations
-   */
-  protected String getAPIKey(){
-    return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
+  Map<String, String> getExtraParams() {
+    return extraParams;
   }
 
   static abstract class Builder<BuilderType> {
@@ -109,6 +55,19 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
       filters.add(filter);
     }
 
+    /**
+     * This method is not related to the Review Submission specific
+     * {@link BaseReviewBuilder#addAdditionalField(String, String)}.
+     * May want to deprecate this function, and come up with a common
+     * name for display and submission that is not 'addAdditionalField'.
+     * <br/><br/>
+     * This method adds extra user provided query parameters to a
+     * display request, and will be urlencoded.
+     *
+     * @param key Custom non-encoded url query param key
+     * @param value Custom non-encoded url query param value
+     * @return The Builder
+     */
     public BuilderType addAdditionalField(String key, String value) {
       extraParams.put(key, value);
       return (BuilderType) this;

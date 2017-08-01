@@ -48,9 +48,8 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
 
     private List<String> TEST_BULK_PRODUCT_IDS = Arrays.asList("1", "2", "3", "4");
 
-    private BVConversationsClient client = new BVConversationsClient();
-
     @Inject DemoClient demoClient;
+    @Inject BVConversationsClient client;
 
     public static DemoConversationsStoresAPIFragment newInstance() {
         DemoConversationsStoresAPIFragment fragment = new DemoConversationsStoresAPIFragment();

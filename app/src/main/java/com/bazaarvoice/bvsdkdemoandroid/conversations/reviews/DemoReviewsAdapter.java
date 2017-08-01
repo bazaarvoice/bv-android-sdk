@@ -46,10 +46,12 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
   List<ReviewType> reviews = Collections.emptyList();
   private PrettyTime prettyTime;
   private Picasso picasso;
+  private final BVConversationsClient client;
 
-  public DemoReviewsAdapter(Picasso picasso, PrettyTime prettyTime) {
+  public DemoReviewsAdapter(Picasso picasso, PrettyTime prettyTime, BVConversationsClient client) {
     this.picasso = picasso;
     this.prettyTime = prettyTime;
+    this.client = client;
   }
 
   @Override
@@ -210,7 +212,6 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         .feedbackVote(vote)
         .build();
 
-    BVConversationsClient client = new BVConversationsClient();
     client.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
 
       @Override

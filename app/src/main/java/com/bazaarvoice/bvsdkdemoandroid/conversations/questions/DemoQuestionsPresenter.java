@@ -34,12 +34,13 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
     private String productId;
     private BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader;
     private boolean fetched = false;
-    private BVConversationsClient conversationsClient = new BVConversationsClient();
+    private BVConversationsClient conversationsClient;
     private DemoConvResponseHandler demoConvResponseHandler;
     private boolean forceAPICall;
 
-    public DemoQuestionsPresenter(DemoQuestionsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader, DemoConvResponseHandler demoConvResponseHandler) {
+    public DemoQuestionsPresenter(DemoQuestionsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader, DemoConvResponseHandler demoConvResponseHandler) {
         this.view = view;
+        this.conversationsClient = bvConversationsClient;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;
         this.demoConvResponseHandler = demoConvResponseHandler;

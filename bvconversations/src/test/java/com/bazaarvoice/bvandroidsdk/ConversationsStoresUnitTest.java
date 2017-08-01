@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.HttpUrl;
-
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -111,18 +109,6 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
 
         List<StoreReview> reviews = response.getResults();
         assertTrue("Wrong review count", reviews != null && reviews.size() == 12);
-    }
-
-    @Test
-    public void reviewDisplayRequestWithIncludeProductShouldHaveStatsReviews() {
-        // "Stats=Reviews must be used in conjunction with Include=Products"
-        // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
-        StoreReviewsRequest request = new StoreReviewsRequest.Builder("product123", 20, 0)
-            .addIncludeContent(ReviewIncludeType.PRODUCTS)
-            .build();
-        HttpUrl httpUrl = request.toHttpUrl();
-        assertTrue(httpUrl.queryParameterNames().contains("Stats"));
-        assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
     }
 
     @Test

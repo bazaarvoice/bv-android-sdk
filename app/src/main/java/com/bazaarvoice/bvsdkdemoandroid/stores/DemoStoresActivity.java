@@ -21,13 +21,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.Store;
+import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +47,8 @@ public class DemoStoresActivity extends AppCompatActivity implements DemoStoresC
     @BindView(R.id.get_stores_progress) ProgressBar storesProgress;
     @BindView(R.id.no_stores_found) TextView noStoresFoundTv;
 
+    @Inject BVConversationsClient client;
+
     private DemoStoresContract.UserActionsListener userActionsListener;
     private DemoStoreAdapter demoStoreAdapter;
 
@@ -50,17 +56,18 @@ public class DemoStoresActivity extends AppCompatActivity implements DemoStoresC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DemoApp.getAppComponent(this).inject(this);
         LayoutInflater.from(this).inflate(R.layout.activity_stores_feed, (FrameLayout) findViewById(R.id.main_content), true);
         ButterKnife.bind(this);
 
         Bundle extras = getIntent().getExtras();
         if (extras.containsKey(EXTRA_PRODUCT_IDS)) {
             List<String> productIds = getIntent().getExtras().getStringArrayList(EXTRA_PRODUCT_IDS);
-            userActionsListener = new DemoStoresPresenter(this, productIds);
+            userActionsListener = new DemoStoresPresenter(this, client, productIds);
         } else if (extras.containsKey(EXTRA_LIMIT) && extras.containsKey(EXTRA_OFFSET)) {
             int limit = extras.getInt(EXTRA_LIMIT);
             int offset = extras.getInt(EXTRA_OFFSET);
-            userActionsListener = new DemoStoresPresenter(this, limit, offset);
+            userActionsListener = new DemoStoresPresenter(this, client, limit, offset);
         }
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

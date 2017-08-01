@@ -30,6 +30,7 @@ import java.lang.ref.WeakReference;
  */
 public final class QuestionsListView extends BVListView implements BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> {
     private WeakReference<ConversationsCallback<QuestionAndAnswerResponse>> delegateCbWeakRef;
+    private ConversationsAnalyticsManager convAnMan;
     private String productId;
     private boolean onScreen = false;
 
@@ -51,6 +52,7 @@ public final class QuestionsListView extends BVListView implements BVConversatio
 
     @Override
     public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsCallback<QuestionAndAnswerResponse> callback) {
+        convAnMan = call.getConversationsAnalyticsManager();
         final QuestionAndAnswerRequest qAndARequest = call.getRequest();
         productId = qAndARequest.getProductId();
         delegateCbWeakRef = new WeakReference<ConversationsCallback<QuestionAndAnswerResponse>>(callback);
@@ -88,14 +90,14 @@ public final class QuestionsListView extends BVListView implements BVConversatio
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
+        if (convAnMan != null) {
+            convAnMan.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
+        }
     }
 
     private void trySendUsedFeatureInViewEvent() {
-        if (onScreen && productId != null) {
-            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-            convAnalyticsManager.sendUsedFeatureInViewEvent(
+        if (onScreen && productId != null && convAnMan != null) {
+            convAnMan.sendUsedFeatureInViewEvent(
                 productId, "QuestionsListView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
         }
     }

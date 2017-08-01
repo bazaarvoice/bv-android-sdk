@@ -36,12 +36,12 @@ public class CurationsUnitTest extends BVBaseTest {
     @Override
     protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = server.url("").toString();
-        curationsDisplayFullUrl = bazaarvoiceApiBaseUrl + "curations/content/get?client=" + bvUserProvidedData.getClientId() +"&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyCurations();
+        curationsDisplayFullUrl = bazaarvoiceApiBaseUrl + "curations/content/get?client=" + bvUserProvidedData.getBvConfig().getClientId() +"&passkey=" + bvUserProvidedData.getBvConfig().getApiKeyCurations();
 
         genericFeedBuilder = new CurationsFeedRequest.Builder(Arrays.asList("__all__"));
         genericFeedRequestStr = curationsDisplayFullUrl + "&groups=__all__";
 
-        curationsPostFullUrl  = bazaarvoiceApiBaseUrl + "curations/content/add/?client=" + bvUserProvidedData.getClientId() + "&passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyCurations();
+        curationsPostFullUrl  = bazaarvoiceApiBaseUrl + "curations/content/add/?client=" + bvUserProvidedData.getBvConfig().getClientId() + "&passkey=" + bvUserProvidedData.getBvConfig().getApiKeyCurations();
     }
 
     @Override

@@ -24,18 +24,8 @@ package com.bazaarvoice.bvandroidsdk;
 abstract class ConversationsRequest {
     static final String kAPI_VERSION = "apiversion";
     static final String kPASS_KEY = "passkey";
-    static final String kAPP_ID = "_appId";
-    static final String kAPP_VERSION = "_appVersion";
-    static final String kBUILD_NUM = "_buildNumber";
-    static final String kSDK_VERSION = "_bvAndroidSdkVersion";
 
     static final String API_VERSION = "5.4";
-
-    /**
-     * TODO: Remove when stores code is separated from conversations module
-     * @return which endpoint to use for the specific request, usually plain conversations
-     */
-    abstract String getEndPoint();
 
     /*
         Internal helper method. To be implemented in all classes inheriting from this.

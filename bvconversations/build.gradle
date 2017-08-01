@@ -17,6 +17,8 @@ dependencies {
     testCompile sdkTestDep.mockito
     testCompile sdkTestDep.mockWebServer
     testCompile sdkTestDep.robolectric
+    testCompile sdkDep.gson
+    testCompile sdkTestDep.androidJson
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

@@ -79,7 +79,16 @@ public abstract class BVBaseTest {
         mobileOsVersion = "12.1.3";
         okHttpClient = new OkHttpClient();
         environment = BazaarEnvironment.STAGING;
-        BVApiKeys bvApiKeys = new BVApiKeys("apiKeyShopperAd", "apiKeyConv", "apiKeyConvStores", "apiKeyCurations", "apiKeyLocations", "apiKeyPin");
+        BVConfig bvConfig = new BVConfig.Builder()
+            .clientId("pretendcompany")
+            .apiKeyConversations("apiKeyConv")
+            .apiKeyShopperAdvertising("apiKeyShopperAd")
+            .apiKeyConversationsStores("apiKeyConvStores")
+            .apiKeyCurations("apiKeyCurations")
+            .apiKeyLocation("apiKeyLocations")
+            .apiKeyPIN("apiKeyPin")
+            .dryRunAnalytics(false)
+            .build();
         uuid = UUID.fromString(uuidTestStr);
         bvLogger = new BVLogger(BVLogLevel.VERBOSE);
         bvSdkVersion = BuildConfig.BVSDK_VERSION_NAME;
@@ -92,14 +101,14 @@ public abstract class BVBaseTest {
         when(bvMobileInfo.getMobileDeviceName()).thenReturn(mobileDeviceName);
         when(bvMobileInfo.getMobileOs()).thenReturn(mobileOs);
         when(bvMobileInfo.getMobileOsVersion()).thenReturn(mobileOsVersion);
-        bvUserProvidedData = new BVUserProvidedData(RuntimeEnvironment.application, "pretendcompany", bvApiKeys, bvMobileInfo);
+        bvUserProvidedData = new BVUserProvidedData(RuntimeEnvironment.application, bvConfig, bvMobileInfo);
 
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs
         BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
         OkHttpClient okHttpClient = new OkHttpClient();
-        BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, okHttpClient, "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, handlerThread.getLooper());
-        BVSDK.singleton = new BVSDK(bvUserProvidedData, bvLogger, bvActivityLifecycleCallbacks, bvAuthenticatedUser, handler, handlerThread, bvPixel, bvWorkerData);
+        BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, okHttpClient, "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, handlerThread, handlerThread.getLooper());
+        BVSDK.singleton = new BVSDK(bvUserProvidedData, bvLogger, bvActivityLifecycleCallbacks, bvAuthenticatedUser, handler, handlerThread, bvPixel, bvWorkerData, environment);
 
         afterInitSdk(BVSDK.getInstance());
     }

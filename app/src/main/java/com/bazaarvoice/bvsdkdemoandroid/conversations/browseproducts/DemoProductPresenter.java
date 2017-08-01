@@ -25,10 +25,11 @@ public class DemoProductPresenter implements DemoProductContract.UserActionsList
     private String productId;
     private DemoMockDataUtil demoMockDataUtil;
     private DemoClient demoClient;
-    private BVConversationsClient conversationsClient = new BVConversationsClient();
+    private BVConversationsClient conversationsClient;
 
-    public DemoProductPresenter(DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, DemoProductContract.View view, String productId) {
+    public DemoProductPresenter(DemoClient demoClient, BVConversationsClient bvConversationsClient, DemoMockDataUtil demoMockDataUtil, DemoProductContract.View view, String productId) {
         this.view = view;
+        this.conversationsClient = bvConversationsClient;
         this.productId = productId;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;

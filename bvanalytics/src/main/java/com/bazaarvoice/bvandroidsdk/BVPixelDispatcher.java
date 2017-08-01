@@ -39,7 +39,6 @@ class BVPixelDispatcher {
   private static final int DISPATCH_EVENTS_WITH_DELAY = 2;
   private static final String PATH = "event";
 
-  private final HandlerThread bgHandlerThread;
   private final Handler bgHandler;
   private final BvAnalyticsBatch analyticsBatch;
   private final OkHttpClient okHttpClient;
@@ -60,18 +59,16 @@ class BVPixelDispatcher {
    */
   BVPixelDispatcher(
       Context context,
-      String clientId,
       HandlerThread bgHandlerThread,
       BvAnalyticsBatch analyticsBatch,
       OkHttpClient okHttpClient,
       String analyticsRootUrl,
       long analyticsDelayMillis,
       boolean dryRunAnalytics) {
-    this.bgHandlerThread = bgHandlerThread;
-    if (!this.bgHandlerThread.isAlive()) {
+    if (!bgHandlerThread.isAlive()) {
       throw new IllegalStateException("Must start bgHandlerThread before building BVPixel");
     }
-    this.bgHandler = new BvAnalyticsHandler(bgHandlerThread.getLooper(), this, context.getApplicationContext(), clientId);
+    this.bgHandler = new BvAnalyticsHandler(bgHandlerThread.getLooper(), this, context.getApplicationContext());
     this.analyticsBatch = analyticsBatch;
     this.okHttpClient = okHttpClient;
     this.url = HttpUrl.parse(analyticsRootUrl)
@@ -90,27 +87,44 @@ class BVPixelDispatcher {
     }
   }
 
+  private static class BvEnqueueEventPayload {
+    private final BVAnalyticsEvent event;
+    private final String clientId;
+
+    BvEnqueueEventPayload(BVAnalyticsEvent event, String clientId) {
+      this.event = event;
+      this.clientId = clientId;
+    }
+
+    public BVAnalyticsEvent getEvent() {
+      return event;
+    }
+
+    public String getClientId() {
+      return clientId;
+    }
+  }
+
   static class BvAnalyticsHandler extends Handler {
     private final BVPixelDispatcher bvPixelDispatcher;
     private final Context appContext;
-    private final String clientId;
     private BVMobileParams bvMobileParams;
 
-    BvAnalyticsHandler(Looper looper, BVPixelDispatcher bvPixelDispatcher, Context appContext, String clientId) {
+    BvAnalyticsHandler(Looper looper, BVPixelDispatcher bvPixelDispatcher, Context appContext) {
       super(looper);
       this.bvPixelDispatcher = bvPixelDispatcher;
       this.appContext = appContext;
-      this.clientId = clientId;
     }
 
     @Override
     public void handleMessage(Message msg) {
       switch (msg.what) {
         case ENQUEUE_EVENT: {
-          BVAnalyticsEvent event = (BVAnalyticsEvent) msg.obj;
+          BvEnqueueEventPayload payload = (BvEnqueueEventPayload) msg.obj;
+          BVAnalyticsEvent event = payload.getEvent();
           if (event instanceof BVMobileAnalyticsEvent) {
             if (bvMobileParams == null) {
-              bvMobileParams = new BVMobileParams(appContext, clientId, BVEventValues.BVEventSource.NATIVE_MOBILE_SDK);
+              bvMobileParams = new BVMobileParams(appContext, payload.getClientId(), BVEventValues.BVEventSource.NATIVE_MOBILE_SDK);
             }
             BVMobileAnalyticsEvent bvMobileEvent = (BVMobileAnalyticsEvent) event;
             bvMobileEvent.setBvMobileParams(bvMobileParams);
@@ -297,8 +311,9 @@ class BVPixelDispatcher {
    * API for {@link BVPixel} to enqueue an event
    * @param event
    */
-  void enqueueEvent(BVAnalyticsEvent event) {
-    bgHandler.sendMessage(bgHandler.obtainMessage(ENQUEUE_EVENT, event));
+  void enqueueEvent(BVAnalyticsEvent event, String clientId) {
+    final BvEnqueueEventPayload payload = new BvEnqueueEventPayload(event, clientId);
+    bgHandler.sendMessage(bgHandler.obtainMessage(ENQUEUE_EVENT, payload));
   }
 
   /**

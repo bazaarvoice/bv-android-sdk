@@ -24,15 +24,18 @@ class DemoStoresPresenter implements DemoStoresContract.UserActionsListener {
     private int limit, offset;
 
     private DemoStoresContract.View view;
+    private BVConversationsClient client;
 
-    public DemoStoresPresenter(DemoStoresContract.View view, List<String> storeIds) {
+    public DemoStoresPresenter(DemoStoresContract.View view, BVConversationsClient client, List<String> storeIds) {
         this.view = view;
+        this.client = client;
         this.storeIds = storeIds;
         fetchByStoreIds = true;
     }
 
-    public DemoStoresPresenter(DemoStoresContract.View view, int limit, int offset) {
+    public DemoStoresPresenter(DemoStoresContract.View view, BVConversationsClient client, int limit, int offset) {
         this.view = view;
+        this.client = client;
         this.limit = limit;
         this.offset = offset;
         fetchByStoreIds = false;
@@ -76,7 +79,6 @@ class DemoStoresPresenter implements DemoStoresContract.UserActionsListener {
     }
 
     private void loadStores(BulkStoreRequest bulkStoreRequest) {
-        BVConversationsClient client = new BVConversationsClient();
         client.prepareCall(bulkStoreRequest).loadAsync(new ConversationsCallback<BulkStoreResponse>() {
             @Override
             public void onSuccess(BulkStoreResponse response) {

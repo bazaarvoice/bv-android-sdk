@@ -40,20 +40,28 @@ import static android.util.Log.d;
  * @param <ResponseType> Type of {@link ConversationsResponse}
  */
 public final class LoadCallSubmission<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends LoadCall<RequestType, ResponseType> {
-
     private final RequestType submissionRequest;
+    private final ConversationsAnalyticsManager conversationsAnalyticsManager;
+    private final RequestFactory requestFactory;
+    private final String apiKey;
 
     private static class SubmissionDelegateCallback<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> implements Callback {
         private final ConversationsCallback<ResponseType> conversationsCallback;
         private final LoadCallSubmission<RequestType, ResponseType> loadCallSubmission;
         private final RequestType submissionRequest;
+        private final ConversationsAnalyticsManager conversationsAnalyticsManager;
         private final Class responseTypeClass;
+        private final RequestFactory requestFactory;
+        private final String apiKey;
 
-        public SubmissionDelegateCallback(final ConversationsCallback<ResponseType> conversationsCallback, final LoadCallSubmission<RequestType, ResponseType> loadCallDisplay, final RequestType submissionRequest, final Class responseTypeClass) {
+        public SubmissionDelegateCallback(final ConversationsCallback<ResponseType> conversationsCallback, final LoadCallSubmission<RequestType, ResponseType> loadCallDisplay, final RequestType submissionRequest, final Class responseTypeClass, ConversationsAnalyticsManager conversationsAnalyticsManager, RequestFactory requestFactory, String apiKey) {
             this.conversationsCallback = conversationsCallback;
             this.loadCallSubmission = loadCallDisplay;
             this.submissionRequest = submissionRequest;
             this.responseTypeClass = responseTypeClass;
+            this.conversationsAnalyticsManager = conversationsAnalyticsManager;
+            this.requestFactory = requestFactory;
+            this.apiKey = apiKey;
         }
 
         @Override
@@ -77,20 +85,19 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                     }
                 }
 
-                boolean isPreview = submissionRequest.getBuilder().getAction() == Action.Preview;
+                boolean isPreview = submissionRequest.getAction() == Action.Preview;
                 if (error != null) {
                     loadCallSubmission.errorOnMainThread(conversationsCallback, error);
                 } else {
                     //if User intended to only Preview or if a Submit has already been previewed we are done and can callback
                     boolean readyToDeliverResult = isPreview || !submissionRequest.getForcePreview();
                     if (readyToDeliverResult) {
-                        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-                        convAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                        conversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
                         loadCallSubmission.successOnMainThread(conversationsCallback, conversationResponse);
                     }
                     //We know that a Submit was succesfully previewed so now we Submit for real
                     else {
-                        LoadCall newCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest);
+                        LoadCall newCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest, requestFactory, conversationsAnalyticsManager, apiKey);
                         newCall.loadAsync(conversationsCallback);
                     }
                 }
@@ -102,13 +109,12 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         }
     }
 
-    LoadCallSubmission(RequestType submissionRequest, Class<ResponseType> responseTypeClass, Call call) {
+    LoadCallSubmission(RequestType submissionRequest, Class<ResponseType> responseTypeClass, Call call, ConversationsAnalyticsManager conversationsAnalyticsManager, RequestFactory requestFactory, String apiKey) {
         super(responseTypeClass, call);
         this.submissionRequest = submissionRequest;
-    }
-
-    RequestType getSubmissionRequest() {
-        return submissionRequest;
+        this.conversationsAnalyticsManager = conversationsAnalyticsManager;
+        this.requestFactory = requestFactory;
+        this.apiKey = apiKey;
     }
 
     @Override
@@ -122,7 +128,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
         try {
             List<PhotoUpload> photoUploads = submissionRequest.getBuilder().photoUploads;
-            if (photoUploads != null && photoUploads.size() > 0 && !submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit) {
+            if (photoUploads != null && photoUploads.size() > 0 && !submissionRequest.getForcePreview() && submissionRequest.getAction() == Action.Submit) {
 
                 return postPhotosAndSubmissionSync(photoUploads, submissionRequest);
 
@@ -135,10 +141,9 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                         throw new BazaarException(gson.toJson(conversationResponse.getErrors()));
                     }
                     if (submissionRequest.getForcePreview()) {
-                        LoadCall loadCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest);
+                        LoadCall loadCall = BVConversationsClient.reCreateCallNoPreview(responseTypeClass, submissionRequest, requestFactory, conversationsAnalyticsManager, apiKey);
                         ResponseType finalResponse = (ResponseType) loadCall.loadSync();
-                        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-                        convAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                        conversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
                         return finalResponse;
                     }
                 } finally {
@@ -177,7 +182,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
             throw new BazaarException(e.getMessage());
         }
 
-        LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(responseTypeClass, submission, photos);
+        LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(responseTypeClass, submission, photos, requestFactory, conversationsAnalyticsManager, apiKey);
         return (ResponseType) loadCall.loadSync();
     }
 
@@ -201,12 +206,11 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                         Photo photo = deserializePhotoResponse(response);
                         photo.setCaption(upload.getCaption());
                         photos.add(photo);
-                        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-                        convAnalyticsManager.sendSuccessfulConversationsPhotoUpload(submission);
+                        conversationsAnalyticsManager.sendSuccessfulConversationsPhotoUpload(submission);
                         //whenever we have received successful responses for every expect photo upload we can
                         // reconstruct the submissionRequest request with the photo upload response details
                         if (photos.size() == photoUploads.size()) {
-                            LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(responseTypeClass, submission, photos);
+                            LoadCall loadCall = BVConversationsClient.reCreateCallWithPhotos(responseTypeClass, submission, photos, requestFactory, conversationsAnalyticsManager, apiKey);
                             loadCall.loadAsync(conversationsCallback);
                         }
                     } catch (BazaarException e) {
@@ -244,7 +248,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         List<PhotoUpload> photoUploads = submissionRequest.getBuilder().photoUploads;
         //At this point we assume know that since we are submitting and not being forced to preview that it has been previewed already.
         // The request is ready to have its photos uploaded then submitted.
-        if (photoUploads != null && photoUploads.size() > 0 && !submissionRequest.getForcePreview() && submissionRequest.getBuilder().getAction() == Action.Submit) {
+        if (photoUploads != null && photoUploads.size() > 0 && !submissionRequest.getForcePreview() && submissionRequest.getAction() == Action.Submit) {
 
             postPhotosAndSubmissionAsync(conversationsCallback, photoUploads, submissionRequest);
 
@@ -252,15 +256,16 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
             //At this point we know that the submissionRequest needs to be previewed
             //Either by user asking for preview or being forced to preview before Submit
             //Or it is ready for full submissionRequest (it's had it's photo's uploaded or never had any)
-            this.call.enqueue(new SubmissionDelegateCallback<>(conversationsCallback, this, submissionRequest, responseTypeClass));
+            this.call.enqueue(new SubmissionDelegateCallback<>(conversationsCallback, this, submissionRequest, responseTypeClass, conversationsAnalyticsManager, requestFactory, apiKey));
         }
     }
 
+    // TODO: Clean up the photo submission process to be it's own internal Request object that we send synchronously on our BVSDK HandlerThread
     private Call makePhotoCall(PhotoUpload upload, ConversationsSubmissionRequest conversationsSubmitRequest) {
         String fullUrl = String.format("%s%s", BVConversationsClient.conversationsBaseUrl, upload.getEndPoint());
         RequestBody req = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart(ConversationsRequest.kAPI_VERSION, ConversationsRequest.API_VERSION)
-                .addFormDataPart(ConversationsRequest.kPASS_KEY, conversationsSubmitRequest.getApiKey())
+                .addFormDataPart(ConversationsRequest.kPASS_KEY, apiKey)
                 .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("photo", "photo.png", RequestBody.create(MEDIA_TYPE_PNG, upload.getPhotoFile())).build();
 
