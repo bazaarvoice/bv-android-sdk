@@ -17,7 +17,7 @@ public class PinRequestTest extends BVBaseTest {
     public void bvPinRequestFormat() {
         PinRequest pinRequest = new PinRequest();
         String urlString = pinRequest.getUrlString("adId");
-        String expectedString = "https://www.example.com/pin/toreview?passkey=" + bvUserProvidedData.getBvApiKeys().getApiKeyPin() + "&bvid=magpie_idfa_adId&client=" + bvUserProvidedData.getClientId();
+        String expectedString = "https://www.example.com/pin/toreview?passkey=" + bvUserProvidedData.getBvConfig().getApiKeyPIN() + "&bvid=magpie_idfa_adId&client=" + bvUserProvidedData.getBvConfig().getClientId();
         Assert.assertEquals(expectedString, urlString);
     }
 

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
@@ -81,7 +82,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         setupRecyclerView();
 
         DemoMockDataUtil demoMockDataUtil = getDataUtil();
-        reviewsUserActionListener = getReviewsUserActionListener(this, getDemoClient(), demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+        reviewsUserActionListener = getReviewsUserActionListener(this, getConvClient(), getDemoClient(), demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     abstract DemoClient getDemoClient();
@@ -92,14 +93,16 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
 
     abstract DemoConvResponseHandler getDemoConvResponseHandler();
 
+    abstract BVConversationsClient getConvClient();
+
     void inflateRecyclerView() {
         recyclerViewStub.setLayoutResource(R.layout.reviews_recyclerview);
         recyclerViewStub.inflate();
         reviewsRecyclerView = (ConversationsDisplayRecyclerView) findViewById(R.id.reviews_recycler_view);
     }
 
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoReviewsPresenter(view, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
+        return new DemoReviewsPresenter(view, client, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
     }
 
     private void setupToolbarViews() {

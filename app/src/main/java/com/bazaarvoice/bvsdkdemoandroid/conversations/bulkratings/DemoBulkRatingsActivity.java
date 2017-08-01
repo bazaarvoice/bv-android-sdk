@@ -20,6 +20,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Statistics;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -57,6 +58,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
     DemoClientConfigUtils demoClientConfigUtils;
     @Inject
     DemoMockDataUtil demoMockDataUtil;
+    @Inject BVConversationsClient bvConversationsClient;
 
     private ArrayList<String> bulkProductIds = new ArrayList<String>();
 
@@ -73,7 +75,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
         setupRecyclerView();
 
         DemoApp.getAppComponent(this).inject(this);
-        bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, demoClientConfigUtils, demoMockDataUtil, bulkProductIds);
+        bulkRatingsUserActionListener = new DemoBulkRatingsPresenter(this, bvConversationsClient, demoClientConfigUtils, demoMockDataUtil, bulkProductIds);
     }
 
     void inflateRecyclerView() {

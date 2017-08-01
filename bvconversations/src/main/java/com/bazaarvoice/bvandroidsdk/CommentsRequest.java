@@ -5,11 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.HttpUrl;
-
 public class CommentsRequest extends ConversationsDisplayRequest {
-  private static final String ENDPOINT = "data/reviewcomments.json";
-
   private final int limit, offset;
   private final List<Sort> sorts;
   private final List<CommentIncludeType> includeTypes;
@@ -25,42 +21,28 @@ public class CommentsRequest extends ConversationsDisplayRequest {
   }
 
   @Override
-  String getEndPoint() {
-    return ENDPOINT;
-  }
-
-  @Override
   BazaarException getError() {
     return null;
   }
 
-  @Override
-  HttpUrl toHttpUrl() {
-    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
+  int getLimit() {
+    return limit;
+  }
 
-    httpUrlBuilder
-        .addQueryParameter(kLIMIT, String.valueOf(limit))
-        .addQueryParameter(kOFFSET, String.valueOf(offset));
+  int getOffset() {
+    return offset;
+  }
 
-    if (!includeTypes.isEmpty()) {
-      httpUrlBuilder.addQueryParameter(kINCLUDE, StringUtils.componentsSeparatedBy(includeTypes, ","));
-    }
+  List<Sort> getSorts() {
+    return sorts;
+  }
 
-    if (!includeTypeLimitMap.isEmpty()) {
-      for (CommentIncludeType commentIncludeType : includeTypeLimitMap.keySet()) {
-        String formattedKey = String.format("Limit_%s", commentIncludeType.toString());
-        int limit = includeTypeLimitMap.get(commentIncludeType);
-        String formattedValue = String.valueOf(limit);
-        httpUrlBuilder.addEncodedQueryParameter(formattedKey, formattedValue);
-      }
-    }
+  List<CommentIncludeType> getIncludeTypes() {
+    return includeTypes;
+  }
 
-    if (!sorts.isEmpty()) {
-      httpUrlBuilder
-          .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(sorts, ","));
-    }
-
-    return httpUrlBuilder.build();
+  Map<CommentIncludeType, Integer> getIncludeTypeLimitMap() {
+    return includeTypeLimitMap;
   }
 
   public static class Builder extends ConversationsDisplayRequest.Builder<Builder> {

@@ -32,6 +32,7 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
     LoadCallDisplay<RequestType, ResponseType> call;
     String productId;
     boolean onScreen = false;
+    ConversationsAnalyticsManager convAnMan;
 
     ConversationsDisplayRecyclerView(Context context) {
         super(context);
@@ -48,6 +49,7 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
     @Override
     public void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback) {
         final RequestType request = call.getRequest();
+        convAnMan = call.getConversationsAnalyticsManager();
         productId = getProductIdFromRequest(request);
         this.call = call;
         this.call.loadAsync(callback);
@@ -64,8 +66,9 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, getBvProductType());
+        if (convAnMan != null) {
+            convAnMan.sendUsedFeatureScrolledEvent(productId, getBvProductType());
+        }
     }
 
     @Override
@@ -78,9 +81,8 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
     }
 
     private void trySendUsedFeatureInViewEvent() {
-        if (onScreen && productId != null) {
-            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-            convAnalyticsManager.sendUsedFeatureInViewEvent(
+        if (onScreen && productId != null && convAnMan != null) {
+            convAnMan.sendUsedFeatureInViewEvent(
                 productId, getContainerId(), getBvProductType());
         }
     }

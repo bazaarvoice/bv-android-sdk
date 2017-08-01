@@ -29,6 +29,7 @@ import java.lang.ref.WeakReference;
 public final class QuestionsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse>, EventView.EventViewListener<QuestionsContainerView>, EventView.ProductView {
     private WeakReference<ConversationsCallback<QuestionAndAnswerResponse>> delegateCbWeakRef;
     private String productId;
+    private ConversationsAnalyticsManager convAnMan;
     private boolean onScreen = false;
 
     public QuestionsContainerView(Context context) {
@@ -55,6 +56,7 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
 
     @Override
     public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsCallback<QuestionAndAnswerResponse> callback) {
+        convAnMan = call.getConversationsAnalyticsManager();
         final QuestionAndAnswerRequest qAndARequest = call.getRequest();
         productId = qAndARequest.getProductId();
         delegateCbWeakRef = new WeakReference<ConversationsCallback<QuestionAndAnswerResponse>>(callback);
@@ -91,9 +93,8 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
     }
 
     private void trySendUsedFeatureInViewEvent() {
-        if (onScreen && productId != null) {
-            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-            convAnalyticsManager.sendUsedFeatureInViewEvent(
+        if (onScreen && productId != null && convAnMan != null) {
+            convAnMan.sendUsedFeatureInViewEvent(
                 productId, "QuestionsContainerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
         }
     }

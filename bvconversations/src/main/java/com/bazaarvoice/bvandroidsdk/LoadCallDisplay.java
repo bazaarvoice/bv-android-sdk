@@ -34,15 +34,18 @@ import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkNotMain;
 public final class LoadCallDisplay<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends LoadCall<RequestType, ResponseType> {
 
     private final RequestType request;
+    private final ConversationsAnalyticsManager conversationsAnalyticsManager;
     private DisplayDelegateCallback displayDelegateCallback;
 
     private static class DisplayDelegateCallback<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> implements Callback {
         private final ConversationsCallback<ResponseType> conversationsCallback;
         private final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay;
+        private final ConversationsAnalyticsManager conversationsAnalyticsManager;
 
-        public DisplayDelegateCallback(final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay, final ConversationsCallback<ResponseType> conversationsCallback) {
+        public DisplayDelegateCallback(final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay, final ConversationsCallback<ResponseType> conversationsCallback, ConversationsAnalyticsManager conversationsAnalyticsManager) {
             this.conversationsCallback = conversationsCallback;
             this.loadCallDisplay = loadCallDisplay;
+            this.conversationsAnalyticsManager = conversationsAnalyticsManager;
         }
 
         @Override
@@ -71,8 +74,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
                 } else {
                     // Route callbacks to Analytics Manager to handle any analytics that are associated
                     // with a successful display response
-                    ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-                    convAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+                    conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
                     loadCallDisplay.successOnMainThread(conversationsCallback, conversationResponse);
                 }
             } finally {
@@ -83,13 +85,18 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         }
     }
 
-    LoadCallDisplay(RequestType request, Class<ResponseType> responseTypeClass, Call call) {
+    LoadCallDisplay(RequestType request, Class<ResponseType> responseTypeClass, Call call, ConversationsAnalyticsManager conversationsAnalyticsManager) {
         super(responseTypeClass, call);
         this.request = request;
+        this.conversationsAnalyticsManager = conversationsAnalyticsManager;
     }
 
     RequestType getRequest() {
         return request;
+    }
+
+    ConversationsAnalyticsManager getConversationsAnalyticsManager() {
+        return conversationsAnalyticsManager;
     }
 
     @Override
@@ -102,8 +109,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             conversationResponse = deserializeAndCloseResponse(response);
             // Route callbacks to Analytics Manager to handle any analytics that are associated
             // with a successful display response
-            ConversationsAnalyticsManager convAnalyticManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-            convAnalyticManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+//            ConversationsAnalyticsManager convAnalyticManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+            conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
         } catch (Throwable t) {
             throw new BazaarException(t.getMessage());
         } finally {
@@ -125,7 +132,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             return;
         }
 
-        this.displayDelegateCallback = new DisplayDelegateCallback<RequestType, ResponseType>(this, conversationsCallback);
+        this.displayDelegateCallback = new DisplayDelegateCallback<RequestType, ResponseType>(this, conversationsCallback, conversationsAnalyticsManager);
         this.call.enqueue(displayDelegateCallback);
     }
 

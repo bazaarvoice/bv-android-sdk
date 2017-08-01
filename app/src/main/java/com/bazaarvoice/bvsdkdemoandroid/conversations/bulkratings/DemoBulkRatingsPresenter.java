@@ -23,10 +23,11 @@ public class DemoBulkRatingsPresenter implements DemoBulkRatingsContract.UserAct
     private DemoClientConfigUtils demoClientConfigUtils;
     private DemoMockDataUtil demoMockDataUtil;
     private ArrayList<String> bulkProductIds = new ArrayList<String>();
-    private final BVConversationsClient client = new BVConversationsClient();
+    private final BVConversationsClient client;
 
-    public DemoBulkRatingsPresenter(DemoBulkRatingsContract.View view, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, ArrayList<String> bulkProductIds) {
+    public DemoBulkRatingsPresenter(DemoBulkRatingsContract.View view, BVConversationsClient bvConversationsClient, DemoClientConfigUtils demoClientConfigUtils, DemoMockDataUtil demoMockDataUtil, ArrayList<String> bulkProductIds) {
         this.view = view;
+        this.client = bvConversationsClient;
         this.demoClientConfigUtils = demoClientConfigUtils;
         this.demoMockDataUtil = demoMockDataUtil;
         this.bulkProductIds = bulkProductIds;

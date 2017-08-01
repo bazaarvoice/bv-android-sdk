@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
@@ -31,14 +32,17 @@ public class ConversationsAnalyticsManagerTest extends BVBaseTest {
 
   @Test
   public void displayReviewsResponseShouldSendEvents() throws Exception {
-    ConversationsAnalyticsManager subject = new ConversationsAnalyticsManager(BVSDK.getInstance().getBvPixel());
+    final BVPixel bvPixel = mock(BVPixel.class);
+    final String clientId = "someClient";
+    ConversationsAnalyticsManager subject = new ConversationsAnalyticsManager(bvPixel, clientId);
     String reviewsResponseJsonStr = jsonFileAsString("reviews_all_reviews.json");
     ReviewResponse reviewResponse = gson.fromJson(reviewsResponseJsonStr, ReviewResponse.class);
 
     subject.sendSuccessfulConversationsDisplayResponse(reviewResponse);
 
     ArgumentCaptor<BVMobileAnalyticsEvent> eventArgumentCaptor = ArgumentCaptor.forClass(BVMobileAnalyticsEvent.class);
-    verify(bvPixel, atLeastOnce()).track(eventArgumentCaptor.capture());
+    ArgumentCaptor<String> clientIdArgCaptor = ArgumentCaptor.forClass(String.class);
+    verify(bvPixel, atLeastOnce()).trackEventForClient(eventArgumentCaptor.capture(), clientIdArgCaptor.capture());
     List<BVMobileAnalyticsEvent> events = eventArgumentCaptor.getAllValues();
 
     int impressionEventCount = 0;
@@ -55,24 +59,27 @@ public class ConversationsAnalyticsManagerTest extends BVBaseTest {
 
     assertEquals(10, impressionEventCount);
     assertEquals(1, pageViewEventCount);
+
+    String capturedClientId = clientIdArgCaptor.getValue();
+    assertEquals(clientId, capturedClientId);
   }
 
   @Test
   public void submitReviewRequestShouldSendEvents() throws Exception {
     ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "prod123").build();
-    submitRequestShouldSendEvent(request);
+    submitRequestShouldSendEventWithClientId(request);
   }
 
   @Test
   public void submitQuestionRequestShouldSendEvents() throws Exception {
     QuestionSubmissionRequest request = new QuestionSubmissionRequest.Builder(Action.Submit, "prod123").build();
-    submitRequestShouldSendEvent(request);
+    submitRequestShouldSendEventWithClientId(request);
   }
 
   @Test
   public void submitAnswerRequestShouldSendEvents() throws Exception {
     AnswerSubmissionRequest request = new AnswerSubmissionRequest.Builder(Action.Submit, "question123", "answer text goes here").build();
-    submitRequestShouldSendEvent(request);
+    submitRequestShouldSendEventWithClientId(request);
   }
 
   @Test
@@ -81,16 +88,19 @@ public class ConversationsAnalyticsManagerTest extends BVBaseTest {
         .feedbackType(FeedbackType.HELPFULNESS)
         .feedbackContentType(FeedbackContentType.REVIEW)
         .build();
-    submitRequestShouldSendEvent(request);
+    submitRequestShouldSendEventWithClientId(request);
   }
 
-  private void submitRequestShouldSendEvent(ConversationsSubmissionRequest request) throws Exception {
-    ConversationsAnalyticsManager subject = new ConversationsAnalyticsManager(BVSDK.getInstance().getBvPixel());
+  private void submitRequestShouldSendEventWithClientId(ConversationsSubmissionRequest request) throws Exception {
+    final BVPixel bvPixel = mock(BVPixel.class);
+    final String clientId = "someClient";
+    ConversationsAnalyticsManager subject = new ConversationsAnalyticsManager(bvPixel, clientId);
 
     subject.sendSuccessfulConversationsSubmitResponse(request);
 
     ArgumentCaptor<BVMobileAnalyticsEvent> eventArgumentCaptor = ArgumentCaptor.forClass(BVMobileAnalyticsEvent.class);
-    verify(bvPixel, atLeastOnce()).track(eventArgumentCaptor.capture());
+    ArgumentCaptor<String> clientIdArgCaptor = ArgumentCaptor.forClass(String.class);
+    verify(bvPixel, atLeastOnce()).trackEventForClient(eventArgumentCaptor.capture(), clientIdArgCaptor.capture());
     List<BVMobileAnalyticsEvent> events = eventArgumentCaptor.getAllValues();
 
     int featureUsedEventCount = 0;
@@ -104,5 +114,8 @@ public class ConversationsAnalyticsManagerTest extends BVBaseTest {
     }
 
     assertEquals(1, featureUsedEventCount);
+
+    String capturedClientId = clientIdArgCaptor.getValue();
+    assertEquals(clientId, capturedClientId);
   }
 }

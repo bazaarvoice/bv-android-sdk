@@ -22,7 +22,7 @@ package com.bazaarvoice.bvandroidsdk;
  */
 public class BulkRatingOptions {
     public enum Filter implements UGCOption {
-        ContentLocale("ContentLocal");
+        ContentLocale("ContentLocale");
         private final String key;
 
         Filter(String key) {

@@ -30,6 +30,7 @@ import java.lang.ref.WeakReference;
  */
 public final class ReviewsListView extends BVListView implements BVConversationsClient.DisplayLoader<ReviewsRequest, ReviewResponse> {
     private WeakReference<ConversationsCallback<ReviewResponse>> delegateCbWeakRef;
+    private ConversationsAnalyticsManager convAnMan;
     private String productId;
     private boolean onScreen = false;
 
@@ -51,6 +52,7 @@ public final class ReviewsListView extends BVListView implements BVConversations
 
     @Override
     public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsCallback<ReviewResponse> callback) {
+        convAnMan = call.getConversationsAnalyticsManager();
         final ReviewsRequest reviewsRequest = call.getRequest();
         productId = reviewsRequest.getProductId();
         delegateCbWeakRef = new WeakReference<ConversationsCallback<ReviewResponse>>(callback);
@@ -88,14 +90,14 @@ public final class ReviewsListView extends BVListView implements BVConversations
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-        convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
+        if (convAnMan != null) {
+            convAnMan.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
+        }
     }
 
     private void trySendUsedFeatureInViewEvent() {
-        if (onScreen && productId != null) {
-            ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
-            convAnalyticsManager.sendUsedFeatureInViewEvent(
+        if (onScreen && productId != null && convAnMan != null) {
+            convAnMan.sendUsedFeatureInViewEvent(
                 productId, "ReviewsListView", BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
         }
     }

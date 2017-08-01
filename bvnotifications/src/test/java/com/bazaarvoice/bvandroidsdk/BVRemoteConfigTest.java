@@ -16,14 +16,14 @@ public class BVRemoteConfigTest extends BVBaseTest {
     @Test
     public void generateConvForStoresConfigUrl() {
         String convForStoresUrl = BVRemoteConfig.getFeatureConfigUrl("conversations-stores", "geofenceConfig.json");
-        String expectedUrl = "baseurl/incubator-mobile-apps/sdk/v1/android/" + bvUserProvidedData.getClientId() + "/conversations-stores/geofenceConfig.json";
+        String expectedUrl = "baseurl/incubator-mobile-apps/sdk/v1/android/" + bvUserProvidedData.getBvConfig().getClientId() + "/conversations-stores/geofenceConfig.json";
         Assert.assertEquals(expectedUrl, convForStoresUrl);
     }
 
     @Test
     public void generatePinConfigUrl() {
         String pinUrl = BVRemoteConfig.getFeatureConfigUrl("pin", "pinConfig.json");
-        String expectedUrl = "baseurl/incubator-mobile-apps/sdk/v1/android/" + bvUserProvidedData.getClientId() + "/pin/pinConfig.json";
+        String expectedUrl = "baseurl/incubator-mobile-apps/sdk/v1/android/" + bvUserProvidedData.getBvConfig().getClientId() + "/pin/pinConfig.json";
         Assert.assertEquals(expectedUrl, pinUrl);
     }
 

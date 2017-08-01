@@ -43,9 +43,9 @@ public class CurationsPostRequest {
 
         strBuilder.append("curations/content/add/");
         strBuilder.append("?client=");
-        strBuilder.append(bvUserProvidedData.getClientId());
+        strBuilder.append(bvUserProvidedData.getBvConfig().getClientId());
         strBuilder.append("&passkey=");
-        strBuilder.append(bvUserProvidedData.getBvApiKeys().getApiKeyCurations());
+        strBuilder.append(bvUserProvidedData.getBvConfig().getApiKeyCurations());
 
         return strBuilder.toString();
     }

@@ -86,8 +86,8 @@ public final class CurationsFeedRequest {
         HttpUrl.Builder builder = HttpUrl.parse(bvsdk.getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl()).newBuilder();
 
         builder.addEncodedPathSegments("curations/content/get")
-            .addEncodedQueryParameter("client", bvUserProvidedData.getClientId())
-            .addEncodedQueryParameter("passkey", bvUserProvidedData.getBvApiKeys().getApiKeyCurations());
+            .addEncodedQueryParameter("client", bvUserProvidedData.getBvConfig().getClientId())
+            .addEncodedQueryParameter("passkey", bvUserProvidedData.getBvConfig().getApiKeyCurations());
 
         if (groups != null && !groups.isEmpty()) {
             for (String group : groups) {

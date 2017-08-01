@@ -17,47 +17,43 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import java.util.Map;
-
 /**
  * Request for submitting {@link Question}s
  */
 public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
+    private final String productId;
+    private final String questionSummary;
+    private final String questionDetails;
+    private final Boolean isUserAnonymous;
+    private final Boolean sendEmailAlertWhenAnswered;
 
-    private static final String kPRODUCT_ID = "ProductId";
-    private static final String kQUESTION_SUMMARY = "QuestionSummary";
-    private static final String kQUESTION_DETAILS = "QuestionDetails";
-    private static final String kIS_ANONUSER = "IsUserAnonymous";
-    private static final String kSEND_EMAIL_ANSWERED = "SendEmailAlertWhenAnswered";
-
-    public QuestionSubmissionRequest(ConversationsSubmissionRequest.Builder builder) {
+    private QuestionSubmissionRequest(Builder builder) {
         super(builder);
-    }
-
-    @Override
-    protected String getApiKey() {
-        return BVSDK.getInstance().getBvUserProvidedData().getBvApiKeys().getApiKeyConversations();
+        this.productId = builder.productId;
+        this.questionSummary = builder.questionSummary;
+        this.questionDetails = builder.questionDetails;
+        this.isUserAnonymous = builder.isUserAnonymous;
+        this.sendEmailAlertWhenAnswered = builder.sendEmailAlertWhenAnswered;
     }
 
     String getProductId() {
-        Map<String, Object> queryParams = makeQueryParams();
-        return queryParams.containsKey(kPRODUCT_ID) ? (String) queryParams.get(kPRODUCT_ID) : "";
+        return productId;
     }
 
-    @Override
-    void addRequestQueryParams(Map<String, Object> queryParams) {
-
-        Builder builder = (Builder) getBuilder();
-        queryParams.put(kPRODUCT_ID, builder.productId);
-        queryParams.put(kQUESTION_SUMMARY, builder.questionSummary);
-        queryParams.put(kQUESTION_DETAILS, builder.questionDetails);
-        queryParams.put(kIS_ANONUSER, builder.isUserAnonymous);
-        queryParams.put(kSEND_EMAIL_ANSWERED, builder.sendEmailAlertWhenAnswered);
+    public String getQuestionSummary() {
+        return questionSummary;
     }
 
-    @Override
-    String getEndPoint() {
-        return "submitquestion.json";
+    public String getQuestionDetails() {
+        return questionDetails;
+    }
+
+    public Boolean getUserAnonymous() {
+        return isUserAnonymous;
+    }
+
+    public Boolean getSendEmailAlertWhenAnswered() {
+        return sendEmailAlertWhenAnswered;
     }
 
     @Override
@@ -67,11 +63,11 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
 
     public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder> {
 
-        private final String productId;
-        private String questionSummary;
-        private String questionDetails;
-        private Boolean isUserAnonymous;
-        private Boolean sendEmailAlertWhenAnswered;
+        final String productId;
+        String questionSummary;
+        String questionDetails;
+        Boolean isUserAnonymous;
+        Boolean sendEmailAlertWhenAnswered;
 
         public Builder(Action action, String productId) {
             super(action);

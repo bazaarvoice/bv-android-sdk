@@ -30,7 +30,7 @@ public class RecommendationsRequestTest extends BVBaseTest {
         RecommendationsRequest request = new RecommendationsRequest.Builder(limit)
                 .productId("foo")
                 .build();
-        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), bvUserProvidedData.getClientId(), request);
+        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(), bvUserProvidedData.getBvConfig().getClientId(), request);
         checkUrlStr(actualUrlStr, request);
     }
 
@@ -39,18 +39,18 @@ public class RecommendationsRequestTest extends BVBaseTest {
         RecommendationsRequest request = new RecommendationsRequest.Builder(limit)
                 .categoryId("foo")
                 .build();
-        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), bvUserProvidedData.getClientId(), request);
+        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(), bvUserProvidedData.getBvConfig().getClientId(), request);
         checkUrlStr(actualUrlStr, request);
     }
 
     private void checkUrlStr(String actualUrlStr, RecommendationsRequest request) {
-        assertEquals(expectedRequestUrl(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), limit, bvUserProvidedData.getClientId(), request.getProductId(), request.getCategoryId()), actualUrlStr);
+        assertEquals(expectedRequestUrl(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(), limit, bvUserProvidedData.getBvConfig().getClientId(), request.getProductId(), request.getCategoryId()), actualUrlStr);
     }
 
     @Test
     public void canFormRequestWithOnlyLimit() {
         RecommendationsRequest request = new RecommendationsRequest.Builder(limit).build();
-        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvApiKeys().getApiKeyShopperAdvertising(), bvUserProvidedData.getClientId(), request);
+        String actualUrlStr = RecommendationsRequest.toUrlString(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(), bvUserProvidedData.getBvConfig().getClientId(), request);
         checkUrlStr(actualUrlStr, request);
     }
 

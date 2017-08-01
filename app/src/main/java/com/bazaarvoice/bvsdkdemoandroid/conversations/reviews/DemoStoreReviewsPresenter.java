@@ -18,8 +18,8 @@ import java.util.List;
 
 public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
 
-    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
-        super(view, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader, demoConvResponseHandler);
+    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
+        super(view, client, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader, demoConvResponseHandler);
     }
 
     @Override

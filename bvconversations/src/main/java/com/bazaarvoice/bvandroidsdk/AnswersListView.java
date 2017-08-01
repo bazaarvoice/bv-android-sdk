@@ -47,14 +47,18 @@ public final class AnswersListView extends BVListView {
 
     @Override
     public void onFirstTimeOnScreen() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        ConversationsAnalyticsManager convAnalyticsManager = new ConversationsAnalyticsManager(
+            BVSDK.getInstance().getBvPixel(),
+            BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         convAnalyticsManager.sendUsedFeatureInViewEvent(
             productId, "AnswersListView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 
     @Override
     public void onViewGroupInteractedWith() {
-        ConversationsAnalyticsManager convAnalyticsManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
+        ConversationsAnalyticsManager convAnalyticsManager = new ConversationsAnalyticsManager(
+            BVSDK.getInstance().getBvPixel(),
+            BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         convAnalyticsManager.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_QANDA);
     }
 

@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.HttpUrl;
-
 public abstract class SortableProductRequest extends ConversationsDisplayRequest {
   private final List<Sort> reviewSorts, questionSorts, answerSorts;
   private final List<Include> includes;
@@ -42,44 +40,8 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
   }
 
   @Override
-  public String getEndPoint() {
-    return "data/products.json";
-  }
-
-  @Override
   BazaarException getError() {
     return null;
-  }
-
-  @Override
-  HttpUrl toHttpUrl() {
-    HttpUrl.Builder httpUrlBuilder = super.toHttpUrl().newBuilder();
-
-    if (!reviewSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_REVIEW, StringUtils.componentsSeparatedBy(reviewSorts, ","));
-    }
-
-    if (!questionSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_QUESTIONS, StringUtils.componentsSeparatedBy(questionSorts, ","));
-    }
-
-    if (!answerSorts.isEmpty()){
-      httpUrlBuilder.addQueryParameter(kSORT_ANSWERS, StringUtils.componentsSeparatedBy(answerSorts, ","));
-    }
-
-    if (!includes.isEmpty()) {
-      httpUrlBuilder.addQueryParameter(kINCLUDE, StringUtils.componentsSeparatedBy(includes, ","));
-    }
-
-    for (Include include : includes) {
-        httpUrlBuilder.addQueryParameter(include.getLimitParamKey(), String.valueOf(include.getLimit()));
-    }
-
-    if (!statistics.isEmpty()) {
-      httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(statistics, ","));
-    }
-
-    return httpUrlBuilder.build();
   }
 
   public static abstract class Builder<BuilderType, RequestType> extends ConversationsDisplayRequest.Builder<BuilderType> {

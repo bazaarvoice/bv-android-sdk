@@ -56,7 +56,6 @@ public class BVSDKTest {
     Gson gson;
     Handler handler = new Handler(Looper.getMainLooper());
     HandlerThread bgHandlerThread = new BaseTestUtils.TestHandlerThread();
-    BVApiKeys keys;
     BVRootApiUrls rootApiUrls;
     BVConfig bvConfig;
     boolean dryRunAnalytics;
@@ -76,7 +75,6 @@ public class BVSDKTest {
         gson = new Gson();
         shopperAdvertisingApiKey = "/";
 
-        keys = new BVApiKeys(shopperAdvertisingApiKey, conversationsApiKey, conversationsStoresApiKey, curationsApiKey, locationApiKey, pinApiKey);
         rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
 
         RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");
@@ -93,7 +91,7 @@ public class BVSDKTest {
         .dryRunAnalytics(dryRunAnalytics)
         .build();
 
-        bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, new OkHttpClient(), "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, bgHandlerThread.getLooper());
+        bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, new OkHttpClient(), "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, bgHandlerThread, bgHandlerThread.getLooper());
     }
 
     @Test(expected=IllegalStateException.class)
@@ -156,7 +154,7 @@ public class BVSDKTest {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(clientId, bvsdk.getBvUserProvidedData().getClientId());
+        assertEquals(clientId, bvsdk.getBvUserProvidedData().getBvConfig().getClientId());
     }
 
     @Test
@@ -168,7 +166,7 @@ public class BVSDKTest {
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyConversations());
+        assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvConfig().getApiKeyConversations());
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -192,7 +190,8 @@ public class BVSDKTest {
             handler,
             bgHandlerThread,
             bvPixel,
-            bvWorkerData);
+            bvWorkerData,
+            environment);
     }
 
     // TODO: Need to verify activity foreground/background as well
@@ -292,7 +291,7 @@ public class BVSDKTest {
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
             .build();
 
-        assertEquals(clientId, bvsdk.getBvUserProvidedData().getClientId());
+        assertEquals(clientId, bvsdk.getBvUserProvidedData().getBvConfig().getClientId());
     }
 
     @Test
@@ -301,7 +300,7 @@ public class BVSDKTest {
         BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
             .build();
 
-        assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvApiKeys().getApiKeyConversations());
+        assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvConfig().getApiKeyConversations());
     }
 
     @Test(expected=IllegalArgumentException.class)
