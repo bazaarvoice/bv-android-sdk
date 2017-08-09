@@ -17,10 +17,13 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkMain;
@@ -85,8 +88,9 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         }
     }
 
-    LoadCallDisplay(RequestType request, Class<ResponseType> responseTypeClass, Call call, ConversationsAnalyticsManager conversationsAnalyticsManager) {
-        super(responseTypeClass, call);
+    LoadCallDisplay(RequestType request, Class<ResponseType> responseTypeClass, Call call, ConversationsAnalyticsManager conversationsAnalyticsManager, OkHttpClient okHttpClient, Gson gson) {
+        super(responseTypeClass, okHttpClient, gson);
+        this.call = call;
         this.request = request;
         this.conversationsAnalyticsManager = conversationsAnalyticsManager;
     }

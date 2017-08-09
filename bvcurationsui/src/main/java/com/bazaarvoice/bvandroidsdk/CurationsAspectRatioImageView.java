@@ -10,7 +10,7 @@ import com.bazaarvoice.bvandroidsdk_curationsui.R;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 
-final class CurationsAspectRatioImageView extends AppCompatImageView {
+public final class CurationsAspectRatioImageView extends AppCompatImageView {
   private static final String TAG = "AspRatioImageView";
   private int widthRatio;
   private int heightRatio;

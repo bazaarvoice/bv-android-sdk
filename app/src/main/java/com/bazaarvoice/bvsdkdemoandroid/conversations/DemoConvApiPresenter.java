@@ -174,15 +174,11 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   }
 
   private void submitReviewWithPhoto(String productId) {
-    // For clients non-EU clients, iovation SDK is required!
-    // String blackbox = getBlackbox(getContext().getApplicationContext());
-
     view.showProgressWithTitle("Submitting Review...");
 
     File localImageFile = demoAssetsUtil.parseImageFileFromAssets("puppy_thumbnail.jpg");
 
     ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(submitAction, productId)
-//                            .fingerPrint(blackbox)  // uncomment me when using iovation SDK
         .userNickname("shazbat")
         .userEmail("foo@bar.com")
         .userId("shazbatuser" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!

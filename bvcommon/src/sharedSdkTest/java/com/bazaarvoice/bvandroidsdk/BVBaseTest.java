@@ -117,7 +117,7 @@ public abstract class BVBaseTest {
 
     protected void afterInitSdk(BVSDK bvsdk) {}
 
-    String jsonFileAsString(String fileName) throws IOException {
+    static String jsonFileAsString(String fileName) throws IOException {
         File file = new File("src/test/resources/" + fileName);
         return readFile(file);
     }

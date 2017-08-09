@@ -33,15 +33,16 @@ import okhttp3.Response;
  * both display and submission endpoints
  */
 abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType extends ConversationsResponse> {
-    final Call call;
+    Call call;
     final Class responseTypeClass;
-    final OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
-    final Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
+    final OkHttpClient okHttpClient;
+    final Gson gson;
     final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
-    LoadCall(Class<ResponseType> responseTypeClass, Call call) {
-        this.call = call;
+    LoadCall(Class<ResponseType> responseTypeClass, OkHttpClient okHttpClient, Gson gson) {
         this.responseTypeClass = responseTypeClass;
+        this.okHttpClient = okHttpClient;
+        this.gson = gson;
     }
 
     /**
@@ -60,7 +61,9 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
     public abstract void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback);
 
     public void cancel() {
-        call.cancel();
+        if (call != null && !call.isCanceled()) {
+            call.cancel();
+        }
     }
 
     ResponseType deserializeAndCloseResponse(Response response) throws BazaarException {
@@ -70,7 +73,6 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
         try {
             Reader jsonReader = response.body().charStream();
             conversationResponse = (ResponseType) gson.fromJson(jsonReader, responseTypeClass);
-
         } catch (JsonSyntaxException | JsonIOException e) {
             error = new BazaarException("Unable to parse JSON " + response);
         } finally {
