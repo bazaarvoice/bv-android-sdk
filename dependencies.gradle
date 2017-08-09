@@ -16,14 +16,14 @@ ext {
     // the version number in one location for those artifacts
     sdkSharedVersions = [
         okhttp3Version : '3.2.0',
-        supportLibraryVersion : '25.0.0',
+        supportLibraryVersion : '25.2.0',
         gimbalVersion : '2.46',
-        playServicesVersion : '9.0.0',
+        playServicesVersion : '11.0.0',
         robolectric: '3.2.2'
     ]
 
     sdkBuildDep = [
-        androidPlugin       : 'com.android.tools.build:gradle:2.3.2',
+        androidPlugin       : 'com.android.tools.build:gradle:2.3.3',
         credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
         playServicesPlugin  : 'com.google.gms:google-services:3.0.0',
         jacocoPlugin        : 'com.dicedmelon.gradle:jacoco-android:0.1.1'

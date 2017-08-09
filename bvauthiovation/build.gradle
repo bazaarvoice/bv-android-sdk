@@ -1,0 +1,30 @@
+buildscript {
+  dependencies {
+    classpath sdkBuildDep.androidPlugin
+    classpath sdkBuildDep.credentialsPlugin
+    classpath sdkBuildDep.jacocoPlugin
+  }
+}
+
+repositories {
+  flatDir {
+    dir 'libs'
+  }
+}
+
+apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
+
+dependencies {
+  compile('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-release-2.3.3:2.3.3@aar')
+  compile project(':bvconversations')
+  provided sdkDep.okhttp3
+
+  // Dependencies for local unit tests
+  testCompile sdkTestDep.junit
+  testCompile sdkTestDep.mockito
+  testCompile sdkTestDep.mockWebServer
+  testCompile sdkTestDep.robolectric
+}
+
+apply from: rootProject.file('gradle/setup-signing.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

@@ -27,6 +27,7 @@ import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
+import com.bazaarvoice.bvandroidsdk.IovationFingerprint;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
@@ -58,7 +59,9 @@ public class DemoBvModule {
 
     @Provides @DemoAppScope
     BVConversationsClient provideConversationsClient(BVSDK bvsdk) {
-        return new BVConversationsClient();
+        return new BVConversationsClient.Builder(bvsdk)
+            .fingerprintProvider(new IovationFingerprint(bvsdk)) // For North America authentication
+            .build();
     }
 
     @Provides @DemoAppScope

@@ -25,8 +25,8 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RequestFactoryTest {
-  private RequestFactory requestFactory;
+public class BasicRequestFactoryTest {
+  private BasicRequestFactory requestFactory;
   private GenericFormBodyParams genericFormBodyParams;
 
   @Before
@@ -352,6 +352,12 @@ public class RequestFactoryTest {
   }
 
   @Test
+  public void reviewSubmissionShouldHaveFingerprintProvided() throws Exception {
+    final Request okRequest = createFullReviewSubmissionRequest();
+    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+  }
+
+  @Test
   public void submissionShouldNotAllowNullFormParams() throws Exception {
     final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Preview, "prod1")
         .isRecommended(null)
@@ -402,6 +408,12 @@ public class RequestFactoryTest {
   }
 
   @Test
+  public void storeReviewSubmissionShouldHaveFingerprintProvided() throws Exception {
+    final Request okRequest = createFullStoreReviewSubmissionRequest();
+    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+  }
+
+  @Test
   public void questionSubmissionShouldHaveBVSDKFormParams() throws Exception {
     final Request okRequest = createFullQuestionSubmissionRequest();
     assertContainsBVSDKFormParams(okRequest);
@@ -432,6 +444,12 @@ public class RequestFactoryTest {
   }
 
   @Test
+  public void questionSubmissionShouldHaveFingerprintProvided() throws Exception {
+    final Request okRequest = createFullQuestionSubmissionRequest();
+    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+  }
+
+  @Test
   public void answerSubmissionShouldHaveBVSDKFormParams() throws Exception {
     final Request okRequest = createFullAnswerSubmissionRequest();
     assertContainsBVSDKFormParams(okRequest);
@@ -448,6 +466,12 @@ public class RequestFactoryTest {
     final Request okRequest = createFullAnswerSubmissionRequest();
     assertFormBodyContainsKeyValEncoded(okRequest, "QuestionId", "question1");
     assertFormBodyContainsKeyValEncoded(okRequest, "AnswerText", "Some%20great%20answer%20%24%25%20here");
+  }
+
+  @Test
+  public void answerSubmissionShouldHaveFingerprintProvided() throws Exception {
+    final Request okRequest = createFullAnswerSubmissionRequest();
+    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   @Test
@@ -474,6 +498,12 @@ public class RequestFactoryTest {
     assertFormBodyContainsKeyValEncoded(okRequest, "ReviewId", "review1");
     assertFormBodyContainsKeyValEncoded(okRequest, "CommentText", "My%20%23commenthere");
     assertFormBodyContainsKeyValEncoded(okRequest, "Title", "Something%20**great**%21");
+  }
+
+  @Test
+  public void commentSubmissionShouldHaveFingerprintProvided() throws Exception {
+    final Request okRequest = createFullCommentSubmissionRequest()  ;
+    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   // region Helper Assertions
@@ -577,7 +607,6 @@ public class RequestFactoryTest {
   private void assertContainsConversationsSubmissionRequestFormParams(Request okRequest) throws Exception {
     assertFormBodyContainsKeyValEncoded(okRequest, "UserId", genericFormBodyParams.getUserId());
     assertFormBodyContainsKeyValEncoded(okRequest, "UserNickname", genericFormBodyParams.getUserNickname());
-    assertFormBodyContainsKeyValEncoded(okRequest, "fp", genericFormBodyParams.getFingerprint());
     assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_authenticationemail", "email%40email.com");
     assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fwww.callback.url");
     assertFormBodyContainsKeyValEncoded(okRequest, "campaignid", genericFormBodyParams.getCampaignId());
@@ -591,7 +620,7 @@ public class RequestFactoryTest {
   // endregion
 
   // region Stub Data
-  private RequestFactory createTestRequestFactory() {
+  private BasicRequestFactory createTestRequestFactory() {
     final BVMobileInfo bvMobileInfo = mock(BVMobileInfo.class);
     when(bvMobileInfo.getBvSdkVersion()).thenReturn("bvsdk7");
     when(bvMobileInfo.getMobileAppCode()).thenReturn("1");
@@ -612,7 +641,13 @@ public class RequestFactoryTest {
         .apiKeyConversationsStores(storeApiKey)
         .clientId("yoyomakers")
         .build();
-    return new RequestFactory(bvMobileInfo, bvRootApiUrls, bvConfig, bvSdkUserAgent);
+    final FingerprintProvider fingerprintProvider = new FingerprintProvider() {
+      @Override
+      public String getFingerprint() {
+        return "test_fp";
+      }
+    };
+    return new BasicRequestFactory(bvMobileInfo, bvRootApiUrls, bvConfig, bvSdkUserAgent, fingerprintProvider);
   }
 
   private List<PhotoUpload> createPhotoList(PhotoUpload.ContentType contentType) {

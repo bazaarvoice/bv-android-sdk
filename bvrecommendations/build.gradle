@@ -12,6 +12,7 @@ dependencies {
     compile project(':bvcommon')
     provided sdkDep.recyclerview
     provided sdkDep.gson
+    provided sdkDep.okhttp3
 
     // Dependencies for local unit tests
     testCompile sdkTestDep.junit

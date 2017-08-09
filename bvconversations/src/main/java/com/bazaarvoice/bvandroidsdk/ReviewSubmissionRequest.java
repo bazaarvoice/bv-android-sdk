@@ -25,6 +25,12 @@ public class ReviewSubmissionRequest extends BaseReviewSubmissionRequest {
         super(builder);
     }
 
+    public ReviewSubmissionRequest.Builder newBuilder() {
+        ReviewSubmissionRequest.Builder builder = new ReviewSubmissionRequest.Builder(getAction(), getProductId());
+
+        return builder;
+    }
+
     public static class Builder extends BaseReviewBuilder<Builder> {
         public Builder(Action action, String productId) {
             super(action, productId);

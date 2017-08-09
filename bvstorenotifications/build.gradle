@@ -16,6 +16,7 @@ dependencies {
     compile sdkDep.gimbalSLF4J
     compile sdkDep.slf4jApi
     compile sdkDep.appCompatV7
+    provided sdkDep.gson
 
     // Dependencies for local unit tests
     testCompile sdkTestDep.junit
