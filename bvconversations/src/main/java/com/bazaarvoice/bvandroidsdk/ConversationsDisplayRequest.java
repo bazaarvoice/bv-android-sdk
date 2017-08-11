@@ -18,16 +18,14 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Common options for a Conversations display request
  */
 abstract class ConversationsDisplayRequest extends ConversationsRequest {
   private final List<Filter> filters;
-  private final Map<String, String> extraParams;
+  private final List<QueryPair> extraParams;
 
   ConversationsDisplayRequest(Builder builder) {
     filters = builder.filters;
@@ -38,17 +36,34 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
     return filters;
   }
 
-  Map<String, String> getExtraParams() {
+  List<QueryPair> getExtraParams() {
     return extraParams;
+  }
+
+  static class QueryPair {
+    private final String key, value;
+
+    public QueryPair(String key, String value) {
+      this.key = key;
+      this.value = value;
+    }
+
+    public String getKey() {
+      return key;
+    }
+
+    public String getValue() {
+      return value;
+    }
   }
 
   static abstract class Builder<BuilderType> {
     private final List<Filter> filters;
-    private final Map<String, String> extraParams;
+    private final List<QueryPair> extraParams;
 
     public Builder() {
       filters = new ArrayList<>();
-      extraParams = new HashMap<>();
+      extraParams = new ArrayList<>();
     }
 
     protected void addFilter(Filter filter) {
@@ -69,7 +84,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
      * @return The Builder
      */
     public BuilderType addAdditionalField(String key, String value) {
-      extraParams.put(key, value);
+      extraParams.add(new QueryPair(key, value));
       return (BuilderType) this;
     }
   }
