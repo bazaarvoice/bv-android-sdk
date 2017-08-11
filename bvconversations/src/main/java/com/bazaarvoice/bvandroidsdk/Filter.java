@@ -34,6 +34,12 @@ final class Filter {
     private final EqualityOperator equalityOperator;
     private final List<String> filterValues;
 
+    /**
+     *
+     * @param option Filter option
+     * @param equalityOperator Equality type
+     * @param value On value which must be true. Adding many of these is how an AND filter is created
+     */
     Filter(UGCOption option, EqualityOperator equalityOperator, String value) {
         this.option = option;
         this.equalityOperator = equalityOperator;
@@ -41,6 +47,12 @@ final class Filter {
         filterValues.add(value);
     }
 
+    /**
+     *
+     * @param option Filter option
+     * @param equalityOperator Equality type
+     * @param values Many values where one must be true. This is how an OR filter is created
+     */
     Filter(UGCOption option, EqualityOperator equalityOperator, @NonNull List<String> values) {
         this.option = option;
         this.equalityOperator = equalityOperator;

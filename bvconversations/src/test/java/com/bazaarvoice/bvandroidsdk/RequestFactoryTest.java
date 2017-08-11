@@ -36,13 +36,25 @@ public class RequestFactoryTest {
   }
 
   @Test
-  public void displayShouldHaveExtraQueryParams() throws Exception {
+  public void displayShouldHaveExtraQueryParams() throws Exception  {
     final ReviewsRequest request = new ReviewsRequest.Builder("some1", 10, 10)
         .addAdditionalField("duck duck", "goose")
         .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("duck duck").contains("goose"));
+  }
+
+  @Test
+  public void displayShouldAllowOneToManyExtraQueryParams() throws Exception {
+    final ReviewsRequest request = new ReviewsRequest.Builder("some1", 10, 10)
+        .addAdditionalField("foo", "1")
+        .addAdditionalField("foo", "2")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    final HttpUrl url = okRequest.url();
+    assertTrue(url.queryParameterValues("foo").contains("1"));
+    assertTrue(url.queryParameterValues("foo").contains("2"));
   }
 
   @Test

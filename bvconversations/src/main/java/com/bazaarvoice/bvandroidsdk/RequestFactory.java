@@ -694,10 +694,13 @@ class RequestFactory {
     }
   }
 
-  private static void addExtraQueryParams(HttpUrl.Builder httpUrlBuilder, Map<String, String> extraParams) {
-    for (Map.Entry<String, String> extraEntry : extraParams.entrySet()) {
+  private static void addExtraQueryParams(HttpUrl.Builder httpUrlBuilder, List<ConversationsDisplayRequest.QueryPair> extraParams) {
+    for (ConversationsDisplayRequest.QueryPair queryPair : extraParams) {
+      if (queryPair.getKey() == null || queryPair.getValue() == null) {
+        continue;
+      }
       httpUrlBuilder
-          .addQueryParameter(extraEntry.getKey(), extraEntry.getValue());
+          .addQueryParameter(queryPair.getKey(), queryPair.getValue());
     }
   }
 
