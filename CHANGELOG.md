@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.8.1
+
+## Conversations
+* Fixed expected behavior of ```ConversationsDisplayRequest.Builder#addAdditionalField(key, val)``` to support 
+one-to-many relationships of key-value pairs.
+
 # 6.8.0
 
 ## Conversations
@@ -8,6 +14,7 @@ to construct an instance, and use the ```BVConversationsClient.Builder#bvConfig(
 different config than the default provided by the ```BVSDK``` singleton. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/conversations_display.html) 
 for Conversations.
 * Deprecated the default ```BVConversationsClient``` constructor.
+* Add multiple value support to review display filtering
 
 ## BVPixel (Analytics)
 * Added an additional API to optionally send an analytics event with a different ```clientId``` than the default 
