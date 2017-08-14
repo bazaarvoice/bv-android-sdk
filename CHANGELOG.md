@@ -1,5 +1,13 @@
 # Changelog
 
+# 6.9.0
+
+# Conversations
+* Added ```BVConversationsClient.Builder#fingerprintProvider(fpProvider)``` as an optional builder parameter
+
+## **NEW** Authenticity Iovation
+* Added ```IovationFingerprint``` as a class to pass to the ```fingerprintProvider(fpProvider)``` method
+
 # 6.8.1
 
 ## Conversations
