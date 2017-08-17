@@ -284,26 +284,126 @@ $(function(){
 </div>
 <hr>
 
-
+<div class="panel-group flex" id="bvconvapp" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
+	
 
 
 <div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="heading-installationCollapse">
-    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#installationCollapse" aria-expanded="false" aria-controls="installationCollapse" style="text-decoration: none">
+  <div class="panel-heading" role="tab" id="heading-bvconvappId">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#bvconvappId" aria-expanded="false" aria-controls="bvconvappId" style="text-decoration: none">
       <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
-          <i id="installationArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
-          <h5 style="margin-bottom: 0;">Setup Instructions</h5>
+          <i id="bvconvappArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;"><span>BV Conversations Sample app</span></h5>
       </div>
       <div class="flex flex-row">
-          <p style="color:#444; margin-bottom: 6px;">Click here to see how to download and open the BVSDK project.</p>
+          <p style="color:#444; margin-bottom: 6px;">The BV Conversations Sample app contains simple examples for Displaying and Submitting Reviews.</p>
       </div>
       <div style="clear:both;"></div>
     </a>
   </div>
-  <div id="installationCollapse" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+  <div id="bvconvappId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
     <div class="panel-body">
 
-<h3>Setup</h3>
+	<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
+
+	<h3>Setup</h3>
+<hr>
+<ol>
+  <li>
+    Clone the BVSDK repository:
+    <pre><code>$ git clone https://github.com/bazaarvoice/bv-android-sdk-conversations-example.git</code></pre>
+  </li>
+  <li>
+    In Android Studio select <b>Open an existing Android Studio Project</b>, or <b>File</b> > <b>Open</b>.
+    <img src="android-img/examples/open_project.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Navigate to the root directory of the project, and click <b>OK</b>
+    <img src="android-img/conversations_example_app/conv_app_open_project.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Add your <a href="installation.html#configure-bvsdk">BV generated config files</a> to the
+    demo apps asset directory.
+    <img src="android-img/conversations_example_app/conv_app_config_files.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Modify the productId in the Constants.java file to be an existing product in your catalog.
+    <img src="android-img/conversations_example_app/conv_app_code_constants.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+</ol>
+
+<p><span class="bg-info well-lg" style="padding:4px;"> <i class="fa fa-hand-o-right"></i> TIP: When running the Conversations API demo, you can set your own test product Ids in the <code>DemoConversationsAPIFragment.java</code> file. </a></span></p>
+
+
+
+	<br/>
+
+	<h3>Running</h3>
+<hr>
+<ol>
+  <li>
+    Run the app.
+    <img src="android-img/conversations_example_app/conv_app_run.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    You should now see the option to view reviews, or submit a review.
+    <img src="android-img/conversations_example_app/conv_app_home.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Display Reviews will look something like.
+    <img src="android-img/conversations_example_app/conv_app_display.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Submit Reviews could show errors because of network failure/etc.
+    <img src="android-img/conversations_example_app/conv_app_submit_errors.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Submit Reviews could show errors because of failure to include Form Fields required by your config.
+    <img src="android-img/conversations_example_app/conv_app_submit_form_errors.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    You can go into the SubmitReviewsActivity.java file to modify the submission request to have the necessary Form Fields.
+    <img src="android-img/conversations_example_app/conv_app_code_submit_modify.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    And once they have all been addressed, you should see success.
+    <img src="android-img/conversations_example_app/conv_app_submit_success.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+  <li>
+    Make sure that when you want to actually submit, that you use the Action.Submit action parameter for your Submission requests.
+    <img src="android-img/conversations_example_app/conv_app_code_submit_action.png" style="max-width:50%" class="center-block img-fluid" />
+  </li>
+</ol>
+
+
+			</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel-group flex" id="bvcodeapp" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
+	
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="heading-bvcodeappId">
+    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#bvcodeappId" aria-expanded="false" aria-controls="bvcodeappId" style="text-decoration: none">
+      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
+          <i id="bvcodeappArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
+          <h5 style="margin-bottom: 0;"><span>BV API app</span></h5>
+      </div>
+      <div class="flex flex-row">
+          <p style="color:#444; margin-bottom: 6px;">The BV API app contains simple minimal code examples for each of the products and how to set up the API calls for specific use cases.</p>
+      </div>
+      <div style="clear:both;"></div>
+    </a>
+  </div>
+  <div id="bvcodeappId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+
+	<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
+
+	<h3>Setup</h3>
 <hr>
 <ol>
   <li>
@@ -331,89 +431,11 @@ $(function(){
 <p><span class="bg-info well-lg" style="padding:4px;"> <i class="fa fa-hand-o-right"></i> TIP: When running the Conversations API demo, you can set your own test product Ids in the <code>DemoConversationsAPIFragment.java</code> file. </a></span></p>
 
 
-		</div>
-    </div>
-  </div>
 
+	<br/>
 
-<div class="panel-group flex" id="bvdemoapp" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
-	
-
-
-<div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="heading-bvdemoappId">
-    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#bvdemoappId" aria-expanded="false" aria-controls="bvdemoappId" style="text-decoration: none">
-      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
-          <i id="bvdemoappArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
-          <h5 style="margin-bottom: 0;"><span>BV Demo app</h5>
-      </div>
-      <div class="flex flex-row">
-          <p style="color:#444; margin-bottom: 6px;">The BV Demo app can be used as an example of best practices to use when integrating the BVSDK into your app mobile application. It features a mock eCommerce application known as Endurance Cycles. Think of this as a Kitchen Sink style app.</p>
-      </div>
-      <div style="clear:both;"></div>
-    </a>
-  </div>
-  <div id="bvdemoappId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-    <div class="panel-body">
-
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
-
-<br>
-
-<ol>
-  <li>
-    <p>Right click the <code>DemoHomeActivity.java</code> file, and select Run.</p>
-    <img src="android-img/examples/demo_example_run.png" style="height:auto; border:1px solid gray" class="center-block img-fluid" />
-  </li>
-  <br><br>
-  <li>
-    <p>
-      On your device, you should see a home page like the one below. This app can be used as an
-      example of best practices to use when integrating the BVSDK into your app mobile application.
-    </p>
-    <img src="android-img/examples/bvdemoapp_default_home.png" style="max-width:30%" class="center-block img-fluid" />
-  </li>
-  <li>
-    <p>
-      To see your own data in this app, tap the settings cog to go to the settings page, then
-      tap "Select Preloaded Profile". You will be presented with the choice to change the data
-      source between "Mock Endurance Cycles" (which is a Bazaarvoice demo source), and your BV
-      generated config. The BV generated config will automatically display the environment set
-      in the <code>DemoConstants.java</code> file.
-    </p>
-    <img src="android-img/examples/bvapp_settings_page.png" style="max-width:30%" class="center-block img-fluid" />
-  </li>
-</ol>
-
-
-		</div>
-    </div>
-  </div>
-</div>
-
-
-<div class="panel-group flex" id="bvcodeapp" role="tablist" aria-multiselectable="true" style="box-shadow: 1px 2px 4px #999;">
-	
-
-
-<div class="panel panel-default">
-  <div class="panel-heading" role="tab" id="heading-bvcodeappId">
-    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#bvcodeappId" aria-expanded="false" aria-controls="bvcodeappId" style="text-decoration: none">
-      <div class="flex flex-row" style="align-items: center; padding-bottom: 10px;">
-          <i id="bvcodeappArrow" class="fa fa-chevron-right" style="color:#777; padding-right: 10px;"></i>
-          <h5 style="margin-bottom: 0;"><span>BV API app</h5>
-      </div>
-      <div class="flex flex-row">
-          <p style="color:#444; margin-bottom: 6px;">The BV API app contains simple minimal code examples for each of the products and how to set up the API calls for specific use cases.</p>
-      </div>
-      <div style="clear:both;"></div>
-    </a>
-  </div>
-  <div id="bvcodeappId" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
-    <div class="panel-body">
-
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  If you are running on an emulator, the examples require that you have Google Play Services installed.</p>
-
+	<h3>Running</h3>
+<hr>
 <ol>
   <li>
     <p>Right click the <code>DemoMainActivity.java</code> file, and select Run.</p>
@@ -443,7 +465,7 @@ $(function(){
 </ol>
 
 
-		</div>
+			</div>
     </div>
   </div>
 </div>
