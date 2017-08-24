@@ -26,6 +26,7 @@ import okhttp3.RequestBody;
  * media content.
  */
 class BasicRequestFactory implements RequestFactory {
+  // region Keys
   // region Generic Request Keys
   private static final String kAPI_VERSION = "apiversion";
   private static final String kPASS_KEY = "passkey";
@@ -146,6 +147,7 @@ class BasicRequestFactory implements RequestFactory {
   // region Submit Photo Request Keys
   private static final String PHOTO_SUBMIT_ENDPOINT = "data/uploadphoto.json";
   private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+  // endregion
   // endregion
 
   // region Instance Fields
@@ -808,6 +810,10 @@ class BasicRequestFactory implements RequestFactory {
     formPutSafe(formBodyBuilder, kSEND_EMAIL_PUBLISHED, request.getSendEmailAlertWhenPublished());
     formPutSafe(formBodyBuilder, kAGREE_TERMS, request.getAgreedToTermsAndConditions());
     formPutSafe(formBodyBuilder, kACTION, getAction(request).getKey());
+
+    for (ConversationsSubmissionRequest.FormPair formPair : request.getFormPairs()) {
+      formPutSafe(formBodyBuilder, formPair.getKey(), formPair.getValue());
+    }
 
     addSubmissionPhotosFormParams(formBodyBuilder, request);
   }

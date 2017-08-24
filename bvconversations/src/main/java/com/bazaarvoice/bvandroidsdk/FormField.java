@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class FormField {
   private String label;
 
   @SerializedName("Type")
-  private String type;
+  private FormInputType formInputType;
 
   @SerializedName("Value")
   private String value;
@@ -35,6 +37,7 @@ public class FormField {
   @SerializedName("Default")
   private boolean isDefault;
 
+  @NonNull
   public List<FormFieldOption> getFormFieldOptions() {
     return formFieldOptions;
   }
@@ -51,8 +54,17 @@ public class FormField {
     return label;
   }
 
+  /**
+   * @deprecated Use {@link #getFormInputType()} instead
+   *
+   * @return
+   */
   public String getType() {
-    return type;
+    return formInputType.getValue();
+  }
+
+  public FormInputType getFormInputType() {
+    return formInputType;
   }
 
   public String getValue() {

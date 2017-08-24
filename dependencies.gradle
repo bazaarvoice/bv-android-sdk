@@ -5,7 +5,7 @@ ext {
     sdkBuildInfo = [
         minSdkVersion : 15,
         targetSdkVersion : 25,
-        compileSdkVersion : 25,
+        compileSdkVersion : 26,
         buildToolsVersion : '25.0.1',
         sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
         targetCompatibilityVersion : JavaVersion.VERSION_1_7

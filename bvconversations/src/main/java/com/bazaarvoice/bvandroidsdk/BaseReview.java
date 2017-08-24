@@ -17,8 +17,13 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +64,7 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
     @SerializedName("SyndicationSource")
     private SyndicatedSource syndicatedSource;
 
+    @Nullable
     public Map<String, DimensionElement> getTagDimensions() {
         return tagDimensions;
     }
@@ -115,8 +121,21 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
         return clientResponses;
     }
 
+    @Nullable
     public Map<String, SecondaryRating> getSecondaryRatings() {
         return secondaryRatings;
+    }
+
+    @NonNull
+    public List<SecondaryRating> getSecondaryRatingList() {
+        if (secondaryRatings == null) {
+            return Collections.emptyList();
+        }
+        List<SecondaryRating> secondaryRatingList = new ArrayList<>();
+        for (Map.Entry<String, SecondaryRating> entry : secondaryRatings.entrySet()) {
+            secondaryRatingList.add(entry.getValue());
+        }
+        return secondaryRatingList;
     }
 
     public List<Integer> getCommentIds() {

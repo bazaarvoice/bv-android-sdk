@@ -17,10 +17,13 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -117,6 +120,7 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
         return photos;
     }
 
+    @Nullable
     public Map<String, ContextDataValue> getContextDataValues() {
         return contextDataValues;
     }
@@ -125,8 +129,33 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
         return videos;
     }
 
+    @Nullable
     public Map<String, Badge> getBadges() {
         return badges;
+    }
+
+    @NonNull
+    public List<Badge> getBadgeList() {
+        if (badges == null) {
+            return Collections.<Badge>emptyList();
+        }
+        List<Badge> badgeList = new ArrayList<>();
+        for (Map.Entry<String, Badge> entry : badges.entrySet()) {
+            badgeList.add(entry.getValue());
+        }
+        return badgeList;
+    }
+
+    @NonNull
+    public List<ContextDataValue> getContextDataValueList() {
+        if (contextDataValues == null) {
+            return Collections.<ContextDataValue>emptyList();
+        }
+        List<ContextDataValue> cdvList = new ArrayList<>();
+        for (Map.Entry<String, ContextDataValue> entry : contextDataValues.entrySet()) {
+            cdvList.add(entry.getValue());
+        }
+        return cdvList;
     }
 
     public List<String> getProductRecommendationIds() {

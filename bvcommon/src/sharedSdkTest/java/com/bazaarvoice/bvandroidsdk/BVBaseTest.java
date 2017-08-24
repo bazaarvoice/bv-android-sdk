@@ -117,9 +117,15 @@ public abstract class BVBaseTest {
 
     protected void afterInitSdk(BVSDK bvsdk) {}
 
-    static String jsonFileAsString(String fileName) throws IOException {
-        File file = new File("src/test/resources/" + fileName);
-        return readFile(file);
+    static <ResponseType> ResponseType parseJsonResourceFile(String filename, Class<ResponseType> responseClass, Gson gson) throws Exception {
+        InputStream inputStream = responseClass.getClassLoader().getResourceAsStream(filename);
+        String responseStr = readFile(inputStream);
+        return gson.fromJson(responseStr, responseClass);
+    }
+
+    static String jsonResourceFileAsString(String filename, Class responseClass) throws Exception {
+        InputStream inputStream = responseClass.getClassLoader().getResourceAsStream(filename);
+        return readFile(inputStream);
     }
 
     /**

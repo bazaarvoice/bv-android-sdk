@@ -19,7 +19,6 @@ dependencies {
     testCompile sdkTestDep.mockito
     testCompile sdkTestDep.mockWebServer
     testCompile sdkTestDep.robolectric
-    testCompile sdkDep.gson
     testCompile sdkTestDep.androidJson
 }
 

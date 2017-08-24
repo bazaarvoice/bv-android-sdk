@@ -1,44 +1,29 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
-import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
-import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
-import okio.Buffer;
 
-import static com.bazaarvoice.bvandroidsdk.ConversationsRequest.API_VERSION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class BasicRequestFactoryTest {
-  private BasicRequestFactory requestFactory;
-  private GenericFormBodyParams genericFormBodyParams;
+  private RequestFactory requestFactory;
+  private RequestFactoryUtils requestFactoryUtils;
 
   @Before
   public void setUp() throws Exception {
-    requestFactory = createTestRequestFactory();
-    genericFormBodyParams = createGenericFormBodyParams();
+    this.requestFactory = RequestFactoryUtils.createTestRequestFactory();
+    requestFactoryUtils = new RequestFactoryUtils(requestFactory);
   }
 
   @Test
   public void displayShouldHaveExtraQueryParams() throws Exception  {
     final ReviewsRequest request = new ReviewsRequest.Builder("some1", 10, 10)
-        .addAdditionalField("duck duck", "goose")
+        .addCustomDisplayParameter("duck duck", "goose")
         .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
@@ -48,8 +33,8 @@ public class BasicRequestFactoryTest {
   @Test
   public void displayShouldAllowOneToManyExtraQueryParams() throws Exception {
     final ReviewsRequest request = new ReviewsRequest.Builder("some1", 10, 10)
-        .addAdditionalField("foo", "1")
-        .addAdditionalField("foo", "2")
+        .addCustomDisplayParameter("foo", "1")
+        .addCustomDisplayParameter("foo", "2")
         .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
@@ -59,19 +44,19 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void reviewDisplayShouldHaveBVSDKQueryParams() throws Exception {
-    final Request okRequest = createFullReviewDisplayRequest();
-    assertContainsGenericProperties(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
   }
 
   @Test
   public void reviewDisplayShouldHavePagingQueryParams() throws Exception {
-    final Request okRequest = createFullReviewDisplayRequest();
-    assertContainsPagingProperties(okRequest, 10, 2);
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
+    requestFactoryUtils.assertContainsPagingProperties(okRequest, 10, 2);
   }
 
   @Test
   public void reviewDisplayShouldHaveOwnQueryParams() throws Exception {
-    final Request okRequest = createFullReviewDisplayRequest();
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:prod1"));
     assertEquals("products", url.queryParameter("Include"));
@@ -81,15 +66,15 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void reviewDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullReviewDisplayRequest();
-    assertFinalPathIs(okRequest.url(), "reviews.json");
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "reviews.json");
   }
 
   @Test
   public void reviewDisplayWithIncludeProductShouldHaveStatsReviews() {
     // "Stats=Reviews must be used in conjunction with Include=Products"
     // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
-    final Request okRequest = createFullReviewDisplayRequest();
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
     final HttpUrl httpUrl = okRequest.url();
     assertTrue(httpUrl.queryParameterNames().contains("Stats"));
     assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
@@ -97,19 +82,19 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void qnaDisplayShouldHaveBVSDKQueryParams() throws Exception {
-    final Request okRequest = createFullQnaDisplayRequest();
-    assertContainsGenericProperties(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullQnaDisplayRequest();
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
   }
 
   @Test
   public void qnaDisplayShouldHavePagingQueryParams() throws Exception {
-    final Request okRequest = createFullQnaDisplayRequest();
-    assertContainsPagingProperties(okRequest, 10, 0);
+    final Request okRequest = requestFactoryUtils.createFullQnaDisplayRequest();
+    requestFactoryUtils.assertContainsPagingProperties(okRequest, 10, 0);
   }
 
   @Test
   public void qnaDisplayShouldHaveOwnQueryParams() throws Exception {
-    final Request okRequest = createFullQnaDisplayRequest();
+    final Request okRequest = requestFactoryUtils.createFullQnaDisplayRequest();
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:product1"));
     assertEquals("ProductId:desc", url.queryParameter("Sort"));
@@ -118,25 +103,25 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void qnaDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullQnaDisplayRequest();
-    assertFinalPathIs(okRequest.url(), "questions.json");
+    final Request okRequest = requestFactoryUtils.createFullQnaDisplayRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "questions.json");
   }
 
   @Test
   public void commentDisplayShouldHaveBVSDKQueryParams() throws Exception {
-    final Request okRequest = createFullCommentsRequest();
-    assertContainsGenericProperties(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullCommentsRequest();
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
   }
 
   @Test
   public void commentDisplayShouldHavePagingQueryParams() throws Exception {
-    final Request okRequest = createFullCommentsRequest();
-    assertContainsPagingProperties(okRequest, 20, 0);
+    final Request okRequest = requestFactoryUtils.createFullCommentsRequest();
+    requestFactoryUtils.assertContainsPagingProperties(okRequest, 20, 0);
   }
 
   @Test
   public void commentDisplayShouldHaveOwnQueryParams() throws Exception {
-    final Request okRequest = createFullCommentsRequest();
+    final Request okRequest = requestFactoryUtils.createFullCommentsRequest();
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("Filter").contains("ReviewId:eq:review1"));
     assertEquals("SubmissionTime:asc", url.queryParameter("Sort"));
@@ -145,19 +130,19 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void commentsDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullCommentsRequest();
-    assertFinalPathIs(okRequest.url(), "reviewcomments.json");
+    final Request okRequest = requestFactoryUtils.createFullCommentsRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "reviewcomments.json");
   }
 
   @Test
   public void authorDisplayShouldHaveBVSDKQueryParams() throws Exception {
-    final Request okRequest = createFullAuthorsRequest();
-    assertContainsGenericProperties(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullAuthorsRequest();
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
   }
 
   @Test
   public void authorDisplayShouldHaveOwnQueryParams() throws Exception {
-    final Request okRequest = createFullAuthorsRequest();
+    final Request okRequest = requestFactoryUtils.createFullAuthorsRequest();
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("Filter").contains("Id:eq:author1"));
     assertEquals("IsFeatured:desc", url.queryParameter("Sort_Reviews"));
@@ -170,60 +155,59 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void authorDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullAuthorsRequest();
-    assertFinalPathIs(okRequest.url(), "authors.json");
+    final Request okRequest = requestFactoryUtils.createFullAuthorsRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "authors.json");
   }
 
   @Test
   public void createBulkStoreRequest() throws Exception {
-    final Request okRequest = createFullBulkStoreRequest();
+    final Request okRequest = requestFactoryUtils.createFullBulkStoreRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
     final HttpUrl url = okRequest.url();
 
-    assertContainsGenericStoreProperties(okRequest);
+    requestFactoryUtils.assertContainsGenericStoreProperties(okRequest);
     assertTrue(url.queryParameterValues("Filter").contains("Id:eq:store1,store2"));
     assertTrue(url.queryParameterValues("Filter").contains("ContentLocale:eq:esp"));
   }
 
   @Test
   public void bulkStoreDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullBulkStoreRequest();
-    assertFinalPathIs(okRequest.url(), "products.json");
+    final Request okRequest = requestFactoryUtils.createFullBulkStoreRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "products.json");
   }
 
   @Test
   public void createBulkRatingsRequest() throws Exception {
-    final Request okRequest = createFullBulkRatingsRequest();
+    final Request okRequest = requestFactoryUtils.createFullBulkRatingsRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
     final HttpUrl url = okRequest.url();
 
-    assertContainsGenericProperties(okRequest);
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
     assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:product1,product2"));
     assertTrue(url.queryParameterValues("Filter").contains("ContentLocale:eq:den"));
     assertEquals("NativeReviews", url.queryParameter("Stats"));
-    assertFinalPathIs(url, "statistics.json");
   }
 
   @Test
   public void bulkRatingsDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullBulkRatingsRequest();
-    assertFinalPathIs(okRequest.url(), "statistics.json");
+    final Request okRequest = requestFactoryUtils.createFullBulkRatingsRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "statistics.json");
   }
 
   @Test
   public void createStoreReviewsRequest() throws Exception {
-    final Request okRequest = createFullStoreReviewRequest();
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
     final HttpUrl url = okRequest.url();
 
-    assertContainsGenericStoreProperties(okRequest);
-    assertContainsPagingProperties(url, 8, 2);
+    requestFactoryUtils.assertContainsGenericStoreProperties(okRequest);
+    requestFactoryUtils.assertContainsPagingProperties(url, 8, 2);
     assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:store1"));
     assertEquals("products", url.queryParameter("Include"));
     assertEquals("SubmissionTime:asc", url.queryParameter("Sort"));
@@ -232,15 +216,15 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void storeReviewsDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullStoreReviewRequest();
-    assertFinalPathIs(okRequest.url(), "reviews.json");
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "reviews.json");
   }
 
   @Test
   public void storeReviewDisplayWithIncludeProductShouldHaveStatsReviews() {
     // "Stats=Reviews must be used in conjunction with Include=Products"
     // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
-    final Request okRequest = createFullStoreReviewRequest();
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewRequest();
     final HttpUrl httpUrl = okRequest.url();
     assertTrue(httpUrl.queryParameterNames().contains("Stats"));
     assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
@@ -248,13 +232,13 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void createBulkProductRequest() throws Exception {
-    final Request okRequest = createFullBulkProductRequest();
+    final Request okRequest = requestFactoryUtils.createFullBulkProductRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
     final HttpUrl url = okRequest.url();
 
-    assertContainsGenericProperties(okRequest);
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
     assertTrue(url.queryParameterValues("Filter").contains("AverageOverallRating:gte:3"));
     assertTrue(url.queryParameterValues("Filter").contains("IsActive:eq:true"));
     assertEquals("Reviews,Questions", url.queryParameter("Include"));
@@ -266,8 +250,8 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void bulkProductDisplayFinalPath() throws Exception {
-    final Request okRequest = createFullBulkProductRequest();
-    assertFinalPathIs(okRequest.url(), "products.json");
+    final Request okRequest = requestFactoryUtils.createFullBulkProductRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "products.json");
   }
 
   @Test
@@ -286,7 +270,7 @@ public class BasicRequestFactoryTest {
 
     final HttpUrl url = okRequest.url();
 
-    assertContainsGenericProperties(okRequest);
+    requestFactoryUtils.assertContainsGenericProperties(okRequest);
     assertTrue(url.queryParameterValues("Filter").contains("Id:eq:prod1"));
     assertTrue(url.queryParameterValues("Filter").contains("AverageOverallRating:gte:3"));
     assertTrue(url.queryParameterValues("Filter").contains("IsActive:eq:true"));
@@ -299,32 +283,32 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void feedbackSubmissionShouldHaveBVSDKFormParams() throws Exception {
-    final Request okRequest = createFullFeedbackSubmissionRequest();
+    final Request okRequest = requestFactoryUtils.createFullFeedbackSubmissionRequest();
     System.out.println(okRequest.toString());
     assertNotNull(okRequest);
-    assertContainsBVSDKFormParams(okRequest);
+    requestFactoryUtils.assertContainsBVSDKFormParams(okRequest);
   }
 
   @Test
   public void feedbackSubmissionShouldHaveSubmissionRequestFormParams() throws Exception {
-    final Request okRequest = createFullFeedbackSubmissionRequest();
-    assertContainsConversationsSubmissionRequestFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullFeedbackSubmissionRequest();
+    requestFactoryUtils.assertContainsConversationsSubmissionRequestFormParams(okRequest);
   }
 
   @Test
   public void feedbackSubmissionShouldHaveBVMobileInfoFormParams() throws Exception {
-    final Request okRequest = createFullFeedbackSubmissionRequest();
-    assertContainsBVMobileInfoFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullFeedbackSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
   }
 
   @Test
   public void feedbackSubmissionShouldHaveOwnFormParams() throws Exception {
-    final Request okRequest = createFullFeedbackSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "ContentId", "review1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "ContentType", "review");
-    assertFormBodyContainsKeyValEncoded(okRequest, "FeedbackType", "helpfulness");
-    assertFormBodyContainsKeyValEncoded(okRequest, "Vote", "positive");
-    assertFormBodyContainsKeyValEncoded(okRequest, "ReasonText", "Fantastic%20review.%20Would%20recommend%20100%25%21");
+    final Request okRequest = requestFactoryUtils.createFullFeedbackSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ContentId", "review1");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ContentType", "review");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "FeedbackType", "helpfulness");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "Vote", "positive");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ReasonText", "Fantastic%20review.%20Would%20recommend%20100%25%21");
   }
 
   @Test
@@ -332,66 +316,66 @@ public class BasicRequestFactoryTest {
     final FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("content1").build();
     final Request okRequest = requestFactory.create(request);
     System.out.println(okRequest);
-    assertFormBodyContainsKeyValEncoded(okRequest, "action", "Preview");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "action", "Preview");
   }
 
   @Test
   public void feedbackSubmissionFinalPath() throws Exception {
-    final Request okRequest = createFullFeedbackSubmissionRequest();
-    assertFinalPathIs(okRequest.url(), "submitfeedback.json");
+    final Request okRequest = requestFactoryUtils.createFullFeedbackSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitfeedback.json");
   }
 
   @Test
   public void reviewSubmissionShouldHaveBVSDKFormParams() throws Exception {
-    final Request okRequest = createFullReviewSubmissionRequest();
-    assertContainsBVSDKFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest();
+    requestFactoryUtils.assertContainsBVSDKFormParams(okRequest);
   }
 
   @Test
   public void reviewSubmissionShouldHaveSubmissionRequestFormParams() throws Exception {
-    final Request okRequest = createFullReviewSubmissionRequest();
-    assertContainsConversationsSubmissionRequestFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest();
+    requestFactoryUtils.assertContainsConversationsSubmissionRequestFormParams(okRequest);
   }
 
   @Test
   public void reviewSubmissionShouldHaveBVMobileInfoFormParams() throws Exception {
-    final Request okRequest = createFullReviewSubmissionRequest();
-    assertContainsBVMobileInfoFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
   }
 
   @Test
   public void reviewSubmissionShouldHaveOwnFormParams() throws Exception {
-    final Request okRequest = createFullReviewSubmissionRequest();
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest();
 
-    assertFormBodyContainsKeyValEncoded(okRequest, "ProductId", "prod1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "IsRecommended", "true");
-    assertFormBodyContainsKeyValEncoded(okRequest, "SendEmailAlertWhenCommented", "true");
-    assertFormBodyContainsKeyValEncoded(okRequest, "Rating", "4");
-    assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterScore", "3");
-    assertFormBodyContainsKeyValEncoded(okRequest, "Title", "This%20is%20great%21");
-    assertFormBodyContainsKeyValEncoded(okRequest, "ReviewText", "This%20is%20something%20I%20would%20recommend%20100%25%20%3AD");
-    assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterComment", "Something%20about%20promotion");
-    assertFormBodyContainsKeyValEncoded(okRequest, "tag_foo_0", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "tag_baz_1", "quux");
-    assertFormBodyContainsKeyValEncoded(okRequest, "tagid_foo%2Fbar", "baz");
-    assertFormBodyContainsKeyValEncoded(okRequest, "additionalfield_foo", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "contextdatavalue_foo", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "rating_foo", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "rating_baz", "2");
-    assertFormBodyContainsKeyValEncoded(okRequest, "VideoUrl_1", "https%3A%2F%2Fwww.website.com%2Fvideo.mp4");
-    assertFormBodyContainsKeyValEncoded(okRequest, "VideoCaption_1", "Totes%20cool%20100%25%21");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ProductId", "prod1");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "IsRecommended", "true");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "SendEmailAlertWhenCommented", "true");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "Rating", "4");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterScore", "3");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "Title", "This%20is%20great%21");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ReviewText", "This%20is%20something%20I%20would%20recommend%20100%25%20%3AD");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterComment", "Something%20about%20promotion");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "tag_foo_0", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "tag_baz_1", "quux");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "tagid_foo%2Fbar", "baz");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "additionalfield_foo", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "contextdatavalue_foo", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "rating_foo", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "rating_baz", "2");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "VideoUrl_1", "https%3A%2F%2Fwww.website.com%2Fvideo.mp4");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "VideoCaption_1", "Totes%20cool%20100%25%21");
   }
 
   @Test
   public void reviewSubmissionShouldHaveFingerprintProvided() throws Exception {
-    final Request okRequest = createFullReviewSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   @Test
   public void reviewSubmissionFinalPath() throws Exception {
-    final Request okRequest = createFullReviewSubmissionRequest();
-    assertFinalPathIs(okRequest.url(), "submitreview.json");
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitreview.json");
   }
 
   @Test
@@ -400,77 +384,77 @@ public class BasicRequestFactoryTest {
         .isRecommended(null)
         .build();
     final Request okRequest = requestFactory.create(request);
-    assertFormBodyContainsKeyEncoded(okRequest, "IsRecommended", false);
+    requestFactoryUtils.assertFormBodyContainsKeyEncoded(okRequest, "IsRecommended", false);
   }
 
   @Test
   public void storeReviewSubmissionShouldHaveBVSDKFormParams() throws Exception {
-    final Request okRequest = createFullStoreReviewSubmissionRequest();
-    assertContainsBVSDKFormParams(okRequest, "storeApiKeyBar");
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewSubmissionRequest();
+    requestFactoryUtils.assertContainsBVSDKFormParams(okRequest, "storeApiKeyBar");
   }
 
   @Test
   public void storeReviewSubmissionShouldHaveSubmissionRequestFormParams() throws Exception {
-    final Request okRequest = createFullStoreReviewSubmissionRequest();
-    assertContainsConversationsSubmissionRequestFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewSubmissionRequest();
+    requestFactoryUtils.assertContainsConversationsSubmissionRequestFormParams(okRequest);
   }
 
   @Test
   public void storeReviewSubmissionShouldHaveBVMobileInfoFormParams() throws Exception {
-    final Request okRequest = createFullStoreReviewSubmissionRequest();
-    assertContainsBVMobileInfoFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
   }
 
   @Test
   public void storeReviewSubmissionShouldHaveOwnFormParams() throws Exception {
-    final Request okRequest = createFullStoreReviewSubmissionRequest();
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewSubmissionRequest();
 
-    assertFormBodyContainsKeyValEncoded(okRequest, "ProductId", "store1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "IsRecommended", "true");
-    assertFormBodyContainsKeyValEncoded(okRequest, "SendEmailAlertWhenCommented", "true");
-    assertFormBodyContainsKeyValEncoded(okRequest, "Rating", "4");
-    assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterScore", "3");
-    assertFormBodyContainsKeyValEncoded(okRequest, "Title", "This%20is%20great%21");
-    assertFormBodyContainsKeyValEncoded(okRequest, "ReviewText", "This%20is%20something%20I%20would%20recommend%20100%25%20%3AD");
-    assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterComment", "Something%20about%20promotion");
-    assertFormBodyContainsKeyValEncoded(okRequest, "tag_foo_0", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "tag_baz_1", "quux");
-    assertFormBodyContainsKeyValEncoded(okRequest, "tagid_foo%2Fbar", "baz");
-    assertFormBodyContainsKeyValEncoded(okRequest, "additionalfield_foo", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "contextdatavalue_foo", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "rating_foo", "bar");
-    assertFormBodyContainsKeyValEncoded(okRequest, "rating_baz", "2");
-    assertFormBodyContainsKeyValEncoded(okRequest, "VideoUrl_1", "https%3A%2F%2Fwww.website.com%2Fvideo.mp4");
-    assertFormBodyContainsKeyValEncoded(okRequest, "VideoCaption_1", "Totes%20cool%20100%25%21");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ProductId", "store1");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "IsRecommended", "true");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "SendEmailAlertWhenCommented", "true");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "Rating", "4");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterScore", "3");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "Title", "This%20is%20great%21");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ReviewText", "This%20is%20something%20I%20would%20recommend%20100%25%20%3AD");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "NetPromoterComment", "Something%20about%20promotion");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "tag_foo_0", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "tag_baz_1", "quux");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "tagid_foo%2Fbar", "baz");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "additionalfield_foo", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "contextdatavalue_foo", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "rating_foo", "bar");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "rating_baz", "2");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "VideoUrl_1", "https%3A%2F%2Fwww.website.com%2Fvideo.mp4");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "VideoCaption_1", "Totes%20cool%20100%25%21");
   }
 
   @Test
   public void storeReviewSubmissionShouldHaveFingerprintProvided() throws Exception {
-    final Request okRequest = createFullStoreReviewSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   @Test
   public void storeReviewSubmissionFinalPath() throws Exception {
-    final Request okRequest = createFullStoreReviewSubmissionRequest();
-    assertFinalPathIs(okRequest.url(), "submitreview.json");
+    final Request okRequest = requestFactoryUtils.createFullStoreReviewSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitreview.json");
   }
 
   @Test
   public void questionSubmissionShouldHaveBVSDKFormParams() throws Exception {
-    final Request okRequest = createFullQuestionSubmissionRequest();
-    assertContainsBVSDKFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullQuestionSubmissionRequest();
+    requestFactoryUtils.assertContainsBVSDKFormParams(okRequest);
   }
 
   @Test
   public void questionSubmissionShouldHaveBVMobileInfoFormParams() throws Exception {
-    final Request okRequest = createFullQuestionSubmissionRequest();
-    assertContainsBVMobileInfoFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullQuestionSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
   }
 
   @Test
   public void questionSubmissionShouldHaveOwnFormParams() throws Exception {
-    final Request okRequest = createFullQuestionSubmissionRequest();
+    final Request okRequest = requestFactoryUtils.createFullQuestionSubmissionRequest();
 
     /**
      * queryParams.put(kPRODUCT_ID, productId);
@@ -479,572 +463,91 @@ public class BasicRequestFactoryTest {
      queryParams.put(kIS_ANONUSER, isUserAnonymous);
      queryParams.put(kSEND_EMAIL_ANSWERED, sendEmailAlertWhenAnswered);
      */
-    assertFormBodyContainsKeyValEncoded(okRequest, "ProductId", "prod1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "QuestionSummary", "Does%20it%20have%20over%209000%25%20UV%20protection%3F");
-    assertFormBodyContainsKeyValEncoded(okRequest, "QuestionDetails", "Percentage%20being%209001%25%20or%20higher");
-    assertFormBodyContainsKeyValEncoded(okRequest, "IsUserAnonymous", "true");
-    assertFormBodyContainsKeyValEncoded(okRequest, "SendEmailAlertWhenAnswered", "true");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ProductId", "prod1");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "QuestionSummary", "Does%20it%20have%20over%209000%25%20UV%20protection%3F");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "QuestionDetails", "Percentage%20being%209001%25%20or%20higher");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "IsUserAnonymous", "true");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "SendEmailAlertWhenAnswered", "true");
   }
 
   @Test
   public void questionSubmissionShouldHaveFingerprintProvided() throws Exception {
-    final Request okRequest = createFullQuestionSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+    final Request okRequest = requestFactoryUtils.createFullQuestionSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   @Test
   public void questionSubmissionFinalPath() throws Exception {
-    final Request okRequest = createFullQuestionSubmissionRequest();
-    assertFinalPathIs(okRequest.url(), "submitquestion.json");
+    final Request okRequest = requestFactoryUtils.createFullQuestionSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitquestion.json");
   }
 
   @Test
   public void answerSubmissionShouldHaveBVSDKFormParams() throws Exception {
-    final Request okRequest = createFullAnswerSubmissionRequest();
-    assertContainsBVSDKFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullAnswerSubmissionRequest();
+    requestFactoryUtils.assertContainsBVSDKFormParams(okRequest);
   }
 
   @Test
   public void answerSubmissionShouldHaveBVMobileInfoFormParams() throws Exception {
-    final Request okRequest = createFullAnswerSubmissionRequest();
-    assertContainsBVMobileInfoFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullAnswerSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
   }
 
   @Test
   public void answerSubmissionShouldHaveOwnFormParams() throws Exception {
-    final Request okRequest = createFullAnswerSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "QuestionId", "question1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "AnswerText", "Some%20great%20answer%20%24%25%20here");
+    final Request okRequest = requestFactoryUtils.createFullAnswerSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "QuestionId", "question1");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "AnswerText", "Some%20great%20answer%20%24%25%20here");
   }
 
   @Test
   public void answerSubmissionShouldHaveFingerprintProvided() throws Exception {
-    final Request okRequest = createFullAnswerSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+    final Request okRequest = requestFactoryUtils.createFullAnswerSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   @Test
   public void answerSubmissionFinalPath() throws Exception {
-    final Request okRequest = createFullAnswerSubmissionRequest();
-    assertFinalPathIs(okRequest.url(), "submitanswer.json");
+    final Request okRequest = requestFactoryUtils.createFullAnswerSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitanswer.json");
   }
 
   @Test
   public void commentSubmissionShouldHaveBVSDKFormParams() throws Exception {
-    final Request okRequest = createFullCommentSubmissionRequest();
-    assertContainsBVSDKFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest();
+    requestFactoryUtils.assertContainsBVSDKFormParams(okRequest);
   }
 
   @Test
   public void commentSubmissionshouldHaveBVMobileInfoFormParams() throws Exception {
-    final Request okRequest = createFullCommentSubmissionRequest();
-    assertContainsBVMobileInfoFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
   }
 
   @Test
   public void commentSubmissionShouldHaveSubmissionRequestFormParams() throws Exception {
-    final Request okRequest = createFullCommentSubmissionRequest();
-    assertContainsConversationsSubmissionRequestFormParams(okRequest);
+    final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest();
+    requestFactoryUtils.assertContainsConversationsSubmissionRequestFormParams(okRequest);
   }
 
   @Test
   public void commentSubmissionShouldHaveOwnFormParams() throws Exception {
-    final Request okRequest = createFullCommentSubmissionRequest();
-    assertFormBodyContainsKeyValEncoded(okRequest, "ReviewId", "review1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "CommentText", "My%20%23commenthere");
-    assertFormBodyContainsKeyValEncoded(okRequest, "Title", "Something%20**great**%21");
+    final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "ReviewId", "review1");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "CommentText", "My%20%23commenthere");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "Title", "Something%20**great**%21");
   }
 
   @Test
   public void commentSubmissionShouldHaveFingerprintProvided() throws Exception {
-    final Request okRequest = createFullCommentSubmissionRequest()  ;
-    assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+    final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest()  ;
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
   }
 
   @Test
   public void commentSubmissionFinalPath() throws Exception {
-    final Request okRequest = createFullCommentSubmissionRequest();
-    assertFinalPathIs(okRequest.url(), "submitreviewcomment.json");
+    final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitreviewcomment.json");
   }
-
-  // region Helper Assertions
-
-  private void assertFormBodyContainsKeyValEncoded(Request okRequest, String encodedKey, String encodedVal) throws Exception {
-    assertFormBodyContainsKeyValEncoded(okRequest, encodedKey, encodedVal, true);
-  }
-
-  private void assertFormBodyContainsKeyValEncoded(Request okRequest, String encodedKey, String encodedVal, boolean contains) throws Exception {
-    assertTrue("Body must be of type FormBody", okRequest.body() instanceof FormBody);
-    final Buffer buffer = new Buffer();
-    okRequest.body().writeTo(buffer);
-    final String requestBody = buffer.readUtf8();
-    final FormBody formBody = (FormBody) okRequest.body();
-    for (int i=0; i<formBody.size(); i++) {
-      String currKey = formBody.encodedName(i);
-      String currValue = formBody.encodedValue(i);
-      if (currKey.equals(encodedKey) && currValue.equals(encodedVal)) {
-        if (!contains) {
-          fail("Found unexpected key-value pair in FormBody, "   + encodedKey + "=" + encodedVal + "\n\nActual FormBody:\n" + requestBody);
-        } else {
-          return;
-        }
-      }
-    }
-    if (contains) {
-      fail("Could not find expected key-value pair in FormBody, " + encodedKey + "=" + encodedVal + "\n\nActual FormBody:\n" + requestBody);
-    }
-  }
-
-  private void assertFormBodyContainsKeyEncoded(Request okRequest, String encodedKey, boolean contains) throws Exception {
-    assertTrue("Body must be of type FormBody", okRequest.body() instanceof FormBody);
-    final Buffer buffer = new Buffer();
-    okRequest.body().writeTo(buffer);
-    final String requestBody = buffer.readUtf8();
-    final FormBody formBody = (FormBody) okRequest.body();
-    for (int i=0; i<formBody.size(); i++) {
-      String currKey = formBody.encodedName(i);
-      String currValue = formBody.encodedValue(i);
-      if (currKey.equals(encodedKey)) {
-        if (!contains) {
-          fail("Found unexpected key-value pair in FormBody, "   + encodedKey + "=" + currValue + "\n\nActual FormBody:\n" + requestBody);
-        } else {
-          return;
-        }
-      }
-    }
-    if (contains) {
-      fail("Could not find expected key in FormBody, " + encodedKey + "\n\nActual FormBody:\n" + requestBody);
-    }
-  }
-
-  private void assertContainsPagingProperties(HttpUrl url, int limit, int offset) throws Exception {
-    assertEquals(String.valueOf(limit), url.queryParameter("Limit"));
-    assertEquals(String.valueOf(offset), url.queryParameter("Offset"));
-  }
-
-  private void assertContainsPagingProperties(Request okRequest, int limit, int offset) throws Exception {
-    final HttpUrl url = okRequest.url();
-    assertEquals(String.valueOf(limit), url.queryParameter("Limit"));
-    assertEquals(String.valueOf(offset), url.queryParameter("Offset"));
-  }
-
-  private void assertContainsGenericProperties(Request okRequest) throws Exception {
-    assertContainsGenericQueryParams(okRequest.url());
-    assertEquals("Android-TestDk", okRequest.header("User-Agent"));
-    assertEquals("convApiKeyFoo", okRequest.url().queryParameter("passkey"));
-  }
-
-  private void assertContainsGenericStoreProperties(Request okRequest) throws Exception {
-    assertContainsGenericQueryParams(okRequest.url());
-    assertEquals("Android-TestDk", okRequest.header("User-Agent"));
-    assertEquals("storeApiKeyBar", okRequest.url().queryParameter("passkey"));
-  }
-
-  private void assertContainsGenericQueryParams(HttpUrl url) throws Exception {
-    assertEquals(API_VERSION, url.queryParameter("apiversion"));
-    assertEquals("3.2.1", url.queryParameter("_appId"));
-    assertEquals("21", url.queryParameter("_appVersion"));
-    assertEquals("1", url.queryParameter("_buildNumber"));
-    assertEquals("bvsdk7", url.queryParameter("_bvAndroidSdkVersion"));
-  }
-
-  private void assertContainsBVSDKFormParams(Request okRequest) throws Exception {
-    assertContainsBVSDKFormParams(okRequest, "convApiKeyFoo");
-  }
-
-  private void assertContainsBVSDKFormParams(Request okRequest, String passkey) throws Exception {
-    assertEquals("Android-TestDk", okRequest.header("User-Agent"));
-    assertFormBodyContainsKeyValEncoded(okRequest, "apiversion", API_VERSION);
-    assertFormBodyContainsKeyValEncoded(okRequest, "passkey", passkey);
-  }
-
-  private void assertContainsBVMobileInfoFormParams(Request okRequest) throws Exception {
-    assertFormBodyContainsKeyValEncoded(okRequest, "_appId", "3.2.1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "_appVersion", "21");
-    assertFormBodyContainsKeyValEncoded(okRequest, "_buildNumber", "1");
-    assertFormBodyContainsKeyValEncoded(okRequest, "_bvAndroidSdkVersion", "bvsdk7");
-  }
-
-  private void assertContainsConversationsSubmissionRequestFormParams(Request okRequest) throws Exception {
-    assertFormBodyContainsKeyValEncoded(okRequest, "UserId", genericFormBodyParams.getUserId());
-    assertFormBodyContainsKeyValEncoded(okRequest, "UserNickname", genericFormBodyParams.getUserNickname());
-    assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_authenticationemail", "email%40email.com");
-    assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fwww.callback.url");
-    assertFormBodyContainsKeyValEncoded(okRequest, "campaignid", genericFormBodyParams.getCampaignId());
-    assertFormBodyContainsKeyValEncoded(okRequest, "locale", genericFormBodyParams.getLocale());
-    assertFormBodyContainsKeyValEncoded(okRequest, "User", genericFormBodyParams.getUser());
-    assertFormBodyContainsKeyValEncoded(okRequest, "UserEmail", "user%40email.com");
-    assertFormBodyContainsKeyValEncoded(okRequest, "UserLocation", "Austin%2C%20TX");
-    assertFormBodyContainsKeyValEncoded(okRequest, "sendemailalertwhenpublished", genericFormBodyParams.getSendEmailAlert());
-    assertFormBodyContainsKeyValEncoded(okRequest, "agreedToTermsAndConditions", genericFormBodyParams.getAgreedToTAndC());
-  }
-
-  private void assertFinalPathIs(HttpUrl url, String finalPath) {
-    assertEquals(finalPath, url.pathSegments().get(url.pathSegments().size() - 1));
-  }
-  // endregion
-
-  // region Stub Data
-  private BasicRequestFactory createTestRequestFactory() {
-    final BVMobileInfo bvMobileInfo = mock(BVMobileInfo.class);
-    when(bvMobileInfo.getBvSdkVersion()).thenReturn("bvsdk7");
-    when(bvMobileInfo.getMobileAppCode()).thenReturn("1");
-    when(bvMobileInfo.getMobileAppIdentifier()).thenReturn("3.2.1");
-    when(bvMobileInfo.getMobileAppVersion()).thenReturn("21");
-    when(bvMobileInfo.getMobileDeviceName()).thenReturn("test_device");
-    when(bvMobileInfo.getMobileOs()).thenReturn("Android");
-    when(bvMobileInfo.getMobileOsVersion()).thenReturn("0.1.2");
-    final String rootApiUrl = "https://api.bazaarvoice.com/";
-    final BVRootApiUrls bvRootApiUrls = mock(BVRootApiUrls.class);
-    when(bvRootApiUrls.getBazaarvoiceApiRootUrl()).thenReturn(rootApiUrl);
-    final String convApiKey = "convApiKeyFoo";
-    final String storeApiKey = "storeApiKeyBar";
-    final String bvSdkUserAgent = "Android-TestDk";
-    final BVSDK bvsdk = mock(BVSDK.class);
-    final BVConfig bvConfig = new BVConfig.Builder()
-        .apiKeyConversations(convApiKey)
-        .apiKeyConversationsStores(storeApiKey)
-        .clientId("yoyomakers")
-        .build();
-    final FingerprintProvider fingerprintProvider = new FingerprintProvider() {
-      @Override
-      public String getFingerprint() {
-        return "test_fp";
-      }
-    };
-    return new BasicRequestFactory(bvMobileInfo, bvRootApiUrls, bvConfig, bvSdkUserAgent, fingerprintProvider);
-  }
-
-  private List<PhotoUpload> createPhotoList(PhotoUpload.ContentType contentType) {
-    List<PhotoUpload> photos = new ArrayList<>();
-    PhotoUpload photoUpload1 = new PhotoUpload(new File("file://path/to/photo1.jpg"), "Summer sunset, on the beach", contentType);
-    photos.add(photoUpload1);
-    PhotoUpload photoUpload2 = new PhotoUpload(new File("file://other/path/to/photo2.jpg"), ">:D 100%", contentType);
-    photos.add(photoUpload2);
-    return photos;
-  }
-
-  private Request createFullReviewDisplayRequest() {
-    final ReviewsRequest request = new ReviewsRequest.Builder("prod1", 10, 2)
-        .addIncludeContent(ReviewIncludeType.PRODUCTS)
-        .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
-        .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, "me")
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullQnaDisplayRequest() {
-    final QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("product1", 10, 0)
-        .addQuestionSort(QuestionOptions.Sort.ProductId, SortOrder.DESC)
-        .addFilter(QuestionOptions.Filter.HasVideos, EqualityOperator.EQ, "true")
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullCommentsRequest() {
-    final CommentsRequest request = new CommentsRequest.Builder("review1", 20, 0)
-        .addSort(CommentOptions.Sort.SUBMISSION_TIME, SortOrder.ASC)
-        .addIncludeContent(CommentIncludeType.REVIEWS, 10)
-        .addFilter(CommentOptions.Filter.IS_FEATURED, EqualityOperator.EQ, "false")
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullAuthorsRequest() {
-    final AuthorsRequest request = new AuthorsRequest.Builder("author1")
-        .addIncludeContent(AuthorIncludeType.REVIEWS, 11)
-        .addIncludeStatistics(AuthorIncludeType.QUESTIONS)
-        .addQuestionSort(QuestionOptions.Sort.LastModificationTime, SortOrder.DESC)
-        .addAnswerSort(AnswerOptions.Sort.IsBestAnswer, SortOrder.ASC)
-        .addReviewSort(ReviewOptions.Sort.IsFeatured, SortOrder.DESC)
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullStoreReviewRequest() {
-    final StoreReviewsRequest request = new StoreReviewsRequest.Builder("store1", 8, 2)
-        .addIncludeContent(ReviewIncludeType.PRODUCTS)
-        .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.ASC)
-        .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, "me")
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullBulkStoreRequest() {
-    final List<String> storeIds = new ArrayList<String>();
-    storeIds.add("store1");
-    storeIds.add("store2");
-    final BulkStoreRequest request = new BulkStoreRequest.Builder(storeIds)
-        .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "esp")
-        .build();
-    final Request okRequest = requestFactory.create(request);
-    return okRequest;
-  }
-
-  private Request createFullBulkRatingsRequest() {
-    final List<String> productIds = new ArrayList<String>();
-    productIds.add("product1");
-    productIds.add("product2");
-    final BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.NativeReviews)
-        .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "den")
-        .build();
-    final Request okRequest = requestFactory.create(request);
-    return okRequest;
-  }
-
-  private Request createFullBulkProductRequest() {
-    final List<String> productIds = new ArrayList<String>();
-    productIds.add("product1");
-    productIds.add("product2");
-    // TODO: Seems broken, would expect to be able to pass it product ids? We also don't have and example for this on our public doc website
-    final BulkProductRequest request = new BulkProductRequest.Builder()
-        .addFilter(ProductOptions.Filter.AverageOverallRating, EqualityOperator.GTE, "3")
-        .addFilter(ProductOptions.Filter.IsActive, EqualityOperator.EQ, "true")
-        .addIncludeContent(PDPContentType.Reviews, 5)
-        .addIncludeContent(PDPContentType.Questions, 3)
-        .addReviewSort(ReviewOptions.Sort.HasPhotos, SortOrder.DESC)
-        .addIncludeStatistics(PDPContentType.Reviews)
-        .build();
-    final Request okRequest = requestFactory.create(request);
-    return okRequest;
-  }
-
-  private Request createFullFeedbackSubmissionRequest() {
-    final FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("review1")
-        .feedbackContentType(FeedbackContentType.REVIEW)
-        .feedbackType(FeedbackType.HELPFULNESS)
-        .feedbackVote(FeedbackVoteType.POSITIVE)
-        .reasonFlaggedText("Fantastic review. Would recommend 100%!")
-        .userId(genericFormBodyParams.getUserId())
-        .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
-        .fingerPrint(genericFormBodyParams.getFingerprint())
-        .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
-        .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
-        .campaignId(genericFormBodyParams.getCampaignId())
-        .locale(genericFormBodyParams.getLocale())
-        .userEmail(genericFormBodyParams.getUserEmail())
-        .userLocation(genericFormBodyParams.getUserLocation())
-        .sendEmailAlertWhenPublished(Boolean.parseBoolean(genericFormBodyParams.getSendEmailAlert()))
-        .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullReviewSubmissionRequest() {
-    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Preview, "prod1")
-        .isRecommended(true)
-        .sendEmailAlertWhenCommented(true)
-        .rating(4)
-        .netPromoterScore(3)
-        .title("This is great!")
-        .reviewText("This is something I would recommend 100% :D")
-        .netPromoterComment("Something about promotion")
-        .addFreeFormTag("foo", "bar")
-        .addFreeFormTag("baz", "quux")
-        .addPredefinedTag("foo", "bar", "baz")
-        .addAdditionalField("foo", "bar")
-        .addContextDataValueString("foo", "bar")
-        .addRatingSlider("foo", "bar")
-        .addRatingQuestion("baz", 2)
-        .addVideoUrl("https://www.website.com/video.mp4", "Totes cool 100%!")
-        .userId(genericFormBodyParams.getUserId())
-        .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
-        .fingerPrint(genericFormBodyParams.getFingerprint())
-        .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
-        .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
-        .campaignId(genericFormBodyParams.getCampaignId())
-        .locale(genericFormBodyParams.getLocale())
-        .userEmail(genericFormBodyParams.getUserEmail())
-        .userLocation(genericFormBodyParams.getUserLocation())
-        .sendEmailAlertWhenPublished(Boolean.parseBoolean(genericFormBodyParams.getSendEmailAlert()))
-        .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullStoreReviewSubmissionRequest() {
-    final StoreReviewSubmissionRequest request = new StoreReviewSubmissionRequest.Builder(Action.Preview, "store1")
-        .isRecommended(true)
-        .sendEmailAlertWhenCommented(true)
-        .rating(4)
-        .netPromoterScore(3)
-        .title("This is great!")
-        .reviewText("This is something I would recommend 100% :D")
-        .netPromoterComment("Something about promotion")
-        .addFreeFormTag("foo", "bar")
-        .addFreeFormTag("baz", "quux")
-        .addPredefinedTag("foo", "bar", "baz")
-        .addAdditionalField("foo", "bar")
-        .addContextDataValueString("foo", "bar")
-        .addRatingSlider("foo", "bar")
-        .addRatingQuestion("baz", 2)
-        .addVideoUrl("https://www.website.com/video.mp4", "Totes cool 100%!")
-        .userId(genericFormBodyParams.getUserId())
-        .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
-        .fingerPrint(genericFormBodyParams.getFingerprint())
-        .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
-        .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
-        .campaignId(genericFormBodyParams.getCampaignId())
-        .locale(genericFormBodyParams.getLocale())
-        .userEmail(genericFormBodyParams.getUserEmail())
-        .userLocation(genericFormBodyParams.getUserLocation())
-        .sendEmailAlertWhenPublished(Boolean.parseBoolean(genericFormBodyParams.getSendEmailAlert()))
-        .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullQuestionSubmissionRequest() {
-    final QuestionSubmissionRequest request = new QuestionSubmissionRequest.Builder(Action.Preview, "prod1")
-        .questionSummary("Does it have over 9000% UV protection?")
-        .questionDetails("Percentage being 9001% or higher")
-        .isUserAnonymous(true)
-        .sendEmailAlertWhenAnswered(true)
-        .userId(genericFormBodyParams.getUserId())
-        .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
-        .fingerPrint(genericFormBodyParams.getFingerprint())
-        .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
-        .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
-        .campaignId(genericFormBodyParams.getCampaignId())
-        .locale(genericFormBodyParams.getLocale())
-        .userEmail(genericFormBodyParams.getUserEmail())
-        .userLocation(genericFormBodyParams.getUserLocation())
-        .sendEmailAlertWhenPublished(Boolean.parseBoolean(genericFormBodyParams.getSendEmailAlert()))
-        .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullAnswerSubmissionRequest() {
-    final AnswerSubmissionRequest request = new AnswerSubmissionRequest.Builder(Action.Preview, "question1", "Some great answer $% here")
-        .userId(genericFormBodyParams.getUserId())
-        .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
-        .fingerPrint(genericFormBodyParams.getFingerprint())
-        .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
-        .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
-        .campaignId(genericFormBodyParams.getCampaignId())
-        .locale(genericFormBodyParams.getLocale())
-        .userEmail(genericFormBodyParams.getUserEmail())
-        .userLocation(genericFormBodyParams.getUserLocation())
-        .sendEmailAlertWhenPublished(Boolean.parseBoolean(genericFormBodyParams.getSendEmailAlert()))
-        .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private Request createFullCommentSubmissionRequest() {
-    final CommentSubmissionRequest request = new CommentSubmissionRequest.Builder(Action.Preview, "review1", "My #commenthere")
-        .title("Something **great**!")
-        .userId(genericFormBodyParams.getUserId())
-        .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
-        .fingerPrint(genericFormBodyParams.getFingerprint())
-        .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
-        .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
-        .campaignId(genericFormBodyParams.getCampaignId())
-        .locale(genericFormBodyParams.getLocale())
-        .userEmail(genericFormBodyParams.getUserEmail())
-        .userLocation(genericFormBodyParams.getUserLocation())
-        .sendEmailAlertWhenPublished(Boolean.parseBoolean(genericFormBodyParams.getSendEmailAlert()))
-        .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
-        .build();
-    return requestFactory.create(request);
-  }
-
-  private GenericFormBodyParams createGenericFormBodyParams() {
-    return new GenericFormBodyParams(
-        "fooser",
-        "nickelname",
-        "foongerprint",
-        "email@email.com",
-        "https://www.callback.url",
-        "campaignNumeroUno",
-        "en-us",
-        "youser",
-        "user@email.com",
-        "Austin, TX",
-        "true",
-        "false");
-  }
-
-  private static final class GenericFormBodyParams {
-    private final String userId, userNickname, fingerprint,
-        hostedAuthEmail, hostedAuthCbUrl, campaignId,
-        locale, user, userEmail,
-        userLocation, sendEmailAlert, agreedToTAndC;
-
-    public GenericFormBodyParams(String userId, String userNickname, String fingerprint, String hostedAuthEmail, String hostedAuthCbUrl, String campaignId, String locale, String user, String userEmail, String userLocation, String sendEmailAlert, String agreedToTAndC) {
-      this.userId = userId;
-      this.userNickname = userNickname;
-      this.fingerprint = fingerprint;
-      this.hostedAuthEmail = hostedAuthEmail;
-      this.hostedAuthCbUrl = hostedAuthCbUrl;
-      this.campaignId = campaignId;
-      this.locale = locale;
-      this.user = user;
-      this.userEmail = userEmail;
-      this.userLocation = userLocation;
-      this.sendEmailAlert = sendEmailAlert;
-      this.agreedToTAndC = agreedToTAndC;
-    }
-
-    public String getUserId() {
-      return userId;
-    }
-
-    public String getUserNickname() {
-      return userNickname;
-    }
-
-    public String getFingerprint() {
-      return fingerprint;
-    }
-
-    public String getHostedAuthEmail() {
-      return hostedAuthEmail;
-    }
-
-    public String getHostedAuthCbUrl() {
-      return hostedAuthCbUrl;
-    }
-
-    public String getCampaignId() {
-      return campaignId;
-    }
-
-    public String getLocale() {
-      return locale;
-    }
-
-    public String getUser() {
-      return user;
-    }
-
-    public String getUserEmail() {
-      return userEmail;
-    }
-
-    public String getUserLocation() {
-      return userLocation;
-    }
-
-    public String getSendEmailAlert() {
-      return sendEmailAlert;
-    }
-
-    public String getAgreedToTAndC() {
-      return agreedToTAndC;
-    }
-
-    public static String encode(String input) throws Exception {
-      return URLEncoder.encode(input, "UTF-8")
-          .replaceAll("\\+", "%20");
-    }
-  }
-  // endregion
 }

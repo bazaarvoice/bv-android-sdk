@@ -19,7 +19,7 @@ public class PinClientTest extends BVBaseTest {
 
     @Test
     public void testParsingFullResponse() throws Exception {
-        String respStr = jsonFileAsString("pin_response.json");
+        String respStr = jsonResourceFileAsString("pin_response.json", getClass());
         Gson gson = new Gson();
         Pin[] pins = gson.fromJson(respStr, Pin[].class);
         assertNotNull(pins);

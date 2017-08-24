@@ -43,6 +43,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     private final Boolean sendEmailAlertWhenPublished;
     private final Boolean agreedToTermsAndConditions;
     private final Action action;
+    private final List<FormPair> formPairs;
     private final List<PhotoUpload> photoUploads;
     // endregion
 
@@ -61,6 +62,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         this.sendEmailAlertWhenPublished = builder.sendEmailAlertWhenPublished;
         this.agreedToTermsAndConditions = builder.agreedToTermsAndConditions;
         this.action = builder.action;
+        this.formPairs = builder.formPairs;
         this.photoUploads = builder.photoUploads;
     }
 
@@ -141,8 +143,29 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         return action;
     }
 
+    List<FormPair> getFormPairs() {
+        return formPairs;
+    }
+
     List<PhotoUpload> getPhotoUploads() {
         return photoUploads;
+    }
+
+    static class FormPair {
+        private final String key, value;
+
+        public FormPair(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
     public abstract static class Builder<BuilderChildType extends Builder> {
@@ -159,12 +182,29 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         private Boolean sendEmailAlertWhenPublished;
         private Boolean agreedToTermsAndConditions;
         private final Action action;
+        private final List<FormPair> formPairs;
         transient final List<PhotoUpload> photoUploads = new ArrayList<>();
 
         abstract PhotoUpload.ContentType getPhotoContentType();
 
         Builder(Action action) {
             this.action = action;
+            this.formPairs = new ArrayList<>();
+        }
+
+        /**
+         * This method adds extra user provided form parameters to a
+         * submission request, and will be encoded with MediaType,
+         * application/x-www-form-urlencoded.
+         *
+         * @param key Custom non-encoded url query param key
+         * @param value Custom non-encoded url query param value
+         * @return The Builder
+         */
+        public BuilderChildType addCustomSubmissionParameter(String key, String value) {
+            final FormPair formPair = new FormPair(key, value);
+            formPairs.add(formPair);
+            return (BuilderChildType) this;
         }
 
         public BuilderChildType campaignId(String campaignId) {

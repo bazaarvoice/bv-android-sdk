@@ -52,7 +52,7 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Test
     public void fetchCurationsFeed() throws Exception {
-        String json = jsonFileAsString("curationsFeedTest1.json");
+        String json = jsonResourceFileAsString("curationsFeedTest1.json", getClass());
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody(json);
@@ -74,7 +74,7 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Test
     public void malformedCurationsFeed() throws Exception {
-        String json = jsonFileAsString("curationsMalformedFeedTest1.json");
+        String json = jsonResourceFileAsString("curationsMalformedFeedTest1.json", getClass());
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody(json);
@@ -95,7 +95,7 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Test
     public void curations500Feed() throws Exception {
-        String json = jsonFileAsString("curations500Error.json");
+        String json = jsonResourceFileAsString("curations500Error.json", getClass());
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody(json);
@@ -463,7 +463,7 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Test
     public void postMalformedResponse() throws Exception {
-        String json = jsonFileAsString("curationsMalformedPostResponse.json");
+        String json = jsonResourceFileAsString("curationsMalformedPostResponse.json", getClass());
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody(json);
