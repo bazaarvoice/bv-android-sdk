@@ -65,6 +65,7 @@ public class Question extends IncludedContentBase.ProductIncludedContentBase {
         return totalInappropriateFeedbackCount;
     }
 
+    @Nullable
     public Map<String, DimensionElement> getTagDimensions() {
         return tagDimensions;
     }

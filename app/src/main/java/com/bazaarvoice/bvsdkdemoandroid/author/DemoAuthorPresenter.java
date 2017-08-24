@@ -39,9 +39,7 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -100,8 +98,7 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
                 }
                 String authorNickname = author.getUserNickname();
                 String authorLocation = author.getLocation();
-                Map<String, Badge> badgeMap = author.getBadges();
-                List<Badge> badges = new ArrayList<>(badgeMap.values());
+                List<Badge> badges = author.getBadgeList();
                 Review mostRecentReview = null;
                 if (response.getIncludes() != null && response.getIncludes().getReviews() != null && !response.getIncludes().getReviews().isEmpty()) {
                     mostRecentReview = response.getIncludes().getReviews().get(0);

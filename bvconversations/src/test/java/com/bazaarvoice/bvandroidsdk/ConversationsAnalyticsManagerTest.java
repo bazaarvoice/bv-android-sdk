@@ -35,8 +35,7 @@ public class ConversationsAnalyticsManagerTest extends BVBaseTest {
     final BVPixel bvPixel = mock(BVPixel.class);
     final String clientId = "someClient";
     ConversationsAnalyticsManager subject = new ConversationsAnalyticsManager(bvPixel, clientId);
-    String reviewsResponseJsonStr = jsonFileAsString("reviews_all_reviews.json");
-    ReviewResponse reviewResponse = gson.fromJson(reviewsResponseJsonStr, ReviewResponse.class);
+    ReviewResponse reviewResponse = parseJsonResourceFile("reviews_all_reviews.json", ReviewResponse.class, gson);
 
     subject.sendSuccessfulConversationsDisplayResponse(reviewResponse);
 

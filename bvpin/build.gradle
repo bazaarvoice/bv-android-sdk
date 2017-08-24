@@ -10,6 +10,7 @@ apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 
 dependencies {
     compile project(':bvcommon')
+    provided sdkDep.gson
 
     // Dependencies for local unit tests
     testCompile sdkTestDep.junit

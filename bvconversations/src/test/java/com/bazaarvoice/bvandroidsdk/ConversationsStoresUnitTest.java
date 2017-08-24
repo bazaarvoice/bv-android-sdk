@@ -64,7 +64,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
         StoreReviewSubmissionRequest request = new StoreReviewSubmissionRequest.Builder(Action.Preview, "productId")
                 .addAdditionalField("key", "value")
                 .addContextDataValueString("key", "value")
-                .addContextDataValueString("key", true)
+                .addContextDataValueBoolean("key", true)
                 .addFreeFormTag("questionId", "value")
                 .addPhoto(new File("path/to/file"), "caption")
                 .addPredefinedTag("questionId", "tagId", "value")
@@ -91,16 +91,11 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
                 .build();
     }
 
-    private Object testParsing(String filename, Class responseClass) throws Exception {
-        String reviewsForProdResponse = jsonFileAsString(filename);
-        return gson.fromJson(reviewsForProdResponse, responseClass);
-    }
-
     @Test
     public void testReviewsForSingleStoreReviewIncludeProdStatsParsing() throws Exception {
         // Parse a json result where a single store is fetched and the Results contain Review objects
         // and the Includes contain the store and statistics for which the reviews are returned.
-        StoreReviewResponse response = (StoreReviewResponse) testParsing("store_reviews_include_statistics.json", StoreReviewResponse.class);
+        StoreReviewResponse response = (StoreReviewResponse) parseJsonResourceFile("store_reviews_include_statistics.json", StoreReviewResponse.class, gson);
         Map<String, Store> stores = response.getIncludes().getItemMap();
             assertTrue("Wrong store count", stores != null && stores.size() == 1);
 
@@ -114,7 +109,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
     @Test
     public void testBulkStoresResponseParsing() throws Exception {
         // Parse a json result where a single store is fetched by explicit it
-        BulkStoreResponse response = (BulkStoreResponse) testParsing("store_product_feed_fetch.json", BulkStoreResponse.class);
+        BulkStoreResponse response = (BulkStoreResponse) parseJsonResourceFile("store_product_feed_fetch.json", BulkStoreResponse.class, gson);
         List<Store> stores = response.getResults();
         assertTrue("Wrong store count", stores != null && stores.size() == 1);
 

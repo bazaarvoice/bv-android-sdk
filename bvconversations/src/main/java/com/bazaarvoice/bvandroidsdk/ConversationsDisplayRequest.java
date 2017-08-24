@@ -71,10 +71,10 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
     }
 
     /**
-     * This method is not related to the Review Submission specific
-     * {@link BaseReviewBuilder#addAdditionalField(String, String)}.
-     * May want to deprecate this function, and come up with a common
-     * name for display and submission that is not 'addAdditionalField'.
+     * @deprecated In order to avoid confusion with the unrelated
+     * Review Submission specific
+     * {@link BaseReviewBuilder#addAdditionalField(String, String)},
+     * use {@link #addCustomDisplayParameter(String, String)} instead.
      * <br/><br/>
      * This method adds extra user provided query parameters to a
      * display request, and will be urlencoded.
@@ -87,5 +87,19 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
       extraParams.add(new QueryPair(key, value));
       return (BuilderType) this;
     }
+
+    /**
+     * This method adds extra user provided query parameters to a
+     * display request, and will be urlencoded.
+     *
+     * @param key Custom non-encoded url query param key
+     * @param value Custom non-encoded url query param value
+     * @return The Builder
+     */
+    public BuilderType addCustomDisplayParameter(String key, String value) {
+      extraParams.add(new QueryPair(key, value));
+      return (BuilderType) this;
+    }
+
   }
 }

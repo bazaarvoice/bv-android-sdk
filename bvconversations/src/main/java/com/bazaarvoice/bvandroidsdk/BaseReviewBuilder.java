@@ -104,8 +104,8 @@ abstract class BaseReviewBuilder<ChildBuilderType extends BaseReviewBuilder> ext
         return (ChildBuilderType) this;
     }
 
-    public ChildBuilderType addContextDataValueString(String dataValueName, boolean value) {
-        contextDataValues.put(dataValueName, (value) ? "true" : "false");
+    public ChildBuilderType addContextDataValueBoolean(String dataValueName, boolean value) {
+        contextDataValues.put(dataValueName, String.valueOf(value));
         return (ChildBuilderType) this;
     }
 
