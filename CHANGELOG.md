@@ -1,8 +1,21 @@
 # Changelog
 
+# 6.9.1
+
+## Conversations
+* Added tests for all of the endpoints to verify they are what we expect them to be
+* Updated ```BulkRatingsRequest``` to send with endpoint ```statistics.json``` like it should and was before, instead of ```reviews.json```
+
+## Demo API App
+* Added okhttp3 logging-interceptor
+* Updated TextView to have maxLines of 5 so it won't take up the entire screen on the DemoBulkRatingsActivity screen
+
+## Common
+* Updated okhttp3 to version 3.8.0
+
 # 6.9.0
 
-# Conversations
+## Conversations
 * Added ```BVConversationsClient.Builder#fingerprintProvider(fpProvider)``` as an optional builder parameter
 
 ## **NEW** Authenticity Iovation
