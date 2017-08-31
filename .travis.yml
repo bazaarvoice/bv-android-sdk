@@ -29,7 +29,7 @@ branches:
   except:
     - gh-pages
 
-sudo: false
+sudo: true
 
 cache:
   directories:
