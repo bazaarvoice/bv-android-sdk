@@ -80,6 +80,12 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullReviewDisplayRequest();
+    assertFinalPathIs(okRequest.url(), "reviews.json");
+  }
+
+  @Test
   public void reviewDisplayWithIncludeProductShouldHaveStatsReviews() {
     // "Stats=Reviews must be used in conjunction with Include=Products"
     // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
@@ -111,6 +117,12 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void qnaDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullQnaDisplayRequest();
+    assertFinalPathIs(okRequest.url(), "questions.json");
+  }
+
+  @Test
   public void commentDisplayShouldHaveBVSDKQueryParams() throws Exception {
     final Request okRequest = createFullCommentsRequest();
     assertContainsGenericProperties(okRequest);
@@ -129,6 +141,12 @@ public class BasicRequestFactoryTest {
     assertTrue(url.queryParameterValues("Filter").contains("ReviewId:eq:review1"));
     assertEquals("SubmissionTime:asc", url.queryParameter("Sort"));
     assertTrue(url.queryParameterValues("Filter").contains("IsFeatured:eq:false"));
+  }
+
+  @Test
+  public void commentsDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullCommentsRequest();
+    assertFinalPathIs(okRequest.url(), "reviewcomments.json");
   }
 
   @Test
@@ -151,14 +169,14 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void authorDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullAuthorsRequest();
+    assertFinalPathIs(okRequest.url(), "authors.json");
+  }
+
+  @Test
   public void createBulkStoreRequest() throws Exception {
-    final List<String> storeIds = new ArrayList<String>();
-    storeIds.add("store1");
-    storeIds.add("store2");
-    final BulkStoreRequest request = new BulkStoreRequest.Builder(storeIds)
-        .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "esp")
-        .build();
-    final Request okRequest = requestFactory.create(request);
+    final Request okRequest = createFullBulkStoreRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
@@ -170,14 +188,14 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void bulkStoreDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullBulkStoreRequest();
+    assertFinalPathIs(okRequest.url(), "products.json");
+  }
+
+  @Test
   public void createBulkRatingsRequest() throws Exception {
-    final List<String> productIds = new ArrayList<String>();
-    productIds.add("product1");
-    productIds.add("product2");
-    final BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.NativeReviews)
-        .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "den")
-        .build();
-    final Request okRequest = requestFactory.create(request);
+    final Request okRequest = createFullBulkRatingsRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
@@ -187,6 +205,13 @@ public class BasicRequestFactoryTest {
     assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:product1,product2"));
     assertTrue(url.queryParameterValues("Filter").contains("ContentLocale:eq:den"));
     assertEquals("NativeReviews", url.queryParameter("Stats"));
+    assertFinalPathIs(url, "statistics.json");
+  }
+
+  @Test
+  public void bulkRatingsDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullBulkRatingsRequest();
+    assertFinalPathIs(okRequest.url(), "statistics.json");
   }
 
   @Test
@@ -206,6 +231,12 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void storeReviewsDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullStoreReviewRequest();
+    assertFinalPathIs(okRequest.url(), "reviews.json");
+  }
+
+  @Test
   public void storeReviewDisplayWithIncludeProductShouldHaveStatsReviews() {
     // "Stats=Reviews must be used in conjunction with Include=Products"
     // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
@@ -217,19 +248,7 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void createBulkProductRequest() throws Exception {
-    final List<String> productIds = new ArrayList<String>();
-    productIds.add("product1");
-    productIds.add("product2");
-    // TODO: Seems broken, would expect to be able to pass it product ids? We also don't have and example for this on our public doc website
-    final BulkProductRequest request = new BulkProductRequest.Builder()
-        .addFilter(ProductOptions.Filter.AverageOverallRating, EqualityOperator.GTE, "3")
-        .addFilter(ProductOptions.Filter.IsActive, EqualityOperator.EQ, "true")
-        .addIncludeContent(PDPContentType.Reviews, 5)
-        .addIncludeContent(PDPContentType.Questions, 3)
-        .addReviewSort(ReviewOptions.Sort.HasPhotos, SortOrder.DESC)
-        .addIncludeStatistics(PDPContentType.Reviews)
-        .build();
-    final Request okRequest = requestFactory.create(request);
+    final Request okRequest = createFullBulkProductRequest();
     assertNotNull(okRequest);
     System.out.println(okRequest.toString());
 
@@ -243,6 +262,12 @@ public class BasicRequestFactoryTest {
     assertEquals("3", url.queryParameter("Limit_Questions"));
     assertTrue(url.queryParameterValues("Sort_Reviews").contains("HasPhotos:desc"));
     assertEquals("Reviews", url.queryParameter("Stats"));
+  }
+
+  @Test
+  public void bulkProductDisplayFinalPath() throws Exception {
+    final Request okRequest = createFullBulkProductRequest();
+    assertFinalPathIs(okRequest.url(), "products.json");
   }
 
   @Test
@@ -311,6 +336,12 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void feedbackSubmissionFinalPath() throws Exception {
+    final Request okRequest = createFullFeedbackSubmissionRequest();
+    assertFinalPathIs(okRequest.url(), "submitfeedback.json");
+  }
+
+  @Test
   public void reviewSubmissionShouldHaveBVSDKFormParams() throws Exception {
     final Request okRequest = createFullReviewSubmissionRequest();
     assertContainsBVSDKFormParams(okRequest);
@@ -355,6 +386,12 @@ public class BasicRequestFactoryTest {
   public void reviewSubmissionShouldHaveFingerprintProvided() throws Exception {
     final Request okRequest = createFullReviewSubmissionRequest();
     assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+  }
+
+  @Test
+  public void reviewSubmissionFinalPath() throws Exception {
+    final Request okRequest = createFullReviewSubmissionRequest();
+    assertFinalPathIs(okRequest.url(), "submitreview.json");
   }
 
   @Test
@@ -414,6 +451,12 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void storeReviewSubmissionFinalPath() throws Exception {
+    final Request okRequest = createFullStoreReviewSubmissionRequest();
+    assertFinalPathIs(okRequest.url(), "submitreview.json");
+  }
+
+  @Test
   public void questionSubmissionShouldHaveBVSDKFormParams() throws Exception {
     final Request okRequest = createFullQuestionSubmissionRequest();
     assertContainsBVSDKFormParams(okRequest);
@@ -450,6 +493,12 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void questionSubmissionFinalPath() throws Exception {
+    final Request okRequest = createFullQuestionSubmissionRequest();
+    assertFinalPathIs(okRequest.url(), "submitquestion.json");
+  }
+
+  @Test
   public void answerSubmissionShouldHaveBVSDKFormParams() throws Exception {
     final Request okRequest = createFullAnswerSubmissionRequest();
     assertContainsBVSDKFormParams(okRequest);
@@ -472,6 +521,12 @@ public class BasicRequestFactoryTest {
   public void answerSubmissionShouldHaveFingerprintProvided() throws Exception {
     final Request okRequest = createFullAnswerSubmissionRequest();
     assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+  }
+
+  @Test
+  public void answerSubmissionFinalPath() throws Exception {
+    final Request okRequest = createFullAnswerSubmissionRequest();
+    assertFinalPathIs(okRequest.url(), "submitanswer.json");
   }
 
   @Test
@@ -504,6 +559,12 @@ public class BasicRequestFactoryTest {
   public void commentSubmissionShouldHaveFingerprintProvided() throws Exception {
     final Request okRequest = createFullCommentSubmissionRequest()  ;
     assertFormBodyContainsKeyValEncoded(okRequest, "fp", "test_fp");
+  }
+
+  @Test
+  public void commentSubmissionFinalPath() throws Exception {
+    final Request okRequest = createFullCommentSubmissionRequest();
+    assertFinalPathIs(okRequest.url(), "submitreviewcomment.json");
   }
 
   // region Helper Assertions
@@ -617,6 +678,10 @@ public class BasicRequestFactoryTest {
     assertFormBodyContainsKeyValEncoded(okRequest, "sendemailalertwhenpublished", genericFormBodyParams.getSendEmailAlert());
     assertFormBodyContainsKeyValEncoded(okRequest, "agreedToTermsAndConditions", genericFormBodyParams.getAgreedToTAndC());
   }
+
+  private void assertFinalPathIs(HttpUrl url, String finalPath) {
+    assertEquals(finalPath, url.pathSegments().get(url.pathSegments().size() - 1));
+  }
   // endregion
 
   // region Stub Data
@@ -703,6 +768,45 @@ public class BasicRequestFactoryTest {
         .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, "me")
         .build();
     return requestFactory.create(request);
+  }
+
+  private Request createFullBulkStoreRequest() {
+    final List<String> storeIds = new ArrayList<String>();
+    storeIds.add("store1");
+    storeIds.add("store2");
+    final BulkStoreRequest request = new BulkStoreRequest.Builder(storeIds)
+        .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "esp")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    return okRequest;
+  }
+
+  private Request createFullBulkRatingsRequest() {
+    final List<String> productIds = new ArrayList<String>();
+    productIds.add("product1");
+    productIds.add("product2");
+    final BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.NativeReviews)
+        .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "den")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    return okRequest;
+  }
+
+  private Request createFullBulkProductRequest() {
+    final List<String> productIds = new ArrayList<String>();
+    productIds.add("product1");
+    productIds.add("product2");
+    // TODO: Seems broken, would expect to be able to pass it product ids? We also don't have and example for this on our public doc website
+    final BulkProductRequest request = new BulkProductRequest.Builder()
+        .addFilter(ProductOptions.Filter.AverageOverallRating, EqualityOperator.GTE, "3")
+        .addFilter(ProductOptions.Filter.IsActive, EqualityOperator.EQ, "true")
+        .addIncludeContent(PDPContentType.Reviews, 5)
+        .addIncludeContent(PDPContentType.Questions, 3)
+        .addReviewSort(ReviewOptions.Sort.HasPhotos, SortOrder.DESC)
+        .addIncludeStatistics(PDPContentType.Reviews)
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    return okRequest;
   }
 
   private Request createFullFeedbackSubmissionRequest() {

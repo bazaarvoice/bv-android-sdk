@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowAdIdClientNoLimit.class})
+@Config(sdk = 23, shadows = {BaseShadows.ShadowAdIdClientNoLimit.class})
 public class BvPixelDispatcherTest {
   HandlerThread bgHandlerThread;
   BVPixelDispatcher.BvAnalyticsBatch analyticsBatch;

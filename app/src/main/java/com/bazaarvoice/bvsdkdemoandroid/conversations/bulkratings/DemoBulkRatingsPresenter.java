@@ -35,8 +35,7 @@ public class DemoBulkRatingsPresenter implements DemoBulkRatingsContract.UserAct
 
     @Override
     public void loadRatings() {
-
-        BulkRatingsRequest request = new BulkRatingsRequest.Builder(bulkProductIds, BulkRatingOptions.StatsType.NativeReviews)
+        final BulkRatingsRequest request = new BulkRatingsRequest.Builder(bulkProductIds, BulkRatingOptions.StatsType.All)
                 .build();
 
         client.prepareCall(request).loadAsync(new ConversationsCallback<BulkRatingsResponse>() {

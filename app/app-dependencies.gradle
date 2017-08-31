@@ -18,7 +18,7 @@ ext {
     // all artifacts with the same version number. This block is for sharing
     // the version number in one location for those artifacts
     demoAppSharedVersions = [
-        okhttp3Version : '3.2.0',
+        okhttp3Version : '3.8.0',
         supportLibraryVersion : '25.2.0',
         leakCanaryVersion : '1.5',
         bvSdkVersion : VERSION_NAME,
@@ -50,6 +50,9 @@ ext {
         playAppIndexing     : "com.google.android.gms:play-services-appindexing:$demoAppSharedVersions.playServicesVersion",
         ddPlist             : 'com.googlecode.plist:dd-plist:1.16',
         circleIndicator     : 'me.relex:circleindicator:1.2.1@aar',
+        gson                : 'com.google.code.gson:gson:2.5',
+        okhttp3             : "com.squareup.okhttp3:okhttp:$demoAppSharedVersions.okhttp3Version",
+        okhttp3Logging      : "com.squareup.okhttp3:logging-interceptor:$demoAppSharedVersions.okhttp3Version",
         dagger              : "com.google.dagger:dagger:$demoAppSharedVersions.daggerVersion",
         daggerProcessor     : "com.google.dagger:dagger-compiler:$demoAppSharedVersions.daggerVersion",
         stetho              : "com.facebook.stetho:stetho:$demoAppSharedVersions.stethoVersion",

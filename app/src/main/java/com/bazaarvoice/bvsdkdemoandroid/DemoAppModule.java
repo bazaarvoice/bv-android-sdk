@@ -40,6 +40,7 @@ import javax.inject.Named;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 @Module
 public class DemoAppModule {
@@ -76,10 +77,18 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    OkHttpClient provideHttpClient(DemoSdkInterceptor demoSdkInterceptor, StethoInterceptor stethoInterceptor) {
+    HttpLoggingInterceptor provideLoggingInterceptor() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        return loggingInterceptor;
+    }
+
+    @Provides @DemoAppScope
+    OkHttpClient provideHttpClient(DemoSdkInterceptor demoSdkInterceptor, StethoInterceptor stethoInterceptor, HttpLoggingInterceptor loggingInterceptor) {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(stethoInterceptor)
                 .addInterceptor(demoSdkInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .build();
     }
 

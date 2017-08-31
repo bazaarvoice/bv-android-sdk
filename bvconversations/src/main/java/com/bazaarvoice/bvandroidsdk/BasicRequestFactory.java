@@ -61,6 +61,10 @@ class BasicRequestFactory implements RequestFactory {
   private static final String QUESTIONS_AND_ANSWERS_ENDPOINT = "data/questions.json";
   // endregion
 
+  // region Display Statistics Request Keys
+  private static final String STATS_ENDPOINT = "data/statistics.json";
+  // endregion
+
   // region Display Comments Request Keys
   private static final String REVIEW_COMMENTS_ENDPOINT = "data/reviewcomments.json";
   // endregion
@@ -402,7 +406,7 @@ class BasicRequestFactory implements RequestFactory {
 
     HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
         .newBuilder()
-        .addPathSegments(REVIEWS_ENDPOINT);
+        .addPathSegments(STATS_ENDPOINT);
 
     addCommonQueryParams(httpUrlBuilder, convApiKey, bvMobileInfo);
     addCommonDisplayQueryParams(httpUrlBuilder, request);
