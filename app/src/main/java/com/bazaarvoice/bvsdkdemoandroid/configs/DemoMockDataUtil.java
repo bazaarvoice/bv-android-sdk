@@ -104,6 +104,7 @@ public class DemoMockDataUtil {
             .body(ResponseBody.create(MediaType.parse("json"), getResponseAsJsonString(response)))
             .request(originalRequest)
             .protocol(Protocol.HTTP_2)
+            .message("mock response")
             .build();
         return httpResponse;
     }

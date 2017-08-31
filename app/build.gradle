@@ -122,6 +122,9 @@ dependencies {
   }
   compile demoAppDep.picasso
   compile demoAppDep.picassoDownloader
+  compile demoAppDep.gson
+  compile demoAppDep.okhttp3
+  compile demoAppDep.okhttp3Logging
   compile demoAppDep.prettyTime
   compile demoAppDep.appCompatV7
   compile demoAppDep.designCompat

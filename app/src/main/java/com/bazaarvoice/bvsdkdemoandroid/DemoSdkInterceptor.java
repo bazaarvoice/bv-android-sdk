@@ -101,6 +101,7 @@ class DemoSdkInterceptor implements Interceptor {
             .body(ResponseBody.create(MediaType.parse("json"), doNotSendInvalidRequestsMessage))
             .request(originalRequest)
             .protocol(Protocol.HTTP_2)
+            .message("REPLACE_ME request cancelled")
             .build();
         return response;
     }

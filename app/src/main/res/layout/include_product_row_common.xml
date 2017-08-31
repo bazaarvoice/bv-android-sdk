@@ -25,17 +25,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/productThumbnailTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="Product Name"
-        android:textSize="@dimen/text_size_body_1"
-        app:layout_constraintLeft_toLeftOf="@+id/productThumbnailImage"
-        app:layout_constraintRight_toRightOf="@+id/productThumbnailImage"
-        app:layout_constraintTop_toBottomOf="@+id/productThumbnailImage" />
+      android:id="@+id/productThumbnailTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:minLines="5"
+      android:text="Product Name"
+      android:textSize="@dimen/text_size_body_1"
+      app:layout_constraintLeft_toLeftOf="@+id/productThumbnailImage"
+      app:layout_constraintRight_toRightOf="@+id/productThumbnailImage"
+      app:layout_constraintTop_toBottomOf="@+id/productThumbnailImage"/>
 
     <RatingBar
         android:id="@+id/productThumbnailRating"
