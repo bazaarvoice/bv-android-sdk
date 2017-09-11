@@ -26,16 +26,14 @@ import java.util.List;
  * or submission endpoints.
  */
 public abstract class ConversationsResponse {
-    @SerializedName("HasErrors")
-    private Boolean hasErrors;
-    @SerializedName("Errors")
-    private List<Error> errors;
+  @SerializedName("HasErrors") private Boolean hasErrors;
+  @SerializedName("Errors") private List<Error> errors;
 
-    public Boolean getHasErrors() {
-        return hasErrors;
-    }
+  public Boolean getHasErrors() {
+    return hasErrors;
+  }
 
-    public List<Error> getErrors() {
-        return errors;
-    }
+  public List<Error> getErrors() {
+    return errors;
+  }
 }

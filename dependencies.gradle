@@ -26,7 +26,8 @@ ext {
         androidPlugin       : 'com.android.tools.build:gradle:2.3.3',
         credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
         playServicesPlugin  : 'com.google.gms:google-services:3.0.0',
-        jacocoPlugin        : 'com.dicedmelon.gradle:jacoco-android:0.1.1'
+        jacocoPlugin        : 'com.dicedmelon.gradle:jacoco-android:0.1.1',
+        dexCountPlugin      : 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
     ]
 
     sdkDep = [

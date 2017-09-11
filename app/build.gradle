@@ -2,7 +2,7 @@ buildscript {
     dependencies {
         classpath demoAppBuildDep.androidPlugin
         classpath demoAppBuildDep.crashlyticsPlugin
-//        classpath demoAppBuildDep.androidAptPlugin
+        classpath demoAppBuildDep.dexCountPlugin
     }
 }
 
@@ -16,7 +16,7 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
-//apply plugin: 'android-apt'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 def hasCrashlyticsKey() {
     return file('fabric.properties').exists()
@@ -136,8 +136,6 @@ dependencies {
   compile demoAppDep.playServiceAds
   compile demoAppDep.playServiceMaps
   compile demoAppDep.playServiceLocation
-//  compile demoAppDep.playAppIndexing
-  compile demoAppDep.ddPlist
   compile demoAppDep.circleIndicator
   compile demoAppDep.dagger
   annotationProcessor demoAppDep.daggerProcessor

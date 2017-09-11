@@ -23,13 +23,10 @@ import com.google.gson.annotations.SerializedName;
  * Metadata for the error for a specific field in a form
  */
 public class FieldError {
-
-    @SerializedName("Field")
-    private String field;
-    @SerializedName("Message")
-    private String message;
-    @SerializedName("Code")
-    private String code;
+    @SerializedName("Field") private String field;
+    @SerializedName("Message") private String message;
+    @SerializedName("Code") private String code;
+    private transient SubmissionErrorCode errorCode;
 
     public String getField() {
         return field;
@@ -41,5 +38,16 @@ public class FieldError {
 
     public String getCode() {
         return code;
+    }
+
+    public SubmissionErrorCode getErrorCode() {
+        if (errorCode == null) {
+            try {
+                errorCode = SubmissionErrorCode.valueOf(getCode());
+            } catch (IllegalArgumentException e) {
+                errorCode = SubmissionErrorCode.ERROR_UNKNOWN;
+            }
+        }
+        return errorCode;
     }
 }
