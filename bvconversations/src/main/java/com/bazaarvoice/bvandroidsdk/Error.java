@@ -24,10 +24,9 @@ import com.google.gson.annotations.SerializedName;
  * API request was malformed.
  */
 public class Error {
-    @SerializedName("Message")
-    private String message;
-    @SerializedName("Code")
-    private String code;
+    @SerializedName("Message") private String message;
+    @SerializedName("Code") private String code;
+    private transient ErrorCode errorCode;
 
     public String getMessage() {
         return message;
@@ -35,5 +34,16 @@ public class Error {
 
     public String getCode() {
         return code;
+    }
+
+    public ErrorCode getErrorCode() {
+        if (errorCode == null) {
+            try {
+                errorCode = ErrorCode.valueOf(getCode());
+            } catch (IllegalArgumentException e) {
+                errorCode = ErrorCode.ERROR_UNKNOWN;
+            }
+        }
+        return errorCode;
     }
 }

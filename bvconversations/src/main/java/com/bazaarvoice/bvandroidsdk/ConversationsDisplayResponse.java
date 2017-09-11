@@ -25,35 +25,29 @@ import java.util.List;
  * Common options for a Conversations display response
  */
 public abstract class ConversationsDisplayResponse<ResultType> extends ConversationsResponse {
-    @SerializedName("Offset")
-    private Integer offset;
-    @SerializedName("TotalResults")
-    private Integer totalResults;
-    @SerializedName("Limit")
-    private Integer limit;
-    @SerializedName("Locale")
-    private String locale;
-    @SerializedName("Results")
-    private List<ResultType> results;
+  @SerializedName("Offset") private Integer offset;
+  @SerializedName("TotalResults") private Integer totalResults;
+  @SerializedName("Limit") private Integer limit;
+  @SerializedName("Locale") private String locale;
+  @SerializedName("Results") private List<ResultType> results;
 
-    public List<ResultType> getResults() {
-        return results;
-    }
+  public List<ResultType> getResults() {
+    return results;
+  }
 
-    public Integer getOffset() {
-        return offset;
-    }
+  public Integer getOffset() {
+    return offset;
+  }
 
-    public Integer getTotalResults() {
-        return totalResults;
-    }
+  public Integer getTotalResults() {
+    return totalResults;
+  }
 
-    public Integer getLimit() {
-        return limit;
-    }
+  public Integer getLimit() {
+    return limit;
+  }
 
-    public String getLocale() {
-        return locale;
-    }
-
+  public String getLocale() {
+    return locale;
+  }
 }

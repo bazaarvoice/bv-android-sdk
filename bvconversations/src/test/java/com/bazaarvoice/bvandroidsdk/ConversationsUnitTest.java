@@ -376,19 +376,6 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals(response.getFeedback().getInappropriateFeedback().getReasonText(), "This is where the reason text would go");
     }
 
-    @Test
-    public void testErrorResponseNoAPIKey() throws Exception {
-        ConversationsResponse errorResponse = parseJsonResourceFile("conversations_error_no_apikey.json", ReviewResponse.class, gson);
-
-        assertTrue(errorResponse.getHasErrors());
-        assertEquals(errorResponse.getErrors().size(), 1);
-
-        Error firstError = errorResponse.getErrors().get(0);
-
-        assertEquals(firstError.getCode(), "ERROR_PARAM_INVALID_API_KEY");
-        assertEquals(firstError.getMessage(), "The passKey provided is invalid.");
-    }
-
     private List<String> getProdIds(int limit){
         List<String> prodIds = new ArrayList<>();
         for (int i = 0; i < limit; i++) {

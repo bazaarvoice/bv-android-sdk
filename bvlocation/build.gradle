@@ -3,6 +3,7 @@ buildscript {
         classpath sdkBuildDep.androidPlugin
         classpath sdkBuildDep.credentialsPlugin
         classpath sdkBuildDep.jacocoPlugin
+        classpath sdkBuildDep.dexCountPlugin
     }
 }
 

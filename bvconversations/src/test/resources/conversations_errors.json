@@ -9,6 +9,10 @@
     {
       "Message": "The passKey provided is invalid.",
       "Code": "ERROR_PARAM_INVALID_API_KEY"
+    },
+    {
+      "Message": "So borked, good luck",
+      "Code": "YOLO_LYFE"
     }
   ],
   "Limit": null
