@@ -3,10 +3,12 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewIncludeType;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
@@ -15,14 +17,12 @@ import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.Collections;
 import java.util.List;
 
-public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener, ConversationsCallback {
-
+public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsListener, ConversationsDisplayCallback<ReviewResponse> {
     protected DemoReviewsContract.View view;
     protected DemoClient demoClient;
     protected DemoMockDataUtil demoMockDataUtil;
@@ -31,9 +31,8 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     protected boolean fetched = false;
     protected final BVConversationsClient client;
     protected boolean forceAPICall;
-    private final DemoConvResponseHandler demoConvResponseHandler;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
         this.view = view;
         this.client = client;
         this.demoClient = demoClient;
@@ -41,7 +40,6 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         this.reviewsLoader = reviewsLoader;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
-        this.demoConvResponseHandler = demoConvResponseHandler;
 
         if (productId != null && !productId.isEmpty()) {
             BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
@@ -99,24 +97,12 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     }
 
     @Override
-    public void onSuccess(Object object) {
-        ReviewResponse response = (ReviewResponse) object;
-        demoConvResponseHandler.handleDisplaySuccessResponse(response, new DemoConvResponseHandler.DisplayMessage() {
-            @Override
-            public void onSuccessMessage(String message) {
-
-            }
-
-            @Override
-            public void onErrorMessage(String errorMessage) {
-                view.showDialogWithMessage(errorMessage);
-            }
-        });
+    public void onSuccess(@NonNull ReviewResponse response) {
         showReviews(response.getResults());
     }
 
     @Override
-    public void onFailure(BazaarException exception) {
+    public void onFailure(@NonNull ConversationsException exception) {
         view.showDialogWithMessage(exception.getMessage());
         exception.printStackTrace();
         showReviews(Collections.<Review>emptyList());

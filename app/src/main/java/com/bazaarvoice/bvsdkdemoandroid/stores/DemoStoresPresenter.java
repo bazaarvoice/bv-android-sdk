@@ -3,13 +3,14 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.stores;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.BulkStoreRequest;
 import com.bazaarvoice.bvandroidsdk.BulkStoreResponse;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.Store;
 
 import java.util.ArrayList;
@@ -79,15 +80,15 @@ class DemoStoresPresenter implements DemoStoresContract.UserActionsListener {
     }
 
     private void loadStores(BulkStoreRequest bulkStoreRequest) {
-        client.prepareCall(bulkStoreRequest).loadAsync(new ConversationsCallback<BulkStoreResponse>() {
+        client.prepareCall(bulkStoreRequest).loadAsync(new ConversationsDisplayCallback<BulkStoreResponse>() {
             @Override
-            public void onSuccess(BulkStoreResponse response) {
+            public void onSuccess(@NonNull BulkStoreResponse response) {
                 List<Store> stores = response.getResults(); //contains stores
                 showStores(stores);
             }
 
             @Override
-            public void onFailure(BazaarException exception) {
+            public void onFailure(@NonNull ConversationsException exception) {
                 //called on Main Thread
                 Log.e(TAG, "Failed to get stores", exception);
                 view.showMessage("Failed to get stores");

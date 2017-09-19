@@ -3,12 +3,14 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.BulkRatingOptions;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsRequest;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.Statistics;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
@@ -37,23 +39,18 @@ public class DemoBulkRatingsPresenter implements DemoBulkRatingsContract.UserAct
     public void loadRatings() {
         final BulkRatingsRequest request = new BulkRatingsRequest.Builder(bulkProductIds, BulkRatingOptions.StatsType.All)
                 .build();
-
-        client.prepareCall(request).loadAsync(new ConversationsCallback<BulkRatingsResponse>() {
+        client.prepareCall(request).loadAsync(new ConversationsDisplayCallback<BulkRatingsResponse>() {
             @Override
-            public void onSuccess(BulkRatingsResponse response) {
-                //called on Main Thread
-                response.getResults(); //contains Statistics
+            public void onSuccess(@NonNull BulkRatingsResponse response) {
                 showRatings(response.getResults());
             }
 
             @Override
-            public void onFailure(BazaarException exception) {
-                //called on Main Thread
+            public void onFailure(@NonNull ConversationsException exception) {
                 exception.printStackTrace();
                 showRatings(Collections.<Statistics>emptyList());
             }
         });
-
     }
 
 

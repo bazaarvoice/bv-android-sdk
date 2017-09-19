@@ -17,6 +17,7 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.author;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.Author;
@@ -25,9 +26,8 @@ import com.bazaarvoice.bvandroidsdk.AuthorsRequest;
 import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.Badge;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
-import com.bazaarvoice.bvandroidsdk.Error;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
@@ -80,16 +80,9 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
         conversationsClient.prepareCall(request).loadAsync(authorsCb);
     }
 
-    private ConversationsCallback<AuthorsResponse> authorsCb = new ConversationsCallback<AuthorsResponse>() {
+    private final ConversationsDisplayCallback<AuthorsResponse> authorsCb = new ConversationsDisplayCallback<AuthorsResponse>() {
         @Override
-        public void onSuccess(AuthorsResponse response) {
-            if (response.getHasErrors()) {
-                for (Error error : response.getErrors()) {
-                    Log.e(TAG, error.getMessage());
-                }
-                return;
-            }
-
+        public void onSuccess(@NonNull AuthorsResponse response) {
             List<Author> authors = response.getResults();
             if (authors.size() > 0) {
                 Author author = authors.get(0);
@@ -122,20 +115,14 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
         }
 
         @Override
-        public void onFailure(BazaarException exception) {
+        public void onFailure(@NonNull ConversationsException exception) {
             exception.printStackTrace();
         }
     };
 
-    private ConversationsCallback<ProductDisplayPageResponse> pdpCb = new ConversationsCallback<ProductDisplayPageResponse>() {
+    private final ConversationsDisplayCallback<ProductDisplayPageResponse> pdpCb = new ConversationsDisplayCallback<ProductDisplayPageResponse>() {
         @Override
-        public void onSuccess(ProductDisplayPageResponse response) {
-            if (response == null || response.getHasErrors()) {
-                view.showRecentReviewImage(false);
-                Log.d(TAG, "Failed to get Review Details");
-                return;
-            }
-
+        public void onSuccess(@NonNull ProductDisplayPageResponse response) {
             List<Product> products = response.getResults();
             if (products.isEmpty()) {
                 view.showRecentReviewImage(false);
@@ -164,7 +151,7 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
         }
 
         @Override
-        public void onFailure(BazaarException exception) {
+        public void onFailure(@NonNull ConversationsException exception) {
             Log.e(TAG, "Failed to get Review Details", exception);
             view.showRecentReviewImage(false);
         }

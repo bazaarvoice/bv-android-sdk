@@ -28,7 +28,6 @@ import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
@@ -91,8 +90,6 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
 
     abstract Picasso getPicasso();
 
-    abstract DemoConvResponseHandler getDemoConvResponseHandler();
-
     abstract BVConversationsClient getConvClient();
 
     void inflateRecyclerView() {
@@ -102,7 +99,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     }
 
     protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoReviewsPresenter(view, client, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView, getDemoConvResponseHandler());
+        return new DemoReviewsPresenter(view, client, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     private void setupToolbarViews() {

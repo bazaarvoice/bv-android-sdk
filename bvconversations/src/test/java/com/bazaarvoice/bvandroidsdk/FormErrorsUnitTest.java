@@ -16,14 +16,14 @@ public class FormErrorsUnitTest {
   public void testFormErrors() throws Exception {
     ReviewSubmissionResponse errorResponse = getMockReviewSubmissionResponse();
     assertTrue(errorResponse.getHasErrors());
-    assertEquals(errorResponse.getFormErrors().getFieldErrorMap().size(), 6);
+    assertEquals(errorResponse.getFieldErrors().size(), 6);
   }
 
   @Test
   public void testUnknownFormError() throws Exception {
     ReviewSubmissionResponse errorResponse = getMockReviewSubmissionResponse();
     assertTrue(errorResponse.getHasErrors());
-    FieldError unknownFieldError = errorResponse.getFormErrors().getFieldErrorMap().get("wat");
+    FieldError unknownFieldError = errorResponse.getFieldErrors().get(5);
     assertEquals(SubmissionErrorCode.ERROR_UNKNOWN, unknownFieldError.getErrorCode());
   }
 
@@ -31,7 +31,7 @@ public class FormErrorsUnitTest {
   public void testRatingFormError() throws Exception {
     ReviewSubmissionResponse errorResponse = getMockReviewSubmissionResponse();
     assertTrue(errorResponse.getHasErrors());
-    FieldError ratingFieldError = errorResponse.getFormErrors().getFieldErrorMap().get("rating");
+    FieldError ratingFieldError = errorResponse.getFieldErrors().get(1);
     assertEquals(SubmissionErrorCode.ERROR_FORM_REQUIRED, ratingFieldError.getErrorCode());
     assertEquals("You must enter a value for overall rating.", ratingFieldError.getMessage());
     assertEquals("rating", ratingFieldError.getField());

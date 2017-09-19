@@ -3,7 +3,11 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvandroidsdk.Store;
@@ -12,14 +16,13 @@ import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
 import com.bazaarvoice.bvandroidsdk.StoreReviewsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 
+import java.util.Collections;
 import java.util.List;
 
 public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
-
-    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader, DemoConvResponseHandler demoConvResponseHandler) {
-        super(view, client, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader, demoConvResponseHandler);
+    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
+        super(view, client, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader);
     }
 
     @Override
@@ -38,17 +41,25 @@ public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
             StoreReviewsRequest request = new StoreReviewsRequest.Builder(productId, 20, 0)
                     .addSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
                     .build();
-            reviewsLoader.loadAsync(client.prepareCall(request), this);
+            reviewsLoader.loadAsync(client.prepareCall(request), storesCb);
         } else {
             showStoreReviews(cachedReviews);
         }
     }
 
-    @Override
-    public void onSuccess(Object object) {
-        StoreReviewResponse response = (StoreReviewResponse) object;
-        showStoreReviews(response.getResults());
-    }
+    private final ConversationsDisplayCallback<StoreReviewResponse> storesCb = new ConversationsDisplayCallback<StoreReviewResponse>() {
+        @Override
+        public void onSuccess(@NonNull StoreReviewResponse response) {
+            showStoreReviews(response.getResults());
+        }
+
+        @Override
+        public void onFailure(@NonNull ConversationsException exception) {
+            view.showDialogWithMessage(exception.getMessage());
+            exception.printStackTrace();
+            showStoreReviews(Collections.<StoreReview>emptyList());
+        }
+    };
 
     private void showStoreReviews(List<StoreReview> bazaarReviews) {
         fetched = true;

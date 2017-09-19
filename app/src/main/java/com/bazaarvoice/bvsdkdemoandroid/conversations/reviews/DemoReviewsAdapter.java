@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +20,8 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionException;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.Photo;
@@ -212,16 +213,15 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
         .feedbackVote(vote)
         .build();
 
-    client.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
-
+    client.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<FeedbackSubmissionResponse>() {
       @Override
-      public void onSuccess(FeedbackSubmissionResponse response) {
-        // Yeah! Success, no do nothing!
+      public void onSuccess(@NonNull FeedbackSubmissionResponse response) {
+
       }
 
       @Override
-      public void onFailure(BazaarException exception) {
-        exception.printStackTrace();
+      public void onFailure(@NonNull ConversationsSubmissionException exception) {
+
       }
     });
   }

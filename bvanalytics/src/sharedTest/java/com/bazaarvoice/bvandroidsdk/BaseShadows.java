@@ -2,6 +2,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
 import android.net.Network;
+import android.security.NetworkSecurityPolicy;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -45,5 +46,24 @@ final class BaseShadows {
   @Implements(Network.class)
   public static class ShadowNetwork {
 
+  }
+
+  @Implements(NetworkSecurityPolicy.class)
+  public static class NetworkSecurityPolicyWorkaround {
+    @Implementation
+    public static NetworkSecurityPolicy getInstance() {
+      //noinspection OverlyBroadCatchBlock
+      try {
+        Class<?> shadow = Class.forName("android.security.NetworkSecurityPolicy");
+        return (NetworkSecurityPolicy) shadow.newInstance();
+      } catch (Exception e) {
+        throw new AssertionError();
+      }
+    }
+
+    @Implementation
+    public boolean isCleartextTrafficPermitted(String hostname) {
+      return true;
+    }
   }
 }

@@ -284,13 +284,10 @@ public class ConversationsUnitTest extends BVBaseTest{
         ReviewSubmissionResponse response = parseJsonResourceFile("review_submit_form.json", ReviewSubmissionResponse.class, gson);
         assertFalse(response.getHasErrors());
 
-        FormData formData = response.getFormData();
-        assertNotNull(formData);
+        List<FormField> formFields = response.getFormFields();
+        assertNotNull(formFields);
 
-        Map<String, FormField> formFieldMap = formData.getFormFieldMap();
-        assertNotNull(formFieldMap);
-
-        FormField ageFormField = formFieldMap.get("contextdatavalue_Age");
+        FormField ageFormField = formFields.get(12);
         assertNotNull(ageFormField);
         assertFalse(ageFormField.isRequired());
 

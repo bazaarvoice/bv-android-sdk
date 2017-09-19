@@ -1,14 +1,15 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.CommentSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.CommentSubmissionResponse;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
-import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionResponse;
+import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionException;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.QuestionSubmissionRequest;
@@ -191,14 +192,14 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         .addPhoto(localImageFile, "What a cute pupper!")
         .build();
 
-    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsCallback<ReviewSubmissionResponse>() {
+    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<ReviewSubmissionResponse>() {
       @Override
-      public void onSuccess(ReviewSubmissionResponse response) {
-        handleSubmissionSuccessResponse(response, "review");
+      public void onSuccess(@NonNull ReviewSubmissionResponse response) {
+        handleSubmissionSuccessResponse();
       }
 
       @Override
-      public void onFailure(BazaarException exception) {
+      public void onFailure(@NonNull ConversationsSubmissionException exception) {
         handleSubmissionFailureResponse(exception);
       }
     });
@@ -217,14 +218,14 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         .agreedToTermsAndConditions(true)
         .build();
 
-    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsCallback<QuestionSubmissionResponse>() {
+    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<QuestionSubmissionResponse>() {
       @Override
-      public void onSuccess(QuestionSubmissionResponse response) {
-        handleSubmissionSuccessResponse(response, "question");
+      public void onSuccess(@NonNull QuestionSubmissionResponse response) {
+        handleSubmissionSuccessResponse();
       }
 
       @Override
-      public void onFailure(BazaarException exception) {
+      public void onFailure(@NonNull ConversationsSubmissionException exception) {
         handleSubmissionFailureResponse(exception);
       }
     });
@@ -242,14 +243,14 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         .agreedToTermsAndConditions(true)
         .build();
 
-    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsCallback<AnswerSubmissionResponse>() {
+    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<AnswerSubmissionResponse>() {
       @Override
-      public void onSuccess(AnswerSubmissionResponse response) {
-        handleSubmissionSuccessResponse(response, "answer");
+      public void onSuccess(@NonNull AnswerSubmissionResponse response) {
+        handleSubmissionSuccessResponse();
       }
 
       @Override
-      public void onFailure(BazaarException exception) {
+      public void onFailure(@NonNull ConversationsSubmissionException exception) {
         handleSubmissionFailureResponse(exception);
       }
     });
@@ -265,14 +266,14 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         .feedbackVote(FeedbackVoteType.POSITIVE)
         .build();
 
-    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsCallback<FeedbackSubmissionResponse>() {
+    bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<FeedbackSubmissionResponse>() {
       @Override
       public void onSuccess(FeedbackSubmissionResponse response) {
-        handleSubmissionSuccessResponse(response, "feedback");
+        handleSubmissionSuccessResponse();
       }
 
       @Override
-      public void onFailure(BazaarException exception) {
+      public void onFailure(ConversationsSubmissionException exception) {
         handleSubmissionFailureResponse(exception);
       }
     });
@@ -292,36 +293,27 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         .addPhoto(localImageFile, "Cute puppy there")
         .build();
 
-    bvConversationsClient.prepareCall(request).loadAsync(new ConversationsCallback<CommentSubmissionResponse>() {
+    bvConversationsClient.prepareCall(request).loadAsync(new ConversationsSubmissionCallback<CommentSubmissionResponse>() {
       @Override
       public void onSuccess(CommentSubmissionResponse response) {
-        handleSubmissionSuccessResponse(response, "comment");
+        handleSubmissionSuccessResponse();
       }
 
       @Override
-      public void onFailure(BazaarException exception) {
+      public void onFailure(ConversationsSubmissionException exception) {
         handleSubmissionFailureResponse(exception);
       }
     });
   }
 
-  private void handleSubmissionSuccessResponse(ConversationsSubmissionResponse response, String apiMethodName) {
+  private void handleSubmissionSuccessResponse() {
     view.hideProgress();
-    demoConvResponseHandler.handleSubmissionSuccessResponse(response, apiMethodName, submitAction, new DemoConvResponseHandler.DisplayMessage() {
-      @Override
-      public void onSuccessMessage(String message) {
-        view.showDialogWithMessage(message);
-      }
-
-      @Override
-      public void onErrorMessage(String errorMessage) {
-        view.showDialogWithMessage(errorMessage);
-      }
-    });
+    view.showDialogWithMessage(demoConvResponseHandler.getSubmissionSuccessMessage(submitAction));
   }
 
-  private void handleSubmissionFailureResponse(BazaarException exception) {
+  private void handleSubmissionFailureResponse(ConversationsSubmissionException exception) {
+    exception.printStackTrace();
     view.hideProgress();
-    view.showDialogWithMessage(exception.getMessage());
+    view.showDialogWithMessage(demoConvResponseHandler.getSubmissionErrorMessage(exception));
   }
 }

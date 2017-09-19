@@ -56,6 +56,16 @@ public abstract class ConversationsDisplayRecyclerView<RequestType extends Conve
         trySendUsedFeatureInViewEvent();
     }
 
+    @Override
+    public void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsDisplayCallback<ResponseType> callback) {
+        final RequestType request = call.getRequest();
+        convAnMan = call.getConversationsAnalyticsManager();
+        productId = getProductIdFromRequest(request);
+        this.call = call;
+        this.call.loadAsync(callback);
+        trySendUsedFeatureInViewEvent();
+    }
+
     abstract String getProductIdFromRequest(RequestType requestType);
 
     @Override

@@ -2,6 +2,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -11,8 +12,8 @@ import android.widget.Button;
 
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionException;
 import com.bazaarvoice.bvandroidsdk.StoreNotificationManager;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.StoreReviewSubmissionResponse;
@@ -174,16 +175,15 @@ public class DemoConversationsStoresAPIFragment extends Fragment {
                             .addPhoto(localImageFile, "What a cute pupper!")
                             .build();
 
-                    client.prepareCall(submission).loadAsync(new ConversationsCallback<StoreReviewSubmissionResponse>() {
-
+                    client.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<StoreReviewSubmissionResponse>() {
                         @Override
-                        public void onSuccess(StoreReviewSubmissionResponse response) {
+                        public void onSuccess(@NonNull StoreReviewSubmissionResponse response) {
                             progress.dismiss();
                             showDialogWithMessage("Successful review submission.");
                         }
 
                         @Override
-                        public void onFailure(BazaarException exception) {
+                        public void onFailure(@NonNull ConversationsSubmissionException exception) {
                             progress.dismiss();
                             showDialogWithMessage(exception.getMessage());
                         }

@@ -121,6 +121,7 @@ public final class BVConversationsClient {
 
     public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
         void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
+        void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsDisplayCallback<ResponseType> callback);
     }
 
     public LoadCallSubmission<AnswerSubmissionRequest, AnswerSubmissionResponse> prepareCall(AnswerSubmissionRequest submission) {
@@ -149,7 +150,7 @@ public final class BVConversationsClient {
 
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> factoryCreateDisplayCall(Class<ResponseType> responseTypeClass, RequestType request) {
         final Request okRequest = requestFactory.create(request);
-        return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager, okHttpClient, gson);
+        return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager, okHttpClient, gson, uiLooper, bgLooper);
     }
 
     private <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> factoryCreateSubmissionCall(Class<ResponseType> responseTypeClass, RequestType request) {
@@ -169,8 +170,8 @@ public final class BVConversationsClient {
      */
     public static class Builder {
         private final BVSDK bvsdk;
-        private final Looper bgLooper;
-        private final Looper uiLooper;
+        private Looper bgLooper;
+        private Looper uiLooper;
         private final OkHttpClient okHttpClient;
         private final Gson gson;
         private BVConfig bvConfig;
@@ -194,6 +195,16 @@ public final class BVConversationsClient {
 
         public Builder fingerprintProvider(FingerprintProvider fingerprintProvider) {
             this.fingerprintProvider = fingerprintProvider;
+            return this;
+        }
+
+        Builder bgLooper(Looper bgLooper) {
+            this.bgLooper = bgLooper;
+            return this;
+        }
+
+        Builder uiLooper(Looper uiLooper) {
+            this.uiLooper = uiLooper;
             return this;
         }
 

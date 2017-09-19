@@ -379,6 +379,24 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewSubmissionWithActionForm_Should_notContainAnActionParam() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest(Action.Form);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "action", "Form", false);
+  }
+
+  @Test
+  public void reviewSubmissionWithActionPreview_Should_containActionPreview() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest(Action.Preview);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "action", "Preview");
+  }
+
+  @Test
+  public void reviewSubmissionWithActionSubmit_Should_containActionSubmit() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullReviewSubmissionRequest(Action.Submit);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "action", "Submit");
+  }
+
+  @Test
   public void submissionShouldNotAllowNullFormParams() throws Exception {
     final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Preview, "prod1")
         .isRecommended(null)

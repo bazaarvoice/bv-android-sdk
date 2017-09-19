@@ -294,8 +294,8 @@ public class RequestFactoryUtils {
     return requestFactory.create(request);
   }
 
-  public Request createFullReviewSubmissionRequest() {
-    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Preview, "prod1")
+  public Request createFullReviewSubmissionRequest(Action action) {
+    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(action, "prod1")
         .isRecommended(true)
         .sendEmailAlertWhenCommented(true)
         .rating(4)
@@ -325,6 +325,10 @@ public class RequestFactoryUtils {
         .agreedToTermsAndConditions(Boolean.parseBoolean(genericFormBodyParams.getAgreedToTAndC()))
         .build();
     return requestFactory.create(request);
+  }
+
+  public Request createFullReviewSubmissionRequest() {
+    return createFullReviewSubmissionRequest(Action.Preview);
   }
 
   public Request createFullStoreReviewSubmissionRequest() {

@@ -1,0 +1,15 @@
+{
+  "Includes": {},
+  "HasErrors": true,
+  "Offset": null,
+  "TotalResults": null,
+  "Locale": null,
+  "Results": [],
+  "Errors": [
+    {
+      "Message": "The passKey provided is invalid.",
+      "Code": "ERROR_PARAM_INVALID_API_KEY"
+    }
+  ],
+  "Limit": null
+}

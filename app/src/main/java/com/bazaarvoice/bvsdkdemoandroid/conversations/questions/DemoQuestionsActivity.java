@@ -89,7 +89,7 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         setupToolbarViews();
         setupRecyclerView();
 
-        questionsActionsListener = new DemoQuestionsPresenter(this, bvConversationsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView, demoConvResponseHandler);
+        questionsActionsListener = new DemoQuestionsPresenter(this, bvConversationsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, questionsRecyclerView);
     }
 
     @Override

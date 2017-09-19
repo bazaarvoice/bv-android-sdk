@@ -77,7 +77,6 @@ public class BVSDKTest {
 
         rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
 
-        RuntimeEnvironment.getRobolectricPackageManager().addPackage("com.android.vending");
       when(bvUserProvidedData.getApplication()).thenReturn(RuntimeEnvironment.application);
 
       bvConfig = new BVConfig.Builder()
