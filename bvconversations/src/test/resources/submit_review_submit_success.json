@@ -1,0 +1,23 @@
+{
+  "Locale": "en_US",
+  "Errors": [],
+  "Form": [],
+  "FormErrors": {},
+  "SubmissionId": "i01010101nwgqrfyl01010101",
+  "TypicalHoursToPost": 24,
+  "Data": {},
+  "Review": {
+    "SendEmailAlertWhenCommented": false,
+    "Rating": 4,
+    "SubmissionTime": "2017-09-20T16:33:13.774+00:00",
+    "ReviewText": "Blue%20something%20is%20something%20other%20than%20something%20such%20as%20blue",
+    "SubmissionId": null,
+    "Title": "title is blue something",
+    "IsRecommended": null,
+    "TypicalHoursToPost": null,
+    "Id": null,
+    "SendEmailAlertWhenPublished": false
+  },
+  "AuthorSubmissionToken": "78370c506e321e4ac7e3b184a88101010103657269643d7010101016396d31316477783075753775667173736936306c6826646174653d3230313730393101010101786167653d37",
+  "HasErrors": false
+}

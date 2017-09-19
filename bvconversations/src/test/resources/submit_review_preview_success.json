@@ -1,0 +1,978 @@
+{
+  "Locale": "en_US",
+  "Errors": [],
+  "Form": [
+    {
+      "Type": "Field",
+      "Id": "usernickname"
+    },
+    {
+      "Type": "Field",
+      "Id": "userlocation"
+    },
+    {
+      "Type": "Group",
+      "Id": "userlocationgeocode"
+    },
+    {
+      "Type": "Field",
+      "Id": "useremail"
+    },
+    {
+      "Type": "Field",
+      "Id": "sendemailalertwhenpublished"
+    },
+    {
+      "Type": "Field",
+      "Id": "agreedtotermsandconditions"
+    },
+    {
+      "Type": "Group",
+      "Id": "contextdatavalue"
+    },
+    {
+      "Type": "Field",
+      "Id": "title"
+    },
+    {
+      "Type": "Field",
+      "Id": "reviewtext"
+    },
+    {
+      "Type": "Field",
+      "Id": "rating"
+    },
+    {
+      "Type": "Field",
+      "Id": "isrecommended"
+    },
+    {
+      "Type": "Group",
+      "Id": "rating"
+    },
+    {
+      "Type": "Group",
+      "Id": "photo"
+    },
+    {
+      "Type": "Group",
+      "Id": "video"
+    },
+    {
+      "Type": "Field",
+      "Id": "isratingsonly"
+    },
+    {
+      "Type": "Field",
+      "Id": "sendemailalertwhencommented"
+    },
+    {
+      "Type": "Field",
+      "Id": "authsourcetype"
+    },
+    {
+      "Type": "Field",
+      "Id": "productid"
+    },
+    {
+      "Type": "Field",
+      "Id": "return"
+    },
+    {
+      "Type": "Field",
+      "Id": "sessionparams"
+    },
+    {
+      "Type": "Field",
+      "Id": "state"
+    },
+    {
+      "Type": "Field",
+      "Id": "submissionid"
+    },
+    {
+      "Type": "Field",
+      "Id": "userid"
+    },
+    {
+      "Type": "Field",
+      "Id": "useruuid"
+    },
+    {
+      "Type": "Field",
+      "Id": "forceIeUnicodeSubmission"
+    },
+    {
+      "Type": "Field",
+      "Id": "devicefingerprint"
+    }
+  ],
+  "FormErrors": {},
+  "SubmissionId": null,
+  "Data": {
+    "Fields": {
+      "photourl_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_6",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "videourl_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "videourl_1",
+        "MaxLength": 1024,
+        "Default": null
+      },
+      "contextdatavalue_Gender": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Male",
+            "Value": "Male",
+            "Selected": false
+          },
+          {
+            "Label": "Female",
+            "Value": "Female",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "What is your gender?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_Gender",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photourl_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_2",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_3",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_4",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_5",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "rating": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": true,
+        "Value": "4",
+        "Label": null,
+        "MinLength": null,
+        "Id": "rating",
+        "MaxLength": null,
+        "Default": null
+      },
+      "title": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": true,
+        "Value": "nope",
+        "Label": null,
+        "MinLength": 0,
+        "Id": "title",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "reviewtext": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": true,
+        "Value": "Blue something is something other than something such as blue",
+        "Label": null,
+        "MinLength": 50,
+        "Id": "reviewtext",
+        "MaxLength": 10000,
+        "Default": null
+      },
+      "sendemailalertwhencommented": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "sendemailalertwhencommented",
+        "MaxLength": null,
+        "Default": null
+      },
+      "isrecommended": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": null,
+        "Id": "isrecommended",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_Age": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "17 or under",
+            "Value": "17orUnder",
+            "Selected": false
+          },
+          {
+            "Label": "18 to 24",
+            "Value": "18to24",
+            "Selected": false
+          },
+          {
+            "Label": "25 to 34",
+            "Value": "25to34",
+            "Selected": false
+          },
+          {
+            "Label": "35 to 44",
+            "Value": "35to44",
+            "Selected": false
+          },
+          {
+            "Label": "45 to 54",
+            "Value": "45to54",
+            "Selected": false
+          },
+          {
+            "Label": "55 to 64",
+            "Value": "55to64",
+            "Selected": false
+          },
+          {
+            "Label": "65 or over",
+            "Value": "65orOver",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "How old are you?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_Age",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photocaption_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_2",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_1",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "rating_Quality": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "How would you rate the quality of this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Quality",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photocaption_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_6",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_5",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_4",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photourl_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_1",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photocaption_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_3",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "videocaption_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "videocaption_1",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "contextdatavalue_IncentivizedReview": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Yes",
+            "Value": "True",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Did you receive an incentive for this review?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_IncentivizedReview",
+        "MaxLength": null,
+        "Default": null
+      },
+      "agreedtotermsandconditions": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": true,
+        "Value": "true",
+        "Label": null,
+        "MinLength": null,
+        "Id": "agreedtotermsandconditions",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_region": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_region",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "rating_Value": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "How would you rate the value of this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Value",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_country": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_country",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "userlocationgeocode_longitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_longitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "usernickname": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": true,
+        "Value": "caseytest",
+        "Label": null,
+        "MinLength": 0,
+        "Id": "usernickname",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "userlocation": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocation",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "userlocationgeocode_latitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_latitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "contextdatavalue_LengthOfOwnership": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "1 week",
+            "Value": "1week",
+            "Selected": false
+          },
+          {
+            "Label": "1 month",
+            "Value": "1month",
+            "Selected": false
+          },
+          {
+            "Label": "3 months",
+            "Value": "3months",
+            "Selected": false
+          },
+          {
+            "Label": "6 months",
+            "Value": "6months",
+            "Selected": false
+          },
+          {
+            "Label": "1 year or longer",
+            "Value": "1year",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Approximately how long have you owned this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_LengthOfOwnership",
+        "MaxLength": null,
+        "Default": null
+      },
+      "isratingsonly": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": true,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "isratingsonly",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_ReadReviews": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Yes",
+            "Value": "Yes",
+            "Selected": false
+          },
+          {
+            "Label": "No",
+            "Value": "No",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Did you read product reviews online before first purchasing this item?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_ReadReviews",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_Fit_22": {
+        "Options": [
+          {
+            "Label": "Too small",
+            "Value": "1",
+            "Selected": false
+          },
+          {
+            "Label": "A little small",
+            "Value": "2",
+            "Selected": false
+          },
+          {
+            "Label": "True to size",
+            "Value": "3",
+            "Selected": false
+          },
+          {
+            "Label": "A little big",
+            "Value": "4",
+            "Selected": false
+          },
+          {
+            "Label": "Too big",
+            "Value": "5",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Fit",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Fit_22",
+        "MaxLength": null,
+        "Default": null
+      },
+      "sendemailalertwhenpublished": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "sendemailalertwhenpublished",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_city": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_city",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "useremail": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "useremail",
+        "MaxLength": 255,
+        "Default": null
+      }
+    },
+    "Groups": {
+      "photo_1": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_1"
+      },
+      "photo_2": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_2"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_2"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_2"
+      },
+      "video_1": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "videourl_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "videocaption_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "video_1"
+      },
+      "photo_3": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_3"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_3"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_3"
+      },
+      "contextdatavalue": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_Age"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_Gender"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_IncentivizedReview"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_LengthOfOwnership"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_ReadReviews"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "contextdatavalue"
+      },
+      "photo_4": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_4"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_4"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_4"
+      },
+      "userlocationgeocode": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_latitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_longitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_country"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_region"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_city"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "userlocationgeocode"
+      },
+      "rating": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "rating_Quality"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_Value"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_Fit_22"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "rating"
+      },
+      "photo": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "photo_1"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_2"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_3"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_4"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_5"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_6"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo"
+      },
+      "video": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "video_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "video"
+      },
+      "photo_5": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_5"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_5"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_5"
+      },
+      "photo_6": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_6"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_6"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_6"
+      }
+    },
+    "FieldsOrder": [
+      "contextdatavalue_Age",
+      "contextdatavalue_Gender",
+      "rating_Quality",
+      "rating_Value",
+      "rating_Fit_22",
+      "contextdatavalue_IncentivizedReview",
+      "contextdatavalue_LengthOfOwnership",
+      "contextdatavalue_ReadReviews",
+      "usernickname",
+      "userlocation",
+      "useremail",
+      "title",
+      "reviewtext",
+      "sendemailalertwhenpublished",
+      "agreedtotermsandconditions",
+      "isrecommended",
+      "isratingsonly",
+      "sendemailalertwhencommented",
+      "rating",
+      "userlocationgeocode_latitude",
+      "userlocationgeocode_longitude",
+      "userlocationgeocode_country",
+      "userlocationgeocode_region",
+      "userlocationgeocode_city",
+      "photourl_1",
+      "photocaption_1",
+      "photourl_2",
+      "photocaption_2",
+      "photourl_3",
+      "photocaption_3",
+      "photourl_4",
+      "photocaption_4",
+      "photourl_5",
+      "photocaption_5",
+      "photourl_6",
+      "photocaption_6",
+      "videourl_1",
+      "videocaption_1"
+    ],
+    "GroupsOrder": [
+      "userlocationgeocode",
+      "contextdatavalue",
+      "rating",
+      "photo",
+      "photo_1",
+      "photo_2",
+      "photo_3",
+      "photo_4",
+      "photo_5",
+      "photo_6",
+      "video",
+      "video_1"
+    ]
+  },
+  "TypicalHoursToPost": 72,
+  "Review": {
+    "SendEmailAlertWhenCommented": false,
+    "Rating": 4,
+    "SubmissionTime": "2017-09-20T15:43:45.530+00:00",
+    "ReviewText": "Blue something is something other than something such as blue",
+    "SubmissionId": null,
+    "Title": "nope",
+    "IsRecommended": null,
+    "TypicalHoursToPost": null,
+    "Id": null,
+    "SendEmailAlertWhenPublished": false
+  },
+  "AuthorSubmissionToken": null,
+  "HasErrors": false
+}

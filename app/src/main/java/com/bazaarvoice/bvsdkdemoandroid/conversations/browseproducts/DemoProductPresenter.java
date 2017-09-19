@@ -3,9 +3,11 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageRequest;
@@ -54,16 +56,16 @@ public class DemoProductPresenter implements DemoProductContract.UserActionsList
                 .addIncludeStatistics(PDPContentType.Reviews)
                 .addIncludeStatistics(PDPContentType.Questions)
                 .build();
-        conversationsClient.prepareCall(request).loadAsync(new ConversationsCallback<ProductDisplayPageResponse>() {
+        conversationsClient.prepareCall(request).loadAsync(new ConversationsDisplayCallback<ProductDisplayPageResponse>() {
             @Override
-            public void onSuccess(ProductDisplayPageResponse response) {
+            public void onSuccess(@NonNull ProductDisplayPageResponse response) {
                 List<Product> products = response.getResults();
                 Product firstProduct = products.size() > 0 ? products.get(0) : null;
                 showProduct(firstProduct);
             }
 
             @Override
-            public void onFailure(BazaarException exception) {
+            public void onFailure(@NonNull ConversationsException exception) {
                 showProduct(null);
             }
         });

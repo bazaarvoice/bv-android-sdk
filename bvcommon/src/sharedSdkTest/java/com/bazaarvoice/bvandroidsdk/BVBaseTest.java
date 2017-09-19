@@ -123,8 +123,8 @@ public abstract class BVBaseTest {
         return gson.fromJson(responseStr, responseClass);
     }
 
-    static String jsonResourceFileAsString(String filename, Class responseClass) throws Exception {
-        InputStream inputStream = responseClass.getClassLoader().getResourceAsStream(filename);
+    static String jsonResourceFileAsString(String filename, Class packageClass) throws Exception {
+        InputStream inputStream = packageClass.getClassLoader().getResourceAsStream(filename);
         return readFile(inputStream);
     }
 

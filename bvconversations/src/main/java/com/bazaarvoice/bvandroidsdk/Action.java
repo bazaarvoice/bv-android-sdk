@@ -21,7 +21,22 @@ package com.bazaarvoice.bvandroidsdk;
  * * An enum used for defining an action type for content submission.
  */
 public enum Action {
-    Submit("Submit"), Preview("Preview");
+    /**
+     * Used when you want your submission to successfully send.
+     * Requires all required fields to succeed.
+     */
+    Submit("Submit"),
+
+    /**
+     * Used when you want to see if your submission would successfully send.
+     * Requires all required fields to succeed.
+     */
+    Preview("Preview"),
+
+    /**
+     * Used to obtain the form. Does not require all required fields to succeed.
+     */
+    Form("");
 
     private final String key;
     Action(String key) {

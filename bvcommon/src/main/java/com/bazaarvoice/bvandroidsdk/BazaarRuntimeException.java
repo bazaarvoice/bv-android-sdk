@@ -10,6 +10,6 @@ package com.bazaarvoice.bvandroidsdk;
 public class BazaarRuntimeException extends RuntimeException {
 
     public BazaarRuntimeException(String message) {
-        throw new BazaarRuntimeException(message);
+        super(message);
     }
 }

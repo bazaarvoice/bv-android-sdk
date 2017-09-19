@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -27,6 +29,7 @@ public class FieldError {
     @SerializedName("Message") private String message;
     @SerializedName("Code") private String code;
     private transient SubmissionErrorCode errorCode;
+    private transient FormField formField;
 
     public String getField() {
         return field;
@@ -49,5 +52,14 @@ public class FieldError {
             }
         }
         return errorCode;
+    }
+
+    void setFormField(FormField formField) {
+        this.formField = formField;
+    }
+
+    @Nullable
+    public FormField getFormField() {
+        return formField;
     }
 }

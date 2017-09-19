@@ -1,31 +1,30 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.comments;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.CommentOptions;
 import com.bazaarvoice.bvandroidsdk.CommentsRequest;
 import com.bazaarvoice.bvandroidsdk.CommentsResponse;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-public class DemoCommentsPresenter implements DemoCommentsContract.Presenter, ConversationsCallback<CommentsResponse> {
+public class DemoCommentsPresenter implements DemoCommentsContract.Presenter, ConversationsDisplayCallback<CommentsResponse> {
   private final DemoCommentsContract.View view;
   private final String contentId;
   private final boolean isCommentId;
   private final BVConversationsClient conversationsClient;
-  private final DemoConvResponseHandler responseHandler;
 
   @Inject
-  public DemoCommentsPresenter(DemoCommentsContract.View view, @Named("CommentsContentId") String contentId, @Named("CommentsIsCommentId") boolean isCommentId, BVConversationsClient conversationsClient, DemoConvResponseHandler responseHandler) {
+  public DemoCommentsPresenter(DemoCommentsContract.View view, @Named("CommentsContentId") String contentId, @Named("CommentsIsCommentId") boolean isCommentId, BVConversationsClient conversationsClient) {
     this.view = view;
     this.contentId = contentId;
     this.isCommentId = isCommentId;
     this.conversationsClient = conversationsClient;
-    this.responseHandler = responseHandler;
   }
 
   @Override
@@ -47,21 +46,12 @@ public class DemoCommentsPresenter implements DemoCommentsContract.Presenter, Co
   }
 
   @Override
-  public void onSuccess(CommentsResponse response) {
-    responseHandler.handleDisplaySuccessResponse(response, new DemoConvResponseHandler.DisplayMessage() {
-      @Override
-      public void onSuccessMessage(String message) {}
-
-      @Override
-      public void onErrorMessage(String errorMessage) {
-        view.showMessage(errorMessage);
-      }
-    });
+  public void onSuccess(@NonNull CommentsResponse response) {
     view.showComments(response.getResults());
   }
 
   @Override
-  public void onFailure(BazaarException exception) {
+  public void onFailure(@NonNull ConversationsException exception) {
     view.showMessage(exception.getMessage());
   }
 

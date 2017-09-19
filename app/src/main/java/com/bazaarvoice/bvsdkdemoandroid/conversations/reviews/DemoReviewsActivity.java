@@ -11,7 +11,6 @@ import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
@@ -24,7 +23,6 @@ public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
     @Inject DemoClient demoClient;
     @Inject PrettyTime prettyTime;
     @Inject Picasso picasso;
-    @Inject DemoConvResponseHandler demoConvResponseHandler;
     @Inject BVConversationsClient bvConversationsClient;
 
     @Override
@@ -46,11 +44,6 @@ public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
     @Override
     public Picasso getPicasso() {
         return picasso;
-    }
-
-    @Override
-    public DemoConvResponseHandler getDemoConvResponseHandler() {
-        return demoConvResponseHandler;
     }
 
     @Override

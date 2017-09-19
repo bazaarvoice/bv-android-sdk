@@ -22,6 +22,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.AnyThread;
 import android.support.annotation.MainThread;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import com.google.gson.Gson;
@@ -29,6 +30,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.Call;
@@ -38,6 +40,7 @@ import okhttp3.Response;
 
 import static android.util.Log.d;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkNotMain;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.isMain;
 
 /**
  * Wrapper for a {@link Call} for a Conversations request to
@@ -52,7 +55,8 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
     private final RequestFactory requestFactory;
     private final SubmitUiHandler<RequestType, ResponseType> submitUiHandler;
     private final SubmitWorkerHandler<RequestType, ResponseType> submitWorkerHandler;
-    private ConversationsCallback<ResponseType> submitCallback;
+    ConversationsCallback<ResponseType> submitCallback;
+    ConversationsSubmissionCallback<ResponseType> submitV7Callback;
 
     LoadCallSubmission(
         RequestType submissionRequest,
@@ -71,11 +75,30 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         this.submitWorkerHandler = new SubmitWorkerHandler<>(bgLooper, this);
     }
 
+    // region v6 network call routing
+
+    /**
+     * @deprecated Use {@link #loadSubmissionSync()} instead
+     *
+     * @return Response
+     * @throws BazaarException caught errors
+     */
     @WorkerThread
     @Override
     public ResponseType loadSync() throws BazaarException {
         checkNotMain();
         return submitFlow(true);
+    }
+
+    /**
+     * @deprecated Use {@link #loadAsync(ConversationsSubmissionCallback)} instead
+     *
+     * @param conversationsCallback Callback to be performed
+     */
+    @Override
+    public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
+        submitCallback = conversationsCallback;
+        dispatchSubmit();
     }
 
     /**
@@ -119,6 +142,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
         if (error != null) {
             // If request contains known errors
+            // TODO: Should be preconditions on request builder functions instead
             throw error;
         }
 
@@ -127,12 +151,13 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
             // If the user chose preview, simply submit request
             return submit();
         } else {
-            // Send preview request for user incase we need to see error values
+            // Send preview request for user incase we need to see error values, since
+            // FormErrors do not return for Action=Submit
             submissionRequest.setForcePreview(true);
             ResponseType previewResponse = submit();
             if (previewResponse.getHasErrors()) {
                 if (routeFormErrorsToFailure) {
-                    throw new BazaarException(gson.toJson(previewResponse.getErrors()));
+                    throw new BazaarException("Request has form errors");
                 } else {
                     return previewResponse;
                 }
@@ -180,107 +205,10 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 return conversationResponse;
             }
         } catch (IOException e) {
-            throw new BazaarException("Network request failed", e);
+            throw new BazaarException("Execution of call failed", e);
         } finally {
             if (response != null) {
                 response.body().close();
-            }
-        }
-    }
-
-    private List<Photo> postPhotosAndSubmissionSync(List<PhotoUpload> photoUploads) throws BazaarException {
-        d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
-        final List<Photo> photos = new ArrayList<>();
-
-        try {
-            for (PhotoUpload upload : photoUploads) {
-                final PhotoUploadRequest uploadRequest = new PhotoUploadRequest.Builder(upload).build();
-                final Request okRequest = requestFactory.create(uploadRequest);
-                Call photoCall = okHttpClient.newCall(okRequest);
-                Response response = null;
-                try {
-                    response = photoCall.execute();
-                    Photo photo = deserializePhotoResponse(response);
-                    photo.setCaption(upload.getCaption());
-                    photos.add(photo);
-                } finally {
-                    if (response != null) {
-                        response.body().close();
-                    }
-                }
-            }
-        } catch (Throwable e) {
-            throw new BazaarException(e.getMessage());
-        }
-
-        return photos;
-    }
-
-    private Photo deserializePhotoResponse(Response response) throws BazaarException {
-        Reader reader = response.body().charStream();
-        PhotoUploadResponse photoUploadResponse = gson.fromJson(reader, PhotoUploadResponse.class);
-        response.body().close();
-        if (photoUploadResponse.getHasErrors()) {
-            throw new BazaarException(gson.toJson(photoUploadResponse.getFormErrors()));
-        }
-        return photoUploadResponse.getPhoto();
-    }
-
-    @Override
-    public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
-        submitCallback = conversationsCallback;
-        dispatchSubmit();
-    }
-
-    private static class SubmitUiHandler<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends Handler {
-        private static final int CB_SUCCESS = 1;
-        private static final int CB_FAILURE = 2;
-
-        private final LoadCallSubmission<RequestType, ResponseType> loadCallSubmission;
-
-        public SubmitUiHandler(Looper looper, LoadCallSubmission<RequestType, ResponseType> loadCallSubmission) {
-            super(looper);
-            this.loadCallSubmission = loadCallSubmission;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case CB_SUCCESS: {
-                    ResponseType response = (ResponseType) msg.obj;
-                    loadCallSubmission.completeWithSuccess(response);
-                    break;
-                }
-                case CB_FAILURE: {
-                    BazaarException bazaarException = (BazaarException) msg.obj;
-                    loadCallSubmission.completeWithFailure(bazaarException);
-                    break;
-                }
-            }
-        }
-    }
-
-    private static class SubmitWorkerHandler<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends Handler {
-        private static final int SUBMIT = 1;
-        private final LoadCallSubmission<RequestType, ResponseType> loadCallSubmission;
-
-        public SubmitWorkerHandler(Looper looper, LoadCallSubmission<RequestType, ResponseType> loadCallSubmission) {
-            super(looper);
-            this.loadCallSubmission = loadCallSubmission;
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case SUBMIT: {
-                    try {
-                        ResponseType response = loadCallSubmission.legacyLoadAsyncBehavior();
-                        loadCallSubmission.dispatchCompleteWithSuccess(response);
-                    } catch (BazaarException e) {
-                        loadCallSubmission.dispatchCompleteWithFailure(e);
-                    }
-                    break;
-                }
             }
         }
     }
@@ -316,9 +244,287 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         }
     }
 
+    // endregion
+
+    // region v7 network call routing
+
+    /**
+     * @return Response
+     * @throws ConversationsSubmissionException caught errors or request errors
+     */
+    @WorkerThread
+    public ResponseType loadSubmissionSync() throws ConversationsSubmissionException {
+        if (isMain()) {
+            throw ConversationsSubmissionException.withCallOnMainThread();
+        }
+        return submitFlowV7();
+    }
+
+    /**
+     * @param callback Callback for submission request
+     */
+    public void loadAsync(final ConversationsSubmissionCallback<ResponseType> callback) {
+        this.submitV7Callback = callback;
+        dispatchSubmitV7();
+    }
+
+    private ResponseType submitFlowV7() throws ConversationsSubmissionException {
+        boolean isPreview = submissionRequest.getAction() == Action.Preview;
+        boolean isForm = submissionRequest.getAction() == Action.Form;
+        if (isPreview || isForm) {
+            // If the user chose preview, simply submit request
+            return submitV7();
+        } else {
+            // Send preview request for user incase we need to see error values, since
+            // FormErrors do not return for Action=Submit
+            submissionRequest.setForcePreview(true);
+            ResponseType previewResponse = submitV7();
+            if (!previewResponse.getHasErrors()) {
+                return previewResponse;
+            }
+
+            // If it is a valid request, follow through with a full submit
+            if (submissionRequest.getPhotoUploads() != null && submissionRequest.getPhotoUploads().size() > 0) {
+                // If the user wants to submit photos, submit each of them, collect the metadata,
+                // and associate it with the submission request
+                try {
+                    List<Photo> photos = postPhotosAndSubmissionSync(submissionRequest.getPhotoUploads());
+                    submissionRequest.setPhotos(photos);
+                } catch (BazaarException e) {
+                    e.printStackTrace();
+                }
+            }
+            // Toggle back to no be force preview anymore
+            submissionRequest.setForcePreview(false);
+            return submitV7();
+        }
+    }
+
+    private ResponseType submitV7() throws ConversationsSubmissionException {
+        ResponseType conversationResponse = null;
+        ConversationsSubmissionException exception = null;
+
+        final Request okRequest = requestFactory.create(submissionRequest);
+        call = okHttpClient.newCall(okRequest);
+        Response response = null;
+        try {
+            response = call.execute();
+            if (!response.isSuccessful()) {
+                exception = ConversationsSubmissionException.withNoRequestErrors("Unsuccessful response HTTP error code: " + response.code());
+            } else {
+                try {
+                    conversationResponse = deserializeAndCloseResponseV7(response);
+                } catch (ConversationsSubmissionException e) {
+                    exception = e;
+                }
+            }
+
+            if (conversationResponse != null) {
+                if (!conversationResponse.getHasErrors()) {
+                    conversationsAnalyticsManager.sendSuccessfulConversationsSubmitResponse(submissionRequest);
+                } else {
+                    List<Error> errors = Collections.emptyList();
+                    List<FieldError> fieldErrors = Collections.emptyList();
+                    List<FormField> formFields = Collections.emptyList();
+
+                    if (conversationResponse.getErrors() != null) {
+                        errors = conversationResponse.getErrors();
+                    }
+                    if (conversationResponse instanceof ConversationsSubmissionResponse) {
+                        final ConversationsSubmissionResponse submissionResponse = ((ConversationsSubmissionResponse)conversationResponse);
+                        fieldErrors = submissionResponse.getFieldErrors();
+                        formFields = submissionResponse.getFormFields();
+                        addFormFieldsToFieldErrors(formFields, fieldErrors);
+                    }
+
+                    exception = ConversationsSubmissionException.withRequestErrors(errors, fieldErrors);
+                }
+            }
+        } catch (IOException e) {
+            exception = ConversationsSubmissionException.withNoRequestErrors("Execution of call failed", e);
+        } catch (Throwable t) {
+            exception = ConversationsSubmissionException.withNoRequestErrors("Unknown error", t);
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
+        }
+
+        if (exception != null) {
+            throw exception;
+        }
+
+        return conversationResponse;
+    }
+
+    private static void addFormFieldsToFieldErrors(List<FormField> formFields, List<FieldError> fieldErrors) {
+        for (FieldError fieldError : fieldErrors) {
+            final FormField formField = findFormFieldForError(formFields, fieldError);
+            fieldError.setFormField(formField);
+        }
+    }
+
+    @Nullable
+    private static FormField findFormFieldForError(List<FormField> formFields, FieldError fieldError) {
+        for (FormField formField : formFields) {
+            if (formField.getId().equals(fieldError.getField())) {
+                return formField;
+            }
+        }
+        return null;
+    }
+
+    @AnyThread
+    private void dispatchSubmitV7() {
+        submitWorkerHandler.sendMessage(submitWorkerHandler.obtainMessage(SubmitWorkerHandler.SUBMIT_V7));
+    }
+
+    @WorkerThread
+    private void dispatchCompleteV7WithSuccess(ResponseType response) {
+        submitUiHandler.sendMessage(submitUiHandler.obtainMessage(SubmitUiHandler.CB_SUCCESS_V7, response));
+    }
+
+    @WorkerThread
+    private void dispatchCompleteV7WithFailure(ConversationsSubmissionException exception) {
+        submitUiHandler.sendMessage(submitUiHandler.obtainMessage(SubmitUiHandler.CB_FAILURE_V7, exception));
+    }
+
+    @MainThread
+    private void completeWithSuccessV7(ResponseType response) {
+        if (submitV7Callback != null) {
+            submitV7Callback.onSuccess(response);
+            submitV7Callback = null;
+        }
+    }
+
+    @MainThread
+    private void completeWithFailureV7(ConversationsSubmissionException exception) {
+        if (submitV7Callback != null) {
+            submitV7Callback.onFailure(exception);
+            submitV7Callback = null;
+        }
+    }
+
+    // endregion
+
+    private List<Photo> postPhotosAndSubmissionSync(List<PhotoUpload> photoUploads) throws BazaarException {
+        d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
+        final List<Photo> photos = new ArrayList<>();
+
+        try {
+            for (PhotoUpload upload : photoUploads) {
+                final PhotoUploadRequest uploadRequest = new PhotoUploadRequest.Builder(upload).build();
+                final Request okRequest = requestFactory.create(uploadRequest);
+                Call photoCall = okHttpClient.newCall(okRequest);
+                Response response = null;
+                try {
+                    response = photoCall.execute();
+                    Photo photo = deserializePhotoResponse(response);
+                    photo.setCaption(upload.getCaption());
+                    photos.add(photo);
+                } finally {
+                    if (response != null) {
+                        response.body().close();
+                    }
+                }
+            }
+        } catch (Throwable e) {
+            throw new BazaarException(e.getMessage());
+        }
+
+        return photos;
+    }
+
+    private Photo deserializePhotoResponse(Response response) throws BazaarException {
+        Reader reader = response.body().charStream();
+        PhotoUploadResponse photoUploadResponse = gson.fromJson(reader, PhotoUploadResponse.class);
+        response.body().close();
+        if (photoUploadResponse.getHasErrors()) {
+            throw new BazaarException("Failed to upload image");
+        }
+        return photoUploadResponse.getPhoto();
+    }
+
+    private static class SubmitUiHandler<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends Handler {
+        private static final int CB_SUCCESS = 1;
+        private static final int CB_FAILURE = 2;
+        private static final int CB_SUCCESS_V7 = 3;
+        private static final int CB_FAILURE_V7 = 4;
+
+        private final LoadCallSubmission<RequestType, ResponseType> loadCallSubmission;
+
+        public SubmitUiHandler(Looper looper, LoadCallSubmission<RequestType, ResponseType> loadCallSubmission) {
+            super(looper);
+            this.loadCallSubmission = loadCallSubmission;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CB_SUCCESS: {
+                    ResponseType response = (ResponseType) msg.obj;
+                    loadCallSubmission.completeWithSuccess(response);
+                    break;
+                }
+                case CB_FAILURE: {
+                    BazaarException bazaarException = (BazaarException) msg.obj;
+                    loadCallSubmission.completeWithFailure(bazaarException);
+                    break;
+                }
+                case CB_SUCCESS_V7: {
+                    ResponseType submissionResponse = (ResponseType) msg.obj;
+                    loadCallSubmission.completeWithSuccessV7(submissionResponse);
+                    break;
+                }
+                case CB_FAILURE_V7: {
+                    ConversationsSubmissionException exception = (ConversationsSubmissionException) msg.obj;
+                    loadCallSubmission.completeWithFailureV7(exception);
+                    break;
+                }
+            }
+        }
+    }
+
+    private static class SubmitWorkerHandler<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends Handler {
+        private static final int SUBMIT = 1;
+        private static final int SUBMIT_V7 = 2;
+        private final LoadCallSubmission<RequestType, ResponseType> loadCallSubmission;
+
+        public SubmitWorkerHandler(Looper looper, LoadCallSubmission<RequestType, ResponseType> loadCallSubmission) {
+            super(looper);
+            this.loadCallSubmission = loadCallSubmission;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SUBMIT: {
+                    try {
+                        ResponseType response = loadCallSubmission.legacyLoadAsyncBehavior();
+                        loadCallSubmission.dispatchCompleteWithSuccess(response);
+                    } catch (BazaarException e) {
+                        loadCallSubmission.dispatchCompleteWithFailure(e);
+                    }
+                    break;
+                }
+                case SUBMIT_V7: {
+                    ResponseType submissionResponse = null;
+                    try {
+                        submissionResponse = loadCallSubmission.submitFlowV7();
+                        loadCallSubmission.dispatchCompleteV7WithSuccess(submissionResponse);
+                    } catch (ConversationsSubmissionException e) {
+                        loadCallSubmission.dispatchCompleteV7WithFailure(e);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     @Override
     public void cancel() {
         super.cancel();
         submitCallback = null;
+        submitV7Callback = null;
     }
 }

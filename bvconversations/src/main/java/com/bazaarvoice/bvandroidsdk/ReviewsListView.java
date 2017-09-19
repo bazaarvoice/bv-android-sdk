@@ -20,8 +20,6 @@ package com.bazaarvoice.bvandroidsdk;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import java.lang.ref.WeakReference;
-
 /**
  * @deprecated Used the {@link ReviewsRecyclerView} instead
  *
@@ -29,7 +27,7 @@ import java.lang.ref.WeakReference;
  * {@link ReviewView}s providing usage Analytic events.
  */
 public final class ReviewsListView extends BVListView implements BVConversationsClient.DisplayLoader<ReviewsRequest, ReviewResponse> {
-    private WeakReference<ConversationsCallback<ReviewResponse>> delegateCbWeakRef;
+    private LoadCall call;
     private ConversationsAnalyticsManager convAnMan;
     private String productId;
     private boolean onScreen = false;
@@ -52,35 +50,23 @@ public final class ReviewsListView extends BVListView implements BVConversations
 
     @Override
     public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsCallback<ReviewResponse> callback) {
+        this.call = call;
         convAnMan = call.getConversationsAnalyticsManager();
         final ReviewsRequest reviewsRequest = call.getRequest();
         productId = reviewsRequest.getProductId();
-        delegateCbWeakRef = new WeakReference<ConversationsCallback<ReviewResponse>>(callback);
-        call.loadAsync(receiverCb);
+        call.loadAsync(callback);
         trySendUsedFeatureInViewEvent();
     }
 
-    private ConversationsCallback<ReviewResponse> receiverCb = new ConversationsCallback<ReviewResponse>() {
-        @Override
-        public void onSuccess(ReviewResponse response) {
-            ConversationsCallback<ReviewResponse> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onSuccess(response);
-        }
-
-        @Override
-        public void onFailure(BazaarException exception) {
-            ConversationsCallback<ReviewResponse> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onFailure(exception);
-        }
-    };
+    @Override
+    public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsDisplayCallback<ReviewResponse> callback) {
+        this.call = call;
+        convAnMan = call.getConversationsAnalyticsManager();
+        final ReviewsRequest reviewsRequest = call.getRequest();
+        productId = reviewsRequest.getProductId();
+        call.loadAsync(callback);
+        trySendUsedFeatureInViewEvent();
+    }
 
     @Override
     public void onFirstTimeOnScreen() {
@@ -92,6 +78,15 @@ public final class ReviewsListView extends BVListView implements BVConversations
     public void onViewGroupInteractedWith() {
         if (convAnMan != null) {
             convAnMan.sendUsedFeatureScrolledEvent(productId, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (call != null) {
+            call.cancel();
+            call = null;
         }
     }
 

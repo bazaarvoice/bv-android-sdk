@@ -17,17 +17,26 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.annotation.AnyThread;
+import android.support.annotation.MainThread;
+import android.support.annotation.WorkerThread;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkMain;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkNotMain;
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.isMain;
 
 /**
  *
@@ -35,64 +44,28 @@ import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkNotMain;
  * @param <ResponseType>
  */
 public final class LoadCallDisplay<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends LoadCall<RequestType, ResponseType> {
-
     private final RequestType request;
     private final ConversationsAnalyticsManager conversationsAnalyticsManager;
-    private DisplayDelegateCallback displayDelegateCallback;
+    private final DisplayUiHandler<RequestType, ResponseType> displayUiHandler;
+    private final DisplayWorkerHandler<RequestType, ResponseType> displayWorkerHandler;
+    ConversationsCallback<ResponseType> displayCallback;
+    ConversationsDisplayCallback<ResponseType> displayV7Callback;
 
-    private static class DisplayDelegateCallback<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> implements Callback {
-        private final ConversationsCallback<ResponseType> conversationsCallback;
-        private final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay;
-        private final ConversationsAnalyticsManager conversationsAnalyticsManager;
-
-        public DisplayDelegateCallback(final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay, final ConversationsCallback<ResponseType> conversationsCallback, ConversationsAnalyticsManager conversationsAnalyticsManager) {
-            this.conversationsCallback = conversationsCallback;
-            this.loadCallDisplay = loadCallDisplay;
-            this.conversationsAnalyticsManager = conversationsAnalyticsManager;
-        }
-
-        @Override
-        public void onFailure(Call call, IOException e) {
-            BazaarException bazaarException = new BazaarException("Display request failed", e);
-            loadCallDisplay.errorOnMainThread(conversationsCallback, bazaarException);
-        }
-
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
-            try {
-                ConversationsResponse conversationResponse = null;
-                BazaarException error = null;
-                if (!response.isSuccessful()) {
-                    error = new BazaarException("Unsuccessful response for Conversations with error code: " + response.code());
-                } else {
-                    try {
-                        conversationResponse = loadCallDisplay.deserializeAndCloseResponse(response);
-                    } catch (BazaarException t) {
-                        error = t;
-                    }
-                }
-
-                if (error != null) {
-                    loadCallDisplay.errorOnMainThread(conversationsCallback, error);
-                } else {
-                    // Route callbacks to Analytics Manager to handle any analytics that are associated
-                    // with a successful display response
-                    conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
-                    loadCallDisplay.successOnMainThread(conversationsCallback, conversationResponse);
-                }
-            } finally {
-                if (response != null) {
-                    response.body().close();
-                }
-            }
-        }
-    }
-
-    LoadCallDisplay(RequestType request, Class<ResponseType> responseTypeClass, Call call, ConversationsAnalyticsManager conversationsAnalyticsManager, OkHttpClient okHttpClient, Gson gson) {
+    LoadCallDisplay(
+        RequestType request,
+        Class<ResponseType> responseTypeClass,
+        Call call,
+        ConversationsAnalyticsManager conversationsAnalyticsManager,
+        OkHttpClient okHttpClient,
+        Gson gson,
+        Looper uiLooper,
+        Looper bgLooper) {
         super(responseTypeClass, okHttpClient, gson);
         this.call = call;
         this.request = request;
         this.conversationsAnalyticsManager = conversationsAnalyticsManager;
+        this.displayUiHandler = new DisplayUiHandler<>(uiLooper, this);
+        this.displayWorkerHandler = new DisplayWorkerHandler<>(bgLooper, this);
     }
 
     RequestType getRequest() {
@@ -103,9 +76,9 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         return conversationsAnalyticsManager;
     }
 
-    @Override
-    public ResponseType loadSync() throws BazaarException {
-        checkNotMain();
+    // region v6 network call routing
+
+    private ResponseType fetch() throws BazaarException {
         ResponseType conversationResponse;
         Response response = null;
         try {
@@ -113,10 +86,13 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             conversationResponse = deserializeAndCloseResponse(response);
             // Route callbacks to Analytics Manager to handle any analytics that are associated
             // with a successful display response
-//            ConversationsAnalyticsManager convAnalyticManager = ConversationsAnalyticsManager.getInstance(BVSDK.getInstance());
             conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+        } catch (IOException e) {
+            throw new BazaarException("Execution of call failed", e);
+        } catch (BazaarException e) {
+            throw e;
         } catch (Throwable t) {
-            throw new BazaarException(t.getMessage());
+            throw new BazaarException("Unknown exception", t);
         } finally {
             if (response != null) {
                 response.body().close();
@@ -126,23 +102,227 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         return conversationResponse;
     }
 
+    /**
+     * @deprecated Use {@link #loadDisplaySync()} instead
+     *
+     * @return Response
+     * @throws BazaarException caught errors
+     */
+    @Override
+    public ResponseType loadSync() throws BazaarException {
+        checkNotMain();
+        return fetch();
+    }
+
+    /**
+     * @deprecated Use {@link #loadAsync(ConversationsDisplayCallback)} instead
+     *
+     * @param conversationsCallback Callback to be performed
+     */
     @Override
     public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
         checkMain();
-        BazaarException error = request.getError();
+        displayCallback = conversationsCallback;
+        dispatchFetch();
+    }
 
-        if (error != null) {
-            errorOnMainThread(conversationsCallback, error);
-            return;
+    @AnyThread
+    private void dispatchFetch() {
+        displayWorkerHandler.sendMessage(displayWorkerHandler.obtainMessage(DisplayWorkerHandler.FETCH));
+    }
+
+    @WorkerThread
+    private void dispatchCompleteWithFailure(BazaarException e) {
+        displayUiHandler.sendMessage(displayUiHandler.obtainMessage(LoadCallDisplay.DisplayUiHandler.CB_FAILURE, e));
+    }
+
+    @WorkerThread
+    private void dispatchCompleteWithSuccess(ResponseType response) {
+        displayUiHandler.sendMessage(displayUiHandler.obtainMessage(LoadCallDisplay.DisplayUiHandler.CB_SUCCESS, response));
+    }
+
+    @MainThread
+    private void completeWithFailure(BazaarException e) {
+        if (displayCallback != null) {
+            displayCallback.onFailure(e);
+            displayCallback = null;
+        }
+    }
+
+    @MainThread
+    private void completeWithSuccess(ResponseType response) {
+        if (displayCallback != null) {
+            displayCallback.onSuccess(response);
+            displayCallback = null;
+        }
+    }
+
+    // endregion
+
+    // region v7 network call routing
+
+    private ResponseType fetchV7() throws ConversationsException {
+        ResponseType conversationResponse;
+        Response response = null;
+        try {
+            response = call.execute();
+            conversationResponse = deserializeAndCloseResponseV7(response);
+            if (conversationResponse != null && !conversationResponse.getHasErrors()) {
+                // Route callbacks to Analytics Manager to handle any analytics that are associated
+                // with a successful display response
+                conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+            } else {
+                List<Error> errors = Collections.emptyList();
+                if (conversationResponse != null && conversationResponse.getErrors() != null) {
+                    errors = conversationResponse.getErrors();
+                }
+                throw ConversationsException.withRequestErrors(errors);
+            }
+        } catch (IOException e) {
+            throw ConversationsException.withNoRequestErrors("Execution of call failed", e);
+        } catch (ConversationsException e) {
+            throw e;
+        } catch (Throwable t) {
+            throw ConversationsException.withNoRequestErrors("Unknown exception", t);
+        } finally {
+            if (response != null) {
+                response.body().close();
+            }
         }
 
-        this.displayDelegateCallback = new DisplayDelegateCallback<RequestType, ResponseType>(this, conversationsCallback, conversationsAnalyticsManager);
-        this.call.enqueue(displayDelegateCallback);
+        return conversationResponse;
     }
+
+    /**
+     * @return Response
+     * @throws ConversationsException caught errors or request errors
+     */
+    @WorkerThread
+    public ResponseType loadDisplaySync() throws ConversationsException {
+        if (isMain()) {
+            throw ConversationsException.withCallOnMainThread();
+        }
+        return fetchV7();
+    }
+
+    /**
+     * @param callback Callback for display request
+     */
+    public void loadAsync(final ConversationsDisplayCallback<ResponseType> callback) {
+        checkMain();
+        displayV7Callback = callback;
+        dispatchFetchV7();
+    }
+
+    @AnyThread
+    private void dispatchFetchV7() {
+        displayWorkerHandler.sendMessage(displayWorkerHandler.obtainMessage(DisplayWorkerHandler.FETCH_V7));
+    }
+
+    @WorkerThread
+    private void dispatchCompleteWithFailureV7(ConversationsException e) {
+        displayUiHandler.sendMessage(displayUiHandler.obtainMessage(DisplayUiHandler.CB_FAILURE_V7, e));
+    }
+
+    @WorkerThread
+    private void dispatchCompleteWithSuccessV7(ResponseType response) {
+        displayUiHandler.sendMessage(displayUiHandler.obtainMessage(DisplayUiHandler.CB_SUCCESS_V7, response));
+    }
+
+    @MainThread
+    private void completeWithFailureV7(ConversationsException e) {
+        if (displayV7Callback != null) {
+            displayV7Callback.onFailure(e);
+            displayV7Callback = null;
+        }
+    }
+
+    @MainThread
+    private void completeWithSuccessV7(ResponseType response) {
+        if (displayV7Callback != null) {
+            displayV7Callback.onSuccess(response);
+            displayV7Callback = null;
+        }
+    }
+
+    // endregion
 
     @Override
     public void cancel() {
         super.cancel();
-        displayDelegateCallback = null;
+        displayCallback = null;
+    }
+
+    private static class DisplayUiHandler<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends Handler {
+        private static final int CB_SUCCESS = 1;
+        private static final int CB_FAILURE = 2;
+        private static final int CB_SUCCESS_V7 = 3;
+        private static final int CB_FAILURE_V7 = 4;
+
+        private final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay;
+
+        public DisplayUiHandler(Looper looper, LoadCallDisplay<RequestType, ResponseType> loadCallDisplay) {
+            super(looper);
+            this.loadCallDisplay = loadCallDisplay;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case CB_SUCCESS: {
+                    ResponseType response = (ResponseType) msg.obj;
+                    loadCallDisplay.completeWithSuccess(response);
+                    break;
+                }
+                case CB_FAILURE: {
+                    BazaarException bazaarException = (BazaarException) msg.obj;
+                    loadCallDisplay.completeWithFailure(bazaarException);
+                    break;
+                }
+                case CB_SUCCESS_V7: {
+                    ResponseType response = (ResponseType) msg.obj;
+                    loadCallDisplay.completeWithSuccessV7(response);
+                    break;
+                }
+                case CB_FAILURE_V7: {
+                    ConversationsException exception = (ConversationsException) msg.obj;
+                    loadCallDisplay.completeWithFailureV7(exception);
+                }
+            }
+        }
+    }
+
+    private static class DisplayWorkerHandler<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends Handler {
+        private static final int FETCH = 1;
+        private static final int FETCH_V7 = 2;
+        private final LoadCallDisplay<RequestType, ResponseType> loadCallDisplay;
+
+        public DisplayWorkerHandler(Looper looper, LoadCallDisplay<RequestType, ResponseType> loadCallDisplay) {
+            super(looper);
+            this.loadCallDisplay = loadCallDisplay;
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case FETCH: {
+                    try {
+                        ResponseType response = loadCallDisplay.fetch();
+                        loadCallDisplay.dispatchCompleteWithSuccess(response);
+                    } catch (BazaarException e) {
+                        loadCallDisplay.dispatchCompleteWithFailure(e);
+                    }
+                    break;
+                }
+                case FETCH_V7: {
+                    try {
+                        ResponseType response = loadCallDisplay.fetchV7();
+                        loadCallDisplay.dispatchCompleteWithSuccessV7(response);
+                    } catch (ConversationsException e) {
+                        loadCallDisplay.dispatchCompleteWithFailureV7(e);
+                    }
+                }
+            }
+        }
     }
 }

@@ -19,7 +19,8 @@ ext {
         supportLibraryVersion : '25.2.0',
         gimbalVersion : '2.46',
         playServicesVersion : '11.0.0',
-        robolectric: '3.2.2'
+        robolectric: '3.4.2',
+        robolectricAddOn : '3.4-rc2'
     ]
 
     sdkBuildDep = [
@@ -53,7 +54,7 @@ ext {
         junit               : 'junit:junit:4.12',
         mockito             : 'org.mockito:mockito-core:2.7.17',
         robolectric         : "org.robolectric:robolectric:$sdkSharedVersions.robolectric",
-        roboPlayServices    : "org.robolectric:shadows-play-services:$sdkSharedVersions.robolectric",
+        roboPlayServices    : "org.robolectric:shadows-play-services:$sdkSharedVersions.robolectricAddOn",
         androidJson         : "org.json:json:20160810"
     ]
 

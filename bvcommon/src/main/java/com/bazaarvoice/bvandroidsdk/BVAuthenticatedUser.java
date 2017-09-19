@@ -209,6 +209,10 @@ class BVAuthenticatedUser {
      */
     @MainThread
     public void updateUser(String logSource) {
+        if (apiKey == null || apiKey.equals("REPLACE_ME")) {
+            bvLogger.w(TAG, "Do not call BVSDK#setUserAuthString() with an empty Recommendations API Key");
+            return;
+        }
         Log.v(TAG, "update user backoff start, bvsdk instance: " + hashCode() + " from " + logSource);
 
         // Remove any pending shopper profile update messages from the

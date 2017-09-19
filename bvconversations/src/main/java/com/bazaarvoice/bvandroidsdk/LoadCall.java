@@ -24,7 +24,6 @@ import com.google.gson.JsonSyntaxException;
 import java.io.Reader;
 
 import okhttp3.Call;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
@@ -37,7 +36,6 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
     final Class responseTypeClass;
     final OkHttpClient okHttpClient;
     final Gson gson;
-    final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
     LoadCall(Class<ResponseType> responseTypeClass, OkHttpClient okHttpClient, Gson gson) {
         this.responseTypeClass = responseTypeClass;
@@ -67,14 +65,13 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
     }
 
     ResponseType deserializeAndCloseResponse(Response response) throws BazaarException {
-        Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
         ResponseType conversationResponse = null;
         BazaarException error = null;
         try {
             Reader jsonReader = response.body().charStream();
             conversationResponse = (ResponseType) gson.fromJson(jsonReader, responseTypeClass);
         } catch (JsonSyntaxException | JsonIOException e) {
-            error = new BazaarException("Unable to parse JSON " + response);
+            error = new BazaarException("Unable to parse JSON");
         } finally {
             if (response != null && response.body() != null) {
                 response.body().close();
@@ -83,7 +80,7 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
 
         if (conversationResponse != null && conversationResponse.getHasErrors()) {
             if (conversationResponse.getErrors().size() > 0) {
-                error = new BazaarException(gson.toJson(conversationResponse.getErrors()));
+                error = new BazaarException("Request has errors");
             }
         }
 
@@ -91,6 +88,23 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
             throw error;
         }
 
+        return conversationResponse;
+    }
+
+    ResponseType deserializeAndCloseResponseV7(Response response) throws ConversationsSubmissionException {
+        ResponseType conversationResponse;
+        try {
+            Reader jsonReader = response.body().charStream();
+            conversationResponse = (ResponseType) gson.fromJson(jsonReader, responseTypeClass);
+        } catch (JsonSyntaxException | JsonIOException e) {
+            throw ConversationsSubmissionException.withNoRequestErrors("Unable to parse JSON", e);
+        } catch (Throwable t) {
+            throw ConversationsSubmissionException.withNoRequestErrors("Unknown error", t);
+        } finally {
+            if (response != null && response.body() != null) {
+                response.body().close();
+            }
+        }
         return conversationResponse;
     }
 

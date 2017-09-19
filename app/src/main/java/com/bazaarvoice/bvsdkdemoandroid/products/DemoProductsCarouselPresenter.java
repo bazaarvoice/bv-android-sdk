@@ -1,13 +1,15 @@
 package com.bazaarvoice.bvsdkdemoandroid.products;
 
+import android.support.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
 import com.bazaarvoice.bvandroidsdk.BulkProductRequest;
 import com.bazaarvoice.bvandroidsdk.BulkProductResponse;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.EqualityOperator;
 import com.bazaarvoice.bvandroidsdk.ProductOptions;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
@@ -89,21 +91,17 @@ public class DemoProductsCarouselPresenter implements DemoProductsContract.Prese
         .addFilter(ProductOptions.Filter.IsActive, EqualityOperator.EQ, "true")
         .addFilter(ProductOptions.Filter.IsDisabled, EqualityOperator.EQ, "false")
         .build();
-    bvConversationsClient.prepareCall(request).loadAsync(conversationsCallback);
+    bvConversationsClient.prepareCall(request).loadAsync(bulkProductCallback);
   }
 
-  private final ConversationsCallback<BulkProductResponse> conversationsCallback = new ConversationsCallback<BulkProductResponse>() {
+  private final ConversationsDisplayCallback<BulkProductResponse> bulkProductCallback = new ConversationsDisplayCallback<BulkProductResponse>() {
     @Override
-    public void onSuccess(BulkProductResponse response) {
-      if (response.getHasErrors()) {
-        DemoProductsCarouselPresenter.this.onFailure(new IllegalStateException("PDP request has errors"));
-      } else {
-        DemoProductsCarouselPresenter.this.onSuccess(response.getResults());
-      }
+    public void onSuccess(@NonNull BulkProductResponse response) {
+      DemoProductsCarouselPresenter.this.onSuccess(response.getResults());
     }
 
     @Override
-    public void onFailure(BazaarException exception) {
+    public void onFailure(@NonNull ConversationsException exception) {
       DemoProductsCarouselPresenter.this.onFailure(exception);
     }
   };

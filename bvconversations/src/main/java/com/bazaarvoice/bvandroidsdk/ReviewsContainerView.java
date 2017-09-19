@@ -20,14 +20,12 @@ package com.bazaarvoice.bvandroidsdk;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import java.lang.ref.WeakReference;
-
 /**
  * {@link android.widget.FrameLayout} container for many {@link ReviewView}s
  * providing usage Analytic events.
  */
 public final class ReviewsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<ReviewsRequest, ReviewResponse>, EventView.EventViewListener<ReviewsContainerView>, EventView.ProductView {
-    private WeakReference<ConversationsCallback<ReviewResponse>> delegateCbWeakRef;
+    private LoadCall call;
     private String productId;
     private ConversationsAnalyticsManager convAnMan;
     private boolean onScreen = false;
@@ -56,35 +54,23 @@ public final class ReviewsContainerView extends BVContainerView implements BVCon
 
     @Override
     public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsCallback<ReviewResponse> callback) {
+        this.call = call;
         final ReviewsRequest reviewsRequest = call.getRequest();
         productId = reviewsRequest.getProductId();
         convAnMan = call.getConversationsAnalyticsManager();
-        delegateCbWeakRef = new WeakReference<ConversationsCallback<ReviewResponse>>(callback);
-        call.loadAsync(receiverCb);
+        call.loadAsync(callback);
         trySendUsedFeatureInViewEvent();
     }
 
-    private ConversationsCallback<ReviewResponse> receiverCb = new ConversationsCallback<ReviewResponse>() {
-        @Override
-        public void onSuccess(ReviewResponse response) {
-            ConversationsCallback<ReviewResponse> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onSuccess(response);
-        }
-
-        @Override
-        public void onFailure(BazaarException exception) {
-            ConversationsCallback<ReviewResponse> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onFailure(exception);
-        }
-    };
+    @Override
+    public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsDisplayCallback<ReviewResponse> callback) {
+        this.call = call;
+        final ReviewsRequest reviewsRequest = call.getRequest();
+        productId = reviewsRequest.getProductId();
+        convAnMan = call.getConversationsAnalyticsManager();
+        call.loadAsync(callback);
+        trySendUsedFeatureInViewEvent();
+    }
 
     @Override
     public void onVisibleOnScreenStateChanged(boolean onScreen) {
@@ -95,6 +81,15 @@ public final class ReviewsContainerView extends BVContainerView implements BVCon
     public void onFirstTimeOnScreen() {
         this.onScreen = true;
         trySendUsedFeatureInViewEvent();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (call != null) {
+            call.cancel();
+            call = null;
+        }
     }
 
     private void trySendUsedFeatureInViewEvent() {

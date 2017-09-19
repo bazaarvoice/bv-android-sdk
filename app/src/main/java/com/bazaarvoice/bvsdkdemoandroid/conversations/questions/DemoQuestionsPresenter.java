@@ -3,13 +3,14 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.questions;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.AnswerOptions;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
-import com.bazaarvoice.bvandroidsdk.BazaarException;
-import com.bazaarvoice.bvandroidsdk.ConversationsCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
+import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerRequest;
@@ -18,14 +19,13 @@ import com.bazaarvoice.bvandroidsdk.QuestionOptions;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActionsListener, ConversationsCallback<QuestionAndAnswerResponse> {
+public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActionsListener, ConversationsDisplayCallback<QuestionAndAnswerResponse> {
 
     private static final String TAG = "DemoQsPresenter";
     private DemoQuestionsContract.View view;
@@ -35,15 +35,13 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
     private BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader;
     private boolean fetched = false;
     private BVConversationsClient conversationsClient;
-    private DemoConvResponseHandler demoConvResponseHandler;
     private boolean forceAPICall;
 
-    public DemoQuestionsPresenter(DemoQuestionsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader, DemoConvResponseHandler demoConvResponseHandler) {
+    public DemoQuestionsPresenter(DemoQuestionsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse> loader) {
         this.view = view;
         this.conversationsClient = bvConversationsClient;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;
-        this.demoConvResponseHandler = demoConvResponseHandler;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
         this.loader = loader;
@@ -121,22 +119,11 @@ public class DemoQuestionsPresenter implements DemoQuestionsContract.UserActions
 
     @Override
     public void onSuccess(QuestionAndAnswerResponse response) {
-        demoConvResponseHandler.handleDisplaySuccessResponse(response, new DemoConvResponseHandler.DisplayMessage() {
-            @Override
-            public void onSuccessMessage(String message) {
-
-            }
-
-            @Override
-            public void onErrorMessage(String errorMessage) {
-                view.showDialogWithMessage(errorMessage);
-            }
-        });
         showQuestions(response.getResults());
     }
 
     @Override
-    public void onFailure(BazaarException exception) {
+    public void onFailure(@NonNull ConversationsException exception) {
         view.showDialogWithMessage(exception.getMessage());
         exception.printStackTrace();
         showQuestions(Collections.<Question>emptyList());

@@ -20,14 +20,12 @@ package com.bazaarvoice.bvandroidsdk;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import java.lang.ref.WeakReference;
-
 /**
  * {@link android.widget.FrameLayout} container for many {@link QuestionView}s
  * providing usage Analytic events.
  */
 public final class QuestionsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse>, EventView.EventViewListener<QuestionsContainerView>, EventView.ProductView {
-    private WeakReference<ConversationsCallback<QuestionAndAnswerResponse>> delegateCbWeakRef;
+    private LoadCallDisplay call;
     private String productId;
     private ConversationsAnalyticsManager convAnMan;
     private boolean onScreen = false;
@@ -56,35 +54,32 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
 
     @Override
     public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsCallback<QuestionAndAnswerResponse> callback) {
+        this.call = call;
         convAnMan = call.getConversationsAnalyticsManager();
         final QuestionAndAnswerRequest qAndARequest = call.getRequest();
         productId = qAndARequest.getProductId();
-        delegateCbWeakRef = new WeakReference<ConversationsCallback<QuestionAndAnswerResponse>>(callback);
-        call.loadAsync(receiverCb);
+        call.loadAsync(callback);
         trySendUsedFeatureInViewEvent();
     }
 
-    private ConversationsCallback<QuestionAndAnswerResponse> receiverCb = new ConversationsCallback<QuestionAndAnswerResponse>() {
-        @Override
-        public void onSuccess(QuestionAndAnswerResponse response) {
-            ConversationsCallback<QuestionAndAnswerResponse> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onSuccess(response);
-        }
+    @Override
+    public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsDisplayCallback<QuestionAndAnswerResponse> callback) {
+        this.call = call;
+        convAnMan = call.getConversationsAnalyticsManager();
+        final QuestionAndAnswerRequest qAndARequest = call.getRequest();
+        productId = qAndARequest.getProductId();
+        call.loadAsync(callback);
+        trySendUsedFeatureInViewEvent();
+    }
 
-        @Override
-        public void onFailure(BazaarException exception) {
-            ConversationsCallback<QuestionAndAnswerResponse> delegateCb = delegateCbWeakRef.get();
-            if (delegateCb == null) {
-                return;
-            }
-            delegateCbWeakRef.clear();
-            delegateCb.onFailure(exception);
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (call != null) {
+            call.cancel();
+            call = null;
         }
-    };
+    }
 
     @Override
     public void onFirstTimeOnScreen() {
