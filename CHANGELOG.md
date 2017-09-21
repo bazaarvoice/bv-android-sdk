@@ -1,5 +1,16 @@
 # Changelog
 
+# 6.11.0
+
+## Conversations
+* Added `ErrorCode` enum to parse the code strings from the `Errors` JSON field
+* Added `Error#getErrorCode()` method for getting the enum
+* Added unit tests for invalid error code parsing, valid error code parsing, and generic error list parsing
+* Added `SubmissionErrorCode` enum to parse the code strings from the `FieldErrors` JSON field for submission
+* Added `FieldError#getErrorCode()` method for getting the enum
+* Added unit tests for invalid field error code parsing, valid field error code parsing, and generic field error 
+list parsing
+
 # 6.10.0
 
 ## Conversations
