@@ -1,5 +1,34 @@
 # Changelog
 
+# 6.10.0
+
+## Conversations
+* Add `Author#getSecondaryRatingList()`
+* Add `BaseReview#getSecondaryRatingList()`
+* Add `IncludeContentBase#getBadgeList()`
+* Add `IncludeContentBase#getContextDataValueList()`
+* Fix `BaseReviewBuilder#addContextDataValueString(String dataValueName, boolean value)` to be 
+named `BaseReviewBuilder#addContextDataValueBoolean(String dataValueName, boolean value)`
+* Remove empty `ReviewSubmissionRequest#newBuilder()` method
+* Add `ConversationsSubmissionRequest.Builder#addCustomSubmissionParameter(String key, String value)`
+* Add internal FormPair class to store user custom form parameters
+* Add `ConversationsDisplayRequest.Builder#ConversationsDisplayRequest.Builder#addCustomDisplayParameter(String key, String value)`
+* Deprecated `ConversationsDisplayRequest.Builder#addAdditionalField(String key, String value)` 
+in favor of `addCustomDisplayParameter`
+* Added `FormInputType` enum to introduce a strongly typed version of `String type = FormField#getType()`. 
+The possible values were taken from [the conversations docs on input types](https://developer.bazaarvoice.com/conversations-api/tutorials/submission/input-types). This will allow for easier parsing of which form fields have many options. e.g.
+
+```java
+final FormInputType formInputType = formField.getFormInputType();
+switch(formInputType) {
+  case FormInputType.SELECT: {
+    List<FormFieldOption> options = formField.getFormFieldOptions();
+    // present options to user
+    break;
+  }
+}
+```
+
 # 6.9.1
 
 ## Conversations
