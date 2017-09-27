@@ -1,5 +1,83 @@
 # Changelog
 
+# 6.12.0
+
+## Conversations
+
+### New success/failure routing, and new Action type
+
+#### Guide
+
+Previously fetching form data and parsing form errors was difficult. Not all paths of `Action` routed to the same callback, and most error paths did not have the required data to parse programmatically. All of the previous APIs for doing these things remains in the 6.x SDK for now, but has been marked as deprecated in favor of these new APIs.
+
+##### Get Form Data
+
+```kotlin
+val submitReq = ReviewSubmissionReq.Builder(Action.Form, "testProd") // NEW ACTION TYPE
+  .build()
+client.prepareCall(submitReq).loadAsync({
+  (resp) -> {
+    val hasErrors = resp.getHasErrors() // not required to check anymore, always false in success
+    val formFields = resp.getFormFields() // null-safe list of available form options
+    for (formField in formFields) {
+      val isRequired = formField.isRequired()  // indicates you must send this field
+    }      
+  }, 
+  (convSubmitException) -> {
+    val bvErrors = convSubmitException.getErrors() // null-safe list of generic errors
+    val bvFormErrors = convSubmitException.getFieldErrors() // null-safe list of form errors
+  }
+})
+```
+
+##### Test Submission
+
+```kotlin
+val submitReq = ReviewSubmissionReq.Builder(Action.Preview, "testProd")
+  .build()
+client.prepareCall(submitReq).loadAsync({
+  (resp) -> {
+    // all good, change Action to Submit to actually send   
+  }, 
+  (convSubmitException) -> {
+    val bvErrors = convSubmitException.getErrors() 
+    val bvFieldErrors = convSubmitException.getFieldErrors() 
+    for (fieldError in bvFieldErrors) {
+      val submissionErrorCode = fieldError.getSubmissionErrorCode()
+      val relevantFormField = fieldError.getFormField() // gets the form field info
+    }
+  }
+})
+```
+
+##### Submit
+
+Same as Test Submission, except use `Action.Submit` and it actually sends.
+
+#### Details
+* Added `Action.Form` for submission to route to success without required form fields. `Action.Preview` and `Action.Submit` will always route to failure if all required form fields are not provided
+* Added `ConversationsDisplayCallback`
+* Added `ConversationsSubmissionCallback`
+* Added `ConversationsException` which has `#getErrors()`
+* Added `ConversationsSubmissionException` which has `#getFieldErrors()`
+* Added `LoadCallDisplay#loadDisplaySync()`
+* Deprecated `LoadCallDisplay#loadSync()` in favor of `LoadCallDisplay#loadDisplaySync()`
+* Added `LoadCallDisplay#loadAsync(conversationsDisplayCallback)`
+* Deprecated `LoadCallDisplay#loadAsync(conversationsCallback)` in favor of `LoadCallDisplay#loadAsync(conversationsDisplayCallback)`
+* Added `LoadCallSubmission#loadSubmissionSync()`
+* Deprecated `LoadCallSubmission#loadSync()` in favor of `LoadCallSubmission#loadSubmissionSync()`
+* Added `LoadCallSubmission#loadAsync(conversationsSubmissionCallback)`
+* Deprecated `LoadCallSubmission#loadAsync(conversationsCallback)` in favor of `LoadCallSubmission#loadAsync(conversationsSubmissionCallback)`
+
+### Other Stuff
+* Update `BazaarRuntimeException` to not cause StackOverflowException
+* Update JSON parse failure message
+* Update `BVErrors` exist message
+* Added `BVConversationsClientTest` to test all routes 
+* Updated Robolectric version for testing
+* Added testing shadow for network security
+
+
 # 6.11.0
 
 ## Conversations
