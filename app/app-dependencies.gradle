@@ -3,9 +3,9 @@ ext {
     // Sdk and tools
     demoAppBuildInfo = [
         minSdkVersion : 15,
-        targetSdkVersion : 25,
+        targetSdkVersion : 26,
         compileSdkVersion : 26,
-        buildToolsVersion : '25.0.1',
+        buildToolsVersion : '26.0.2',
         sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
         targetCompatibilityVersion : JavaVersion.VERSION_1_7
     ]
