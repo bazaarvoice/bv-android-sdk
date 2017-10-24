@@ -148,6 +148,11 @@ class BasicRequestFactory implements RequestFactory {
   private static final String PHOTO_SUBMIT_ENDPOINT = "data/uploadphoto.json";
   private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
   // endregion
+
+  // region Get UAS Keys
+  private static final String AUTHENTICATE_USER_ENDPOINT = "data/authenticateuser.json";
+  private static final String KEY_AUTH_TOKEN = "authtoken";
+  // endregion
   // endregion
 
   // region Instance Fields
@@ -204,6 +209,8 @@ class BasicRequestFactory implements RequestFactory {
       return createFromCommentSubmissionRequest((CommentSubmissionRequest) request);
     } else if (request instanceof PhotoUploadRequest) {
       return createFromPhotoUploadRequest((PhotoUploadRequest) request);
+    } else if (request instanceof UserAuthenticationStringRequest) {
+      return createFromUserAuthenticationStringRequest((UserAuthenticationStringRequest) request);
     }
     throw new IllegalStateException("Unknown request type: " + request.getClass().getCanonicalName());
   }
@@ -703,6 +710,38 @@ class BasicRequestFactory implements RequestFactory {
 
     RequestBody requestBody = multiPartBuilder.build();
     HttpUrl httpUrl = httpUrlBuilder.build();
+
+    Headers.Builder headersBuilder = new Headers.Builder();
+    addCommonHeaders(headersBuilder, bvSdkUserAgent);
+    Headers headers = headersBuilder.build();
+
+    return okRequestBuilder
+        .url(httpUrl)
+        .headers(headers)
+        .post(requestBody)
+        .build();
+  }
+
+  private Request createFromUserAuthenticationStringRequest(UserAuthenticationStringRequest request) {
+    final Request.Builder okRequestBuilder = new Request.Builder();
+    final HttpUrl httpUrl = HttpUrl.parse(bvRootApiUrl)
+        .newBuilder()
+        .addPathSegments(AUTHENTICATE_USER_ENDPOINT)
+        .build();
+
+    final FormBody.Builder formBodyBuilder = new FormBody.Builder();
+
+    // Don't want all of the common submission params. They should be broken up to be more composable.
+    // Unit tests for this class do a good job of showing how they could be broken up.
+    formPutSafe(formBodyBuilder, kAPI_VERSION, API_VERSION);
+    formPutSafe(formBodyBuilder, kPASS_KEY, convApiKey);
+    formPutSafe(formBodyBuilder, KEY_AUTH_TOKEN, request.getAuthToken());
+    formPutSafe(formBodyBuilder, kAPP_ID, bvMobileInfo.getMobileAppIdentifier());
+    formPutSafe(formBodyBuilder, kAPP_VERSION, bvMobileInfo.getMobileAppVersion());
+    formPutSafe(formBodyBuilder, kBUILD_NUM, bvMobileInfo.getMobileAppCode());
+    formPutSafe(formBodyBuilder, kSDK_VERSION, bvMobileInfo.getBvSdkVersion());
+
+    final RequestBody requestBody = formBodyBuilder.build();
 
     Headers.Builder headersBuilder = new Headers.Builder();
     addCommonHeaders(headersBuilder, bvSdkUserAgent);
