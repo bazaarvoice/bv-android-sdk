@@ -24,22 +24,12 @@ import com.google.gson.annotations.SerializedName;
  * a helpfulness vote or inappropriate feedback response.
  */
 public class FeedbackSubmissionResponse extends ConversationsSubmissionResponse {
-
-    @SerializedName("Locale")
-    private String locale;
-    @SerializedName("SubmissionId")
-    private String submissionId;
-    @SerializedName("TypicalHoursToPost")
-    private Integer typicalHoursToPost;
-    @SerializedName("Feedback")
-    private SubmittedFeedback feedback;
+    @SerializedName("Locale") private String locale;
+    @SerializedName("TypicalHoursToPost") private Integer typicalHoursToPost;
+    @SerializedName("Feedback") private SubmittedFeedback feedback;
 
     public String getLocale() {
         return locale;
-    }
-
-    public String getSubmissionId() {
-        return submissionId;
     }
 
     public Integer getTypicalHoursToPost() {
@@ -49,5 +39,4 @@ public class FeedbackSubmissionResponse extends ConversationsSubmissionResponse 
     public SubmittedFeedback getFeedback() {
         return feedback;
     }
-
 }

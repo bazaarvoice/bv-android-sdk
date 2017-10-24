@@ -135,7 +135,6 @@ public class RequestFactoryUtils {
     assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fwww.callback.url");
     assertFormBodyContainsKeyValEncoded(okRequest, "campaignid", genericFormBodyParams.getCampaignId());
     assertFormBodyContainsKeyValEncoded(okRequest, "locale", genericFormBodyParams.getLocale());
-    assertFormBodyContainsKeyValEncoded(okRequest, "User", genericFormBodyParams.getUser());
     assertFormBodyContainsKeyValEncoded(okRequest, "UserEmail", "user%40email.com");
     assertFormBodyContainsKeyValEncoded(okRequest, "UserLocation", "Austin%2C%20TX");
     assertFormBodyContainsKeyValEncoded(okRequest, "sendemailalertwhenpublished", genericFormBodyParams.getSendEmailAlert());
@@ -280,8 +279,9 @@ public class RequestFactoryUtils {
         .reasonFlaggedText("Fantastic review. Would recommend 100%!")
         .userId(genericFormBodyParams.getUserId())
         .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
         .fingerPrint(genericFormBodyParams.getFingerprint())
+        .authenticationProvider(genericFormBodyParams.getAuthProvider())
+        .user(genericFormBodyParams.getUser())
         .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
         .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
         .campaignId(genericFormBodyParams.getCampaignId())
@@ -313,8 +313,9 @@ public class RequestFactoryUtils {
         .addVideoUrl("https://www.website.com/video.mp4", "Totes cool 100%!")
         .userId(genericFormBodyParams.getUserId())
         .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
         .fingerPrint(genericFormBodyParams.getFingerprint())
+        .authenticationProvider(genericFormBodyParams.getAuthProvider())
+        .user(genericFormBodyParams.getUser())
         .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
         .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
         .campaignId(genericFormBodyParams.getCampaignId())
@@ -350,8 +351,9 @@ public class RequestFactoryUtils {
         .addVideoUrl("https://www.website.com/video.mp4", "Totes cool 100%!")
         .userId(genericFormBodyParams.getUserId())
         .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
         .fingerPrint(genericFormBodyParams.getFingerprint())
+        .user(genericFormBodyParams.getUser())
+        .authenticationProvider(genericFormBodyParams.getAuthProvider())
         .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
         .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
         .campaignId(genericFormBodyParams.getCampaignId())
@@ -372,8 +374,9 @@ public class RequestFactoryUtils {
         .sendEmailAlertWhenAnswered(true)
         .userId(genericFormBodyParams.getUserId())
         .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
         .fingerPrint(genericFormBodyParams.getFingerprint())
+        .authenticationProvider(genericFormBodyParams.getAuthProvider())
+        .user(genericFormBodyParams.getUser())
         .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
         .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
         .campaignId(genericFormBodyParams.getCampaignId())
@@ -390,8 +393,9 @@ public class RequestFactoryUtils {
     final AnswerSubmissionRequest request = new AnswerSubmissionRequest.Builder(Action.Preview, "question1", "Some great answer $% here")
         .userId(genericFormBodyParams.getUserId())
         .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
         .fingerPrint(genericFormBodyParams.getFingerprint())
+        .authenticationProvider(genericFormBodyParams.getAuthProvider())
+        .user(genericFormBodyParams.getUser())
         .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
         .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
         .campaignId(genericFormBodyParams.getCampaignId())
@@ -409,8 +413,9 @@ public class RequestFactoryUtils {
         .title("Something **great**!")
         .userId(genericFormBodyParams.getUserId())
         .userNickname(genericFormBodyParams.getUserNickname())
-        .user(genericFormBodyParams.getUser())
         .fingerPrint(genericFormBodyParams.getFingerprint())
+        .authenticationProvider(genericFormBodyParams.getAuthProvider())
+        .user(genericFormBodyParams.getUser())
         .hostedAuthenticationEmail(genericFormBodyParams.getHostedAuthEmail())
         .hostedAuthenticationCallback(genericFormBodyParams.getHostedAuthCbUrl())
         .campaignId(genericFormBodyParams.getCampaignId())
@@ -475,6 +480,10 @@ public class RequestFactoryUtils {
 
     public String getFingerprint() {
       return fingerprint;
+    }
+
+    public AuthenticationProvider getAuthProvider() {
+      return new BVHostedAuthenticationProvider(hostedAuthEmail, hostedAuthCbUrl);
     }
 
     public String getHostedAuthEmail() {

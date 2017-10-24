@@ -80,6 +80,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
                 .netPromoterComment("comment")
                 .campaignId("campaignId")
                 .fingerPrint("fingerprint")
+                .authenticationProvider(new BVHostedAuthenticationProvider("someuas"))
                 .hostedAuthenticationEmail("hostedAuthEmail")
                 .locale("locale")
                 .user("user")

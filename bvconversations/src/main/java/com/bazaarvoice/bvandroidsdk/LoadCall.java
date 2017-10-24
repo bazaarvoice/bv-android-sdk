@@ -33,7 +33,7 @@ import okhttp3.Response;
  */
 abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType extends ConversationsResponse> {
     Call call;
-    final Class responseTypeClass;
+    final Class<ResponseType> responseTypeClass;
     final OkHttpClient okHttpClient;
     final Gson gson;
 

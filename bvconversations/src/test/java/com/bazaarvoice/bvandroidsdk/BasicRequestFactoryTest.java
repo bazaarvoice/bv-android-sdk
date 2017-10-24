@@ -282,6 +282,61 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void submissionBvHostedAuthStage1_shouldChooseHostedAuthProviderOnly() throws Exception {
+    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "prod1")
+        .authenticationProvider(new BVHostedAuthenticationProvider("red@email.com", "https://red.com/auth"))
+        .hostedAuthenticationEmail("blue@email.com")
+        .hostedAuthenticationCallback("https://blue.com/auth")
+        .user("uasbleh")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_authenticationemail", "red%40email.com");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fred.com%2Fauth");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "User", "uasbleh", false);
+  }
+
+  @Test
+  public void submissionBvHostedAuthStage2_shouldChooseHostedAuthProviderOnly() throws Exception {
+    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "prod1")
+        .authenticationProvider(new BVHostedAuthenticationProvider("bvhosteduas"))
+        .hostedAuthenticationEmail("blue@email.com")
+        .hostedAuthenticationCallback("https://blue.com/auth")
+        .user("uasbleh")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_authenticationemail", "blue%40email.com", false);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fblue.com%2Fauth", false);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "User", "bvhosteduas");
+  }
+
+  @Test
+  public void submissionSiteAuth_shouldChooseSiteAuthOnly() throws Exception {
+    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "prod1")
+        .authenticationProvider(new SiteAuthenticationProvider("siteauthuas"))
+        .hostedAuthenticationEmail("blue@email.com")
+        .hostedAuthenticationCallback("https://blue.com/auth")
+        .user("uasbleh")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_authenticationemail", "blue%40email.com", false);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fblue.com%2Fauth", false);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "User", "siteauthuas");
+  }
+
+  @Test
+  public void submissionAuthPieceMeal_shouldExist() throws Exception {
+    final ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "prod1")
+        .hostedAuthenticationEmail("blue@email.com")
+        .hostedAuthenticationCallback("https://blue.com/auth")
+        .user("uasbleh")
+        .build();
+    final Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_authenticationemail", "blue%40email.com");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "hostedauthentication_callbackurl", "https%3A%2F%2Fblue.com%2Fauth");
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "User", "uasbleh");
+  }
+
+  @Test
   public void feedbackSubmissionShouldHaveBVSDKFormParams() throws Exception {
     final Request okRequest = requestFactoryUtils.createFullFeedbackSubmissionRequest();
     System.out.println(okRequest.toString());

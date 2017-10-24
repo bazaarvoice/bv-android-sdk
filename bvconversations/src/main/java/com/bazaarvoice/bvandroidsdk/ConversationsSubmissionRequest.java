@@ -32,6 +32,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     // region Builder Fields
     private final String campaignId;
     private final String fingerPrint;
+    private final AuthenticationProvider authenticationProvider;
     private final String hostedAuthenticationEmail;
     private final String hostedAuthenticationCallback;
     private final String locale;
@@ -51,6 +52,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         this.builder = builder;
         this.campaignId = builder.campaignId;
         this.fingerPrint = builder.fingerPrint;
+        this.authenticationProvider = builder.authenticationProvider;
         this.hostedAuthenticationEmail = builder.hostedAuthenticationEmail;
         this.hostedAuthenticationCallback = builder.hostedAuthenticationCallback;
         this.locale = builder.locale;
@@ -97,6 +99,10 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
     String getFingerPrint() {
         return fingerPrint;
+    }
+
+    AuthenticationProvider getAuthenticationProvider() {
+        return authenticationProvider;
     }
 
     String getHostedAuthenticationEmail() {
@@ -171,6 +177,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     public abstract static class Builder<BuilderChildType extends Builder> {
         private String campaignId;
         private String fingerPrint;
+        private AuthenticationProvider authenticationProvider;
         private String hostedAuthenticationEmail;
         private String hostedAuthenticationCallback;
         private String locale;
@@ -217,11 +224,29 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
             return (BuilderChildType)this;
         }
 
+        public BuilderChildType authenticationProvider(AuthenticationProvider authenticationProvider) {
+            this.authenticationProvider = authenticationProvider;
+            return (BuilderChildType) this;
+        }
+
+        /**
+         * @deprecated Use {@link #authenticationProvider(AuthenticationProvider)} instead
+         *
+         * @param hostedAuthenticationEmail The email address that a user will be sent a confirmation email to
+         * @return This builder
+         */
         public BuilderChildType hostedAuthenticationEmail(String hostedAuthenticationEmail) {
             this.hostedAuthenticationEmail = hostedAuthenticationEmail;
             return (BuilderChildType)this;
         }
 
+        /**
+         * @deprecated Use {@link #authenticationProvider(AuthenticationProvider)} instead
+         *
+         * @param hostedAuthenticationCallback The URL that BV will add to the confirmation email for a user to
+         *                                     tap/click
+         * @return This builder
+         */
         public BuilderChildType hostedAuthenticationCallback(String hostedAuthenticationCallback) {
             this.hostedAuthenticationCallback = hostedAuthenticationCallback;
             return (BuilderChildType)this;
@@ -232,6 +257,13 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
             return (BuilderChildType)this;
         }
 
+        /**
+         * @deprecated Use {@link #authenticationProvider(AuthenticationProvider)} instead
+         *
+         * @param user The User Authentication String (UAS) for a user that has granted this application permission
+         *             to submit on their behalf.
+         * @return This builder
+         */
         public BuilderChildType user(String user) {
             this.user = user;
             return (BuilderChildType)this;
@@ -266,13 +298,6 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
             this.sendEmailAlertWhenPublished = sendEmailAlertWhenPublished;
             return (BuilderChildType)this;
         }
-
-        /**
-         * TODO: Need the ability for users to add whatever form params they want.
-         * addAdditionalParams is actually something specific to review submission
-         * So we still need a name for a generic submission method. Display requests
-         * unknowingly supported extra query params with the name addAdditionalField
-          */
 
         /**
          * Only available for Review, Question, and Answer unless PRR.
