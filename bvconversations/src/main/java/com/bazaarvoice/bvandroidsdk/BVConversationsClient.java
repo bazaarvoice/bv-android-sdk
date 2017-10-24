@@ -148,6 +148,10 @@ public final class BVConversationsClient {
         return factoryCreateSubmissionCall(CommentSubmissionResponse.class, submission);
     }
 
+    public LoadCallSubmission<UserAuthenticationStringRequest, UserAuthenticationStringResponse> prepareCall(UserAuthenticationStringRequest request) {
+        return factoryCreateSubmissionCall(UserAuthenticationStringResponse.class, request);
+    }
+
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> factoryCreateDisplayCall(Class<ResponseType> responseTypeClass, RequestType request) {
         final Request okRequest = requestFactory.create(request);
         return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager, okHttpClient, gson, uiLooper, bgLooper);

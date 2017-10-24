@@ -423,6 +423,11 @@ public class RequestFactoryUtils {
     return requestFactory.create(request);
   }
 
+  public Request createFullUserAuthTokenSubmissionRequest() {
+    final UserAuthenticationStringRequest request = new UserAuthenticationStringRequest("testAuthToken");
+    return requestFactory.create(request);
+  }
+
   public GenericFormBodyParams createGenericFormBodyParams() {
     return new GenericFormBodyParams(
         "fooser",

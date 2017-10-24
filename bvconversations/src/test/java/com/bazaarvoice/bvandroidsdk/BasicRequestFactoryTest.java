@@ -568,4 +568,22 @@ public class BasicRequestFactoryTest {
     final Request okRequest = requestFactoryUtils.createFullCommentSubmissionRequest();
     requestFactoryUtils.assertFinalPathIs(okRequest.url(), "submitreviewcomment.json");
   }
+
+  @Test
+  public void userAuthTokenSubmission_shouldHave_BVMobileInfoFormParams() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullUserAuthTokenSubmissionRequest();
+    requestFactoryUtils.assertContainsBVMobileInfoFormParams(okRequest);
+  }
+
+  @Test
+  public void userAuthTokenSubmission_shouldHave_ownFormParams() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullUserAuthTokenSubmissionRequest();
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "authtoken", "testAuthToken");
+  }
+
+  @Test
+  public void userAuthTokenSubmission_finalPath() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullUserAuthTokenSubmissionRequest();
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "authenticateuser.json");
+  }
 }
