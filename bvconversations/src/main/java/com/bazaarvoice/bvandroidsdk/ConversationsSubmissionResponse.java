@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class ConversationsSubmissionResponse extends ConversationsResponse {
   @SerializedName("Data") private FormData formData;
   @SerializedName("FormErrors") private FormError formErrors;
+  @SerializedName("SubmissionId") private String submissionId;
 
   /**
    * @deprecated Use the null-safe {@link #getFormFields()} instead
@@ -64,5 +65,9 @@ public abstract class ConversationsSubmissionResponse extends ConversationsRespo
     }
 
     return fieldErrors;
+  }
+
+  public String getSubmissionId() {
+    return submissionId;
   }
 }

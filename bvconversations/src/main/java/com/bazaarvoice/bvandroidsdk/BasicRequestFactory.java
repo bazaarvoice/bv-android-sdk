@@ -838,10 +838,26 @@ class BasicRequestFactory implements RequestFactory {
     formPutSafe(formBodyBuilder, kSDK_VERSION, bvMobileInfo.getBvSdkVersion());
     formPutSafe(formBodyBuilder, kCAMPAIGN_ID, request.getCampaignId());
     formPutSafe(formBodyBuilder, kFINGER_PRINT, fingerprintProvider.getFingerprint());
-    formPutSafe(formBodyBuilder, kHOSTED_AUTH_EMAIL, request.getHostedAuthenticationEmail());
-    formPutSafe(formBodyBuilder, kHOST_AUTH_CALLBACK, request.getHostedAuthenticationCallback());
+
+    // Authentication Provider field should always override any other authentication piecemeal settings
+    if (request.getAuthenticationProvider() != null) {
+      final AuthenticationProvider authenticationProvider = request.getAuthenticationProvider();
+      if (authenticationProvider instanceof BVHostedAuthenticationProvider) {
+        final BVHostedAuthenticationProvider bvHostedAuthenticationProvider = (BVHostedAuthenticationProvider) authenticationProvider;
+        formPutSafe(formBodyBuilder, kHOSTED_AUTH_EMAIL, bvHostedAuthenticationProvider.getUserEmailAddress());
+        formPutSafe(formBodyBuilder, kHOST_AUTH_CALLBACK, bvHostedAuthenticationProvider.getCallbackUrl());
+        formPutSafe(formBodyBuilder, kUSER, bvHostedAuthenticationProvider.getUas());
+      } else if (authenticationProvider instanceof SiteAuthenticationProvider) {
+        final SiteAuthenticationProvider siteAuthenticationProvider = (SiteAuthenticationProvider) authenticationProvider;
+        formPutSafe(formBodyBuilder, kUSER, siteAuthenticationProvider.getUas());
+      }
+    } else {
+      formPutSafe(formBodyBuilder, kHOSTED_AUTH_EMAIL, request.getHostedAuthenticationEmail());
+      formPutSafe(formBodyBuilder, kHOST_AUTH_CALLBACK, request.getHostedAuthenticationCallback());
+      formPutSafe(formBodyBuilder, kUSER, request.getUser());
+    }
+
     formPutSafe(formBodyBuilder, kLOCALE, request.getLocale());
-    formPutSafe(formBodyBuilder, kUSER, request.getUser());
     formPutSafe(formBodyBuilder, kUSER_EMAIL, request.getUserEmail());
     formPutSafe(formBodyBuilder, kUSER_ID, request.getUserId());
     formPutSafe(formBodyBuilder, kUSER_LOCATION, request.getUserLocation());
