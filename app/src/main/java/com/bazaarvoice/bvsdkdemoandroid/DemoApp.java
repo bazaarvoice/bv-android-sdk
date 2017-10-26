@@ -7,7 +7,6 @@ package com.bazaarvoice.bvsdkdemoandroid;
 import android.app.Application;
 import android.content.Context;
 
-import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
@@ -51,9 +50,6 @@ public class DemoApp extends Application {
                 .demoClientConfigModule(new DemoClientConfigModule())
                 .demoBvModule(new DemoBvModule())
                 .build();
-        BVSDK bvsdk = appComponent.getBvSdk();
-        // Set user auth string which you may not have until after a user signs in
-        bvsdk.setUserAuthString(DemoConstants.BV_USER_AUTH_STRING);
     }
 
     public static void cleanUp() {

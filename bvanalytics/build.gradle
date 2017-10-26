@@ -1,12 +1,3 @@
-buildscript {
-  dependencies {
-    classpath sdkBuildDep.androidPlugin
-    classpath sdkBuildDep.credentialsPlugin
-    classpath sdkBuildDep.jacocoPlugin
-    classpath sdkBuildDep.dexCountPlugin
-  }
-}
-
 apply from: rootProject.file('gradle/base-module-android.gradle')
 
 android {
@@ -18,20 +9,20 @@ android {
 }
 
 dependencies {
-  compile sdkDep.supportAnnotations
-  compile sdkDep.playServiceAds
-  compile sdkDep.okhttp3
+  implementation sdkDep.supportAnnotations
+  implementation sdkDep.playServiceAds
+  implementation sdkDep.okhttp3
 
   // Dependencies for local unit tests
-  testCompile sdkTestDep.junit
-  testCompile sdkTestDep.mockito
-  testCompile sdkTestDep.mockWebServer
-  testCompile sdkTestDep.robolectric
-  testCompile sdkTestDep.roboPlayServices
-  testCompile sdkDep.gson
-  testCompile sdkTestDep.androidJson
+  testImplementation sdkTestDep.junit
+  testImplementation sdkTestDep.mockito
+  testImplementation sdkTestDep.mockWebServer
+  testImplementation sdkTestDep.robolectric
+  testImplementation sdkTestDep.roboPlayServices
+  testImplementation sdkDep.gson
+  testImplementation sdkTestDep.androidJson
+  testImplementation sdkDep.playServiceAds
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
-

@@ -169,13 +169,9 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupFab() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showReviewDialog();
-            }
-        });
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final DemoRouter router = new DemoRouter(this);
+        fab.setOnClickListener(v -> router.transitionToSubmitReviewActivity(productId));
     }
 
     private void setupHeader() {

@@ -15,10 +15,8 @@
  *
  */
 
-package com.bazaarvoice.bvsdkdemoandroid;
+package com.bazaarvoice.bvsdkdemoandroid.mvp;
 
-public interface DemoBaseView<PresenterType extends DemoBasePresenter> {
-
-    void setPresenter(PresenterType presenter);
-
+public interface DemoBasePresenter {
+    void start();
 }

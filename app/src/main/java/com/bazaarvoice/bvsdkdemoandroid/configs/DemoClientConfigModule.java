@@ -21,11 +21,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.google.gson.Gson;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,7 +32,7 @@ import dagger.Provides;
 @Module
 public class DemoClientConfigModule {
     @Provides @DemoAppScope
-    DemoClientConfigUtils provideDemoConfigUtils(@Named("AppContext") Context context, BazaarEnvironment bazaarEnvironment,
+    DemoClientConfigUtils provideDemoConfigUtils(@DemoAppContext Context context, BazaarEnvironment bazaarEnvironment,
                                                  DemoMultiTenantSource demoMultiTenantSource,
                                                  DemoSingleTenantSource demoSingleTenantSource, SharedPreferences sharedPrefs) {
         return new DemoClientConfigUtils(

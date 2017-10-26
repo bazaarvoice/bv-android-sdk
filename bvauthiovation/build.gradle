@@ -1,12 +1,3 @@
-buildscript {
-  dependencies {
-    classpath sdkBuildDep.androidPlugin
-    classpath sdkBuildDep.credentialsPlugin
-    classpath sdkBuildDep.jacocoPlugin
-    classpath sdkBuildDep.dexCountPlugin
-  }
-}
-
 repositories {
   flatDir {
     dir 'libs'
@@ -16,17 +7,22 @@ repositories {
 apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 
 dependencies {
-  compile('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-release-2.3.3:2.3.3@aar')
-  compile project(':bvconversations')
-  provided sdkDep.gson
-  provided sdkDep.okhttp3
-  provided sdkDep.supportAnnotations
+  implementation('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-release-2.3.3:2.3.3@aar')
+  implementation project(':bvconversations')
+  compileOnly project(':bvcommon')
+  compileOnly sdkDep.gson
+  compileOnly sdkDep.okhttp3
+  compileOnly sdkDep.supportAnnotations
 
   // Dependencies for local unit tests
-  testCompile sdkTestDep.junit
-  testCompile sdkTestDep.mockito
-  testCompile sdkTestDep.mockWebServer
-  testCompile sdkTestDep.robolectric
+  testCompileOnly sdkTestDep.junit
+  testCompileOnly sdkTestDep.mockito
+  testCompileOnly sdkTestDep.mockWebServer
+  testCompileOnly sdkTestDep.robolectric
+  testCompileOnly project(':bvcommon')
+  testCompileOnly project(':bvanalytics')
+  testCompileOnly sdkDep.gson
+  testCompileOnly sdkDep.playServiceAds
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

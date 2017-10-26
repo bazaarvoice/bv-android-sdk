@@ -18,8 +18,8 @@
 package com.bazaarvoice.bvsdkdemoandroid.author;
 
 import com.bazaarvoice.bvandroidsdk.Badge;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBasePresenter;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBaseView;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBasePresenter;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBaseView;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
-import com.bazaarvoice.bvsdkdemoandroid.DemoBasePresenter;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBaseView;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBasePresenter;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBaseView;
 
 public interface DemoConvApiContract {
   interface View extends DemoBaseView<Presenter> {
