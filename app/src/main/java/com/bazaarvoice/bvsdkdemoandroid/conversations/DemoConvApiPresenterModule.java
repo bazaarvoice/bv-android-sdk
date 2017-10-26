@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoActivityScope;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 
 import javax.inject.Named;
 
@@ -24,7 +25,7 @@ public class DemoConvApiPresenterModule {
   }
 
   @Provides @Named("DefaultRequiredId")
-  String provideDefaultRequiredId(@Named("AppContext") Context context) {
+  String provideDefaultRequiredId(@DemoAppContext Context context) {
     return context.getResources().getString(R.string.required_id);
   }
 }

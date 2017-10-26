@@ -1,8 +1,8 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.comments;
 
 import com.bazaarvoice.bvandroidsdk.Comment;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBasePresenter;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBaseView;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBasePresenter;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBaseView;
 
 import java.util.List;
 

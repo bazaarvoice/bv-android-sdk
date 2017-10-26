@@ -19,261 +19,259 @@ apply plugin: 'signing'
 apply plugin: 'nu.studer.credentials'
 
 def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false
+  return VERSION_NAME.contains("SNAPSHOT") == false
 }
 
 def isOpenSourceRelease() {
-    return hasProperty('openSourceRelease') && openSourceRelease.toBoolean()
+  return hasProperty('openSourceRelease') && openSourceRelease.toBoolean()
 }
 
 def getReleaseRepositoryUrl() {
-    if (isOpenSourceRelease()) {
-        // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
-        return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+  if (isOpenSourceRelease()) {
+    // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
+    return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+  } else {
+    if (hasProperty('RELEASE_REPOSITORY_URL')) {
+      // else get the BV Maven Repo URL if it exists
+      return RELEASE_REPOSITORY_URL
     } else {
-        if (hasProperty('RELEASE_REPOSITORY_URL')) {
-            // else get the BV Maven Repo URL if it exists
-            return RELEASE_REPOSITORY_URL
-        } else {
-            throw new GradleException("RELEASE_REPOSITORY_URL must be defined in " +
-                    "~/.gradle/gradle.properties and point to the internal BV maven repo")
-        }
+      throw new GradleException("RELEASE_REPOSITORY_URL must be defined in " +
+          "~/.gradle/gradle.properties and point to the internal BV maven repo")
     }
+  }
 }
 
 def getSnapshotRepositoryUrl() {
-    if (isOpenSourceRelease()) {
-        // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
-        return "https://oss.sonatype.org/content/repositories/snapshots/"
+  if (isOpenSourceRelease()) {
+    // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
+    return "https://oss.sonatype.org/content/repositories/snapshots/"
+  } else {
+    if (hasProperty('SNAPSHOT_REPOSITORY_URL')) {
+      // else get the BV Maven Repo URL if it exists
+      return SNAPSHOT_REPOSITORY_URL
     } else {
-        if (hasProperty('SNAPSHOT_REPOSITORY_URL')) {
-            // else get the BV Maven Repo URL if it exists
-            return SNAPSHOT_REPOSITORY_URL
-        } else {
-            throw new GradleException("SNAPSHOT_REPOSITORY_URL must be defined in " +
-                    "~/.gradle/gradle.properties and point to the internal BV maven repo")
-        }
+      throw new GradleException("SNAPSHOT_REPOSITORY_URL must be defined in " +
+          "~/.gradle/gradle.properties and point to the internal BV maven repo")
     }
+  }
 }
 
 def getRepositoryUsername() {
-    if (isOpenSourceRelease()) {
-        if (hasProperty('OPEN_SOURCE_NEXUS_USER')) {
-            return OPEN_SOURCE_NEXUS_USER
-        } else {
-            throw new GradleException("OPEN_SOURCE_NEXUS_USER must be defined in " +
-                    "~/.gradle/gradle.properties")
-        }
+  if (isOpenSourceRelease()) {
+    if (hasProperty('OPEN_SOURCE_NEXUS_USER')) {
+      return OPEN_SOURCE_NEXUS_USER
     } else {
-        if (hasProperty('NEXUS_USER')) {
-            return NEXUS_USER
-        } else {
-            throw new GradleException("NEXUS_USER must be defined in " +
-                    "~/.gradle/gradle.properties")
-        }
+      throw new GradleException("OPEN_SOURCE_NEXUS_USER must be defined in " +
+          "~/.gradle/gradle.properties")
     }
+  } else {
+    if (hasProperty('NEXUS_USER')) {
+      return NEXUS_USER
+    } else {
+      throw new GradleException("NEXUS_USER must be defined in " +
+          "~/.gradle/gradle.properties")
+    }
+  }
 }
 
 def getRepositoryPassword() {
-    if (isOpenSourceRelease()) {
-        if (credentials.OPEN_SOURCE_NEXUS_PASSWORD != null) {
-            return credentials.OPEN_SOURCE_NEXUS_PASSWORD
-        } else {
-            throw new GradleException("OPEN_SOURCE_NEXUS_PASSWORD must be defined in " +
-                    "~/.gradle/gradle.encrypted.properties")
-        }
+  if (isOpenSourceRelease()) {
+    if (credentials.OPEN_SOURCE_NEXUS_PASSWORD != null) {
+      return credentials.OPEN_SOURCE_NEXUS_PASSWORD
     } else {
-        if (credentials.NEXUS_PASSWORD != null) {
-            return credentials.NEXUS_PASSWORD
-        } else {
-            throw new GradleException("NEXUS_PASSWORD must be defined in " +
-                    "~/.gradle/gradle.encrypted.properties")
-        }
+      throw new GradleException("OPEN_SOURCE_NEXUS_PASSWORD must be defined in " +
+          "~/.gradle/gradle.encrypted.properties")
     }
+  } else {
+    if (credentials.NEXUS_PASSWORD != null) {
+      return credentials.NEXUS_PASSWORD
+    } else {
+      throw new GradleException("NEXUS_PASSWORD must be defined in " +
+          "~/.gradle/gradle.encrypted.properties")
+    }
+  }
 }
 
-afterEvaluate { project ->
-    if (isReleasing) { // Only add the uploadArchives task if we are releasing
-        uploadArchives {
-            logger.info("BVSDK Upload Archives for " + POM_ARTIFACT_ID)
+afterEvaluate {
+  if (isReleasing) { // Only add the uploadArchives task if we are releasing
+    uploadArchives {
+      logger.info("BVSDK Upload Archives for " + POM_ARTIFACT_ID)
 
-            repositories {
-                mavenDeployer {
-                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+      repositories {
+        mavenDeployer {
+          beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                    pom.groupId = GROUP
-                    pom.artifactId = POM_ARTIFACT_ID
-                    pom.version = VERSION_NAME
+          pom.groupId = GROUP
+          pom.artifactId = POM_ARTIFACT_ID
+          pom.version = VERSION_NAME
 
-                    repository(url: getReleaseRepositoryUrl()) {
-                        authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                    }
-                    snapshotRepository(url: getSnapshotRepositoryUrl()) {
-                        authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                    }
+          repository(url: getReleaseRepositoryUrl()) {
+            authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+          }
+          snapshotRepository(url: getSnapshotRepositoryUrl()) {
+            authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+          }
 
-                    pom.project {
-                        name POM_NAME
-                        packaging POM_PACKAGING
-                        description POM_DESCRIPTION
-                        url POM_URL
+          pom.project {
+            name POM_NAME
+            packaging POM_PACKAGING
+            description POM_DESCRIPTION
+            url POM_URL
 
-                        scm {
-                            url POM_SCM_URL
-                            connection POM_SCM_CONNECTION
-                            developerConnection POM_SCM_DEV_CONNECTION
-                        }
-
-                        licenses {
-                            license {
-                                name POM_LICENCE_NAME
-                                url POM_LICENCE_URL
-                                distribution POM_LICENCE_DIST
-                            }
-                        }
-
-                        developers {
-                            developer {
-                                id POM_DEVELOPER_ID
-                                name POM_DEVELOPER_NAME
-                            }
-                        }
-                    }
-                }
+            scm {
+              url POM_SCM_URL
+              connection POM_SCM_CONNECTION
+              developerConnection POM_SCM_DEV_CONNECTION
             }
-        }
 
-        signing {
-            required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
-            sign configurations.archives
+            licenses {
+              license {
+                name POM_LICENCE_NAME
+                url POM_LICENCE_URL
+                distribution POM_LICENCE_DIST
+              }
+            }
+
+            developers {
+              developer {
+                id POM_DEVELOPER_ID
+                name POM_DEVELOPER_NAME
+              }
+            }
+          }
         }
+      }
     }
 
-    if (project.getPlugins().hasPlugin('com.android.application') ||
-            project.getPlugins().hasPlugin('com.android.library')) {
-        task install(type: Upload, dependsOn: assemble) {
-            repositories.mavenInstaller {
-                configuration = configurations.archives
+    signing {
+      required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+      sign configurations.archives
+    }
+  }
 
-                pom.groupId = GROUP
-                pom.artifactId = POM_ARTIFACT_ID
-                pom.version = VERSION_NAME
+  if (plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')) {
+    task install(type: Upload, dependsOn: assemble) {
+      repositories.mavenInstaller {
+        configuration = configurations.archives
 
-                pom.project {
-                    name POM_NAME
-                    packaging POM_PACKAGING
-                    description POM_DESCRIPTION
-                    url POM_URL
+        pom.groupId = GROUP
+        pom.artifactId = POM_ARTIFACT_ID
+        pom.version = VERSION_NAME
 
-                    scm {
-                        url POM_SCM_URL
-                        connection POM_SCM_CONNECTION
-                        developerConnection POM_SCM_DEV_CONNECTION
-                    }
+        pom.project {
+          name POM_NAME
+          packaging POM_PACKAGING
+          description POM_DESCRIPTION
+          url POM_URL
 
-                    licenses {
-                        license {
-                            name POM_LICENCE_NAME
-                            url POM_LICENCE_URL
-                            distribution POM_LICENCE_DIST
-                        }
-                    }
+          scm {
+            url POM_SCM_URL
+            connection POM_SCM_CONNECTION
+            developerConnection POM_SCM_DEV_CONNECTION
+          }
 
-                    developers {
-                        developer {
-                            id POM_DEVELOPER_ID
-                            name POM_DEVELOPER_NAME
-                        }
-                    }
-                }
+          licenses {
+            license {
+              name POM_LICENCE_NAME
+              url POM_LICENCE_URL
+              distribution POM_LICENCE_DIST
             }
-        }
+          }
 
-        task androidJavadocs(type: Javadoc) {
-            excludes = ['**/*.kt']
-            source = android.sourceSets.main.java.source
-            classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+          developers {
+            developer {
+              id POM_DEVELOPER_ID
+              name POM_DEVELOPER_NAME
+            }
+          }
         }
+      }
+    }
 
-        afterEvaluate {
-            androidJavadocs.classpath += files(android.libraryVariants.collect { variant ->
-                variant.javaCompile.classpath.files
-            })
-        }
+    task androidJavadocs(type: Javadoc) {
+      excludes = ['**/*.kt']
+      source = android.sourceSets.main.java.source
+      classpath += files(android.getBootClasspath().join(File.pathSeparator))
+    }
 
-        task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-            classifier = 'javadoc'
-            from androidJavadocs.destinationDir
-        }
+    afterEvaluate {
+      androidJavadocs.classpath += files(android.libraryVariants.collect { variant ->
+        variant.javaCompile.classpath.files
+      })
+    }
 
-        task androidSourcesJar(type: Jar) {
-            classifier = 'sources'
-            from android.sourceSets.main.java.source
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+      classifier = 'javadoc'
+      from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+      classifier = 'sources'
+      from android.sourceSets.main.java.source
+    }
+  } else {
+    install {
+      repositories.mavenInstaller {
+        pom.groupId = GROUP
+        pom.artifactId = POM_ARTIFACT_ID
+        pom.version = VERSION_NAME
+
+        pom.project {
+          name POM_NAME
+          packaging POM_PACKAGING
+          description POM_DESCRIPTION
+          url POM_URL
+
+          scm {
+            url POM_SCM_URL
+            connection POM_SCM_CONNECTION
+            developerConnection POM_SCM_DEV_CONNECTION
+          }
+
+          licenses {
+            license {
+              name POM_LICENCE_NAME
+              url POM_LICENCE_URL
+              distribution POM_LICENCE_DIST
+            }
+          }
+
+          developers {
+            developer {
+              id POM_DEVELOPER_ID
+              name POM_DEVELOPER_NAME
+            }
+          }
         }
+      }
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+      classifier = 'sources'
+      from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+      classifier = 'javadoc'
+      from javadoc.destinationDir
+    }
+  }
+
+  if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
+  }
+
+  artifacts {
+    if (plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')) {
+      archives androidSourcesJar
+      archives androidJavadocsJar
     } else {
-        install {
-            repositories.mavenInstaller {
-                pom.groupId = GROUP
-                pom.artifactId = POM_ARTIFACT_ID
-                pom.version = VERSION_NAME
-
-                pom.project {
-                    name POM_NAME
-                    packaging POM_PACKAGING
-                    description POM_DESCRIPTION
-                    url POM_URL
-
-                    scm {
-                        url POM_SCM_URL
-                        connection POM_SCM_CONNECTION
-                        developerConnection POM_SCM_DEV_CONNECTION
-                    }
-
-                    licenses {
-                        license {
-                            name POM_LICENCE_NAME
-                            url POM_LICENCE_URL
-                            distribution POM_LICENCE_DIST
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id POM_DEVELOPER_ID
-                            name POM_DEVELOPER_NAME
-                        }
-                    }
-                }
-            }
-        }
-
-        task sourcesJar(type: Jar, dependsOn: classes) {
-            classifier = 'sources'
-            from sourceSets.main.allSource
-        }
-
-        task javadocJar(type: Jar, dependsOn: javadoc) {
-            classifier = 'javadoc'
-            from javadoc.destinationDir
-        }
+      archives sourcesJar
+      archives javadocJar
     }
-
-    if (JavaVersion.current().isJava8Compatible()) {
-        allprojects {
-            tasks.withType(Javadoc) {
-                options.addStringOption('Xdoclint:none', '-quiet')
-            }
-        }
-    }
-
-    artifacts {
-        if (project.getPlugins().hasPlugin('com.android.application') ||
-                project.getPlugins().hasPlugin('com.android.library')) {
-            archives androidSourcesJar
-            archives androidJavadocsJar
-        } else {
-            archives sourcesJar
-            archives javadocJar
-        }
-    }
+  }
 }

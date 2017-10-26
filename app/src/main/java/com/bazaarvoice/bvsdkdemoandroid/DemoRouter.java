@@ -15,6 +15,7 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.comments.DemoCommentsActiv
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.submit.DemoSubmitReviewActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
@@ -108,5 +109,9 @@ public class DemoRouter {
 
     public void transitionToCommentsActivity(String contentId, boolean isCommentId) {
         DemoCommentsActivity.transitionToCommentsActivity(currentActivityContext, contentId, isCommentId);
+    }
+
+    public void transitionToSubmitReviewActivity(String productId) {
+        DemoSubmitReviewActivity.transitionTo(currentActivityContext, productId);
     }
 }

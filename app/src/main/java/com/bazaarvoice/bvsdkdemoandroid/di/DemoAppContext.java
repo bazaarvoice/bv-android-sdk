@@ -4,7 +4,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.inject.Scope;
+import javax.inject.Qualifier;
 
-@Documented @Scope @Retention(RetentionPolicy.RUNTIME)
-public @interface DemoViewScope {}
+@Documented @Qualifier @Retention(RetentionPolicy.RUNTIME)
+public @interface DemoAppContext {}

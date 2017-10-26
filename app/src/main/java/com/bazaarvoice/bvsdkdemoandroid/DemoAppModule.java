@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -34,8 +35,6 @@ import com.squareup.picasso.Picasso;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.concurrent.Executors;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -52,7 +51,7 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    Picasso providePicasso(@Named("AppContext") Context context, OkHttpClient okHttpClient) {
+    Picasso providePicasso(@DemoAppContext Context context, OkHttpClient okHttpClient) {
         return new Picasso.Builder(context)
                 .defaultBitmapConfig(Bitmap.Config.RGB_565)
                 .downloader(new OkHttp3Downloader(okHttpClient))
@@ -79,7 +78,7 @@ public class DemoAppModule {
     @Provides @DemoAppScope
     HttpLoggingInterceptor provideLoggingInterceptor() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return loggingInterceptor;
     }
 
@@ -93,7 +92,7 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    DemoAssetsUtil provideDemoAssetsUtil(@Named("AppContext") Context context, Gson gson) {
+    DemoAssetsUtil provideDemoAssetsUtil(@DemoAppContext Context context, Gson gson) {
         return new DemoAssetsUtil(context, gson);
     }
 }

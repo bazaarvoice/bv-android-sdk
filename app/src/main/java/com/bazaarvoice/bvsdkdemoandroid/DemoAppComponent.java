@@ -22,7 +22,6 @@ import android.content.Context;
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
-import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
@@ -48,28 +47,23 @@ import com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailCurationsAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailRecAdapter;
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.location.DemoLocationFragment;
 import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinFragment;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoProductsView;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
-import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsAdapter;
-import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHeaderPagerAdapter;
-import com.bazaarvoice.bvsdkdemoandroid.recshome.DemoRecsHomeActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
 import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import javax.inject.Named;
-
 import dagger.Component;
 
 @DemoAppScope
 @Component(modules = {DemoAppModule.class, DemoClientConfigModule.class, DemoBvModule.class, DemoAndroidModule.class})
 public interface DemoAppComponent {
-    BVSDK getBvSdk();
     BVConversationsClient getBvConvClient();
     BVRecommendations getBvRecommendations();
     PinClient getPinClient();
@@ -80,7 +74,7 @@ public interface DemoAppComponent {
     DemoAssetsUtil getDemoAssetsUtil();
     DemoConvResponseHandler getConvResponseHandler();
     Action getSubmitAction();
-    @Named("AppContext") Context getAppContext();
+    @DemoAppContext Context getAppContext();
 
     void inject(DemoAdFragment adsFragment);
     void inject(DemoAnswersActivity activity);
@@ -99,15 +93,12 @@ public interface DemoAppComponent {
     void inject(DemoLocationFragment fragment);
     void inject(DemoPinFragment fragment);
     void inject(DemoRecommendationsFragment fragment);
-    void inject(DemoRecsHomeActivity activity);
     void inject(DemoPreferencesSelectedFragment fragment);
     void inject(DemoApp app);
     void inject(DemoCurationsDetailFragment fragment);
     void inject(DemoCurationsDetailPagerAdapter adapter);
     void inject(DemoProductDetailRecAdapter adapter);
     void inject(DemoProductDetailCurationsAdapter adapter);
-    void inject(DemoRecsAdapter adapter);
-    void inject(DemoRecsHeaderPagerAdapter adapter);
     void inject(DemoCarouselView carousel);
     void inject(DemoProductsView view);
     void inject(DemoStoresActivity activity);

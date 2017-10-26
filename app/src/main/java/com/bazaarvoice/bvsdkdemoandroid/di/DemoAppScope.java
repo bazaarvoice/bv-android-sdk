@@ -17,12 +17,11 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.di;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Scope;
 
-@Scope
-@Retention(RetentionPolicy.RUNTIME)
-public @interface DemoAppScope {
-}
+@Documented @Scope @Retention(RetentionPolicy.RUNTIME)
+public @interface DemoAppScope {}

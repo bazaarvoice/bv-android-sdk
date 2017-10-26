@@ -39,6 +39,13 @@ public class BVHostedAuthenticationProvider implements AuthenticationProvider {
    *   {@code bv_authtoken}.</li>
    *   </ol>
    * </p>
+   * <h2>How to retrieve a {@code UAS}</h2>
+   * <p>
+   *   Once you have the {@code bv_authtoken} from the previous step, you can send off a {@link UserAuthenticationStringRequest},
+   *   which will return a {@link UserAuthenticationStringResponse}. You can then obtain the {@code UAS} by calling,
+   *   {@link UserAuthenticationStringResponse#getUas()}. You should store this for the logged in user to make all
+   *   future requests with the {@link BVHostedAuthenticationProvider#BVHostedAuthenticationProvider(String)} constructor.
+   * </p>
    * <h2>What if I do not send a UAS?</h2>
    * <p>
    *   All content will still be submitted and moderated, and will show up in the display requests.
@@ -65,7 +72,7 @@ public class BVHostedAuthenticationProvider implements AuthenticationProvider {
   /**
    * Use this constructor if you managed to retrieve the UAS for the user.
    *
-   * @param uas The User Authentication String parsed from the query parameters Bazaarvoice appended to your callbackUrl.
+   * @param uas The User Authentication String from the {@link UserAuthenticationStringResponse}
    */
   public BVHostedAuthenticationProvider(String uas) {
     this.userEmailAddress = "";

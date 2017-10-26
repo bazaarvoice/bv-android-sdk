@@ -1,153 +1,149 @@
-buildscript {
-    dependencies {
-        classpath demoAppBuildDep.androidPlugin
-        classpath demoAppBuildDep.crashlyticsPlugin
-        classpath demoAppBuildDep.dexCountPlugin
-    }
-}
-
 repositories {
-    mavenLocal()
-    jcenter()
-    mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
+  mavenLocal()
+  jcenter()
+  mavenCentral()
+  flatDir {
+    dirs 'libs'
+  }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 def hasCrashlyticsKey() {
-    return file('fabric.properties').exists()
+  return file('fabric.properties').exists()
 }
 
 if (hasCrashlyticsKey()) {
-    apply plugin: 'io.fabric'
+  apply plugin: 'io.fabric'
 }
 
 def hasAppdemoBuildSettings() {
-    return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
+  return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
 }
 
 android {
-    compileSdkVersion demoAppBuildInfo.compileSdkVersion
-    buildToolsVersion demoAppBuildInfo.buildToolsVersion
+  compileSdkVersion demoAppBuildInfo.compileSdkVersion
+  buildToolsVersion demoAppBuildInfo.buildToolsVersion
 
-    compileOptions {
-        sourceCompatibility demoAppBuildInfo.sourceCompatibilityVersion
-        targetCompatibility demoAppBuildInfo.targetCompatibilityVersion
-    }
+  compileOptions {
+    sourceCompatibility demoAppBuildInfo.sourceCompatibilityVersion
+    targetCompatibility demoAppBuildInfo.targetCompatibilityVersion
+  }
 
-    dexOptions {
-        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
-        preDexLibraries = preDexEnabled && !isCi
-    }
+  dexOptions {
+    // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+    preDexLibraries = preDexEnabled && !isCi
+  }
 
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/DEPENDENCIES'
-    }
+  packagingOptions {
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/DEPENDENCIES'
+  }
 
-    signingConfigs {
-        NEXUS_USER {
-            if (hasAppdemoBuildSettings()) {
-                storeFile file(BVSDK_DEMOAPP_STORE_FILE)
-                storePassword BVSDK_DEMOAPP_STORE_PASSWORD
-                keyAlias BVSDK_DEMOAPP_KEY_ALIAS
-                keyPassword BVSDK_DEMOAPP_KEY_PASSWORD
-            }
-        }
+  signingConfigs {
+    NEXUS_USER {
+      if (hasAppdemoBuildSettings()) {
+        storeFile file(BVSDK_DEMOAPP_STORE_FILE)
+        storePassword BVSDK_DEMOAPP_STORE_PASSWORD
+        keyAlias BVSDK_DEMOAPP_KEY_ALIAS
+        keyPassword BVSDK_DEMOAPP_KEY_PASSWORD
+      }
     }
+  }
 
-    defaultConfig {
-        minSdkVersion demoAppBuildInfo.minSdkVersion
-        targetSdkVersion demoAppBuildInfo.targetSdkVersion
-        versionCode demoAppVersionCode
-        versionName demoAppVersionName
-        vectorDrawables.useSupportLibrary = true
-    }
+  defaultConfig {
+    minSdkVersion demoAppBuildInfo.minSdkVersion
+    targetSdkVersion demoAppBuildInfo.targetSdkVersion
+    versionCode demoAppVersionCode
+    versionName demoAppVersionName
+    vectorDrawables.useSupportLibrary = true
+  }
 
-    buildTypes {
-        NEXUS_USER {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.NEXUS_USER
-        }
-        debug {
-            applicationIdSuffix '.debug'
-            debuggable true
-        }
+  buildTypes {
+    NEXUS_USER {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      if (hasAppdemoBuildSettings()) {
+        signingConfig signingConfigs.NEXUS_USER
+      }
     }
+    debug {
+      applicationIdSuffix '.debug'
+      debuggable true
+    }
+  }
 
-    buildTypes.each {
-        it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY', String.valueOf(hasCrashlyticsKey())
-    }
+  buildTypes.each {
+    it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY', String.valueOf(hasCrashlyticsKey())
+  }
 
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
 
-    lintOptions {
-        abortOnError false
-    }
+  lintOptions {
+    abortOnError false
+  }
 }
 
 dependencies {
   if (useLocalSdk) {
-    compile project(':bvanalytics')
-    compile project(':bvadvertising')
-    compile project(':bvauthiovation')
-    compile project(':bvrecommendations')
-    compile project(':bvconversations')
-    compile project(':bvcurations')
-    compile project(':bvlocation')
-    compile project(':bvpin')
-    compile project(':bvpinnotifications')
-    compile project(':bvstorenotifications')
-    compile project(':bvcurationsui')
+    implementation project(':bvanalytics')
+    implementation project(':bvadvertising')
+    implementation project(':bvauthiovation')
+    implementation project(':bvrecommendations')
+    implementation project(':bvconversations')
+    implementation project(':bvcurations')
+    implementation project(':bvlocation')
+    implementation project(':bvpin')
+    implementation project(':bvpinnotifications')
+    implementation project(':bvstorenotifications')
+    implementation project(':bvcurationsui')
+    compileOnly project(':bvnotifications')
+    compileOnly project(':bvcommon')
   } else {
-    compile demoAppDep.bvSdkAnalytics
-    compile demoAppDep.bvSdkAds
-    compile demoAppDep.bvSdkAuthIovation
-    compile('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-NEXUS_USER-2.3.3:2.3.3@aar')
-    compile demoAppDep.bvSdkRecommendations
-    compile demoAppDep.bvSdkConversations
-    compile demoAppDep.bvSdkCurations
-    compile demoAppDep.bvSdkPin
-    compile demoAppDep.bvSdkPinNotif
-    compile demoAppDep.bvSdkStoreNotif
-    compile demoAppDep.bvSdkCurationsUi
+    implementation demoAppDep.bvSdkAnalytics
+    implementation demoAppDep.bvSdkAds
+    implementation demoAppDep.bvSdkAuthIovation
+    implementation('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-NEXUS_USER-2.3.3:2.3.3@aar')
+    implementation demoAppDep.bvSdkRecommendations
+    implementation demoAppDep.bvSdkConversations
+    implementation demoAppDep.bvSdkCurations
+    implementation demoAppDep.bvSdkPin
+    implementation demoAppDep.bvSdkPinNotif
+    implementation demoAppDep.bvSdkStoreNotif
+    implementation demoAppDep.bvSdkCurationsUi
   }
-  compile demoAppDep.picasso
-  compile demoAppDep.picassoDownloader
-  compile demoAppDep.gson
-  compile demoAppDep.okhttp3
-  compile demoAppDep.okhttp3Logging
-  compile demoAppDep.prettyTime
-  compile demoAppDep.appCompatV7
-  compile demoAppDep.designCompat
-  compile demoAppDep.supportV4
-  compile demoAppDep.cardview
-  compile demoAppDep.preferenceV7
-  compile demoAppDep.preferenceV14
-  compile demoAppDep.constraintLayout
-  compile demoAppDep.playServiceAds
-  compile demoAppDep.playServiceMaps
-  compile demoAppDep.playServiceLocation
-  compile demoAppDep.circleIndicator
-  compile demoAppDep.dagger
+  implementation demoAppDep.picasso
+  implementation demoAppDep.picassoDownloader
+  implementation demoAppDep.gson
+  implementation demoAppDep.okhttp3
+  implementation demoAppDep.okhttp3Logging
+  implementation demoAppDep.prettyTime
+  implementation demoAppDep.appCompatV7
+  implementation demoAppDep.designCompat
+  implementation demoAppDep.supportV4
+  implementation demoAppDep.cardview
+  implementation demoAppDep.preferenceV7
+  implementation demoAppDep.preferenceV14
+  implementation demoAppDep.constraintLayout
+  implementation demoAppDep.playServiceAds
+  implementation demoAppDep.playServiceMaps
+  implementation demoAppDep.playServiceLocation
+  implementation demoAppDep.dagger
+  implementation 'com.android.support.constraint:constraint-layout:1.0.2'
   annotationProcessor demoAppDep.daggerProcessor
-  compile demoAppDep.stetho
-  compile demoAppDep.stethoOkhttp3
-  compile demoAppDep.butterknife
-  compile demoAppDep.processPhoenix
+  implementation demoAppDep.stetho
+  implementation demoAppDep.stethoOkhttp3
+  implementation demoAppDep.butterknife
+  implementation demoAppDep.processPhoenix
   annotationProcessor demoAppDep.butterknifeCompiler
-  NEXUS_USERCompile demoAppDep.leakCanaryNoOp
-  debugCompile demoAppDep.leakCanary
-  testCompile demoAppTestDep.junit
-  compile(demoAppDep.crashlytics) {
+  NEXUS_USERImplementation demoAppDep.leakCanaryNoOp
+  debugImplementation demoAppDep.leakCanary
+  testImplementation demoAppTestDep.junit
+  implementation(demoAppDep.crashlytics) {
     transitive = true;
   }
 }

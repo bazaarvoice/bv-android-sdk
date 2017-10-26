@@ -1,8 +1,8 @@
 package com.bazaarvoice.bvsdkdemoandroid.products;
 
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBasePresenter;
-import com.bazaarvoice.bvsdkdemoandroid.DemoBaseView;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBasePresenter;
+import com.bazaarvoice.bvsdkdemoandroid.mvp.DemoBaseView;
 
 import java.util.List;
 

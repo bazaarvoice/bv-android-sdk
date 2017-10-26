@@ -1,26 +1,22 @@
-buildscript {
-  dependencies {
-    classpath sdkBuildDep.androidPlugin
-    classpath sdkBuildDep.credentialsPlugin
-    classpath sdkBuildDep.jacocoPlugin
-    classpath sdkBuildDep.dexCountPlugin
-  }
-}
-
 apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 
 dependencies {
-  compile project(':bvcommon')
-  compile project(':bvcurations')
-  provided sdkDep.gson
-  compile sdkDep.appCompatV7
+  implementation project(':bvcommon')
+  implementation project(':bvcurations')
+  implementation sdkDep.appCompatV7
+  compileOnly sdkDep.gson
+  compileOnly sdkDep.recyclerview
 
   // Dependencies for local unit tests
-  testCompile sdkTestDep.junit
-  testCompile sdkTestDep.mockito
-  testCompile sdkTestDep.mockWebServer
-  testCompile sdkTestDep.robolectric
+  testCompileOnly sdkTestDep.junit
+  testCompileOnly sdkTestDep.mockito
+  testCompileOnly sdkTestDep.mockWebServer
+  testCompileOnly sdkTestDep.robolectric
+  testCompileOnly project(':bvanalytics')
+  testCompileOnly sdkDep.gson
+  testCompileOnly sdkDep.playServiceAds
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+

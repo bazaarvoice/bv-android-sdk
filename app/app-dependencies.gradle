@@ -6,8 +6,8 @@ ext {
         targetSdkVersion : 26,
         compileSdkVersion : 26,
         buildToolsVersion : '26.0.2',
-        sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
-        targetCompatibilityVersion : JavaVersion.VERSION_1_7
+        sourceCompatibilityVersion : JavaVersion.VERSION_1_8,
+        targetCompatibilityVersion : JavaVersion.VERSION_1_8
     ]
 
     // App values
@@ -29,9 +29,9 @@ ext {
     ]
 
     demoAppBuildDep = [
-        androidPlugin       : 'com.android.tools.build:gradle:2.3.3',
+        androidPlugin       : 'com.android.tools.build:gradle:3.0.0',
         crashlyticsPlugin   : 'io.fabric.tools:gradle:1.21.6',
-        dexCountPlugin      : 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
+        dexCountPlugin      : 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
     ]
 
     demoAppDep = [
@@ -49,8 +49,6 @@ ext {
         playServiceMaps     : "com.google.android.gms:play-services-maps:$demoAppSharedVersions.playServicesVersion",
         playServiceLocation : "com.google.android.gms:play-services-location:$demoAppSharedVersions.playServicesVersion",
         playAppIndexing     : "com.google.android.gms:play-services-appindexing:$demoAppSharedVersions.playServicesVersion",
-        ddPlist             : 'com.googlecode.plist:dd-plist:1.16',
-        circleIndicator     : 'me.relex:circleindicator:1.2.1@aar',
         gson                : 'com.google.code.gson:gson:2.5',
         okhttp3             : "com.squareup.okhttp3:okhttp:$demoAppSharedVersions.okhttp3Version",
         okhttp3Logging      : "com.squareup.okhttp3:logging-interceptor:$demoAppSharedVersions.okhttp3Version",

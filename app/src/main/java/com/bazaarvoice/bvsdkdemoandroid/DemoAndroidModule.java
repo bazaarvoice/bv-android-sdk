@@ -4,9 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
-
-import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,7 +20,7 @@ public class DemoAndroidModule {
     this.application = application;
   }
 
-  @Provides @Named("AppContext")
+  @Provides @DemoAppContext
   Context provideContext(Application application) {
     return application.getApplicationContext();
   }
@@ -32,7 +31,7 @@ public class DemoAndroidModule {
   }
 
   @Provides @DemoAppScope
-  SharedPreferences provideSharedPrefs(@Named("AppContext") Context context) {
+  SharedPreferences provideSharedPrefs(@DemoAppContext Context context) {
     return context.getSharedPreferences(CONFIG_SHARED_PREFS, Context.MODE_PRIVATE);
   }
 }

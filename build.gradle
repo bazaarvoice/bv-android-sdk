@@ -1,10 +1,25 @@
-subprojects {
-  buildscript {
-    repositories {
-      jcenter()
-      maven { url 'https://maven.fabric.io/public' }
-    }
+buildscript {
+  apply from: rootProject.file('dependencies.gradle')
+  apply from: rootProject.file('app/app-dependencies.gradle')
+
+  repositories {
+    google()
+    jcenter()
+    maven { url 'https://maven.fabric.io/public' }
   }
+
+  dependencies {
+    classpath sdkBuildDep.androidPlugin
+    classpath sdkBuildDep.dexCountPlugin
+    classpath sdkBuildDep.credentialsPlugin
+    classpath sdkBuildDep.jacocoPlugin
+    classpath demoAppBuildDep.crashlyticsPlugin
+  }
+}
+
+subprojects {
+  def isRootProject = rootProject.name.equals(name)
+
   repositories {
     if (rootProject.hasProperty('NEXUS_USER') &&
         rootProject.hasProperty('NEXUS_PASSWORD')) {
@@ -16,29 +31,31 @@ subprojects {
         }
       }
     }
+    google()
     jcenter()
     maven { url 'https://maven.fabric.io/public' }
   }
 
-  plugins.apply('checkstyle')
+  if (!isRootProject) {
+    plugins.apply('checkstyle')
 
-  task('checkstyle', type: Checkstyle) {
-    configFile rootProject.file('checkstyle.xml')
-    source 'src/main/java'
-    ignoreFailures false
-    showViolations true
-    include '**/*.java'
+    task('checkstyle', type: Checkstyle) {
+      configFile rootProject.file('checkstyle.xml')
+      source 'src/main/java'
+      ignoreFailures false
+      showViolations true
+      include '**/*.java'
 
-    classpath = files()
+      classpath = files()
+    }
   }
 
   group = GROUP
   version = VERSION_NAME
 
   afterEvaluate {
-    tasks.findByName('check').dependsOn('checkstyle')
+    if (!isRootProject) {
+      tasks.findByName('check').dependsOn('checkstyle')
+    }
   }
 }
-
-apply from: rootProject.file('dependencies.gradle')
-apply from: rootProject.file('app/app-dependencies.gradle')
