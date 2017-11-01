@@ -386,23 +386,6 @@ public class BVSDK {
         }
 
         /**
-         * @deprecated Now use {@link BVSDK#builder(Application, BazaarEnvironment)} which
-         * will set this value for you
-         *
-         * @param apiKeyPin API Key required to access Post Interaction Notifications API
-         * @return the builder object
-         */
-        public Builder apiKeyPin(String apiKeyPin) {
-            if (apiKeyPin == null || apiKeyPin.isEmpty()) {
-                throw new IllegalArgumentException("apiKeyPin must be valid");
-            }
-            bvConfigBuilder
-                .apiKeyPIN(apiKeyPin)
-                .build();
-            return this;
-        }
-
-        /**
          * @param logLevel The level at which the Bazaarvoice SDK will decide to log
          * @return the builder object
          */

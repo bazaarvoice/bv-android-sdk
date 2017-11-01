@@ -43,7 +43,6 @@ public class BVSDKTest {
     String notificationConfigUrl;
     String curationsApiKey;
     String locationApiKey;
-    String pinApiKey;
 
     @Mock ExecutorService executorService;
     @Mock AnalyticsManager analyticsManager;
@@ -85,7 +84,6 @@ public class BVSDKTest {
         .apiKeyCurations(curationsApiKey)
         .apiKeyLocation(locationApiKey)
         .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-        .apiKeyPIN(pinApiKey)
         .clientId(clientId)
         .dryRunAnalytics(dryRunAnalytics)
         .build();
@@ -316,7 +314,6 @@ public class BVSDKTest {
             .apiKeyCurations(curationsApiKey)
             .apiKeyLocation(locationApiKey)
             .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-            .apiKeyPIN(pinApiKey)
             .dryRunAnalytics(dryRunAnalytics)
             .build();
         new BVSDK.Builder(RuntimeEnvironment.application, environment, badBvConfig)

@@ -18,7 +18,6 @@ public final class BVConfig {
   private final String apiKeyCurations;
   private final String apiKeyLocation;
   private final String apiKeyShopperAdvertising;
-  private final String apiKeyPIN;
   private final String clientId;
   private final boolean dryRunAnalytics;
 
@@ -28,7 +27,6 @@ public final class BVConfig {
     this.apiKeyCurations = builder.apiKeyCurations;
     this.apiKeyLocation = builder.apiKeyLocation;
     this.apiKeyShopperAdvertising = builder.apiKeyShopperAdvertising;
-    this.apiKeyPIN = builder.apiKeyPIN;
     this.clientId = builder.clientId;
     this.dryRunAnalytics = builder.dryRunAnalytics;
   }
@@ -53,10 +51,6 @@ public final class BVConfig {
     return apiKeyShopperAdvertising;
   }
 
-  String getApiKeyPIN() {
-    return apiKeyPIN;
-  }
-
   String getClientId() {
     return clientId;
   }
@@ -75,7 +69,6 @@ public final class BVConfig {
     private String apiKeyCurations;
     private String apiKeyLocation;
     private String apiKeyShopperAdvertising;
-    private String apiKeyPIN;
     private String clientId;
     private boolean dryRunAnalytics = false;
 
@@ -87,7 +80,6 @@ public final class BVConfig {
       this.apiKeyCurations = bvConfig.apiKeyCurations;
       this.apiKeyLocation = bvConfig.apiKeyLocation;
       this.apiKeyShopperAdvertising = bvConfig.apiKeyShopperAdvertising;
-      this.apiKeyPIN = bvConfig.apiKeyPIN;
       this.clientId = bvConfig.clientId;
       this.dryRunAnalytics = bvConfig.dryRunAnalytics;
     }
@@ -114,11 +106,6 @@ public final class BVConfig {
 
     public Builder apiKeyShopperAdvertising(String apiKeyShopperAdvertising) {
       this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
-      return this;
-    }
-
-    public Builder apiKeyPIN(String apiKeyPIN) {
-      this.apiKeyPIN = apiKeyPIN;
       return this;
     }
 

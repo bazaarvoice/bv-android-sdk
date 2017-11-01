@@ -34,7 +34,6 @@ public class DemoClient {
         "REPLACE_ME",
         "00000000-0000-0000-0000-000000000000",
         "REPLACE_ME",
-        "REPLACE_ME",
             MOCK_DISPLAY_NAME,
             true);
     private String apiKeyConversations;
@@ -42,17 +41,15 @@ public class DemoClient {
     private String apiKeyCurations;
     private String apiKeyLocationAndroid;
     private String apiKeyShopperAdvertising;
-    private String apiKeyPIN;
     private String clientId;
     private String displayName;
     private boolean dryRunAnalytics;
 
-    private DemoClient(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocationAndroid, String apiKeyPIN, String clientId, String displayName, boolean dryRunAnalytics) {
+    private DemoClient(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocationAndroid, String clientId, String displayName, boolean dryRunAnalytics) {
         this.apiKeyConversations = apiKeyConversations;
         this.apiKeyConversationsStores = apiKeyConversationsStores;
         this.apiKeyCurations = apiKeyCurations;
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
-        this.apiKeyPIN = apiKeyPIN;
         this.clientId = clientId;
         this.displayName = displayName;
         this.apiKeyLocationAndroid = apiKeyLocationAndroid;
@@ -77,10 +74,6 @@ public class DemoClient {
 
     public String getApiKeyShopperAdvertising() {
         return apiKeyShopperAdvertising;
-    }
-
-    public String getApiKeyPIN() {
-        return apiKeyPIN;
     }
 
     public String getClientId() {
@@ -117,10 +110,6 @@ public class DemoClient {
 
     public boolean hasLocation() {
         return apiKeyLocationAndroid != null && !apiKeyLocationAndroid.equals("REPLACE_ME");
-    }
-
-    public boolean hasPin() {
-        return apiKeyPIN != null && !apiKeyPIN.equals("REPLACE_ME");
     }
 
     public boolean isMockClient() {
@@ -163,7 +152,6 @@ public class DemoClient {
             .apiKeyCurations(getKeyOrReplaceMe(demoClient.getApiKeyCurations()))
             .apiKeyLocation(getKeyOrReplaceMe(demoClient.getApiKeyLocationAndroid()))
             .apiKeyShopperAdvertising(getKeyOrReplaceMe(demoClient.getApiKeyShopperAdvertising()))
-            .apiKeyPIN(getKeyOrReplaceMe(demoClient.getApiKeyPIN()))
             .clientId(getKeyOrReplaceMe(demoClient.getClientId()))
             .dryRunAnalytics(demoClient.isDryRunAnalytics())
             .build();

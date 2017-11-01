@@ -29,7 +29,6 @@ interface DemoAuthorContract {
         void showAuthorNickname(String authorNickname);
         void showAuthorLocation(String authorLocation);
         void showAuthorBadges(List<Badge> badges);
-        void showProductsToReview(boolean show);
         void showRecentReview(boolean show);
         void showRecentReviewImage(String imageUrl);
         void showRecentReviewImage(boolean show);

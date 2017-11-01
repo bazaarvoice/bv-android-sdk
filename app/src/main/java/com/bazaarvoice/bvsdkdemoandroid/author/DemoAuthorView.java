@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Badge;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -53,9 +52,6 @@ public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContra
     @BindView(R.id.reviewProductName) TextView recentReviewProductName;
     @BindView(R.id.authorRecentReviewHeader) TextView recentReviewHeader;
     @BindView(R.id.myRatingHeader) TextView recentReviewMyRatingHeader;
-
-    @BindView(R.id.pinCarouselContainer) DemoCarouselView pinCarousel;
-    @BindView(R.id.separator_2) View separator2;
 
     public DemoAuthorView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -111,12 +107,6 @@ public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContra
                 badgeContainer.addView(spacerView);
             }
         }
-    }
-
-    @Override
-    public void showProductsToReview(boolean show) {
-        pinCarousel.setVisibility(show ? VISIBLE : GONE);
-        separator2.setVisibility(show ? VISIBLE : GONE);
     }
 
     @Override

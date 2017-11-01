@@ -28,7 +28,6 @@ import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.IovationFingerprint;
-import com.bazaarvoice.bvandroidsdk.PinClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader;
@@ -77,11 +76,6 @@ public class DemoBvModule {
     @Provides @DemoAppScope
     Action provideSubmitAction() {
         return DemoConstants.SUBMIT_ACTION;
-    }
-
-    @Provides @DemoAppScope
-    PinClient providePinClient(BVSDK bvsdk) {
-        return new PinClient();
     }
 
     @Provides @DemoAppScope

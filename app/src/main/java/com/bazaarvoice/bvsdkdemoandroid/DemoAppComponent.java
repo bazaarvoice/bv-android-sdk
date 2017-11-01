@@ -22,8 +22,6 @@ import android.content.Context;
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
-import com.bazaarvoice.bvandroidsdk.PinClient;
-import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
@@ -50,7 +48,6 @@ import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailRecAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.location.DemoLocationFragment;
-import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinFragment;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoProductsView;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
@@ -66,7 +63,6 @@ import dagger.Component;
 public interface DemoAppComponent {
     BVConversationsClient getBvConvClient();
     BVRecommendations getBvRecommendations();
-    PinClient getPinClient();
     PrettyTime getPrettyTime();
     DemoClientConfigUtils getDemoConfigUtils();
     DemoClient getDemoClient();
@@ -76,7 +72,6 @@ public interface DemoAppComponent {
     Action getSubmitAction();
     @DemoAppContext Context getAppContext();
 
-    void inject(DemoAdFragment adsFragment);
     void inject(DemoAnswersActivity activity);
     void inject(DemoBulkRatingsActivity activity);
     void inject(DemoConversationsStoresAPIFragment fragment);
@@ -91,7 +86,6 @@ public interface DemoAppComponent {
     void inject(DemoCurationsMapsActivity activity);
     void inject(DemoFancyProductDetailActivity activity);
     void inject(DemoLocationFragment fragment);
-    void inject(DemoPinFragment fragment);
     void inject(DemoRecommendationsFragment fragment);
     void inject(DemoPreferencesSelectedFragment fragment);
     void inject(DemoApp app);

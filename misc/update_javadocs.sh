@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 
 mkdir assets
 mkdir assets/api_reference
@@ -9,11 +9,11 @@ cd ..
 
 update_javadoc_for_module() {
   DEST_JAVADOC_SUBDIR=$JAVADOC_DIR/$1
-  MODULE_NAME=bvandroidsdk$1
-  GENERATED_JAVADOC_DIR=./bvandroidsdk$1/build/docs/javadoc/*
+  MODULE_NAME=$1
+  GENERATED_JAVADOC_DIR=./$MODULE_NAME/build/docs/javadoc/*
 
   echo starting building $1 javadocs
-  if ./gradlew $MODULE_NAME:androidSourcesJar;./gradlew $MODULE_NAME:androidJavadocs
+  if ./gradlew :$MODULE_NAME:androidSourcesJar;./gradlew $MODULE_NAME:androidJavadocs
   then
     echo successfully built $1
   else
@@ -28,10 +28,15 @@ update_javadoc_for_module() {
   echo finished $1 javadocs
 }
 
-update_javadoc_for_module common
-update_javadoc_for_module advertising
-update_javadoc_for_module conversations
-update_javadoc_for_module recommendations
-update_javadoc_for_module curations
+update_javadoc_for_module bvanalytics
+update_javadoc_for_module bvauthiovation
+update_javadoc_for_module bvcommon
+update_javadoc_for_module bvconversations
+update_javadoc_for_module bvcurations
+update_javadoc_for_module bvcurationsui
+update_javadoc_for_module bvlocation
+update_javadoc_for_module bvnotifications
+update_javadoc_for_module bvrecommendations
+update_javadoc_for_module bvstorenotifications
 
 echo Success: all javadocs updated
