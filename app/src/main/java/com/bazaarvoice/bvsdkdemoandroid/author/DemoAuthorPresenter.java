@@ -68,9 +68,6 @@ public class DemoAuthorPresenter implements DemoAuthorContract.Presenter {
     public void start() {
         view.showRecentReview(false); // Wait until we have a review to show it
 
-        boolean showPinFeature = demoClient.hasPin();
-        view.showProductsToReview(showPinFeature);
-
         AuthorsRequest request = new AuthorsRequest.Builder(authorId)
                 .addIncludeContent(AuthorIncludeType.REVIEWS, 1)
                 .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)

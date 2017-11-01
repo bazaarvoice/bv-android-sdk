@@ -25,9 +25,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
-import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinCarouselPresenter;
-import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinCarouselPresenterModule;
 
 import javax.inject.Inject;
 
@@ -36,7 +33,6 @@ public class DemoAuthorActivity extends AppCompatActivity {
     private static final String EXTRA_AUTHOR_ID = "extra_author_id";
 
     @Inject DemoAuthorPresenter authorPresenter;
-    @Inject DemoPinCarouselPresenter pinCarouselPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,13 +40,11 @@ public class DemoAuthorActivity extends AppCompatActivity {
         setContentView(R.layout.view_author_detail);
         DemoAuthorView demoAuthorView = (DemoAuthorView) findViewById(R.id.demo_author_root);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        DemoCarouselView demoCarouselView = (DemoCarouselView) findViewById(R.id.pinCarouselContainer);
 
         String authorId = getIntent().getStringExtra(EXTRA_AUTHOR_ID);
 
         DaggerDemoAuthorComponent.builder()
                 .demoAuthorPresenterModule(new DemoAuthorPresenterModule(demoAuthorView, authorId))
-                .demoPinCarouselPresenterModule(new DemoPinCarouselPresenterModule(demoCarouselView))
                 .demoAppComponent(DemoApp.getAppComponent(this))
                 .build()
                 .inject(this);

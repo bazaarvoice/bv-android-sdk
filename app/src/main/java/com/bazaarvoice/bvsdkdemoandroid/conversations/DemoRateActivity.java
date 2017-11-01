@@ -1,4 +1,4 @@
-package com.bazaarvoice.bvsdkdemoandroid.pin;
+package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
 import android.content.Context;
 import android.content.Intent;

@@ -31,7 +31,7 @@ import com.bazaarvoice.bvandroidsdk.StoreNotificationManager;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.DemoConstants;
 import com.bazaarvoice.bvsdkdemoandroid.R;
-import com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoRateActivity;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 

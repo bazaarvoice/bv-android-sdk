@@ -86,7 +86,6 @@ public abstract class BVBaseTest {
             .apiKeyConversationsStores("apiKeyConvStores")
             .apiKeyCurations("apiKeyCurations")
             .apiKeyLocation("apiKeyLocations")
-            .apiKeyPIN("apiKeyPin")
             .dryRunAnalytics(false)
             .build();
         uuid = UUID.fromString(uuidTestStr);

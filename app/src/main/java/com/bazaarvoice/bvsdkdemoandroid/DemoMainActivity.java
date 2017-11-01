@@ -35,10 +35,6 @@ import android.view.MenuItem;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.CurationsPostCallback;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
-import com.bazaarvoice.bvsdkdemoandroid.ads.BannerAdActivity;
-import com.bazaarvoice.bvsdkdemoandroid.ads.DemoAdFragment;
-import com.bazaarvoice.bvsdkdemoandroid.ads.InterstitialAdActivity;
-import com.bazaarvoice.bvsdkdemoandroid.ads.NativeAdActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvApiFragment;
@@ -50,7 +46,6 @@ import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity;
 import com.bazaarvoice.bvsdkdemoandroid.location.DemoLocationFragment;
-import com.bazaarvoice.bvsdkdemoandroid.pin.DemoPinFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
@@ -160,52 +155,40 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
         item.setChecked(true);
         prevItem = item;
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+        navigationView.setNavigationItemSelectedListener(selectedItem -> {
+            prevItem.setChecked(false);
+            prevItem = selectedItem;
 
-                prevItem.setChecked(false);
-                prevItem = item;
-
-                switch (item.getItemId()) {
-                    case R.id.home_page:
-                        toolbar.setTitle(getString(R.string.app_name));
-                        transitionTo(DemoHomePageFragment.newInstance());
-                        break;
-                    case R.id.recommendations:
-                        toolbar.setTitle(getString(R.string.demo_recommendations));
-                        transitionTo(DemoRecommendationsFragment.newInstance());
-                        break;
-                    case R.id.advertising:
-                        toolbar.setTitle("Advertising");
-                        transitionTo(DemoAdFragment.newInstance());
-                        break;
-                    case R.id.conversations_demo:
-                        toolbar.setTitle(getString(R.string.demo_conversations) + ": API Demo");
-                        transitionTo(demoConvApiFragment);
-                        break;
-                    case R.id.conversations_demo_stores:
-                        toolbar.setTitle(getString(R.string.demo_conversations_stores) + ": API Demo");
-                        transitionTo(DemoConversationsStoresAPIFragment.newInstance());
-                        break;
-                    case R.id.curations:
-                        toolbar.setTitle(getString(R.string.demo_curations));
-                        transitionTo(DemoCurationsFragment.newInstance());
-                        break;
-                    case R.id.location:
-                        toolbar.setTitle(getString(R.string.demo_location));
-                        transitionTo(DemoLocationFragment.newInstance());
-                        break;
-                    case R.id.pin_demo:
-                        toolbar.setTitle(getString(R.string.demo_pin) + ": Demo");
-                        transitionTo(DemoPinFragment.newInstance());
-                }
-
-                // Close the navigation drawer when an item is selected.
-                item.setChecked(true);
-                mDrawerLayout.closeDrawers();
-                return true;
+            switch (selectedItem.getItemId()) {
+                case R.id.home_page:
+                    toolbar.setTitle(getString(R.string.app_name));
+                    transitionTo(DemoHomePageFragment.newInstance());
+                    break;
+                case R.id.recommendations:
+                    toolbar.setTitle(getString(R.string.demo_recommendations));
+                    transitionTo(DemoRecommendationsFragment.newInstance());
+                    break;
+                case R.id.conversations_demo:
+                    toolbar.setTitle(getString(R.string.demo_conversations) + ": API Demo");
+                    transitionTo(demoConvApiFragment);
+                    break;
+                case R.id.conversations_demo_stores:
+                    toolbar.setTitle(getString(R.string.demo_conversations_stores) + ": API Demo");
+                    transitionTo(DemoConversationsStoresAPIFragment.newInstance());
+                    break;
+                case R.id.curations:
+                    toolbar.setTitle(getString(R.string.demo_curations));
+                    transitionTo(DemoCurationsFragment.newInstance());
+                    break;
+                case R.id.location:
+                    toolbar.setTitle(getString(R.string.demo_location));
+                    transitionTo(DemoLocationFragment.newInstance());
             }
+
+            // Close the navigation drawer when an item is selected.
+            selectedItem.setChecked(true);
+            mDrawerLayout.closeDrawers();
+            return true;
         });
     }
 
@@ -217,21 +200,6 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
 
     public void transitionToBvProductDetail(BVProduct bvProduct) {
         DemoProductDetailActivity.start(this, bvProduct);
-    }
-
-    public void transitionToNativeAd() {
-        Intent intent = new Intent(this, NativeAdActivity.class);
-        startActivity(intent);
-    }
-
-    public void transitionToInterstitialAd(){
-        Intent intent = new Intent(this, InterstitialAdActivity.class);
-        startActivity(intent);
-    }
-
-    public void transitionToBannerAd(){
-        Intent intent = new Intent(this, BannerAdActivity.class);
-        startActivity(intent);
     }
 
     public void transitionToCurationsFeed(){

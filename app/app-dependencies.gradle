@@ -63,13 +63,10 @@ ext {
         leakCanaryNoOp      : "com.squareup.leakcanary:leakcanary-android-no-op:$demoAppSharedVersions.leakCanaryVersion",
         processPhoenix      : "com.jakewharton:process-phoenix:2.0.0",
         bvSdkAnalytics      : "com.bazaarvoice.bvandroidsdk:analytics:$demoAppSharedVersions.bvSdkVersion",
-        bvSdkAds            : "com.bazaarvoice.bvandroidsdk:advertising:$demoAppSharedVersions.bvSdkVersion",
         bvSdkAuthIovation   : "com.bazaarvoice.bvandroidsdk:auth-iovation:$demoAppSharedVersions.bvSdkVersion",
         bvSdkConversations  : "com.bazaarvoice.bvandroidsdk:conversations:$demoAppSharedVersions.bvSdkVersion",
         bvSdkCurations      : "com.bazaarvoice.bvandroidsdk:curations:$demoAppSharedVersions.bvSdkVersion",
         bvSdkRecommendations: "com.bazaarvoice.bvandroidsdk:recommendations:$demoAppSharedVersions.bvSdkVersion",
-        bvSdkPin            : "com.bazaarvoice.bvandroidsdk:pin:$demoAppSharedVersions.bvSdkVersion",
-        bvSdkPinNotif       : "com.bazaarvoice.bvandroidsdk:pin-notifications:$demoAppSharedVersions.bvSdkVersion",
         bvSdkStoreNotif     : "com.bazaarvoice.bvandroidsdk:store-notifications:$demoAppSharedVersions.bvSdkVersion",
         bvSdkCurationsUi    : "com.bazaarvoice.bvandroidsdk:curations-ui:$demoAppSharedVersions.bvSdkVersion"
     ]

@@ -91,28 +91,22 @@ android {
 dependencies {
   if (useLocalSdk) {
     implementation project(':bvanalytics')
-    implementation project(':bvadvertising')
     implementation project(':bvauthiovation')
     implementation project(':bvrecommendations')
     implementation project(':bvconversations')
     implementation project(':bvcurations')
     implementation project(':bvlocation')
-    implementation project(':bvpin')
-    implementation project(':bvpinnotifications')
     implementation project(':bvstorenotifications')
     implementation project(':bvcurationsui')
     compileOnly project(':bvnotifications')
     compileOnly project(':bvcommon')
   } else {
     implementation demoAppDep.bvSdkAnalytics
-    implementation demoAppDep.bvSdkAds
     implementation demoAppDep.bvSdkAuthIovation
     implementation('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-release-2.3.3:2.3.3@aar')
     implementation demoAppDep.bvSdkRecommendations
     implementation demoAppDep.bvSdkConversations
     implementation demoAppDep.bvSdkCurations
-    implementation demoAppDep.bvSdkPin
-    implementation demoAppDep.bvSdkPinNotif
     implementation demoAppDep.bvSdkStoreNotif
     implementation demoAppDep.bvSdkCurationsUi
   }

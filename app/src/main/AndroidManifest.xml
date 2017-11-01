@@ -27,15 +27,6 @@
     </activity>
     <activity android:name=".recommendations.detail.DemoProductDetailActivity"/>
     <activity
-      android:name=".ads.BannerAdActivity"
-      android:label="@string/title_activity_banner_ad"/>
-    <activity
-      android:name=".ads.NativeAdActivity"
-      android:label="@string/title_activity_native_ad"/>
-    <activity
-      android:name=".ads.InterstitialAdActivity"
-      android:label="@string/title_activity_interstitial_ad"/>
-    <activity
       android:name=".curations.detail.DemoCurationsDetailActivity"
       android:label="@string/title_activity_curations_detail"/>
     <activity
@@ -96,7 +87,7 @@
       android:name=".curations.map.DemoCurationsMapsActivity"
       android:label="@string/title_activity_curations_map"/>
     <activity
-      android:name=".pin.DemoRateActivity"
+      android:name=".conversations.DemoRateActivity"
       android:label="@string/title_activity_rate"/>
     <activity
       android:name=".author.DemoAuthorActivity"

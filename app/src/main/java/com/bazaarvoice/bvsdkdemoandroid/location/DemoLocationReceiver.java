@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.bazaarvoice.bvandroidsdk.BVNotificationService;
-import com.bazaarvoice.bvsdkdemoandroid.pin.DemoRateActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoRateActivity;
 
 public class DemoLocationReceiver extends BroadcastReceiver {
     @Override
