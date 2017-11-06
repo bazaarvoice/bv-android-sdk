@@ -169,6 +169,9 @@ $(function(){
                                     <a class="nav-link" href="conversations_submission.html"><span>Content Submission</span></a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="conversations_authentication.html"><span>Authentication</span></a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="conversations_iovation.html"><span>Authenticity with iovation</span></a>
                                 </li>
                                 <li class="nav-item">
@@ -290,9 +293,10 @@ $(function(){
 
 <ol>
   <li><a href="##step_1">Step 1: Create a BVConversationsClient</a></li>
-  <li><a href="##step_2">Step 2: View Form Options</a></li>
+  <li><a href="##step_2">Step 2: Create an AuthenticationProvider</a></li>
+  <li><a href="##step_3">Step 3: View Form Options</a></li>
   <li>
-    <a href="##step_3">Step 3: Send Submission Request</a>
+    <a href="##step_4">Step 4: Send Submission Request</a>
     <ol>
       <li><a href="#reviewsub" onclick="navigateTab(this);">Review Submission</a></li>
       <li><a href="#reviewcommentsub" onclick="navigateTab(this);">Review Comment Submission</a></li>
@@ -302,7 +306,7 @@ $(function(){
       <li><a href="#formparsing" onclick="navigateTab(this);">Form Parsing</a></li>
     </ol>
   </li>
-  <li><a href="##step_4">Step 4: Handle Errors</a></li>
+  <li><a href="##step_5">Step 5: Handle Errors</a></li>
   <li><a href="##generic_options">Generic Form Field Options</a></li>
 </ol>
 
@@ -388,7 +392,7 @@ repositories {
 <div id="#step_1"/>
 <h4>Step 1: Create a BVConversationsClient</h4>
 <p>
-  Use an instance of the <code>BVConversationsClient</code> to make all your Conversations Submission API requets. You should keep an instance of this object to handle all your Conversations requests as shown in the examples below.
+  Use an instance of the <code>BVConversationsClient</code> to add to all of your Conversations Submission API requests. You should keep an instance of this object to handle all your Conversations requests as shown in the examples below.
 <pre><code>final BVConversationsClient client = new BVConversationsClient.Builder(BVSDK.getInstance()).build(); // Use one instance</code></pre>
 </p>
 
@@ -402,7 +406,23 @@ repositories {
 <br/>
 
 <div id="#step_2"/>
-<h4>Step 2: View Form Options</h4>
+<h4>Step 2: Create an AuthenticationProvider</h4>
+<p>
+  Choose one of the two classes that implement <code>AuthenticationProvider</code>, and create an instance to add to all of your Conversations Submission API requests. You should keep an instance of this object to handle all your Conversations requests as shown in the examples below.
+<pre><code>final AuthenticationProvider authProvider = new BVHostedAuthenticationProvider(userEmailAddress, callbackUrl); // for part 1 for BV Hosted Auth clients
+final AuthenticationProvider authProvider = new BVHostedAuthenticationProvider(uas); // for part 2 for BV Hosted Auth clients
+// or
+final AuthenticationProvider authProvider = new SiteAuthenticationProvider(uas); // for Site Auth clients</code></pre>
+</p>
+
+<p>
+  For more information on which type you are configured for, and how to use these different <code>AuthenticationProvider</code>s, see <a href="./conversations_authentication.html">Conversations Authentication</a>.
+</p>
+
+<br/>
+
+<div id="#step_3"/>
+<h4>Step 3: View Form Options</h4>
 <p>
   For each option available in a submission form, there is a boolean flag determining whether it is a
   required field or not. You can discover this by iterating through the available form fields, which
@@ -421,7 +441,10 @@ repositories {
   For more information on how the API processes Form Data please see:
   <a href="https://developer.bazaarvoice.com/conversations-api/getting-started/submission-fundamentals#1.-request-form-information">Submission Fundamentals: Request Form Information</a>
 </p>
-<pre><code>final ReviewSubmissionRequest formRequest = new ReviewSubmissionRequest.Builder(Action.Form, "productId").build();
+<pre><code>final ReviewSubmissionRequest formRequest = new ReviewSubmissionRequest
+  .Builder(Action.Form, "productId")
+  .authenticationProvider(authProvider)
+  .build();
 
 client.prepareCall(previewSubmissionRequest).loadAsync(new ConversationsSubmissionCallback&lt;ReviewSubmissionResponse&gt;() {
   @Override
@@ -459,8 +482,8 @@ client.prepareCall(previewSubmissionRequest).loadAsync(new ConversationsSubmissi
 </div>
 <br/>
 
-<div id="#step_3"/>
-<h4>Step 3: Send Submission Request</h4>
+<div id="#step_4"/>
+<h4>Step 4: Send Submission Request</h4>
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#reviewsub" aria-controls="reviewssub" role="tab" data-toggle="tab">ReviewSubmission</a></li>
   <li role="presentation"><a href="#reviewcommentsub" aria-controls="reviewcommentsub" role="tab" data-toggle="tab">ReviewCommentSubmission</a></li>
@@ -480,6 +503,7 @@ client.prepareCall(previewSubmissionRequest).loadAsync(new ConversationsSubmissi
 </p>
 <pre><code>final ReviewSubmissionRequest previewSubmission = new ReviewSubmissionRequest
   .Builder(Action.Submit, productId)
+  .authenticationProvider(authProvider)
   .rating(4)
   .title(userMadeTitle)
   .reviewText(userReviewText)
@@ -519,6 +543,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsSubmissionCallb
 </p>
 <pre><code>final CommentSubmissionRequest previewSubmission = new CommentSubmissionRequest
   .Builder(Action.Submit, reviewId, commentText)
+  .authenticationProvider(authProvider)
   .title(titleText)
   .build();
 
@@ -545,6 +570,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsSubmissionCallb
 </p>
 <pre><code>final QuestionSubmissionRequest previewSubmission = new QuestionSubmissionRequest
   .Builder(Action.Submit, productId)
+  .authenticationProvider(authProvider)
   .questionSummary(summaryText)
   .questionDetails(detailText)
   .isUserAnonymous(true)
@@ -574,6 +600,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsSubmissionCallb
 </p>
 <pre><code>final AnswerSubmissionRequest previewSubmission = new AnswerSubmissionRequest
   .Builder(Action.Submit, questionId, answerText)
+  .authenticationProvider(authProvider)
   .userNickname(userNickname)
   .build();
 
@@ -603,6 +630,7 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsSubmissionCallb
 </p>
 <pre><code>final FeedbackSubmissionRequest previewSubmission = new FeedbackSubmissionRequest
   .Builder(contentId)
+  .authenticationProvider(authProvider)
   .feedbackType(FeedbackType.HELPFULNESS) // You can also flag for inappropriateness.
   .feedbackContentType(FeedbackContentType.REVIEW)
   .feedbackType(FeedbackType.HELPFULNESS)
@@ -627,15 +655,18 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsSubmissionCallb
 
 <br/>
 
-<div id="#step_4"/>
-<h4>Step 4: Handle Errors</h4>
+<div id="#step_5"/>
+<h4>Step 5: Handle Errors</h4>
 <p>
   For any <code>Action.Preview</code> or <code>Action.Submit</code> request that was not successful, you can
   parse out the reason programmatically from the <code>ConversationsSubmissionException</code> object in the
   <code>onFailure</code> callback.
 </p>
 
-<pre><code>final ReviewSubmissionRequest formRequest = new ReviewSubmissionRequest.Builder(Action.Submit, "productId").build();
+<pre><code>final ReviewSubmissionRequest submitRequest = new ReviewSubmissionRequest
+  .Builder(Action.Submit, "productId")
+  .authenticationProvider(authProvider)
+  .build();
 
 client.prepareCall(previewSubmissionRequest).loadAsync(new ConversationsSubmissionCallback&lt;ReviewSubmissionResponse&gt;() {
   @Override
