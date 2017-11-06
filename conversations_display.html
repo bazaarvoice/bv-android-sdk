@@ -211,12 +211,7 @@ $(function(){
                         <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations (Beta)</span></a>
                     </li>
                     
-                    <!-- Advertising -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
-                    </li>
 
-                    
                     <!-- Ratings Reviews Stores -->
                      <li class="nav-item">
                         <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsStoresDropdown"
@@ -238,11 +233,6 @@ $(function(){
                         </div>
                     </li>
                     
-                    <!-- PIN -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="pin.html"><span>Post Interaction Notifications (Beta)</span></a>
-                    </li>
-
                     <!-- Location -->
                     <li class="nav-item">
                         <a class="nav-link" href="location.html"><span>Location (Beta)</span></a>
@@ -322,12 +312,18 @@ $(function(){
 <p>Use the Bazaarvoice Mobile SDKs to enable Conversations functionality, such as Ratings and Reviews. The Conversations module provides an easy-to-use wrapper around the <a href="https://developer.bazaarvoice.com/conversations-api">Conversations API</a>. Contact Bazaarvoice to set up Conversations.</p>
 
 <ol>
-  <li><a href="#pdp" onclick="navigateTab(this);">Product Display Page Statistics</a></li>
-  <li><a href="#reviews" onclick="navigateTab(this);">Reviews</li>
-  <li><a href="#questionsanswers" onclick="navigateTab(this);">Questions and Answers</li>
-  <li><a href="#comments" onclick="navigateTab(this);">Comments</li>
-  <li><a href="#bulkratings" onclick="navigateTab(this);">Bulk Ratings</a></li>
-  <li><a href="#authordisplay" onclick="navigateTab(this);">Author Profile Display</a></li>
+  <li><a href="requests">Requests</a>
+    <ol>
+      <li><a href="#pdp" onclick="navigateTab(this);">Product Display Page Statistics</a></li>
+      <li><a href="#reviews" onclick="navigateTab(this);">Reviews</li>
+      <li><a href="#questionsanswers" onclick="navigateTab(this);">Questions and Answers</li>
+      <li><a href="#comments" onclick="navigateTab(this);">Comments</li>
+      <li><a href="#bulkratings" onclick="navigateTab(this);">Bulk Ratings</a></li>
+      <li><a href="#authordisplay" onclick="navigateTab(this);">Author Profile Display</a></li>
+    </ol>
+  </li>
+  <li><a href="#custom_key_values">Custom key-value Pairs</a></li>
+  <li><a href="#display_containers">UI Containers</a></li>
 </ol>
 
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
@@ -417,6 +413,7 @@ Conversations Display Sections in this page:
 <p>After you install the Mobile SDK, you can refer to the guide below for using the API and Conversations UI containers for displaying Product Review Statistics, Reviews, Question, Answers, and Bulk Ratings of serveral products at once.</p>
 
 <br>
+<div id="requests">
 <h4>BVConversationsClient</h4>
 
 Use a Bazaarvoice ViewGroup class to make all your Conversations Display API requests.
@@ -785,10 +782,23 @@ client.newCall(request).enqueue(new ConversationsCallback&lt;AuthorsResponse&gt;
   </div>
 </div>
 
+</div>
 <hr><br>
 
-<a name="display_containers"></a>
+<div id="custom_key_values">
+  <h2>Custom key-value Pairs</h2>
 
+  <p>If there is some query parameter that is not supported by the SDK, that your configuration supports, you can
+  add it to a Display Request as follows,
+
+<pre><code>final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder(productId, limit, offset)
+  .addCustomDisplayParameter("customKey", "customValue")
+  .build();</code></pre></p>
+
+  <hr><br>
+</div>
+
+<div id="display_containers">
 <h2>Conversations Display: UI Containers</h2>
 
 <br>
@@ -804,7 +814,7 @@ The SDK supports the following sub-classed types of view containers, depending o
 <br>
 
 For a refrence implementation on utilizing the Reviews, Question, and Answers containers, please refer to the sample application in the SDK.
-
+</div>
 
 <br><br>
 

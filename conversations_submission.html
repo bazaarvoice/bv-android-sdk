@@ -211,12 +211,7 @@ $(function(){
                         <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations (Beta)</span></a>
                     </li>
                     
-                    <!-- Advertising -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
-                    </li>
 
-                    
                     <!-- Ratings Reviews Stores -->
                      <li class="nav-item">
                         <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsStoresDropdown"
@@ -238,11 +233,6 @@ $(function(){
                         </div>
                     </li>
                     
-                    <!-- PIN -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="pin.html"><span>Post Interaction Notifications (Beta)</span></a>
-                    </li>
-
                     <!-- Location -->
                     <li class="nav-item">
                         <a class="nav-link" href="location.html"><span>Location (Beta)</span></a>
@@ -308,6 +298,7 @@ $(function(){
   </li>
   <li><a href="##step_5">Step 5: Handle Errors</a></li>
   <li><a href="##generic_options">Generic Form Field Options</a></li>
+  <li><a href="#custom_key_values">Custom key-value Pairs</a></li>
 </ol>
 
 <p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
@@ -792,6 +783,18 @@ client.prepareCall(previewSubmissionRequest).loadAsync(new ConversationsSubmissi
   // Boolean indicating whether or not the user agreed to the terms and conditions. Required depending on the your configuration.
   .agreedToTermsAndConditions(true)</code></pre>
 </p>
+<br/>
+
+<div id="custom_key_values">
+<h2>Custom key-value Pairs</h2>
+<p>If there is some form parameter that is not supported by the SDK, that your configuration supports, you can
+  add it to a Submission Request as follows,
+
+<pre><code>final ReviewSubmissionRequest reviewSubmitRequest = new ReviewSubmissionRequest.Builder(Action.Submit, productId)
+  .authenticationProvider(authProvider)
+  .addCustomSubmissionParameter("customKey", "customValue")
+  .build();</code></pre></p>
+</div>
 
 <br/>
 

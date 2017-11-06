@@ -211,12 +211,7 @@ $(function(){
                         <a class="nav-link" href="product_recommendations.html"><span>Product Recommendations (Beta)</span></a>
                     </li>
                     
-                    <!-- Advertising -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="advertising.html"><span>Advertising</span></a>
-                    </li>
 
-                    
                     <!-- Ratings Reviews Stores -->
                      <li class="nav-item">
                         <a class="nav-link" role="button" data-toggle="collapse" href="#conversationsStoresDropdown"
@@ -238,11 +233,6 @@ $(function(){
                         </div>
                     </li>
                     
-                    <!-- PIN -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="pin.html"><span>Post Interaction Notifications (Beta)</span></a>
-                    </li>
-
                     <!-- Location -->
                     <li class="nav-item">
                         <a class="nav-link" href="location.html"><span>Location (Beta)</span></a>
@@ -320,15 +310,14 @@ $(function(){
 
 <p>Add the following dependencies to include the Maven Central repository and add Bazaarvoice Mobile SDK modules. You only need to add the dependencies for the products you have an API key for.</p>
 <pre><code>dependencies {
-    compile 'com.bazaarvoice.bvandroidsdk:advertising:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:conversations:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:curations:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:curations-ui:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:location:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:pin:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:pin-notifications:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:recommendations:6.+'
-    compile 'com.bazaarvoice.bvandroidsdk:store-notifications:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:analytics:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:auth-iovation:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:conversations:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:curations:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:curations-ui:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:location:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:recommendations:6.+'
+  compile 'com.bazaarvoice.bvandroidsdk:store-notifications:6.+'
 }<br/>
 repositories {
     mavenCentral()
@@ -418,8 +407,12 @@ Once you have install the source code for the SDK, you are now ready to initiali
             new KeyRow("apiKeyConversations", "Conversations", "Conversations"),
             new KeyRow("apiKeyConversationsStores", "Conversations for Stores", "Conversations for Stores"),
             new KeyRow("apiKeyShopperAdvertising", "Product Recommendations & Advertising","Shopper Advertising"),
-            new KeyRow("apiKeyLocation", "Location" , "Location"),
-            new KeyRow("apiKeyPIN", "Post Interaction Notifications" , "PIN")]
+            new KeyRow("apiKeyLocation", "Location" , "Location")]
+
+        var isIOS = 'bv-android-sdk' === 'bv-ios-sdk' // TODO: After MOB-759 is done this can be removed. Android removed pin with MOB-760
+        if (isIOS) {
+          rows.push(new KeyRow("apiKeyPIN", "Post Interaction Notifications", "PIN"))
+        }
 
         function getTableHTML() {
             var html = ["<tr class=\"odd\" style=\" background-color: #F7F7F7;\"><th style=\" width:30%;\">Products</th><th>Production API Keys</th><th>Staging API Keys</th></tr>"]
@@ -635,9 +628,9 @@ Once you have install the source code for the SDK, you are now ready to initiali
   class' issues while compiling.</p>
 
 <h4>Analytics</h4>
-<pre><code>compile "com.squareup.okhttp3:okhttp:3.2.0"
-compile "com.google.android.gms:play-services-ads:9.0.0"
-compile "com.android.support:support-annotations:25.0.0"</code></pre>
+<pre><code>implementation "com.squareup.okhttp3:okhttp:3.2.0"
+implementation "com.google.android.gms:play-services-ads:9.0.0"
+implementation "com.android.support:support-annotations:25.0.0"</code></pre>
 
 <h4>Common</h4>
 
@@ -649,6 +642,12 @@ compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
 <h4>Advertising</h4>
 
 <p>Inherits from common, no additional dependencies.</p>
+
+<h4>Auth-Iovation</h4>
+
+<p>Inherits from conversations, and adds:</p>
+
+<pre><code>implementation('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-release-2.3.3:2.3.3@aar')</code></pre>
 
 <h4>Conversations</h4>
 
@@ -663,23 +662,15 @@ compile "com.android.support:recyclerview-v7:25.0.0"</code></pre>
 <p>Inherits from common, and adds:</p>
 
 <pre><code>compile "com.gimbal.android.v2:gimbal-sdk:2.46"
-compile "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"
-compile "org.slf4j:slf4j-api:1.7.21"
-compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
+implementation "com.gimbal.android.v2:gimbal-slf4j-impl:2.46"
+implementation "org.slf4j:slf4j-api:1.7.21"
+implementation "com.android.support:appcompat-v7:25.0.0"</code></pre>
 
 <h4>Notifications</h4>
 
 <p>Inherits from common, and adds:</p>
 
-<pre><code>compile "com.android.support:appcompat-v7:25.0.0"</code></pre>
-
-<h4>PIN</h4>
-
-<p>Inherits from common, no additional dependencies</p>
-
-<h4>PIN Notifications</h4>
-
-<p>Inherits from pin, notifications, and conversations. No additional dependencies</p>
+<pre><code>implementation "com.android.support:appcompat-v7:25.0.0"</code></pre>
 
 <h4>Recommendations</h4>
 
