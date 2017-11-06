@@ -1,5 +1,18 @@
 # Changelog
 
+# 6.14.0
+
+## Removed PIN, PIN Notifications, and Advertising
+
+* Removed PIN module
+* Removed PIN Notifications module
+* Removed Advertising module
+* Removed PIN API key from `BVConfig.Builder` and `BVSDK.Builder`. 
+
+This are all technically breaking changes, but no one is using them, nor do they do function, so it should 
+not affect anyone. 
+
+
 # 6.13.0
 
 ## Conversations
