@@ -1,5 +1,40 @@
 # Changelog
 
+# 6.13.0
+
+## Conversations
+
+### New Authentication Interfaces
+
+Added a new `AuthenticationProvider` interface that should be implemented, and provided to each submission 
+request. e.g.
+
+```kotlin
+val submitReq = ReviewSubmissionReq.Builder(Action.Submit, "testProd")
+  .authenticationProvider(authProvider)
+  .build()
+client.prepareCall(submitReq).loadAsync({
+  (resp) -> {
+    // all good, change Action to Submit to actually send   
+  }, 
+  (convSubmitException) -> {
+    val bvErrors = convSubmitException.getErrors() 
+    val bvFieldErrors = convSubmitException.getFieldErrors() 
+    for (fieldError in bvFieldErrors) {
+      val submissionErrorCode = fieldError.getSubmissionErrorCode()
+      val relevantFormField = fieldError.getFormField() // gets the form field info
+    }
+  }
+})
+```
+
+* If you are configured for BV Hosted Authentication then you should use `BVHostedAuthenticationProvider`.
+* If you are configured for Site Authentication then you should use `SiteAuthenticationProvider`.
+
+For more info on how to use/create these providers, and how to check which one you are configured for, 
+refer to the `Conversations > Content Submission` page in the docs.  
+
+
 # 6.12.0
 
 ## Conversations
