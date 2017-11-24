@@ -27,4 +27,19 @@ public class FormData {
     public Map<String, FormField> getFormFieldMap() {
         return formFieldMap;
     }
+
+    @Nullable
+    public Map<String, FormGroup> getFormGroupsMap() {
+        return formGroupsMap;
+    }
+
+    @Nullable
+    public List<String> getFormFieldsOrder() {
+        return formFieldsOrder;
+    }
+
+    @Nullable
+    public List<String> getFormGroupsOrder() {
+        return formGroupsOrder;
+    }
 }
