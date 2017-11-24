@@ -21,7 +21,7 @@ public class FormGroup {
   private String label;
 
   @SerializedName("Type")
-  private FormInputType type;
+  private FormGroupType type;
 
 
   public List<FormSubElement> getSubElements() {
@@ -40,7 +40,7 @@ public class FormGroup {
     return label;
   }
 
-  public FormInputType getType() {
+  public FormGroupType getType() {
     return type;
   }
 }
