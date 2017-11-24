@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class FormGroup {
   @SerializedName("SubElements")
-  private List<FormSubelement> subelements;
+  private List<FormSubElement> subElements;
 
   @SerializedName("Required")
   private boolean isRequired;
@@ -24,8 +24,8 @@ public class FormGroup {
   private FormInputType type;
 
 
-  public List<FormSubelement> getSubelements() {
-    return subelements;
+  public List<FormSubElement> getSubElements() {
+    return subElements;
   }
 
   public boolean isRequired() {
