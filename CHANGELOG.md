@@ -1,10 +1,16 @@
 # Changelog
 
+# 6.14.2
+
+## Bug Fix
+
+Add proper logic to test functionality for 6.14.1 changes. Please see commit for details.
+
 # 6.14.1
 
 ## Bug Fix
 
-See commit for more details.
+Ameliorate logic inversion of async Conversation Submission path. Please see commit for details.
 
 # 6.14.0
 
