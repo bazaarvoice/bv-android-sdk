@@ -279,7 +279,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
             // FormErrors do not return for Action=Submit
             submissionRequest.setForcePreview(true);
             ResponseType previewResponse = submitV7();
-            if (!previewResponse.getHasErrors()) {
+            if (previewResponse.getHasErrors()) {
                 return previewResponse;
             }
 

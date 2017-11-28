@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.14.1
+
+## Bug Fix
+
+See commit for more details.
+
 # 6.14.0
 
 ## Removed PIN, PIN Notifications, and Advertising
