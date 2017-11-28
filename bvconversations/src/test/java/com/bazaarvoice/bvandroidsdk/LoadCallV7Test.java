@@ -437,6 +437,7 @@ public class LoadCallV7Test extends LoadCallTest {
   public void submitSyncV7NoErrors_Should_ReturnImmediateWithResults() throws Exception {
     final ReviewSubmissionRequest request = getStubSubmissionRequest(Action.Submit);
     clientRule.enqueueHttp200("submit_review_preview_success.json");
+    clientRule.enqueueHttp200("submit_review_submit_success.json");
     final BVConversationsClient client = clientRule.getClient();
 
     final Callable<ReviewSubmissionResponse> reviewResponseCallable = new Callable<ReviewSubmissionResponse>() {
