@@ -82,4 +82,40 @@ public class FormField {
   public boolean isDefault() {
     return isDefault;
   }
+
+  public void setFormFieldOptions(List<FormFieldOption> formFieldOptions) {
+    this.formFieldOptions = formFieldOptions;
+  }
+
+  public void setRequired(boolean required) {
+    isRequired = required;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  public void setFormInputType(FormInputType formInputType) {
+    this.formInputType = formInputType;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public void setMinLength(int minLength) {
+    this.minLength = minLength;
+  }
+
+  public void setMaxLength(int maxLength) {
+    this.maxLength = maxLength;
+  }
+
+  public void setDefault(boolean aDefault) {
+    isDefault = aDefault;
+  }
 }

@@ -20,4 +20,12 @@ public class FormSubElement {
   public FormSubElementType getType() {
     return type;
   }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setType(FormSubElementType type) {
+    this.type = type;
+  }
 }

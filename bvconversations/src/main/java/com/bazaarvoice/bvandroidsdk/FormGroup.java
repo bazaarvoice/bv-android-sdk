@@ -43,4 +43,24 @@ public class FormGroup {
   public FormGroupType getType() {
     return type;
   }
+
+  public void setSubElements(List<FormSubElement> subElements) {
+    this.subElements = subElements;
+  }
+
+  public void setRequired(boolean required) {
+    isRequired = required;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  public void setType(FormGroupType type) {
+    this.type = type;
+  }
 }
