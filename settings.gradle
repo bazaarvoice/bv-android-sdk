@@ -1,11 +1,7 @@
-include ':app',
-    ':bvauthiovation',
+include ':bvauthiovation',
     ':bvanalytics',
     ':bvcommon',
     ':bvrecommendations',
     ':bvconversations',
     ':bvcurations',
-    ':bvlocation',
-    ':bvnotifications',
-    ':bvstorenotifications',
     ':bvcurationsui'
