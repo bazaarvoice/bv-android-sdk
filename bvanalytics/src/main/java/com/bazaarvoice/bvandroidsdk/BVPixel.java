@@ -5,6 +5,7 @@ import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 
 import java.util.concurrent.TimeUnit;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 
@@ -15,8 +16,6 @@ public class BVPixel {
 
   private static BVPixel singleton;
 
-  private static final String ANALYTICS_ROOT_URL_PRODUCTION = "https://network.bazaarvoice.com/";
-  private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/";
   private static final int ANALYTICS_DELAY_SECONDS = 10;
   private final BVPixelDispatcher bvPixelDispatcher;
   private final String defaultClientId;
@@ -36,8 +35,8 @@ public class BVPixel {
 
   // region Public API
 
-  public static Builder builder(Context context, String clientId, boolean isStaging) {
-    return new BVPixel.Builder(context, clientId, isStaging);
+  public static Builder builder(Context context, String clientId, boolean isStaging, Locale defaultLocale) {
+    return new BVPixel.Builder(context, clientId, isStaging, defaultLocale);
   }
 
   /**
@@ -75,11 +74,16 @@ public class BVPixel {
     private OkHttpClient okHttpClient;
     private boolean dryRunAnalytics;
 
-    public Builder(Context context, String clientId, boolean isStaging) {
+    public Builder(Context context, String clientId, boolean isStaging, Locale defaultLocale) {
       this.appContext = context.getApplicationContext();
       this.clientId = clientId;
       this.bvAnalyticsBatch = new BVPixelDispatcher.BvAnalyticsBatch();
-      this.analyticsRootUrl = isStaging ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
+      this.analyticsRootUrl =
+              BVLocaleServiceManager.getInstance()
+                      .resourceFor(
+                              BVLocaleServiceManager.Service.ANALYTICS,
+                              defaultLocale,
+                              isStaging);
       this.bgHandlerThread = new BVPixelDispatcher.BvAnalyticsThread();
       this.okHttpClient = new OkHttpClient();
       this.dryRunAnalytics = false;
