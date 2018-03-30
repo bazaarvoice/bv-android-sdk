@@ -1,5 +1,23 @@
 # Changelog
 
+# 6.14.3
+
+## Analytics and Location
+
+Adding support for Analytics Routing based on user location/residence. Please see commit for details.
+
+# 6.14.2
+
+## Bug Fix
+
+Add proper logic to test functionality for 6.14.1 changes. Please see commit for details.
+
+# 6.14.1
+
+## Bug Fix
+
+Ameliorate logic inversion of async Conversation Submission path. Please see commit for details.
+
 # 6.14.0
 
 ## Removed PIN, PIN Notifications, and Advertising
