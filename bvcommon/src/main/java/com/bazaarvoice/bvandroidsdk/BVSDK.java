@@ -20,6 +20,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -51,8 +52,6 @@ public class BVSDK {
     private static final String IMMEDIATE_BV_THREAD_NAME = "BV-ImmediateThread";
     private static final String SHOPPER_MARKETING_API_ROOT_URL_STAGING = "https://my.network-stg.bazaarvoice.com/";
     private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com/";
-    private static final String ANALYTICS_ROOT_URL_PRODUCTION = "https://network.bazaarvoice.com/";
-    private static final String ANALYTICS_ROOT_URL_STAGING = "https://network-stg.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/";
     private static final String NOTIFICATION_CONFIG_URL = "https://s3.amazonaws.com/";
@@ -427,6 +426,20 @@ public class BVSDK {
             return this;
         }
 
+        /**
+         * Sets the default local to be used in calculating the proper resource
+         * path for the analytics endpoint.
+         *
+         * @param analyticsDefaultLocale If true then analytics events will not be sent
+         * @return the builder object
+         */
+        public Builder analyticsDefaultLocale(Locale analyticsDefaultLocale) {
+            bvConfigBuilder
+                    .analyticsDefaultLocale(analyticsDefaultLocale)
+                    .build();
+            return this;
+        }
+
         public BVSDK build() {
             confirmBVSDKNotCreated();
 
@@ -463,12 +476,27 @@ public class BVSDK {
                     .build();
 
             BVLogger bvLogger = new BVLogger(logLevel);
+
+            Locale defaultLocale = finalConfig.getAnalyticsDefaultLocale();
+            if (defaultLocale == null) {
+                defaultLocale = Locale.getDefault();
+                bvLogger.w("BVSDK", "BVSDK is currently using user region settings. " +
+                        "Please see the documentation regarding setting proper locale settings " +
+                        "for dealing with user data privacy.");
+            }
+
+            // Look up analytics root url for deprecated class.
+            String analyticsRootUrl = BVLocaleServiceManager.getInstance().resourceFor(
+                    BVLocaleServiceManager.Service.ANALYTICS,
+                    defaultLocale,
+                    bazaarEnvironment == BazaarEnvironment.STAGING);
+
+
             ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
             ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             UUID uuid = Utils.getUuid(application.getApplicationContext());
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
-            String analyticsRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? ANALYTICS_ROOT_URL_STAGING : ANALYTICS_ROOT_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
             BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL);
@@ -495,7 +523,7 @@ public class BVSDK {
                 bvAuthenticatedUser,
                 uuid,
                 bvUserProvidedData.getBvConfig().isDryRunAnalytics());
-            BVPixel bvPixel = new BVPixel.Builder(application, bvUserProvidedData.getBvConfig().getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING)
+            BVPixel bvPixel = new BVPixel.Builder(application, bvUserProvidedData.getBvConfig().getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING, defaultLocale)
                 .bgHandlerThread(backgroundThread)
                 .okHttpClient(okHttpClient)
                 .dryRunAnalytics(bvUserProvidedData.getBvConfig().isDryRunAnalytics())
