@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.14.3
+
+## Analytics and Location
+
+Adding support for Analytics Routing based on user location/residence. Please see commit for details.
+
 # 6.14.2
 
 ## Bug Fix
