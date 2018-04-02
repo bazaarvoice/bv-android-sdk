@@ -106,9 +106,6 @@ function setInstallationText(module) {
 		case "recommendations":
 			text += "pod 'BVSDK/BVRecommendations"
 			break;
-		case "advertising":
-			text += "pod 'BVSDK/BVAdvertising"
-			break;
 		case "curations":
 			text += "pod 'BVSDK/BVCurations'\n"
 			text += "pod 'SDWebImage' # Used to load images asynchronously"
