@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.14.4
+
+## Bug Fix
+
+Fixed GSON parsing issue for configuration. Please see commit for details.
+
 # 6.14.3
 
 ## Analytics and Location
@@ -25,10 +31,10 @@ Ameliorate logic inversion of async Conversation Submission path. Please see com
 * Removed PIN module
 * Removed PIN Notifications module
 * Removed Advertising module
-* Removed PIN API key from `BVConfig.Builder` and `BVSDK.Builder`. 
+* Removed PIN API key from `BVConfig.Builder` and `BVSDK.Builder`.
 
-This are all technically breaking changes, but no one is using them, nor do they do function, so it should 
-not affect anyone. 
+This are all technically breaking changes, but no one is using them, nor do they do function, so it should
+not affect anyone.
 
 
 # 6.13.0
@@ -37,7 +43,7 @@ not affect anyone.
 
 ### New Authentication Interfaces
 
-Added a new `AuthenticationProvider` interface that should be implemented, and provided to each submission 
+Added a new `AuthenticationProvider` interface that should be implemented, and provided to each submission
 request. e.g.
 
 ```kotlin
@@ -47,10 +53,10 @@ val submitReq = ReviewSubmissionReq.Builder(Action.Submit, "testProd")
 client.prepareCall(submitReq).loadAsync({
   (resp) -> {
     // all good, change Action to Submit to actually send   
-  }, 
+  },
   (convSubmitException) -> {
-    val bvErrors = convSubmitException.getErrors() 
-    val bvFieldErrors = convSubmitException.getFieldErrors() 
+    val bvErrors = convSubmitException.getErrors()
+    val bvFieldErrors = convSubmitException.getFieldErrors()
     for (fieldError in bvFieldErrors) {
       val submissionErrorCode = fieldError.getSubmissionErrorCode()
       val relevantFormField = fieldError.getFormField() // gets the form field info
@@ -62,7 +68,7 @@ client.prepareCall(submitReq).loadAsync({
 * If you are configured for BV Hosted Authentication then you should use `BVHostedAuthenticationProvider`.
 * If you are configured for Site Authentication then you should use `SiteAuthenticationProvider`.
 
-For more info on how to use/create these providers, and how to check which one you are configured for, 
+For more info on how to use/create these providers, and how to check which one you are configured for,
 refer to the `Conversations > Content Submission` page in the docs.  
 
 
@@ -88,7 +94,7 @@ client.prepareCall(submitReq).loadAsync({
     for (formField in formFields) {
       val isRequired = formField.isRequired()  // indicates you must send this field
     }      
-  }, 
+  },
   (convSubmitException) -> {
     val bvErrors = convSubmitException.getErrors() // null-safe list of generic errors
     val bvFormErrors = convSubmitException.getFieldErrors() // null-safe list of form errors
@@ -104,10 +110,10 @@ val submitReq = ReviewSubmissionReq.Builder(Action.Preview, "testProd")
 client.prepareCall(submitReq).loadAsync({
   (resp) -> {
     // all good, change Action to Submit to actually send   
-  }, 
+  },
   (convSubmitException) -> {
-    val bvErrors = convSubmitException.getErrors() 
-    val bvFieldErrors = convSubmitException.getFieldErrors() 
+    val bvErrors = convSubmitException.getErrors()
+    val bvFieldErrors = convSubmitException.getFieldErrors()
     for (fieldError in bvFieldErrors) {
       val submissionErrorCode = fieldError.getSubmissionErrorCode()
       val relevantFormField = fieldError.getFormField() // gets the form field info
@@ -139,7 +145,7 @@ Same as Test Submission, except use `Action.Submit` and it actually sends.
 * Update `BazaarRuntimeException` to not cause StackOverflowException
 * Update JSON parse failure message
 * Update `BVErrors` exist message
-* Added `BVConversationsClientTest` to test all routes 
+* Added `BVConversationsClientTest` to test all routes
 * Updated Robolectric version for testing
 * Added testing shadow for network security
 
@@ -152,7 +158,7 @@ Same as Test Submission, except use `Action.Submit` and it actually sends.
 * Added unit tests for invalid error code parsing, valid error code parsing, and generic error list parsing
 * Added `SubmissionErrorCode` enum to parse the code strings from the `FieldErrors` JSON field for submission
 * Added `FieldError#getErrorCode()` method for getting the enum
-* Added unit tests for invalid field error code parsing, valid field error code parsing, and generic field error 
+* Added unit tests for invalid field error code parsing, valid field error code parsing, and generic field error
 list parsing
 
 # 6.10.0
@@ -162,15 +168,15 @@ list parsing
 * Add `BaseReview#getSecondaryRatingList()`
 * Add `IncludeContentBase#getBadgeList()`
 * Add `IncludeContentBase#getContextDataValueList()`
-* Fix `BaseReviewBuilder#addContextDataValueString(String dataValueName, boolean value)` to be 
+* Fix `BaseReviewBuilder#addContextDataValueString(String dataValueName, boolean value)` to be
 named `BaseReviewBuilder#addContextDataValueBoolean(String dataValueName, boolean value)`
 * Remove empty `ReviewSubmissionRequest#newBuilder()` method
 * Add `ConversationsSubmissionRequest.Builder#addCustomSubmissionParameter(String key, String value)`
 * Add internal FormPair class to store user custom form parameters
 * Add `ConversationsDisplayRequest.Builder#ConversationsDisplayRequest.Builder#addCustomDisplayParameter(String key, String value)`
-* Deprecated `ConversationsDisplayRequest.Builder#addAdditionalField(String key, String value)` 
+* Deprecated `ConversationsDisplayRequest.Builder#addAdditionalField(String key, String value)`
 in favor of `addCustomDisplayParameter`
-* Added `FormInputType` enum to introduce a strongly typed version of `String type = FormField#getType()`. 
+* Added `FormInputType` enum to introduce a strongly typed version of `String type = FormField#getType()`.
 The possible values were taken from [the conversations docs on input types](https://developer.bazaarvoice.com/conversations-api/tutorials/submission/input-types). This will allow for easier parsing of which form fields have many options. e.g.
 
 ```java
@@ -208,22 +214,22 @@ switch(formInputType) {
 # 6.8.1
 
 ## Conversations
-* Fixed expected behavior of ```ConversationsDisplayRequest.Builder#addAdditionalField(key, val)``` to support 
+* Fixed expected behavior of ```ConversationsDisplayRequest.Builder#addAdditionalField(key, val)``` to support
 one-to-many relationships of key-value pairs.
 
 # 6.8.0
 
 ## Conversations
-* Added multi-config support to the ```BVConversationsClient```. To use it, use the new ```BVConversationsClient.Builder``` 
-to construct an instance, and use the ```BVConversationsClient.Builder#bvConfig(bvConfig)``` method to provide a 
-different config than the default provided by the ```BVSDK``` singleton. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/conversations_display.html) 
+* Added multi-config support to the ```BVConversationsClient```. To use it, use the new ```BVConversationsClient.Builder```
+to construct an instance, and use the ```BVConversationsClient.Builder#bvConfig(bvConfig)``` method to provide a
+different config than the default provided by the ```BVSDK``` singleton. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/conversations_display.html)
 for Conversations.
 * Deprecated the default ```BVConversationsClient``` constructor.
 * Add multiple value support to review display filtering
 
 ## BVPixel (Analytics)
-* Added an additional API to optionally send an analytics event with a different ```clientId``` than the default 
-provided to the ```BVPixel``` singleton instance. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/bvpixel_implementation.html) 
+* Added an additional API to optionally send an analytics event with a different ```clientId``` than the default
+provided to the ```BVPixel``` singleton instance. More info available on [the docs](https://bazaarvoice.github.io/bv-android-sdk/bvpixel_implementation.html)
 for BVPixel.
 
 # 6.7.4
@@ -294,7 +300,7 @@ for BVPixel.
 
 # 6.5.0
 
-## **NEW** BVPixel (Analytics) 
+## **NEW** BVPixel (Analytics)
 * Added analytics module with ```BVPixel``` interface. Now allow a simple interface to build and send analytic events without having to get into the nitty gritty of each required field
 * Added BVPixel under the hood for Curations analytics
 * Deprecated ```include=answers``` which our sdk allows, but does nothing for ```ProductDisplayPageRequest```s
@@ -314,9 +320,9 @@ for BVPixel.
 
 ## Conversations
 
-* Added ```AuthorsRequest``` and ```AuthorsResponse``` to retrieve a Conversations 
+* Added ```AuthorsRequest``` and ```AuthorsResponse``` to retrieve a Conversations
 Author Profile
-* Deprecated the ```QuestionAndAnswerRequest.Builder#addSort(...)``` in favor of the 
+* Deprecated the ```QuestionAndAnswerRequest.Builder#addSort(...)``` in favor of the
 more explicit ```QuestionAndAnswerRequest.Builder#addQuestionSort(...)```
 * Added ability to sort included ```Answer```s with
  ```QuestionAndAnswerRequest.Builder#addAnswerSort(...)```
@@ -339,7 +345,7 @@ more explicit ```QuestionAndAnswerRequest.Builder#addQuestionSort(...)```
 
 ## **NEW** PIN Notifications
 
-* Added a ```PinNotificationManager``` to queue a Post Interaction Notification based on a product id. These notifications 
+* Added a ```PinNotificationManager``` to queue a Post Interaction Notification based on a product id. These notifications
 are remotely configurable on our backend
 
 ## Store Notifications
@@ -352,14 +358,14 @@ are remotely configurable on our backend
 
 ## Location
 
-* Added new preferred way to subscribe to events, by listening to intents with an action of 
+* Added new preferred way to subscribe to events, by listening to intents with an action of
 ```com.bazaarvoice.bvandroidsdk.action.GEOFENCE_VISIT```   
 
 ## General
 
-* Added demo and code sample apps to have a cart to test ```BVPixel``` 
+* Added demo and code sample apps to have a cart to test ```BVPixel```
 
-# 5.2.1 
+# 5.2.1
 
 ## Conversations
 
@@ -401,7 +407,7 @@ are remotely configurable on our backend
 
 # 5.0.0
 
-This release provides a refresh to the Conversations API as well new features for geofence events. 
+This release provides a refresh to the Conversations API as well new features for geofence events.
 
 ## Conversations
 
@@ -412,22 +418,22 @@ This release provides a refresh to the Conversations API as well new features fo
 
 ## Curations
 
-* Added ```CurationsFeedRequest.Builder#location(latitude, longitude)``` parameter to allow searching 
+* Added ```CurationsFeedRequest.Builder#location(latitude, longitude)``` parameter to allow searching
 for Curations feed items by location
 
 # 4.2.0
 
 ## **NEW** Location
 
-This release provides a new module for adding location awareness to your app. This module facilitates 
-knowing when your shoppers are entering and exiting your physical retail locations. You will be 
-provided a very valuable opportunity to present a shopper with your location aware content. Perhaps 
-you have a simple greeting or coupon? Aside from the value you add within your mobile experience, 
-Bazaarvoice can use this location context to enhance our existing products. Rating and Reviews 
-filtered down to the city level, recommended products for nearby people like you, local social media 
+This release provides a new module for adding location awareness to your app. This module facilitates
+knowing when your shoppers are entering and exiting your physical retail locations. You will be
+provided a very valuable opportunity to present a shopper with your location aware content. Perhaps
+you have a simple greeting or coupon? Aside from the value you add within your mobile experience,
+Bazaarvoice can use this location context to enhance our existing products. Rating and Reviews
+filtered down to the city level, recommended products for nearby people like you, local social media
 content (Curations), and more are all possible by using the Location module.
 
-For more information, please refer to the location documentation 
+For more information, please refer to the location documentation
  https://bazaarvoice.github.io/bv-android-sdk/location.html
 
 # 4.1.4
@@ -458,26 +464,26 @@ For more information, please refer to the location documentation
 
 ## Conversations
 
-### Conversations Revamped 
+### Conversations Revamped
 
-This release provides a vast improvement over the current display and submission API for Conversations. 
+This release provides a vast improvement over the current display and submission API for Conversations.
 The following improvements will:
 
 * decrease implementation time
-* provide deserialized responses returned in P.O.J.O (plain old java objects), as opposed to returning 
+* provide deserialized responses returned in P.O.J.O (plain old java objects), as opposed to returning
 a raw json response string
-* make error handling much simpler, (e.g. wrapping legacy conversations API implementation details so 
+* make error handling much simpler, (e.g. wrapping legacy conversations API implementation details so
 you don't have to worry about it
 * provide View container objects, which makes ROI reporting much simpler
 
-We have deprecated the ```BazaarRequest``` class as well as any related classes to implement 
-Conversation the old way. For any clients migrating from the ```BazaarRequest``` API, please refer to 
+We have deprecated the ```BazaarRequest``` class as well as any related classes to implement
+Conversation the old way. For any clients migrating from the ```BazaarRequest``` API, please refer to
 the upgrade guide: https://bazaarvoice.github.io/bv-android-sdk/upgrading_conversations.html
 
 ### Other Conversations Changes
 
-* Fixed the implementation of the ```DisplayParams#addLimitOnIncludedType(type, limitVal)``` method to 
-correctly add the ```type``` to the ```limitType``` list 
+* Fixed the implementation of the ```DisplayParams#addLimitOnIncludedType(type, limitVal)``` method to
+correctly add the ```type``` to the ```limitType``` list
 
 ## General
 
@@ -510,9 +516,9 @@ correctly add the ```type``` to the ```limitType``` list
 
 ## General
 * Added ```AndroidManifest.xml``` to each module with the ```android.permission.INTERNET ```
-permission, so gradle manifest merger should handle implicitly requesting it for 
+permission, so gradle manifest merger should handle implicitly requesting it for
 users instead of needing to explicitly request it
-* Updated docs with instructions for the new Demo App for best practices, as well as 
+* Updated docs with instructions for the new Demo App for best practices, as well as
 the Code Example App. Also updated typos, etc.
 
 # 4.0.0
@@ -538,7 +544,7 @@ the Code Example App. Also updated typos, etc.
 ## Product Recommendations
 * Added ```RecommendationView``` to wrap a view displaying a single ```BVProduct``` and provide better ROI reporting and recommendations
 without the need to manually send off analytic events to Bazaarvoice
-* Added ```RecommendationsContainerView```, ```RecommendationsListView```, ```RecommendationsGridView```, and ```RecommendationsRecyclerView``` 
+* Added ```RecommendationsContainerView```, ```RecommendationsListView```, ```RecommendationsGridView```, and ```RecommendationsRecyclerView```
 to display many ```RecommendationView```s, and provide additional ROI reporting and better recommendations
 
 # 3.1.0
@@ -555,7 +561,7 @@ to display many ```RecommendationView```s, and provide additional ROI reporting 
 * New Module - Targeted Google DFP Ads with Bazaarvoice profiles. Replaces the deprecated bv-android-ads-sdk﻿
 
 ## Conversations
-* Deprecated BazaarRequest constructor requiring parameters, in favor of 
+* Deprecated BazaarRequest constructor requiring parameters, in favor of
 new no parameter constructor
   * Support for Hosted Auth has been added. In SubmissionParams.java see,
     * SubmissionParams#setHostedAuthCallbackUrl(String hostedAuthCallbackUrl)
