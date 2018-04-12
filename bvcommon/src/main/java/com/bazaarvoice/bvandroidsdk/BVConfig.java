@@ -89,7 +89,8 @@ public final class BVConfig {
     private String clientId;
     private boolean dryRunAnalytics = false;
 
-    public Builder() {}
+    public Builder() {
+    }
 
     private Builder(BVConfig bvConfig) {
       this.analyticsDefaultLocale = bvConfig.analyticsDefaultLocale;
@@ -192,14 +193,17 @@ public final class BVConfig {
       BVConfig config = new Gson().fromJson(paramJsonElement.getAsJsonObject(), BVConfig.class);
 
       try {
-        String analyticsLocaleIdentifier =
+        JsonElement analyticsLocaleIdentifier =
                 paramJsonElement.getAsJsonObject()
-                        .get(ANALYTICS_LOCALE_IDENTIFIER)
-                        .getAsString().toUpperCase();
+                        .get(ANALYTICS_LOCALE_IDENTIFIER);
 
         if (null != analyticsLocaleIdentifier) {
-          final Locale defaultLocale = new Locale("", analyticsLocaleIdentifier);
-          config.analyticsDefaultLocale = defaultLocale;
+          String analyticsLocaleString = analyticsLocaleIdentifier.getAsString();
+              if (null != analyticsLocaleString) {
+                final Locale defaultLocale =
+                    new Locale("", analyticsLocaleString.toUpperCase());
+                config.analyticsDefaultLocale = defaultLocale;
+              }
         }
       } catch (IllegalArgumentException e) {
         throw new RuntimeException("Failed to create default Locale from configuration file " + e);
