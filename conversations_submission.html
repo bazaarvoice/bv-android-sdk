@@ -349,7 +349,10 @@ function scrollAndClickById(id) {
             <div class="scroll-container scrollable--scrollbar">
               <div class="page-container">
 
-                <div class="flex flex-row" id="content_title">
+                <p class="bg-danger well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i> This documentation is currently deprecated and will be removed soon. <a class="bg-danger" href="https://developer.bazaarvoice.com/mobile-sdks">Here is the new location of the updated documentation</a></p>
+
+
+<div class="flex flex-row" id="content_title">
   Conversations - Content Submission
 </div>
 
@@ -375,7 +378,8 @@ function scrollAndClickById(id) {
   <li><a href="#custom_key_values">Custom key-value Pairs</a></li>
 </ol>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-info"></a> Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
+
 
 <hr>
 <br>
@@ -684,7 +688,8 @@ client.prepareCall(previewSubmission).loadAsync(new ConversationsSubmissionCallb
   </div>
   <div role="tabpanel" class="tab-pane" id="feedbacksub">
 
-    <p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>   Important: You cannot submit feedback for syndicated content. Make sure to check the <code>IsSyndicated</code> flag before you display your feedback UI. </p>
+    <p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-warning"></a>  Important: You cannot submit feedback for syndicated content. Make sure to check the <code>IsSyndicated</code> flag before you display your feedback UI. </p>
+
 
     <h4>Submitting Feedback</h4>
 <p>
@@ -871,7 +876,6 @@ client.prepareCall(previewSubmissionRequest).loadAsync(new ConversationsSubmissi
 </div>
 
 <br/>
-
 
 
 

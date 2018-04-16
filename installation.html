@@ -349,7 +349,10 @@ function scrollAndClickById(id) {
             <div class="scroll-container scrollable--scrollbar">
               <div class="page-container">
 
-                <div class="flex flex-row" id="content_title">
+                <p class="bg-danger well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i> This documentation is currently deprecated and will be removed soon. <a class="bg-danger" href="https://developer.bazaarvoice.com/mobile-sdks">Here is the new location of the updated documentation</a></p>
+
+
+<div class="flex flex-row" id="content_title">
   Installation
 </div>
 <p>This guide shows you how to install and import the Bazaarvoice Mobile SDK into your Android app.</p>
@@ -380,7 +383,8 @@ function scrollAndClickById(id) {
 <div id="install-with-gradle">
 <h3>Installing with Gradle</h3>
 <hr>
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  For manual installation using archive builds (.aar), use the latest archive version on the  <a href="http://repo1.maven.org/maven2/com/bazaarvoice/bvandroidsdk/">BVSDK Maven repository</a>.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-info"></a> For manual installation using archive builds (.aar), use the latest archive version on the  <a href="http://repo1.maven.org/maven2/com/bazaarvoice/bvandroidsdk/">BVSDK Maven repository</a>.</p>
+
 
 <p>Add the following dependencies to include the Maven Central repository and add Bazaarvoice Mobile SDK modules. You only need to add the dependencies for the products you have an API key for.</p>
 <pre><code>dependencies {

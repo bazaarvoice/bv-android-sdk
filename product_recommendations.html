@@ -349,16 +349,21 @@ function scrollAndClickById(id) {
             <div class="scroll-container scrollable--scrollbar">
               <div class="page-container">
 
-                <div class="flex flex-row" id="content_title">
+                <p class="bg-danger well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i> This documentation is currently deprecated and will be removed soon. <a class="bg-danger" href="https://developer.bazaarvoice.com/mobile-sdks">Here is the new location of the updated documentation</a></p>
+
+
+<div class="flex flex-row" id="content_title">
 	Product Recommendations
 </div>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  The Product Recommendations module is currently in limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-info"></a> The Product Recommendations module is currently in limited beta release. If you'd like to participate, please contact Bazaarvoice.</p>
+
 
 <p>Use the following guide to fetch and display product recommendations in your app with Bazaarvoice Mobile SDKs.</p>
 
 
-<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your Shopper Advertising API Key and Client ID to implement and use product recommendations.</p>
+<p class="bg-warning well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-warning"></a> Important: You will need your Shopper Advertising API Key and Client ID to implement and use product recommendations.</p>
+
 
 <hr>
 <br>
@@ -439,7 +444,8 @@ repositories {
 	After a user is authenticated inside your user login workflow, set an authenticated user to enable profile matching. Refer to <a href="https://bazaarvoice.github.io/bv-android-sdk/user_authentication_token.html">User Authentication Token</a> for instructions.
 </p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Note: You must give the userAuthString created with your existing Bazaarvoice implementation logic to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are applicable even if you are not a Conversations client.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-info"></a> Note: You must give the userAuthString created with your existing Bazaarvoice implementation logic to the <strong>BVSDK.getInstance()</strong> object. However, the steps to encrypt your userAuthString are applicable even if you are not a Conversations client.</p>
+
 
 <h5>Example Authentication String for Testing</h5>
 <p>

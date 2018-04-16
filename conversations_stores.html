@@ -349,13 +349,17 @@ function scrollAndClickById(id) {
             <div class="scroll-container scrollable--scrollbar">
               <div class="page-container">
 
-                <div class="flex flex-row" id="content_title">
+                <p class="bg-danger well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i> This documentation is currently deprecated and will be removed soon. <a class="bg-danger" href="https://developer.bazaarvoice.com/mobile-sdks">Here is the new location of the updated documentation</a></p>
+
+
+<div class="flex flex-row" id="content_title">
 	Conversations Stores - Display and Submission API
 </div>
 
 <p>Use the Bazaarvoice Mobile SDKs to enable Conversations for Stores functionality, such as displaying store reviews and submitting a review and photo of a store. The API is very similar to the Conversations API for product reviews, with the addition that the BVSDK provides additional meta-info for stores, such as geo-location. Contact Bazaarvoice to set up Conversations for Stores.</p>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <strong>apiKeyConversationsStores</strong> to implement and use Conversations for Stores with Mobile SDKs.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-info"></a> Important: You will need your <strong>apiKeyConversationsStores</strong> to implement and use Conversations for Stores with Mobile SDKs.</p>
+
 
 <hr>
 <br>
@@ -439,10 +443,10 @@ Check out the code samples below to get an overview of what functionality you ca
   <li role="presentation" class="active"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Display Store Reviews</a></li>
   <li role="presentation"><a href="#storebulkratings" aria-controls="storebulkratings" role="tab" data-toggle="tab">Display Store Ratings</a></li>
   <li role="presentation"><a href="#submitstorereview" aria-controls="submitstorereview" role="tab" data-toggle="tab">Submit Store Review</a></li>
-  
+
 </ul>
 <div class="tab-content code-switcher">
-	
+
 	<div role="tabpanel" class="tab-pane active" id="reviews">
 
 	<!-- Store Reviews -->
@@ -471,7 +475,7 @@ client.prepareCall(reviewsRequest).loadAsync(new ConversationsCallback<StoreRevi
 
 
 	</div>
-	
+
 	<div role="tabpanel" class="tab-pane" id="storebulkratings">
 
 		<!-- Store Bulk Ratings -->
@@ -562,7 +566,7 @@ client.prepareCall(submission).loadAsync(new ConversationsCallback<StoreReviewSu
 
 
 	</div>
-	
+
 </div>
 <br>
 

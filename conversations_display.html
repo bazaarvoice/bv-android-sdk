@@ -349,14 +349,17 @@ function scrollAndClickById(id) {
             <div class="scroll-container scrollable--scrollbar">
               <div class="page-container">
 
-                <script type="text/javascript">
+                <p class="bg-danger well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i> This documentation is currently deprecated and will be removed soon. <a class="bg-danger" href="https://developer.bazaarvoice.com/mobile-sdks">Here is the new location of the updated documentation</a></p>
+
+
+<script type="text/javascript">
 
     // when doc loads, see if we have an anchored link
     // it might be in a tab, which we need to programatically open
     $(document).ready(function () {
-      
+
        var hash = document.URL.substring(document.URL.indexOf("#"));
-       
+
       if (hash) {
 
             console.log(document.URL)
@@ -369,12 +372,12 @@ function scrollAndClickById(id) {
             console.log(a)
 
             navigateTab(a)
-    
+
       } else {
         console.log('no target')
       }
 
-      
+
     });
 
 </script>
@@ -400,7 +403,8 @@ function scrollAndClickById(id) {
   <li><a href="#display_containers">UI Containers</a></li>
 </ol>
 
-<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
+<p class="bg-info well-lg" style="padding:4px;"><i class="fa fa-hand-o-right"></i>  <a class="bg-info"></a> Important: You will need your <code>apiKeyConversations</code> to implement and use Conversations with Mobile SDKs.</p>
+
 
 <hr>
 <br>
