@@ -7,6 +7,5 @@
 [![BVSDK](https://maven-badges.herokuapp.com/maven-central/com.bazaarvoice.bvandroidsdk/common/badge.svg?style=plastic)](http://search.maven.org/#search%7Cga%7C1%7Ccom.bazaarvoice.bvandroidsdk)
 
 
-## Bazaarvoice Android SDK 
-Full documentation for this SDK lives at: https://bazaarvoice.github.io/bv-android-sdk/
-
+## Bazaarvoice Android SDK
+Full documentation for this SDK lives at: https://developer.bazaarvoice.com/mobile-sdks/android
