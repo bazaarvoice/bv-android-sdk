@@ -3,10 +3,12 @@ package com.bazaarvoice.bvandroidsdk;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.mapPutAllSafe;
 import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.mapPutSafe;
 
 public final class BVTransaction {
@@ -174,6 +176,12 @@ public final class BVTransaction {
           itemsJsonArr.add(itemMapper.toRaw());
         }
         mapPutSafe(map, BVEventKeys.Transaction.ITEMS, itemsJsonArr);
+      }
+
+      if (transaction.getOtherParams() != null && !transaction.getOtherParams().isEmpty()) {
+        Map<String, Object> otherMap =
+            Collections.<String, Object>unmodifiableMap(transaction.getOtherParams());
+        mapPutAllSafe(map, otherMap);
       }
 
       return map;
