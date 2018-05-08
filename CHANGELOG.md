@@ -1,5 +1,11 @@
 # Changelog
 
+# 6.14.5
+
+## Bug Fix
+
+Fixed BVTransaction additional parameters issue. Please see commit for details.
+
 # 6.14.4
 
 ## Bug Fix
