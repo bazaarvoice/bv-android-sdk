@@ -419,7 +419,6 @@ This release provides a refresh to the Conversations API as well new features fo
 
 * Added Conversations for Stores support
 * Added Rich Push notification support for requesting store reviews
-* Added Notification support integrated with BVLocation module (store geofence support)
 * Fixed some max limit bugs in Conversations Display requests for Reviews and Bulk Ratings
 
 ## Curations

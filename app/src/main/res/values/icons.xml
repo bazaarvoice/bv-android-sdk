@@ -1,9 +1,0 @@
-<!-- Cheatsheet: http://fontawesome.io/cheatsheet/ -->
-<resources>
-    <string name="fa_icon_question_circle">&#xf059;</string>
-    <string name="fa_icon_comments">&#xf086;</string>
-    <string name="fa_icon_camera">&#xf030;</string>
-    <string name="fa_icon_camera_retro">&#xf083;</string>
-    <string name="fa_icon_plus">&#xf067;</string>
-    <string name="fa_icon_location_arrow">&#xf124;</string>
-</resources>

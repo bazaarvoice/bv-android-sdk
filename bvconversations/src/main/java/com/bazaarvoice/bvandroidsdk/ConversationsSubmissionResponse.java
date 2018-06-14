@@ -29,16 +29,35 @@ public abstract class ConversationsSubmissionResponse extends ConversationsRespo
    */
   @NonNull
   public List<FormField> getFormFields() {
-    final List<FormField> formFields;
-
     if (formData == null || formData.getFormFieldMap() == null) {
-      formFields = Collections.emptyList();
+      return Collections.emptyList();
+    } else if (formData.getFormFieldsOrder() != null) {
+        ArrayList<FormField> orderedFields = new ArrayList<>(formData.getFormFieldMap().size());
+        for (String groupId : formData.getFormFieldsOrder()) {
+          orderedFields.add(formData.getFormFieldMap().get(groupId));
+        }
+        return orderedFields;
     } else {
-      final Collection<FormField> formFieldCollection = formData.getFormFieldMap().values();
-      formFields = new ArrayList<>(formFieldCollection);
+      return new ArrayList<>(formData.getFormFieldMap().values());
     }
+  }
 
-    return formFields;
+  /**
+   * @return form groups
+   */
+  @NonNull
+  public List<FormGroup> getFormGroups() {
+    if (formData == null || formData.getFormGroupsMap() == null) {
+      return Collections.emptyList();
+    } else if (formData.getFormGroupsOrder() != null) {
+      ArrayList<FormGroup> orderedGroups = new ArrayList<>(formData.getFormGroupsMap().size());
+      for (String groupId : formData.getFormGroupsOrder()) {
+        orderedGroups.add(formData.getFormGroupsMap().get(groupId));
+      }
+      return orderedGroups;
+    } else {
+      return new ArrayList<>(formData.getFormGroupsMap().values());
+    }
   }
 
   /**

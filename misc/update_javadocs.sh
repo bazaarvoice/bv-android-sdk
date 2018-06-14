@@ -34,9 +34,7 @@ update_javadoc_for_module bvcommon
 update_javadoc_for_module bvconversations
 update_javadoc_for_module bvcurations
 update_javadoc_for_module bvcurationsui
-update_javadoc_for_module bvlocation
 update_javadoc_for_module bvnotifications
 update_javadoc_for_module bvrecommendations
-update_javadoc_for_module bvstorenotifications
 
 echo Success: all javadocs updated
