@@ -25,7 +25,6 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.picasso.OkHttp3Downloader;
@@ -71,11 +70,6 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    StethoInterceptor provideStethoInterceptor() {
-        return new StethoInterceptor();
-    }
-
-    @Provides @DemoAppScope
     HttpLoggingInterceptor provideLoggingInterceptor() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -83,9 +77,8 @@ public class DemoAppModule {
     }
 
     @Provides @DemoAppScope
-    OkHttpClient provideHttpClient(DemoSdkInterceptor demoSdkInterceptor, StethoInterceptor stethoInterceptor, HttpLoggingInterceptor loggingInterceptor) {
+    OkHttpClient provideHttpClient(DemoSdkInterceptor demoSdkInterceptor, HttpLoggingInterceptor loggingInterceptor) {
         return new OkHttpClient.Builder()
-                .addNetworkInterceptor(stethoInterceptor)
                 .addInterceptor(demoSdkInterceptor)
                 .addInterceptor(loggingInterceptor)
                 .build();

@@ -7,7 +7,7 @@ repositories {
 apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 
 dependencies {
-  implementation('com.iovation.deviceprint.lib.DevicePrint:deviceprint-lib-release-2.3.3:2.3.3@aar')
+  implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-release-3.0.1:3.0.1@aar')
   implementation project(':bvconversations')
   compileOnly project(':bvcommon')
   compileOnly sdkDep.gson

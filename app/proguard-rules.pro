@@ -16,12 +16,14 @@
 #   public *;
 #}
 
--dontwarn com.squareup.okhttp.*
--dontwarn com.google.android.gms.gcm.GoogleCloudMessaging
--dontwarn org.codehaus.jackson.annotate.JsonIgnore
--dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
--dontwarn org.slf4j.impl.StaticMDCBinder
--dontwarn org.slf4j.impl.StaticMarkerBinder
+
+-dontwarn com.squareup.okhttp.**
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 
 ### OKHTTP
 
