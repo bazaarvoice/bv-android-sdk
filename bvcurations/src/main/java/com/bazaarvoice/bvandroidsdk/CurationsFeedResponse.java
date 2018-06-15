@@ -30,7 +30,7 @@ public class CurationsFeedResponse {
     protected Integer code;
     protected List<CurationsUpdateContainer> updates;
     protected Map<String, CurationsProduct> productData;
-    protected Map<String, String> options = new HashMap<>();
+    protected Map<String, Object> options = new HashMap<>();
 
     private List<CurationsFeedItem> rawUpdates;
 
@@ -42,8 +42,8 @@ public class CurationsFeedResponse {
             if (updates != null) {
                 for (CurationsUpdateContainer curationsUpdateContainer : updates) {
 
-                    if (options.containsKey("externalId")){
-                        curationsUpdateContainer.data.externalIdInQuery = options.get("externalId");
+                    if (options.containsKey("externalId") && options.get("externalId") instanceof String){
+                        curationsUpdateContainer.data.externalIdInQuery = (String) options.get("externalId");
                     }
                     List<CurationsProduct> products = new ArrayList<>();
                     if (curationsUpdateContainer.data.tags != null && productData != null) {
