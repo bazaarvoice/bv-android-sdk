@@ -2,7 +2,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
 
-import com.iovation.mobile.android.DevicePrint;
+import com.iovation.mobile.android.FraudForceManager;
+
 
 public final class IovationFingerprint implements FingerprintProvider {
   private final Context appContext;
@@ -16,8 +17,9 @@ public final class IovationFingerprint implements FingerprintProvider {
   @Override
   public String getFingerprint() throws VerifyError {
     if (!started) {
-      DevicePrint.start(appContext);
-      fingerPrint = DevicePrint.getBlackbox(appContext);
+      FraudForceManager fraudForceManager = FraudForceManager.getInstance();
+      fraudForceManager.initialize(appContext);
+      fingerPrint = fraudForceManager.getBlackbox(appContext);
       started = true;
     }
     return fingerPrint;

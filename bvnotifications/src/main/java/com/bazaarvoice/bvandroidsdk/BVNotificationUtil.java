@@ -11,8 +11,8 @@ import android.os.SystemClock;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.NotificationCompat;
 
 import com.bazaarvoice.bvandroidsdk_notifications.R;
 import com.google.gson.Gson;

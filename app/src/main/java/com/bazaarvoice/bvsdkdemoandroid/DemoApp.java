@@ -13,7 +13,6 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 
 import io.fabric.sdk.android.Fabric;
@@ -34,7 +33,6 @@ public class DemoApp extends Application {
             Fabric.with(this, crashlyticsKit);
         }
 
-        Stetho.initializeWithDefaults(this);
         if (DEBUG) {
             if (LeakCanary.isInAnalyzerProcess(this)) {
                 // This process is dedicated to LeakCanary for heap analysis.
