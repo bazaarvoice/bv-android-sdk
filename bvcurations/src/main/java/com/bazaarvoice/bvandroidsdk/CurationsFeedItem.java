@@ -48,8 +48,8 @@ public class CurationsFeedItem {
     protected Long timestamp;
     public Long getTimestamp(){return timestamp;}
 
-    protected Long id;
-    public Long getId(){return id;}
+    protected String id;
+    public String getId(){return id;}
 
     protected String sourceClient;
     public String getSourceClient(){return sourceClient;}
