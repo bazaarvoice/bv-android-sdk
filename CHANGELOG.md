@@ -3,13 +3,16 @@
 # 7.0.0
 ## Updated minSdkVersion , updated dependencies supported, Removed Deprecated APIs
 
-* The minSdkVersion is 16.
+* The minSdkVersion is now 16.
 * Updated support for various dependencies.
-* Updated support for iovation sdk 3.0
 * Removed GridViews: `BVGridView, AnswersGridView, QuestionsGridView, RecommendationsGridView`
 * Removed ListViews: `BVListView, AnswersListView, QuestionsListView, RecommendationsListView`
 * Bug fix for CurationsFeedItem
-* Please see commit for details.
+#### DevicePrint SDK 
+* Adds support for Iovation's Deviceprint sdk 3.0
+* Removes support for Iovation's Deviceprint sdk under version 3.0
+
+Please see commit for details.
 
 # 6.14.5
 
