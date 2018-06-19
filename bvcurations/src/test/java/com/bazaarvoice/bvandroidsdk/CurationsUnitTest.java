@@ -4,16 +4,21 @@ import android.graphics.Bitmap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowLooper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.mockwebserver.MockResponse;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
@@ -22,7 +27,7 @@ import static junit.framework.Assert.fail;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
+@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class, BaseShadows.NetworkSecurityPolicyWorkaround.class})
 public class CurationsUnitTest extends BVBaseTest {
 
     BVCurations curations;
@@ -52,6 +57,7 @@ public class CurationsUnitTest extends BVBaseTest {
 
     @Test
     public void fetchCurationsFeed() throws Exception {
+        final CountDownLatch latch = new CountDownLatch(1);
         String json = jsonResourceFileAsString("curationsFeedTest1.json", getClass());
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
@@ -63,6 +69,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(List<CurationsFeedItem> feedItems) {
                 assertTrue("Should have some feed items", feedItems.size() > 0);
+                latch.countDown();
             }
 
             @Override
@@ -70,11 +77,15 @@ public class CurationsUnitTest extends BVBaseTest {
                 fail("Should not fail with proper curations response");
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
     public void malformedCurationsFeed() throws Exception {
         String json = jsonResourceFileAsString("curationsMalformedFeedTest1.json", getClass());
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody(json);
@@ -89,13 +100,18 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
     public void curations500Feed() throws Exception {
         String json = jsonResourceFileAsString("curations500Error.json", getClass());
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody(json);
@@ -110,8 +126,13 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
@@ -121,6 +142,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .setResponseCode(500)
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody("");
+        final CountDownLatch latch = new CountDownLatch(1);
 
         server.enqueue(response);
 
@@ -132,14 +154,20 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
 
     @Test
-    public void emptyResponse() throws Exception {
+    public void emptyResponse() throws Exception{
 
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody("");
@@ -154,8 +182,13 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
@@ -441,7 +474,8 @@ public class CurationsUnitTest extends BVBaseTest {
     }
 
     @Test
-    public void postSuccess(){
+    public void postSuccess() throws Exception {
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody("{\"status\":201}");
@@ -452,6 +486,8 @@ public class CurationsUnitTest extends BVBaseTest {
         curations.postContentToCurations(request, new CurationsPostCallback() {
             @Override
             public void onSuccess(CurationsPostResponse response) {
+                assertNotNull(response);
+                latch.countDown();
             }
 
             @Override
@@ -459,10 +495,14 @@ public class CurationsUnitTest extends BVBaseTest {
                 fail("Should not be a failure");
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
     public void postMalformedResponse() throws Exception {
+        final CountDownLatch latch = new CountDownLatch(1);
         String json = jsonResourceFileAsString("curationsMalformedPostResponse.json", getClass());
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
@@ -479,12 +519,19 @@ public class CurationsUnitTest extends BVBaseTest {
             }
 
             @Override
-            public void onFailure(Throwable throwable) {}
+            public void onFailure(Throwable throwable) {
+                assertNotNull(throwable);
+                latch.countDown();
+            }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
-    public void postEmptyBody(){
+    public void postEmptyBody() throws Exception {
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8");
         server.enqueue(response);
@@ -499,12 +546,17 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
-    public void postFailureCurationsError(){
+    public void postFailureCurationsError() throws Exception{
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .addHeader("Content-Type", "application/json; charset=utf-8")
                 .setBody("{\"status\":\"Could not find group\"}");
@@ -520,13 +572,18 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
-
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 
     @Test
-    public void postFailureServerError(){
+    public void postFailureServerError() throws Exception{
+        final CountDownLatch latch = new CountDownLatch(1);
         MockResponse response = new MockResponse()
                 .setResponseCode(500)
                 .addHeader("Content-Type", "application/json; charset=utf-8");
@@ -542,8 +599,12 @@ public class CurationsUnitTest extends BVBaseTest {
 
             @Override
             public void onFailure(Throwable throwable) {
-
+                assertNotNull(throwable);
+                latch.countDown();
             }
         });
+
+        ShadowLooper.unPauseLooper(handlerThread.getLooper());
+        latch.await();
     }
 }

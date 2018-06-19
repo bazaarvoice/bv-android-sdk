@@ -19,7 +19,7 @@ ext {
         supportLibraryVersion : '27.1.1',
         gimbalVersion : '2.72',
         playServicesVersion : '15.0.0',
-        robolectric: '3.4.2',
+        robolectric: '3.8',
         robolectricAddOn : '3.4-rc2'
     ]
 
