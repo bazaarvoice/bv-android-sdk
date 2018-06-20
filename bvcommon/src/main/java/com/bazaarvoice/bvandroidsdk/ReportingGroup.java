@@ -1,7 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 public enum ReportingGroup {
-    LISTVIEW("listView"), GRIDVIEW("gridView"), RECYCLERVIEW("recyclerView"), CUSTOM("custom");
+    RECYCLERVIEW("recyclerView"), CUSTOM("custom");
 
     private String value;
 

@@ -3,6 +3,13 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.bazaarvoice.bvandroidsdk.internal.Utils.mapPutSafe;
+
 /**
  * Wrapper around AnalyticsManger to form/send analytics
  * events for recommendations events
@@ -10,18 +17,24 @@ package com.bazaarvoice.bvandroidsdk;
 public class RecommendationsAnalyticsManager {
     private static final String TAG = RecommendationsAnalyticsManager.class.getSimpleName();
 
-    private static AnalyticsManager analyticsManager = BVSDK.getInstance().getBvWorkerData().getAnalyticsManager();
+    private static BVPixel bvPixel = BVSDK.getInstance().getBvPixel();
+    private static final String KEY_RKC = "RKC";
+    private static final String KEY_RKT = "RKT";
+    private static final String KEY_RKP = "RKP";
+    private static final String KEY_RKI = "RKI";
+    private static final String KEY_RKB = "RKB";
+    private static final String KEY_RS = "RS";
+    private static final String KEY_SPONSORED = "sponsored";
 
     public static void sendEmbeddedPageView(ReportingGroup reportingGroup, String productId, String categoryId, int numRecommendations) {
-        BVSDK bvsdk = BVSDK.getInstance();
-        AnalyticsManager analyticsManager = bvsdk.getBvWorkerData().getAnalyticsManager();
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        RecommendationsEmbeddedPageViewSchema schema = new RecommendationsEmbeddedPageViewSchema.Builder(magpieMobileAppPartialSchema, reportingGroup)
-                .productId(productId)
-                .categoryId(categoryId)
-                .numRecommendations(numRecommendations)
-                .build();
-        analyticsManager.enqueueEvent(schema);
+        BVPageViewEvent pageViewEvent = new BVPageViewEvent(productId, BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS,categoryId);
+
+        Map<String, Object> additionalParams = new HashMap<>();
+        mapPutSafe(additionalParams, "component", reportingGroup.toString());
+        mapPutSafe(additionalParams, "numRecommendations", numRecommendations);
+        pageViewEvent.setAdditionalParams(additionalParams);
+
+        bvPixel.track(pageViewEvent);
     }
 
     /**
@@ -37,11 +50,10 @@ public class RecommendationsAnalyticsManager {
         }
         bvProduct.impressed = true;
 
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
-        RecommendationImpressionSchema schema = new RecommendationImpressionSchema(bvProduct.getId(), magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
+        BVRecomendationImpressionEvent recomendationProductEvent = new BVRecomendationImpressionEvent(bvProduct.getId());
+        recomendationProductEvent.setAdditionalParams(getRecommendationAttributesPartialSchema(bvProduct));
 
-        analyticsManager.enqueueEvent(schema);
+        bvPixel.track(recomendationProductEvent);
     }
 
     /**
@@ -54,11 +66,12 @@ public class RecommendationsAnalyticsManager {
             return;
         }
 
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        RecommendationAttributesPartialSchema recommendationAttributesPartialSchema = getRecommendationAttributesPartialSchema(bvProduct);
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(Feature.CONTENT_CLICK, bvProduct.getProductId(), null, magpieMobileAppPartialSchema, recommendationAttributesPartialSchema);
+        BVFeatureUsedEvent recomendationProductEvent = new BVFeatureUsedEvent(bvProduct.getId(), BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS, BVEventValues.BVFeatureUsedEventType.CONTENT_CLICK,  null);
+        Map<String, Object> additionalParams = getRecommendationAttributesPartialSchema(bvProduct);
+        mapPutSafe(additionalParams, "productId", bvProduct.getId());
+        recomendationProductEvent.setAdditionalParams(additionalParams);
 
-        analyticsManager.enqueueEvent(schema);
+        bvPixel.track(recomendationProductEvent);
     }
 
     private static boolean shouldSendProductEvent(BVProduct bvProduct) {
@@ -73,30 +86,34 @@ public class RecommendationsAnalyticsManager {
     }
 
     public static void sendBvViewGroupAddedToHierarchyEvent(ReportingGroup reportingGroup) {
-
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(Feature.INVIEW, null, reportingGroup, magpieMobileAppPartialSchema, null);
-        analyticsManager.enqueueEvent(schema);
+        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS, BVEventValues.BVFeatureUsedEventType.IN_VIEW, null);
+        final Map<String, Object> additionalParams = new HashMap<>();
+        additionalParams.put("component", reportingGroup.toString());
+        event.setAdditionalParams(additionalParams);
+        bvPixel.track(event);
     }
 
     public static void sendBvViewGroupInteractedWithEvent(ReportingGroup reportingGroup) {
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        RecommendationUsedFeatureSchema schema = new RecommendationUsedFeatureSchema(Feature.SCROLLED, null, reportingGroup, magpieMobileAppPartialSchema, null);
-        analyticsManager.enqueueEvent(schema);
+        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS, BVEventValues.BVFeatureUsedEventType.SCROLLED, null);
+        final Map<String, Object> additionalParams = new HashMap<>();
+        additionalParams.put("component", reportingGroup.toString());
+        event.setAdditionalParams(additionalParams);
+        bvPixel.track(event);
     }
 
-
-    private static RecommendationAttributesPartialSchema getRecommendationAttributesPartialSchema(BVProduct product) {
-        RecommendationAttributesPartialSchema.Builder builder = new RecommendationAttributesPartialSchema.Builder();
-
+    private static Map<String, Object> getRecommendationAttributesPartialSchema(@NonNull BVProduct product) {
+        Map<String, Object> recommendationSchema = new HashMap<>();
         RecommendationStats stats = product.getRecommendationStats();
         if (stats != null) {
-            builder.rkb(stats.getRkb()).rkc(stats.getRkc()).rki(stats.getRki()).rkp(stats.getRkp()).rkt(stats.getRkt());
+            mapPutSafe(recommendationSchema, KEY_RKC, stats.getRkc());
+            mapPutSafe(recommendationSchema, KEY_RKT, stats.getRkt());
+            mapPutSafe(recommendationSchema, KEY_RKP, stats.getRkp());
+            mapPutSafe(recommendationSchema, KEY_RKI, stats.getRki());
+            mapPutSafe(recommendationSchema, KEY_RKB, stats.getRkb());
         }
-
-        builder.rs(product.getRs()).sponsored(product.isSponsored());
-
-        return builder.build();
+        mapPutSafe(recommendationSchema, KEY_RS, product.getRs());
+        mapPutSafe(recommendationSchema, KEY_SPONSORED, product.isSponsored());
+        return  recommendationSchema;
     }
 
     private static boolean isProductValid(BVProduct bvProduct) {
