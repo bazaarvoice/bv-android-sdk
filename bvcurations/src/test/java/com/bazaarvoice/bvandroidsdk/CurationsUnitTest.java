@@ -75,11 +75,12 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onFailure(Throwable throwable) {
                 fail("Should not fail with proper curations response");
+                latch.countDown();
             }
         });
 
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -96,6 +97,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(List<CurationsFeedItem> feedItems) {
                 fail("Should not succeed with malformed curations response");
+                latch.countDown();
             }
 
             @Override
@@ -105,7 +107,7 @@ public class CurationsUnitTest extends BVBaseTest {
             }
         });
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -122,6 +124,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(List<CurationsFeedItem> feedItems) {
                 fail("Should not succeed with 500 code in curations response");
+                latch.countDown();
             }
 
             @Override
@@ -132,7 +135,7 @@ public class CurationsUnitTest extends BVBaseTest {
         });
 
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -150,6 +153,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(List<CurationsFeedItem> feedItems) {
                 fail("Should not succeed with 500 HTTP response code");
+                latch.countDown();
             }
 
             @Override
@@ -160,7 +164,7 @@ public class CurationsUnitTest extends BVBaseTest {
         });
 
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 
 
@@ -178,6 +182,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(List<CurationsFeedItem> feedItems) {
                 fail("Should not succeed with empty response");
+                latch.countDown();
             }
 
             @Override
@@ -188,7 +193,7 @@ public class CurationsUnitTest extends BVBaseTest {
         });
 
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -493,6 +498,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onFailure(Throwable throwable) {
                 fail("Should not be a failure");
+                latch.countDown();
             }
         });
 
@@ -516,6 +522,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(CurationsPostResponse response) {
                 fail("Should not be a success");
+                latch.countDown();
             }
 
             @Override
@@ -542,6 +549,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(CurationsPostResponse response) {
                 fail("Should not be successful");
+                latch.countDown();
             }
 
             @Override
@@ -568,6 +576,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(CurationsPostResponse response) {
                 fail("Should not be successful");
+                latch.countDown();
             }
 
             @Override
@@ -578,7 +587,7 @@ public class CurationsUnitTest extends BVBaseTest {
         });
 
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 
     @Test
@@ -595,6 +604,7 @@ public class CurationsUnitTest extends BVBaseTest {
             @Override
             public void onSuccess(CurationsPostResponse response) {
                 fail("Should not be successful");
+                latch.countDown();
             }
 
             @Override
@@ -605,6 +615,6 @@ public class CurationsUnitTest extends BVBaseTest {
         });
 
         ShadowLooper.unPauseLooper(handlerThread.getLooper());
-        latch.await();
+        latch.await(10, TimeUnit.SECONDS);
     }
 }
