@@ -283,6 +283,10 @@ public class BvStubData {
     return event;
   }
 
+  public BVLocationEvent getLocationEventStub(String transition, String locationId, Long duration) {
+    return new BVLocationEvent(transition, locationId, duration);
+  }
+
   public BVAnalyticsEvent getEvent() {
     return getPageViewEvent();
   }

@@ -6,6 +6,7 @@ dependencies {
     implementation sdkDep.gimbalSLF4J
     implementation sdkDep.slf4jApi
     implementation sdkDep.appCompatV7
+    compileOnly project(":bvanalytics")
     compileOnly sdkDep.gson
 
     // Dependencies for local unit tests

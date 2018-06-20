@@ -3,11 +3,24 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.StringDef;
+
 import com.gimbal.android.Visit;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 class LocationAnalyticsManager {
 
-    static void sendLocationEventForGimbalVisit(Visit visit, VisitLocationSchema.TransitionState transitionState) {
+    @StringDef({ENTRY, EXIT})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface TRANSITION {
+    }
+
+    static final String ENTRY = "Entry";
+    static final String EXIT = "Exit";
+
+    static void sendLocationEventForGimbalVisit(Visit visit, @TRANSITION String transitionState) {
         if (visit == null || visit.getPlace() == null) {
             return;
         }
@@ -15,10 +28,7 @@ class LocationAnalyticsManager {
 
         long seconds = (visit.getDepartureTimeInMillis() > 0) ? visit.getDwellTimeInMillis() / 1000 : 0;
 
-        AnalyticsManager analyticsManager = BVSDK.getInstance().getBvWorkerData().getAnalyticsManager();
-
-        MagpieMobileAppPartialSchema magpieMobileAppPartialSchema = analyticsManager.getMagpieMobileAppPartialSchema();
-        VisitLocationSchema visitLocationSchema = new VisitLocationSchema(magpieMobileAppPartialSchema, id, transitionState, seconds);
-        analyticsManager.enqueueEvent(visitLocationSchema);
+        BVPixel bvPixel = BVSDK.getInstance().getBvPixel();
+        bvPixel.track(new BVLocationEvent(transitionState, id, seconds));
     }
 }

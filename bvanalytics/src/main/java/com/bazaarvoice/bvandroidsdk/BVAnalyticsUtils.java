@@ -63,7 +63,7 @@ class BVAnalyticsUtils {
   }
 
   /**
-   * @param piiJsonObj JsonObject to add PII params to
+   * @param map JsonObject to add PII params to
    * @param params All key-value pairs that a user provides as extra conversion info
    */
   static void addPiiOnly(@NonNull Map<String, Object> map, @NonNull Map<String, Object> params) {
@@ -146,6 +146,13 @@ class BVAnalyticsUtils {
   }
 
   static void mapPutSafe(Map<String, Object> map, String key, double value) {
+    if (key == null || key.isEmpty()) {
+      return;
+    }
+    map.put(key, String.valueOf(value));
+  }
+
+  static void mapPutSafe(Map<String, Object> map, String key, long value) {
     if (key == null || key.isEmpty()) {
       return;
     }

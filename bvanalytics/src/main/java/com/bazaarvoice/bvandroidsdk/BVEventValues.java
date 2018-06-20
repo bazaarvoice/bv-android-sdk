@@ -54,7 +54,7 @@ public class BVEventValues {
     CURATIONS("Curations"),
     PRODUCT_RECOMMENDATIONS("Recommendations"),
     PIN("PIN"),
-    LOCATION("Location");
+    VISIT("Visit");
 
     private String value;
 
@@ -76,7 +76,8 @@ public class BVEventValues {
     UGC("UGC"),
     MOBILE_APP("MobileApp"),
     RECOMMENDATIONS("Recommendations"),
-    VIEWED_CGC("UsedViewedUGC");
+    VIEWED_CGC("UsedViewedUGC"),
+    VISIT("Visit");
 
     private String value;
 
@@ -97,7 +98,8 @@ public class BVEventValues {
     PAGE_VIEW("PageView"),
     IMPRESSION("Impression"),
     PII_CONVERSION("PIIConversion"),
-    LIFECYCLE("Lifecycle");
+    LIFECYCLE("Lifecycle"),
+    LOCATION("Location");
 
     private String value;
 
