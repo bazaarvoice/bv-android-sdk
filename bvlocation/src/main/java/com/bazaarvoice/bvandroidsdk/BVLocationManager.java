@@ -15,6 +15,9 @@ import com.gimbal.android.PlaceManager;
 import com.gimbal.android.Visit;
 import com.google.gson.Gson;
 
+import static com.bazaarvoice.bvandroidsdk.LocationAnalyticsManager.ENTRY;
+import static com.bazaarvoice.bvandroidsdk.LocationAnalyticsManager.EXIT;
+
 /**
  * Class used to monitor users location and provide information about users retail location visits
  */
@@ -137,13 +140,13 @@ public class BVLocationManager {
 
         @Override
         public void onVisitStart(Visit visit) {
-            LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit, VisitLocationSchema.TransitionState.Entry);
+            LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit, ENTRY);
             callbackRegisteredListeners(visit, true);
         }
 
         @Override
         public void onVisitEnd(Visit visit) {
-            LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit, VisitLocationSchema.TransitionState.Exit);
+            LocationAnalyticsManager.sendLocationEventForGimbalVisit(visit, EXIT);
             callbackRegisteredListeners(visit, false);
         }
 

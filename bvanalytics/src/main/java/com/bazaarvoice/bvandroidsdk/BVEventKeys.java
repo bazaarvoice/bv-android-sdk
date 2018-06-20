@@ -67,6 +67,12 @@ class BVEventKeys {
     static final String HASHED_IP = "HashedIP";
     static final String USER_AGENT = "UA";
   }
+  
+  static class Location {
+    static final String TRANSITION = "transition";
+    static final String LOCATION_ID = "locationId";
+    static final String DURATION = "durationSecs";
+  }
 
   static class NonCommerceConversionEvent {
     static final String LOAD_ID = "loadId";
