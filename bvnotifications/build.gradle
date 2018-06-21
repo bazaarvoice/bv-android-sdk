@@ -3,6 +3,7 @@ apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 dependencies {
     implementation project(':bvcommon')
     implementation sdkDep.appCompatV7
+    compileOnly project(":bvanalytics")
     compileOnly sdkDep.okhttp3
     compileOnly sdkDep.supportAnnotations
     compileOnly sdkDep.gson

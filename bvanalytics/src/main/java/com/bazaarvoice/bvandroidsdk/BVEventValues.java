@@ -11,7 +11,8 @@ public class BVEventValues {
     SCROLLED("Scrolled"),
     IN_VIEW("InView"),
     PROFILE("Profile"),
-    CONTENT_CLICK("Click");
+    CONTENT_CLICK("Click"),
+    NOTIFICATION("PushNotification");
 
     private String value;
 
