@@ -35,6 +35,7 @@ class BVEventKeys {
     static final String CONTENT_ID = "contentId";
     static final String BV_CONTENT_TYPE = "contentType";
     static final String DETAIL_1 = "detail1";
+    static final String DETAIL_2 = "detail2";
     static final String CONTAINER_ID = "component";
     static final String BV_FEATURE_TYPE = "name";
     static final String INTERACTION = "interaction";
