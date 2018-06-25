@@ -152,6 +152,9 @@ public final class CurationsFeedRequest {
                 "geolocation",
                 componentsSeparatedBy(asList(latitude, longitude), ","));
         }
+        if(bvsdk.getBvUserProvidedData().getBvMobileInfo().getBvSdkVersion()!= null){
+            builder.addEncodedQueryParameter("_bvAndroidSdkVersion", bvsdk.getBvUserProvidedData().getBvMobileInfo().getBvSdkVersion());
+        }
 
         HttpUrl httpUrl = builder.build();
         return httpUrl.toString();
