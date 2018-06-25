@@ -8,13 +8,13 @@ public class BVRecomendationImpressionEvent extends BVMobileAnalyticsEvent {
 
     private static final String bvProduct = "Recommendations";
     private static final String KEY_VISIBLE = "visible";
-    private static final boolean VALUE_VISIBLE = true;
     private static final String KEY_BV_PRODUCT = "bvProduct";
     private static final String KEY_PRODUCT_ID = "productId";
+    private static final boolean VALUE_VISIBLE = true;
     private final String productId;
 
     public BVRecomendationImpressionEvent(String productId) {
-        super(BVEventValues.BVEventClass.IMPRESSION, BVEventValues.BVEventType.RECOMMENDATIONS);
+        super(BVEventValues.BVEventClass.IMPRESSION, BVEventValues.BVEventType.PERSONALIZATION);
         this.productId = productId;
     }
 

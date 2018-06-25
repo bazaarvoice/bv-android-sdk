@@ -53,8 +53,7 @@ public class BVEventValues {
     CONVERSATIONS_QANDA("AskAndAnswer"),
     CONVERSATIONS_PROFILE("Profiles"),
     CURATIONS("Curations"),
-    PRODUCT_RECOMMENDATIONS("Recommendations"),
-    PIN("PIN"),
+    PERSONALIZATION("Personalization"),
     VISIT("Visit");
 
     private String value;
@@ -76,7 +75,7 @@ public class BVEventValues {
     PROFILE("ProfileMobile"),
     UGC("UGC"),
     MOBILE_APP("MobileApp"),
-    RECOMMENDATIONS("Recommendations"),
+    PERSONALIZATION("Personalization"),
     VIEWED_CGC("UsedViewedUGC"),
     VISIT("Visit");
 

@@ -27,7 +27,7 @@ public class RecommendationsAnalyticsManager {
     private static final String KEY_SPONSORED = "sponsored";
 
     public static void sendEmbeddedPageView(ReportingGroup reportingGroup, String productId, String categoryId, int numRecommendations) {
-        BVPageViewEvent pageViewEvent = new BVPageViewEvent(productId, BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS,categoryId);
+        BVPageViewEvent pageViewEvent = new BVPageViewEvent(productId, BVEventValues.BVProductType.PERSONALIZATION,categoryId);
 
         Map<String, Object> additionalParams = new HashMap<>();
         mapPutSafe(additionalParams, "component", reportingGroup.toString());
@@ -66,7 +66,7 @@ public class RecommendationsAnalyticsManager {
             return;
         }
 
-        BVFeatureUsedEvent recomendationProductEvent = new BVFeatureUsedEvent(bvProduct.getId(), BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS, BVEventValues.BVFeatureUsedEventType.CONTENT_CLICK,  null);
+        BVFeatureUsedEvent recomendationProductEvent = new BVFeatureUsedEvent(bvProduct.getId(), BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.CONTENT_CLICK,  null);
         Map<String, Object> additionalParams = getRecommendationAttributesPartialSchema(bvProduct);
         mapPutSafe(additionalParams, "productId", bvProduct.getId());
         recomendationProductEvent.setAdditionalParams(additionalParams);
@@ -86,7 +86,7 @@ public class RecommendationsAnalyticsManager {
     }
 
     public static void sendBvViewGroupAddedToHierarchyEvent(ReportingGroup reportingGroup) {
-        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS, BVEventValues.BVFeatureUsedEventType.IN_VIEW, null);
+        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.IN_VIEW, null);
         final Map<String, Object> additionalParams = new HashMap<>();
         additionalParams.put("component", reportingGroup.toString());
         event.setAdditionalParams(additionalParams);
@@ -94,7 +94,7 @@ public class RecommendationsAnalyticsManager {
     }
 
     public static void sendBvViewGroupInteractedWithEvent(ReportingGroup reportingGroup) {
-        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PRODUCT_RECOMMENDATIONS, BVEventValues.BVFeatureUsedEventType.SCROLLED, null);
+        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.SCROLLED, null);
         final Map<String, Object> additionalParams = new HashMap<>();
         additionalParams.put("component", reportingGroup.toString());
         event.setAdditionalParams(additionalParams);
