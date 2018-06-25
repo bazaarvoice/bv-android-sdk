@@ -2,6 +2,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.graphics.Bitmap;
 
+import com.bazaarvoice.bvandroidsdk_curations.BuildConfig;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -37,6 +39,7 @@ public class CurationsUnitTest extends BVBaseTest {
     Bitmap testBitmap;
     private CurationsFeedRequest.Builder genericFeedBuilder;
     private String genericFeedRequestStr;
+    private String sdkParam = "&_bvAndroidSdkVersion=" + BuildConfig.BVSDK_VERSION_NAME;
 
     @Override
     protected void modifyPropertiesToInitSDK() {
@@ -199,7 +202,7 @@ public class CurationsUnitTest extends BVBaseTest {
     @Test
     public void requestSerialization1(){
 
-        String expected = curationsDisplayFullUrl + "&groups=__all__";
+        String expected = curationsDisplayFullUrl + "&groups=__all__" + sdkParam;
 
         List<String> groups = new ArrayList<>();
         groups.add("__all__");
@@ -213,7 +216,7 @@ public class CurationsUnitTest extends BVBaseTest {
     @Test
     public void requestSerialization2(){
 
-        String expected = curationsDisplayFullUrl + "&groups=a&groups=b";
+        String expected = curationsDisplayFullUrl + "&groups=a&groups=b" +sdkParam;
 
         List<String> groups = new ArrayList<>();
         groups.add("a");
@@ -228,7 +231,7 @@ public class CurationsUnitTest extends BVBaseTest {
     @Test
     public void requestSerialization3(){
 
-        String expected = curationsDisplayFullUrl + "&groups=__all__&media={%27video%27:{%27width%27:480,%27height%27:360}}";
+        String expected = curationsDisplayFullUrl + "&groups=__all__&media={%27video%27:{%27width%27:480,%27height%27:360}}" +sdkParam;
 
         List<String> groups = new ArrayList<>();
         groups.add("__all__");
@@ -244,7 +247,7 @@ public class CurationsUnitTest extends BVBaseTest {
     @Test
     public void requestSerialization4(){
 
-        String expected = curationsDisplayFullUrl + "&groups=__all__&tags=testTag&tags=other";
+        String expected = curationsDisplayFullUrl + "&groups=__all__&tags=testTag&tags=other" + sdkParam;
 
         List<String> groups = new ArrayList<>();
         groups.add("__all__");
@@ -280,7 +283,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = new CurationsFeedRequest.Builder(Arrays.asList("pocket", "jelly"))
                 .build();
 
-        assertEquals(curationsDisplayFullUrl + "&groups=pocket&groups=jelly", request.toUrlQueryString());
+        assertEquals(curationsDisplayFullUrl + "&groups=pocket&groups=jelly" + sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -289,7 +292,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .authorTokenOrAlias("authorArthur")
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&author=authorArthur", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&author=authorArthur" + sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -298,7 +301,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .externalId("id123")
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&externalId=id123", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&externalId=id123" + sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -307,7 +310,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .after(12345l)
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&after=12345", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&after=12345" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -316,7 +319,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .before(12345l)
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&before=12345", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&before=12345" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -325,7 +328,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .featured(11)
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&featured=11", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&featured=11" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -334,7 +337,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .limit(23)
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&limit=23", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&limit=23" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -343,7 +346,7 @@ public class CurationsUnitTest extends BVBaseTest {
                 .perGroupLimit(20)
                 .build();
 
-        assertEquals(genericFeedRequestStr + "&per_group_limit=20", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&per_group_limit=20" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -351,7 +354,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .hasGeoTag(true).build();
 
-        assertEquals(genericFeedRequestStr + "&has_geotag=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&has_geotag=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -359,7 +362,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .hasLink(true).build();
 
-        assertEquals(genericFeedRequestStr + "&has_link=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&has_link=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -367,7 +370,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .withProductData(true).build();
 
-        assertEquals(genericFeedRequestStr + "&withProductData=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&withProductData=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -375,7 +378,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .hasPhoto(true).build();
 
-        assertEquals(genericFeedRequestStr + "&has_photo=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&has_photo=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -383,7 +386,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .hasVideo(true).build();
 
-        assertEquals(genericFeedRequestStr + "&has_video=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&has_video=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -391,7 +394,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
             .hasPhotoOrVideo(true).build();
 
-        assertEquals(genericFeedRequestStr + "&has_photo_or_video=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&has_photo_or_video=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -399,7 +402,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .includeComments(true).build();
 
-        assertEquals(genericFeedRequestStr + "&include_comments=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&include_comments=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -407,7 +410,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .explicitPermission(true).build();
 
-        assertEquals(genericFeedRequestStr + "&explicit_permission=true", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&explicit_permission=true" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
@@ -415,7 +418,7 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsMedia media = new CurationsMedia("potato", 9001, 9002);
         CurationsFeedRequest request = genericFeedBuilder
                 .media(media).build();
-        assertEquals(genericFeedRequestStr + "&media={%27potato%27:{%27width%27:9001,%27height%27:9002}}", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&media={%27potato%27:{%27width%27:9001,%27height%27:9002}}" + sdkParam,  request.toUrlQueryString());
     }
 
     @Test
@@ -423,14 +426,14 @@ public class CurationsUnitTest extends BVBaseTest {
         CurationsFeedRequest request = genericFeedBuilder
                 .tags(Arrays.asList("tag1", "tag2", "tag3")).build();
 
-        assertEquals(genericFeedRequestStr + "&tags=tag1&tags=tag2&tags=tag3", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&tags=tag1&tags=tag2&tags=tag3" +sdkParam, request.toUrlQueryString());
     }
 
     @Test
     public void displayFullUrlGeneratedLatLong() {
         CurationsFeedRequest request = genericFeedBuilder
                 .location(40.2, -31.4).build();
-        assertEquals(genericFeedRequestStr + "&geolocation=40.2,-31.4", request.toUrlQueryString());
+        assertEquals(genericFeedRequestStr + "&geolocation=40.2,-31.4" + sdkParam, request.toUrlQueryString());
     }
 
     @Test
