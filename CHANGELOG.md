@@ -1,4 +1,11 @@
 # Changelog
+# 7.1.0
+## Analytics Updates
+* Completed rollout of BVPixel migration
+* Removed deprecated analytics schemas
+
+Please see commits for details.
+
 
 # 7.0.0
 ## Updated minSdkVersion , updated dependencies supported, Removed Deprecated APIs
