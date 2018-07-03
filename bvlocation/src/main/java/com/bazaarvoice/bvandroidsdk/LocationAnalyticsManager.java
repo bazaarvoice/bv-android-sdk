@@ -10,6 +10,7 @@ import com.gimbal.android.Visit;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+@Deprecated
 class LocationAnalyticsManager {
 
     @StringDef({ENTRY, EXIT})

@@ -1,5 +1,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
+@Deprecated
 public enum PlaceType {
 
     Geofence("geofence");

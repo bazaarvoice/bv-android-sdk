@@ -5,7 +5,9 @@ package com.bazaarvoice.bvandroidsdk;
 
 /**
  * Class containing information about a users current retail location visit
+ * @deprecated The location module is no longer supported
  */
+@Deprecated
 public final class BVVisit {
     private final String name;
     private final String address;
