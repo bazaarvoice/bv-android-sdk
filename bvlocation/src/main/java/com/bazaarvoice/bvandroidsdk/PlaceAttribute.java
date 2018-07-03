@@ -1,5 +1,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
+@Deprecated
 enum PlaceAttribute {
     Type("type"),
     ClientId("clientId"),

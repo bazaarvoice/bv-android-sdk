@@ -20,7 +20,9 @@ import static com.bazaarvoice.bvandroidsdk.LocationAnalyticsManager.EXIT;
 
 /**
  * Class used to monitor users location and provide information about users retail location visits
+ * @deprecated The location module is no longer supported
  */
+@Deprecated
 public class BVLocationManager {
     private static final String TAG = BVLocationManager.class.getSimpleName();
     private static BVLocationManager instance;
