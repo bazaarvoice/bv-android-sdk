@@ -17,8 +17,6 @@
 
 package com.bazaarvoice.bvsdkdemoandroid;
 
-import android.app.Application;
-
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConfig;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
@@ -36,24 +34,15 @@ import com.squareup.picasso.Picasso;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 
 import static com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient.mapToBvConfig;
 
 @Module
 public class DemoBvModule {
     @Provides @DemoAppScope
-    BVSDK provideBvSdk(
-        Application application,
-        BazaarEnvironment bazaarEnvironment,
-        BVConfig bvConfig,
-        OkHttpClient okHttpClient,
-        BVLogLevel bvLogLevel) {
+    BVSDK provideBvSdk() {
         // Builder used to initialize the Bazaarvoice SDKs
-        return BVSDK.builderWithConfig(application, bazaarEnvironment, bvConfig)
-            .logLevel(bvLogLevel)
-            .okHttpClient(okHttpClient)
-            .build();
+        return BVSDK.getInstance();
     }
 
     @Provides @DemoAppScope

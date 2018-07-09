@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:title="Select Preloaded Profile"
-        android:key="@string/key_selected_config" />
+   <SwitchPreference
+       android:title="Use Mocked Data"
+       android:key="show_mocked_data"
+       android:defaultValue="true"
+       />
 
 </PreferenceScreen>

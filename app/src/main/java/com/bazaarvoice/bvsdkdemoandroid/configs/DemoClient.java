@@ -26,7 +26,7 @@ import com.bazaarvoice.bvandroidsdk.BVConfig;
  * whether this client should be used for real requests, or use mock data
  */
 public class DemoClient {
-    private static final String MOCK_DISPLAY_NAME = "(Mock) Endurance Cycles";
+    public static final String MOCK_DISPLAY_NAME = "(Mock) Endurance Cycles";
     public static final DemoClient EMPTY_CONFIG = new DemoClient(
             "REPLACE_ME",
         "REPLACE_ME",

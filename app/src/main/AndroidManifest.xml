@@ -28,12 +28,15 @@
     <activity android:name=".recommendations.detail.DemoProductDetailActivity"/>
     <activity
       android:name=".curations.detail.DemoCurationsDetailActivity"
+      android:exported="true"
       android:label="@string/title_activity_curations_detail"/>
     <activity
       android:name=".curations.feed.DemoCurationsFeedActivity"
+      android:exported="true"
       android:label="@string/title_activity_curations_feed"/>
     <activity
       android:name=".curations.DemoCurationsPostActivity"
+      android:exported="true"
       android:label="@string/title_activity_curations_post"/>
     <activity
       android:name=".settings.DemoSettingsActivity"
@@ -59,6 +62,7 @@
     <activity
       android:name=".conversations.reviews.DemoReviewsActivity"
       android:label="@string/title_activity_reviews"
+      android:exported="true"
       android:theme="@style/AppTheme.NoActionBar"/>
     <activity
       android:name=".conversations.reviews.DemoStoreReviewsActivity"
@@ -110,12 +114,6 @@
     <meta-data
       android:name="com.google.android.gms.version"
       android:value="@integer/google_play_services_version"/>
-
-    <receiver android:name=".location.DemoLocationReceiver">
-      <intent-filter>
-        <action android:name="com.bazaarvoice.bvandroidsdk.action.NOTIFICATION_BUTTON_TAPPED"/>
-      </intent-filter>
-    </receiver>
 
     <activity
       android:name=".stores.DemoStoresActivity"

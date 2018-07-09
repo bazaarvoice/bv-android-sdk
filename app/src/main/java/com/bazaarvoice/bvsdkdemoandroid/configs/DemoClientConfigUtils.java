@@ -65,7 +65,7 @@ public class DemoClientConfigUtils {
     // region SharedPrefs Helper Methods
 
     private void putStringInPrefs(String key, String value) {
-        sharedPrefs.edit().putString(key, value).commit();
+        sharedPrefs.edit().putString(key, value).apply();
     }
 
     private String getStringInPrefs(String key, String defaultValue) {
@@ -123,18 +123,4 @@ public class DemoClientConfigUtils {
     public List<DemoClient> getCurrentSources() {
         return bazaarEnvironment == BazaarEnvironment.STAGING ? allStagingSources : allProdSources;
     }
-
-    // region Location Persistance - TODO Should go in own Util class, not here
-
-    public void putLastLocationEvent(String lastLocationEvent) {
-        String keyLastLocationEvent = context.getString(R.string.key_last_location_event);
-        putStringInPrefs(keyLastLocationEvent, lastLocationEvent);
-    }
-
-    public String getLastLocationEvent() {
-        String keyLastLocationEvent = context.getString(R.string.key_last_location_event);
-        return getStringInPrefs(keyLastLocationEvent, "none");
-    }
-
-    // endregion
 }
