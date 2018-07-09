@@ -18,10 +18,4 @@
     <item
         android:id="@+id/curations"
         android:title="Curations" />
-    <item
-        android:id="@+id/location"
-        android:title="Location" />
-    <item
-        android:id="@+id/pin_demo"
-        android:title="PIN Demo" />
 </menu>

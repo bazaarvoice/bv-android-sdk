@@ -47,7 +47,6 @@ import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailCurationsAdapter
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailRecAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
-import com.bazaarvoice.bvsdkdemoandroid.location.DemoLocationFragment;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoProductsView;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
@@ -85,7 +84,6 @@ public interface DemoAppComponent {
     void inject(DemoCurationsFeedActivity activity);
     void inject(DemoCurationsMapsActivity activity);
     void inject(DemoFancyProductDetailActivity activity);
-    void inject(DemoLocationFragment fragment);
     void inject(DemoRecommendationsFragment fragment);
     void inject(DemoPreferencesSelectedFragment fragment);
     void inject(DemoApp app);

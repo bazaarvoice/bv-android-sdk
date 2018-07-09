@@ -90,13 +90,18 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
 
         // If the data is valid, restart the BVSDK with the new profile
         if (clientId != null) {
-            BVSDK bvsdk = BVSDK.getInstance();
-            bvsdk = null;
-            DemoApp.cleanUp();
-            if (getActivity() != null && !getActivity().isFinishing()) {
-                int launchCode = ((DemoSettingsActivity) getActivity()).getLaunchCode();
-                Intent nextIntent = DemoLaunchIntentUtil.getLaunchIntent(getContext(), launchCode);
-                ProcessPhoenix.triggerRebirth(getContext(), nextIntent);
+            try {
+                Thread.sleep(1000);
+                BVSDK bvsdk = BVSDK.getInstance();
+                bvsdk = null;
+                DemoApp.cleanUp();
+                if (getActivity() != null && !getActivity().isFinishing()) {
+                    int launchCode = ((DemoSettingsActivity) getActivity()).getLaunchCode();
+                    Intent nextIntent = DemoLaunchIntentUtil.getLaunchIntent(getContext(), launchCode);
+                    ProcessPhoenix.triggerRebirth(getContext(), nextIntent);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         } else {
             new AlertDialog.Builder(getContext())

@@ -31,15 +31,17 @@ class StringUtils {
         for (int i = 0; i < list.size(); i++) {
 
             Object obj = list.get(i);
-            String value = obj.toString();
-            if (shouldEscape) {
-                value = bvCustomEscape(value);
-            }
+            if(obj != null) {
+                String value = obj.toString();
+                if (shouldEscape) {
+                    value = bvCustomEscape(value);
+                }
 
-            builder.append(value);
+                builder.append(value);
 
-            if (i < list.size() - 1) {
-                builder.append(splitBy);
+                if (i < list.size() - 1) {
+                    builder.append(splitBy);
+                }
             }
         }
 

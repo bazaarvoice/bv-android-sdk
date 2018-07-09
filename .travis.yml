@@ -20,7 +20,10 @@ before_install:
 git:
   depth: 1
 
-script: TERM=dumb ./gradlew --stacktrace clean check
+script:
+  - if ["$TRAVIS_BRANCH" == "master"]; then TERM=dumb ./gradlew --stacktrace clean check;
+    else TERM=dumb ./gradlew --stacktrace checkstyle lintDebug testDebugUnitTest --parallel;
+    fi
 
 branches:
   except:

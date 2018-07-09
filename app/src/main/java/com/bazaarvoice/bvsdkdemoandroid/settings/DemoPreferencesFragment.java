@@ -3,9 +3,8 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.settings;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.ListPreference;
-import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -16,9 +15,8 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-public class DemoPreferencesFragment extends PreferenceFragmentCompat {
+public class DemoPreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private ListPreference selectedConfigPref;
 
     @Inject DemoClientConfigUtils demoClientConfigUtils;
     @Inject DemoClient demoClient;
@@ -28,15 +26,6 @@ public class DemoPreferencesFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         addPreferencesFromResource(R.xml.profile_preferences);
-
-        String defaultClientId = demoClient.getClientId();
-
-        selectedConfigPref = (ListPreference) findPreference(getString(R.string.key_selected_config));
-        selectedConfigPref.setEntries(displayNames);
-        selectedConfigPref.setEntryValues(clientIdNames);
-        selectedConfigPref.setValue(defaultClientId);
-
-        updateUserProfile(demoClient);
     }
 
     @Override
@@ -49,27 +38,35 @@ public class DemoPreferencesFragment extends PreferenceFragmentCompat {
 
         super.onCreate(savedInstanceState);
 
-        selectedConfigPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                String selectedClient = (String) o;
-                DemoClient selectedConfig = demoClientConfigUtils.getConfigFromClientId(selectedClient);
-                updateUserProfile(selectedConfig);
-                return true;
-            }
-        });
-
     }
 
-    private void updateUserProfile(DemoClient newSelectedConfig) {
-        ListPreference selectedProfilePref = (ListPreference) findPreference(getString(R.string.key_selected_config));
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    private void updateUserProfile(DemoClient newSelectedConfig, boolean showMockedData) {
+
         String oldClientId = demoClient.getClientId();
 
         // Parse the values from the config
         String clientId = newSelectedConfig.getClientId();
-
-        // Update the ui preference objects
-        selectedProfilePref.setSummary(newSelectedConfig.toString());
+        if(showMockedData) {
+            clientId = DemoClient.MOCK_DISPLAY_NAME;
+        } else {
+            for(CharSequence name: clientIdNames) {
+                if(!name.equals(DemoClient.MOCK_DISPLAY_NAME) && !name.equals("REPLACE_ME")) {
+                    clientId = name.toString();
+                }
+            }
+        }
 
         // Update values on disk if the clientId has changed
         if (!oldClientId.equals(clientId)) {
@@ -77,4 +74,11 @@ public class DemoPreferencesFragment extends PreferenceFragmentCompat {
         }
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals("show_mocked_data")) {
+            boolean showMockedData = sharedPreferences.getBoolean("show_mocked_data", true);
+            updateUserProfile(demoClient, showMockedData);
+        }
+    }
 }
