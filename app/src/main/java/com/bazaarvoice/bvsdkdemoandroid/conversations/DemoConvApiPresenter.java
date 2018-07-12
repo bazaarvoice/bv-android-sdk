@@ -180,7 +180,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     File localImageFile = demoAssetsUtil.parseImageFileFromAssets("puppy_thumbnail.jpg");
 
     ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(submitAction, productId)
-        .userNickname("shazbat")
+        .userNickname("shazbat105")
         .userEmail("foo@bar.com")
         .userId("shazbatuser" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
         .rating(5)
