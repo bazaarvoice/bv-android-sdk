@@ -16,6 +16,9 @@
 #   public *;
 #}
 
+-keep public class com.google.android.gms.* { public *; }
+-dontwarn com.google.android.gms.**
+
 
 -dontwarn com.squareup.okhttp.**
 -dontwarn okhttp3.**
@@ -35,5 +38,7 @@
 
 # java.nio.file.* usage which cannot be used at runtime. Animal sniffer annotation.
 -dontwarn okio.Okio
+
+-dontwarn org.slf4j.impl.**
 
 

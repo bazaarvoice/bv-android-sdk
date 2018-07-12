@@ -146,7 +146,7 @@ class BasicRequestFactory implements RequestFactory {
 
   // region Submit Photo Request Keys
   private static final String PHOTO_SUBMIT_ENDPOINT = "data/uploadphoto.json";
-  private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+  private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
   // endregion
 
   // region Get UAS Keys
@@ -706,7 +706,7 @@ class BasicRequestFactory implements RequestFactory {
         .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
         .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
         .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
-        .addFormDataPart("photo", "photo.png", RequestBody.create(MEDIA_TYPE_PNG, upload.getPhotoFile()));
+        .addFormDataPart("photo", "photo.jpg", RequestBody.create(MEDIA_TYPE_JPG, upload.getPhotoFile()));
 
     RequestBody requestBody = multiPartBuilder.build();
     HttpUrl httpUrl = httpUrlBuilder.build();
