@@ -1,11 +1,16 @@
 # Changelog
+
+# 7.2.0
+## Photo Upload Encoding, Deprecating Location
+* Review Submission photos will now be encoded as jpgs
+* The Location module is deprecated
+
 # 7.1.0
 ## Analytics Updates
 * Completed rollout of BVPixel migration
 * Removed deprecated analytics schemas
 
 Please see commits for details.
-
 
 # 7.0.0
 ## Updated minSdkVersion , updated dependencies supported, Removed Deprecated APIs
