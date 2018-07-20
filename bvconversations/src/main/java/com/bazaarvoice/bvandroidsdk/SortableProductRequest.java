@@ -99,6 +99,11 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
       return (BuilderType) this;
     }
 
+    public BuilderType addSort(ProductOptions.Sort sort, SortOrder sortOrder) {
+      addSort(new Sort(sort, sortOrder));
+      return (BuilderType) this;
+    }
+
     public abstract RequestType build();
   }
 }

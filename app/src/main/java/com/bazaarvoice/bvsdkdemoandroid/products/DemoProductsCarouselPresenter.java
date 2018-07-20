@@ -82,6 +82,7 @@ public class DemoProductsCarouselPresenter implements DemoProductsContract.Prese
 
   private void getConversationsProducts() {
     BulkProductRequest request = new BulkProductRequest.Builder()
+        .addSort(ProductOptions.Sort.Id, SortOrder.ASC)
         .addReviewSort(ReviewOptions.Sort.Rating, SortOrder.DESC)
         .addCustomDisplayParameter("Sort", "AverageOverallRating:desc")
         .addCustomDisplayParameter("Filter", "IsActive:eq:true")

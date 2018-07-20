@@ -773,6 +773,7 @@ class BasicRequestFactory implements RequestFactory {
   private static void addCommonDisplayQueryParams(HttpUrl.Builder httpUrlBuilder, ConversationsDisplayRequest request) {
     addFilterQueryParams(httpUrlBuilder, request.getFilters());
     addExtraQueryParams(httpUrlBuilder, request.getExtraParams());
+    addProductSortParam(httpUrlBuilder, request.getSorts());
   }
 
   private static void addFilterQueryParams(HttpUrl.Builder httpUrlBuilder, List<Filter> filters) {
@@ -821,6 +822,13 @@ class BasicRequestFactory implements RequestFactory {
       httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(request.getStatistics(), ","));
     }
   }
+
+  private static void addProductSortParam(HttpUrl.Builder httpUrlBuilder, List<Sort> sorts) {
+    for (Sort sort : sorts) {
+      httpUrlBuilder.addEncodedQueryParameter(kSORT, sort.toString());
+    }
+  }
+
 
   private static void formPutSafe(FormBody.Builder formBodyBuilder, @NonNull String key, @Nullable Object value) {
     if (value != null && !value.toString().isEmpty()) {
