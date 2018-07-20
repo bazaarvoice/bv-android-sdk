@@ -341,6 +341,30 @@ public class ConversationsUnitTest extends BVBaseTest{
     }
 
     @Test
+    public void testProductDisplayPageRequestWithSort() {
+        ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
+            .addIncludeContent(PDPContentType.Answers, 20)
+            .addIncludeContent(PDPContentType.Questions, 20)
+            .addIncludeContent(PDPContentType.Reviews, 20)
+            .addSort(ProductOptions.Sort.Id, SortOrder.ASC)
+            .build();
+
+        assertTrue("Request should not contain error", pdpRequest.getError() == null);
+    }
+
+    @Test
+    public void testProductDisplayPageRequestWithFilter() {
+        ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
+            .addIncludeContent(PDPContentType.Answers, 20)
+            .addIncludeContent(PDPContentType.Questions, 20)
+            .addIncludeContent(PDPContentType.Reviews, 20)
+            .addFilter(ProductOptions.Filter.CategoryId, EqualityOperator.EQ, "123")
+            .build();
+
+        assertTrue("Request should not contain error", pdpRequest.getError() == null);
+    }
+
+    @Test
     public void testParsingFeedbackHelpfulnessResponse() throws Exception {
 
         FeedbackSubmissionResponse response = parseJsonResourceFile("feedback_helpfulness_response.json", FeedbackSubmissionResponse.class, gson);

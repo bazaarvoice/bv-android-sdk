@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+
 /**
  * Helper class for creating a Sort query parameter
  */
@@ -24,7 +26,7 @@ class Sort {
     private final UGCOption option;
     private final SortOrder sortOrder;
 
-    Sort(UGCOption option, SortOrder sortOrder) {
+    Sort(@NonNull UGCOption option, @NonNull SortOrder sortOrder) {
         this.option = option;
         this.sortOrder = sortOrder;
     }

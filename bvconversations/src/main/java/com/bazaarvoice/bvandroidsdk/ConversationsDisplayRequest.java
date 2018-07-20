@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +28,12 @@ import java.util.List;
 abstract class ConversationsDisplayRequest extends ConversationsRequest {
   private final List<Filter> filters;
   private final List<QueryPair> extraParams;
+  private final List<Sort> sorts;
 
   ConversationsDisplayRequest(Builder builder) {
     filters = builder.filters;
     extraParams = builder.extraParams;
+    sorts = builder.sorts;
   }
 
   List<Filter> getFilters() {
@@ -39,6 +43,8 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
   List<QueryPair> getExtraParams() {
     return extraParams;
   }
+
+  List<Sort> getSorts() { return sorts; }
 
   static class QueryPair {
     private final String key, value;
@@ -60,14 +66,20 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
   static abstract class Builder<BuilderType> {
     private final List<Filter> filters;
     private final List<QueryPair> extraParams;
+    private final List<Sort> sorts;
 
     public Builder() {
       filters = new ArrayList<>();
       extraParams = new ArrayList<>();
+      sorts = new ArrayList<>();
     }
 
-    protected void addFilter(Filter filter) {
+    protected void addFilter(@NonNull Filter filter) {
       filters.add(filter);
+    }
+
+    protected void addSort(@NonNull Sort sort) {
+      sorts.add(sort);
     }
 
     /**
