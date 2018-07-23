@@ -1,0 +1,25 @@
+apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
+
+dependencies {
+    implementation project(':bvcommon')
+    compileOnly project(':bvanalytics')
+    compileOnly project(':bvconversations')
+    compileOnly sdkDep.gson
+    compileOnly sdkDep.okhttp3
+    compileOnly sdkDep.recyclerview
+    compileOnly sdkDep.supportAnnotations
+
+    // Dependencies for local unit tests
+    testImplementation sdkTestDep.junit
+    testImplementation sdkTestDep.mockito
+    testImplementation sdkTestDep.mockWebServer
+    testImplementation sdkTestDep.robolectric
+    testImplementation project(':bvanalytics')
+    testCompileOnly sdkTestDep.androidJson
+    testCompileOnly sdkDep.playServiceAds
+    testCompileOnly sdkDep.gson
+}
+
+apply from: rootProject.file('gradle/setup-signing.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+

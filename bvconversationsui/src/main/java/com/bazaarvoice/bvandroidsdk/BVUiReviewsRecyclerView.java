@@ -23,41 +23,40 @@ import android.util.AttributeSet;
 
 /**
  * {@link android.support.v7.widget.RecyclerView} container for
- * many {@link QuestionView}s providing usage Analytic events.
- * @deprecated please use BVUiQuestionsRecyclerView from conversation-ui module
+ * many {@link BVUiReviewView}s providing usage Analytic events.
  */
-@Deprecated
-public final class QuestionsRecyclerView extends ConversationsDisplayRecyclerView<QuestionAndAnswerRequest, QuestionAndAnswerResponse> {
+public final class BVUiReviewsRecyclerView extends BVUiConversationsDisplayRecyclerView<ReviewsRequest, ReviewResponse> {
 
-    public QuestionsRecyclerView(Context context) {
+    public BVUiReviewsRecyclerView(Context context) {
         super(context);
     }
 
-    public QuestionsRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public BVUiReviewsRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public QuestionsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public BVUiReviewsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
-    String getProductIdFromRequest(QuestionAndAnswerRequest questionAndAnswerRequest) {
-        return questionAndAnswerRequest.getProductId();
+    String getProductIdFromRequest(ReviewsRequest reviewsRequest) {
+        return reviewsRequest.getProductId();
     }
 
     @Override
     BVEventValues.BVProductType getBVProductType() {
-        return BVEventValues.BVProductType.CONVERSATIONS_QANDA;
+        return BVEventValues.BVProductType.CONVERSATIONS_REVIEWS;
     }
 
     @Override
     String getContainerId() {
-        return "QuestionsRecyclerView";
+        return "ReviewsRecyclerView";
     }
 
     @Override
     BVEventValues.BVProductType getBvProductType() {
-        return BVEventValues.BVProductType.CONVERSATIONS_QANDA;
+        return BVEventValues.BVProductType.CONVERSATIONS_REVIEWS;
     }
+
 }

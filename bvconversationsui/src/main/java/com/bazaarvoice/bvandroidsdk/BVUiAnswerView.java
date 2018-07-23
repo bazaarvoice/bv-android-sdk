@@ -21,30 +21,30 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
- * {@link android.widget.FrameLayout} container for a single {@link Question}
+ * {@link android.widget.FrameLayout} container for a single {@link Answer}
  * providing usage Analytic events.
- * @deprecated please use BVUiAnswerView from conversation-ui module
  */
-@Deprecated
-public final class QuestionView extends ConversationsUgcView {
-    QuestionView(Context context) {
+public final class BVUiAnswerView extends ConversationsUgcView {
+
+    public BVUiAnswerView(Context context) {
         super(context);
     }
 
-    QuestionView(Context context, AttributeSet attrs) {
+    public BVUiAnswerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    QuestionView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BVUiAnswerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    QuestionView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BVUiAnswerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
     String getViewName() {
-        return QuestionView.class.getSimpleName();
+        return BVUiAnswerView.class.getSimpleName();
     }
+
 }

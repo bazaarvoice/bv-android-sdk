@@ -23,28 +23,26 @@ import android.util.AttributeSet;
 /**
  * {@link android.widget.FrameLayout} container for many {@link QuestionView}s
  * providing usage Analytic events.
- * @deprecated please use BVUiQuestionsContainerView from conversation-ui module
  */
-@Deprecated
-public final class QuestionsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse>, EventView.EventViewListener<QuestionsContainerView>, EventView.ProductView {
+public final class BVUiQuestionsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse>, EventView.EventViewListener<BVUiQuestionsContainerView>, EventView.ProductView {
     private LoadCallDisplay call;
     private String productId;
     private ConversationsAnalyticsManager convAnMan;
     private boolean onScreen = false;
 
-    public QuestionsContainerView(Context context) {
+    public BVUiQuestionsContainerView(Context context) {
         super(context);
     }
 
-    public QuestionsContainerView(Context context, AttributeSet attrs) {
+    public BVUiQuestionsContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public QuestionsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BVUiQuestionsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public QuestionsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BVUiQuestionsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

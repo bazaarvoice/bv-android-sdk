@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
+import com.bazaarvoice.bvandroidsdk.BVUiConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
@@ -53,7 +53,7 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     }
 
     @Override
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, ConversationsDisplayRecyclerView reviewsRecyclerView) {
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, BVUiConversationsDisplayRecyclerView reviewsRecyclerView) {
         return new DemoStoreReviewsPresenter(view, bvConversationsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
@@ -61,7 +61,7 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     void inflateRecyclerView() {
         recyclerViewStub.setLayoutResource(R.layout.store_reviews_recyclerview);
         recyclerViewStub.inflate();
-        reviewsRecyclerView = (ConversationsDisplayRecyclerView) findViewById(R.id.store_reviews_recycler_view);
+        reviewsRecyclerView = (BVUiConversationsDisplayRecyclerView) findViewById(R.id.store_reviews_recycler_view);
     }
 
     @Override

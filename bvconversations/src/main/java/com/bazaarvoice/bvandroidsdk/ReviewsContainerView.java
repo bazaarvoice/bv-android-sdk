@@ -23,7 +23,9 @@ import android.util.AttributeSet;
 /**
  * {@link android.widget.FrameLayout} container for many {@link ReviewView}s
  * providing usage Analytic events.
+ * @deprecated please use BVUiReviewsContainerView from conversation-ui module
  */
+@Deprecated
 public final class ReviewsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<ReviewsRequest, ReviewResponse>, EventView.EventViewListener<ReviewsContainerView>, EventView.ProductView {
     private LoadCall call;
     private String productId;

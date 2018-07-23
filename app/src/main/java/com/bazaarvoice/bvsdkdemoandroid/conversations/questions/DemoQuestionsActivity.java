@@ -23,7 +23,7 @@ import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.Question;
-import com.bazaarvoice.bvandroidsdk.QuestionsRecyclerView;
+import com.bazaarvoice.bvandroidsdk.BVUiQuestionsRecyclerView;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
@@ -52,7 +52,8 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
     @BindView(R.id.product_name) TextView productName;
     @BindView(R.id.product_rating) RatingBar productRating;
 
-    @BindView(R.id.questions_recycler_view) QuestionsRecyclerView questionsRecyclerView;
+    @BindView(R.id.questions_recycler_view)
+    BVUiQuestionsRecyclerView questionsRecyclerView;
     private DemoQuestionsAdapter questionsAdapter;
     @BindView(R.id.questions_loading) ProgressBar questionLoading;
     @BindView(R.id.empty_message) TextView emptyMessage;

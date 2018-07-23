@@ -27,24 +27,22 @@ import android.util.AttributeSet;
  *
  * @param <RequestType> Type of {@link ConversationsDisplayRequest}
  * @param <ResponseType> Type of {@link ConversationsDisplayResponse}
- * @deprecated please use BVUiConversationsDisplayRecyclerView from conversation-ui module
  */
-@Deprecated
-public abstract class ConversationsDisplayRecyclerView<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends BVRecyclerView implements BVConversationsClient.DisplayLoader<RequestType, ResponseType> {
+public abstract class BVUiConversationsDisplayRecyclerView<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> extends BVRecyclerView implements BVConversationsClient.DisplayLoader<RequestType, ResponseType> {
     LoadCallDisplay<RequestType, ResponseType> call;
     String productId;
     boolean onScreen = false;
     ConversationsAnalyticsManager convAnMan;
 
-    ConversationsDisplayRecyclerView(Context context) {
+    BVUiConversationsDisplayRecyclerView(Context context) {
         super(context);
     }
 
-    ConversationsDisplayRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    BVUiConversationsDisplayRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    ConversationsDisplayRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    BVUiConversationsDisplayRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

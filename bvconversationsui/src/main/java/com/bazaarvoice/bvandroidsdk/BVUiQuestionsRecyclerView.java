@@ -24,20 +24,18 @@ import android.util.AttributeSet;
 /**
  * {@link android.support.v7.widget.RecyclerView} container for
  * many {@link QuestionView}s providing usage Analytic events.
- * @deprecated please use BVUiQuestionsRecyclerView from conversation-ui module
  */
-@Deprecated
-public final class QuestionsRecyclerView extends ConversationsDisplayRecyclerView<QuestionAndAnswerRequest, QuestionAndAnswerResponse> {
+public final class BVUiQuestionsRecyclerView extends BVUiConversationsDisplayRecyclerView<QuestionAndAnswerRequest, QuestionAndAnswerResponse> {
 
-    public QuestionsRecyclerView(Context context) {
+    public BVUiQuestionsRecyclerView(Context context) {
         super(context);
     }
 
-    public QuestionsRecyclerView(Context context, @Nullable AttributeSet attrs) {
+    public BVUiQuestionsRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public QuestionsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public BVUiQuestionsRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

@@ -24,7 +24,9 @@ import android.util.AttributeSet;
 /**
  * {@link android.support.v7.widget.RecyclerView} container for
  * many {@link ReviewView}s providing usage Analytic events.
+ * @deprecated please use BVUiReviewsRecyclerView from conversation-ui module
  */
+@Deprecated
 public final class ReviewsRecyclerView extends ConversationsDisplayRecyclerView<ReviewsRequest, ReviewResponse> {
 
     public ReviewsRecyclerView(Context context) {
