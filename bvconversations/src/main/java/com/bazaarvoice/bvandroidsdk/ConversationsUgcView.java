@@ -23,7 +23,9 @@ import android.util.AttributeSet;
 /**
  * Base {@link android.widget.FrameLayout} around UGC items
  * to provide Analytics about usage.
+ * @deprecated please use BVUiConversationsUgcView from conversation-ui module
  */
+@Deprecated
 abstract class ConversationsUgcView extends BVView {
     private Product product;
 

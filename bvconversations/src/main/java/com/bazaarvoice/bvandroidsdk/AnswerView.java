@@ -23,7 +23,9 @@ import android.util.AttributeSet;
 /**
  * {@link android.widget.FrameLayout} container for a single {@link Answer}
  * providing usage Analytic events.
+ * @deprecated please use BVUiAnswerView from conversation-ui module
  */
+@Deprecated
 public final class AnswerView extends ConversationsUgcView {
 
     public AnswerView(Context context) {

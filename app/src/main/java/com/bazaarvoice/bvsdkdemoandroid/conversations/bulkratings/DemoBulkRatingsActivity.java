@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
-import com.bazaarvoice.bvandroidsdk.ConversationsDisplayRecyclerView;
+import com.bazaarvoice.bvandroidsdk.BVUiConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.Statistics;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
@@ -81,7 +81,7 @@ public class DemoBulkRatingsActivity extends AppCompatActivity implements DemoBu
     void inflateRecyclerView() {
         recyclerViewStub.setLayoutResource(R.layout.reviews_recyclerview);
         recyclerViewStub.inflate();
-        reviewsRecyclerView = (ConversationsDisplayRecyclerView) findViewById(R.id.store_reviews_recycler_view);
+        reviewsRecyclerView = (BVUiConversationsDisplayRecyclerView) findViewById(R.id.store_reviews_recycler_view);
     }
 
     private void setupToolbarViews() {

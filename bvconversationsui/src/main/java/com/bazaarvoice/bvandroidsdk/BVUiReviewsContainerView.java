@@ -21,30 +21,28 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 /**
- * {@link android.widget.FrameLayout} container for many {@link QuestionView}s
+ * {@link android.widget.FrameLayout} container for many {@link BVUiReviewView}s
  * providing usage Analytic events.
- * @deprecated please use BVUiQuestionsContainerView from conversation-ui module
  */
-@Deprecated
-public final class QuestionsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<QuestionAndAnswerRequest, QuestionAndAnswerResponse>, EventView.EventViewListener<QuestionsContainerView>, EventView.ProductView {
-    private LoadCallDisplay call;
+public final class BVUiReviewsContainerView extends BVContainerView implements BVConversationsClient.DisplayLoader<ReviewsRequest, ReviewResponse>, EventView.EventViewListener<BVUiReviewsContainerView>, EventView.ProductView {
+    private LoadCall call;
     private String productId;
     private ConversationsAnalyticsManager convAnMan;
     private boolean onScreen = false;
 
-    public QuestionsContainerView(Context context) {
+    public BVUiReviewsContainerView(Context context) {
         super(context);
     }
 
-    public QuestionsContainerView(Context context, AttributeSet attrs) {
+    public BVUiReviewsContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public QuestionsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BVUiReviewsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public QuestionsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public BVUiReviewsContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -55,22 +53,33 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
     }
 
     @Override
-    public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsCallback<QuestionAndAnswerResponse> callback) {
+    public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsCallback<ReviewResponse> callback) {
         this.call = call;
+        final ReviewsRequest reviewsRequest = call.getRequest();
+        productId = reviewsRequest.getProductId();
         convAnMan = call.getConversationsAnalyticsManager();
-        final QuestionAndAnswerRequest qAndARequest = call.getRequest();
-        productId = qAndARequest.getProductId();
         call.loadAsync(callback);
         trySendUsedFeatureInViewEvent();
     }
 
     @Override
-    public void loadAsync(LoadCallDisplay<QuestionAndAnswerRequest, QuestionAndAnswerResponse> call, ConversationsDisplayCallback<QuestionAndAnswerResponse> callback) {
+    public void loadAsync(LoadCallDisplay<ReviewsRequest, ReviewResponse> call, ConversationsDisplayCallback<ReviewResponse> callback) {
         this.call = call;
+        final ReviewsRequest reviewsRequest = call.getRequest();
+        productId = reviewsRequest.getProductId();
         convAnMan = call.getConversationsAnalyticsManager();
-        final QuestionAndAnswerRequest qAndARequest = call.getRequest();
-        productId = qAndARequest.getProductId();
         call.loadAsync(callback);
+        trySendUsedFeatureInViewEvent();
+    }
+
+    @Override
+    public void onVisibleOnScreenStateChanged(boolean onScreen) {
+
+    }
+
+    @Override
+    public void onFirstTimeOnScreen() {
+        this.onScreen = true;
         trySendUsedFeatureInViewEvent();
     }
 
@@ -83,16 +92,10 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
         }
     }
 
-    @Override
-    public void onFirstTimeOnScreen() {
-        this.onScreen = true;
-        trySendUsedFeatureInViewEvent();
-    }
-
     private void trySendUsedFeatureInViewEvent() {
         if (onScreen && productId != null && convAnMan != null) {
             convAnMan.sendUsedFeatureInViewEvent(
-                productId, "QuestionsContainerView", BVEventValues.BVProductType.CONVERSATIONS_QANDA);
+                productId, "ReviewsContainerView", BVEventValues.BVProductType.CONVERSATIONS_REVIEWS);
         }
     }
 
@@ -100,10 +103,4 @@ public final class QuestionsContainerView extends BVContainerView implements BVC
     public String getProductId() {
         return productId;
     }
-
-    @Override
-    public void onVisibleOnScreenStateChanged(boolean onScreen) {
-
-    }
-
 }

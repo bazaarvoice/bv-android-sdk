@@ -94,6 +94,7 @@ dependencies {
     implementation project(':bvauthiovation')
     implementation project(':bvrecommendations')
     implementation project(':bvconversations')
+    implementation project(':bvconversationsui')
     implementation project(':bvcurations')
     implementation project(':bvlocation')
     implementation project(':bvstorenotifications')
@@ -109,6 +110,7 @@ dependencies {
     implementation demoAppDep.bvSdkCurations
     implementation demoAppDep.bvSdkStoreNotif
     implementation demoAppDep.bvSdkCurationsUi
+    implementation demoAppDep.bvSdkConversationsUi
   }
   implementation demoAppDep.picasso
   implementation demoAppDep.picassoDownloader

@@ -23,7 +23,9 @@ import android.util.AttributeSet;
 /**
  * {@link android.widget.FrameLayout} container for a single {@link Review}
  * providing usage Analytic events.
+ * @deprecated please use BVUiReviewView from conversation-ui module
  */
+@Deprecated
 public final class ReviewView extends ConversationsUgcView {
     ReviewView(Context context) {
         super(context);
