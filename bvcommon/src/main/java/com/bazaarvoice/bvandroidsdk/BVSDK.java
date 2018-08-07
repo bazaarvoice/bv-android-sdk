@@ -1,10 +1,11 @@
 /**
- *  Copyright 2016 Bazaarvoice Inc. All rights reserved.
+ * Copyright 2016 Bazaarvoice Inc. All rights reserved.
  */
 
 package com.bazaarvoice.bvandroidsdk;
 
 import android.app.Application;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -18,6 +19,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -28,8 +34,15 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+
 import okhttp3.Cache;
+import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
+import okhttp3.TlsVersion;
 
 import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
 
@@ -55,7 +68,7 @@ public class BVSDK {
     private static final String BAZAARVOICE_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/";
     private static final String NOTIFICATION_CONFIG_URL = "https://s3.amazonaws.com/";
-    private static final String BVSDK_USER_AGENT = "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME;
+    private static final String BVSDK_USER_AGENT = "bvsdk-android/v" + BuildConfig.BVSDK_VERSION_NAME;
     private static final String BACKGROUND_THREAD_NAME = "BackgroundThread";
     static final int BVHandlePayload = 123;
     static volatile BVSDK singleton;
@@ -102,6 +115,7 @@ public class BVSDK {
     /**
      * Tell BVSDK who the user is. This is the essential step in providing targeted, personalized
      * information about the user.
+     *
      * @param userAuthString The Bazaarvoice-specific User Auth String. See the online documentation
      *                       for information on where this auth string comes from, and why it is
      *                       necessary.
@@ -465,17 +479,30 @@ public class BVSDK {
                 this.okHttpClient = new OkHttpClient();
             }
 
+            BVLogger bvLogger = new BVLogger(logLevel);
+
             // Use their OkHttp instance or ours, and add the options we want
             File httpCacheFile = new File(application.getCacheDir(), "bvsdk_http_cache");
             long maxCacheSize = 1024 * 1024 * 10; // 10MiB
             Cache httpCache = new Cache(httpCacheFile, maxCacheSize);
-            this.okHttpClient = okHttpClient
+            OkHttpClient.Builder clientBuilder = okHttpClient
                     .newBuilder()
                     .cache(httpCache)
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .build();
+                    .connectTimeout(30, TimeUnit.SECONDS);
 
-            BVLogger bvLogger = new BVLogger(logLevel);
+            try {
+                okHttpClient = addSupportForTLS1_2OnPreLollipop(clientBuilder).build();
+            } catch (KeyManagementException e) {
+                bvLogger.e("BVSDK", "BVSDK failed to enable TLS v1.2 support for pre lollipop. " +
+                "Support for TLS v1.2 or higher is required");
+            } catch (NoSuchAlgorithmException e) {
+                bvLogger.e("BVSDK", "BVSDK failed to enable TLS v1.2 support for pre lollipop. " +
+                        "Support for TLS v1.2 or higher is required");
+            } catch (KeyStoreException e) {
+                bvLogger.e("BVSDK", "BVSDK failed to enable TLS v1.2 support for pre lollipop. " +
+                        "Support for TLS v1.2 or higher is required");
+            }
+
 
             Locale defaultLocale = finalConfig.getAnalyticsDefaultLocale();
             if (defaultLocale == null) {
@@ -639,6 +666,38 @@ public class BVSDK {
         public Looper getBackgroundLooper() {
             return backgroundLooper;
         }
+    }
+
+    private static X509TrustManager getSystemDefaultTrustManager() throws NoSuchAlgorithmException, KeyStoreException {
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
+                TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init((KeyStore) null);
+        TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+        if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+            throw new IllegalStateException("Unexpected default trust managers:"
+                    + Arrays.toString(trustManagers));
+        }
+        return (X509TrustManager) trustManagers[0];
+    }
+
+    private static OkHttpClient.Builder addSupportForTLS1_2OnPreLollipop(OkHttpClient.Builder client) throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            SSLContext sc = SSLContext.getInstance("TLSv1.2");
+            sc.init(null, null, null);
+
+            ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                    .tlsVersions(TlsVersion.TLS_1_2)
+                    .build();
+
+            List<ConnectionSpec> specs = new ArrayList<>();
+            specs.add(cs);
+
+            client.sslSocketFactory(new TLSSocketFactory(sc.getSocketFactory()), getSystemDefaultTrustManager())
+                    .connectionSpecs(specs);
+        }
+
+        return client;
     }
 
     // endregion
