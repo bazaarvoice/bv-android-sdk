@@ -1,5 +1,15 @@
 # Changelog
 
+# 7.3.0
+## ConversationsUi Module, TLS 1.2 support, Sort option added to ProductDisplayRequests
+* Conversations ui features have been deprecated and moved to a new module 'ConversationsUi' Please 
+Add this module to continue using the ui features of Conversations
+* Enabled support for TLS v1.2 for devices on API versions 16-20. Support for TLS 1.2 or greater
+is required. 
+* Sort parameters can be added as part of the ProductDisplayRequest
+
+Please see commit for details
+
 # 7.2.0
 ## Photo Upload Encoding, Deprecating Location
 * Review Submission photos will now be encoded as jpgs
