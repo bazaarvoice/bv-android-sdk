@@ -1,5 +1,8 @@
 # Changelog
 
+# 7.3.1
+## Fix conversations ui manifest package
+
 # 7.3.0
 ## ConversationsUi Module, TLS 1.2 support, Sort option added to ProductDisplayRequests
 * Conversations ui features have been deprecated and moved to a new module 'ConversationsUi' Please 

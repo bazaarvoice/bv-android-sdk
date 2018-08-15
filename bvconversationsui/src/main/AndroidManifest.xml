@@ -1,4 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="bvkotlin.bazaarvoice.com.bvconversationsui" >
+    package="com.bazaarvoice.bvandroidsdk_conversationsui" >
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
