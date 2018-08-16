@@ -540,16 +540,6 @@ public class BVSDK {
                 gson,
                 profilePollTimes,
                 backgroundThread);
-            AnalyticsManager analyticsManager = new AnalyticsManager(
-                application.getApplicationContext(),
-                bvUserProvidedData.getBvConfig().getClientId(),
-                analyticsRootUrl,
-                okHttpClient,
-                immediateExecutorService,
-                scheduledExecutorService,
-                bvAuthenticatedUser,
-                uuid,
-                bvUserProvidedData.getBvConfig().isDryRunAnalytics());
             BVPixel bvPixel = new BVPixel.Builder(application, bvUserProvidedData.getBvConfig().getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING, defaultLocale)
                 .bgHandlerThread(backgroundThread)
                 .okHttpClient(okHttpClient)
@@ -558,7 +548,6 @@ public class BVSDK {
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(bvPixel, bvLogger);
 
             BVWorkerData bvWorkerData = new BVWorkerData(
-                analyticsManager,
                 gson,
                 endPoints,
                 okHttpClient,
@@ -621,7 +610,6 @@ public class BVSDK {
     }
 
     static final class BVWorkerData {
-        private final AnalyticsManager analyticsManager;
         private final Gson gson;
         private final BVRootApiUrls bvRootApiUrls;
         private final OkHttpClient okHttpClient;
@@ -629,18 +617,13 @@ public class BVSDK {
         private final Looper backgroundLooper;
         private final HandlerThread backgroundThread;
 
-        public BVWorkerData(AnalyticsManager analyticsManager, Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, HandlerThread backgroundThread, Looper backgroundLooper) {
-            this.analyticsManager = analyticsManager;
+        public BVWorkerData(Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, HandlerThread backgroundThread, Looper backgroundLooper) {
             this.gson = gson;
             this.bvRootApiUrls = bvRootApiUrls;
             this.okHttpClient = okHttpClient;
             this.bvSdkUserAgent = bvSdkUserAgent;
             this.backgroundThread = backgroundThread;
             this.backgroundLooper = backgroundLooper;
-        }
-
-        public AnalyticsManager getAnalyticsManager() {
-            return analyticsManager;
         }
 
         public Gson getGson() {

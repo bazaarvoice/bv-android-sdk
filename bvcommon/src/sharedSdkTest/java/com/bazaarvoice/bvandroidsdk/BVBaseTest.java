@@ -58,7 +58,6 @@ public abstract class BVBaseTest {
     BVLogger bvLogger;
     String bvSdkVersion;
 
-    @Mock AnalyticsManager analyticsManager;
     @Mock BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     @Mock BVAuthenticatedUser bvAuthenticatedUser;
     @Mock BVPixel bvPixel;
@@ -106,7 +105,7 @@ public abstract class BVBaseTest {
         // Builder used to initialize the Bazaarvoice SDKs
         BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
         OkHttpClient okHttpClient = new OkHttpClient();
-        BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, okHttpClient, "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, handlerThread, handlerThread.getLooper());
+        BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(gson, rootApiUrls, okHttpClient, "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, handlerThread, handlerThread.getLooper());
         BVSDK.singleton = new BVSDK(bvUserProvidedData, bvLogger, bvActivityLifecycleCallbacks, bvAuthenticatedUser, handler, handlerThread, bvPixel, bvWorkerData, environment);
 
         afterInitSdk(BVSDK.getInstance());
