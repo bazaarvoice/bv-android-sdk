@@ -26,4 +26,5 @@ public class DemoDisplayableProductsCache extends DemoCache<BVDisplayableProduct
   protected String getKey(BVDisplayableProductContent productContent) {
     return productContent.getId();
   }
+
 }

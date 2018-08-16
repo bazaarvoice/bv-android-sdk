@@ -26,34 +26,32 @@ public class RecommendationsAnalyticsManager {
     private static final String KEY_RS = "RS";
     private static final String KEY_SPONSORED = "sponsored";
 
-    public static void sendEmbeddedPageView(ReportingGroup reportingGroup, String productId, String categoryId, int numRecommendations) {
-        BVPageViewEvent pageViewEvent = new BVPageViewEvent(productId, BVEventValues.BVProductType.PERSONALIZATION,categoryId);
+    public static void sendEmbeddedPageView(ReportingGroup reportingGroup,
+                                            String productId,
+                                            String categoryId,
+                                            PageType pageType,
+                                            ShopperProfile shopperProfile) {
 
-        Map<String, Object> additionalParams = new HashMap<>();
-        mapPutSafe(additionalParams, "component", reportingGroup.toString());
-        mapPutSafe(additionalParams, "numRecommendations", numRecommendations);
-        pageViewEvent.setAdditionalParams(additionalParams);
-
+        BVPageViewEvent pageViewEvent = new BVPageViewEvent(productId, BVEventValues.BVProductType.PERSONALIZATION, categoryId);
+        Map<String, Object> shopperProfileParams = getShopperProfileAttributesPartialSchema(shopperProfile, pageType);
+        mapPutSafe(shopperProfileParams, "component", reportingGroup.toString());
+        pageViewEvent.setAdditionalParams(shopperProfileParams);
         bvPixel.track(pageViewEvent);
+
     }
 
-    /**
-     * Event when a single product recommendation appears on screen
-     *
-     * @param bvProduct
-     */
-    public static void sendProductImpressionEvent(BVProduct bvProduct) {
-        BVLogger bvLogger = BVSDK.getInstance().getBvLogger();
-        bvLogger.d("RecAnalytics", "bvProduct " + bvProduct.getId() + " is impressed?" + bvProduct.impressed);
-        if (!shouldSendProductEvent(bvProduct) || bvProduct.impressed) {
-            return;
-        }
-        bvProduct.impressed = true;
-
-        BVRecomendationImpressionEvent recomendationProductEvent = new BVRecomendationImpressionEvent(bvProduct.getId());
-        recomendationProductEvent.setAdditionalParams(getRecommendationAttributesPartialSchema(bvProduct));
-
-        bvPixel.track(recomendationProductEvent);
+    public static void sendFeatureUsedEvent(String component, ShopperProfile shopperProfile, BVProduct bvProduct) {
+        BVFeatureUsedEvent bvFeatureUsedEvent = new BVFeatureUsedEvent(
+                bvProduct.getId(),
+                BVEventValues.BVProductType.PERSONALIZATION,
+                BVEventValues.BVFeatureUsedEventType.IN_VIEW,
+                null);
+        Map<String, Object> additionalParams = getShopperProfileAttributesPartialSchema(shopperProfile, null);
+        mapPutSafe(additionalParams, "categoryId", getCategoryId(bvProduct));
+        mapPutSafe(additionalParams, "type", "Used");
+        mapPutSafe(additionalParams, "component", component);
+        bvFeatureUsedEvent.setAdditionalParams(additionalParams);
+        bvPixel.track(bvFeatureUsedEvent);
     }
 
     /**
@@ -61,17 +59,19 @@ public class RecommendationsAnalyticsManager {
      *
      * @param bvProduct
      */
-    public static void sendProductConversionEvent(BVProduct bvProduct) {
+    public static void sendProductConversionEvent(ShopperProfile shopperProfile, BVProduct bvProduct) {
         if (!shouldSendProductEvent(bvProduct)) {
             return;
         }
 
-        BVFeatureUsedEvent recomendationProductEvent = new BVFeatureUsedEvent(bvProduct.getId(), BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.CONTENT_CLICK,  null);
+        BVFeatureUsedEvent recommendationProductEvent = new BVFeatureUsedEvent(bvProduct.getId(), BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.ENGAGED, null);
         Map<String, Object> additionalParams = getRecommendationAttributesPartialSchema(bvProduct);
+        additionalParams.putAll(getShopperProfileAttributesPartialSchema(shopperProfile,null));
         mapPutSafe(additionalParams, "productId", bvProduct.getId());
-        recomendationProductEvent.setAdditionalParams(additionalParams);
+        mapPutSafe(additionalParams, "categoryId", getCategoryId(bvProduct));
+        recommendationProductEvent.setAdditionalParams(additionalParams);
 
-        bvPixel.track(recomendationProductEvent);
+        bvPixel.track(recommendationProductEvent);
     }
 
     private static boolean shouldSendProductEvent(BVProduct bvProduct) {
@@ -93,9 +93,11 @@ public class RecommendationsAnalyticsManager {
         bvPixel.track(event);
     }
 
-    public static void sendBvViewGroupInteractedWithEvent(ReportingGroup reportingGroup) {
-        BVFeatureUsedEvent event = new BVFeatureUsedEvent("", BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.SCROLLED, null);
-        final Map<String, Object> additionalParams = new HashMap<>();
+    public static void sendBvViewGroupInteractedWithEvent(ReportingGroup reportingGroup,
+                                                          PageType pageType,
+                                                          ShopperProfile shopperProfile) {
+        BVFeatureUsedEvent event = new BVFeatureUsedEvent(null, BVEventValues.BVProductType.PERSONALIZATION, BVEventValues.BVFeatureUsedEventType.SCROLLED, null);
+        final Map<String, Object> additionalParams = getShopperProfileAttributesPartialSchema(shopperProfile, pageType);
         additionalParams.put("component", reportingGroup.toString());
         event.setAdditionalParams(additionalParams);
         bvPixel.track(event);
@@ -113,10 +115,51 @@ public class RecommendationsAnalyticsManager {
         }
         mapPutSafe(recommendationSchema, KEY_RS, product.getRs());
         mapPutSafe(recommendationSchema, KEY_SPONSORED, product.isSponsored());
-        return  recommendationSchema;
+        return recommendationSchema;
+    }
+
+    private static Map<String, Object> getShopperProfileAttributesPartialSchema(ShopperProfile shopperProfile, PageType pageType) {
+        Map<String, Object> shopperProfileParams = new HashMap<>();
+        if (pageType != null) {
+            mapPutSafe(shopperProfileParams, "pageType", pageType.toString());
+        }
+        if (shopperProfile != null && shopperProfile.getProfile() != null) {
+            Profile profile = shopperProfile.getProfile();
+            mapPutSafe(shopperProfileParams, "plan", shopperProfile.getProfile().getPlan());
+            mapPutSafe(shopperProfileParams, "activeUser", shopperProfile.getProfile().getRecommendationStats().isActiveUser());
+            if (profile.getRecommendedProducts() != null) {
+                mapPutSafe(shopperProfileParams, "numRecommendations", shopperProfile.getProfile().getRecommendedProducts().size());
+            }
+            RecommendationStats stats = profile.getRecommendationStats();
+            if (stats != null) {
+                shopperProfileParams.putAll(getShopperStatsPartialSchema(stats));
+            }
+        }
+
+        return shopperProfileParams;
+    }
+
+    private static Map<String, Object> getShopperStatsPartialSchema(RecommendationStats stats) {
+        Map<String, Object> shopperProfileParams = new HashMap<>();
+
+        if (stats != null) {
+            mapPutSafe(shopperProfileParams, KEY_RKC, stats.getRkc());
+            mapPutSafe(shopperProfileParams, KEY_RKT, stats.getRkt());
+            mapPutSafe(shopperProfileParams, KEY_RKP, stats.getRkp());
+            mapPutSafe(shopperProfileParams, KEY_RKI, stats.getRki());
+            mapPutSafe(shopperProfileParams, KEY_RKB, stats.getRkb());
+        }
+        return shopperProfileParams;
     }
 
     private static boolean isProductValid(BVProduct bvProduct) {
         return bvProduct != null && bvProduct.getId() != null;
+    }
+
+    private static String getCategoryId(BVProduct bvProduct) {
+        if(bvProduct != null && bvProduct.getCategoryIds() != null && bvProduct.getCategoryIds().size() > 0) {
+            return bvProduct.getCategoryIds().get(bvProduct.getCategoryIds().size() - 1);
+        }
+        return null;
     }
 }

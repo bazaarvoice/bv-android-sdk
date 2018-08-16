@@ -12,7 +12,8 @@ public class BVEventValues {
     IN_VIEW("InView"),
     PROFILE("Profile"),
     CONTENT_CLICK("Click"),
-    NOTIFICATION("PushNotification");
+    NOTIFICATION("PushNotification"),
+    ENGAGED("Engaged");
 
     private String value;
 
@@ -54,7 +55,8 @@ public class BVEventValues {
     CONVERSATIONS_PROFILE("Profiles"),
     CURATIONS("Curations"),
     PERSONALIZATION("Personalization"),
-    VISIT("Visit");
+    VISIT("Visit"),
+    USED("Used");
 
     private String value;
 
@@ -77,7 +79,8 @@ public class BVEventValues {
     MOBILE_APP("MobileApp"),
     PERSONALIZATION("Personalization"),
     VIEWED_CGC("UsedViewedUGC"),
-    VISIT("Visit");
+    VISIT("Visit"),
+    EMBEDDED("Embedded");
 
     private String value;
 

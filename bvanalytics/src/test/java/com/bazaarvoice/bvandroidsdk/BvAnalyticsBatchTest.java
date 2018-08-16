@@ -87,7 +87,7 @@ public class BvAnalyticsBatchTest {
     JsonArray batchArray = jsonObject.getAsJsonArray("batch");
     JsonObject eventJsonObj = batchArray.get(0).getAsJsonObject();
     checkJsonContains(eventJsonObj, "cl", "PageView");
-    checkJsonContains(eventJsonObj, "type", "Product");
+    checkJsonContains(eventJsonObj, "type", "Embedded");
   }
 
   @Test

@@ -15,7 +15,7 @@ before_install:
   # Install the rest of tools (e.g., avdmanager).
   - sdkmanager tools
   # Install the android.
-  - sdkmanager "platform-tools" "platforms;android-15"
+  - sdkmanager "platform-tools" "platforms;android-16"
 
 git:
   depth: 1

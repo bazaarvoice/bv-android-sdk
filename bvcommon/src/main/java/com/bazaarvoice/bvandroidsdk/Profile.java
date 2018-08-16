@@ -6,10 +6,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Shopper Marketing Profile
@@ -24,6 +22,8 @@ public class Profile {
     private Map<String, Interest> brands;
 
     private List<String> recommendations;
+
+    private String plan;
 
     private RecommendationStats recommendationStats;
 
@@ -49,8 +49,6 @@ public class Profile {
 
     private String getFlattenedValue(Map<String, Interest> input) {
         StringBuilder stringBuilder = new StringBuilder();
-        Set<Map.Entry<String, Interest>> inputEntrySet = input.entrySet();
-        Iterator<Map.Entry<String, Interest>> iterator = inputEntrySet.iterator();
 
         int numEntries = input.size();
         int currentIndex = 0;
@@ -72,12 +70,21 @@ public class Profile {
         return stringBuilder.toString();
     }
 
+
+    public String getPlan() {
+        return plan;
+    }
+
     Map<String, Interest> getInterests() {
         return interests;
     }
 
     Map<String, Interest> getBrands() {
         return brands;
+    }
+
+    public RecommendationStats getRecommendationStats() {
+        return recommendationStats;
     }
 
     public List<BVProduct> getRecommendedProducts() {

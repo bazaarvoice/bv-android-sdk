@@ -60,12 +60,9 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
         demoViewHolder.recommendationView.setBvProduct(bvProduct);
 
         demoViewHolder.row.setTag(bvProduct);
-        demoViewHolder.row.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (productTapListener != null) {
-                    productTapListener.onProductTapListener((BVProduct) v.getTag());
-                }
+        demoViewHolder.row.setOnClickListener(v -> {
+            if (productTapListener != null) {
+                productTapListener.onProductTapListener((BVProduct) v.getTag());
             }
         });
     }
@@ -94,10 +91,10 @@ public class DemoProductDetailRecAdapter extends RecyclerView.Adapter<RecyclerVi
         public DemoProductDetailViewHolder(View itemView) {
             super(itemView);
             recommendationView = (RecommendationView) itemView;
-            row = (RelativeLayout) itemView.findViewById(R.id.rec_snippet_container);
-            image = (ImageView) itemView.findViewById(R.id.productThumbnailImage);
-            productName = (TextView) itemView.findViewById(R.id.product_name);
-            productRating = (RatingBar) itemView.findViewById(R.id.product_rating);
+            row = itemView.findViewById(R.id.rec_snippet_container);
+            image = itemView.findViewById(R.id.productThumbnailImage);
+            productName = itemView.findViewById(R.id.product_name);
+            productRating = itemView.findViewById(R.id.product_rating);
         }
     }
 }

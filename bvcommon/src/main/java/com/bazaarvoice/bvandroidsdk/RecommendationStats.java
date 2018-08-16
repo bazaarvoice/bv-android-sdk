@@ -23,6 +23,14 @@ class RecommendationStats {
     @SerializedName("RKT")
     private long rkt;
 
+    @SerializedName("RKR")
+    private long rkr;
+
+    @SerializedName("RKN")
+    private long rkn;
+
+    private boolean activeUser;
+
     public long getRki() {
         return rki;
     }
@@ -41,5 +49,13 @@ class RecommendationStats {
 
     public long getRkt() {
         return rkt;
+    }
+
+    public long getRkr() { return rkr; }
+
+    public long getRkn() { return rkn; }
+
+    public boolean isActiveUser() {
+        return activeUser;
     }
 }

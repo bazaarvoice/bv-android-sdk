@@ -37,9 +37,10 @@ class BVEventKeys {
     static final String DETAIL_1 = "detail1";
     static final String DETAIL_2 = "detail2";
     static final String CONTAINER_ID = "component";
-    static final String BV_FEATURE_TYPE = "name";
+    static final String BV_FEATURE_NAME = "name";
     static final String INTERACTION = "interaction";
     static final String HAS_FINGERPRINT = "fingerprinting";
+    static final String TYPE = "type";
   }
 
   static class PageViewEvent {

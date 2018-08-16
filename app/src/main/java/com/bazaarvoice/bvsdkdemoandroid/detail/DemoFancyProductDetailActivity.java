@@ -62,7 +62,11 @@ import butterknife.OnClick;
 
 import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoRequiredKeyUiUtil.getNoReccosApiKeyDialog;
 
-public class DemoFancyProductDetailActivity extends AppCompatActivity implements DemoProductRecContract.View, DemoProductDetailRecAdapter.ProductTapListener, DemoProductDetailCurationsAdapter.CurationFeedItemTapListener, DemoProductContract.View {
+public class DemoFancyProductDetailActivity extends AppCompatActivity implements
+        DemoProductRecContract.View,
+        DemoProductDetailRecAdapter.ProductTapListener,
+        DemoProductDetailCurationsAdapter.CurationFeedItemTapListener,
+        DemoProductContract.View {
     // region Properties
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
     private static final String EXTRA_PRODUCT_NAME = "extra_product_name";
@@ -162,14 +166,14 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(productName);
     }
 
     private void setupFab() {
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = findViewById(R.id.fab);
         final DemoRouter router = new DemoRouter(this);
         fab.setOnClickListener(v -> router.transitionToSubmitReviewActivity(productId));
     }
@@ -193,14 +197,14 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     }
 
     private void setupConversationsRow() {
-        ViewGroup convQuestionsViewGroup = (ViewGroup) findViewById(R.id.conv_questions_container);
+        ViewGroup convQuestionsViewGroup = findViewById(R.id.conv_questions_container);
         convQuestionsViewGroup.setOnClickListener(convQuestionsRowClickListener);
 
         // Add the Font-Awesome icon
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         fontAwesomeReviewsIcon.setTypeface(fontAwesomeFont);
 
-        ViewGroup convReviewsViewGroup = (ViewGroup) findViewById(R.id.conv_reviews_container);
+        ViewGroup convReviewsViewGroup = findViewById(R.id.conv_reviews_container);
         convReviewsViewGroup.setOnClickListener(convReviewsRowClickListener);
         // Add the Font-Awesome icon
         fontAwesomeQuestionIcon.setTypeface(fontAwesomeFont);

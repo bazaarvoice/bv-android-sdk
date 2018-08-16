@@ -6,6 +6,8 @@ package com.bazaarvoice.bvsdkdemoandroid.detail;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.BVRecommendationsResponse;
+import com.bazaarvoice.bvandroidsdk.PageType;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
@@ -78,6 +80,7 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
             if (categoryUpdate) {
                 builder.categoryId(categoryId);
             }
+            builder.pageType(PageType.PRODUCT);
             RecommendationsRequest request = builder.build();
             recommendationsLoader.loadRecommendations(request, this);
         } else {
@@ -86,8 +89,8 @@ public class DemoProductRecPresenter implements DemoProductRecContract.UserActio
     }
 
     @Override
-    public void onSuccess(List<BVProduct> recommendedProducts) {
-        showRecommendedProducts(recommendedProducts, true);
+    public void onSuccess(BVRecommendationsResponse response) {
+        showRecommendedProducts(response.getRecommendedProducts(), true);
     }
 
     @Override
