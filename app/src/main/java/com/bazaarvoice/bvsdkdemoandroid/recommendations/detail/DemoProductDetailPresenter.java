@@ -5,9 +5,8 @@ package com.bazaarvoice.bvsdkdemoandroid.recommendations.detail;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.BVRecommendationsResponse;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
-
-import java.util.List;
 
 class DemoProductDetailPresenter implements DemoRecommendationDetailContract.UserActionsListener, BVRecommendations.BVRecommendationsCallback {
 
@@ -37,8 +36,8 @@ class DemoProductDetailPresenter implements DemoRecommendationDetailContract.Use
     }
 
     @Override
-    public void onSuccess(List<BVProduct> recommendedProducts) {
-        view.showRelatedRecommendations(recommendedProducts);
+    public void onSuccess(BVRecommendationsResponse response) {
+        view.showRelatedRecommendations(response.getRecommendedProducts());
     }
 
     @Override

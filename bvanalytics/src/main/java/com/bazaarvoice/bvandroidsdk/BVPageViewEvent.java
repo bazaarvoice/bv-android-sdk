@@ -19,7 +19,7 @@ public final class BVPageViewEvent extends BVMobileAnalyticsEvent {
   public BVPageViewEvent(@NonNull String productId,
                          @NonNull BVEventValues.BVProductType bvProductType,
                          @Nullable String categoryId) {
-    super(BVEventValues.BVEventClass.PAGE_VIEW, BVEventValues.BVEventType.PRODUCT);
+    super(BVEventValues.BVEventClass.PAGE_VIEW, BVEventValues.BVEventType.EMBEDDED);
     warnShouldNotBeEmpty("productId", productId);
     this.productId = productId;
     warnShouldNotBeEmpty("bvProductType", bvProductType);

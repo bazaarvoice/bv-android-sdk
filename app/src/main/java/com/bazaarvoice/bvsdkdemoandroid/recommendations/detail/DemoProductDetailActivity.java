@@ -47,7 +47,7 @@ public class DemoProductDetailActivity extends AppCompatActivity implements Demo
         getIntentExtras();
 
         setContentView(R.layout.activity_product_detail);
-        recyclerView = (RecommendationsRecyclerView) findViewById(R.id.bvRecyclerView);
+        recyclerView = findViewById(R.id.bvRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
 

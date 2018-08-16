@@ -27,6 +27,6 @@ public class BvFeatureUsedEventTest {
     checkMapContains(subjectMap, BVEventKeys.Event.SOURCE, BVEventValues.BVEventSource.NATIVE_MOBILE_SDK.toString());
     checkMapContains(subjectMap, BVEventKeys.FeatureUsedEvent.PRODUCT_ID, stubData.getProductId());
     checkMapContains(subjectMap, BVEventKeys.FeatureUsedEvent.BV_PRODUCT_TYPE, BVEventValues.BVProductType.CONVERSATIONS_REVIEWS.toString());
-    checkMapContains(subjectMap, BVEventKeys.FeatureUsedEvent.BV_FEATURE_TYPE, BVEventValues.BVFeatureUsedEventType.WRITE_REVIEW.toString());
+    checkMapContains(subjectMap, BVEventKeys.FeatureUsedEvent.BV_FEATURE_NAME, BVEventValues.BVFeatureUsedEventType.WRITE_REVIEW.toString());
   }
 }

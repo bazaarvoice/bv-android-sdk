@@ -44,7 +44,15 @@ public class RecommendationsRequestTest extends BVBaseTest {
     }
 
     private void checkUrlStr(String actualUrlStr, RecommendationsRequest request) {
-        assertEquals(expectedRequestUrl(shopperMarketingApiBaseUrl, adId, bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(), limit, bvUserProvidedData.getBvConfig().getClientId(), request.getProductId(), request.getCategoryId()), actualUrlStr);
+        assertEquals(expectedRequestUrl(
+                shopperMarketingApiBaseUrl,
+                adId,
+                bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising(),
+                limit,
+                bvUserProvidedData.getBvConfig().getClientId(),
+                request.getProductId(),
+                request.getCategoryId(),
+                request.getPageType()), actualUrlStr);
     }
 
     @Test
@@ -54,7 +62,7 @@ public class RecommendationsRequestTest extends BVBaseTest {
         checkUrlStr(actualUrlStr, request);
     }
 
-    private String expectedRequestUrl(String baseUrl, String adId, String shopperAdvertisingApiKey, int limit, String clientId, String productId, String categoryId) {
+    private String expectedRequestUrl(String baseUrl, String adId, String shopperAdvertisingApiKey, int limit, String clientId, String productId, String categoryId, PageType pageType) {
         String requestUrl = baseUrl + "recommendations/magpie_idfa_" + adId + "?passKey=" + shopperAdvertisingApiKey;
         if (productId != null && !productId.isEmpty()) {
             requestUrl += "&product=" + clientId + "/" + productId;
@@ -63,15 +71,19 @@ public class RecommendationsRequestTest extends BVBaseTest {
             requestUrl += "&category=" + clientId + "/" + categoryId;
         }
         requestUrl += "&limit=" + limit + "&client=" + clientId;
+
+        if(pageType != null) {
+            requestUrl += "&pageType=" + pageType.toString();
+        }
         return requestUrl;
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void limitTooSmall() {
         new RecommendationsRequest.Builder(limitTooSmall).build();
     }
 
-    @Test(expected=IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void limitTooBig() {
         new RecommendationsRequest.Builder(limitTooBig).build();
     }
@@ -83,14 +95,14 @@ public class RecommendationsRequestTest extends BVBaseTest {
                     .productId("prod123")
                     .categoryId("cat123");
             fail();
-        } catch (IllegalArgumentException expected) { /** expected **/ }
+        } catch (IllegalArgumentException expected) { /** expected **/}
 
         try {
             new RecommendationsRequest.Builder(limit)
                     .categoryId("cat123")
                     .productId("prod123");
             fail();
-        } catch (IllegalArgumentException expected) { /** expected **/ }
+        } catch (IllegalArgumentException expected) { /** expected **/}
     }
 
 }

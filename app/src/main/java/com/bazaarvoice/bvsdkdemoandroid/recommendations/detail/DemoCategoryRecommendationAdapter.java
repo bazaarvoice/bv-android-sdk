@@ -149,14 +149,10 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
 
         RecommendationView recommendationView = headerDetailViewHolder.recommendationView;
         recommendationView.setBvProduct(bvProduct);
+//        recommendationView.setShopperProfile(shopperProfile);
 
         if (onExtraProductTappedListener != null) {
-            recommendationView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onExtraProductTappedListener.onExtraProductTapped(bvProduct);
-                }
-            });
+            recommendationView.setOnClickListener(v -> onExtraProductTappedListener.onExtraProductTapped(bvProduct));
         }
     }
 
@@ -199,16 +195,11 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         public HeaderDetailViewHolder(View itemView) {
             super(itemView);
 //            detailBvView = (RecommendationView) itemView.findViewById(R.id.bvView);
-            prodName = (TextView) itemView.findViewById(R.id.productName);
-            prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
-            prodRating = (TextView) itemView.findViewById(R.id.productRating);
-            addToCartButton = (Button) itemView.findViewById(R.id.addToCartButton);
-            addToCartButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addToCartButtonListener.addToCartPressed();
-                }
-            });
+            prodName = itemView.findViewById(R.id.productName);
+            prodImage = itemView.findViewById(R.id.prodImage);
+            prodRating = itemView.findViewById(R.id.productRating);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
+            addToCartButton.setOnClickListener(view -> addToCartButtonListener.addToCartPressed());
         }
     }
 
@@ -228,8 +219,8 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         public ExtraProductViewHolder(View itemView) {
             super(itemView);
             recommendationView = (RecommendationView) itemView;
-            title = (TextView) itemView.findViewById(R.id.text);
-            image = (ImageView) itemView.findViewById(R.id.productThumbnailImage);
+            title = itemView.findViewById(R.id.text);
+            image = itemView.findViewById(R.id.productThumbnailImage);
         }
     }
 

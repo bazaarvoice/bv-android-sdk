@@ -115,8 +115,7 @@ class EventView {
             if (view == null) {
                 throw new IllegalArgumentException("view must not be null");
             }
-            boolean isVisibleOnScreen = view.getGlobalVisibleRect(rect, globalOffset);
-            return isVisibleOnScreen;
+            return view.getGlobalVisibleRect(rect, globalOffset);
         }
     }
 

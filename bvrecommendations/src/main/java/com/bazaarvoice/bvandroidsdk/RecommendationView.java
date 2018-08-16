@@ -7,13 +7,18 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 /**
  * Bazaarvoice provided {@link FrameLayout} to contain a single Bazaarvoice
- * recommended product. This view will allow Bazaarvoice to receive feedback
+ * recommended product {@link BVProduct}. This view will allow Bazaarvoice to receive feedback
  * about the users interaction with the Product in order to help influence
  * future recommendations.
+ *
+ * RecommendationView must be a child view of {@link RecommendationsContainerView} or {@link RecommendationsRecyclerView}
+ * RecommendationView must have a {@link BVProduct} associated by calling {@link #setBvProduct(BVProduct)}
+ *
  */
 public final class RecommendationView extends BVView {
 
@@ -55,11 +60,32 @@ public final class RecommendationView extends BVView {
 
     @Override
     public void onFirstTimeOnScreen() {
-        RecommendationsAnalyticsManager.sendProductImpressionEvent(bvProduct);
+        ShopperProfile shopperProfile = getShopperProfileFromParentViews();
+        RecommendationsAnalyticsManager.sendFeatureUsedEvent(TAG, shopperProfile, bvProduct);
     }
 
     @Override
     public void onTap() {
-        RecommendationsAnalyticsManager.sendProductConversionEvent(bvProduct);
+        ShopperProfile shopperProfile = getShopperProfileFromParentViews();
+        RecommendationsAnalyticsManager.sendProductConversionEvent(shopperProfile, bvProduct);
     }
+
+    private ShopperProfile getShopperProfileFromParentViews() {
+        boolean foundPersonalizationView = false;
+        ShopperProfile shopperProfile = null;
+        ViewParent currentParent = getParent();
+
+        while (currentParent != null && !foundPersonalizationView) {
+            if (getParent() instanceof PersonalizationView) {
+                shopperProfile = ((PersonalizationView) getParent()).getShopperProfile();
+                foundPersonalizationView = true;
+            }
+            currentParent = currentParent.getParent();
+        }
+        if (!foundPersonalizationView) {
+            throw new IllegalStateException("RecommendationView must be a child view of RecommendationsContainerView or RecommendationsRecyclerView");
+        }
+        return shopperProfile;
+    }
+
 }

@@ -15,7 +15,7 @@ public class BvPageViewEventTest extends BvEventPartTest {
 
   @Test
   public void shouldHaveTypeProduct() throws Exception {
-    checkMapContains(BVEventKeys.Event.TYPE, BVEventValues.BVEventType.PRODUCT.toString());
+    checkMapContains(BVEventKeys.Event.TYPE, BVEventValues.BVEventType.EMBEDDED.toString());
   }
 
   @Test

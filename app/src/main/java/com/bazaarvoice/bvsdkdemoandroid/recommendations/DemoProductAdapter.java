@@ -73,12 +73,7 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
 
-        bvViewHolder.addToCartButtonListener = new BvViewHolder.AddToCartButtonListener() {
-            @Override
-            public void addToCartPressed() {
-                addProductToCartLister.addProductToCart(bvProduct);
-            }
-        };
+        bvViewHolder.addToCartButtonListener = () -> addProductToCartLister.addProductToCart(bvProduct);
 
         bvViewHolder.productName.setText(bvProduct.getDisplayName());
 
@@ -94,12 +89,9 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         bvViewHolder.row.setBvProduct(bvProduct);
-        bvViewHolder.row.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onBvProductClickListener(bvProduct, v);
-                }
+        bvViewHolder.row.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onBvProductClickListener(bvProduct, v);
             }
         });
     }
@@ -129,16 +121,11 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public BvViewHolder(View itemView) {
             super(itemView);
             row = (RecommendationView) itemView;
-            prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
-            productName = (TextView) itemView.findViewById(R.id.productName);
-            productRating = (TextView) itemView.findViewById(R.id.productRating);
-            addToCartButton = (Button) itemView.findViewById(R.id.addToCartButton);
-            addToCartButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addToCartButtonListener.addToCartPressed();
-                }
-            });
+            prodImage = itemView.findViewById(R.id.prodImage);
+            productName = itemView.findViewById(R.id.productName);
+            productRating = itemView.findViewById(R.id.productRating);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
+            addToCartButton.setOnClickListener(view -> addToCartButtonListener.addToCartPressed());
         }
     }
 

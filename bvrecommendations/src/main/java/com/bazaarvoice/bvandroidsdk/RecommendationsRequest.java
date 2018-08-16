@@ -15,11 +15,13 @@ public class RecommendationsRequest {
     private int limit;
     private String productId;
     private String categoryId;
+    private PageType pageType;
 
     private RecommendationsRequest(Builder builder) {
         limit = builder.limit;
         productId = builder.productId;
         categoryId = builder.categoryId;
+        pageType = builder.pageType;
     }
 
     public int getLimit() {
@@ -34,17 +36,19 @@ public class RecommendationsRequest {
         return categoryId;
     }
 
+    public PageType getPageType() { return pageType; }
+
     public static final class Builder {
         private int limit;
         private String productId;
         private String categoryId;
+        private PageType pageType;
 
         public Builder(int limit) {
             this.limit = limit;
             if (limit < MIN_LIMIT || limit > MAX_LIMIT) {
                 throw new IllegalArgumentException("Limit must be in the range [" + MIN_LIMIT + ", " + MAX_LIMIT + "]");
             }
-
         }
 
         public Builder productId(String val) {
@@ -60,6 +64,11 @@ public class RecommendationsRequest {
                 throw new IllegalArgumentException("Can only send productId or categoryId, not both");
             }
             categoryId = val;
+            return this;
+        }
+
+        public Builder pageType(PageType val) {
+            pageType = val;
             return this;
         }
 
@@ -89,14 +98,17 @@ public class RecommendationsRequest {
         return relativePath;
     }
 
+
     public static String toUrlString(String baseUrlString, String adId, String apiKey, String clientId, RecommendationsRequest request) {
-        BVSDK bvsdk = BVSDK.getInstance();
 
         String similarityParams = generateSimilarityParams(request.getProductId(), request.getCategoryId(), clientId);
         String relativePath = generateRelativePath(adId, apiKey, similarityParams, request.getLimit(), clientId);
-        String url = baseUrlString + relativePath;
 
-        return url;
+        if(request.pageType != null) {
+            relativePath += "&pageType=" + request.pageType.toString();
+        }
+
+        return baseUrlString + relativePath;
 
     }
 }

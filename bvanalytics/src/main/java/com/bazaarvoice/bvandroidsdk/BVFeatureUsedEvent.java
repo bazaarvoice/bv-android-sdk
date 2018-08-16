@@ -13,7 +13,7 @@ public final class BVFeatureUsedEvent extends BVMobileAnalyticsEvent {
   private final BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType;
   private final String brand;
 
-  public BVFeatureUsedEvent(@NonNull String productId,
+  public BVFeatureUsedEvent(String productId,
                             @NonNull BVEventValues.BVProductType bvProductType,
                             @NonNull BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType,
                             @Nullable String brand) {
@@ -36,7 +36,7 @@ public final class BVFeatureUsedEvent extends BVMobileAnalyticsEvent {
 
     mapPutSafe(map, BVEventKeys.FeatureUsedEvent.PRODUCT_ID, productId);
     mapPutSafe(map, BVEventKeys.FeatureUsedEvent.BV_PRODUCT_TYPE, bvProductType.toString());
-    mapPutSafe(map, BVEventKeys.FeatureUsedEvent.BV_FEATURE_TYPE, bvFeatureUsedEventType.toString());
+    mapPutSafe(map, BVEventKeys.FeatureUsedEvent.BV_FEATURE_NAME, bvFeatureUsedEventType.toString());
     return map;
   }
 }
