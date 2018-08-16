@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Wrapper around {@link AnalyticsManager} for forming and sending
+ * Wrapper around {@link BVPixel} for forming and sending
  * Curations specific Analytics events
  */
 public class CurationsAnalyticsManager {
