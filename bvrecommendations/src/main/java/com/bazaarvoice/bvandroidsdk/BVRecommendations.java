@@ -72,11 +72,7 @@ public class BVRecommendations {
         URL requestUrl;
         try {
             BVSDK bvsdk = BVSDK.getInstance();
-            String baseUrlStr = bvsdk.getBvWorkerData().getRootApiUrls().getShopperMarketingApiRootUrl();
-            BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
-            String apiKey = bvUserProvidedData.getBvConfig().getApiKeyShopperAdvertising();
-            String clientId = bvUserProvidedData.getBvConfig().getClientId();
-            String recRequestUrlStr = RecommendationsRequest.toUrlString(baseUrlStr, adId, apiKey, clientId, request);
+            String recRequestUrlStr = RecommendationsRequest.toUrlString(bvsdk, adId,  request);
             requestUrl = new URL(recRequestUrlStr);
         } catch (MalformedURLException e) {
             e.printStackTrace();
