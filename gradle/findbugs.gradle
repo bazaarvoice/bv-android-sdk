@@ -1,0 +1,20 @@
+apply plugin: 'findbugs'
+
+task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
+    description 'Runs Findbugs static analysis'
+    group 'verification'
+    source = fileTree('src/main/java')
+    effort = 'max'
+    reportLevel = "low"
+    ignoreFailures = true
+    classes = fileTree("$project.buildDir/intermediates/classes/debug/")
+    classpath = files()
+    excludeFilter = file("$rootProject.projectDir/findbugs-exclude.xml")
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+tasks.findByName('check').dependsOn('findbugs')
