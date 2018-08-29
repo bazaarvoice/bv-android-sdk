@@ -22,7 +22,7 @@ git:
 
 script:
   - if ["$TRAVIS_BRANCH" == "master"]; then TERM=dumb ./gradlew --stacktrace clean check;
-    else TERM=dumb ./gradlew --stacktrace checkstyle lintDebug testDebugUnitTest --parallel;
+    else TERM=dumb ./gradlew --stacktrace checkstyle lintDebug findbugs testDebugUnitTest --parallel;
     fi
 
 branches:
