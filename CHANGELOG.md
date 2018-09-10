@@ -1,5 +1,13 @@
 # Changelog
 
+# 7.4.0
+
+## Recommendations Feature Update
+* Updating Recommendations API compatibility
+
+Please see commit for details
+
+
 # 7.3.1
 ## Fix conversations ui manifest package
 

@@ -9,6 +9,7 @@
  */
 apply plugin: 'com.android.library'
 apply plugin: 'jacoco-android'
+apply from: rootProject.file('gradle/findbugs.gradle')
 //apply plugin: 'com.getkeepsafe.dexcount' // Cannot use Dexcount Plugin + Android Gradle Plugin 3.0.0 on AARs until https://github.com/KeepSafe/dexcount-gradle-plugin/issues/222 is resolved
 
 android {
