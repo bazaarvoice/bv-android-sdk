@@ -57,7 +57,7 @@ class BVAuthenticatedUser {
     private ShopperProfile shopperProfile;
     private String userAuthString;
 
-    public BVAuthenticatedUser(final Context applicationContext, final String baseUrl, final String apiKey, OkHttpClient okHttpClient, final BVLogger bvLogger, Gson gson, final List<Integer> profilePollTimes, final HandlerThread bgHandlerThread) {
+    BVAuthenticatedUser(final Context applicationContext, final String baseUrl, final String apiKey, OkHttpClient okHttpClient, final BVLogger bvLogger, Gson gson, final List<Integer> profilePollTimes, final HandlerThread bgHandlerThread) {
         this.applicationContext = applicationContext;
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;

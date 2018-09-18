@@ -19,7 +19,7 @@ class BVActivityLifecycleCallbacks implements Application.ActivityLifecycleCallb
 
     private int activeActivityCount = 0;
 
-    public BVActivityLifecycleCallbacks(BVPixel bvPixel, BVLogger bvLogger) {
+    BVActivityLifecycleCallbacks(BVPixel bvPixel, BVLogger bvLogger) {
         this.bvPixel = bvPixel;
         this.bvLogger = bvLogger;
     }
