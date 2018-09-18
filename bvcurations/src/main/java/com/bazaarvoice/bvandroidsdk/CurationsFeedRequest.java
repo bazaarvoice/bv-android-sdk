@@ -37,6 +37,7 @@ public final class CurationsFeedRequest {
     final List<String> tags; //content must contain at least one
     final String author;
     final String externalId;
+    final String display;
     final Long after; //only content after this date
     final Long before; //only content before this date
     final Integer featured; //counts against limit; e.g limit 25, feature = 10; returns 10 featured and 15 others; If featured > available; available counts against limit
@@ -58,6 +59,7 @@ public final class CurationsFeedRequest {
         this.tags = builder.tags;
         this.author = builder.author;
         this.externalId = builder.externalId;
+        this.display = builder.display;
         this.after = builder.after;
         this.before = builder.before;
         this.featured = builder.featured;
@@ -85,7 +87,7 @@ public final class CurationsFeedRequest {
         BVUserProvidedData bvUserProvidedData = bvsdk.getBvUserProvidedData();
         HttpUrl.Builder builder = HttpUrl.parse(bvsdk.getBvWorkerData().getRootApiUrls().getBazaarvoiceApiRootUrl()).newBuilder();
 
-        builder.addEncodedPathSegments("curations/content/get")
+        builder.addEncodedPathSegments("curations/c3/content/get")
             .addEncodedQueryParameter("client", bvUserProvidedData.getBvConfig().getClientId())
             .addEncodedQueryParameter("passkey", bvUserProvidedData.getBvConfig().getApiKeyCurations());
 
@@ -104,6 +106,9 @@ public final class CurationsFeedRequest {
         }
         if (!isEmpty(externalId)) {
             builder.addEncodedQueryParameter("externalId", externalId);
+        }
+        if(!isEmpty(display)) {
+            builder.addEncodedQueryParameter("display", display);
         }
         if (after != null) {
             builder.addEncodedQueryParameter("after", String.valueOf(after));
@@ -172,6 +177,7 @@ public final class CurationsFeedRequest {
         List<String> tags; //content must contain at least one
         String author;
         String externalId;
+        String display;
         Long after; //only content after this date
         Long before; //only content before this date
         Integer featured; //counts against limit; e.g limit 25, feature = 10; returns 10 featured and 15 others; If featured > available; available counts against limit
@@ -222,6 +228,11 @@ public final class CurationsFeedRequest {
 
         public Builder externalId(String externalId){
             this.externalId = externalId;
+            return this;
+        }
+
+        public Builder display(String display){
+            this.display = display;
             return this;
         }
 

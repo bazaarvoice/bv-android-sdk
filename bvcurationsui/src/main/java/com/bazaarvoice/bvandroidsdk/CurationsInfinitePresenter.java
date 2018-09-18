@@ -121,7 +121,6 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
 
     builder.hasPhotoOrVideo(true);
 
-    final CurationsFeedRequest request = builder.build();
     pagingCb = new PagingFeedCallback(pageIndex++, pageLoadListener, this, pageSize);
     curations.getCurationsFeedItems(request, pagingCb);
   }
