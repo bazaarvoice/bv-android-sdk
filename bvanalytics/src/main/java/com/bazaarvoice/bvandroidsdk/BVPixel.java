@@ -35,8 +35,8 @@ public class BVPixel {
 
   // region Public API
 
-  public static Builder builder(Context context, String clientId, boolean isStaging, Locale defaultLocale) {
-    return new BVPixel.Builder(context, clientId, isStaging, defaultLocale);
+  public static Builder builder(Context context, String clientId, boolean isStaging, boolean dryRunAnalytics, Locale defaultLocale) {
+    return new BVPixel.Builder(context, clientId, isStaging, dryRunAnalytics, defaultLocale);
   }
 
   /**
@@ -74,7 +74,7 @@ public class BVPixel {
     private OkHttpClient okHttpClient;
     private boolean dryRunAnalytics;
 
-    public Builder(Context context, String clientId, boolean isStaging, Locale defaultLocale) {
+    public Builder(Context context, String clientId, boolean isStaging, boolean dryRunAnalytics, Locale defaultLocale) {
       this.appContext = context.getApplicationContext();
       this.clientId = clientId;
       this.bvAnalyticsBatch = new BVPixelDispatcher.BvAnalyticsBatch();
@@ -86,7 +86,7 @@ public class BVPixel {
                               isStaging);
       this.bgHandlerThread = new BVPixelDispatcher.BvAnalyticsThread();
       this.okHttpClient = new OkHttpClient();
-      this.dryRunAnalytics = false;
+      this.dryRunAnalytics = dryRunAnalytics;
     }
 
     public Builder bgHandlerThread(@NonNull HandlerThread bgHandlerThread) {

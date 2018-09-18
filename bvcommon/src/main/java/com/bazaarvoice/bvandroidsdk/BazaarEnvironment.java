@@ -10,5 +10,5 @@ package com.bazaarvoice.bvandroidsdk;
  */
 public enum BazaarEnvironment {
     STAGING,
-    PRODUCTION;
+    PRODUCTION
 }
