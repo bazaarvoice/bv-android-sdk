@@ -29,6 +29,7 @@ import java.util.Map;
 
 /**
  * Used to build up request parameters when submitting photo(s) to Curations.
+ * @deprecated
  */
 public class CurationsPostRequest {
     Builder builder;
@@ -67,6 +68,9 @@ public class CurationsPostRequest {
         return BVSDK.getInstance().getBvWorkerData().getGson().toJson(payload);
     }
 
+    /**
+     * @deprecated
+     */
     public static final class Builder {
 
         protected CurationsAuthor author;
