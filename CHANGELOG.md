@@ -1,5 +1,12 @@
 # Changelog
 
+# 7.4.1
+
+## Deprecating Curations Submit
+* bvcurations: Submit is deprecated
+
+Please see commit for details
+
 # 7.4.0
 
 ## Recommendations Feature Update
