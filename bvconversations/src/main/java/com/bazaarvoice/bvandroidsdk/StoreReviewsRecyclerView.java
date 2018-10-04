@@ -18,11 +18,12 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
+import androidx.annotation.Nullable;
+
 /**
- * {@link android.support.v7.widget.RecyclerView} container for
+ * {@link androidx.recyclerview.widget.RecyclerView} container for
  * many {@link ReviewView}s providing usage Analytic events.
  * @deprecated please use BVUiStoreReviewsRecyclerView from conversation-ui module
  */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
   android:layout_height="match_parent"
   tools:layout_editor_absoluteY="81dp">
 
-  <android.support.design.widget.TextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/reviewTitleInputContainer"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
@@ -18,17 +18,16 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_chainStyle="packed">
-
-    <android.support.design.widget.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/reviewTitleInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="Review Title"
       android:inputType="textShortMessage"
       tools:text="This is great"/>
-  </android.support.design.widget.TextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/reviewBodyInputContainer"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
@@ -39,7 +38,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/reviewTitleInputContainer">
 
-    <android.support.design.widget.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/reviewBodyInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -47,9 +46,9 @@
       android:inputType="textLongMessage"
       tools:text="@string/bacon_ipsum"/>
 
-  </android.support.design.widget.TextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/userEmailInputContainer"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
@@ -60,7 +59,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/reviewBodyInputContainer">
 
-    <android.support.design.widget.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/userEmailInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -68,9 +67,9 @@
       android:inputType="textEmailAddress"
       tools:text="someone@email.com"/>
 
-  </android.support.design.widget.TextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 
-  <android.support.design.widget.TextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
     android:id="@+id/userNicknameInputContainer"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
@@ -80,14 +79,14 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/userEmailInputContainer">
 
-    <android.support.design.widget.TextInputEditText
+    <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/userNicknameInput"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="Nickname"
       android:inputType="textShortMessage"
       tools:text="foobarbaz"/>
-  </android.support.design.widget.TextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 
   <RatingBar
     android:id="@+id/reviewRating"
@@ -114,4 +113,4 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/reviewRating"/>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

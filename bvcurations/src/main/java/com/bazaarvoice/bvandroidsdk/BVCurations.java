@@ -20,9 +20,6 @@ package com.bazaarvoice.bvandroidsdk;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.MainThread;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -32,6 +29,9 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

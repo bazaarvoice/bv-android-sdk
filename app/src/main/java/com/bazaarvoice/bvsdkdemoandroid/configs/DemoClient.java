@@ -16,7 +16,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.configs;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.BVConfig;
 

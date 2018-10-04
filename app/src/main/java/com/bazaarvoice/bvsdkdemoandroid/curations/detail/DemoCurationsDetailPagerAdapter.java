@@ -4,9 +4,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.curations.detail;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -16,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 public class DemoCurationsDetailPagerAdapter extends FragmentPagerAdapter {
 

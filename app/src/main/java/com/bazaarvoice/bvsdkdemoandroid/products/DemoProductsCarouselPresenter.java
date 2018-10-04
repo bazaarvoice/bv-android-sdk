@@ -1,6 +1,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.products;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;

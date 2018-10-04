@@ -1,10 +1,11 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * An individual field for a submission form

@@ -1,9 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.addPiiOnly;
 import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.mapPutAllSafe;
@@ -12,7 +13,8 @@ import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.nonPiiOnly;
 import static com.bazaarvoice.bvandroidsdk.BVEventKeys.NonCommerceConversionEvent.HAD_PII;
 
 public abstract class BVPiiEvent extends BVMobileAnalyticsEvent {
-  @NonNull private final Map<String, Object> piiParams;
+  @NonNull
+  private final Map<String, Object> piiParams;
   private boolean hadPii;
 
   public BVPiiEvent(BVEventValues.BVEventClass eventClass, String customEventType) {

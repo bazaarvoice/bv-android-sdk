@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DemoCurationsPostActivity extends AppCompatActivity implements CurationsPostCallback, Target {
     private static final int SELECT_PICTURE = 1;
@@ -159,7 +160,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
     }
 
     @Override
-    public void onBitmapFailed(Drawable errorDrawable) {
+    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
 
     }
 
@@ -175,7 +176,7 @@ public class DemoCurationsPostActivity extends AppCompatActivity implements Cura
                 imageUri = selectedImageUri;
 
                 try {
-                    Picasso.with(this)
+                    Picasso.get()
                             .load(imageUri)
                             .resize(0, IMAGE_HEIGHT)
                             .into(this);

@@ -18,11 +18,12 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
+import androidx.annotation.Nullable;
+
 /**
- * {@link android.support.v7.widget.RecyclerView} container for
+ * {@link androidx.recyclerview.widget.RecyclerView} container for
  * many {@link QuestionView}s providing usage Analytic events.
  */
 public final class BVUiQuestionsRecyclerView extends BVUiConversationsDisplayRecyclerView<QuestionAndAnswerRequest, QuestionAndAnswerResponse> {

@@ -1,6 +1,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;

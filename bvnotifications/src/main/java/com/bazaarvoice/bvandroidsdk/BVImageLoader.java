@@ -1,13 +1,13 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.annotation.WorkerThread;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

@@ -7,7 +7,6 @@ import com.bazaarvoice.bvandroidsdk.AuthorsResponse;
 import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.CommentsResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
-import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewResponse;
@@ -54,12 +53,9 @@ class DemoSdkInterceptor implements Interceptor {
         String path = originalRequest.url().encodedPath();
 
         if (host.contains("api.bazaarvoice.com")) {
-            if (path.contains("curations/content/get")) {
+            if (path.contains("curations/c3/content/get")) {
                 CurationsFeedResponse curationsFeedResponse = demoMockDataUtil.getCurationsFeedReponse();
                 return demoMockDataUtil.getHttpResponse(originalRequest, curationsFeedResponse);
-            } else if (path.contains("curations/content/add")) {
-                CurationsPostResponse curationsPostResponse = demoMockDataUtil.getCurationsPostResponse();
-                return demoMockDataUtil.getHttpResponse(originalRequest, curationsPostResponse);
             } else if (path.contains("data/reviews.json")) {
                 ReviewResponse reviewsResponse = demoMockDataUtil.getConversationsReviews();
                 return demoMockDataUtil.getHttpResponse(originalRequest, reviewsResponse);

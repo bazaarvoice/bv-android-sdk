@@ -1,10 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
+
+import androidx.annotation.Nullable;
 
 /**
  * Container for form field map

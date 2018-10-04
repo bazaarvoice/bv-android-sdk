@@ -2,7 +2,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Container for fields we cannot derive without the containing app

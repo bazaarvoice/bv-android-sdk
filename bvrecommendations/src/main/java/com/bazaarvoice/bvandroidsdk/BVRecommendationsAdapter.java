@@ -1,7 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BVRecommendationsAdapter<T extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<T> {
 

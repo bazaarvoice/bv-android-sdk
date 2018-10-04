@@ -6,7 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;

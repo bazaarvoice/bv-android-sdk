@@ -7,7 +7,7 @@ task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
     effort = 'max'
     reportLevel = "low"
     ignoreFailures = true
-    classes = fileTree("$project.buildDir/intermediates/classes/debug/")
+    classes = fileTree("$project.buildDir/intermediates/javac/")
     classpath = files()
     excludeFilter = file("$rootProject.projectDir/findbugs-exclude.xml")
 

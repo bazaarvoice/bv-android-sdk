@@ -3,7 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.cart;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.squareup.picasso.Picasso;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -36,7 +37,7 @@ public class DemoCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         BvViewHolder viewHolder = (BvViewHolder) holder;
         BVDisplayableProductContent product = cart.get(position);
 
-        Picasso.with(viewHolder.productImageView.getContext())
+        Picasso.get()
                 .load(product.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(viewHolder.productImageView);

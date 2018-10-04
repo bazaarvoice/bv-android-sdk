@@ -3,7 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,8 @@ import com.bazaarvoice.bvsdkdemoandroid.R;
 
 import java.util.Collections;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoBulkRatingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

@@ -1,6 +1,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.comments;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.CommentOptions;

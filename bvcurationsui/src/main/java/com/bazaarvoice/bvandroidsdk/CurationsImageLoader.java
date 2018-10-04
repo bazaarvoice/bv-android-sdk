@@ -1,7 +1,8 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 public interface CurationsImageLoader {
   /**
