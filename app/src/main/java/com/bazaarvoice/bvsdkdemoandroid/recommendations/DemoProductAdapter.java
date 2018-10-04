@@ -4,7 +4,6 @@
 
 package com.bazaarvoice.bvsdkdemoandroid.recommendations;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -66,7 +67,7 @@ public class DemoProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         final BVProduct bvProduct = bvProducts.get(position);
         BvViewHolder bvViewHolder = (BvViewHolder) holder;
 
-        Picasso.with(bvViewHolder.prodImage.getContext())
+        Picasso.get()
                 .load(bvProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(bvViewHolder.prodImage);

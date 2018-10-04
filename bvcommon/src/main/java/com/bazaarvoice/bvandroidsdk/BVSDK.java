@@ -10,8 +10,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;

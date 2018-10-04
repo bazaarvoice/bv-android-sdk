@@ -5,7 +5,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 import java.lang.ref.WeakReference;
@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkMain;
 
 /**
- * Bazaarvoice Provided {@link android.support.v7.widget.RecyclerView} to display {@link RecommendationView} objects
+ * Bazaarvoice Provided {@link androidx.recyclerview.widget.RecyclerView} to display {@link RecommendationView} objects
  */
 public final class RecommendationsRecyclerView extends BVRecyclerView implements BVRecommendations.BVRecommendationsLoader, PersonalizationView {
 

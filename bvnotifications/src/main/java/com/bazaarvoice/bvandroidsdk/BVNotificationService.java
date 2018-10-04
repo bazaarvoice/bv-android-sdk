@@ -5,10 +5,11 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.google.gson.Gson;
+
+import androidx.annotation.Nullable;
 
 /**
  * Service for building notification metadata

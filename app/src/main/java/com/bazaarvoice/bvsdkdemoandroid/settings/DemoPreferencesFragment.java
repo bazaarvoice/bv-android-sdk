@@ -5,7 +5,6 @@ package com.bazaarvoice.bvsdkdemoandroid.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
@@ -14,6 +13,8 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import androidx.preference.PreferenceFragmentCompat;
 
 public class DemoPreferencesFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 

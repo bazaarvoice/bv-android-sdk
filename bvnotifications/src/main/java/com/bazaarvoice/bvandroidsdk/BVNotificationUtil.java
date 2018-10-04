@@ -8,17 +8,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 
 import com.bazaarvoice.bvandroidsdk_notifications.R;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -195,7 +195,8 @@ class BVNotificationUtil {
      * @param bitmapUrl URL passed from feature describing the url to fetch the image from.
      * @return Small bitmap of the image, to display in the {@link Notification} object.
      */
-    @Nullable @WorkerThread
+    @Nullable
+    @WorkerThread
     private static Bitmap getBigPictureBitmap(String bitmapUrl) {
         OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
         BVLogger bvLogger = BVSDK.getInstance().getBvLogger();

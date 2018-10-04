@@ -1,6 +1,5 @@
 package com.bazaarvoice.bvsdkdemoandroid.curations.detail;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Bazaarvoice on 4/6/16.
@@ -38,7 +39,7 @@ public class DemoCurationsProductsAdapter extends RecyclerView.Adapter<RecyclerV
         BvViewHolder bvViewHolder = (BvViewHolder) holder;
 
         final CurationsProduct product = products.get(position);
-        Picasso.with(bvViewHolder.productImage.getContext()).load(product.getDisplayImageUrl()).into(bvViewHolder.productImage);
+        Picasso.get().load(product.getDisplayImageUrl()).into(bvViewHolder.productImage);
 
         bvViewHolder.productName.setText(product.getDisplayName());
 

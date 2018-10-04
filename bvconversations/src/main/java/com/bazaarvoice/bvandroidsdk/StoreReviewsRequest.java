@@ -17,9 +17,10 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Request to get {@link StoreReview}s for a {@link Store}

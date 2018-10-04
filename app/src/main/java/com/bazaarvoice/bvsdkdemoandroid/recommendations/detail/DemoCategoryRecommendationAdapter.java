@@ -3,7 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.recommendations.detail;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -101,7 +102,7 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         ViewGroup.LayoutParams layoutParams = prodImage.getLayoutParams();
         layoutParams.height = prodImage.getResources().getDimensionPixelSize(R.dimen.product_image_height_detail);
         prodImage.setLayoutParams(layoutParams);
-        Picasso.with(prodImage.getContext())
+        Picasso.get()
                 .load(detailProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(prodImage);
@@ -142,7 +143,7 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         textView.setText(bvProduct.getDisplayName());
 
         ImageView imageView = headerDetailViewHolder.image;
-        Picasso.with(imageView.getContext())
+        Picasso.get()
                 .load(bvProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(imageView);

@@ -1,9 +1,11 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.annotation.WorkerThread;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 
 interface ImageLoader {
-    @WorkerThread Bitmap loadImage(@NonNull String url);
+    @WorkerThread
+    Bitmap loadImage(@NonNull String url);
 }

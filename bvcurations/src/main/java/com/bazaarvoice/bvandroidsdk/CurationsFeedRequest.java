@@ -17,10 +17,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import okhttp3.HttpUrl;
 
 import static com.bazaarvoice.bvandroidsdk.StringUtils.componentsSeparatedBy;

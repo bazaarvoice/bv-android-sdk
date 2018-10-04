@@ -3,7 +3,7 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 

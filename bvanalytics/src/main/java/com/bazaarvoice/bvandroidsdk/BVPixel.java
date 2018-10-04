@@ -2,7 +2,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.concurrent.TimeUnit;
 import java.util.Locale;

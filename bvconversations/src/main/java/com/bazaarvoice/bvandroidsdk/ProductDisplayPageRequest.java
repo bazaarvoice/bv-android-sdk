@@ -17,7 +17,7 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Request to get info and stats for a {@link Product}

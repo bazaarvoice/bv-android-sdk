@@ -17,13 +17,13 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.Nullable;
 
 /**
  * A Question about a {@link Product}

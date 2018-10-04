@@ -1,11 +1,13 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.Nullable;
+
 public class Comment extends IncludedContentBase.ProductIncludedContentBase{
-  @SerializedName("CID") @Nullable private String cid;
+  @SerializedName("CID") @Nullable
+  private String cid;
   @SerializedName("SourceClient") @Nullable private String sourceClient;
   @SerializedName("ReviewId") @Nullable private String reviewId;
   @SerializedName("CommentText") @Nullable private String commentText;
