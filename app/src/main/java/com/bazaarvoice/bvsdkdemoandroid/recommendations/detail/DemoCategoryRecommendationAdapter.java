@@ -3,7 +3,6 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.recommendations.detail;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -101,7 +102,7 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         ViewGroup.LayoutParams layoutParams = prodImage.getLayoutParams();
         layoutParams.height = prodImage.getResources().getDimensionPixelSize(R.dimen.product_image_height_detail);
         prodImage.setLayoutParams(layoutParams);
-        Picasso.with(prodImage.getContext())
+        Picasso.get()
                 .load(detailProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(prodImage);
@@ -142,21 +143,17 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         textView.setText(bvProduct.getDisplayName());
 
         ImageView imageView = headerDetailViewHolder.image;
-        Picasso.with(imageView.getContext())
+        Picasso.get()
                 .load(bvProduct.getDisplayImageUrl())
                 .error(R.drawable.ic_shopping_basket_black_24dp)
                 .into(imageView);
 
         RecommendationView recommendationView = headerDetailViewHolder.recommendationView;
         recommendationView.setBvProduct(bvProduct);
+//        recommendationView.setShopperProfile(shopperProfile);
 
         if (onExtraProductTappedListener != null) {
-            recommendationView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onExtraProductTappedListener.onExtraProductTapped(bvProduct);
-                }
-            });
+            recommendationView.setOnClickListener(v -> onExtraProductTappedListener.onExtraProductTapped(bvProduct));
         }
     }
 
@@ -199,16 +196,11 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         public HeaderDetailViewHolder(View itemView) {
             super(itemView);
 //            detailBvView = (RecommendationView) itemView.findViewById(R.id.bvView);
-            prodName = (TextView) itemView.findViewById(R.id.productName);
-            prodImage = (ImageView) itemView.findViewById(R.id.prodImage);
-            prodRating = (TextView) itemView.findViewById(R.id.productRating);
-            addToCartButton = (Button) itemView.findViewById(R.id.addToCartButton);
-            addToCartButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addToCartButtonListener.addToCartPressed();
-                }
-            });
+            prodName = itemView.findViewById(R.id.productName);
+            prodImage = itemView.findViewById(R.id.prodImage);
+            prodRating = itemView.findViewById(R.id.productRating);
+            addToCartButton = itemView.findViewById(R.id.addToCartButton);
+            addToCartButton.setOnClickListener(view -> addToCartButtonListener.addToCartPressed());
         }
     }
 
@@ -228,8 +220,8 @@ public class DemoCategoryRecommendationAdapter extends RecyclerView.Adapter<Recy
         public ExtraProductViewHolder(View itemView) {
             super(itemView);
             recommendationView = (RecommendationView) itemView;
-            title = (TextView) itemView.findViewById(R.id.text);
-            image = (ImageView) itemView.findViewById(R.id.productThumbnailImage);
+            title = itemView.findViewById(R.id.text);
+            image = itemView.findViewById(R.id.productThumbnailImage);
         }
     }
 

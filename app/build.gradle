@@ -2,6 +2,7 @@ repositories {
   mavenLocal()
   jcenter()
   mavenCentral()
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
   flatDir {
     dirs 'libs'
   }
@@ -10,13 +11,6 @@ repositories {
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 
-def hasCrashlyticsKey() {
-  return file('fabric.properties').exists()
-}
-
-if (hasCrashlyticsKey()) {
-  apply plugin: 'io.fabric'
-}
 
 def hasAppdemoBuildSettings() {
   return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
@@ -59,25 +53,25 @@ android {
     versionCode demoAppVersionCode
     versionName demoAppVersionName
     vectorDrawables.useSupportLibrary = true
+    multiDexEnabled true
   }
 
-  buildTypes {
-    NEXUS_USER {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      if (hasAppdemoBuildSettings()) {
-        signingConfig signingConfigs.NEXUS_USER
-      }
+    buildTypes {
+        NEXUS_USER {
+            minifyEnabled false
+            if (hasAppdemoBuildSettings()) {
+                signingConfig signingConfigs.NEXUS_USER
+            }
+            signingConfig signingConfigs.NEXUS_USER
+            debuggable true
+            buildConfigField "boolean", "ENABLE_DRY_RUN_ANALYTICS", "false"
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
+            buildConfigField "boolean", "ENABLE_DRY_RUN_ANALYTICS", "true"
+        }
     }
-    debug {
-      applicationIdSuffix '.debug'
-      debuggable true
-    }
-  }
-
-  buildTypes.each {
-    it.buildConfigField 'boolean', 'HAS_CRASHLYTICS_KEY', String.valueOf(hasCrashlyticsKey())
-  }
 
   testOptions {
     unitTests.returnDefaultValues = true
@@ -89,57 +83,54 @@ android {
 }
 
 dependencies {
-  if (useLocalSdk) {
-    implementation project(':bvanalytics')
-    implementation project(':bvauthiovation')
-    implementation project(':bvrecommendations')
-    implementation project(':bvconversations')
-    implementation project(':bvconversationsui')
-    implementation project(':bvcurations')
-    implementation project(':bvlocation')
-    implementation project(':bvstorenotifications')
-    implementation project(':bvcurationsui')
-    compileOnly project(':bvnotifications')
-    compileOnly project(':bvcommon')
-  } else {
-    implementation demoAppDep.bvSdkAnalytics
-    implementation demoAppDep.bvSdkAuthIovation
-    implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-NEXUS_USER-3.0.1:3.0.1@aar')
-    implementation demoAppDep.bvSdkRecommendations
-    implementation demoAppDep.bvSdkConversations
-    implementation demoAppDep.bvSdkCurations
-    implementation demoAppDep.bvSdkStoreNotif
-    implementation demoAppDep.bvSdkCurationsUi
-    implementation demoAppDep.bvSdkConversationsUi
-  }
-  implementation demoAppDep.picasso
-  implementation demoAppDep.picassoDownloader
-  implementation demoAppDep.gson
-  implementation demoAppDep.okhttp3
-  implementation demoAppDep.okhttp3Logging
-  implementation demoAppDep.prettyTime
-  implementation demoAppDep.appCompatV7
-  implementation demoAppDep.designCompat
-  implementation demoAppDep.supportV4
-  implementation demoAppDep.cardview
-  implementation demoAppDep.preferenceV7
-  implementation demoAppDep.preferenceV14
-  implementation demoAppDep.constraintLayout
-  implementation demoAppDep.playServiceAds
-  implementation demoAppDep.playServiceMaps
-  implementation demoAppDep.playServiceLocation
-  implementation demoAppDep.dagger
-  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-  annotationProcessor demoAppDep.daggerProcessor
-  implementation demoAppDep.butterknife
-  implementation demoAppDep.processPhoenix
-  annotationProcessor demoAppDep.butterknifeCompiler
-  NEXUS_USERImplementation demoAppDep.leakCanaryNoOp
-  debugImplementation demoAppDep.leakCanary
-  testImplementation demoAppTestDep.junit
-  implementation(demoAppDep.crashlytics) {
-    transitive = true;
-  }
+    if (useLocalSdk) {
+        implementation project(':bvanalytics')
+        implementation project(':bvauthiovation')
+        implementation project(':bvrecommendations')
+        implementation project(':bvconversations')
+        implementation project(':bvconversationsui')
+        implementation project(':bvcurations')
+        implementation project(':bvlocation')
+        implementation project(':bvstorenotifications')
+        implementation project(':bvcurationsui')
+        compileOnly project(':bvnotifications')
+        compileOnly project(':bvcommon')
+    } else {
+        implementation demoAppDep.bvSdkAnalytics
+        implementation demoAppDep.bvSdkAuthIovation
+        implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-NEXUS_USER-3.0.1:3.0.1@aar')
+        implementation demoAppDep.bvSdkRecommendations
+        implementation demoAppDep.bvSdkConversations
+        implementation demoAppDep.bvSdkCurations
+        implementation demoAppDep.bvSdkStoreNotif
+        implementation demoAppDep.bvSdkCurationsUi
+        implementation demoAppDep.bvSdkConversationsUi
+    }
+    implementation demoAppDep.picasso
+    implementation demoAppDep.picassoDownloader
+    implementation demoAppDep.gson
+    implementation demoAppDep.okhttp3
+    implementation demoAppDep.okhttp3Logging
+    implementation demoAppDep.prettyTime
+    implementation demoAppDep.appCompatV7
+    implementation demoAppDep.designCompat
+    implementation demoAppDep.supportV4
+    implementation demoAppDep.cardview
+    implementation demoAppDep.preferenceV7
+    implementation demoAppDep.preferenceV14
+    implementation demoAppDep.constraintLayout
+    implementation demoAppDep.playServiceAds
+    implementation demoAppDep.playServiceMaps
+    implementation demoAppDep.playServiceLocation
+    implementation demoAppDep.dagger
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    annotationProcessor demoAppDep.daggerProcessor
+    implementation demoAppDep.butterknife
+    implementation demoAppDep.processPhoenix
+    annotationProcessor demoAppDep.butterknifeCompiler
+    NEXUS_USERImplementation demoAppDep.leakCanaryNoOp
+    debugImplementation demoAppDep.leakCanary
+    testImplementation demoAppTestDep.junit
 }
 
 

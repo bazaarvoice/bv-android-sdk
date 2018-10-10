@@ -4,10 +4,12 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Bazaarvoice Product
@@ -36,6 +38,17 @@ public class BVProduct implements BVDisplayableProductContent{
 
     @SerializedName("CategoryId")
     private String categoryId;
+
+    @SerializedName("category_ids")
+    private List<String> categoryIds;
+
+    public boolean isImpressed() {
+        return impressed;
+    }
+
+    public List<String> getCategoryIds() {
+        return categoryIds;
+    }
 
     private boolean sponsored;
 

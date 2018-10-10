@@ -6,10 +6,6 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.support.v4.text.util.LinkifyCompat;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +37,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.text.util.LinkifyCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -134,7 +135,7 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
               selectedString = String.valueOf(tvText.subSequence(selectStart, selectEnd));
             }
             if (selectedString != null && selectedString.equals(nickName)) {
-              DemoAuthorActivity.transitionTo((Activity) tv.getContext(), authorId);
+              DemoAuthorActivity.transitionTo(tv.getContext(), authorId);
             }
           }
         });
@@ -246,19 +247,19 @@ public class DemoReviewsAdapter<ReviewType extends BaseReview> extends RecyclerV
 
     public ReviewRowViewHolder(View itemView) {
       super(itemView);
-      reviewTitle = (TextView) itemView.findViewById(R.id.reviewTitleText);
-      reviewTimeAgo = (TextView) itemView.findViewById(R.id.reviewTimeAgoText);
-      reviewLocation = (TextView) itemView.findViewById(R.id.reviewLocationText);
-      reviewBody = (TextView) itemView.findViewById(R.id.reviewBodyText);
-      reviewRating = (RatingBar) itemView.findViewById(R.id.reviewRatingBar);
-      reviewImage = (ImageView) itemView.findViewById(R.id.reviewImage);
-      helpfulImage = (AppCompatImageView) itemView.findViewById(R.id.thumbsUpImage);
-      notHelpfulImage = (AppCompatImageView) itemView.findViewById(R.id.thumbsDownImage);
-      commentsImage = (AppCompatImageView) itemView.findViewById(R.id.commentsImage);
-      helpfulTextHeader = (TextView) itemView.findViewById(R.id.reviewHelpfulText);
-      thumbsUpCountText = (TextView) itemView.findViewById(R.id.thumbUpCountText);
-      thumbsDownCountText = (TextView) itemView.findViewById(R.id.thumbsDownCountText);
-      commentCountText = (TextView) itemView.findViewById(R.id.commentsCountText);
+      reviewTitle = itemView.findViewById(R.id.reviewTitleText);
+      reviewTimeAgo = itemView.findViewById(R.id.reviewTimeAgoText);
+      reviewLocation = itemView.findViewById(R.id.reviewLocationText);
+      reviewBody = itemView.findViewById(R.id.reviewBodyText);
+      reviewRating = itemView.findViewById(R.id.reviewRatingBar);
+      reviewImage = itemView.findViewById(R.id.reviewImage);
+      helpfulImage = itemView.findViewById(R.id.thumbsUpImage);
+      notHelpfulImage = itemView.findViewById(R.id.thumbsDownImage);
+      commentsImage = itemView.findViewById(R.id.commentsImage);
+      helpfulTextHeader = itemView.findViewById(R.id.reviewHelpfulText);
+      thumbsUpCountText = itemView.findViewById(R.id.thumbUpCountText);
+      thumbsDownCountText = itemView.findViewById(R.id.thumbsDownCountText);
+      commentCountText = itemView.findViewById(R.id.commentsCountText);
     }
   }
 }

@@ -3,10 +3,10 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -143,7 +143,6 @@ public class RecommendationsRequest {
 
         return similarityParams;
     }
-
 
     static @Nullable
     String toUrlString(@NonNull BVSDK bvsdk, String adId, RecommendationsRequest request) {

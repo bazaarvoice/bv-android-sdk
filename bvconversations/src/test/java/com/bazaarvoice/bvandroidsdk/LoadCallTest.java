@@ -115,7 +115,6 @@ public abstract class LoadCallTest {
     }
 
     private BVSDK.BVWorkerData getStubBvWorkerData(HttpUrl httpUrl) {
-      final AnalyticsManager analyticsManager = mock(AnalyticsManager.class);
       final BVRootApiUrls bvRootApiUrls = mock(BVRootApiUrls.class);
       when(bvRootApiUrls.getBazaarvoiceApiRootUrl()).thenReturn(httpUrl.toString());
       final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -126,7 +125,7 @@ public abstract class LoadCallTest {
       final String bvSdkUserAgent = "user-agent";
       final HandlerThread testBgHandlerThread = new HandlerThread("testBgHandlerThread");
       final Looper bgLooper = testBgHandlerThread.getLooper();
-      return new BVSDK.BVWorkerData(analyticsManager, new Gson(), bvRootApiUrls, okHttpClient, bvSdkUserAgent, testBgHandlerThread, bgLooper);
+      return new BVSDK.BVWorkerData(new Gson(), bvRootApiUrls, okHttpClient, bvSdkUserAgent, testBgHandlerThread, bgLooper);
     }
   }
 

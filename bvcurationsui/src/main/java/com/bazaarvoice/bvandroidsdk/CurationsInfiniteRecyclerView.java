@@ -5,11 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.ViewTreeObserver;
@@ -18,6 +13,12 @@ import android.view.WindowManager;
 import com.bazaarvoice.bvandroidsdk_curationsui.R;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Helper View class to manage fetching and displaying a Grid of {@link CurationsFeedItem}s

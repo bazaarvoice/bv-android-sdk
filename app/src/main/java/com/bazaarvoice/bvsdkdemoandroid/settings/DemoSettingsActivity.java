@@ -6,8 +6,6 @@ package com.bazaarvoice.bvsdkdemoandroid.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,9 @@ import android.view.ViewGroup;
 import com.bazaarvoice.bvsdkdemoandroid.BuildConfig;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoLaunchIntentUtil;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 /**
  * In order to add your own custom settings create a file named

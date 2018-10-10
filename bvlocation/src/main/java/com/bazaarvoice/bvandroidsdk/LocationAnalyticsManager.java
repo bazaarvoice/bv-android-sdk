@@ -3,12 +3,12 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.StringDef;
-
 import com.gimbal.android.Visit;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.StringDef;
 
 @Deprecated
 class LocationAnalyticsManager {

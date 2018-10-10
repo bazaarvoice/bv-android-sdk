@@ -45,7 +45,6 @@ public class BVSDKTest {
     String locationApiKey;
 
     @Mock ExecutorService executorService;
-    @Mock AnalyticsManager analyticsManager;
     @Mock BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks;
     @Mock BVAuthenticatedUser bvAuthenticatedUser;
     @Mock AdIdRequestTask adIdRequestTask;
@@ -88,7 +87,7 @@ public class BVSDKTest {
         .dryRunAnalytics(dryRunAnalytics)
         .build();
 
-        bvWorkerData = new BVSDK.BVWorkerData(analyticsManager, gson, rootApiUrls, new OkHttpClient(), "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, bgHandlerThread, bgHandlerThread.getLooper());
+        bvWorkerData = new BVSDK.BVWorkerData(gson, rootApiUrls, new OkHttpClient(), "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, bgHandlerThread, bgHandlerThread.getLooper());
     }
 
     @Test(expected=IllegalStateException.class)
@@ -213,13 +212,6 @@ public class BVSDKTest {
         BVSDK bvsdk = createTestBvSdk();
 
         assertEquals(bvAuthenticatedUser, bvsdk.getAuthenticatedUser());
-    }
-
-    @Test
-    public void bvSdkConstructorShouldSetupAnalyticsManager() {
-        BVSDK bvsdk = createTestBvSdk();
-
-        assertEquals(analyticsManager, bvsdk.getBvWorkerData().getAnalyticsManager());
     }
 
     @Test

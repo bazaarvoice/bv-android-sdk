@@ -7,6 +7,8 @@ package com.bazaarvoice.bvsdkdemoandroid.recommendations;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.BVRecommendationsResponse;
+import com.bazaarvoice.bvandroidsdk.PageType;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
@@ -56,7 +58,8 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
         boolean shouldHitNetwork = forceRefresh || !haveLocalCache;
 
         if (shouldHitNetwork) {
-            RecommendationsRequest request = new RecommendationsRequest.Builder(NUM_RECS).build();
+            RecommendationsRequest request = new RecommendationsRequest.Builder(NUM_RECS)
+                    .pageType(PageType.PRODUCT).build();
             recommendationsLoader.loadRecommendations(request, this);
         } else {
             showRecommendedProducts(DemoDisplayableProductsCache.getInstance().getData());
@@ -64,8 +67,8 @@ public class DemoRecommendationsPresenter implements DemoRecommendationsContract
     }
 
     @Override
-    public void onSuccess(List<BVProduct> recommendedProducts) {
-        showRecommendedProducts(recommendedProducts);
+    public void onSuccess(BVRecommendationsResponse response) {
+        showRecommendedProducts(response.getRecommendedProducts());
     }
 
     @Override

@@ -17,11 +17,11 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Tag Dimensions let you create custom tag types with tags that

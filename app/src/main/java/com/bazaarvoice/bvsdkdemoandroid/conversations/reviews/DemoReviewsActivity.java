@@ -4,7 +4,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.Review;

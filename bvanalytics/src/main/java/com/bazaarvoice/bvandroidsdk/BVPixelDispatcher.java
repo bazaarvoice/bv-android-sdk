@@ -253,6 +253,7 @@ class BVPixelDispatcher {
       analyticsBatch.log(FULL_LOGGING);
 
       if (dryRunAnalytics) {
+        analyticsBatch.clear();
         Log.d("Analytics", "Not sending analytics for dry run");
         return;
       }

@@ -21,11 +21,11 @@ import android.graphics.Bitmap;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 
-import junit.framework.Assert;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * Used to build up request parameters when submitting photo(s) to Curations.
@@ -86,12 +86,7 @@ public class CurationsPostRequest {
         protected List<CurationsLink> links;
         protected List<CurationsPhoto> photos;
 
-        private Builder(CurationsAuthor author, List<String> groups, String text) {
-            assert (author != null);
-            Assert.assertTrue("Author should not be null", author != null);
-            Assert.assertTrue("Groups should contain at least 1 group", groups != null && groups.size() > 0);
-            Assert.assertTrue("Text should not be null", text != null);
-
+        private Builder(@NonNull CurationsAuthor author,@NonNull List<String> groups, @NonNull String text) {
             this.author = author;
             this.groups = groups;
             this.text = text;

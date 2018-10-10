@@ -1,16 +1,17 @@
 package com.bazaarvoice.bvsdkdemoandroid.products;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
-import com.bazaarvoice.bvandroidsdk.BVProduct;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
+import com.bazaarvoice.bvandroidsdk.BVRecommendationsResponse;
 import com.bazaarvoice.bvandroidsdk.BulkProductRequest;
 import com.bazaarvoice.bvandroidsdk.BulkProductResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.EqualityOperator;
+import com.bazaarvoice.bvandroidsdk.PageType;
 import com.bazaarvoice.bvandroidsdk.ProductOptions;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
@@ -64,14 +65,15 @@ public class DemoProductsCarouselPresenter implements DemoProductsContract.Prese
 
   private void getRecommendedProducts() {
     RecommendationsRequest request = new RecommendationsRequest.Builder(20)
+            .pageType(PageType.PRODUCT)
         .build();
     bvRecommendations.getRecommendedProducts(request, recommendationsCallback);
   }
 
   private final BVRecommendations.BVRecommendationsCallback recommendationsCallback = new BVRecommendations.BVRecommendationsCallback() {
     @Override
-    public void onSuccess(List<BVProduct> recommendedProducts) {
-      DemoProductsCarouselPresenter.this.onSuccess(recommendedProducts);
+    public void onSuccess(BVRecommendationsResponse response) {
+      DemoProductsCarouselPresenter.this.onSuccess(response.getRecommendedProducts());
     }
 
     @Override

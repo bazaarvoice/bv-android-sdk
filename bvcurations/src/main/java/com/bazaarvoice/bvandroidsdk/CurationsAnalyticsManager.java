@@ -17,14 +17,14 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
- * Wrapper around {@link AnalyticsManager} for forming and sending
+ * Wrapper around {@link BVPixel} for forming and sending
  * Curations specific Analytics events
  */
 public class CurationsAnalyticsManager {

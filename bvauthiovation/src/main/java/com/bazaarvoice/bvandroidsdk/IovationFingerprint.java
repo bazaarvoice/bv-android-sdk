@@ -21,6 +21,7 @@ public final class IovationFingerprint implements FingerprintProvider {
       fraudForceManager.initialize(appContext);
       fingerPrint = fraudForceManager.getBlackbox(appContext);
       started = true;
+      BVSDK.getInstance().bvLogger.d("Iovation", "Started fraudForceManager");
     }
     return fingerPrint;
   }

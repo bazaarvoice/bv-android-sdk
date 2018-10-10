@@ -6,13 +6,6 @@ package com.bazaarvoice.bvsdkdemoandroid.stores;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +26,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,9 +41,12 @@ public class DemoStoresActivity extends AppCompatActivity implements DemoStoresC
     private static final String EXTRA_LIMIT = "extra_limit";
     private static final String EXTRA_OFFSET = "extra_offset";
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.stores_recyclerview) RecyclerView storesRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.stores_recyclerview)
+    RecyclerView storesRecyclerView;
     @BindView(R.id.get_stores_progress) ProgressBar storesProgress;
     @BindView(R.id.no_stores_found) TextView noStoresFoundTv;
 

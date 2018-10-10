@@ -3,7 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.curations.map;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.CurationsCoordinate;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;

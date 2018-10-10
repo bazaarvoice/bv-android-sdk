@@ -56,7 +56,7 @@
   <string name="demo_location">Location</string>
   <string name="demo_pin">PIN</string>
 
-  <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+  <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
 
   <string name="key_selected_config">key_selected_config</string>
   <string name="key_client_id">key_client_id</string>

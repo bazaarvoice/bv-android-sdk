@@ -4,11 +4,11 @@ ext {
     // Sdk and tools
     sdkBuildInfo = [
         minSdkVersion : 16,
-        targetSdkVersion : 27,
-        compileSdkVersion : 27,
-        buildToolsVersion : '27.0.3',
-        sourceCompatibilityVersion : JavaVersion.VERSION_1_7,
-        targetCompatibilityVersion : JavaVersion.VERSION_1_7
+        targetSdkVersion : 28,
+        compileSdkVersion : 28,
+        buildToolsVersion : '28.0.3',
+        sourceCompatibilityVersion : JavaVersion.VERSION_1_8,
+        targetCompatibilityVersion : JavaVersion.VERSION_1_8
     ]
 
     // Projects that were published with multiple artifacts must build
@@ -16,15 +16,16 @@ ext {
     // the version number in one location for those artifacts
     sdkSharedVersions = [
         okhttp3Version : '3.10.0',
-        supportLibraryVersion : '27.1.1',
+        supportLibraryVersion : '28.0.0',
         gimbalVersion : '2.72',
         playServicesVersion : '15.0.0',
         robolectric: '3.8',
-        robolectricAddOn : '3.4-rc2'
+        robolectricAddOn : '3.4-rc2',
+        androidx: '1.0.0'
     ]
 
     sdkBuildDep = [
-        androidPlugin       : 'com.android.tools.build:gradle:3.1.2',
+        androidPlugin       : 'com.android.tools.build:gradle:3.2.0',
         credentialsPlugin   : 'nu.studer:gradle-credentials-plugin:1.0.1',
         playServicesPlugin  : 'com.google.gms:google-services:3.0.0',
         jacocoPlugin        : 'com.dicedmelon.gradle:jacoco-android:0.1.1',
@@ -33,20 +34,20 @@ ext {
 
     sdkDep = [
         // base
-        supportAnnotations  : "com.android.support:support-annotations:$sdkSharedVersions.supportLibraryVersion",
+        supportAnnotations  : "androidx.annotation:annotation:$sdkSharedVersions.androidx",
 
         // common
         okhttp3             : "com.squareup.okhttp3:okhttp:$sdkSharedVersions.okhttp3Version",
         gson                : 'com.google.code.gson:gson:2.8.5',
         playServiceAds      : "com.google.android.gms:play-services-ads:$sdkSharedVersions.playServicesVersion",
-        recyclerview        : "com.android.support:recyclerview-v7:$sdkSharedVersions.supportLibraryVersion",
+        recyclerview        : "androidx.recyclerview:recyclerview:$sdkSharedVersions.androidx",
 
         // location
         gimbal              : "com.gimbal.android.v2:gimbal-sdk:$sdkSharedVersions.gimbalVersion",
         gimbalSLF4J         : "com.gimbal.android.v2:gimbal-slf4j-impl:$sdkSharedVersions.gimbalVersion",
         slf4jApi            : 'org.slf4j:slf4j-api:1.7.21',
-        supportV4           : "com.android.support:support-v4:$sdkSharedVersions.supportLibraryVersion",
-        appCompatV7         : "com.android.support:appcompat-v7:$sdkSharedVersions.supportLibraryVersion",
+        supportV4           : "androidx.legacy:legacy-support-v4:$sdkSharedVersions.androidx",
+        appCompatV7         : "androidx.appcompat:appcompat:$sdkSharedVersions.androidx",
     ]
 
     sdkTestDep = [
@@ -58,8 +59,8 @@ ext {
         androidJson         : "org.json:json:20160810"
     ]
 
-    isCi = "true".equals(System.getenv('CI'))
-    preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+    isCi = "true" == System.getenv('CI')
+    preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
     logger = Logger.getLogger("BVSDK")
 

@@ -9,9 +9,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
@@ -24,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
+import androidx.annotation.WorkerThread;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -57,7 +57,7 @@ class BVAuthenticatedUser {
     private ShopperProfile shopperProfile;
     private String userAuthString;
 
-    public BVAuthenticatedUser(final Context applicationContext, final String baseUrl, final String apiKey, OkHttpClient okHttpClient, final BVLogger bvLogger, Gson gson, final List<Integer> profilePollTimes, final HandlerThread bgHandlerThread) {
+    BVAuthenticatedUser(final Context applicationContext, final String baseUrl, final String apiKey, OkHttpClient okHttpClient, final BVLogger bvLogger, Gson gson, final List<Integer> profilePollTimes, final HandlerThread bgHandlerThread) {
         this.applicationContext = applicationContext;
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;
