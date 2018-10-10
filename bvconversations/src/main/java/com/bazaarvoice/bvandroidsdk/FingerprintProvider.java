@@ -1,6 +1,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.WorkerThread;
+import androidx.annotation.WorkerThread;
 
 public interface FingerprintProvider {
   FingerprintProvider EMPTY = new FingerprintProvider() {
@@ -10,5 +10,6 @@ public interface FingerprintProvider {
     }
   };
 
-  @WorkerThread String getFingerprint();
+  @WorkerThread
+  String getFingerprint();
 }

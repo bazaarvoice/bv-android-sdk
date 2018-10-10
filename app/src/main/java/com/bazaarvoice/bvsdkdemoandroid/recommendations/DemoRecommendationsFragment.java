@@ -5,10 +5,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.recommendations;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +28,10 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import static com.bazaarvoice.bvsdkdemoandroid.utils.DemoRequiredKeyUiUtil.getNoReccosApiKeyDialog;
 
@@ -60,34 +61,21 @@ public class DemoRecommendationsFragment extends Fragment implements DemoRecomme
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_recommendations_raw, container, false);
-        recyclerView = (RecommendationsRecyclerView) view.findViewById(R.id.recommendations_custom_list);
+        recyclerView = view.findViewById(R.id.recommendations_custom_list);
         demoProductAdapter = new DemoProductAdapter();
-        demoProductAdapter.setOnItemClickListener(new DemoProductAdapter.OnBvProductClickListener() {
-            @Override
-            public void onBvProductClickListener(BVProduct bvProduct, View rowView) {
-                userActionsListener.onRecommendationProductTapped(bvProduct);
-                showDetailScreen(bvProduct);
-            }
+        demoProductAdapter.setOnItemClickListener((bvProduct, rowView) -> {
+            userActionsListener.onRecommendationProductTapped(bvProduct);
+            showDetailScreen(bvProduct);
         });
-        demoProductAdapter.setAddProductToCartLister(new DemoProductAdapter.AddProductToCartLister() {
-            @Override
-            public void addProductToCart(BVProduct product) {
-                DemoCart.INSTANCE.addProduct(product);
-            }
-        });
+        demoProductAdapter.setAddProductToCartLister(product -> DemoCart.INSTANCE.addProduct(product));
 
         recyclerView.setAdapter(demoProductAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                userActionsListener.loadRecommendationProducts(true);
-            }
-        });
-        noRecsFoundTextView = (TextView) view.findViewById(R.id.no_recs_found);
-        getRecsProgressBar = (ProgressBar) view.findViewById(R.id.get_recs_progress);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(() -> userActionsListener.loadRecommendationProducts(true));
+        noRecsFoundTextView = view.findViewById(R.id.no_recs_found);
+        getRecsProgressBar = view.findViewById(R.id.get_recs_progress);
         return view;
     }
     @Override

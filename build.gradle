@@ -5,7 +5,6 @@ buildscript {
   repositories {
     google()
     jcenter()
-    maven { url 'https://maven.fabric.io/public' }
   }
 
   dependencies {
@@ -13,7 +12,6 @@ buildscript {
     classpath sdkBuildDep.dexCountPlugin
     classpath sdkBuildDep.credentialsPlugin
     classpath sdkBuildDep.jacocoPlugin
-    classpath demoAppBuildDep.crashlyticsPlugin
   }
 }
 
@@ -33,7 +31,6 @@ subprojects {
     }
     google()
     jcenter()
-    maven { url 'https://maven.fabric.io/public' }
   }
 
   if (!isRootProject) {

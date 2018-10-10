@@ -3,10 +3,6 @@ package com.bazaarvoice.bvandroidsdk;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +13,11 @@ import com.bazaarvoice.bvandroidsdk_curationsui.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView.getImageSize;
 import static com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView.isVertical;

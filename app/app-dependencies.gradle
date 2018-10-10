@@ -2,10 +2,10 @@ ext {
 
     // Sdk and tools
     demoAppBuildInfo = [
-        minSdkVersion : 16,
-        targetSdkVersion : 26,
-        compileSdkVersion : 26,
-        buildToolsVersion : '27.0.3',
+        minSdkVersion : 21,
+        targetSdkVersion : 28,
+        compileSdkVersion : 28,
+        buildToolsVersion : '28.0.3',
         sourceCompatibilityVersion : JavaVersion.VERSION_1_8,
         targetCompatibilityVersion : JavaVersion.VERSION_1_8
     ]
@@ -15,40 +15,39 @@ ext {
     demoAppVersionName = "2.1.1"
 
     // Projects that were published with multiple artifacts must build
-    // all artifacts with the same version number. This block is for sharing
+    // all artifacts with the same version number. This block is fo r sharing
     // the version number in one location for those artifacts
     demoAppSharedVersions = [
         okhttp3Version : '3.8.0',
-        supportLibraryVersion : '27.1.1',
+        supportLibraryVersion : '28.0.0',
         leakCanaryVersion : '1.5',
         bvSdkVersion : VERSION_NAME,
         stethoVersion : '1.3.1',
-        butterknifeVersion : '8.5.0',
-        daggerVersion: '2.8',
-        playServicesVersion: '15.0.0'
+        butterknifeVersion : '9.0.0-SNAPSHOT',
+        daggerVersion: '2.17',
+        playServicesVersion: '16.0.0',
+        androidx: '1.0.0'
     ]
 
     demoAppBuildDep = [
-        androidPlugin       : 'com.android.tools.build:gradle:3.0.0',
-        crashlyticsPlugin   : 'io.fabric.tools:gradle:1.21.6',
+        androidPlugin       : 'com.android.tools.build:gradle:3.2.0',
         dexCountPlugin      : 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
     ]
 
     demoAppDep = [
-        picasso             : 'com.squareup.picasso:picasso:2.5.2',
+        picasso             : 'com.squareup.picasso:picasso:2.71828',
         picassoDownloader   : 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0',
         prettyTime          : 'org.ocpsoft.prettytime:prettytime:3.2.7.Final',
-        appCompatV7         : "com.android.support:appcompat-v7:$demoAppSharedVersions.supportLibraryVersion",
-        designCompat        : "com.android.support:design:$demoAppSharedVersions.supportLibraryVersion",
-        supportV4           : "com.android.support:support-v4:$demoAppSharedVersions.supportLibraryVersion",
-        cardview            : "com.android.support:cardview-v7:$demoAppSharedVersions.supportLibraryVersion",
-        preferenceV7        : "com.android.support:preference-v7:$demoAppSharedVersions.supportLibraryVersion",
-        preferenceV14       : "com.android.support:preference-v14:$demoAppSharedVersions.supportLibraryVersion",
-        constraintLayout    : "com.android.support.constraint:constraint-layout:1.0.2",
-        playServiceAds      : "com.google.android.gms:play-services-ads:$demoAppSharedVersions.playServicesVersion",
-        playServiceMaps     : "com.google.android.gms:play-services-maps:$demoAppSharedVersions.playServicesVersion",
-        playServiceLocation : "com.google.android.gms:play-services-location:$demoAppSharedVersions.playServicesVersion",
-        playAppIndexing     : "com.google.android.gms:play-services-appindexing:$demoAppSharedVersions.playServicesVersion",
+        appCompatV7         : "androidx.appcompat:appcompat:$demoAppSharedVersions.androidx",
+        designCompat        : "com.google.android.material:material:1.0.0-rc01",
+        supportV4           : "androidx.legacy:legacy-support-v4:1.0.0",
+        cardview            : "androidx.cardview:cardview:$demoAppSharedVersions.androidx",
+        preferenceV7        : "androidx.preference:preference:$demoAppSharedVersions.androidx",
+        preferenceV14       : "androidx.legacy:legacy-preference-v14:$demoAppSharedVersions.androidx",
+        constraintLayout    : "androidx.constraintlayout:constraintlayout:1.1.2",
+        playServiceAds      : "com.google.android.gms:play-services-ads:16.0.0",
+        playServiceMaps     : "com.google.android.gms:play-services-maps:16.0.0",
+        playServiceLocation : "com.google.android.gms:play-services-location:16.0.0",
         gson                : 'com.google.code.gson:gson:2.8.5',
         okhttp3             : "com.squareup.okhttp3:okhttp:$demoAppSharedVersions.okhttp3Version",
         okhttp3Logging      : "com.squareup.okhttp3:logging-interceptor:$demoAppSharedVersions.okhttp3Version",
@@ -56,7 +55,6 @@ ext {
         daggerProcessor     : "com.google.dagger:dagger-compiler:$demoAppSharedVersions.daggerVersion",
         butterknife         : "com.jakewharton:butterknife:$demoAppSharedVersions.butterknifeVersion",
         butterknifeCompiler : "com.jakewharton:butterknife-compiler:$demoAppSharedVersions.butterknifeVersion",
-        crashlytics         : 'com.crashlytics.sdk.android:crashlytics:2.5.7@aar',
         leakCanary          : "com.squareup.leakcanary:leakcanary-android:$demoAppSharedVersions.leakCanaryVersion",
         leakCanaryNoOp      : "com.squareup.leakcanary:leakcanary-android-no-op:$demoAppSharedVersions.leakCanaryVersion",
         processPhoenix      : "com.jakewharton:process-phoenix:2.0.0",

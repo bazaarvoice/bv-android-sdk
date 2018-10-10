@@ -17,9 +17,10 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
+
+import androidx.annotation.Nullable;
 
 /**
  * Metadata for the error for a specific field in a form

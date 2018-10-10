@@ -4,8 +4,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations.answers;
 
 import android.app.Activity;
-import android.support.v4.text.util.LinkifyCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,9 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import androidx.core.text.util.LinkifyCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

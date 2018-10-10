@@ -1,8 +1,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.curations.detail;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -15,6 +13,9 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 public class DemoCurationsDetailActivity extends AppCompatActivity implements DemoCurationsDetailContract.View {
 

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,7 +36,7 @@ public class BVRecommendations {
     }
 
     public void getRecommendedProducts(RecommendationsRequest recommendationsRequest, BVRecommendationsCallback callback) {
-        WeakReference<BVRecommendationsCallback> cbWeakRef = new WeakReference<BVRecommendationsCallback>(callback);
+        WeakReference<BVRecommendationsCallback> cbWeakRef = new WeakReference<>(callback);
         RecAdIdCallback recAdIdCallback = new RecAdIdCallback(this, recommendationsRequest, cbWeakRef);
         BVSDK bvsdk = BVSDK.getInstance();
         AdIdRequestTask adIdRequestTask = new AdIdRequestTask(bvsdk.getBvUserProvidedData().getAppContext(), recAdIdCallback);
@@ -75,6 +74,7 @@ public class BVRecommendations {
             String recRequestUrlStr = RecommendationsRequest.toUrlString(bvsdk, adId,  request);
             requestUrl = new URL(recRequestUrlStr);
         } catch (MalformedURLException e) {
+
             e.printStackTrace();
             BVRecommendationsCallback cb = cbWeakRef.get();
             if (cb != null) {
@@ -92,7 +92,7 @@ public class BVRecommendations {
      * Callback used to asynchronously receive the Bazaarvoice product recommendations
      */
     public interface BVRecommendationsCallback {
-        void onSuccess(List<BVProduct> recommendedProducts);
+        void onSuccess(BVRecommendationsResponse response);
         void onFailure(Throwable throwable);
     }
 
@@ -112,31 +112,7 @@ public class BVRecommendations {
         }
     }
 
-    private static final class ResponseData {
-        private boolean didSucceed;
-        private Throwable errorThrowable;
-        private List<BVProduct> recommendedProducts;
-
-        ResponseData(boolean didSucceed, Throwable errorThrowable, List<BVProduct> recommendedProducts) {
-            this.didSucceed = didSucceed;
-            this.errorThrowable = errorThrowable;
-            this.recommendedProducts = recommendedProducts;
-        }
-
-        boolean isDidSucceed() {
-            return didSucceed;
-        }
-
-        Throwable getErrorThrowable() {
-            return errorThrowable;
-        }
-
-        public List<BVProduct> getRecommendedProducts() {
-            return recommendedProducts;
-        }
-    }
-
-    private static final class GetRecommendationsTask extends AsyncTask<RequestData, Void, ResponseData> {
+    private static final class GetRecommendationsTask extends AsyncTask<RequestData, Void, BVRecommendationsResponse> {
 
         private final WeakReference<BVRecommendationsCallback> cbWeakRef;
         private final BVLogger bvLogger;
@@ -147,13 +123,13 @@ public class BVRecommendations {
         }
 
         @Override
-        protected ResponseData doInBackground(RequestData... params) {
+        protected BVRecommendationsResponse doInBackground(RequestData... params) {
             RequestData requestData = params[0];
             OkHttpClient okHttpClient = BVSDK.getInstance().getBvWorkerData().getOkHttpClient();
             Gson gson = BVSDK.getInstance().getBvWorkerData().getGson();
             boolean didSucceed = false;
             Throwable errorThrowable = null;
-            List<BVProduct> recommendedProducts = null;
+            ShopperProfile shopperProfile = new ShopperProfile();
 
             bvLogger.v(TAG, "Getting recommendations: " + requestData.getRequestUrl());
 
@@ -168,8 +144,7 @@ public class BVRecommendations {
                 if (!response.isSuccessful()) {
                     errorThrowable = new Exception("Unsuccessful response for recommendations with error code: " + response.code());
                 } else {
-                    ShopperProfile shopperProfile = gson.fromJson(response.body().charStream(), ShopperProfile.class);
-                    recommendedProducts = shopperProfile.getProfile().getRecommendedProducts();
+                    shopperProfile = gson.fromJson(response.body().charStream(), ShopperProfile.class);
                     didSucceed = true;
                 }
             } catch (IOException e) {
@@ -184,23 +159,23 @@ public class BVRecommendations {
                 }
             }
 
-            return new ResponseData(didSucceed, errorThrowable, recommendedProducts);
+            return new BVRecommendationsResponse(didSucceed, errorThrowable, shopperProfile);
         }
 
         @Override
-        protected void onPostExecute(ResponseData responseData) {
-            super.onPostExecute(responseData);
+        protected void onPostExecute(BVRecommendationsResponse bvRecommendationsResponse) {
+            super.onPostExecute(bvRecommendationsResponse);
             BVRecommendationsCallback recommendationsCallback = cbWeakRef.get();
             if (recommendationsCallback == null) {
                 bvLogger.w(TAG, "Your Recommendations callback was recycled.");
                 return;
             }
-            if (responseData.isDidSucceed()) {
-                bvLogger.d(TAG, "Succesfully received the following recommendations:\n" + responseData.getRecommendedProducts().toString());
-                recommendationsCallback.onSuccess(responseData.getRecommendedProducts());
+            if (bvRecommendationsResponse.isDidSucceed()) {
+                bvLogger.d(TAG, "Successfully received the following recommendations:\n" + bvRecommendationsResponse.getRecommendedProducts().toString());
+                recommendationsCallback.onSuccess(bvRecommendationsResponse);
             } else {
-                responseData.getErrorThrowable().printStackTrace();
-                recommendationsCallback.onFailure(responseData.getErrorThrowable());
+                bvRecommendationsResponse.getErrorThrowable().printStackTrace();
+                recommendationsCallback.onFailure(bvRecommendationsResponse.getErrorThrowable());
             }
             cbWeakRef.clear();
         }

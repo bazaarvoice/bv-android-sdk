@@ -17,10 +17,10 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Request to get {@link Question}s and {@link Answer}s

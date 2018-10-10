@@ -1,10 +1,11 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.graphics.Point;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 import static java.lang.Math.max;
 
@@ -121,7 +122,6 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
 
     builder.hasPhotoOrVideo(true);
 
-    final CurationsFeedRequest request = builder.build();
     pagingCb = new PagingFeedCallback(pageIndex++, pageLoadListener, this, pageSize);
     curations.getCurationsFeedItems(request, pagingCb);
   }

@@ -10,8 +10,9 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
@@ -428,7 +429,7 @@ public class BVSDK {
 
         /**
          * Disables analytics, but still logs the events sent. Only used to avoid
-         * hitting production with analytics while testing.
+         * hitting production with analytics while testing. Must be false for Release builds.
          *
          * @param dryRunAnalytics If true then analytics events will not be sent
          * @return the builder object
@@ -540,17 +541,14 @@ public class BVSDK {
                 gson,
                 profilePollTimes,
                 backgroundThread);
-            AnalyticsManager analyticsManager = new AnalyticsManager(
-                application.getApplicationContext(),
-                bvUserProvidedData.getBvConfig().getClientId(),
-                analyticsRootUrl,
-                okHttpClient,
-                immediateExecutorService,
-                scheduledExecutorService,
-                bvAuthenticatedUser,
-                uuid,
-                bvUserProvidedData.getBvConfig().isDryRunAnalytics());
-            BVPixel bvPixel = new BVPixel.Builder(application, bvUserProvidedData.getBvConfig().getClientId(), bazaarEnvironment == BazaarEnvironment.STAGING, defaultLocale)
+            if (!com.bazaarvoice.bvandroidsdk_common.BuildConfig.DEBUG && bvUserProvidedData.getBvConfig().isDryRunAnalytics()) {
+                bvLogger.e(TAG, "DryRunAnalytics should only be enabled for Debug builds");
+                throw new IllegalStateException("DryRunAnalytics should only be enabled for Debug builds");
+            }
+            BVPixel bvPixel = new BVPixel.Builder(application,
+                    bvUserProvidedData.getBvConfig().getClientId(),
+                    bazaarEnvironment == BazaarEnvironment.STAGING, bvUserProvidedData.getBvConfig().isDryRunAnalytics(),
+                    defaultLocale)
                 .bgHandlerThread(backgroundThread)
                 .okHttpClient(okHttpClient)
                 .dryRunAnalytics(bvUserProvidedData.getBvConfig().isDryRunAnalytics())
@@ -558,7 +556,6 @@ public class BVSDK {
             BVActivityLifecycleCallbacks bvActivityLifecycleCallbacks = new BVActivityLifecycleCallbacks(bvPixel, bvLogger);
 
             BVWorkerData bvWorkerData = new BVWorkerData(
-                analyticsManager,
                 gson,
                 endPoints,
                 okHttpClient,
@@ -621,7 +618,6 @@ public class BVSDK {
     }
 
     static final class BVWorkerData {
-        private final AnalyticsManager analyticsManager;
         private final Gson gson;
         private final BVRootApiUrls bvRootApiUrls;
         private final OkHttpClient okHttpClient;
@@ -629,18 +625,13 @@ public class BVSDK {
         private final Looper backgroundLooper;
         private final HandlerThread backgroundThread;
 
-        public BVWorkerData(AnalyticsManager analyticsManager, Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, HandlerThread backgroundThread, Looper backgroundLooper) {
-            this.analyticsManager = analyticsManager;
+        public BVWorkerData(Gson gson, BVRootApiUrls bvRootApiUrls, OkHttpClient okHttpClient, String bvSdkUserAgent, HandlerThread backgroundThread, Looper backgroundLooper) {
             this.gson = gson;
             this.bvRootApiUrls = bvRootApiUrls;
             this.okHttpClient = okHttpClient;
             this.bvSdkUserAgent = bvSdkUserAgent;
             this.backgroundThread = backgroundThread;
             this.backgroundLooper = backgroundLooper;
-        }
-
-        public AnalyticsManager getAnalyticsManager() {
-            return analyticsManager;
         }
 
         public Gson getGson() {

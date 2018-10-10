@@ -17,14 +17,14 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Helper class that wraps {@code AnalyticsManger}, builds and enqueues

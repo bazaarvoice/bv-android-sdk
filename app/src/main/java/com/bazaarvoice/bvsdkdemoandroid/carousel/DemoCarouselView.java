@@ -19,9 +19,6 @@ package com.bazaarvoice.bvsdkdemoandroid.carousel;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,12 +29,15 @@ import android.widget.TextView;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -46,7 +46,8 @@ public class DemoCarouselView extends FrameLayout implements DemoCarouselContrac
     private DemoCarouselContract.Presenter presenter;
     private DemoCarouselAdapter adapter;
     @BindView(R.id.carouselHeader) TextView carouselHeaderTv;
-    @BindView(R.id.carousel) RecyclerView carouselRecyclerView;
+    @BindView(R.id.carousel)
+    RecyclerView carouselRecyclerView;
     @BindView(R.id.carouselEmptyMessage) TextView carouselEmptyTv;
     @BindView(R.id.carouselProgressBar) ProgressBar carouselProgressBar;
     private String carouselHeader = "";

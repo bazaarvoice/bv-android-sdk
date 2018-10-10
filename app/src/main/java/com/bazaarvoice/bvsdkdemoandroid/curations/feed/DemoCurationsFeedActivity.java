@@ -1,13 +1,10 @@
 package com.bazaarvoice.bvsdkdemoandroid.curations.feed;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedRequest;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.CurationsInfiniteRecyclerView;
@@ -19,6 +16,9 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 
 import javax.inject.Inject;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class DemoCurationsFeedActivity extends AppCompatActivity {
 
@@ -72,21 +72,18 @@ public class DemoCurationsFeedActivity extends AppCompatActivity {
                     dismissLoading();
                 }
             })
-            .setOnFeedItemClickListener(new CurationsInfiniteRecyclerView.OnFeedItemClickListener() {
-                @Override
-                public void onClick(CurationsFeedItem curationsFeedItem) {
-                    DemoCurationsFeedActivity activity = DemoCurationsFeedActivity.this;
-                    if (!activity.isFinishing()) {
-                        String productId = "";
-                        String feedItemId = "";
-                        if (curationsFeedItem != null) {
-                            if (curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty()) {
-                                productId = curationsFeedItem.getProducts().get(0).getId();
-                            }
-                            feedItemId = String.valueOf(curationsFeedItem.getId());
+            .setOnFeedItemClickListener(curationsFeedItem -> {
+                DemoCurationsFeedActivity activity = DemoCurationsFeedActivity.this;
+                if (!activity.isFinishing()) {
+                    String productId = "";
+                    String feedItemId = "";
+                    if (curationsFeedItem != null) {
+                        if (curationsFeedItem.getProducts() != null && !curationsFeedItem.getProducts().isEmpty()) {
+                            productId = curationsFeedItem.getProducts().get(0).getId();
                         }
-                        DemoRouter.transitionToCurationsFeedItem(activity, productId, feedItemId);
+                        feedItemId = String.valueOf(curationsFeedItem.getId());
                     }
+                    DemoRouter.transitionToCurationsFeedItem(activity, productId, feedItemId);
                 }
             })
             .load();

@@ -18,7 +18,6 @@
 package com.bazaarvoice.bvsdkdemoandroid.author;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +33,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -123,7 +123,7 @@ public class DemoAuthorView extends ConstraintLayout implements DemoAuthorContra
 
     @Override
     public void showRecentReviewImage(String imageUrl) {
-        Picasso.with(getContext()).load(imageUrl).into(recentReviewImage);
+        Picasso.get().load(imageUrl).into(recentReviewImage);
     }
 
     @Override

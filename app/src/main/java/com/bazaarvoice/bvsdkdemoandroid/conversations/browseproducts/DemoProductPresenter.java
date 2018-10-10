@@ -3,7 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.browseproducts;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;

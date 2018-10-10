@@ -2,11 +2,12 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.bazaarvoice.bvandroidsdk_curationsui.R;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 import static android.view.View.MeasureSpec.EXACTLY;
 

@@ -1,7 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -160,7 +160,7 @@ public final class BVConfig {
     @NonNull
     static BVConfig getBvConfig(Context context, BazaarEnvironment bazaarEnvironment) {
       String configFileName = getFileName(bazaarEnvironment);
-      BVConfig bvConfig = null;
+      BVConfig bvConfig;
       try {
         InputStream inputStream = context.getAssets().open(configFileName);
         BufferedSource source = Okio.buffer(Okio.source(inputStream));
@@ -197,12 +197,10 @@ public final class BVConfig {
                 paramJsonElement.getAsJsonObject()
                         .get(ANALYTICS_LOCALE_IDENTIFIER);
 
-        if (null != analyticsLocaleIdentifier) {
+        if (analyticsLocaleIdentifier != null) {
           String analyticsLocaleString = analyticsLocaleIdentifier.getAsString();
-              if (null != analyticsLocaleString) {
-                final Locale defaultLocale =
-                    new Locale("", analyticsLocaleString.toUpperCase());
-                config.analyticsDefaultLocale = defaultLocale;
+              if (analyticsLocaleString != null) {
+                config.analyticsDefaultLocale = new Locale("", analyticsLocaleString.toUpperCase());
               }
         }
       } catch (IllegalArgumentException e) {

@@ -7,9 +7,7 @@ package com.bazaarvoice.bvsdkdemoandroid.recommendations.detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.annotation.Nullable;
 import android.widget.Toast;
 
 import com.bazaarvoice.bvandroidsdk.BVProduct;
@@ -21,6 +19,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class DemoProductDetailActivity extends AppCompatActivity implements DemoRecommendationDetailContract.View {
 
@@ -47,7 +48,7 @@ public class DemoProductDetailActivity extends AppCompatActivity implements Demo
         getIntentExtras();
 
         setContentView(R.layout.activity_product_detail);
-        recyclerView = (RecommendationsRecyclerView) findViewById(R.id.bvRecyclerView);
+        recyclerView = findViewById(R.id.bvRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
 
