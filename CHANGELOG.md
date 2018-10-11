@@ -1,5 +1,16 @@
 # Changelog
 
+# 8.0.0
+
+## Remove Analytics Manger, Support AndroidX, Recommendation Updates, Curation Updates
+
+* Added new recommendation features and analytics
+* Removed support for Curation submit
+* All analytics features have been migrated to BVPixel previous analytics tools have been removed.
+* Migrated libraries to use AndroidX support libraries
+
+Please see commit for details
+
 # 7.4.1
 
 ## Deprecating Curations Submit
