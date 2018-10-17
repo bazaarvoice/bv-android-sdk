@@ -61,7 +61,7 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
       this.statsType = statsType;
     }
 
-    public Builder addFilter(BulkRatingOptions.Filter filter, EqualityOperator equalityOperator, String value) {
+    public Builder addFilter(@NonNull BulkRatingOptions.Filter filter, @NonNull EqualityOperator equalityOperator, @NonNull String value) {
       addFilter(new Filter(filter, equalityOperator, value));
       return this;
     }

@@ -17,11 +17,13 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 /**
  * Request for submitting {@link StoreReview}s
  */
 public class StoreReviewSubmissionRequest extends BaseReviewSubmissionRequest {
-    StoreReviewSubmissionRequest(Builder builder) {
+    StoreReviewSubmissionRequest(@NonNull Builder builder) {
         super(builder);
     }
 

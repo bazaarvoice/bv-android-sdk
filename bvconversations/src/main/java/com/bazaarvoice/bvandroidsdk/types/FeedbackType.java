@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk.types;
 
+import androidx.annotation.NonNull;
+
 /**
  * An enum used for defining the type of feedback to be submitted.
  */
@@ -32,7 +34,7 @@ public enum FeedbackType {
 	
 	private String feedbackType;
 	
-	FeedbackType(String feedbackType){
+	FeedbackType(@NonNull String feedbackType){
 		this.feedbackType = feedbackType;
 	}
 	public String getTypeString() {

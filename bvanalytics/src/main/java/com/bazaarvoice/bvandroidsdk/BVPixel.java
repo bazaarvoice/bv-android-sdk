@@ -35,7 +35,7 @@ public class BVPixel {
 
   // region Public API
 
-  public static Builder builder(Context context, String clientId, boolean isStaging, boolean dryRunAnalytics, Locale defaultLocale) {
+  public static Builder builder(@NonNull Context context, @NonNull String clientId, boolean isStaging, boolean dryRunAnalytics, Locale defaultLocale) {
     return new BVPixel.Builder(context, clientId, isStaging, dryRunAnalytics, defaultLocale);
   }
 
@@ -53,11 +53,11 @@ public class BVPixel {
    * @param event Event instance
    * @param <EventType> Type of event to send
    */
-  public <EventType extends BVAnalyticsEvent> void track(EventType event) {
+  public <EventType extends BVAnalyticsEvent> void track(@NonNull EventType event) {
     trackEventForClient(event, defaultClientId);
   }
 
-  public <EventType extends BVAnalyticsEvent> void trackEventForClient(EventType event, String clientId) {
+  public <EventType extends BVAnalyticsEvent> void trackEventForClient(@NonNull EventType event, @NonNull String clientId) {
     bvPixelDispatcher.enqueueEvent(event, clientId);
 
     if (shouldDispatchImmediately(event)) {
@@ -74,7 +74,7 @@ public class BVPixel {
     private OkHttpClient okHttpClient;
     private boolean dryRunAnalytics;
 
-    public Builder(Context context, String clientId, boolean isStaging, boolean dryRunAnalytics, Locale defaultLocale) {
+    public Builder(@NonNull Context context, @NonNull String clientId, boolean isStaging, boolean dryRunAnalytics, Locale defaultLocale) {
       this.appContext = context.getApplicationContext();
       this.clientId = clientId;
       this.bvAnalyticsBatch = new BVPixelDispatcher.BvAnalyticsBatch();

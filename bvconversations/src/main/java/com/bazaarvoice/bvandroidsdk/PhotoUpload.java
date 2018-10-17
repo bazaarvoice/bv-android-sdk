@@ -19,6 +19,9 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Helper class to describe a photo to upload through the
  * submission API
@@ -30,7 +33,7 @@ class PhotoUpload {
     private final String caption;
     private final ContentType contentType;
 
-    PhotoUpload(File photoFile, String caption, ContentType contentType) {
+    PhotoUpload(@NonNull File photoFile, @Nullable String caption, @NonNull ContentType contentType) {
         this.photoFile = photoFile;
         this.caption = caption;
         this.contentType = contentType;

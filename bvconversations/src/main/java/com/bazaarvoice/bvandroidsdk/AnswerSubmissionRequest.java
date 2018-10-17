@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 /**
  * Request to submit an {@link Answer}
  */
@@ -47,7 +49,7 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
         private final String questionId;
         private final String answerText;
 
-        public Builder(Action action, String questionId, String answerText) {
+        public Builder(@NonNull Action action, @NonNull String questionId, @NonNull String answerText) {
             super(action);
             this.questionId = questionId;
             this.answerText = answerText;

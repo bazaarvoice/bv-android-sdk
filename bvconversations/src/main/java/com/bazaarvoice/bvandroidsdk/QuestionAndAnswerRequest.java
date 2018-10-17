@@ -20,6 +20,7 @@ package com.bazaarvoice.bvandroidsdk;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
 /**
@@ -82,7 +83,7 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
     private String searchPhrase;
     private String productId;
 
-    public Builder(@NonNull String productId, int limit, int offset) {
+    public Builder(@NonNull String productId, @IntRange(from = 0) int limit, @IntRange(from = 0) int offset) {
       super();
       this.questionSorts = new ArrayList<>();
       this.answerSorts = new ArrayList<>();
@@ -100,7 +101,7 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
      * @param sortOrder Question Sort Order
      * @return Request Builder
      */
-    public Builder addSort(QuestionOptions.Sort sort, SortOrder sortOrder) {
+    public Builder addSort(@NonNull QuestionOptions.Sort sort, @NonNull SortOrder sortOrder) {
       this.questionSorts.add(new Sort(sort, sortOrder));
       return this;
     }
@@ -110,7 +111,7 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
      * @param sortOrder Question Sort Order
      * @return Request Builder
      */
-    public Builder addQuestionSort(QuestionOptions.Sort sort, SortOrder sortOrder) {
+    public Builder addQuestionSort(@NonNull QuestionOptions.Sort sort, @NonNull SortOrder sortOrder) {
       this.questionSorts.add(new Sort(sort, sortOrder));
       return this;
     }
@@ -125,12 +126,12 @@ public class QuestionAndAnswerRequest extends ConversationsDisplayRequest {
       return this;
     }
 
-    public Builder addFilter(QuestionOptions.Filter filter, EqualityOperator equalityOperator, String value) {
+    public Builder addFilter(@NonNull QuestionOptions.Filter filter, @NonNull EqualityOperator equalityOperator, @NonNull String value) {
       addFilter(new Filter(filter, equalityOperator, value));
       return this;
     }
 
-    public Builder includeSearchPhrase(String search) {
+    public Builder includeSearchPhrase(@NonNull String search) {
       this.searchPhrase = search;
       return this;
     }

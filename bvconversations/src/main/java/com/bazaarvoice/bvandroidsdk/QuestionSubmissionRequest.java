@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 /**
  * Request for submitting {@link Question}s
  */
@@ -69,27 +71,27 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
         Boolean isUserAnonymous;
         Boolean sendEmailAlertWhenAnswered;
 
-        public Builder(Action action, String productId) {
+        public Builder(@NonNull Action action, @NonNull String productId) {
             super(action);
             this.productId = productId;
         }
 
-        public Builder questionSummary(String questionSummary) {
+        public Builder questionSummary(@NonNull String questionSummary) {
             this.questionSummary = questionSummary;
             return  this;
         }
 
-        public Builder questionDetails(String questionDetails) {
+        public Builder questionDetails(@NonNull String questionDetails) {
             this.questionDetails = questionDetails;
             return this;
         }
 
-        public Builder isUserAnonymous(Boolean isUserAnonymous) {
+        public Builder isUserAnonymous(@NonNull Boolean isUserAnonymous) {
             this.isUserAnonymous = isUserAnonymous;
             return this;
         }
 
-        public Builder sendEmailAlertWhenAnswered(Boolean sendEmailAlertWhenAnswered) {
+        public Builder sendEmailAlertWhenAnswered(@NonNull Boolean sendEmailAlertWhenAnswered) {
             this.sendEmailAlertWhenAnswered = sendEmailAlertWhenAnswered;
             return this;
         }

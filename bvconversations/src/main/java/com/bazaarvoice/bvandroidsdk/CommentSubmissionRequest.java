@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 /**
  * Request for submitting {@link Comment}s
  */
@@ -36,13 +38,13 @@ public class CommentSubmissionRequest extends ConversationsSubmissionRequest {
     private final String reviewId, commentText;
     private String title;
 
-    public Builder(Action action, String reviewId, String commentText) {
+    public Builder(@NonNull Action action, @NonNull String reviewId, @NonNull String commentText) {
       super(action);
       this.reviewId = reviewId;
       this.commentText = commentText;
     }
 
-    public Builder title(String title) {
+    public Builder title(@NonNull String title) {
       this.title = title;
       return this;
     }

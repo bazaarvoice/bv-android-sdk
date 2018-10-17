@@ -20,6 +20,7 @@ package com.bazaarvoice.bvandroidsdk;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 import okhttp3.HttpUrl;
 
 import static com.bazaarvoice.bvandroidsdk.StringUtils.componentsSeparatedBy;
@@ -216,103 +217,103 @@ public final class CurationsFeedRequest {
             this.longitude = request.longitude;
         }
 
-        public Builder(List<String> groups){
+        public Builder(@NonNull @Size(min = 1) List<String> groups){
             this.groups = groups;
         }
 
-        public Builder authorTokenOrAlias(String authorTokenOrAlias){
+        public Builder authorTokenOrAlias(@NonNull String authorTokenOrAlias){
             this.author = authorTokenOrAlias;
             return this;
         }
 
-        public Builder externalId(String externalId){
+        public Builder externalId(@NonNull String externalId){
             this.externalId = externalId;
             return this;
         }
 
-        public Builder display(String display){
+        public Builder display(@NonNull String display){
             this.display = display;
             return this;
         }
 
-        public Builder after(Long after){
+        public Builder after(@NonNull Long after){
             this.after = after;
             return this;
         }
 
-        public Builder before(Long before){
+        public Builder before(@NonNull Long before){
             this.before = before;
             return this;
         }
 
-        public Builder featured(Integer featured){
+        public Builder featured(@NonNull Integer featured){
             this.featured = featured;
             return this;
         }
 
-        public Builder limit(Integer limit){
+        public Builder limit(@NonNull Integer limit){
             this.limit = limit;
             return this;
         }
 
         @Deprecated
-        public Builder perGroupLimit(Integer perGroupLimit){
+        public Builder perGroupLimit(@NonNull Integer perGroupLimit){
             this.per_group_limit = perGroupLimit;
             return this;
         }
 
-        public Builder hasGeoTag(Boolean hasGeoTag){
+        public Builder hasGeoTag(@NonNull Boolean hasGeoTag){
             this.has_geotag = hasGeoTag;
             return this;
         }
 
-        public Builder hasLink(Boolean hasLink){
+        public Builder hasLink(@NonNull Boolean hasLink){
             this.has_link = hasLink;
             return this;
         }
 
-        public Builder withProductData(Boolean withProductData){
+        public Builder withProductData(@NonNull Boolean withProductData){
             this.withProductData = withProductData;
             return this;
         }
 
-        public Builder hasPhoto(Boolean hasPhoto){
+        public Builder hasPhoto(@NonNull Boolean hasPhoto){
             this.has_photo = hasPhoto;
             return this;
         }
 
-        public Builder hasVideo(Boolean hasVideo){
+        public Builder hasVideo(@NonNull Boolean hasVideo){
             this.has_video = hasVideo;
             return this;
         }
 
-        public Builder hasPhotoOrVideo(Boolean hasPhotoOrVideo) {
+        public Builder hasPhotoOrVideo(@NonNull Boolean hasPhotoOrVideo) {
             this.has_photo_or_video = hasPhotoOrVideo;
             return this;
         }
 
-        public Builder includeComments(Boolean includeComments){
+        public Builder includeComments(@NonNull Boolean includeComments){
             this.include_comments = includeComments;
             return this;
         }
 
         @Deprecated
-        public Builder explicitPermission(Boolean explicitPermission){
+        public Builder explicitPermission(@NonNull Boolean explicitPermission){
             this.explicit_permission = explicitPermission;
             return this;
         }
 
-        public Builder media(CurationsMedia media){
+        public Builder media(@NonNull CurationsMedia media){
             this.media = media;
             return this;
         }
 
-        public Builder tags(List<String> tags){
+        public Builder tags(@NonNull List<String> tags){
             this.tags = tags;
             return this;
         }
 
-        public Builder location(Double latitude, Double longitude) {
+        public Builder location(@NonNull Double latitude, @NonNull Double longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
             return this;
