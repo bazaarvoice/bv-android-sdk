@@ -86,10 +86,7 @@ public class BVCurations {
     /**
      * Post Content to curations
      *
-     * @param request The request with the content you would like to post.
-     * @param callback Callback is used to handle successful and unsuccessful posts
-     * <em>Note:</em> This method keeps a weak reference to the {@link CurationsPostCallback} instance and will be
-     * garbage collected if you do not keep a strong reference to it. }.
+     * @deprecated
      */
     @MainThread
     public void postContentToCurations(CurationsPostRequest request, final CurationsPostCallback callback){
@@ -233,6 +230,9 @@ public class BVCurations {
         }
     }
 
+    /**
+     * @deprecated
+     */
     @MainThread
     private void deliverPostContent(ResponseData<CurationsPostResponse> responseData) {
         CurationsPostResponse response = responseData.getResponse();

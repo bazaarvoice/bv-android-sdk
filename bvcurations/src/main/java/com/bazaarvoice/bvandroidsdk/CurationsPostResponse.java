@@ -21,6 +21,7 @@ import java.util.Map;
 
 /**
  * Response for posting curations content
+ * @deprecated
  */
 public class CurationsPostResponse {
     protected Object status;
