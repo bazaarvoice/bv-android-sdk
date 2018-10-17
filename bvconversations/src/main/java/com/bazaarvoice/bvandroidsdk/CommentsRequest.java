@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+
 public class CommentsRequest extends ConversationsDisplayRequest {
   private final int limit, offset;
   private final List<Sort> sorts;
@@ -51,7 +54,7 @@ public class CommentsRequest extends ConversationsDisplayRequest {
     private final List<CommentIncludeType> includeTypes;
     private final Map<CommentIncludeType, Integer> includeTypeLimitMap;
 
-    private Builder(Filter filter, int limit, int offset) {
+    private Builder(@NonNull Filter filter, @IntRange(from = 0) int limit, @IntRange(from = 0) int offset) {
       addFilter(filter);
       this.limit = limit;
       this.offset = offset;
@@ -60,25 +63,25 @@ public class CommentsRequest extends ConversationsDisplayRequest {
       includeTypeLimitMap = new HashMap<>();
     }
 
-    public Builder(String reviewId, int limit, int offset) {
+    public Builder(@NonNull String reviewId, @IntRange(from = 0) int limit, @IntRange(from = 0) int offset) {
       this(new Filter(CommentOptions.Filter.REVIEW_ID, EqualityOperator.EQ, reviewId), limit, offset);
     }
 
-    public Builder(String commentId) {
+    public Builder(@NonNull String commentId) {
       this(new Filter(CommentOptions.Filter.ID, EqualityOperator.EQ, commentId), 1, 0);
     }
 
-    public Builder addSort(CommentOptions.Sort sort, SortOrder sortOrder) {
+    public Builder addSort(@NonNull CommentOptions.Sort sort, @NonNull SortOrder sortOrder) {
       this.sorts.add(new Sort(sort, sortOrder));
       return this;
     }
 
-    public Builder addFilter(CommentOptions.Filter filter, EqualityOperator equalityOperator, String value) {
+    public Builder addFilter(@NonNull CommentOptions.Filter filter, @NonNull EqualityOperator equalityOperator, @NonNull String value) {
       addFilter(new Filter(filter, equalityOperator, value));
       return this;
     }
 
-    public Builder addIncludeContent(CommentIncludeType commentIncludeType, int limit) {
+    public Builder addIncludeContent(@NonNull CommentIncludeType commentIncludeType, int limit) {
       includeTypes.add(commentIncludeType);
       includeTypeLimitMap.put(commentIncludeType, limit);
       return this;

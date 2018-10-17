@@ -19,6 +19,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
+import androidx.annotation.NonNull;
+
 /**
  * Author of a {@link CurationsFeedItem}
  */
@@ -56,17 +58,17 @@ public class CurationsAuthor {
         private String profileUrl;
         private String avatarUrl;
 
-        public Builder(String alias, String token) {
+        public Builder(@NonNull String alias, @NonNull String token) {
             this.alias = alias;
             this.token = token;
         }
 
-        public Builder profileUrl(String profileUrl){
+        public Builder profileUrl(@NonNull String profileUrl){
             this.profileUrl = profileUrl;
             return this;
         }
 
-        public Builder avatarUrl(String avatarUrl){
+        public Builder avatarUrl(@NonNull String avatarUrl){
             this.avatarUrl = avatarUrl;
             return this;
         }

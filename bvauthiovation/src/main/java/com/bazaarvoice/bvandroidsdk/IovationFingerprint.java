@@ -4,13 +4,15 @@ import android.content.Context;
 
 import com.iovation.mobile.android.FraudForceManager;
 
+import androidx.annotation.NonNull;
+
 
 public final class IovationFingerprint implements FingerprintProvider {
   private final Context appContext;
   private String fingerPrint;
   private boolean started = false;
 
-  public IovationFingerprint(BVSDK bvsdk) {
+  public IovationFingerprint(@NonNull BVSDK bvsdk) {
     this.appContext = bvsdk.getBvUserProvidedData().getAppContext();
   }
 

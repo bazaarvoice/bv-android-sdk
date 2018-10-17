@@ -17,6 +17,8 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 /**
  * Request for submitting {@link Review}s
  */
@@ -26,7 +28,7 @@ public class ReviewSubmissionRequest extends BaseReviewSubmissionRequest {
     }
 
     public static class Builder extends BaseReviewBuilder<Builder> {
-        public Builder(Action action, String productId) {
+        public Builder(@NonNull Action action, @NonNull String productId) {
             super(action, productId);
         }
 

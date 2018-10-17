@@ -21,6 +21,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Base options for a Conversations submission request
  */
@@ -194,7 +197,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
 
         abstract PhotoUpload.ContentType getPhotoContentType();
 
-        Builder(Action action) {
+        Builder(@NonNull Action action) {
             this.action = action;
             this.formPairs = new ArrayList<>();
         }
@@ -208,23 +211,23 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
          * @param value Custom non-encoded url query param value
          * @return The Builder
          */
-        public BuilderChildType addCustomSubmissionParameter(String key, String value) {
+        public BuilderChildType addCustomSubmissionParameter(@NonNull String key, @NonNull String value) {
             final FormPair formPair = new FormPair(key, value);
             formPairs.add(formPair);
             return (BuilderChildType) this;
         }
 
-        public BuilderChildType campaignId(String campaignId) {
+        public BuilderChildType campaignId(@NonNull String campaignId) {
             this.campaignId = campaignId;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType fingerPrint(String fingerPrint) {
+        public BuilderChildType fingerPrint(@NonNull String fingerPrint) {
             this.fingerPrint = fingerPrint;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType authenticationProvider(AuthenticationProvider authenticationProvider) {
+        public BuilderChildType authenticationProvider(@NonNull AuthenticationProvider authenticationProvider) {
             this.authenticationProvider = authenticationProvider;
             return (BuilderChildType) this;
         }
@@ -235,7 +238,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
          * @param hostedAuthenticationEmail The email address that a user will be sent a confirmation email to
          * @return This builder
          */
-        public BuilderChildType hostedAuthenticationEmail(String hostedAuthenticationEmail) {
+        public BuilderChildType hostedAuthenticationEmail(@NonNull String hostedAuthenticationEmail) {
             this.hostedAuthenticationEmail = hostedAuthenticationEmail;
             return (BuilderChildType)this;
         }
@@ -247,12 +250,12 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
          *                                     tap/click
          * @return This builder
          */
-        public BuilderChildType hostedAuthenticationCallback(String hostedAuthenticationCallback) {
+        public BuilderChildType hostedAuthenticationCallback(@NonNull String hostedAuthenticationCallback) {
             this.hostedAuthenticationCallback = hostedAuthenticationCallback;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType locale(String locale) {
+        public BuilderChildType locale(@NonNull String locale) {
             this.locale = locale;
             return (BuilderChildType)this;
         }
@@ -264,37 +267,37 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
          *             to submit on their behalf.
          * @return This builder
          */
-        public BuilderChildType user(String user) {
+        public BuilderChildType user(@NonNull String user) {
             this.user = user;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType userEmail(String userEmail) {
+        public BuilderChildType userEmail(@NonNull String userEmail) {
             this.userEmail = userEmail;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType userId(String userId) {
+        public BuilderChildType userId(@NonNull String userId) {
             this.userId = userId;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType userLocation(String userLocation) {
+        public BuilderChildType userLocation(@NonNull String userLocation) {
             this.userLocation = userLocation;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType userNickname(String userNickname) {
+        public BuilderChildType userNickname(@NonNull String userNickname) {
             this.userNickname = userNickname;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType agreedToTermsAndConditions(Boolean agreedToTermsAndConditions) {
+        public BuilderChildType agreedToTermsAndConditions(@NonNull Boolean agreedToTermsAndConditions) {
             this.agreedToTermsAndConditions = agreedToTermsAndConditions;
             return (BuilderChildType)this;
         }
 
-        public BuilderChildType sendEmailAlertWhenPublished(Boolean sendEmailAlertWhenPublished) {
+        public BuilderChildType sendEmailAlertWhenPublished(@NonNull Boolean sendEmailAlertWhenPublished) {
             this.sendEmailAlertWhenPublished = sendEmailAlertWhenPublished;
             return (BuilderChildType)this;
         }
@@ -307,7 +310,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
          * @param caption
          * @return
          */
-        public BuilderChildType addPhoto(File photo, String caption) {
+        public BuilderChildType addPhoto(@NonNull File photo, @Nullable String caption) {
             PhotoUpload upload = new PhotoUpload(photo, caption, getPhotoContentType());
             photoUploads.add(upload);
             return (BuilderChildType)this;

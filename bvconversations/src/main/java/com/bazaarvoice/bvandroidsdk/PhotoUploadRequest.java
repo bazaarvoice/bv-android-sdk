@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 /**
  * Internal class for uploading photos associate with CGC submission
  */
@@ -22,7 +24,7 @@ class PhotoUploadRequest extends ConversationsRequest {
   public static class Builder {
     private final PhotoUpload photoUpload;
 
-    public Builder(PhotoUpload photoUpload) {
+    public Builder(@NonNull PhotoUpload photoUpload) {
       this.photoUpload = photoUpload;
     }
 

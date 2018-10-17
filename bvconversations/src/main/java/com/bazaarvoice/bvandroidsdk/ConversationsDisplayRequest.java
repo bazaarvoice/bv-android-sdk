@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Common options for a Conversations display request
@@ -95,7 +96,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
      * @param value Custom non-encoded url query param value
      * @return The Builder
      */
-    public BuilderType addAdditionalField(String key, String value) {
+    public BuilderType addAdditionalField(@NonNull String key, @Nullable String value) {
       extraParams.add(new QueryPair(key, value));
       return (BuilderType) this;
     }
@@ -108,7 +109,7 @@ abstract class ConversationsDisplayRequest extends ConversationsRequest {
      * @param value Custom non-encoded url query param value
      * @return The Builder
      */
-    public BuilderType addCustomDisplayParameter(String key, String value) {
+    public BuilderType addCustomDisplayParameter(@NonNull String key, @Nullable String value) {
       extraParams.add(new QueryPair(key, value));
       return (BuilderType) this;
     }

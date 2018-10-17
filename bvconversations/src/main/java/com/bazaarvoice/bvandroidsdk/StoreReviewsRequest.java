@@ -20,6 +20,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.List;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
 /**
@@ -33,7 +34,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
   private final String searchPhrase;
   private final List<ReviewIncludeType> reviewIncludeTypes;
 
-  private StoreReviewsRequest(Builder builder) {
+  private StoreReviewsRequest(@NonNull Builder builder) {
     super(builder);
     storeId = builder.storeId;
     limit = builder.limit;
@@ -80,7 +81,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
     private final int limit;
     private final int offset;
 
-    public Builder(@NonNull String storeId, int limit, int offset) {
+    public Builder(@NonNull String storeId, @IntRange(from = 0) int limit, @IntRange(from = 0) int offset) {
       super(storeId, limit, offset);
       this.storeId = storeId;
       this.limit = limit;

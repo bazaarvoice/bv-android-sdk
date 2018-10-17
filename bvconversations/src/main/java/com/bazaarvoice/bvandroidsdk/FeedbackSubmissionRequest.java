@@ -21,6 +21,8 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 
+import androidx.annotation.NonNull;
+
 /**
  * Request class for submitting feedback on {@link Review}s, {@link Question}s,
  * and {@link Answer}s.
@@ -33,7 +35,7 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
     private final String feedbackVote;
     private final String reasonFlaggedText;
 
-    public FeedbackSubmissionRequest(Builder builder) {
+    FeedbackSubmissionRequest(@NonNull Builder builder) {
         super(builder);
         this.contentId = builder.contentId;
         this.contentType = builder.contentType;
@@ -81,27 +83,27 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
         private String feedbackVote;
         private String reasonFlaggedText;
 
-        public Builder(String contentId) {
+        public Builder(@NonNull String contentId) {
             super(Action.Preview);  // Feedback does not support action, so forcing preview will make a proper submission.
             this.contentId = contentId;
         }
 
-        public Builder feedbackContentType(FeedbackContentType feedbackContentType) {
+        public Builder feedbackContentType(@NonNull FeedbackContentType feedbackContentType) {
             this.contentType = feedbackContentType.getTypeString();
             return this;
         }
 
-        public Builder feedbackType(FeedbackType feedbackType) {
+        public Builder feedbackType(@NonNull FeedbackType feedbackType) {
             this.feedbackType = feedbackType.getTypeString();
             return this;
         }
 
-        public Builder feedbackVote(FeedbackVoteType feedbackVote){
+        public Builder feedbackVote(@NonNull FeedbackVoteType feedbackVote){
             this.feedbackVote = feedbackVote.getTypeString();
             return this;
         }
 
-        public Builder userId(String userId){
+        public Builder userId(@NonNull String userId){
             this.userId = userId;
             return this;
         }
