@@ -38,7 +38,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static android.util.Log.d;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.checkNotMain;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.isMain;
 
@@ -97,6 +96,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
      */
     @Override
     public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Begin async loading");
         submitCallback = conversationsCallback;
         dispatchSubmit();
     }
@@ -215,21 +215,25 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
     @AnyThread
     private void dispatchSubmit() {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch submit message");
         submitWorkerHandler.sendMessage(submitWorkerHandler.obtainMessage(SubmitWorkerHandler.SUBMIT));
     }
 
     @WorkerThread
     private void dispatchCompleteWithFailure(BazaarException e) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch complete with failure");
         submitUiHandler.sendMessage(submitUiHandler.obtainMessage(SubmitUiHandler.CB_FAILURE, e));
     }
 
     @WorkerThread
     private void dispatchCompleteWithSuccess(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch complete with success");
         submitUiHandler.sendMessage(submitUiHandler.obtainMessage(SubmitUiHandler.CB_SUCCESS, response));
     }
 
     @MainThread
     private void completeWithFailure(BazaarException e) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch complete with failure");
         if (submitCallback != null) {
             submitCallback.onFailure(e);
             submitCallback = null;
@@ -238,6 +242,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
     @MainThread
     private void completeWithSuccess(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch complete with success");
         if (submitCallback != null) {
             submitCallback.onSuccess(response);
             submitCallback = null;
@@ -264,6 +269,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
      * @param callback Callback for submission request
      */
     public void loadAsync(final ConversationsSubmissionCallback<ResponseType> callback) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Begin conversations async load");
         this.submitV7Callback = callback;
         dispatchSubmitV7();
     }
@@ -306,6 +312,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
         final Request okRequest = requestFactory.create(submissionRequest);
         call = okHttpClient.newCall(okRequest);
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Request prepared");
         Response response = null;
         try {
             response = call.execute();
@@ -376,21 +383,25 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
     @AnyThread
     private void dispatchSubmitV7() {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch submit");
         submitWorkerHandler.sendMessage(submitWorkerHandler.obtainMessage(SubmitWorkerHandler.SUBMIT_V7));
     }
 
     @WorkerThread
     private void dispatchCompleteV7WithSuccess(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch complete with success");
         submitUiHandler.sendMessage(submitUiHandler.obtainMessage(SubmitUiHandler.CB_SUCCESS_V7, response));
     }
 
     @WorkerThread
     private void dispatchCompleteV7WithFailure(ConversationsSubmissionException exception) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Dispatch complete with failure");
         submitUiHandler.sendMessage(submitUiHandler.obtainMessage(SubmitUiHandler.CB_FAILURE_V7, exception));
     }
 
     @MainThread
     private void completeWithSuccessV7(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Submit complete with success");
         if (submitV7Callback != null) {
             submitV7Callback.onSuccess(response);
             submitV7Callback = null;
@@ -399,6 +410,7 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
     @MainThread
     private void completeWithFailureV7(ConversationsSubmissionException exception) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Submit complete with failure");
         if (submitV7Callback != null) {
             submitV7Callback.onFailure(exception);
             submitV7Callback = null;
@@ -408,20 +420,23 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
     // endregion
 
     private List<Photo> postPhotosAndSubmissionSync(List<PhotoUpload> photoUploads) throws BazaarException {
-        d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
+        BVSDK.getInstance().bvLogger.d("Submission", String.format("Preparing to submit %d photos", photoUploads.size()));
         final List<Photo> photos = new ArrayList<>();
 
         try {
             for (PhotoUpload upload : photoUploads) {
                 final PhotoUploadRequest uploadRequest = new PhotoUploadRequest.Builder(upload).build();
+                BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload photo request ready");
                 final Request okRequest = requestFactory.create(uploadRequest);
                 Call photoCall = okHttpClient.newCall(okRequest);
                 Response response = null;
                 try {
                     response = photoCall.execute();
+                    BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload photo request executed");
                     Photo photo = deserializePhotoResponse(response);
                     photo.setCaption(upload.getCaption());
                     photos.add(photo);
+                    BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload photo request complete");
                 } finally {
                     if (response != null) {
                         response.body().close();
@@ -436,10 +451,12 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
     }
 
     private Photo deserializePhotoResponse(Response response) throws BazaarException {
+        BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Deserialize photo response");
         Reader reader = response.body().charStream();
         PhotoUploadResponse photoUploadResponse = gson.fromJson(reader, PhotoUploadResponse.class);
         response.body().close();
         if (photoUploadResponse.getHasErrors()) {
+            BVSDK.getInstance().bvLogger.e("BVConversationsSubmission", "Failed to deserialize photo");
             throw new BazaarException("Failed to upload image");
         }
         return photoUploadResponse.getPhoto();
