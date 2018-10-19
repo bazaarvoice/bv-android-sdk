@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(shadows = {BaseShadows.NetworkSecurityPolicyWorkaround.class})
-public abstract class LoadCallTest {
+public abstract class LoadCallTest extends BVBaseTest {
   @Rule public BVConversationsClientRule clientRule = new BVConversationsClientRule();
   @Rule public ExpectedException expectedException = ExpectedException.none();
 

@@ -11,9 +11,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
@@ -28,10 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
@@ -40,6 +33,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import okhttp3.Cache;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -101,6 +96,7 @@ public class BVSDK {
         this.bvWorkerData = bvWorkerData;
         this.bazaarEnvironment = bazaarEnvironment;
 
+        bvLogger.d("BVSDK", "BVSDK environment set to " + bazaarEnvironment.toString());
         startAppLifecycleMonitoring();
     }
 
@@ -458,29 +454,38 @@ public class BVSDK {
         public BVSDK build() {
             confirmBVSDKNotCreated();
 
+            if (logLevel == null) {
+                logLevel = BVLogLevel.ERROR;
+            }
+
+            BVLogger bvLogger = new BVLogger(logLevel);
+
+
             if (application == null) {
+                bvLogger.e(TAG, "Application object is required.");
                 throw new IllegalStateException("Must provide an application object");
             }
 
             BVConfig finalConfig = bvConfigBuilder.build();
 
             if (finalConfig.getClientId() == null) {
+                bvLogger.e(TAG, "A clientId must be provided to use the BazaarVoice SDK");
                 throw new IllegalStateException("Must provide a client id");
             }
 
             if (bazaarEnvironment == null) {
+                bvLogger.d(TAG, "BazaarEnvironment set to STAGING");
                 bazaarEnvironment = BazaarEnvironment.STAGING;
             }
 
-            if (logLevel == null) {
-                logLevel = BVLogLevel.ERROR;
-            }
+
 
             if (okHttpClient == null) {
+                bvLogger.d(TAG, "No OkHttpClient provided, using internal client");
                 this.okHttpClient = new OkHttpClient();
             }
 
-            BVLogger bvLogger = new BVLogger(logLevel);
+            bvLogger.d(TAG, "Initializing BVSDK");
 
             // Use their OkHttp instance or ours, and add the options we want
             File httpCacheFile = new File(application.getCacheDir(), "bvsdk_http_cache");
@@ -513,17 +518,7 @@ public class BVSDK {
                         "for dealing with user data privacy.");
             }
 
-            // Look up analytics root url for deprecated class.
-            String analyticsRootUrl = BVLocaleServiceManager.getInstance().resourceFor(
-                    BVLocaleServiceManager.Service.ANALYTICS,
-                    defaultLocale,
-                    bazaarEnvironment == BazaarEnvironment.STAGING);
-
-
-            ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory(SCHEDULED_BV_THREAD_NAME));
-            ExecutorService immediateExecutorService = Executors.newFixedThreadPool(1, new NamedThreadFactory(IMMEDIATE_BV_THREAD_NAME));
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            UUID uuid = Utils.getUuid(application.getApplicationContext());
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
@@ -585,6 +580,7 @@ public class BVSDK {
                 bvPixel,
                 bvWorkerData,
                 bazaarEnvironment);
+            bvLogger.d(TAG, "BVSDK Initialized");
             return singleton;
         }
     }

@@ -121,6 +121,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
      */
     @Override
     public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Beginning of async request");
         checkMain();
         displayCallback = conversationsCallback;
         dispatchFetch();
@@ -128,21 +129,25 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
 
     @AnyThread
     private void dispatchFetch() {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatching message to handler");
         displayWorkerHandler.sendMessage(displayWorkerHandler.obtainMessage(DisplayWorkerHandler.FETCH));
     }
 
     @WorkerThread
     private void dispatchCompleteWithFailure(BazaarException e) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatch completed with error");
         displayUiHandler.sendMessage(displayUiHandler.obtainMessage(LoadCallDisplay.DisplayUiHandler.CB_FAILURE, e));
     }
 
     @WorkerThread
     private void dispatchCompleteWithSuccess(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatch completed with success");
         displayUiHandler.sendMessage(displayUiHandler.obtainMessage(LoadCallDisplay.DisplayUiHandler.CB_SUCCESS, response));
     }
 
     @MainThread
     private void completeWithFailure(BazaarException e) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Complete with failure");
         if (displayCallback != null) {
             displayCallback.onFailure(e);
             displayCallback = null;
@@ -151,6 +156,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
 
     @MainThread
     private void completeWithSuccess(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Complete with success");
         if (displayCallback != null) {
             displayCallback.onSuccess(response);
             displayCallback = null;
@@ -209,6 +215,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
      * @param callback Callback for display request
      */
     public void loadAsync(final ConversationsDisplayCallback<ResponseType> callback) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Beginning of async request");
         checkMain();
         displayV7Callback = callback;
         dispatchFetchV7();
@@ -216,21 +223,25 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
 
     @AnyThread
     private void dispatchFetchV7() {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatching displayui message to handler");
         displayWorkerHandler.sendMessage(displayWorkerHandler.obtainMessage(DisplayWorkerHandler.FETCH_V7));
     }
 
     @WorkerThread
     private void dispatchCompleteWithFailureV7(ConversationsException e) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatch displayui complete with error");
         displayUiHandler.sendMessage(displayUiHandler.obtainMessage(DisplayUiHandler.CB_FAILURE_V7, e));
     }
 
     @WorkerThread
     private void dispatchCompleteWithSuccessV7(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatch displayui complete");
         displayUiHandler.sendMessage(displayUiHandler.obtainMessage(DisplayUiHandler.CB_SUCCESS_V7, response));
     }
 
     @MainThread
     private void completeWithFailureV7(ConversationsException e) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Complete with Failure");
         if (displayV7Callback != null) {
             displayV7Callback.onFailure(e);
             displayV7Callback = null;
@@ -239,6 +250,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
 
     @MainThread
     private void completeWithSuccessV7(ResponseType response) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Complete with success");
         if (displayV7Callback != null) {
             displayV7Callback.onSuccess(response);
             displayV7Callback = null;
@@ -268,6 +280,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
 
         @Override
         public void handleMessage(Message msg) {
+            BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Handle displayui message");
             switch (msg.what) {
                 case CB_SUCCESS: {
                     ResponseType response = (ResponseType) msg.obj;
@@ -304,6 +317,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
 
         @Override
         public void handleMessage(Message msg) {
+            BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Handle display worker message");
             switch (msg.what) {
                 case FETCH: {
                     try {

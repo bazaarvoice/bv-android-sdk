@@ -11,8 +11,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Looper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.Base64;
 
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
@@ -24,6 +22,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.UUID;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Junk drawer of utility methods.
