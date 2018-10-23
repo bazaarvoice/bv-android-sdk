@@ -1,5 +1,13 @@
 # Changelog
 
+# 8.0.1
+
+## Added more annotations and logging, Deprecating Curations Submit
+
+* Added more annotations to conversation functions
+* Added more logging coverage
+* Deprecated more Curation submission methods
+
 # 8.0.0
 
 ## Remove Analytics Manger, Support AndroidX, Recommendation Updates, Curation Updates
