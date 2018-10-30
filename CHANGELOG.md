@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.0.2
+
+## Bug Fix
+
+Fixed AnswerSubmissionResponse. Please see commit for details.
+
 # 8.0.1
 
 ## Added more annotations and logging, Deprecating Curations Submit
