@@ -1,0 +1,278 @@
+{
+  "Locale": "en_US",
+  "Comment": {
+    "SubmissionTime": "2018-10-29T20:41:26.984+00:00",
+    "CommentText": null,
+    "SubmissionId": null,
+    "Title": null,
+    "TypicalHoursToPost": null,
+    "Id": "123",
+    "SendEmailAlertWhenPublished": false
+  },
+  "Errors": [],
+  "Form": [
+    {
+      "Type": "Field",
+      "Id": "usernickname"
+    },
+    {
+      "Type": "Field",
+      "Id": "userlocation"
+    },
+    {
+      "Type": "Group",
+      "Id": "userlocationgeocode"
+    },
+    {
+      "Type": "Field",
+      "Id": "useremail"
+    },
+    {
+      "Type": "Field",
+      "Id": "sendemailalertwhenpublished"
+    },
+    {
+      "Type": "Field",
+      "Id": "title"
+    },
+    {
+      "Type": "Field",
+      "Id": "commenttext"
+    },
+    {
+      "Type": "Field",
+      "Id": "authsourcetype"
+    },
+    {
+      "Type": "Field",
+      "Id": "return"
+    },
+    {
+      "Type": "Field",
+      "Id": "reviewid"
+    },
+    {
+      "Type": "Field",
+      "Id": "sessionparams"
+    },
+    {
+      "Type": "Field",
+      "Id": "state"
+    },
+    {
+      "Type": "Field",
+      "Id": "submissionid"
+    },
+    {
+      "Type": "Field",
+      "Id": "userid"
+    },
+    {
+      "Type": "Field",
+      "Id": "useruuid"
+    },
+    {
+      "Type": "Field",
+      "Id": "forceIeUnicodeSubmission"
+    },
+    {
+      "Type": "Field",
+      "Id": "devicefingerprint"
+    }
+  ],
+  "FormErrors": {
+    "GroupErrors": {},
+    "GroupErrorsOrder": [],
+    "FieldErrors": {
+      "commenttext": {
+        "Field": "commenttext",
+        "Message": "You must enter comment text.",
+        "Code": "ERROR_FORM_REQUIRED"
+      },
+      "usernickname": {
+        "Field": "usernickname",
+        "Message": "You must enter a nickname.",
+        "Code": "ERROR_FORM_REQUIRED"
+      }
+    },
+    "FieldErrorsOrder": [
+      "usernickname",
+      "commenttext"
+    ]
+  },
+  "SubmissionId": "123",
+  "Data": {
+    "Fields": {
+      "userlocationgeocode_latitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_latitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "commenttext": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": true,
+        "Label": null,
+        "Value": null,
+        "MinLength": 1,
+        "Id": "commenttext",
+        "MaxLength": 10000,
+        "Default": null
+      },
+      "userlocationgeocode_region": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_region",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "title": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "title",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "sendemailalertwhenpublished": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "sendemailalertwhenpublished",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_country": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_country",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "userlocationgeocode_longitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_longitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "userlocationgeocode_city": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_city",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "usernickname": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": true,
+        "Label": null,
+        "Value": null,
+        "MinLength": 4,
+        "Id": "usernickname",
+        "MaxLength": 25,
+        "Default": null
+      },
+      "userlocation": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocation",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "useremail": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "useremail",
+        "MaxLength": 255,
+        "Default": null
+      }
+    },
+    "Groups": {
+      "userlocationgeocode": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_latitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_longitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_country"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_region"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_city"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "userlocationgeocode"
+      }
+    },
+    "FieldsOrder": [
+      "usernickname",
+      "userlocation",
+      "useremail",
+      "title",
+      "commenttext",
+      "sendemailalertwhenpublished",
+      "userlocationgeocode_latitude",
+      "userlocationgeocode_longitude",
+      "userlocationgeocode_country",
+      "userlocationgeocode_region",
+      "userlocationgeocode_city"
+    ],
+    "GroupsOrder": [
+      "userlocationgeocode"
+    ]
+  },
+  "TypicalHoursToPost": 72,
+  "AuthorSubmissionToken": null,
+  "HasErrors": true
+}

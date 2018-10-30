@@ -26,8 +26,6 @@ public class AnswerSubmissionResponse extends ConversationsSubmissionResponse {
 
     @SerializedName("Locale")
     private String locale;
-    @SerializedName("SubmissionId")
-    private String submissionId;
     @SerializedName("AuthorSubmissionToken")
     private String authorSubmissionToken;
     @SerializedName("TypicalHoursToPost")
@@ -37,10 +35,6 @@ public class AnswerSubmissionResponse extends ConversationsSubmissionResponse {
 
     public String getLocale() {
         return locale;
-    }
-
-    public String getSubmissionId() {
-        return submissionId;
     }
 
     public String getAuthorSubmissionToken() {
