@@ -1,0 +1,574 @@
+{
+  "Locale": "en_US",
+  "Answer": {
+    "SubmissionTime": "2018-10-29T20:15:38.906+00:00",
+    "SubmissionId": "123",
+    "AnswerText": null,
+    "TypicalHoursToPost": null,
+    "Id": null,
+    "SendEmailAlertWhenPublished": false
+  },
+  "Errors": [],
+  "Form": [
+    {
+      "Type": "Field",
+      "Id": "usernickname"
+    },
+    {
+      "Type": "Field",
+      "Id": "userlocation"
+    },
+    {
+      "Type": "Group",
+      "Id": "userlocationgeocode"
+    },
+    {
+      "Type": "Field",
+      "Id": "useremail"
+    },
+    {
+      "Type": "Field",
+      "Id": "sendemailalertwhenpublished"
+    },
+    {
+      "Type": "Field",
+      "Id": "agreedtotermsandconditions"
+    },
+    {
+      "Type": "Field",
+      "Id": "answertext"
+    },
+    {
+      "Type": "Group",
+      "Id": "photo"
+    },
+    {
+      "Type": "Field",
+      "Id": "authsourcetype"
+    },
+    {
+      "Type": "Field",
+      "Id": "numanswers"
+    },
+    {
+      "Type": "Field",
+      "Id": "numquestions"
+    },
+    {
+      "Type": "Field",
+      "Id": "questionid"
+    },
+    {
+      "Type": "Field",
+      "Id": "return"
+    },
+    {
+      "Type": "Field",
+      "Id": "sessionparams"
+    },
+    {
+      "Type": "Field",
+      "Id": "state"
+    },
+    {
+      "Type": "Field",
+      "Id": "submissionid"
+    },
+    {
+      "Type": "Field",
+      "Id": "userid"
+    },
+    {
+      "Type": "Field",
+      "Id": "useruuid"
+    },
+    {
+      "Type": "Field",
+      "Id": "forceIeUnicodeSubmission"
+    },
+    {
+      "Type": "Field",
+      "Id": "devicefingerprint"
+    }
+  ],
+  "FormErrors": {
+    "GroupErrors": {},
+    "GroupErrorsOrder": [],
+    "FieldErrors": {
+      "agreedtotermsandconditions": {
+        "Field": "agreedtotermsandconditions",
+        "Message": "You must agree to the terms and conditions.",
+        "Code": "ERROR_FORM_REQUIRES_TRUE"
+      },
+      "answertext": {
+        "Field": "answertext",
+        "Message": "You must enter an answer.",
+        "Code": "ERROR_FORM_REQUIRED"
+      },
+      "usernickname": {
+        "Field": "usernickname",
+        "Message": "You must enter a nickname.",
+        "Code": "ERROR_FORM_REQUIRED"
+      }
+    },
+    "FieldErrorsOrder": [
+      "usernickname",
+      "answertext",
+      "agreedtotermsandconditions"
+    ]
+  },
+  "SubmissionId": "123",
+  "Data": {
+    "Fields": {
+      "photourl_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_6",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "agreedtotermsandconditions": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": true,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "agreedtotermsandconditions",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photourl_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_2",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "userlocationgeocode_region": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_region",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_3",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_4",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_5",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "userlocationgeocode_country": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_country",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "userlocationgeocode_longitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_longitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "usernickname": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": true,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "usernickname",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "userlocation": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocation",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "userlocationgeocode_latitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_latitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photocaption_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_2",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "answertext": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": true,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "answertext",
+        "MaxLength": 10000,
+        "Default": null
+      },
+      "photocaption_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_1",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_6",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_5",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_4",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photourl_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_1",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photocaption_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_3",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "sendemailalertwhenpublished": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "sendemailalertwhenpublished",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_city": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_city",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "useremail": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "useremail",
+        "MaxLength": 255,
+        "Default": null
+      }
+    },
+    "Groups": {
+      "photo_1": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_1"
+      },
+      "photo_2": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_2"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_2"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_2"
+      },
+      "photo_3": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_3"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_3"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_3"
+      },
+      "photo_4": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_4"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_4"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_4"
+      },
+      "userlocationgeocode": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_latitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_longitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_country"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_region"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_city"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "userlocationgeocode"
+      },
+      "photo": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "photo_1"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_2"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_3"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_4"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_5"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_6"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo"
+      },
+      "photo_5": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_5"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_5"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_5"
+      },
+      "photo_6": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_6"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_6"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_6"
+      }
+    },
+    "FieldsOrder": [
+      "usernickname",
+      "userlocation",
+      "useremail",
+      "answertext",
+      "sendemailalertwhenpublished",
+      "agreedtotermsandconditions",
+      "userlocationgeocode_latitude",
+      "userlocationgeocode_longitude",
+      "userlocationgeocode_country",
+      "userlocationgeocode_region",
+      "userlocationgeocode_city",
+      "photourl_1",
+      "photocaption_1",
+      "photourl_2",
+      "photocaption_2",
+      "photourl_3",
+      "photocaption_3",
+      "photourl_4",
+      "photocaption_4",
+      "photourl_5",
+      "photocaption_5",
+      "photourl_6",
+      "photocaption_6"
+    ],
+    "GroupsOrder": [
+      "userlocationgeocode",
+      "photo",
+      "photo_1",
+      "photo_2",
+      "photo_3",
+      "photo_4",
+      "photo_5",
+      "photo_6"
+    ]
+  },
+  "TypicalHoursToPost": 72,
+  "AuthorSubmissionToken": null,
+  "HasErrors": true
+}
