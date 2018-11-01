@@ -226,6 +226,11 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
 
     @Override
     public void onFailure(Throwable throwable) {
+      BVErrorReport bvErrorReport = new BVErrorReport(
+              BVEventValues.BVProductType.CURATIONS,
+              presenter.request.getClass().getSimpleName(),
+              new BazaarException(throwable.getMessage(), throwable));
+      BVSDK.getInstance().getBvPixel().track(bvErrorReport);
       presenter.failed();
       if (pageLoadListener != null) {
         pageLoadListener.onPageLoadFailure(getPageIndex(), throwable);

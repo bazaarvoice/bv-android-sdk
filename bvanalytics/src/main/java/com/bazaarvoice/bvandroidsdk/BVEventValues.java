@@ -50,6 +50,7 @@ public class BVEventValues {
   }
 
   public enum BVProductType {
+    AUTHENTICATION("Authentication"),
     CONVERSATIONS_REVIEWS("RatingsAndReviews"),
     CONVERSATIONS_QANDA("AskAndAnswer"),
     CONVERSATIONS_PROFILE("Profiles"),
@@ -80,7 +81,9 @@ public class BVEventValues {
     PERSONALIZATION("Personalization"),
     VIEWED_CGC("UsedViewedUGC"),
     VISIT("Visit"),
-    EMBEDDED("Embedded");
+    EMBEDDED("Embedded"),
+    ERORR("Error"),
+    RECORD("Record");
 
     private String value;
 
@@ -102,7 +105,8 @@ public class BVEventValues {
     IMPRESSION("Impression"),
     PII_CONVERSION("PIIConversion"),
     LIFECYCLE("Lifecycle"),
-    LOCATION("Location");
+    LOCATION("Location"),
+    ERROR("Error");
 
     private String value;
 

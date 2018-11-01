@@ -34,11 +34,13 @@ import okhttp3.Response;
 abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType extends ConversationsResponse> {
     Call call;
     final Class<ResponseType> responseTypeClass;
+    final RequestType requestTypeClass;
     final OkHttpClient okHttpClient;
     final Gson gson;
 
-    LoadCall(Class<ResponseType> responseTypeClass, OkHttpClient okHttpClient, Gson gson) {
+    LoadCall(RequestType requestTypeClass, Class<ResponseType> responseTypeClass, OkHttpClient okHttpClient, Gson gson) {
         this.responseTypeClass = responseTypeClass;
+        this.requestTypeClass = requestTypeClass;
         this.okHttpClient = okHttpClient;
         this.gson = gson;
     }
@@ -138,4 +140,16 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
         BVHandlerCallbackPayload handlerCallbackPayload = new BVHandlerCallbackPayload(internalCb, callback, null, e);
         BVSDK.getInstance().postPayloadToMainThread(handlerCallbackPayload);
     }
+
+    BVErrorReport createErrorReportFromLoadCall(Exception e) {
+        String requestTypeClassName = this.requestTypeClass.getClass().getSimpleName();
+        BVEventValues.BVProductType bvProductType = ConversationAnalyticsUtil.getProductTypeFromRequest(this.requestTypeClass);
+        if(e instanceof  ConversationsException) {
+            String detailedMessage = ((ConversationsException) e).getErrorListMessages();
+            return new BVErrorReport(bvProductType, requestTypeClassName, detailedMessage);
+        }
+        return new BVErrorReport(bvProductType, requestTypeClassName, e);
+    }
+
+
 }
