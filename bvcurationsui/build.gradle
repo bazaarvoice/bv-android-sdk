@@ -3,6 +3,7 @@ apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 dependencies {
   implementation project(':bvcommon')
   implementation project(':bvcurations')
+  implementation project(':bvanalytics')
   implementation sdkDep.appCompatV7
   compileOnly sdkDep.gson
   compileOnly sdkDep.recyclerview

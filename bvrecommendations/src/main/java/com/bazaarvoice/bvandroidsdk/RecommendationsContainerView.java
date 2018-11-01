@@ -41,6 +41,11 @@ public class RecommendationsContainerView extends BVContainerView implements BVR
 
         @Override
         public void onFailure(Throwable throwable) {
+            BVErrorReport bvErrorReport = new BVErrorReport(
+                    BVEventValues.BVProductType.CURATIONS,
+                    RecommendationsRequest.class.getSimpleName(),
+                    new BazaarException(throwable.getMessage(), throwable));
+            BVSDK.getInstance().getBvPixel().track(bvErrorReport);
             BVRecommendations.BVRecommendationsCallback delegateCb = delegateCbRef.get();
             if (delegateCb == null) {
                 return;

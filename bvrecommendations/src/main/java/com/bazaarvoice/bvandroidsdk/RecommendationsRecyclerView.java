@@ -40,6 +40,11 @@ public final class RecommendationsRecyclerView extends BVRecyclerView implements
         @Override
         public void onFailure(Throwable throwable) {
             BVRecommendations.BVRecommendationsCallback delegateCb = delegateCbRef.get();
+            BVErrorReport bvErrorReport = new BVErrorReport(
+                    BVEventValues.BVProductType.CURATIONS,
+                    RecommendationsRequest.class.getSimpleName(),
+                    new BazaarException(throwable.getMessage(), throwable));
+            BVSDK.getInstance().getBvPixel().track(bvErrorReport);
             if (delegateCb == null) {
                 return;
             }

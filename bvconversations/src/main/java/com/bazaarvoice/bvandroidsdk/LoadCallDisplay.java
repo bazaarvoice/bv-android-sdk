@@ -60,7 +60,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         Gson gson,
         Looper uiLooper,
         Looper bgLooper) {
-        super(responseTypeClass, okHttpClient, gson);
+        super(request, responseTypeClass, okHttpClient, gson);
         this.call = call;
         this.request = request;
         this.conversationsAnalyticsManager = conversationsAnalyticsManager;
@@ -324,6 +324,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
                         ResponseType response = loadCallDisplay.fetch();
                         loadCallDisplay.dispatchCompleteWithSuccess(response);
                     } catch (BazaarException e) {
+                        BVErrorReport bvErrorReport = loadCallDisplay.createErrorReportFromLoadCall(e);
+                        BVSDK.getInstance().getBvPixel().track(bvErrorReport);
                         loadCallDisplay.dispatchCompleteWithFailure(e);
                     }
                     break;
@@ -333,6 +335,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
                         ResponseType response = loadCallDisplay.fetchV7();
                         loadCallDisplay.dispatchCompleteWithSuccessV7(response);
                     } catch (ConversationsException e) {
+                        BVErrorReport bvErrorReport = loadCallDisplay.createErrorReportFromLoadCall(e);
+                        BVSDK.getInstance().getBvPixel().track(bvErrorReport);
                         loadCallDisplay.dispatchCompleteWithFailureV7(e);
                     }
                 }

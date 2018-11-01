@@ -66,12 +66,16 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         Looper uiLooper,
         OkHttpClient okHttpClient,
         Gson gson) {
-        super(responseTypeClass, okHttpClient, gson);
+        super(submissionRequest, responseTypeClass, okHttpClient, gson);
         this.submissionRequest = submissionRequest;
         this.conversationsAnalyticsManager = conversationsAnalyticsManager;
         this.requestFactory = requestFactory;
         this.submitUiHandler = new SubmitUiHandler<>(uiLooper, this);
         this.submitWorkerHandler = new SubmitWorkerHandler<>(bgLooper, this);
+    }
+
+    RequestType getRequest() {
+        return submissionRequest;
     }
 
     // region v6 network call routing
@@ -520,6 +524,8 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                         ResponseType response = loadCallSubmission.legacyLoadAsyncBehavior();
                         loadCallSubmission.dispatchCompleteWithSuccess(response);
                     } catch (BazaarException e) {
+                        BVErrorReport bvErrorReport = loadCallSubmission.createErrorReportFromLoadCall(e);
+                        BVSDK.getInstance().getBvPixel().track(bvErrorReport);
                         loadCallSubmission.dispatchCompleteWithFailure(e);
                     }
                     break;
@@ -530,13 +536,17 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                         submissionResponse = loadCallSubmission.submitFlowV7();
                         loadCallSubmission.dispatchCompleteV7WithSuccess(submissionResponse);
                     } catch (ConversationsSubmissionException e) {
+                        BVErrorReport bvErrorReport = loadCallSubmission.createErrorReportFromLoadCall(e);
+                        BVSDK.getInstance().getBvPixel().track(bvErrorReport);
                         loadCallSubmission.dispatchCompleteV7WithFailure(e);
                     }
                     break;
                 }
             }
         }
+
     }
+
 
     @Override
     public void cancel() {

@@ -116,12 +116,24 @@ class BVAuthenticatedUser {
                     bvLogger.d("Profile", "Succesfully updated profile");
                     bvLogger.d("Profile", shopperProfile.toString());
                 } catch (JsonSyntaxException | JsonIOException e) {
+                    BVErrorReport bvErrorReport = new BVErrorReport(
+                            BVEventValues.BVProductType.AUTHENTICATION,
+                            BVAuthenticatedUser.class.getSimpleName(),e);
+                    BVSDK.getInstance().getBvPixel().track(bvErrorReport);
                     bvLogger.e("Profile", "Failed to parse profile", e);
                 }
             } else {
+                BVErrorReport bvErrorReport = new BVErrorReport(
+                        BVEventValues.BVProductType.AUTHENTICATION,
+                        BVAuthenticatedUser.class.getSimpleName(), new BazaarException("Unsuccesfully updated profile, response code: " + response.code()));
+                BVSDK.getInstance().getBvPixel().track(bvErrorReport);
                 bvLogger.d("Profile", "Unsuccesfully updated profile, response code " + response.code() + "\nDid you forget to set a valid shopper advertising passkey?");
             }
         } catch (IOException e) {
+            BVErrorReport bvErrorReport = new BVErrorReport(
+                    BVEventValues.BVProductType.AUTHENTICATION,
+                    BVAuthenticatedUser.class.getSimpleName(),e);
+            BVSDK.getInstance().getBvPixel().track(bvErrorReport);
             bvLogger.e("Profile", "Failed to update profile", e);
         } finally {
             if (response != null && response.body() != null) {
