@@ -7,8 +7,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-import com.bazaarvoice.bvandroidsdk_analytics.BuildConfig;
-
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class BVPixelDispatcher {
   // region Properties
   private static final String TAG = "BVPixelDispatcher";
   private static final boolean FULL_LOGGING = false;
-  private static final String BVSDK_USER_AGENT = "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME;
   private static final String ANALYTICS_THREAD_NAME = TAG;
   private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
   private static final int ENQUEUE_EVENT = 0;
@@ -154,6 +151,7 @@ class BVPixelDispatcher {
       eventBatch = new HashMap<>();
       eventArray = new ArrayList<>();
       eventBatch.put(BVEventKeys.BATCH, eventArray);
+      eventBatch.put(BVEventKeys.CommonAnalyticsParams.USER_AGENT, BVEventValues.BVSDK_USER_AGENT);
     }
 
     public void putEvent(BVAnalyticsEvent event) {
@@ -264,7 +262,7 @@ class BVPixelDispatcher {
           .url(url)
           .header("Content-Type", "application/json")
           .header("X-Requested-With", "XMLHttpRequest")
-          .header("User-Agent", BVSDK_USER_AGENT)
+          .header("User-Agent", BVEventValues.BVSDK_USER_AGENT)
           .post(body)
           .build();
 

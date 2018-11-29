@@ -1,7 +1,5 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.os.Build;
-
 import com.bazaarvoice.bvandroidsdk_analytics.BuildConfig;
 
 import java.util.Map;
@@ -67,9 +65,6 @@ public abstract class BVMobileAnalyticsEvent extends BVAnalyticsEvent {
     mapPutSafe(map, BVEventKeys.MobileEvent.CLIENT_ID, bvMobileParams.getClientId());
     mapPutSafe(map, BVEventKeys.Event.SOURCE, bvMobileParams.getSource().toString());
     mapPutSafe(map, BVEventKeys.Event.BVPRODUCTVERSION, BuildConfig.BVSDK_VERSION_NAME);
-    mapPutSafe(map, BVEventKeys.Event.UA_PLATFORM, "Android");
-    mapPutSafe(map, BVEventKeys.Event.UA_PLATFORM_VERSION, Build.VERSION.RELEASE);
-    mapPutSafe(map, BVEventKeys.Event.UA_MOBILE, true);
     return map;
   }
 }

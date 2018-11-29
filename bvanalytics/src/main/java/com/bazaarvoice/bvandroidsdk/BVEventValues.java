@@ -1,7 +1,12 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import android.os.Build;
+
+import com.bazaarvoice.bvandroidsdk_analytics.BuildConfig;
+
 public class BVEventValues {
-  public enum BVFeatureUsedEventType {
+    static final String BVSDK_USER_AGENT = "Mozilla/5.0 (Linux; Android "+ Build.VERSION.RELEASE +" " + Build.DEVICE+ " "+ Build.MODEL+") bvsdk-android/" + BuildConfig.BVSDK_VERSION_NAME;
+    public enum BVFeatureUsedEventType {
     WRITE_REVIEW("Write"),
     ASK_QUESTION("Question"),
     ANSWER_QUESTION("Answer"),
