@@ -64,12 +64,12 @@ public class BVSDK {
     private static final String BAZAARVOICE_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/";
     private static final String NOTIFICATION_CONFIG_URL = "https://s3.amazonaws.com/";
-    private static final String BVSDK_USER_AGENT = "bvsdk-android/v" + BuildConfig.BVSDK_VERSION_NAME;
     private static final String BACKGROUND_THREAD_NAME = "BackgroundThread";
     static final int BVHandlePayload = 123;
     static volatile BVSDK singleton;
 
     static final String SDK_VERSION = BuildConfig.BVSDK_VERSION_NAME;
+    private static final String BVSDK_USER_AGENT = "Mozilla/5.0 (Linux; Android "+ Build.VERSION.RELEASE +" " + Build.DEVICE+ " "+ Build.MODEL+") bvsdk-android/" +SDK_VERSION;
 
     final BVUserProvidedData bvUserProvidedData;
     final BVWorkerData bvWorkerData;

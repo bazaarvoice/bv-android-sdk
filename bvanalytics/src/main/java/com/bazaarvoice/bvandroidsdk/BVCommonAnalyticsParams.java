@@ -16,7 +16,7 @@ class BVCommonAnalyticsParams {
    * @param context Required to fetch a key stored in SharedPrefs
    */
   BVCommonAnalyticsParams(@NonNull Context context) {
-    this.userAgent = BVAnalyticsUtils.getUuid(context).toString();
+    this.userAgent = BVEventValues.BVSDK_USER_AGENT;
     this.hashedIp = BVEventValues.HASHED_IP;
   }
 

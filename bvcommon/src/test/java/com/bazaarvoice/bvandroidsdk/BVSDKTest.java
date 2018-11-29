@@ -1,5 +1,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -310,6 +311,15 @@ public class BVSDKTest {
             .build();
         new BVSDK.Builder(RuntimeEnvironment.application, environment, badBvConfig)
             .build();
+    }
+
+    @Test
+    public void shouldCreateValidUAString() {
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+                .build();
+        String userAgent = bvsdk.getBvWorkerData().getBvSdkUserAgent();
+        assertEquals("Mozilla/5.0 (Linux; Android "+ Build.VERSION.RELEASE +" " + Build.DEVICE+ " "+ Build.MODEL+") bvsdk-android/" + com.bazaarvoice.bvandroidsdk_analytics.BuildConfig.BVSDK_VERSION_NAME,
+                userAgent);
     }
     // endregion
 
