@@ -3,6 +3,9 @@ package com.bazaarvoice.bvandroidsdk;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
@@ -78,6 +81,31 @@ public class BasicRequestFactoryTest {
     final HttpUrl httpUrl = okRequest.url();
     assertTrue(httpUrl.queryParameterNames().contains("Stats"));
     assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
+  }
+
+  @Test
+  public void reviewDisplayWithMultipleIncludeParametersShouldHaveAllTypes() {
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayWithAllIncludeTypesRequest();
+    final HttpUrl httpUrl = okRequest.url();
+    assertEquals(httpUrl.queryParameter("Include"), "products,authors,categories,comments");
+  }
+
+  @Test
+  public void reviewDisplayWithMultipleIncludeParametersShouldSupportMultipleTypes() {
+    List<ReviewIncludeType> types = new ArrayList<>();
+    types.add(ReviewIncludeType.PRODUCTS);
+    types.add(ReviewIncludeType.AUTHORS);
+    types.add(ReviewIncludeType.CATEGORIES);
+    types.add(ReviewIncludeType.COMMENTS);
+    final ReviewsRequest request = new ReviewsRequest.Builder("", 0 ,0)
+            .addIncludeContent(
+                    ReviewIncludeType.PRODUCTS,
+                    ReviewIncludeType.AUTHORS,
+                    ReviewIncludeType.CATEGORIES,
+                    ReviewIncludeType.COMMENTS
+            )
+            .build();
+    assertTrue(request.getReviewIncludeTypes().equals(types));
   }
 
   @Test

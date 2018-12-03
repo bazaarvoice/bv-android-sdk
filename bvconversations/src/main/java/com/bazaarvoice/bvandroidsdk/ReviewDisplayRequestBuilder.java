@@ -19,6 +19,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,11 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
 
   public BuilderType addIncludeContent(ReviewIncludeType reviewIncludeType) {
     this.reviewIncludeTypes.add(reviewIncludeType);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addIncludeContent(ReviewIncludeType... reviewIncludeTypes) {
+    this.reviewIncludeTypes.addAll(Arrays.asList(reviewIncludeTypes));
     return (BuilderType) this;
   }
 

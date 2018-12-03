@@ -1,7 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
 public enum ReviewIncludeType implements IncludeType {
-  PRODUCTS("products"), COMMENTS("comments");
+  PRODUCTS("products"),
+  COMMENTS("comments"),
+  AUTHORS("authors"),
+  CATEGORIES("categories");
 
   private String value;
 

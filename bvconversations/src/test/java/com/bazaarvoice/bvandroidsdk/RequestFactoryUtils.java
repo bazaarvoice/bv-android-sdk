@@ -195,6 +195,18 @@ public class RequestFactoryUtils {
     return requestFactory.create(request);
   }
 
+  public Request createFullReviewDisplayWithAllIncludeTypesRequest() {
+    final ReviewsRequest request = new ReviewsRequest.Builder("prod1", 10, 2)
+        .addIncludeContent(   ReviewIncludeType.PRODUCTS,
+                ReviewIncludeType.AUTHORS,
+                ReviewIncludeType.CATEGORIES,
+                ReviewIncludeType.COMMENTS)
+        .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+        .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, "me")
+        .build();
+    return requestFactory.create(request);
+  }
+
   public Request createFullQnaDisplayRequest() {
     final QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("product1", 10, 0)
         .addQuestionSort(QuestionOptions.Sort.ProductId, SortOrder.DESC)
