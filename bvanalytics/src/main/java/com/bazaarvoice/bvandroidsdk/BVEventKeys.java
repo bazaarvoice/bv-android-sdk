@@ -5,7 +5,7 @@ class BVEventKeys {
     static final String CLASS = "cl";
     static final String TYPE = "type";
     static final String SOURCE = "source";
-    static final String BVPRODUCTVERSION = "bvproductversion";
+    static final String BVPRODUCTVERSION = "bvProductVersion";
     static final String UA_PLATFORM = "ua_platform";
     static final String UA_PLATFORM_VERSION = "ua_platform_version";
     static final String UA_MOBILE = "ua_mobile";
