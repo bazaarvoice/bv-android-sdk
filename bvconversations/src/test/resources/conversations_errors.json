@@ -11,8 +11,8 @@
       "Code": "ERROR_PARAM_INVALID_API_KEY"
     },
     {
-      "Message": "So borked, good luck",
-      "Code": "YOLO_LYFE"
+      "Message": "Error in request",
+      "Code": "ERROR_400"
     }
   ],
   "Limit": null

@@ -105,7 +105,7 @@ public class BasicRequestFactoryTest {
                     ReviewIncludeType.COMMENTS
             )
             .build();
-    assertTrue(request.getReviewIncludeTypes().equals(types));
+    assertEquals(request.getReviewIncludeTypes(), types);
   }
 
   @Test

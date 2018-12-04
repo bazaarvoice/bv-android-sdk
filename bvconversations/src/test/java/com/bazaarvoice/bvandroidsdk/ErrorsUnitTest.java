@@ -32,8 +32,15 @@ public class ErrorsUnitTest {
   public void testErrorResponseUnknownError() throws Exception {
     ConversationsResponse errorResponse = getMockConversationsErrors();
     Error firstError = errorResponse.getErrors().get(1);
-    assertEquals("YOLO_LYFE", firstError.getCode());
-    assertEquals("So borked, good luck", firstError.getMessage());
+    assertEquals("ERROR_400", firstError.getCode());
+    assertEquals("Error in request", firstError.getMessage());
     assertEquals(ErrorCode.ERROR_UNKNOWN, firstError.getErrorCode());
+  }
+
+  @Test
+  public void testErrorListIsNull() {
+    ConversationsException exception = new ConversationsException("Has Errors", null);
+    String errorMsg = exception.getErrorListMessages();
+    assertEquals("Conversations Exception\n", errorMsg);
   }
 }
