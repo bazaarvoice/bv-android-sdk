@@ -1,5 +1,15 @@
 # Changelog
 
+# 8.1.0
+
+## BVPixel Error Reporting, Additional Review Include Types, Analytics Fixes
+    
+* Improved capability for capturing errors and ongoing SDK improvements. SDK errors now being recorded in BVPixel.
+* Added Categories and Authors to Review Include types
+* Added fixes to analytics event data
+    
+Please see commit for details. 
+
 # 8.0.2
 
 ## Bug Fix
