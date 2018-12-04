@@ -40,9 +40,13 @@ public class ConversationsException extends BazaarException {
     }
 
     public String getErrorListMessages() {
-        StringBuilder errorListMessages = new StringBuilder("Conversation Exception\n");
-        for (Error error : errors) {
-            errorListMessages.append("Error: ").append(error.getMessage()).append(" Code: ").append(error.getCode());
+        StringBuilder errorListMessages = new StringBuilder("Conversations Exception\n");
+        if(errors != null) {
+            for (Error error : errors) {
+                if(error != null) {
+                    errorListMessages.append("Error: ").append(error.getMessage()).append(" Code: ").append(error.getCode());
+                }
+            }
         }
         return errorListMessages.toString();
     }

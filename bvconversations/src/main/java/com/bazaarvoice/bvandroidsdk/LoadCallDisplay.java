@@ -94,7 +94,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         } catch (Throwable t) {
             throw new BazaarException("Unknown exception", t);
         } finally {
-            if (response != null) {
+            if (response != null && response.body() != null) {
                 response.body().close();
             }
         }
@@ -191,7 +191,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         } catch (Throwable t) {
             throw ConversationsException.withNoRequestErrors("Unknown exception", t);
         } finally {
-            if (response != null) {
+            if (response != null && response.body() != null) {
                 response.body().close();
             }
         }

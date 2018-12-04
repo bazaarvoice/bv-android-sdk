@@ -38,16 +38,23 @@ public class ConversationsSubmissionException extends ConversationsException {
 
     @Override
     public String getErrorListMessages() {
-        StringBuilder errorListMessages = new StringBuilder(super.getErrorListMessages());
-        for (FieldError error : fieldErrors) {
-            errorListMessages
-                    .append("Error: ")
-                    .append(error.getMessage())
-                    .append(" Field: ")
-                    .append(error.getField())
-                    .append(" Code: ")
-                    .append(error.getCode());
+        String conversationErrorMsg = super.getErrorListMessages();
+        StringBuilder errorListMessages = new StringBuilder(conversationErrorMsg);
+        if(fieldErrors != null) {
+            for (FieldError error : fieldErrors) {
+                if(error != null) {
+                    String fieldErrorMessage = createFieldErrorString(error);
+                    errorListMessages.append(fieldErrorMessage);
+                }
+            }
         }
         return errorListMessages.toString();
     }
+
+    private String createFieldErrorString(FieldError error) {
+        return  " Error: " + error.getMessage() +
+                " Field: " + error.getField() +
+                " Code: " + error.getCode();
+    }
+
 }
