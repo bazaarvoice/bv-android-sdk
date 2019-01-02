@@ -80,7 +80,7 @@ public class BasicRequestFactoryTest {
     final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
     final HttpUrl httpUrl = okRequest.url();
     assertTrue(httpUrl.queryParameterNames().contains("Stats"));
-    assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
+    assertEquals("Reviews,", httpUrl.queryParameterValues("Stats").get(0));
   }
 
   @Test
@@ -106,6 +106,28 @@ public class BasicRequestFactoryTest {
             )
             .build();
     assertEquals(request.getReviewIncludeTypes(), types);
+  }
+
+  @Test
+  public void reviewDisplayRequestWithAdditionalStatsTypes() {
+    List<PDPContentType> statTypes = new ArrayList<>();
+    statTypes.add(PDPContentType.Questions);
+    statTypes.add(PDPContentType.Answers);
+    statTypes.add(PDPContentType.Reviews);
+    final ReviewsRequest request = new ReviewsRequest.Builder("", 0, 0)
+            .addPDPContentType(
+                    PDPContentType.Questions,
+                    PDPContentType.Answers,
+                    PDPContentType.Reviews)
+            .build();
+    assertEquals(statTypes, request.getStatistics());
+  }
+
+  @Test
+  public void reviewDisplayRequestParamsWithAdditionalTypes() {
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayWithAllStatTypesRequest();
+    assertEquals(okRequest.url().queryParameter("Stats"), "Questions,Answers,Reviews");
+
   }
 
   @Test
@@ -255,7 +277,7 @@ public class BasicRequestFactoryTest {
     final Request okRequest = requestFactoryUtils.createFullStoreReviewRequest();
     final HttpUrl httpUrl = okRequest.url();
     assertTrue(httpUrl.queryParameterNames().contains("Stats"));
-    assertTrue(httpUrl.queryParameterValues("Stats").get(0).equals("Reviews"));
+    assertEquals("Reviews", httpUrl.queryParameterValues("Stats").get(0));
   }
 
   @Test

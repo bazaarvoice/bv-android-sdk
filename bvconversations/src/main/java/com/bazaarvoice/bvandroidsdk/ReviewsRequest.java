@@ -25,71 +25,78 @@ import androidx.annotation.NonNull;
  * Request to get {@link Review}s for a {@link Product}
  */
 public class ReviewsRequest extends ConversationsDisplayRequest {
-  private final String productId;
-  private final int limit;
-  private final int offset;
-  private final List<Sort> sorts;
-  private final String searchPhrase;
-  private final List<ReviewIncludeType> reviewIncludeTypes;
-
-  private ReviewsRequest(Builder builder) {
-    super(builder);
-    this.productId = builder.productId;
-    this.limit = builder.limit;
-    this.offset = builder.offset;
-    this.sorts = builder.sorts;
-    this.searchPhrase = builder.searchPhrase;
-    this.reviewIncludeTypes = builder.reviewIncludeTypes;
-  }
-
-  String getProductId() {
-    return productId;
-  }
-
-  int getLimit() {
-    return limit;
-  }
-
-  int getOffset() {
-    return offset;
-  }
-
-  List<Sort> getSorts() {
-    return sorts;
-  }
-
-  String getSearchPhrase() {
-    return searchPhrase;
-  }
-
-  List<ReviewIncludeType> getReviewIncludeTypes() {
-    return reviewIncludeTypes;
-  }
-
-  @Override
-  BazaarException getError() {
-    if (limit < 1 || limit > 100) {
-        return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", limit));
-    }
-    return null;
-  }
-
-  public static final class Builder extends ReviewDisplayRequestBuilder<Builder, ReviewsRequest> {
     private final String productId;
     private final int limit;
     private final int offset;
+    private final List<Sort> sorts;
+    private final String searchPhrase;
+    private final List<ReviewIncludeType> reviewIncludeTypes;
+    private final List<PDPContentType> statistics;
 
-    public Builder(@NonNull String productId, int limit, int offset) {
-      super(productId, limit, offset);
-      this.productId = productId;
-      this.limit = limit;
-      this.offset = offset;
+    private ReviewsRequest(Builder builder) {
+        super(builder);
+        this.productId = builder.productId;
+        this.limit = builder.limit;
+        this.offset = builder.offset;
+        this.sorts = builder.sorts;
+        this.searchPhrase = builder.searchPhrase;
+        this.reviewIncludeTypes = builder.reviewIncludeTypes;
+        this.statistics = builder.statistics;
+
+    }
+
+    String getProductId() {
+        return productId;
+    }
+
+    int getLimit() {
+        return limit;
+    }
+
+    int getOffset() {
+        return offset;
+    }
+
+    List<Sort> getSorts() {
+        return sorts;
+    }
+
+    String getSearchPhrase() {
+        return searchPhrase;
+    }
+
+    List<ReviewIncludeType> getReviewIncludeTypes() {
+        return reviewIncludeTypes;
+    }
+
+    List<PDPContentType> getStatistics() {
+        return statistics;
     }
 
     @Override
-    public ReviewsRequest build() {
-      return new ReviewsRequest(this);
+    BazaarException getError() {
+        if (limit < 1 || limit > 100) {
+            return new BazaarException(String.format("Invalid `limit` value: Parameter 'limit' has invalid value: %d - must be between 1 and 100.", limit));
+        }
+        return null;
     }
 
-  }
+    public static final class Builder extends ReviewDisplayRequestBuilder<Builder, ReviewsRequest> {
+        private final String productId;
+        private final int limit;
+        private final int offset;
+
+        public Builder(@NonNull String productId, int limit, int offset) {
+            super(productId, limit, offset);
+            this.productId = productId;
+            this.limit = limit;
+            this.offset = offset;
+        }
+
+        @Override
+        public ReviewsRequest build() {
+            return new ReviewsRequest(this);
+        }
+
+    }
 }

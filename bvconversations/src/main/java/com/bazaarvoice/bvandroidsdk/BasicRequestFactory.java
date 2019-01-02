@@ -228,11 +228,13 @@ class BasicRequestFactory implements RequestFactory {
     addCommonDisplayQueryParams(httpUrlBuilder, request);
     addCommonPagingQueryParams(httpUrlBuilder, request.getLimit(), request.getOffset());
 
+    String statsParam = "";
+
     if (!request.getReviewIncludeTypes().isEmpty()) {
       if (request.getReviewIncludeTypes().contains(ReviewIncludeType.PRODUCTS)) {
         // "Stats=Reviews must be used in conjunction with Include=Products"
         // - https://developer.bazaarvoice.com/conversations-api/reference/v5.4/reviews/review-display#requesting-all-reviews-for-a-particular-product-with-review-statistics-(inc.-average-rating)
-        httpUrlBuilder.addQueryParameter(KEY_STATS, STATS_REVIEWS);
+        statsParam = STATS_REVIEWS + ",";
       }
       String includeStr = StringUtils.componentsSeparatedBy(request.getReviewIncludeTypes(), ",");
       httpUrlBuilder.addQueryParameter(kINCLUDE, includeStr);
@@ -246,6 +248,14 @@ class BasicRequestFactory implements RequestFactory {
     if (request.getSearchPhrase() != null) {
       httpUrlBuilder
           .addQueryParameter(kSEARCH, request.getSearchPhrase());
+    }
+
+    if (!request.getStatistics().isEmpty()) {
+      statsParam += StringUtils.componentsSeparatedBy(request.getStatistics(), ",");
+    }
+
+    if(!statsParam.isEmpty()) {
+      httpUrlBuilder.addQueryParameter(kSTATS, statsParam);
     }
 
     HttpUrl httpUrl = httpUrlBuilder.build();
