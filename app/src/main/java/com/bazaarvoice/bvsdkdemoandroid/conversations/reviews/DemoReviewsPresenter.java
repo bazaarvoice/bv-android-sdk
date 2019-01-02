@@ -9,6 +9,7 @@ import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsException;
+import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewIncludeType;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
@@ -67,9 +68,15 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
                     .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
                     .addIncludeContent(
                             ReviewIncludeType.PRODUCTS,
-                            ReviewIncludeType.AUTHORS,
                             ReviewIncludeType.CATEGORIES,
+                            ReviewIncludeType.AUTHORS,
                             ReviewIncludeType.COMMENTS
+                    )
+                    .addPDPContentType(
+                            PDPContentType.Answers,
+                            PDPContentType.Questions,
+                            PDPContentType.Reviews,
+                            PDPContentType.Stories
                     )
                     .build();
             reviewsLoader.loadAsync(client.prepareCall(request), this);

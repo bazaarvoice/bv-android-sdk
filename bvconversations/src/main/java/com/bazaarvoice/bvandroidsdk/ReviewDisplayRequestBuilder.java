@@ -32,6 +32,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected final List<Sort> sorts;
   protected final int limit;
   protected final int offset;
+  protected final ArrayList<PDPContentType> statistics;
   protected String searchPhrase;
   protected List<ReviewIncludeType> reviewIncludeTypes;
 
@@ -39,10 +40,21 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     super();
     this.sorts = new ArrayList<>();
     this.reviewIncludeTypes = new ArrayList<>();
+    this.statistics = new ArrayList<>();
     this.limit = limit;
     this.offset = offset;
     addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
     this.productId = productId;
+  }
+
+  public BuilderType addPDPContentType(PDPContentType pdpContentType) {
+    this.statistics.add(pdpContentType);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addPDPContentType(PDPContentType... pdpContentTypes) {
+    this.statistics.addAll(Arrays.asList(pdpContentTypes));
+    return (BuilderType) this;
   }
 
   public BuilderType addIncludeContent(ReviewIncludeType reviewIncludeType) {

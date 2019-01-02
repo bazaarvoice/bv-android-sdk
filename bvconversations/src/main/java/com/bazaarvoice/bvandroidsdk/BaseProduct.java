@@ -61,9 +61,11 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent impl
     @SerializedName("Id")
     private String id;
     @SerializedName("ReviewStatistics")
-    private ReviewStatistics reviewStatistics;
+    @Nullable private ReviewStatistics reviewStatistics;
     @SerializedName("FilteredReviewStatistics")
-    private ReviewStatistics filteredReviewStatistics;
+    @Nullable private ReviewStatistics filteredReviewStatistics;
+    @SerializedName("StoryStatistics")
+    @Nullable private StoryStatistics storyStatistics;
     @SerializedName("ReviewIds")
     private List<String> reviewsIds;
 

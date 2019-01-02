@@ -23,7 +23,8 @@ package com.bazaarvoice.bvandroidsdk;
 public enum PDPContentType implements IncludeType {
     Reviews("Reviews"),
     Questions("Questions"),
-    Answers("Answers");
+    Answers("Answers"),
+    Stories("Stories");
 
     private final String key;
 
