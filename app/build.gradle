@@ -1,11 +1,11 @@
 repositories {
-  mavenLocal()
-  jcenter()
-  mavenCentral()
-  maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-  flatDir {
-    dirs 'libs'
-  }
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -13,48 +13,48 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 
 def hasAppdemoBuildSettings() {
-  return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
+    return hasProperty('BVSDK_DEMOAPP_STORE_FILE') && file(BVSDK_DEMOAPP_STORE_FILE).exists() && hasProperty('BVSDK_DEMOAPP_STORE_PASSWORD') && hasProperty('BVSDK_DEMOAPP_KEY_ALIAS') && hasProperty('BVSDK_DEMOAPP_KEY_PASSWORD');
 }
 
 android {
-  compileSdkVersion demoAppBuildInfo.compileSdkVersion
-  buildToolsVersion demoAppBuildInfo.buildToolsVersion
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
-  compileOptions {
-    sourceCompatibility demoAppBuildInfo.sourceCompatibilityVersion
-    targetCompatibility demoAppBuildInfo.targetCompatibilityVersion
-  }
-
-  dexOptions {
-    // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
-    preDexLibraries = preDexEnabled && !isCi
-  }
-
-  packagingOptions {
-    exclude 'META-INF/LICENSE'
-    exclude 'META-INF/NOTICE'
-    exclude 'META-INF/DEPENDENCIES'
-  }
-
-  signingConfigs {
-    release {
-      if (hasAppdemoBuildSettings()) {
-        storeFile file(BVSDK_DEMOAPP_STORE_FILE)
-        storePassword BVSDK_DEMOAPP_STORE_PASSWORD
-        keyAlias BVSDK_DEMOAPP_KEY_ALIAS
-        keyPassword BVSDK_DEMOAPP_KEY_PASSWORD
-      }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-  }
 
-  defaultConfig {
-    minSdkVersion demoAppBuildInfo.minSdkVersion
-    targetSdkVersion demoAppBuildInfo.targetSdkVersion
-    versionCode demoAppVersionCode
-    versionName demoAppVersionName
-    vectorDrawables.useSupportLibrary = true
-    multiDexEnabled true
-  }
+    dexOptions {
+        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !isCi
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
+    signingConfigs {
+        release {
+            if (hasAppdemoBuildSettings()) {
+                storeFile file(BVSDK_DEMOAPP_STORE_FILE)
+                storePassword BVSDK_DEMOAPP_STORE_PASSWORD
+                keyAlias BVSDK_DEMOAPP_KEY_ALIAS
+                keyPassword BVSDK_DEMOAPP_KEY_PASSWORD
+            }
+        }
+    }
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 13
+        versionName "2.1.1"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
 
     buildTypes {
         release {
@@ -73,17 +73,18 @@ android {
         }
     }
 
-  testOptions {
-    unitTests.returnDefaultValues = true
-  }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 
-  lintOptions {
-    abortOnError false
-  }
+    lintOptions {
+        abortOnError false
+    }
 }
 
+
 dependencies {
-    if (useLocalSdk) {
+    if (true) {
         implementation project(':bvanalytics')
         implementation project(':bvauthiovation')
         implementation project(':bvrecommendations')
@@ -96,41 +97,64 @@ dependencies {
         compileOnly project(':bvnotifications')
         compileOnly project(':bvcommon')
     } else {
-        implementation demoAppDep.bvSdkAnalytics
-        implementation demoAppDep.bvSdkAuthIovation
         implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-release-3.0.1:3.0.1@aar')
-        implementation demoAppDep.bvSdkRecommendations
-        implementation demoAppDep.bvSdkConversations
-        implementation demoAppDep.bvSdkCurations
-        implementation demoAppDep.bvSdkStoreNotif
-        implementation demoAppDep.bvSdkCurationsUi
-        implementation demoAppDep.bvSdkConversationsUi
+        implementation "com.bazaarvoice.bvandroidsdk:analytics:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:auth-iovation:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:conversations:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:curations:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:recommendations:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:store-notifications:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:curations-ui:$demoAppSharedVersions.bvSdkVersion"
+        implementation "com.bazaarvoice.bvandroidsdk:conversations-ui:$demoAppSharedVersions.bvSdkVersion"
     }
-    implementation demoAppDep.picasso
-    implementation demoAppDep.picassoDownloader
-    implementation demoAppDep.gson
-    implementation demoAppDep.okhttp3
-    implementation demoAppDep.okhttp3Logging
-    implementation demoAppDep.prettyTime
-    implementation demoAppDep.appCompatV7
-    implementation demoAppDep.designCompat
-    implementation demoAppDep.supportV4
-    implementation demoAppDep.cardview
-    implementation demoAppDep.preferenceV7
-    implementation demoAppDep.preferenceV14
-    implementation demoAppDep.constraintLayout
-    implementation demoAppDep.playServiceAds
-    implementation demoAppDep.playServiceMaps
-    implementation demoAppDep.playServiceLocation
-    implementation demoAppDep.dagger
+//    implementation demoAppDep.picasso
+//    implementation demoAppDep.picassoDownloader
+//    implementation demoAppDep.gson
+//    implementation demoAppDep.okhttp3
+//    implementation demoAppDep.okhttp3Logging
+//    implementation demoAppDep.prettyTime
+//    implementation demoAppDep.appCompatV7
+//    implementation demoAppDep.designCompat
+//    implementation demoAppDep.supportV4
+//    implementation demoAppDep.cardview
+//    implementation demoAppDep.preferenceV7
+//    implementation demoAppDep.preferenceV14
+//    implementation demoAppDep.constraintLayout
+//    implementation demoAppDep.playServiceAds
+//    implementation demoAppDep.playServiceMaps
+//    implementation demoAppDep.playServiceLocation
+//    implementation demoAppDep.dagger
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    implementation 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
+    implementation "androidx.appcompat:appcompat:1.0.0"
+    implementation "com.google.android.material:material:1.0.0-rc01"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.preference:preference:1.0.0"
+    implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.2"
+    implementation "com.google.android.gms:play-services-ads:16.0.0"
+    implementation "com.google.android.gms:play-services-maps:16.0.0"
+    implementation "com.google.android.gms:play-services-location:16.0.0"
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.squareup.okhttp3:okhttp:3.8.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
+    implementation "com.google.dagger:dagger:2.17"
+    implementation "com.google.dagger:dagger-compiler:2.17"
+    implementation "com.jakewharton:butterknife:10.0.0"
+    implementation "com.jakewharton:butterknife-compiler:10.0.0"
+    implementation "com.squareup.leakcanary:leakcanary-android:1.5"
+    implementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
+    implementation "com.jakewharton:process-phoenix:2.0.0"
+
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    annotationProcessor demoAppDep.daggerProcessor
-    implementation demoAppDep.butterknife
-    implementation demoAppDep.processPhoenix
-    annotationProcessor demoAppDep.butterknifeCompiler
-    releaseImplementation demoAppDep.leakCanaryNoOp
-    debugImplementation demoAppDep.leakCanary
-    testImplementation demoAppTestDep.junit
+    annotationProcessor "com.google.dagger:dagger-compiler:2.17"
+    implementation "com.jakewharton:process-phoenix:2.0.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:1.5"
+    testImplementation "junit:junit:4.12"
 }
 
 
