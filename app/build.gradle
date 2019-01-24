@@ -107,49 +107,32 @@ dependencies {
         implementation "com.bazaarvoice.bvandroidsdk:curations-ui:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:conversations-ui:$demoAppSharedVersions.bvSdkVersion"
     }
-//    implementation demoAppDep.picasso
-//    implementation demoAppDep.picassoDownloader
-//    implementation demoAppDep.gson
-//    implementation demoAppDep.okhttp3
-//    implementation demoAppDep.okhttp3Logging
-//    implementation demoAppDep.prettyTime
-//    implementation demoAppDep.appCompatV7
-//    implementation demoAppDep.designCompat
-//    implementation demoAppDep.supportV4
-//    implementation demoAppDep.cardview
-//    implementation demoAppDep.preferenceV7
-//    implementation demoAppDep.preferenceV14
-//    implementation demoAppDep.constraintLayout
-//    implementation demoAppDep.playServiceAds
-//    implementation demoAppDep.playServiceMaps
-//    implementation demoAppDep.playServiceLocation
-//    implementation demoAppDep.dagger
+
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     implementation 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
-    implementation "androidx.appcompat:appcompat:1.0.0"
-    implementation "com.google.android.material:material:1.0.0-rc01"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "com.google.android.material:material:1.1.0-alpha02"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.preference:preference:1.0.0"
     implementation "androidx.legacy:legacy-preference-v14:1.0.0"
-    implementation "androidx.constraintlayout:constraintlayout:1.1.2"
-    implementation "com.google.android.gms:play-services-ads:16.0.0"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "com.google.android.gms:play-services-ads:15.0.0"
     implementation "com.google.android.gms:play-services-maps:16.0.0"
     implementation "com.google.android.gms:play-services-location:16.0.0"
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.squareup.okhttp3:okhttp:3.8.0"
+    implementation "com.squareup.okhttp3:okhttp:3.10.0"
     implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
     implementation "com.google.dagger:dagger:2.17"
-    implementation "com.google.dagger:dagger-compiler:2.17"
+    implementation "com.google.dagger:dagger-android:2.17"
     implementation "com.jakewharton:butterknife:10.0.0"
     implementation "com.jakewharton:butterknife-compiler:10.0.0"
-    implementation "com.squareup.leakcanary:leakcanary-android:1.5"
-    implementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
     implementation "com.jakewharton:process-phoenix:2.0.0"
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     annotationProcessor "com.google.dagger:dagger-compiler:2.17"
+    annotationProcessor "com.google.dagger:dagger-android-processor:2.17"
     implementation "com.jakewharton:process-phoenix:2.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5"
