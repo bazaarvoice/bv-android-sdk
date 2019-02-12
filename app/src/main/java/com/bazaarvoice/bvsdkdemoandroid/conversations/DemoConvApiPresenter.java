@@ -1,7 +1,5 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
-import androidx.annotation.NonNull;
-
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionResponse;
@@ -29,6 +27,8 @@ import java.io.File;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import androidx.annotation.NonNull;
+
 public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   private final DemoConvApiContract.View view;
   private final BVConversationsClient bvConversationsClient;
@@ -39,6 +39,8 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   private final Action submitAction;
   private DemoConvApiContract.ConvApiMethod convApiMethod;
   private String requiredId;
+  private String filterType;
+  private String filterValue;
 
   @Inject
   DemoConvApiPresenter(DemoConvApiContract.View view, DemoAssetsUtil demoAssetsUtil, DemoRouter demoRouter, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoConvResponseHandler demoConvResponseHandler, Action submitAction, @Named("DefaultRequiredId") String defaultRequiredId) {
@@ -115,7 +117,11 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
 
     switch (convApiMethod) {
       case DISPLAY_REVIEWS: {
-        demoRouter.transitionToReviewsActivity(requiredId);
+        if (filterValue != null) {
+          demoRouter.transitionToReviewsActivity(filterType, filterValue);
+        } else {
+          demoRouter.transitionToReviewsActivity(requiredId);
+        }
         break;
       }
       case DISPLAY_QANDA: {
@@ -165,6 +171,16 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   public void onRequiredIdChanged(String requiredId) {
     this.requiredId = requiredId;
   }
+
+  @Override
+  public void onFilterTypeChanged(String filterType) {
+    this.filterType = filterType;
+  }
+
+    @Override
+    public void onFilterValueChanged(String filterValue) {
+        this.filterValue = filterValue;
+    }
 
   private boolean readyForDemo() {
     String conversationsKey = demoClient.getApiKeyConversations();

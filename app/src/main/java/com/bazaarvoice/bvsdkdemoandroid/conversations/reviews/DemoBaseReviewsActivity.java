@@ -20,6 +20,7 @@ import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVUiConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
+import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
@@ -40,7 +41,10 @@ import butterknife.ButterKnife;
 abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends AppCompatActivity implements DemoReviewsContract.View<ReviewType> {
 
     private static final String EXTRA_PRODUCT_ID = "extra_product_id";
-    private static final String FORCE_LOAD_API = "extra_force_api_load";
+    private static final String EXTRA_FILTER_TYPE_ID = "extra_filter_type_id";
+    private static final String EXTRA_FILTER_OPERATOR_ID = "extra_filter_operator_id";
+    private static final String EXTRA_FILTER_VALUE_ID = "extra_filter_value_id";
+    private static final String EXTRA_FORCE_API_LOAD = "extra_force_api_load";
 
     private BVDisplayableProductContent bvProduct;
     private DemoReviewsContract.UserActionsListener reviewsUserActionListener;
@@ -66,6 +70,9 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
 
     private boolean forceLoadFromProductId; // Meaning, a BVProduct is explicitly not provided
     private String productId;
+    private ReviewOptions.PrimaryFilter filterType;
+    private String filterTypeIntent;
+    private String filterValue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,12 +81,14 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         ButterKnife.bind(this);
         inflateRecyclerView();
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
-        this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
+        this.filterTypeIntent = getIntent().getStringExtra(EXTRA_FILTER_TYPE_ID);
+        this.filterValue = getIntent().getStringExtra(EXTRA_FILTER_VALUE_ID);
+        this.forceLoadFromProductId = getIntent().getBooleanExtra(EXTRA_FORCE_API_LOAD, false);
         bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
 
+        setFilterTypeFromIntent(filterTypeIntent);
         setupToolbarViews();
         setupRecyclerView();
-
         DemoMockDataUtil demoMockDataUtil = getDataUtil();
         reviewsUserActionListener = getReviewsUserActionListener(this, getConvClient(), getDemoClient(), demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
@@ -99,7 +108,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     }
 
     protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, BVUiConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoReviewsPresenter(view, client, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+        return new DemoReviewsPresenter(view, client, demoClient, demoMockDataUtil, productId, filterValue, filterType, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     private void setupToolbarViews() {
@@ -115,6 +124,28 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         reviewsRecyclerView.addItemDecoration(new VerticalSpaceItemDecoration(spacing));
         reviewsRecyclerView.setAdapter(reviewsAdapter);
         reviewsRecyclerView.setNestedScrollingEnabled(false);
+    }
+
+    private void setFilterTypeFromIntent(String filterType) {
+        if(filterType == null) {
+            return;
+        }
+        switch (filterType) {
+            case "ProductId":
+                this.filterType = ReviewOptions.PrimaryFilter.ProductId;
+                break;
+            case "AuthorId":
+                this.filterType = ReviewOptions.PrimaryFilter.AuthorId;
+                break;
+            case "SubmissionId":
+                this.filterType = ReviewOptions.PrimaryFilter.SubmissionId;
+                break;
+            case "CategoryAncestorId":
+                this.filterType = ReviewOptions.PrimaryFilter.CategoryAncestorId;
+                break;
+            default:
+                this.filterType = null;
+        }
     }
 
     protected abstract DemoReviewsAdapter<ReviewType> createAdapter();
@@ -186,6 +217,14 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     public static void transitionTo(Activity fromActivity, String productId) {
         Intent intent = new Intent(fromActivity, DemoReviewsActivity.class);
         intent.putExtra(EXTRA_PRODUCT_ID, productId);
+        fromActivity.startActivity(intent);
+    }
+
+    public static void transitionTo(Activity fromActivity, String filterType, String filterOperator, String filterValue) {
+        Intent intent = new Intent(fromActivity, DemoReviewsActivity.class);
+        intent.putExtra(EXTRA_FILTER_TYPE_ID, filterType);
+        intent.putExtra(EXTRA_FILTER_OPERATOR_ID, filterOperator);
+        intent.putExtra(EXTRA_FILTER_VALUE_ID, filterValue);
         fromActivity.startActivity(intent);
     }
 }

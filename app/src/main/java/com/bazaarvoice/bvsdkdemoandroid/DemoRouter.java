@@ -86,6 +86,14 @@ public class DemoRouter {
         transitionToActivityWithExtras(DemoReviewsActivity.class, bundle);
     }
 
+    public void transitionToReviewsActivity(String filterType, String filterValue){
+        Bundle bundle = new Bundle();
+        bundle.putString("extra_filter_type_id", filterType);
+        bundle.putString("extra_filter_value_id", filterValue);
+        bundle.putBoolean("extra_force_api_load", true);
+        transitionToActivityWithExtras(DemoReviewsActivity.class, bundle);
+    }
+
     public void transitionToQuestionsActivity(String productId) {
         Bundle bundle = new Bundle();
         bundle.putString("extra_product_id", productId);

@@ -47,6 +47,18 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.productId = productId;
   }
 
+  public ReviewDisplayRequestBuilder(ReviewOptions.PrimaryFilter filterBy, String id, int limit, int offset) {
+    super();
+    this.sorts = new ArrayList<>();
+    this.reviewIncludeTypes = new ArrayList<>();
+    this.statistics = new ArrayList<>();
+    this.limit = limit;
+    this.offset = offset;
+    this.productId = null;
+    Filter filter = new Filter(filterBy, EqualityOperator.EQ, id);
+    addFilter(filter);
+  }
+
   public BuilderType addPDPContentType(PDPContentType pdpContentType) {
     this.statistics.add(pdpContentType);
     return (BuilderType) this;

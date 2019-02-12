@@ -22,7 +22,7 @@ import java.util.List;
 
 public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
     public DemoStoreReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
-        super(view, client, demoClient, demoMockDataUtil, productId, forceAPICall, reviewsLoader);
+        super(view, client, demoClient, demoMockDataUtil, productId, null, null, forceAPICall, reviewsLoader);
     }
 
     @Override

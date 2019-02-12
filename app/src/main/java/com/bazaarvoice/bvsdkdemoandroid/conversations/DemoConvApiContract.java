@@ -16,10 +16,14 @@ public interface DemoConvApiContract {
     void onApiMethodChanged(ConvApiMethod convApiMethod);
     void onRunMethodTapped();
     void onRequiredIdChanged(String requiredId);
+    void onFilterTypeChanged(String filterType);
+    void onFilterValueChanged(String filterValue);
   }
 
   enum ConvApiMethod {
     DISPLAY_REVIEWS("Display Reviews"),
+    DISPLAY_REVIEWS_PRODUCT("Display Reviews - ProductId"),
+    DISPLAY_REVIEWS_FILTER("Display Reviews - Primary Filter"),
     DISPLAY_QANDA("Display QandA"),
     DISPLAY_PDP("Display PDP"),
     DISPLAY_BULK_RATINGS("Display Bulk Ratings"),
@@ -38,7 +42,7 @@ public interface DemoConvApiContract {
     }
 
     public static ConvApiMethod from(String input) {
-      if (input.equals(DISPLAY_REVIEWS.getMethod())) {
+      if (input.equals(DISPLAY_REVIEWS_PRODUCT.getMethod()) || input.equals(DISPLAY_REVIEWS_FILTER.getMethod())) {
         return DISPLAY_REVIEWS;
       } else if (input.equals(DISPLAY_QANDA.getMethod())) {
         return DISPLAY_QANDA;

@@ -60,6 +60,25 @@ public enum ReviewOptions {
         }
     }
 
+    public enum PrimaryFilter implements UGCOption {
+        AuthorId("AuthorId"),
+        Id("Id"),
+        ProductId("ProductId"),
+        SubmissionId("SubmissionId"),
+        CategoryAncestorId("CategoryAncestorId");
+
+        private final String key;
+
+        PrimaryFilter(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return this.key;
+        }
+
+    }
+
     public enum Filter implements UGCOption{
         Id("Id"),
         AuthorId("AuthorId"),
@@ -78,6 +97,7 @@ public enum ReviewOptions {
         LastModeratedTime("LastModeratedTime"),
         LastModificationTime("LastModificationTime"),
         ModeratorCode("ModeratorCode"),
+        ProductId("ProductId"),
         Rating("Rating"),
         SubmissionId("SubmissionId"),
         SubmissionTime("SubmissionTime"),

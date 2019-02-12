@@ -82,13 +82,25 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     }
 
     public static final class Builder extends ReviewDisplayRequestBuilder<Builder, ReviewsRequest> {
-        private final String productId;
+        private String productId;
         private final int limit;
         private final int offset;
 
+        /**
+         * Creates a review display request filtered by productId
+         */
         public Builder(@NonNull String productId, int limit, int offset) {
             super(productId, limit, offset);
             this.productId = productId;
+            this.limit = limit;
+            this.offset = offset;
+        }
+
+        /**
+         * Creates a review display request with a Primary Filter.
+         */
+        public Builder(@NonNull ReviewOptions.PrimaryFilter filterBy, @NonNull String id, int limit, int offset) {
+            super(filterBy, id, limit, offset);
             this.limit = limit;
             this.offset = offset;
         }
