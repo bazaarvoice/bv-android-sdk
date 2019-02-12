@@ -1,130 +1,89 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingTop="80dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment">
+    <TextView
+        android:id="@+id/requiredIdTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Product Id"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/requiredIdInput"
+        app:layout_constraintTop_toBottomOf="@+id/useFilterSwitch" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Display Reviews"
-            android:id="@+id/displayReviewsBtn"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="32dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="32dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="32dp" />
+    <EditText
+        android:id="@+id/requiredIdInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:hint="requiredId"
+        android:inputType="textPersonName"
+        android:text="@string/required_id" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Display Question &amp; Answer"
-            android:id="@+id/displayQABtn"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/displayReviewsBtn"
-            app:layout_constraintLeft_toLeftOf="@+id/displayReviewsBtn"
-            app:layout_constraintRight_toRightOf="@+id/displayReviewsBtn" />
+    <include
+        android:id="@+id/filterLayout"
+        layout="@layout/filter_creation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout="@layout/filter_creation"
+        app:layout_constraintEnd_toEndOf="@+id/requiredIdInput"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/requiredIdInput"
+        app:layout_constraintTop_toBottomOf="@+id/requiredIdInput" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Display Product Page Stats"
-            android:id="@+id/displayProductPageBtn"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/displayQABtn"
-            app:layout_constraintLeft_toLeftOf="@+id/displayQABtn"
-            app:layout_constraintRight_toRightOf="@+id/displayQABtn" />
+    <TextView
+        android:id="@+id/methodTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Method To Run"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/methodInput"
+        app:layout_constraintTop_toBottomOf="@id/barrier" />
 
-        <!-- Seperator -->
-
-        <!-- End Seperator -->
-
-        <!-- Submit Buttons -->
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Submit Review with Photo"
-            android:id="@+id/submitReviewWithPhoto"
-            app:layout_constraintTop_toTopOf="@+id/seperator"
-            android:layout_marginTop="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/seperator"
-            app:layout_constraintRight_toRightOf="@+id/seperator"
-            app:layout_constraintHorizontal_bias="1.0" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Submit Question"
-            android:id="@+id/submitQuestion"
-            app:layout_constraintTop_toBottomOf="@+id/submitReviewWithPhoto"
-            app:layout_constraintLeft_toLeftOf="@+id/submitReviewWithPhoto"
-            app:layout_constraintRight_toRightOf="@+id/submitReviewWithPhoto"
-            android:layout_marginTop="8dp"
-            app:layout_constraintHorizontal_bias="0.0" />
+    <Spinner
+        android:id="@+id/methodInput"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginTop="12dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/methodTitle" />
 
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Submit Answer"
-            android:id="@+id/submitAnswer"
-            app:layout_constraintTop_toBottomOf="@+id/submitQuestion"
-            app:layout_constraintLeft_toLeftOf="@+id/submitQuestion"
-            app:layout_constraintRight_toRightOf="@+id/submitQuestion"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="8dp" />
+    <Button
+        android:id="@+id/runMethodButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center|center_horizontal"
+        android:text="Run"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/methodInput" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Submit Feedback"
-            android:id="@+id/submitFeedback"
-            app:layout_constraintTop_toBottomOf="@+id/submitAnswer"
-            app:layout_constraintLeft_toLeftOf="@+id/submitAnswer"
-            app:layout_constraintRight_toRightOf="@+id/submitAnswer"
-            android:layout_marginTop="8dp"
-            app:layout_constraintHorizontal_bias="1.0" />
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="filterLayout,requiredIdInput" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="3dp"
-            android:id="@+id/seperator"
-            android:background="@color/bv_blue_2"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/displayAuthorBtn"
-            app:layout_constraintLeft_toLeftOf="@+id/displayAuthorBtn"
-            app:layout_constraintRight_toRightOf="@+id/displayAuthorBtn" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Display Bulk Ratings"
-            android:id="@+id/displayInlineRatingsPageBtn"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/displayProductPageBtn"
-            app:layout_constraintLeft_toLeftOf="@+id/displayProductPageBtn"
-            app:layout_constraintRight_toRightOf="@+id/displayProductPageBtn" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Display Author"
-            android:id="@+id/displayAuthorBtn"
-            app:layout_constraintLeft_toLeftOf="@+id/displayInlineRatingsPageBtn"
-            app:layout_constraintRight_toRightOf="@+id/displayInlineRatingsPageBtn"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/displayInlineRatingsPageBtn" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</LinearLayout>

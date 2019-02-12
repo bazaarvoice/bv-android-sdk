@@ -29,11 +29,14 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     protected DemoMockDataUtil demoMockDataUtil;
     protected BVConversationsClient.DisplayLoader reviewsLoader;
     protected String productId;
+    protected String filterId;
+    protected String calledUrl;
+    protected ReviewOptions.PrimaryFilter filterType;
     protected boolean fetched = false;
     protected final BVConversationsClient client;
     protected boolean forceAPICall;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, String filterId, ReviewOptions.PrimaryFilter filterType, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
         this.view = view;
         this.client = client;
         this.demoClient = demoClient;
@@ -41,6 +44,8 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         this.reviewsLoader = reviewsLoader;
         this.productId = productId;
         this.forceAPICall = forceAPICall;
+        this.filterId = filterId;
+        this.filterType = filterType;
 
         if (productId != null && !productId.isEmpty()) {
             BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
@@ -59,12 +64,39 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
             return;
         }
 
-        List<Review> cachedReviews = DemoReviewsCache.getInstance().getDataItem(productId);
-        boolean haveLocalCache = cachedReviews!=null;
-        boolean shouldHitNetwork = forceRefresh || !haveLocalCache;
-
+        String cacheId = getCacheId();
+        List<Review> cachedReviews = DemoReviewsCache.getInstance().getDataItem(cacheId);
+        boolean shouldHitNetwork = isShouldHitNetwork(forceRefresh, cachedReviews);
+        ReviewsRequest request;
         if (shouldHitNetwork) {
-            ReviewsRequest request = new ReviewsRequest.Builder(productId, 20, 0)
+            request = buildReviewsRequest();
+            reviewsLoader.loadAsync(client.prepareCall(request), this);
+        } else {
+            showReviews(cachedReviews);
+        }
+    }
+
+    private boolean isShouldHitNetwork(boolean forceRefresh, List<Review> cachedReviews) {
+        boolean haveLocalCache = cachedReviews!=null;
+        return forceRefresh || !haveLocalCache;
+    }
+
+    private String getCacheId(){
+        if(filterId != null && !filterId.isEmpty()) {
+            return filterId + filterType;
+        }
+        return productId;
+    }
+
+    private ReviewsRequest buildReviewsRequest() {
+        ReviewsRequest request;
+        if(filterId != null && !filterId.isEmpty()) {
+            request = new ReviewsRequest.Builder(filterType, filterId, 20, 0)
+                    .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+                    .build();
+        }
+        else {
+            request = new ReviewsRequest.Builder(productId, 20, 0)
                     .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
                     .addIncludeContent(
                             ReviewIncludeType.PRODUCTS,
@@ -79,10 +111,8 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
                             PDPContentType.Stories
                     )
                     .build();
-            reviewsLoader.loadAsync(client.prepareCall(request), this);
-        } else {
-            showReviews(cachedReviews);
         }
+        return request;
     }
 
     @Override
@@ -99,7 +129,7 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     private void showReviews(List<Review> bazaarReviews) {
         fetched = true;
         view.showLoadingReviews(false);
-        DemoReviewsCache.getInstance().putDataItem(productId, bazaarReviews);
+        DemoReviewsCache.getInstance().putDataItem(getCacheId(), bazaarReviews);
 
         if (bazaarReviews.size() > 0) {
             view.showReviews(bazaarReviews);

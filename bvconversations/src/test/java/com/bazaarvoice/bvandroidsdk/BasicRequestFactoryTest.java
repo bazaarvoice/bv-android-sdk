@@ -131,6 +131,23 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayRequestCreateRequestWithFilter() {
+    final Request okRequest = requestFactory.create(new ReviewsRequest.Builder(ReviewOptions.PrimaryFilter.AuthorId,  "1234",10, 0)
+            .build());
+    assertEquals("AuthorId:eq:1234",okRequest.url().queryParameter("Filter"));
+}
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithFilterAndProductFilter() {
+    final ReviewsRequest.Builder reviewsRequest = new ReviewsRequest.Builder(ReviewOptions.PrimaryFilter.AuthorId, "1234", 10, 0);
+    reviewsRequest.addFilter(ReviewOptions.Filter.ProductId, EqualityOperator.EQ, "testproduct1");
+    final Request okRequest = requestFactory.create(reviewsRequest.build());
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("AuthorId:eq:1234", filterParams.get(0));
+    assertEquals("ProductId:eq:testproduct1", filterParams.get(1));
+  }
+
+  @Test
   public void qnaDisplayShouldHaveBVSDKQueryParams() throws Exception {
     final Request okRequest = requestFactoryUtils.createFullQnaDisplayRequest();
     requestFactoryUtils.assertContainsGenericProperties(okRequest);
