@@ -1,5 +1,12 @@
 # Changelog
 
+# 8.2.0
+
+## Updates Review Request
+
+* Added primary filter to ReviewRequest. Reviews can be filtered by AuthorId, SubmissionId, ProductId, and CategoryAncestorId
+* Added PDPContent to include statistics to ReviewRequest Builder. 
+
 # 8.1.0
 
 ## BVPixel Error Reporting, Additional Review Include Types, Analytics Fixes
