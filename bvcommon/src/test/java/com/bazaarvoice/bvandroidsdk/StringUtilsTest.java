@@ -19,16 +19,16 @@ public class StringUtilsTest {
 
   @Test
   public void componentsSeparatedBy() throws Exception {
-    List stuff = new ArrayList();
-    stuff.add(Boolean.valueOf(true));
-    stuff.add(Float.valueOf(1.0f));
+    List<Object> stuff = new ArrayList<>();
+    stuff.add(Boolean.TRUE);
+    stuff.add(1.0f);
     String output = StringUtils.componentsSeparatedBy(stuff, ",");
     assertEquals("true,1.0", output);
   }
 
   @Test
   public void componentsSeparatedByWithEscapes() throws Exception {
-    List stuff = new ArrayList();
+    List<String> stuff = new ArrayList<>();
     stuff.add("foo,foo");
     stuff.add("bar:bar");
     stuff.add("baz&baz");

@@ -126,21 +126,24 @@ public class BVSDKTest {
 
     @Test
     public void bvSdkShouldSetupLogLevelDeprecated() {
-      BVSDK.destroy();
-      BVPixel.destroy();
+        BVSDK.destroy();
+        BVPixel.destroy();
 
-      // Builder used to initialize the Bazaarvoice SDKs
-      BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
-          .bazaarEnvironment(environment)
-          .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
-          .logLevel(BVLogLevel.VERBOSE)
-          .build();
+        // Builder used to initialize the Bazaarvoice SDKs
+        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+                .bazaarEnvironment(environment)
+                .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
+                .logLevel(BVLogLevel.VERBOSE)
+                .build();
 
-      // Should not throw NPE if the BVLogger was set correctly
-      bvsdk.getBvLogger().d("foo", "bar");
-      bvsdk.getBvLogger().w("baz", "quux");
-      bvsdk.getBvLogger().e("blerg", "mazerg");
-      bvsdk.getBvLogger().i("erma", "gerd");
+        // Should not throw NPE if the BVLogger was set correctly
+        bvsdk.getBvLogger().v("verbose", "gerd");
+        bvsdk.getBvLogger().i("info", "gerd");
+        bvsdk.getBvLogger().d("debug", "bar");
+        bvsdk.getBvLogger().w("warn", "quux");
+        bvsdk.getBvLogger().w("verbose", "message ", new BazaarException("Error"));
+        bvsdk.getBvLogger().e("error", "mazerg");
+        bvsdk.getBvLogger().e("verbose", "message ", new BazaarException("Error"));
     }
 
     @Test
