@@ -1,0 +1,30 @@
+{
+  "client": "apitestcustomer",
+  "product": "product4",
+  "productId": "4",
+  "avg_rating": 4.3,
+  "CategoryId": "4",
+  "name": "Headphones",
+  "image_url": "http://example.com",
+  "product_page_url": "http://example.com",
+  "interests": [],
+  "category_ids": ["210", "110"],
+  "sponsored": false,
+  "impressed": false,
+  "num_reviews": 4,
+  "recommendationStats": {
+    "RKI": 0,
+    "RKB": 0,
+    "RKP": 0,
+    "RKR": 0,
+    "RKC": 0,
+    "RKT": 0,
+    "RKN": 0,
+    "activeUser": false
+  },
+  "review": {
+    "title" : "ReviewTitle",
+    "text" : "faklakjdadkldjknqnjdnqw",
+    "authorName": "test"
+  }
+}

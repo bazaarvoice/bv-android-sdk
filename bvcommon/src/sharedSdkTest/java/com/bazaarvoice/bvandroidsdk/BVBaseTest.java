@@ -67,7 +67,7 @@ public abstract class BVBaseTest {
     HandlerThread handlerThread = new HandlerThread("");
 
     @Before
-    public void setup() {
+    public void setup() throws Exception{
         initMocks(this);
         // arrange
         versionName = "3.0.0";

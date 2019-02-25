@@ -67,8 +67,7 @@ public class RecommendationsRequestTest extends BVBaseTest {
     }
 
     @Test
-    public void canFormRequestWithAllParams() throws ParseException {
-        //todo add test for lookback
+    public void canFormRequestWithAllParams() {
         List<String> interests = new ArrayList<>();
         interests.add("interest1");
         interests.add("interest2");
