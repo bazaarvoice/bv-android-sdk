@@ -20,8 +20,11 @@ package com.bazaarvoice.bvandroidsdk;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.Nullable;
 
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.getFloatSafe;
 import static com.bazaarvoice.bvandroidsdk.internal.Utils.getIntegerSafe;
@@ -128,15 +131,56 @@ public class ReviewStatistics {
         return lastSubmissionDate;
     }
 
+    @Nullable
     public RatingDistribution getRatingDistribution() {
-        if (ratingDistribution == null) {
-            int [] temp = new int[5];
+        if (ratingDistributions != null && ratingDistribution == null) {
+            ratingDistribution = new RatingDistribution();
             for (RatingDistributionContainer container : this.ratingDistributions) {
-                temp[container.getRatingValue() -1 ] += container.getCount();
+                if(container != null && container.getRatingValue() != null && container.getCount() != null) {
+                    Integer ratingValue = container.getRatingValue();
+                    Integer ratingCount = container.getCount();
+                    updateRatingDistributionCounts(ratingValue, ratingCount);
+                }
             }
-            ratingDistribution = new RatingDistribution(temp[0], temp[1], temp[2], temp[3], temp[4]);
         }
 
         return ratingDistribution;
+    }
+
+    /**
+     * Get full map of all non-null Rating Distribution values and counts.
+     */
+    public Map<Integer, Integer> getRatingDistributionMap() {
+        Map<Integer, Integer> ratingDistributionMap = new HashMap<>();
+        if (ratingDistributions != null) {
+            for(RatingDistributionContainer container: this.ratingDistributions) {
+                if(container != null && container.getRatingValue() != null && container.getCount() != null) {
+                    Integer ratingValue = container.getRatingValue();
+                    Integer ratingCount = container.getCount();
+                    ratingDistributionMap.put(ratingValue, ratingCount);
+                }
+            }
+        }
+        return ratingDistributionMap;
+    }
+
+    private void updateRatingDistributionCounts(Integer ratingValue, Integer ratingCount) {
+        switch (ratingValue) {
+            case 1:
+                ratingDistribution.setOneStarCount(ratingCount);
+                break;
+            case 2:
+                ratingDistribution.setTwoStarCount(ratingCount);
+                break;
+            case 3:
+                ratingDistribution.setThreeStarCount(ratingCount);
+                break;
+            case 4:
+                ratingDistribution.setFourStarCount(ratingCount);
+                break;
+            case 5:
+                ratingDistribution.setFiveStarCount(ratingCount);
+                break;
+        }
     }
 }

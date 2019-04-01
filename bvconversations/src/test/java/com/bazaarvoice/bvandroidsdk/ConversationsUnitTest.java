@@ -15,6 +15,7 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -121,6 +122,64 @@ public class ConversationsUnitTest extends BVBaseTest{
             reviewStats.getSecondaryRatingsAverages();
         float qualityRating = secondaryRatingsAvgs.get("Quality").getAverageOverallRating();
         assertEquals(2.0f, qualityRating);
+    }
+
+    @Test
+    public void testPdpForProductIdIncludeRevStatsWithZeroRating() throws Exception {
+        ProductDisplayPageResponse response = parseJsonResourceFile("product_catalog_prod_include_rev_stats_zero.json", ProductDisplayPageResponse.class, gson);
+
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+        RatingDistribution ratingDistribution = reviewStats.getRatingDistribution();
+        assertEquals(22, ratingDistribution.getOneStarCount().intValue());
+        assertEquals(21, ratingDistribution.getTwoStarCount().intValue());
+        assertEquals(24, ratingDistribution.getThreeStarCount().intValue());
+        assertEquals(70, ratingDistribution.getFourStarCount().intValue());
+        assertEquals(139, ratingDistribution.getFiveStarCount().intValue());
+    }
+
+    @Test
+    public void testPdpForProductIdIncludeRevStatsWithEmptyRatingDistriubtion() throws Exception {
+        ProductDisplayPageResponse response = parseJsonResourceFile("product_catalog_prod_include_rev_stats_empty.json", ProductDisplayPageResponse.class, gson);
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+        RatingDistribution ratingDistribution = reviewStats.getRatingDistribution();
+        assertNotNull(ratingDistribution);
+        assertEquals(0, ratingDistribution.getOneStarCount().intValue());
+        assertEquals(0, ratingDistribution.getTwoStarCount().intValue());
+        assertEquals(0, ratingDistribution.getThreeStarCount().intValue());
+        assertEquals(0, ratingDistribution.getFourStarCount().intValue());
+        assertEquals(0, ratingDistribution.getFiveStarCount().intValue());
+    }
+
+    @Test
+    public void testPdpForProductIdIncludeRevStatsWithNoStats() throws Exception {
+        ProductDisplayPageResponse response = parseJsonResourceFile("product_catalog_prod_include_rev_stats_none.json", ProductDisplayPageResponse.class, gson);
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+        assertNull(reviewStats);
+    }
+
+    @Test
+    public void revStatsMapShouldHaveAllValues() throws Exception {
+        ProductDisplayPageResponse response = parseJsonResourceFile("product_catalog_prod_include_rev_stats_zero.json", ProductDisplayPageResponse.class, gson);
+
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 15);
+        map.put(1, 22);
+        map.put(2, 21);
+        map.put(3, 24);
+        map.put(4, 70);
+        map.put(5, 139);
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+        assert reviewStats != null;
+        assertEquals(map, reviewStats.getRatingDistributionMap());
+    }
+
+    @Test
+    public void revStatsMapShouldHaveNoNullValues() throws Exception {
+        ProductDisplayPageResponse response = parseJsonResourceFile("product_catalog_prod_include_rev_stats_empty.json", ProductDisplayPageResponse.class, gson);
+        Map<Integer, Integer> map = new HashMap<>();
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+        assert reviewStats != null;
+        assertEquals(map, reviewStats.getRatingDistributionMap());
     }
 
     @Test

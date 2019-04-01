@@ -21,19 +21,20 @@ package com.bazaarvoice.bvandroidsdk;
  * Number of ratings for each of the star counts.
  * e.g.
  * <ul>
- *     <li>10 1 star reviews</li>
- *     <li>5 2 star reviews</li>
- *     <li>12 3 star reviews</li>
- *     <li>83 4 star reviews</li>
- *     <li>142 5 star reviews</li>
+ * <li>Default value is 0</li>
+ * <li>1 star reviews</li>
+ * <li>2 star reviews</li>
+ * <li>3 star reviews</li>
+ * <li>4 star reviews</li>
+ * <li>5 star reviews</li>
  * </ul>
  */
 public class RatingDistribution {
-    private final Integer oneStarCount;
-    private final Integer twoStarCount;
-    private final Integer threeStarCount;
-    private final Integer fourStarCount;
-    private final Integer fiveStarCount;
+    private Integer oneStarCount = 0;
+    private Integer twoStarCount = 0;
+    private Integer threeStarCount = 0;
+    private Integer fourStarCount = 0;
+    private Integer fiveStarCount = 0;
 
     RatingDistribution(Integer oneStarCount, Integer twoStarCount, Integer threeStarCount, Integer fourStarCount, Integer fiveStarCount) {
         this.oneStarCount = oneStarCount;
@@ -42,6 +43,28 @@ public class RatingDistribution {
         this.fourStarCount = fourStarCount;
         this.fiveStarCount = fiveStarCount;
     }
+
+    RatingDistribution() {
+    }
+
+    void setOneStarCount(Integer oneStarCount) { this.oneStarCount = oneStarCount; }
+
+    void setTwoStarCount(Integer twoStarCount) {
+        this.twoStarCount = twoStarCount;
+    }
+
+    void setThreeStarCount(Integer threeStarCount) {
+        this.threeStarCount = threeStarCount;
+    }
+
+    void setFourStarCount(Integer fourStarCount) {
+        this.fourStarCount = fourStarCount;
+    }
+
+    void setFiveStarCount(Integer fiveStarCount) {
+        this.fiveStarCount = fiveStarCount;
+    }
+
 
     public Integer getOneStarCount() {
         return oneStarCount;
@@ -62,4 +85,5 @@ public class RatingDistribution {
     public Integer getFiveStarCount() {
         return fiveStarCount;
     }
+
 }
