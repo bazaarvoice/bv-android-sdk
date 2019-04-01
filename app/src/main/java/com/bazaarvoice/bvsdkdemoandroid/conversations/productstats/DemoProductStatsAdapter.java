@@ -3,6 +3,7 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.conversations.productstats;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.Product;
 import com.bazaarvoice.bvandroidsdk.QAStatistics;
+import com.bazaarvoice.bvandroidsdk.RatingDistribution;
 import com.bazaarvoice.bvandroidsdk.ReviewStatistics;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 
@@ -47,32 +49,51 @@ public class DemoProductStatsAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         ReviewStatistics reviewStats = product.getReviewStatistics();
         QAStatistics qaStats = product.getQaStatistics();
+        StringBuilder bodyText = new StringBuilder();
 
-        StringBuilder bodyText = new StringBuilder()
-            .append("Product Review Statistics\n")
-            .append("----------------------------------\n")
-            .append("\tTotal Review Count: ")
-            .append(reviewStats.getTotalReviewCount().toString())
-            .append("\n")
-            .append("\tAverage Overall Rating: ")
-            .append(reviewStats.getAverageOverallRating().toString())
-            .append("\n")
-            .append("\tHelpful Vote Count: ")
-            .append(reviewStats.getHelpfulVoteCount().toString())
-            .append("\n")
-            .append("\tNonHelpful Vote Count: ")
-            .append(reviewStats.getNotHelpfulVoteCount().toString())
-            .append("\n")
-            .append("\tRecommended Count: ")
-            .append(reviewStats.getRecommendedCount().toString())
-            .append("\n")
-            .append("\tNot Recommended Count: ")
-            .append(reviewStats.getNotRecommendedCount().toString())
-            .append("\n")
-            .append("\tOverall Rating Range: ")
-            .append(reviewStats.getOverallRatingRange().toString())
-            .append("\n")
-            .append("\n");
+        if(reviewStats != null) {
+            bodyText.append("Product Review Statistics\n")
+                    .append("----------------------------------\n")
+                    .append("\tTotal Review Count: ")
+                    .append(reviewStats.getTotalReviewCount().toString())
+                    .append("\n")
+                    .append("\tAverage Overall Rating: ")
+                    .append(reviewStats.getAverageOverallRating().toString())
+                    .append("\n")
+                    .append("\tHelpful Vote Count: ")
+                    .append(reviewStats.getHelpfulVoteCount().toString())
+                    .append("\n")
+                    .append("\tNonHelpful Vote Count: ")
+                    .append(reviewStats.getNotHelpfulVoteCount().toString())
+                    .append("\n")
+                    .append("\tRecommended Count: ")
+                    .append(reviewStats.getRecommendedCount().toString())
+                    .append("\n")
+                    .append("\tNot Recommended Count: ")
+                    .append(reviewStats.getNotRecommendedCount().toString())
+                    .append("\n")
+                    .append("\tOverall Rating Range: ")
+                    .append(reviewStats.getOverallRatingRange().toString())
+                    .append("\n")
+                    .append("\n");
+
+            RatingDistribution distribution = reviewStats.getRatingDistribution();
+            if (distribution != null) {
+                Context context = viewHolder.itemView.getContext();
+                bodyText.append("Ratings Distribution\n")
+                        .append("----------------------------------\n")
+                        .append(context.getString(R.string.rating_distribution, distribution.getOneStarCount(), 1 ))
+                        .append(("\n"))
+                        .append(context.getString(R.string.rating_distribution, distribution.getTwoStarCount(), 2 ))
+                        .append(("\n"))
+                        .append(context.getString(R.string.rating_distribution, distribution.getThreeStarCount(), 3 ))
+                        .append(("\n"))
+                        .append(context.getString(R.string.rating_distribution, distribution.getFourStarCount(), 4 ))
+                        .append(("\n"))
+                        .append(context.getString(R.string.rating_distribution, distribution.getFiveStarCount(), 5 ))
+                        .append(("\n\n"));
+            }
+        }
 
         if (qaStats != null) {
             bodyText.append("Question & Answer Statistics\n")
