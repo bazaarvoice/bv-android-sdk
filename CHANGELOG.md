@@ -1,5 +1,10 @@
 # Changelog
 
+#8.2.1
+
+* Fixed issue in RatingsDistribution where Stars outside of a 1-5 rating would cause a crash. 
+* Added getRatingDistributionMap to ReviewStatistics to get the map of Rating Distribution values
+
 # 8.2.0
 
 ## Updates Review Request
