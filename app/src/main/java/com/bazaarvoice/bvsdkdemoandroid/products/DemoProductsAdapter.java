@@ -48,14 +48,9 @@ public class DemoProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         .resizeDimen(R.dimen.snippet_4_3_width, R.dimen.snippet_4_3_height)
         .into(productViewHolder.productThumbnailImage);
     productViewHolder.productThumbnailTitle.setText(product.getDisplayName());
-    productViewHolder.productThumbnailRating.setRating(5.0f);
+    productViewHolder.productThumbnailRating.setRating(product.getAverageRating());
     if (onItemClickListener != null) {
-      productViewHolder.productContainer.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          onItemClickListener.onItemClicked(product);
-        }
-      });
+      productViewHolder.productContainer.setOnClickListener(v -> onItemClickListener.onItemClicked(product));
     }
   }
 

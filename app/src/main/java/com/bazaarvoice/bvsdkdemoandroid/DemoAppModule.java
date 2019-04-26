@@ -27,7 +27,6 @@ import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
@@ -53,7 +52,6 @@ public class DemoAppModule {
     Picasso providePicasso(@DemoAppContext Context context, OkHttpClient okHttpClient) {
         return new Picasso.Builder(context)
                 .defaultBitmapConfig(Bitmap.Config.RGB_565)
-                .downloader(new OkHttp3Downloader(okHttpClient))
                 .executor(Executors.newFixedThreadPool(8))
                 .memoryCache(new LruCache(context))
                 .build();
