@@ -135,7 +135,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
                 BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
                 productName = bvProduct.getDisplayName();
                 productImageUrl = bvProduct.getDisplayImageUrl();
-                productAverageRating = 5.0f; //bvProduct.getAverageRating();
+                productAverageRating = bvProduct.getAverageRating();
             }
         }
 

@@ -1,7 +1,5 @@
 package com.bazaarvoice.bvsdkdemoandroid.products;
 
-import androidx.annotation.NonNull;
-
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
@@ -11,6 +9,7 @@ import com.bazaarvoice.bvandroidsdk.BulkProductResponse;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.EqualityOperator;
+import com.bazaarvoice.bvandroidsdk.PDPContentType;
 import com.bazaarvoice.bvandroidsdk.PageType;
 import com.bazaarvoice.bvandroidsdk.ProductOptions;
 import com.bazaarvoice.bvandroidsdk.RecommendationsRequest;
@@ -23,6 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import androidx.annotation.NonNull;
 
 public class DemoProductsCarouselPresenter implements DemoProductsContract.Presenter {
   private final DemoProductsContract.View view;
@@ -90,9 +91,9 @@ public class DemoProductsCarouselPresenter implements DemoProductsContract.Prese
         .addCustomDisplayParameter("Filter", "IsActive:eq:true")
         .addCustomDisplayParameter("Filter", "IsDisabled:eq:false")
         .addCustomDisplayParameter("Limit", "20")
-        .addFilter(ProductOptions.Filter.TotalReviewCount, EqualityOperator.GTE, "35")
         .addFilter(ProductOptions.Filter.IsActive, EqualityOperator.EQ, "true")
         .addFilter(ProductOptions.Filter.IsDisabled, EqualityOperator.EQ, "false")
+        .addIncludeStatistics(PDPContentType.Reviews)
         .build();
     bvConversationsClient.prepareCall(request).loadAsync(bulkProductCallback);
   }
