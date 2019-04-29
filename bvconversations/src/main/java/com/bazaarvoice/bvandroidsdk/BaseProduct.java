@@ -17,14 +17,14 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * Common attributes for items that are considered 'products' by
@@ -176,8 +176,15 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent impl
         return imageUrl;
     }
 
-    @Override 
+    /**
+     * Get the averageRating from reviewStatistics. ReviewStats must have been included in the request.
+     * @return averageRating or 0f if reviewStatistics is null
+     */
+    @Override
     public float getAverageRating() {
-        return reviewStatistics.getAverageOverallRating();
+        if(reviewStatistics != null) {
+            return reviewStatistics.getAverageOverallRating();
+        }
+        return 0f;
     }
 }
