@@ -17,10 +17,10 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import com.google.gson.annotations.SerializedName;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * A Bazaarvoice Product from the Curations API

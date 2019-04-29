@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 19)
-public class ConversationsUnitTest extends BVBaseTest{
+public class ConversationsUnitTest extends BVBaseTest {
     private static final String UTF_8 = "UTF-8";
 
     @Override
@@ -38,7 +38,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testQnARequestOverLimitError() {
         QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("testProductId", 101, 0)
-            .build();
+                .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
     }
@@ -46,7 +46,7 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testQnARequestValidLimit() {
         QuestionAndAnswerRequest request = new QuestionAndAnswerRequest.Builder("testProductId", 20, 0)
-            .build();
+                .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
     }
@@ -57,7 +57,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         List<String> prodIds = getProdIds(51);
 
         BulkRatingsRequest request = new BulkRatingsRequest.Builder(prodIds, BulkRatingOptions.StatsType.NativeReviews)
-            .build();
+                .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
     }
@@ -67,7 +67,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         List<String> prodIds = getProdIds(20);
 
         BulkRatingsRequest request = new BulkRatingsRequest.Builder(prodIds, BulkRatingOptions.StatsType.NativeReviews)
-            .build();
+                .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
     }
@@ -75,8 +75,8 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testReviewsRequestOverLimitError() {
 
-        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 101 , 0)
-            .build();
+        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 101, 0)
+                .build();
 
         assertTrue("Request contains error but was not found", request.getError() != null);
     }
@@ -84,8 +84,8 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testReviewsRequestValidLimit() {
 
-        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 20 , 0)
-            .build();
+        ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 20, 0)
+                .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
     }
@@ -119,7 +119,7 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals(139, ratingDistribution.getFiveStarCount().intValue());
 
         Map<String, SecondaryRatingsAverages> secondaryRatingsAvgs =
-            reviewStats.getSecondaryRatingsAverages();
+                reviewStats.getSecondaryRatingsAverages();
         float qualityRating = secondaryRatingsAvgs.get("Quality").getAverageOverallRating();
         assertEquals(2.0f, qualityRating);
     }
@@ -363,23 +363,23 @@ public class ConversationsUnitTest extends BVBaseTest{
     public void testFeedbackSubmitHelpfulVote() {
 
         FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
-            .feedbackType(FeedbackType.HELPFULNESS)
-            .feedbackContentType(FeedbackContentType.REVIEW)
-            .feedbackVote(FeedbackVoteType.POSITIVE)
-            .userId("theUserId")
-            .build();
+                .feedbackType(FeedbackType.HELPFULNESS)
+                .feedbackContentType(FeedbackContentType.REVIEW)
+                .feedbackVote(FeedbackVoteType.POSITIVE)
+                .userId("theUserId")
+                .build();
 
         assertTrue("Request should not contain error", request.getError() == null);
     }
 
     @Test
-    public void testFeedbackSubmitInappropriateFeedback(){
+    public void testFeedbackSubmitInappropriateFeedback() {
 
         FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
-            .feedbackType(FeedbackType.INAPPROPRIATE)
-            .feedbackContentType(FeedbackContentType.QUESTION)
-            .userId("theUserId")
-            .build();
+                .feedbackType(FeedbackType.INAPPROPRIATE)
+                .feedbackContentType(FeedbackContentType.QUESTION)
+                .userId("theUserId")
+                .build();
 
         assertTrue("Request should not contain error.", request.getError() == null);
 
@@ -388,13 +388,13 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testProductDisplayPageRequest() {
         ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
-            .addIncludeContent(PDPContentType.Answers, 20)
-            .addIncludeContent(PDPContentType.Questions, 20)
-            .addIncludeContent(PDPContentType.Reviews, 20)
-            .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.DESC)
-            .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
-            .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
-            .build();
+                .addIncludeContent(PDPContentType.Answers, 20)
+                .addIncludeContent(PDPContentType.Questions, 20)
+                .addIncludeContent(PDPContentType.Reviews, 20)
+                .addAnswerSort(AnswerOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addQuestionSort(QuestionOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .addReviewSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
+                .build();
 
         assertTrue("Request should not contain error", pdpRequest.getError() == null);
     }
@@ -402,11 +402,11 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testProductDisplayPageRequestWithSort() {
         ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
-            .addIncludeContent(PDPContentType.Answers, 20)
-            .addIncludeContent(PDPContentType.Questions, 20)
-            .addIncludeContent(PDPContentType.Reviews, 20)
-            .addSort(ProductOptions.Sort.Id, SortOrder.ASC)
-            .build();
+                .addIncludeContent(PDPContentType.Answers, 20)
+                .addIncludeContent(PDPContentType.Questions, 20)
+                .addIncludeContent(PDPContentType.Reviews, 20)
+                .addSort(ProductOptions.Sort.Id, SortOrder.ASC)
+                .build();
 
         assertTrue("Request should not contain error", pdpRequest.getError() == null);
     }
@@ -414,11 +414,11 @@ public class ConversationsUnitTest extends BVBaseTest{
     @Test
     public void testProductDisplayPageRequestWithFilter() {
         ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
-            .addIncludeContent(PDPContentType.Answers, 20)
-            .addIncludeContent(PDPContentType.Questions, 20)
-            .addIncludeContent(PDPContentType.Reviews, 20)
-            .addFilter(ProductOptions.Filter.CategoryId, EqualityOperator.EQ, "123")
-            .build();
+                .addIncludeContent(PDPContentType.Answers, 20)
+                .addIncludeContent(PDPContentType.Questions, 20)
+                .addIncludeContent(PDPContentType.Reviews, 20)
+                .addFilter(ProductOptions.Filter.CategoryId, EqualityOperator.EQ, "123")
+                .build();
 
         assertTrue("Request should not contain error", pdpRequest.getError() == null);
     }
@@ -456,7 +456,14 @@ public class ConversationsUnitTest extends BVBaseTest{
         assertEquals(response.getFeedback().getInappropriateFeedback().getReasonText(), "This is where the reason text would go");
     }
 
-    private List<String> getProdIds(int limit){
+    @Test
+    public void shouldGetOverallAverageRatingSafelyIfRevStatsIsNull() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("reviews_with_no_review_stats.json", ReviewResponse.class, gson);
+        assertNull(response.getIncludes().getProducts().get(0).getReviewStatistics());
+        assertEquals(0f, response.getIncludes().getProducts().get(0).getAverageRating());
+    }
+
+    private List<String> getProdIds(int limit) {
         List<String> prodIds = new ArrayList<>();
         for (int i = 0; i < limit; i++) {
             prodIds.add("testProductId" + i);
