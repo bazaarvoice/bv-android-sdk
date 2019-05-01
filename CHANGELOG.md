@@ -1,5 +1,9 @@
 # Changelog
 
+#8.2.2
+
+* Fixed NPE in GetAverageRating
+
 #8.2.1
 
 * Fixed issue in RatingsDistribution where Stars outside of a 1-5 rating would cause a crash. 
