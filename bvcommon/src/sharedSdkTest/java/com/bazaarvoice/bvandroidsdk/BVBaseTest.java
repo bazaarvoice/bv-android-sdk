@@ -5,7 +5,9 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.os.Handler;
 import android.os.HandlerThread;
+
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
 
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
@@ -15,7 +17,6 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
@@ -63,7 +64,7 @@ public abstract class BVBaseTest {
     @Mock BVPixel bvPixel;
     BVUserProvidedData bvUserProvidedData;
     @Mock BVMobileInfo bvMobileInfo;
-    Handler handler = new Handler(RuntimeEnvironment.application.getMainLooper());
+    Handler handler = new Handler(ApplicationProvider.getApplicationContext().getMainLooper());
     HandlerThread handlerThread = new HandlerThread("");
 
     @Before
@@ -99,7 +100,7 @@ public abstract class BVBaseTest {
         when(bvMobileInfo.getMobileDeviceName()).thenReturn(mobileDeviceName);
         when(bvMobileInfo.getMobileOs()).thenReturn(mobileOs);
         when(bvMobileInfo.getMobileOsVersion()).thenReturn(mobileOsVersion);
-        bvUserProvidedData = new BVUserProvidedData(RuntimeEnvironment.application, bvConfig, bvMobileInfo);
+        bvUserProvidedData = new BVUserProvidedData(ApplicationProvider.getApplicationContext(), bvConfig, bvMobileInfo);
 
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs

@@ -1,16 +1,14 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
+
+import androidx.test.core.app.ApplicationProvider;
 
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 
-import org.bouncycastle.util.Pack;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,22 +65,22 @@ public class BVCommonUtilsTest {
 
     @Test
     public void shouldGetPackageName() {
-        assertEquals("com.bazaarvoice.bvandroidsdk_common", Utils.getPackageName(RuntimeEnvironment.application.getApplicationContext()));
+        assertEquals("com.bazaarvoice.bvandroidsdk_common.test", Utils.getPackageName(ApplicationProvider.getApplicationContext()));
     }
 
     @Test
     public void shouldGetNonNullVersionName() {
-        assertNotNull(Utils.getVersionName(RuntimeEnvironment.application.getApplicationContext()));
+        assertNotNull(Utils.getVersionName(ApplicationProvider.getApplicationContext()));
     }
 
     @Test
     public void shouldGetNonNullVersionCode() {
-        assertNotNull(Utils.getVersionCode(RuntimeEnvironment.application.getApplicationContext()));
+        assertNotNull(Utils.getVersionCode(ApplicationProvider.getApplicationContext()));
     }
 
     @Test
     public void shouldGenerateUUID() {
-        assertNotNull(Utils.getUuid(RuntimeEnvironment.application.getApplicationContext()));
+        assertNotNull(Utils.getUuid(ApplicationProvider.getApplicationContext()));
     }
 
     @Test

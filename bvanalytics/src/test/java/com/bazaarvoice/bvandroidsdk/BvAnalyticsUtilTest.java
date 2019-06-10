@@ -1,9 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.regex.Matcher;
@@ -18,7 +19,7 @@ public class BvAnalyticsUtilTest {
 
   @Test
   public void shouldGetCorrectPackageName() {
-    String actual = BVAnalyticsUtils.getPackageName(RuntimeEnvironment.application);
+    String actual = BVAnalyticsUtils.getPackageName(ApplicationProvider.getApplicationContext());
     String expected = "com.test.package.name";
     assertEquals(expected, actual);
   }

@@ -35,7 +35,7 @@ public class DemoClient {
         "00000000-0000-0000-0000-000000000000",
         "REPLACE_ME",
             MOCK_DISPLAY_NAME,
-            true);
+            false);
     private String apiKeyConversations;
     private String apiKeyConversationsStores;
     private String apiKeyCurations;

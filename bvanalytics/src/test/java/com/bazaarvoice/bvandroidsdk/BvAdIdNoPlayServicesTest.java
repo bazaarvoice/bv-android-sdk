@@ -1,12 +1,13 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
@@ -24,13 +25,13 @@ public class BvAdIdNoPlayServicesTest {
 
   @Test
   public void shouldReturnNonTracking() throws Exception {
-    String actualAdId = stubData.getAdIdFuture(RuntimeEnvironment.application).get();
+    String actualAdId = stubData.getAdIdFuture(ApplicationProvider.getApplicationContext()).get();
     assertEquals(BVEventValues.NONTRACKING_TOKEN, actualAdId);
   }
 
   @Test
   public void shouldReturnNullAdInfo() {
-    BVAdvertisingId.BvAdInfoFetcher fetcher = new BVAdvertisingId.BvAdInfoFetcher(RuntimeEnvironment.application);
+    BVAdvertisingId.BvAdInfoFetcher fetcher = new BVAdvertisingId.BvAdInfoFetcher(ApplicationProvider.getApplicationContext());
     AdvertisingIdClient.Info info = fetcher.getAdInfo();
     assertNull(info);
   }

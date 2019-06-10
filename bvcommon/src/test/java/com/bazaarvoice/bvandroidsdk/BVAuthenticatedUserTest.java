@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import com.google.gson.Gson;
 
 import junit.framework.TestCase;
@@ -8,9 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowLooper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,12 +21,10 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import okio.BufferedSource;
 import okio.Okio;
 
-import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -49,7 +47,7 @@ public class BVAuthenticatedUserTest extends BVBaseTest {
         gson = new Gson();
         bvLogger = new BVLogger(BVLogLevel.VERBOSE);
         profilePollTimes = Arrays.asList(0, 10, 20, 30);
-        subject = new BVAuthenticatedUser(RuntimeEnvironment.application, baseurl, shopperApiKey, okHttpClient, bvLogger, gson, profilePollTimes, new BaseTestUtils.TestHandlerThread());
+        subject = new BVAuthenticatedUser(ApplicationProvider.getApplicationContext(), baseurl, shopperApiKey, okHttpClient, bvLogger, gson, profilePollTimes, new BaseTestUtils.TestHandlerThread());
     }
 
     @Test

@@ -3,7 +3,6 @@ package com.bazaarvoice.bvandroidsdk;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
-import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 
 import junit.framework.Assert;
 
@@ -26,7 +25,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 19)
+@Config(sdk = 19)
 public class ConversationsUnitTest extends BVBaseTest {
     private static final String UTF_8 = "UTF-8";
 

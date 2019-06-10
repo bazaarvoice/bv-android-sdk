@@ -9,6 +9,7 @@ dependencies {
   compileOnly sdkDep.recyclerview
 
   // Dependencies for local unit tests
+  testCompileOnly sdkTestDep.androidXTest
   testCompileOnly sdkTestDep.junit
   testCompileOnly sdkTestDep.mockito
   testCompileOnly sdkTestDep.mockWebServer
