@@ -56,7 +56,6 @@ public class DemoApp extends Application {
         BVSDK.builderWithConfig(this, bazaarEnvironment, bvConfig)
                 .logLevel(bvLogLevel)
                 .okHttpClient(okHttpClient)
-                .dryRunAnalytics(BuildConfig.ENABLE_DRY_RUN_ANALYTICS)
                 .build();
     }
 

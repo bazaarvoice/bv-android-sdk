@@ -14,14 +14,16 @@ dependencies {
   implementation sdkDep.okhttp3
 
   // Dependencies for local unit tests
+  testImplementation sdkDep.playServiceAds
+  testImplementation sdkDep.gson
   testImplementation sdkTestDep.junit
   testImplementation sdkTestDep.mockito
   testImplementation sdkTestDep.mockWebServer
   testImplementation sdkTestDep.robolectric
   testImplementation sdkTestDep.roboPlayServices
-  testImplementation sdkDep.gson
   testImplementation sdkTestDep.androidJson
-  testImplementation sdkDep.playServiceAds
+  testImplementation sdkTestDep.androidXTest
+
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

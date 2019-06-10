@@ -4,13 +4,13 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import androidx.annotation.Nullable;
+import androidx.test.core.app.ApplicationProvider;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.UUID;
-
-import androidx.annotation.Nullable;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
@@ -28,7 +28,7 @@ public class BVCustomViewTest extends BVBaseTest {
 
     @Test
     public void bvContainerOnDrawShouldCalledOnAddedToViewHierarchy() {
-        BVContainerView bvContainerView = new BVContainerView(RuntimeEnvironment.application.getApplicationContext()) {
+        BVContainerView bvContainerView = new BVContainerView(ApplicationProvider.getApplicationContext().getApplicationContext()) {
             @Override
             void init() {
                 super.init();
@@ -48,7 +48,7 @@ public class BVCustomViewTest extends BVBaseTest {
     @Test
     public void bvViewInitShouldBeCalled() {
         String productId = UUID.randomUUID().toString();
-        BVView bvView = new BVView(RuntimeEnvironment.application.getApplicationContext()) {
+        BVView bvView = new BVView(ApplicationProvider.getApplicationContext().getApplicationContext()) {
 
             @Override
             void init() {
@@ -74,7 +74,7 @@ public class BVCustomViewTest extends BVBaseTest {
     @Test
     public void bvViewOnTabShouldBeCalledWithActionUpEvent() {
         String productId = UUID.randomUUID().toString();
-        BVView bvView = new BVView(RuntimeEnvironment.application.getApplicationContext()) {
+        BVView bvView = new BVView(ApplicationProvider.getApplicationContext().getApplicationContext()) {
 
             @Override
             void init() {
@@ -102,7 +102,7 @@ public class BVCustomViewTest extends BVBaseTest {
     @Test
     public void bvRecyclerViewOnTabShouldBeCalledWithActionUpEvent() {
         String productId = UUID.randomUUID().toString();
-        BVRecyclerView bvView = new BVRecyclerView(RuntimeEnvironment.application.getApplicationContext()) {
+        BVRecyclerView bvView = new BVRecyclerView(ApplicationProvider.getApplicationContext().getApplicationContext()) {
 
             @Override
             void init(Context context, @Nullable AttributeSet attr) {

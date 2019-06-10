@@ -12,6 +12,8 @@ dependencies {
   testImplementation sdkTestDep.mockito
   testImplementation sdkTestDep.mockWebServer
   testImplementation sdkTestDep.robolectric
+  testImplementation sdkTestDep.roboPlayServices
+  testImplementation sdkTestDep.androidXTest
   testCompileOnly sdkDep.gson
 }
 

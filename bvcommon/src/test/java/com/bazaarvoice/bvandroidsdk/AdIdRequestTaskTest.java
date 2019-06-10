@@ -3,10 +3,12 @@
  */
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.concurrent.CountDownLatch;
@@ -20,7 +22,7 @@ public class AdIdRequestTaskTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailWithNullCallback() {
-        new AdIdRequestTask(RuntimeEnvironment.application.getApplicationContext(), null);
+        new AdIdRequestTask(ApplicationProvider.getApplicationContext(), null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -38,7 +40,8 @@ public class AdIdRequestTaskTest {
             assertNotNull(result.getAdId());
             latch.countDown();
         };
-        AdIdRequestTask adIdRequestTask = new AdIdRequestTask(RuntimeEnvironment.application.getApplicationContext(), adIdCallback);
+        Robolectric.getBackgroundThreadScheduler().unPause();
+        AdIdRequestTask adIdRequestTask = new AdIdRequestTask(ApplicationProvider.getApplicationContext(), adIdCallback);
         adIdRequestTask.execute();
         latch.await();
     }

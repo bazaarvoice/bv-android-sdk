@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
 
@@ -15,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.concurrent.ExecutorService;
@@ -76,7 +77,7 @@ public class BVSDKTest {
 
         rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
 
-      when(bvUserProvidedData.getApplication()).thenReturn(RuntimeEnvironment.application);
+      when(bvUserProvidedData.getApplication()).thenReturn(ApplicationProvider.getApplicationContext());
 
       bvConfig = new BVConfig.Builder()
         .apiKeyConversations(conversationsApiKey)
@@ -102,23 +103,23 @@ public class BVSDKTest {
     @Test
     public void bvSdkShouldSetupApplicationContextDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId)
                 .bazaarEnvironment(environment)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
 
-        assertEquals(RuntimeEnvironment.application.getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
+        assertEquals(ApplicationProvider.getApplicationContext().getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
     }
 
     @Test(expected = IllegalStateException.class)
     public void bvSdkShouldOnlyAllowOneCreationDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId)
                 .bazaarEnvironment(environment)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk2 = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+        BVSDK bvsdk2 = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId)
                 .bazaarEnvironment(environment)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
@@ -130,7 +131,7 @@ public class BVSDKTest {
         BVPixel.destroy();
 
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId)
                 .bazaarEnvironment(environment)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .logLevel(BVLogLevel.VERBOSE)
@@ -149,7 +150,7 @@ public class BVSDKTest {
     @Test
     public void bvSdkShouldSetupClientIdDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId)
                 .bazaarEnvironment(environment)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
                 .build();
@@ -160,7 +161,7 @@ public class BVSDKTest {
     @Test
     public void bvSdkShouldSetupConversationsApiKeyDeprecated() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, clientId)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId)
                 .bazaarEnvironment(environment)
                 .apiKeyConversations(conversationsApiKey)
                 .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
@@ -178,7 +179,7 @@ public class BVSDKTest {
     @Test(expected=IllegalArgumentException.class)
     public void bvSdkBuilderShouldRequireValidClientIdDeprecated() {
         String clientId = null;
-        new BVSDK.Builder(RuntimeEnvironment.application, clientId);
+        new BVSDK.Builder(ApplicationProvider.getApplicationContext(), clientId);
     }
 
     private BVSDK createTestBvSdk() {
@@ -204,7 +205,7 @@ public class BVSDKTest {
       verify(bvPixel).track(eventArgumentCaptor.capture());
 
       // Check to see that the appState field was set to "launched"
-      BVMobileParams bvMobileParams = new BVMobileParams(RuntimeEnvironment.application, clientId);
+      BVMobileParams bvMobileParams = new BVMobileParams(ApplicationProvider.getApplicationContext(), clientId);
       BVMobileAppLifecycleEvent capturedEvent = eventArgumentCaptor.getValue();
       capturedEvent.setBvMobileParams(bvMobileParams);
       String actualAppState = (String) capturedEvent.toRaw().get(BVEventKeys.MobileAppLifecycleEvent.APP_STATE);
@@ -245,19 +246,19 @@ public class BVSDKTest {
     @Test
     public void bvSdkShouldSetupApplicationContext() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
             .build();
 
-        assertEquals(RuntimeEnvironment.application.getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
+        assertEquals(ApplicationProvider.getApplicationContext().getApplicationContext(), bvsdk.getBvUserProvidedData().getAppContext());
     }
 
     @Test(expected = IllegalStateException.class)
     public void bvSdkShouldOnlyAllowOneCreation() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
             .build();
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk2 = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk2 = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
             .build();
     }
 
@@ -267,7 +268,7 @@ public class BVSDKTest {
         BVPixel.destroy();
 
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
             .logLevel(BVLogLevel.VERBOSE)
             .build();
 
@@ -281,7 +282,7 @@ public class BVSDKTest {
     @Test
     public void bvSdkShouldSetupClientId() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
             .build();
 
         assertEquals(clientId, bvsdk.getBvUserProvidedData().getBvConfig().getClientId());
@@ -290,7 +291,7 @@ public class BVSDKTest {
     @Test
     public void bvSdkShouldSetupConversationsApiKey() {
         // Builder used to initialize the Bazaarvoice SDKs
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
             .build();
 
         assertEquals(conversationsApiKey, bvsdk.getBvUserProvidedData().getBvConfig().getApiKeyConversations());
@@ -312,13 +313,13 @@ public class BVSDKTest {
             .apiKeyShopperAdvertising(shopperAdvertisingApiKey)
             .dryRunAnalytics(dryRunAnalytics)
             .build();
-        new BVSDK.Builder(RuntimeEnvironment.application, environment, badBvConfig)
+        new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, badBvConfig)
             .build();
     }
 
     @Test
     public void shouldCreateValidUAString() {
-        BVSDK bvsdk = new BVSDK.Builder(RuntimeEnvironment.application, environment, bvConfig)
+        BVSDK bvsdk = new BVSDK.Builder(ApplicationProvider.getApplicationContext(), environment, bvConfig)
                 .build();
         String userAgent = bvsdk.getBvWorkerData().getBvSdkUserAgent();
         assertEquals("Mozilla/5.0 (Linux; Android "+ Build.VERSION.RELEASE +" " + Build.DEVICE+ " "+ Build.MODEL+") bvsdk-android/" + com.bazaarvoice.bvandroidsdk_analytics.BuildConfig.BVSDK_VERSION_NAME,

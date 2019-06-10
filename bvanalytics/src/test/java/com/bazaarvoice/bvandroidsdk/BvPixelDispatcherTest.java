@@ -2,6 +2,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.os.HandlerThread;
 
+import androidx.test.core.app.ApplicationProvider;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -9,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLooper;
 
@@ -122,6 +123,6 @@ public class BvPixelDispatcherTest {
   }
 
   private BVPixelDispatcher createBvPixelDispatcher(String baseUrl) {
-    return new BVPixelDispatcher(RuntimeEnvironment.application, bgHandlerThread, analyticsBatch, okHttpClient, baseUrl, delayMillis, false);
+    return new BVPixelDispatcher(ApplicationProvider.getApplicationContext(), bgHandlerThread, analyticsBatch, okHttpClient, baseUrl, delayMillis, false);
   }
 }
