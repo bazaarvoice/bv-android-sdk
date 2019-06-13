@@ -2,10 +2,10 @@ package com.bazaarvoice.bvandroidsdk;
 
 import android.graphics.Point;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.Nullable;
 
 import static java.lang.Math.max;
 
@@ -117,13 +117,14 @@ class CurationsInfinitePresenter implements CurationsInfiniteContract.Presenter 
 
     if (feedItems.size() > 0) {
       final CurationsFeedItem lastFeedItem  = feedItems.get(feedItems.size()-1);
-      builder.before(lastFeedItem.getTimestamp());
+      //before is => so subtract one to not include the last photo of the previous set.
+      builder.before(lastFeedItem.getTimestamp()-1);
     }
 
     builder.hasPhotoOrVideo(true);
 
     pagingCb = new PagingFeedCallback(pageIndex++, pageLoadListener, this, pageSize);
-    curations.getCurationsFeedItems(request, pagingCb);
+    curations.getCurationsFeedItems(builder.build(), pagingCb);
   }
 
   private void updateContent(int expectedPageSize, List<CurationsFeedItem> moreFeedItems) {

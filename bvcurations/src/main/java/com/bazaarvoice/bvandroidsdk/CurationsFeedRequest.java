@@ -17,10 +17,11 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
+
+import java.util.List;
+
 import okhttp3.HttpUrl;
 
 import static com.bazaarvoice.bvandroidsdk.StringUtils.componentsSeparatedBy;
@@ -199,6 +200,7 @@ public final class CurationsFeedRequest {
             this.tags = request.tags;
             this.author = request.author;
             this.externalId = request.externalId;
+            this.display = request.display;
             this.after = request.after;
             this.before = request.before;
             this.featured = request.featured;
