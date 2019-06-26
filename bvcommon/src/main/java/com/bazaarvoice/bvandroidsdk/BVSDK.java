@@ -11,6 +11,9 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.internal.Utils;
 import com.bazaarvoice.bvandroidsdk_common.BuildConfig;
 import com.google.gson.Gson;
@@ -33,8 +36,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
 import okhttp3.Cache;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -424,11 +425,7 @@ public class BVSDK {
         }
 
         /**
-         * Disables analytics, but still logs the events sent. Only used to avoid
-         * hitting production with analytics while testing. Must be false for Release builds.
-         *
-         * @param dryRunAnalytics If true then analytics events will not be sent
-         * @return the builder object
+         * @deprecated will be removed in 9.0.0
          */
         public Builder dryRunAnalytics(boolean dryRunAnalytics) {
             bvConfigBuilder
@@ -536,10 +533,6 @@ public class BVSDK {
                 gson,
                 profilePollTimes,
                 backgroundThread);
-            if (!com.bazaarvoice.bvandroidsdk_common.BuildConfig.DEBUG && bvUserProvidedData.getBvConfig().isDryRunAnalytics()) {
-                bvLogger.e(TAG, "DryRunAnalytics should only be enabled for Debug builds");
-                throw new IllegalStateException("DryRunAnalytics should only be enabled for Debug builds");
-            }
             BVPixel bvPixel = new BVPixel.Builder(application,
                     bvUserProvidedData.getBvConfig().getClientId(),
                     bazaarEnvironment == BazaarEnvironment.STAGING, bvUserProvidedData.getBvConfig().isDryRunAnalytics(),
