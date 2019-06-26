@@ -101,6 +101,9 @@ public class BVPixel {
       return this;
     }
 
+    /**
+     * @deprecated will be removed in 9.0.0
+     */
     public Builder dryRunAnalytics(boolean dryRunAnalytics) {
       this.dryRunAnalytics = dryRunAnalytics;
       return this;
