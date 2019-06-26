@@ -43,11 +43,6 @@ public class DemoCurationsFeedActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         curationsInfiniteRecyclerView = (CurationsInfiniteRecyclerView) findViewById(R.id.product_row_curations_recycler_view);
         curationsInfiniteRecyclerView.setLayoutManager(layoutManager);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         loadCurationsFeed(curationsInfiniteRecyclerView);
     }
 
