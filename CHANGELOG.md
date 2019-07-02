@@ -1,5 +1,13 @@
 # Changelog
 
+# 8.3.0
+
+## Support for sdkVersion 29 and Demo updates
+
+* Updated compileSdkVersion and targetSdkVersion to 29
+* Deprecate dryAnalytics in BVSDK
+* Demo App Updates
+
 # 8.2.3
 
 ## Bug Fix: Curations Infinite Feed
