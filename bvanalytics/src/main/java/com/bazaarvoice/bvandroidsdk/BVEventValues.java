@@ -62,7 +62,8 @@ public class BVEventValues {
     CURATIONS("Curations"),
     PERSONALIZATION("Personalization"),
     VISIT("Visit"),
-    USED("Used");
+    USED("Used"),
+    PROGRESSIVE_SUBMISSION("ProgressiveSubmission");
 
     private String value;
 

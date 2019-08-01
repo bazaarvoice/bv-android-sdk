@@ -1,0 +1,388 @@
+{
+  "hasErrors": false,
+  "response": {
+    "productFormData": {
+      "product4": {
+        "review": {
+          "productExternalID": "product4",
+          "submissionID": "2m5ose8irn52nzr4vqlq5tuma",
+          "submissionTime": "2019-08-01@21:34:25"
+        },
+        "fieldsOrder": [
+          "contextdatavalue_Age",
+          "contextdatavalue_Gender",
+          "rating_Quality",
+          "rating_Value",
+          "usernickname",
+          "userlocation",
+          "title",
+          "reviewtext",
+          "sendemailalertwhenpublished",
+          "agreedtotermsandconditions",
+          "sendemailalertwhencommented",
+          "rating",
+          "photourl_1",
+          "photocaption_1",
+          "photourl_2",
+          "photocaption_2",
+          "photourl_3",
+          "photocaption_3",
+          "photourl_4",
+          "photocaption_4",
+          "photourl_5",
+          "photocaption_5",
+          "photourl_6",
+          "photocaption_6",
+          "videourl_1",
+          "videocaption_1"
+        ],
+        "fields": {
+          "photourl_6": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photourl_6",
+            "MaxLength": 2048,
+            "Default": null
+          },
+          "videourl_1": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "videourl_1",
+            "MaxLength": 1024,
+            "Default": null
+          },
+          "contextdatavalue_Gender": {
+            "Options": [
+              {
+                "Label": "",
+                "Value": "",
+                "Selected": true
+              },
+              {
+                "Label": "Male",
+                "Value": "Male",
+                "Selected": false
+              },
+              {
+                "Label": "Female",
+                "Value": "Female",
+                "Selected": false
+              }
+            ],
+            "Type": "SelectInput",
+            "Required": false,
+            "Label": "What is your gender?",
+            "Value": null,
+            "MinLength": null,
+            "Id": "contextdatavalue_Gender",
+            "MaxLength": null,
+            "Default": null
+          },
+          "photourl_2": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photourl_2",
+            "MaxLength": 2048,
+            "Default": null
+          },
+          "photourl_3": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photourl_3",
+            "MaxLength": 2048,
+            "Default": null
+          },
+          "photourl_4": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photourl_4",
+            "MaxLength": 2048,
+            "Default": null
+          },
+          "photourl_5": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photourl_5",
+            "MaxLength": 2048,
+            "Default": null
+          },
+          "rating": {
+            "Options": [],
+            "Type": "IntegerInput",
+            "Required": true,
+            "Label": null,
+            "Value": null,
+            "MinLength": null,
+            "Id": "rating",
+            "MaxLength": null,
+            "Default": null
+          },
+          "title": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": true,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "title",
+            "MaxLength": 50,
+            "Default": null
+          },
+          "reviewtext": {
+            "Options": [],
+            "Type": "TextAreaInput",
+            "Required": true,
+            "Label": null,
+            "Value": null,
+            "MinLength": 50,
+            "Id": "reviewtext",
+            "MaxLength": 10000,
+            "Default": null
+          },
+          "sendemailalertwhencommented": {
+            "Options": [],
+            "Type": "BooleanInput",
+            "Required": false,
+            "Value": "false",
+            "Label": null,
+            "MinLength": null,
+            "Id": "sendemailalertwhencommented",
+            "MaxLength": null,
+            "Default": null
+          },
+          "contextdatavalue_Age": {
+            "Options": [
+              {
+                "Label": "",
+                "Value": "",
+                "Selected": true
+              },
+              {
+                "Label": "17 or under",
+                "Value": "17orUnder",
+                "Selected": false
+              },
+              {
+                "Label": "18 to 24",
+                "Value": "18to24",
+                "Selected": false
+              },
+              {
+                "Label": "25 to 34",
+                "Value": "25to34",
+                "Selected": false
+              },
+              {
+                "Label": "35 to 44",
+                "Value": "35to44",
+                "Selected": false
+              },
+              {
+                "Label": "45 to 54",
+                "Value": "45to54",
+                "Selected": false
+              },
+              {
+                "Label": "55 to 64",
+                "Value": "55to64",
+                "Selected": false
+              },
+              {
+                "Label": "65 or over",
+                "Value": "65orOver",
+                "Selected": false
+              }
+            ],
+            "Type": "SelectInput",
+            "Required": false,
+            "Label": "How old are you?",
+            "Value": null,
+            "MinLength": null,
+            "Id": "contextdatavalue_Age",
+            "MaxLength": null,
+            "Default": null
+          },
+          "photocaption_2": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photocaption_2",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "photocaption_1": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photocaption_1",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "rating_Quality": {
+            "Options": [],
+            "Type": "IntegerInput",
+            "Required": false,
+            "Label": "How would you rate the quality of this product?",
+            "Value": null,
+            "MinLength": null,
+            "Id": "rating_Quality",
+            "MaxLength": null,
+            "Default": null
+          },
+          "photocaption_6": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photocaption_6",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "photocaption_5": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photocaption_5",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "photocaption_4": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photocaption_4",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "photourl_1": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photourl_1",
+            "MaxLength": 2048,
+            "Default": null
+          },
+          "photocaption_3": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "photocaption_3",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "videocaption_1": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "videocaption_1",
+            "MaxLength": 255,
+            "Default": null
+          },
+          "agreedtotermsandconditions": {
+            "Options": [],
+            "Type": "BooleanInput",
+            "Required": true,
+            "Value": "false",
+            "Label": null,
+            "MinLength": null,
+            "Id": "agreedtotermsandconditions",
+            "MaxLength": null,
+            "Default": null
+          },
+          "rating_Value": {
+            "Options": [],
+            "Type": "IntegerInput",
+            "Required": false,
+            "Label": "How would you rate the value of this product?",
+            "Value": null,
+            "MinLength": null,
+            "Id": "rating_Value",
+            "MaxLength": null,
+            "Default": null
+          },
+          "usernickname": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": true,
+            "Label": null,
+            "Value": null,
+            "MinLength": 4,
+            "Id": "usernickname",
+            "MaxLength": 25,
+            "Default": null
+          },
+          "userlocation": {
+            "Options": [],
+            "Type": "TextInput",
+            "Required": false,
+            "Label": null,
+            "Value": null,
+            "MinLength": 0,
+            "Id": "userlocation",
+            "MaxLength": 50,
+            "Default": null
+          },
+          "sendemailalertwhenpublished": {
+            "Options": [],
+            "Type": "BooleanInput",
+            "Required": false,
+            "Value": "false",
+            "Label": null,
+            "MinLength": null,
+            "Id": "sendemailalertwhenpublished",
+            "MaxLength": null,
+            "Default": null
+          }
+        },
+        "submissionSessionToken": "1234567890abcde"
+      }
+    }
+  }
+}

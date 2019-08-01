@@ -26,8 +26,8 @@ import java.util.List;
  * or submission endpoints.
  */
 public abstract class ConversationsResponse {
-  @SerializedName("HasErrors") private Boolean hasErrors;
-  @SerializedName("Errors") private List<Error> errors;
+  @SerializedName(value = "HasErrors", alternate = "hasErrors") private Boolean hasErrors;
+  @SerializedName(value = "Errors", alternate = "errors") private List<Error> errors;
 
   public Boolean getHasErrors() {
     return hasErrors;

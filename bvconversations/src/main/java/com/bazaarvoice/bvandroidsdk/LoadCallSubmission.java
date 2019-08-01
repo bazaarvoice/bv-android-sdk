@@ -21,6 +21,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import androidx.annotation.AnyThread;
+import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -29,10 +34,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.AnyThread;
-import androidx.annotation.MainThread;
-import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -98,7 +99,6 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
      *
      * @param conversationsCallback Callback to be performed
      */
-    @Override
     public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
         BVSDK.getInstance().bvLogger.v("BVConversationsSubmission", "Begin async loading");
         submitCallback = conversationsCallback;

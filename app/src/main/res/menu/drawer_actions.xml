@@ -13,6 +13,9 @@
         android:id="@+id/conversations_demo"
         android:title="Conversations API Demo" />
     <item
+        android:id="@+id/progressive_submission"
+        android:title="ProgressiveSubmission API Demo" />
+    <item
         android:id="@+id/conversations_demo_stores"
         android:title="Conversations Stores API Demo" />
     <item

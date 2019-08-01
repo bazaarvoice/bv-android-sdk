@@ -30,4 +30,9 @@
   <item>SubmissionId</item>
   <item>CategoryAncestorId</item>
 </string-array>
+
+  <string-array name="progressive_submission_types">
+    <item>Initiate Submit</item>
+    <item>Progressive Submission Review</item>
+  </string-array>
 </resources>

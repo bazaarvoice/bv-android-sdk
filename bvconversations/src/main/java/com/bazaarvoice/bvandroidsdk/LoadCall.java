@@ -151,5 +151,4 @@ abstract class LoadCall<RequestType extends ConversationsRequest, ResponseType e
         return new BVErrorReport(bvProductType, requestTypeClassName, e);
     }
 
-
 }

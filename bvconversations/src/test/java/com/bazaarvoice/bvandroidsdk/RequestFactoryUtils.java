@@ -4,6 +4,8 @@ import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import okio.Buffer;
 
 import static com.bazaarvoice.bvandroidsdk.ConversationsRequest.API_VERSION;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
@@ -55,6 +58,19 @@ public class RequestFactoryUtils {
     }
     if (contains) {
       fail("Could not find expected key-value pair in FormBody, " + encodedKey + "=" + encodedVal + "\n\nActual FormBody:\n" + requestBody);
+    }
+  }
+
+  public void assertJsonBodyContainsKeyValEncoded(Request okRequest, String encodedKey, String encodedVal, boolean contains) throws Exception {
+    final Buffer buffer = new Buffer();
+    okRequest.body().writeTo(buffer);
+    final String requestBody = buffer.readUtf8();
+    JSONObject jsonObject = new JSONObject(requestBody);
+    if(contains) {
+      assertEquals(jsonObject.get(encodedKey).toString(), encodedVal);
+    }
+    else{
+      assertFalse(jsonObject.has(encodedKey));
     }
   }
 
@@ -161,11 +177,13 @@ public class RequestFactoryUtils {
     when(bvRootApiUrls.getBazaarvoiceApiRootUrl()).thenReturn(rootApiUrl);
     final String convApiKey = "convApiKeyFoo";
     final String storeApiKey = "storeApiKeyBar";
+    final String progressiveSubmissionApiKey = "progressiveSubApiKey";
     final String bvSdkUserAgent = "Android-TestDk";
     final BVSDK bvsdk = mock(BVSDK.class);
     final BVConfig bvConfig = new BVConfig.Builder()
         .apiKeyConversations(convApiKey)
         .apiKeyConversationsStores(storeApiKey)
+        .apiKeyProgressiveSubmission(progressiveSubmissionApiKey)
         .clientId("yoyomakers")
         .build();
     final FingerprintProvider fingerprintProvider = new FingerprintProvider() {
@@ -473,7 +491,7 @@ public class RequestFactoryUtils {
         "false");
   }
 
-  private static final class GenericFormBodyParams {
+    private static final class GenericFormBodyParams {
     private final String userId, userNickname, fingerprint,
         hostedAuthEmail, hostedAuthCbUrl, campaignId,
         locale, user, userEmail,

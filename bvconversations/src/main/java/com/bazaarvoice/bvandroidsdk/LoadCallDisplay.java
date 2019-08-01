@@ -21,15 +21,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import androidx.annotation.AnyThread;
+import androidx.annotation.MainThread;
+import androidx.annotation.WorkerThread;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import androidx.annotation.AnyThread;
-import androidx.annotation.MainThread;
-import androidx.annotation.WorkerThread;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
@@ -119,12 +120,21 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
      *
      * @param conversationsCallback Callback to be performed
      */
-    @Override
     public void loadAsync(final ConversationsCallback<ResponseType> conversationsCallback) {
         BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Beginning of async request");
         checkMain();
         displayCallback = conversationsCallback;
         dispatchFetch();
+    }
+
+    /**
+     * @param callback Callback for display request
+     */
+    public void loadAsync(final ConversationsDisplayCallback<ResponseType> callback) {
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Beginning of async request");
+        checkMain();
+        displayV7Callback = callback;
+        dispatchFetchV7();
     }
 
     @AnyThread
@@ -211,19 +221,9 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
         return fetchV7();
     }
 
-    /**
-     * @param callback Callback for display request
-     */
-    public void loadAsync(final ConversationsDisplayCallback<ResponseType> callback) {
-        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Beginning of async request");
-        checkMain();
-        displayV7Callback = callback;
-        dispatchFetchV7();
-    }
-
     @AnyThread
     private void dispatchFetchV7() {
-        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatching displayui message to handler");
+        BVSDK.getInstance().bvLogger.v("BVConversationsDisplay", "Dispatching displayworker message to handler");
         displayWorkerHandler.sendMessage(displayWorkerHandler.obtainMessage(DisplayWorkerHandler.FETCH_V7));
     }
 

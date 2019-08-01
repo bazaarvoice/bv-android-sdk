@@ -1,100 +1,101 @@
 <resources>
-  <string name="app_name">BV API</string>
-  <string name="settings_launcher_name">BV Settings</string>
-  <string name="info_circle">&#xf05a;</string>
-  <string name="title_activity_bvconversation_detail">BVConversationDetailActivity</string>
+    <string name="app_name">BV API</string>
+    <string name="settings_launcher_name">BV Settings</string>
+    <string name="info_circle">&#xf05a;</string>
+    <string name="title_activity_bvconversation_detail">BVConversationDetailActivity</string>
 
-  <string name="greeting_message">Welcome to the Bazaarvoice Android SDK demo app. Explore the menu above to see example implementions of each component of the modularized SDK.\n\nBe
+    <string name="greeting_message">Welcome to the Bazaarvoice Android SDK demo app. Explore the menu above to see example implementions of each component of the modularized SDK.\n\nBe
         sure to visit <a href="https://bazaarvoice.github.io/bv-android-sdk">https://bazaarvoice.github.io/bv-android-sdk</a> for full documentation.</string>
 
-  <string name="greeting_message_location">The Location module of the BVSDK allows your mobile app to receive notifications when a user enters and/or exits your physical store location.
+    <string name="greeting_message_location">The Location module of the BVSDK allows your mobile app to receive notifications when a user enters and/or exits your physical store location.
          Use of this module requires a Location API and Client ID, which are provided by Bazaarvoice.\n\n
          For example implementation details, please refer to the DemoLocationFragment class.</string>
 
 
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-  <string name="title_activity_banner_ad">Banner Ad Example</string>
-  <string name="title_activity_native_ad">Native Ad Example</string>
-  <string name="title_activity_interstitial_ad">Interstitial Ad Example</string>
-  <string name="title_activity_location_example_activty">Location Example</string>
-  <string name="title_activity_gimbal_example">Gimbal Example</string>
-  <string name="title_activity_settings">Demo Settings</string>
-  <string name="title_activity_cart">Demo Cart</string>
-  <string name="title_activity_fancy_product_detail">Product Detail</string>
-  <string name="title_activity_demo_app">BV Demo</string>
-  <string name="title_activity_reviews">Product Reviews</string>
-  <string name="title_activity_store_reviews">Store Reviews</string>
-  <string name="title_activity_bulkratings">Bulk Ratings</string>
-  <string name="title_activity_product_stats">Product Review Stats</string>
-  <string name="title_activity_questions">Product Questions</string>
-  <string name="title_activity_answers">Product Answers</string>
-  <string name="title_activity_comments">Comments</string>
-  <string name="title_activity_curations_map">Curations Photo Map</string>
-  <string name="title_activity_curations_feed">Curations Feed</string>
-  <string name="title_activity_curations_detail">Curations Detail</string>
-  <string name="title_activity_curations_post">Curations Post</string>
-  <string name="title_activity_stores">Stores</string>
-  <string name="title_activity_rate">Rate</string>
-  <string name="title_activity_author">Author</string>
-  <string name="title_activity_submit_review">Submit Review</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_banner_ad">Banner Ad Example</string>
+    <string name="title_activity_native_ad">Native Ad Example</string>
+    <string name="title_activity_interstitial_ad">Interstitial Ad Example</string>
+    <string name="title_activity_location_example_activty">Location Example</string>
+    <string name="title_activity_gimbal_example">Gimbal Example</string>
+    <string name="title_activity_settings">Demo Settings</string>
+    <string name="title_activity_cart">Demo Cart</string>
+    <string name="title_activity_fancy_product_detail">Product Detail</string>
+    <string name="title_activity_demo_app">BV Demo</string>
+    <string name="title_activity_reviews">Product Reviews</string>
+    <string name="title_activity_store_reviews">Store Reviews</string>
+    <string name="title_activity_bulkratings">Bulk Ratings</string>
+    <string name="title_activity_product_stats">Product Review Stats</string>
+    <string name="title_activity_questions">Product Questions</string>
+    <string name="title_activity_answers">Product Answers</string>
+    <string name="title_activity_comments">Comments</string>
+    <string name="title_activity_curations_map">Curations Photo Map</string>
+    <string name="title_activity_curations_feed">Curations Feed</string>
+    <string name="title_activity_curations_detail">Curations Detail</string>
+    <string name="title_activity_curations_post">Curations Post</string>
+    <string name="title_activity_stores">Stores</string>
+    <string name="title_activity_rate">Rate</string>
+    <string name="title_activity_author">Author</string>
+    <string name="title_activity_submit_review">Submit Review</string>
 
-  <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
-  <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
+    <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
+    <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
     to register and download the Gimbal Android SDK. You will need to include their SDK into this app in order to compile the demo code found in GimbalExample.java. Refer to GimbalExample.java
     for examples on how to tie the Ads SDK into your Gimbal beacon implementation.</string>
 
-  <string name="section_header_recommendations">Recommended for you</string>
-  <string name="section_header_conversations">Product Catalog</string>
+    <string name="section_header_recommendations">Recommended for you</string>
+    <string name="section_header_conversations">Product Catalog</string>
 
-  <string name="view_demo_error_message">"%1$s is not configured to view %2$s"</string>
-  <string name="demo_recommendations">Recommendations</string>
-  <string name="demo_ads">Advertisements</string>
-  <string name="demo_conversations">Conversations</string>
-  <string name="demo_conversations_stores">Conversations Stores</string>
-  <string name="demo_curations">Curations</string>
-  <string name="demo_location">Location</string>
-  <string name="demo_pin">PIN</string>
+    <string name="view_demo_error_message">"%1$s is not configured to view %2$s"</string>
+    <string name="demo_recommendations">Recommendations</string>
+    <string name="demo_ads">Advertisements</string>
+    <string name="demo_conversations">Conversations</string>
+    <string name="demo_conversations_stores">Conversations Stores</string>
+    <string name="demo_curations">Curations</string>
+    <string name="demo_location">Location</string>
+    <string name="demo_pin">PIN</string>
 
-  <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
 
-  <string name="key_selected_config">key_selected_config</string>
-  <string name="key_client_id">key_client_id</string>
-  <string name="key_user_auth_string">key_user_auth_string</string>
-  <string name="key_shopper_ad_passkey">key_shopper_ad_passkey</string>
-  <string name="key_conversations_passkey">key_conversations_passkey</string>
-  <string name="key_curations_passkey">key_curations_passkey</string>
-  <string name="key_staging_enabled">key_staging_enabled</string>
-  <string name="key_last_location_event">key_last_location_event</string>
+    <string name="key_selected_config">key_selected_config</string>
+    <string name="key_client_id">key_client_id</string>
+    <string name="key_user_auth_string">key_user_auth_string</string>
+    <string name="key_shopper_ad_passkey">key_shopper_ad_passkey</string>
+    <string name="key_conversations_passkey">key_conversations_passkey</string>
+    <string name="key_curations_passkey">key_curations_passkey</string>
+    <string name="key_staging_enabled">key_staging_enabled</string>
+    <string name="key_last_location_event">key_last_location_event</string>
+    <string name="key_progressive_passkey">key_progressive_passkey</string>
 
-  <string name="product_not_setup">This product is not setup for this client.</string>
+    <string name="product_not_setup">This product is not setup for this client.</string>
 
-  <string name="bacon_ipsum">Bacon ipsum dolor amet cupim frankfurter tongue pork loin ham bacon, pancetta capicola shank. Meatloaf prosciutto spare ribs pig beef, ground round tri-tip hamburger alcatra landjaeger pastrami meatball porchetta tail. Sirloin pork belly landjaeger, pig doner short loin shank beef shoulder ground round tenderloin. Andouille landjaeger pork shoulder.</string>
+    <string name="bacon_ipsum">Bacon ipsum dolor amet cupim frankfurter tongue pork loin ham bacon, pancetta capicola shank. Meatloaf prosciutto spare ribs pig beef, ground round tri-tip hamburger alcatra landjaeger pastrami meatball porchetta tail. Sirloin pork belly landjaeger, pig doner short loin shank beef shoulder ground round tenderloin. Andouille landjaeger pork shoulder.</string>
 
-  <string name="submit_review">Submit</string>
-  <string name="cancel_review">Cancel</string>
-  <string name="okay">OK</string>
-  <string name="review_body_hint">Write a review</string>
-  <string name="question_body_hint">Ask a question</string>
-  <string name="answer_body_hint">Answer a question</string>
+    <string name="submit_review">Submit</string>
+    <string name="cancel_review">Cancel</string>
+    <string name="okay">OK</string>
+    <string name="review_body_hint">Write a review</string>
+    <string name="question_body_hint">Ask a question</string>
+    <string name="answer_body_hint">Answer a question</string>
 
-  <string name="conv_comments_count">Comments (%d)</string>
-  <string name="conv_reviews_photos">"%1$d Reviews</string>
-  <string name="conv_questions">"%1$d Questions, %2$d Answers"</string>
-  <string name="conv_answers">"Read %s Answers"</string>
-  <string name="conv_answer">"Read %s Answer</string>
-  <string name="answer_action_text">Give your answer!</string>
-  <string name="no_curations_found">No social content to show - upload your own photo</string>
-  <string name="demo_sdk_not_configured">BVSDK not configured!</string>
-  <string name="demo_need_curations_key">You need to add your Curations API key and Client ID to test this feature.</string>
-  <string name="answer_found_helpful">"%1$d of %2$d users found this answer helpful"</string>
-  <string name="title_activity_demo_curations_maps">Map</string>
-  <string name="curations_map_subtitle_template">"via %1$s"</string>
-  <string name="last_loc_event_template">"Last Location Event: %s"</string>
-  <string name="view_all_my_reviews">View All My Reviews</string>
-  <string name="author_id_empty_message">Must pick an Author ID to test. Set the variable DemoConversationsAPIFragment#AUTHOR_ID to an author id that exists with the current client+environment</string>
-  <string name="no_content_found">No content found</string>
-  <string name="required_id">test1</string>
-  <string name="use_filter">Use Filter</string>
-  <string name="rating_distribution">%d - %d Star Reviews</string>
+    <string name="conv_comments_count">Comments (%d)</string>
+    <string name="conv_reviews_photos">"%1$d Reviews</string>
+    <string name="conv_questions">"%1$d Questions, %2$d Answers"</string>
+    <string name="conv_answers">"Read %s Answers"</string>
+    <string name="conv_answer">"Read %s Answer</string>
+    <string name="answer_action_text">Give your answer!</string>
+    <string name="no_curations_found">No social content to show - upload your own photo</string>
+    <string name="demo_sdk_not_configured">BVSDK not configured!</string>
+    <string name="demo_need_curations_key">You need to add your Curations API key and Client ID to test this feature.</string>
+    <string name="answer_found_helpful">"%1$d of %2$d users found this answer helpful"</string>
+    <string name="title_activity_demo_curations_maps">Map</string>
+    <string name="curations_map_subtitle_template">"via %1$s"</string>
+    <string name="last_loc_event_template">"Last Location Event: %s"</string>
+    <string name="view_all_my_reviews">View All My Reviews</string>
+    <string name="author_id_empty_message">Must pick an Author ID to test. Set the variable DemoConversationsAPIFragment#AUTHOR_ID to an author id that exists with the current client+environment</string>
+    <string name="no_content_found">No content found</string>
+    <string name="required_id">test1</string>
+    <string name="use_filter">Use Filter</string>
+    <string name="rating_distribution">%d - %d Star Reviews</string>
 </resources>

@@ -48,6 +48,8 @@ import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailRecAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoProductsView;
+import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.demoprogressivesubmission.DemoProgressiveInitiateSubmitFragment;
+import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.demoprogressivesubmission.DemoProgressiveSubmissionHandlerReviewFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
 import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
@@ -94,4 +96,6 @@ public interface DemoAppComponent {
     void inject(DemoCarouselView carousel);
     void inject(DemoProductsView view);
     void inject(DemoStoresActivity activity);
+    void inject(DemoProgressiveSubmissionHandlerReviewFragment fragment);
+    void inject(DemoProgressiveInitiateSubmitFragment fragment);
 }

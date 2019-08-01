@@ -55,4 +55,5 @@ class StringUtils {
 
         return string;
     }
+
 }

@@ -2,18 +2,23 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:title="Shopper Ad Passkey"
+        android:enabled="false"
         android:key="@string/key_shopper_ad_passkey"
-        android:enabled="false"/>
+        android:title="Shopper Ad Passkey" />
 
     <Preference
-        android:title="Conversations Passkey"
+        android:enabled="false"
         android:key="@string/key_conversations_passkey"
-        android:enabled="false"/>
+        android:title="Conversations Passkey" />
 
     <Preference
-        android:title="Curations Passkey"
+        android:enabled="false"
         android:key="@string/key_curations_passkey"
-        android:enabled="false"/>
+        android:title="Curations Passkey" />
+
+    <Preference
+        android:enabled="false"
+        android:key="@string/key_progressive_passkey"
+        android:title="Progressive Submission Passkey" />
 
 </PreferenceScreen>

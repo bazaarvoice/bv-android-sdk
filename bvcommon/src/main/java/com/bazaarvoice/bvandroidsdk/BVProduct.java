@@ -140,4 +140,5 @@ public class BVProduct implements BVDisplayableProductContent{
     public float getAverageRating() {
         return averageRating;
     }
+
 }

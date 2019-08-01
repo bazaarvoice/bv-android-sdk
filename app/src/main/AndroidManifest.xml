@@ -1,102 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.bazaarvoice.bvsdkdemoandroid">
+    package="com.bazaarvoice.bvsdkdemoandroid">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-  <application
-    android:name=".DemoApp"
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_demo_launcher"
-    android:label="@string/title_activity_demo_app"
-    android:networkSecurityConfig="@xml/network_security_config"
-    android:roundIcon="@mipmap/ic_demo_launcher"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme.DarkActionBar">
-    <activity
-      android:name=".DemoMainActivity"
-      android:label="@string/app_name"
-      android:theme="@style/AppTheme.NoActionBar">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+    <application
+        android:name=".DemoApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_demo_launcher"
+        android:label="@string/title_activity_demo_app"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_demo_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.DarkActionBar">
+        <activity android:name=".progressivesubmission.DemoProgressiveSubmissionActivity"></activity>
+        <activity
+            android:name=".DemoMainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-    </activity>
-    <activity android:name=".recommendations.detail.DemoProductDetailActivity"/>
-    <activity
-      android:name=".curations.detail.DemoCurationsDetailActivity"
-      android:exported="true"
-      android:label="@string/title_activity_curations_detail"/>
-    <activity
-      android:name=".curations.feed.DemoCurationsFeedActivity"
-      android:exported="true"
-      android:label="@string/title_activity_curations_feed"/>
-    <activity
-      android:name=".curations.DemoCurationsPostActivity"
-      android:exported="true"
-      android:label="@string/title_activity_curations_post"/>
-    <activity
-      android:name=".settings.DemoSettingsActivity"
-      android:label="@string/settings_launcher_name"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".cart.DemoCartActivity"
-      android:label="@string/title_activity_cart"/>
-    <activity
-      android:name=".detail.DemoFancyProductDetailActivity"
-      android:label="@string/title_activity_fancy_product_detail"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".home.DemoHomeActivity"
-      android:label="@string/title_activity_demo_app"
-      android:screenOrientation="portrait"
-      android:taskAffinity="com.bazaarvoice.bvsdkdemoandroid.newhome">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-    <activity
-      android:name=".conversations.reviews.DemoReviewsActivity"
-      android:label="@string/title_activity_reviews"
-      android:exported="true"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".conversations.reviews.DemoStoreReviewsActivity"
-      android:label="@string/title_activity_store_reviews"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".conversations.questions.DemoQuestionsActivity"
-      android:label="@string/title_activity_questions"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".conversations.answers.DemoAnswersActivity"
-      android:label="@string/title_activity_answers"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".conversations.comments.DemoCommentsActivity"
-      android:label="@string/title_activity_comments"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".conversations.bulkratings.DemoBulkRatingsActivity"
-      android:label="@string/title_activity_bulkratings"
-      android:theme="@style/AppTheme.NoActionBar"/>
-    <activity
-      android:name=".conversations.productstats.DemoProductStatsActivity"
-      android:label="@string/title_activity_product_stats"/>
-    <activity
-      android:name=".curations.map.DemoCurationsMapsActivity"
-      android:label="@string/title_activity_curations_map"/>
-    <activity
-      android:name=".conversations.DemoRateActivity"
-      android:label="@string/title_activity_rate"/>
-    <activity
-      android:name=".author.DemoAuthorActivity"
-      android:label="@string/title_activity_author"/>
-    <!--
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".recommendations.detail.DemoProductDetailActivity" />
+        <activity
+            android:name=".curations.detail.DemoCurationsDetailActivity"
+            android:exported="true"
+            android:label="@string/title_activity_curations_detail" />
+        <activity
+            android:name=".curations.feed.DemoCurationsFeedActivity"
+            android:exported="true"
+            android:label="@string/title_activity_curations_feed" />
+        <activity
+            android:name=".curations.DemoCurationsPostActivity"
+            android:exported="true"
+            android:label="@string/title_activity_curations_post" />
+        <activity
+            android:name=".settings.DemoSettingsActivity"
+            android:label="@string/settings_launcher_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".cart.DemoCartActivity"
+            android:label="@string/title_activity_cart" />
+        <activity
+            android:name=".detail.DemoFancyProductDetailActivity"
+            android:label="@string/title_activity_fancy_product_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".home.DemoHomeActivity"
+            android:label="@string/title_activity_demo_app"
+            android:screenOrientation="portrait"
+            android:taskAffinity="com.bazaarvoice.bvsdkdemoandroid.newhome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".conversations.reviews.DemoReviewsActivity"
+            android:exported="true"
+            android:label="@string/title_activity_reviews"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".conversations.reviews.DemoStoreReviewsActivity"
+            android:label="@string/title_activity_store_reviews"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".conversations.questions.DemoQuestionsActivity"
+            android:label="@string/title_activity_questions"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".conversations.answers.DemoAnswersActivity"
+            android:label="@string/title_activity_answers"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".conversations.comments.DemoCommentsActivity"
+            android:label="@string/title_activity_comments"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".conversations.bulkratings.DemoBulkRatingsActivity"
+            android:label="@string/title_activity_bulkratings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".conversations.productstats.DemoProductStatsActivity"
+            android:label="@string/title_activity_product_stats" />
+        <activity
+            android:name=".curations.map.DemoCurationsMapsActivity"
+            android:label="@string/title_activity_curations_map" />
+        <activity
+            android:name=".conversations.DemoRateActivity"
+            android:label="@string/title_activity_rate" />
+        <activity
+            android:name=".author.DemoAuthorActivity"
+            android:label="@string/title_activity_author" />
+        <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
@@ -104,23 +106,23 @@
              sign the APK for publishing.
              You can define the keys for the debug and NEXUS_USER targets in src/debug/ and src/NEXUS_USER/.
         -->
-    <meta-data
-      android:name="com.google.android.geo.API_KEY"
-      android:value="@string/google_maps_key"/>
-    <!--
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+        <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
         -->
-    <meta-data
-      android:name="com.google.android.gms.version"
-      android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-    <activity
-      android:name=".stores.DemoStoresActivity"
-      android:label="@string/title_activity_stores"/>
-    <activity
-      android:name=".conversations.reviews.submit.DemoSubmitReviewActivity"
-      android:label="@string/title_activity_submit_review"/>
-  </application>
+        <activity
+            android:name=".stores.DemoStoresActivity"
+            android:label="@string/title_activity_stores" />
+        <activity
+            android:name=".conversations.reviews.submit.DemoSubmitReviewActivity"
+            android:label="@string/title_activity_submit_review" />
+    </application>
 
 </manifest>

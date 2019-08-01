@@ -1,0 +1,10 @@
+{
+  "hasErrors": true,
+  "errors": [
+    {
+      "code": "Bad Request",
+      "message": "UserId is missing/invalid",
+      "field": "user"
+    }
+  ]
+}

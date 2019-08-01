@@ -46,7 +46,7 @@ public abstract class BaseProduct<AttributeType> extends IncludeableContent impl
     private List<String> attributesOrder;
     @SerializedName("ModelNumbers")
     private List<String> modelNumbers;
-    @SerializedName("ProductDescription")
+    @SerializedName(value = "ProductDescription", alternate = "Description")
     private String productDescription;
     @SerializedName("BrandExternalId")
     private String brandExternalId;

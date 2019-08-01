@@ -44,6 +44,9 @@ android {
     abortOnError false
   }
 
+  /**
+   * Robolectric configurations: See http://robolectric.org/configuring
+   */
   testOptions {
     unitTests.all {
       systemProperty 'robolectric.dependency.repo.url', 'https://repo.bazaarvoice.com:443/nexus/content/groups/public'
