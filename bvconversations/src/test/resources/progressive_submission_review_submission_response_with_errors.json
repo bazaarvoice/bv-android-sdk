@@ -1,0 +1,19 @@
+{
+  "hasErrors": true,
+  "response": {
+    "formValidationErrors": [
+      {
+        "code": "ERROR_FORM_INVALID",
+        "message": "The rating value is out of the configured range",
+        "field": "rating"
+      },
+      {
+        "code": "ERROR_FORM_REQUIRED",
+        "message": "required",
+        "field": "agreedtotermsandconditions"
+      }
+    ],
+    "isFormComplete": false,
+    "submissionSessionToken": "1234567890abcdef"
+  }
+}

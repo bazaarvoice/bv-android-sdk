@@ -17,23 +17,23 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
-import java.io.File;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.io.File;
 
 /**
  * Helper class to describe a photo to upload through the
  * submission API
  */
-class PhotoUpload {
+public class PhotoUpload {
     static final String kCONTENT_TYPE = "contenttype";
 
     private final File photoFile;
     private final String caption;
     private final ContentType contentType;
 
-    PhotoUpload(@NonNull File photoFile, @Nullable String caption, @NonNull ContentType contentType) {
+    public PhotoUpload(@NonNull File photoFile, @Nullable String caption, @NonNull ContentType contentType) {
         this.photoFile = photoFile;
         this.caption = caption;
         this.contentType = contentType;
@@ -55,7 +55,7 @@ class PhotoUpload {
         return caption;
     }
 
-    enum ContentType {
+    public enum ContentType {
         REVIEW("review"), QUESTION("question"), ANSWER("answer"), COMMENT("review_comment");
 
         private final String key;

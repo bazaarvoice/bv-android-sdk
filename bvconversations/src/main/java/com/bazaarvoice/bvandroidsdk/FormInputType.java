@@ -6,12 +6,16 @@ import com.google.gson.annotations.SerializedName;
  * The form of data the Conversations API expects to receive for a particular input
  */
 public enum FormInputType {
-  @SerializedName("BooleanInput") BOOLEAN("BooleanInput"),
+  @SerializedName(value = "BooleanInput", alternate = "boolean") BOOLEAN("BooleanInput"),
   @SerializedName("FileInput") FILE("FileInput"),
-  @SerializedName("IntegerInput") INTEGER("IntegerInput"),
+  @SerializedName(value = "IntegerInput", alternate = "integer") INTEGER("IntegerInput"),
   @SerializedName("SelectInput") SELECT("SelectInput"),
   @SerializedName("TextAreaInput") TEXT_AREA("TextAreaInput"),
-  @SerializedName("TextInput") TEXT_INPUT("TextInput");
+  @SerializedName("TextInput") TEXT_INPUT("TextInput"),
+  @SerializedName("url") URL("url"),
+  @SerializedName("choice") CHOICE("choice"),
+  @SerializedName("text") TEXT("text");
+
 
   private final String value;
 

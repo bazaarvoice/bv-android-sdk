@@ -29,11 +29,12 @@ public class DemoClient {
     public static final String MOCK_DISPLAY_NAME = "(Mock) Endurance Cycles";
     public static final DemoClient EMPTY_CONFIG = new DemoClient(
             "REPLACE_ME",
-        "REPLACE_ME",
-        "REPLACE_ME",
-        "REPLACE_ME",
-        "00000000-0000-0000-0000-000000000000",
-        "REPLACE_ME",
+            "REPLACE_ME",
+            "REPLACE_ME",
+            "REPLACE_ME",
+            "REPLACE_ME",
+            "00000000-0000-0000-0000-000000000000",
+            "REPLACE_ME",
             MOCK_DISPLAY_NAME,
             false);
     private String apiKeyConversations;
@@ -41,15 +42,25 @@ public class DemoClient {
     private String apiKeyCurations;
     private String apiKeyLocationAndroid;
     private String apiKeyShopperAdvertising;
+    private String apiKeyProgressiveSubmission;
     private String clientId;
     private String displayName;
     private boolean dryRunAnalytics;
 
-    private DemoClient(String apiKeyConversations, String apiKeyConversationsStores, String apiKeyCurations, String apiKeyShopperAdvertising, String apiKeyLocationAndroid, String clientId, String displayName, boolean dryRunAnalytics) {
+    private DemoClient(String apiKeyConversations,
+                       String apiKeyConversationsStores,
+                       String apiKeyCurations,
+                       String apiKeyShopperAdvertising,
+                       String apiKeyProgressiveSubmission,
+                       String apiKeyLocationAndroid,
+                       String clientId,
+                       String displayName,
+                       boolean dryRunAnalytics) {
         this.apiKeyConversations = apiKeyConversations;
         this.apiKeyConversationsStores = apiKeyConversationsStores;
         this.apiKeyCurations = apiKeyCurations;
         this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
+        this.apiKeyProgressiveSubmission = apiKeyProgressiveSubmission;
         this.clientId = clientId;
         this.displayName = displayName;
         this.apiKeyLocationAndroid = apiKeyLocationAndroid;
@@ -76,6 +87,7 @@ public class DemoClient {
         return apiKeyShopperAdvertising;
     }
 
+
     public String getClientId() {
         return clientId;
     }
@@ -83,6 +95,8 @@ public class DemoClient {
     public String getDisplayName() {
         return displayName;
     }
+
+    public String getApiKeyProgressiveSubmission() { return apiKeyProgressiveSubmission; }
 
     /**
      * Use this for SingleTenantSource since the generated config files have no concept of displayName
@@ -147,17 +161,19 @@ public class DemoClient {
 
     public static BVConfig mapToBvConfig(DemoClient demoClient) {
         return new BVConfig.Builder()
-            .apiKeyConversations(getKeyOrReplaceMe(demoClient.getApiKeyConversations()))
-            .apiKeyConversationsStores(getKeyOrReplaceMe(demoClient.getApiKeyConversationsStores()))
-            .apiKeyCurations(getKeyOrReplaceMe(demoClient.getApiKeyCurations()))
-            .apiKeyLocation(getKeyOrReplaceMe(demoClient.getApiKeyLocationAndroid()))
-            .apiKeyShopperAdvertising(getKeyOrReplaceMe(demoClient.getApiKeyShopperAdvertising()))
-            .clientId(getKeyOrReplaceMe(demoClient.getClientId()))
-            .dryRunAnalytics(demoClient.isDryRunAnalytics())
-            .build();
+                .apiKeyConversations(getKeyOrReplaceMe(demoClient.getApiKeyConversations()))
+                .apiKeyConversationsStores(getKeyOrReplaceMe(demoClient.getApiKeyConversationsStores()))
+                .apiKeyCurations(getKeyOrReplaceMe(demoClient.getApiKeyCurations()))
+                .apiKeyLocation(getKeyOrReplaceMe(demoClient.getApiKeyLocationAndroid()))
+                .apiKeyProgressiveSubmission(getKeyOrReplaceMe(demoClient.getApiKeyProgressiveSubmission()))
+                .apiKeyShopperAdvertising(getKeyOrReplaceMe(demoClient.getApiKeyShopperAdvertising()))
+                .clientId(getKeyOrReplaceMe(demoClient.getClientId()))
+                .dryRunAnalytics(demoClient.isDryRunAnalytics())
+                .build();
     }
 
     private static String getKeyOrReplaceMe(@Nullable String key) {
         return key != null ? key : "REPLACE_ME";
     }
+
 }

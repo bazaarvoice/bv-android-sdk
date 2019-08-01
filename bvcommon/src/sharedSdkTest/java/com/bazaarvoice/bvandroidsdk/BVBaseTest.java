@@ -20,8 +20,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
 import okhttp3.OkHttpClient;
@@ -68,7 +70,7 @@ public abstract class BVBaseTest {
     HandlerThread handlerThread = new HandlerThread("");
 
     @Before
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         initMocks(this);
         // arrange
         versionName = "3.0.0";
@@ -80,14 +82,15 @@ public abstract class BVBaseTest {
         okHttpClient = new OkHttpClient();
         environment = BazaarEnvironment.STAGING;
         BVConfig bvConfig = new BVConfig.Builder()
-            .clientId("pretendcompany")
-            .apiKeyConversations("apiKeyConv")
-            .apiKeyShopperAdvertising("apiKeyShopperAd")
-            .apiKeyConversationsStores("apiKeyConvStores")
-            .apiKeyCurations("apiKeyCurations")
-            .apiKeyLocation("apiKeyLocations")
-            .dryRunAnalytics(false)
-            .build();
+                .clientId("pretendcompany")
+                .apiKeyConversations("apiKeyConv")
+                .apiKeyShopperAdvertising("apiKeyShopperAd")
+                .apiKeyConversationsStores("apiKeyConvStores")
+                .apiKeyCurations("apiKeyCurations")
+                .apiKeyLocation("apiKeyLocations")
+                .apiKeyProgressiveSubmission("apiKeyProgressiveSubmission")
+                .dryRunAnalytics(false)
+                .build();
         uuid = UUID.fromString(uuidTestStr);
         bvLogger = new BVLogger(BVLogLevel.VERBOSE);
         bvSdkVersion = BuildConfig.BVSDK_VERSION_NAME;
@@ -106,7 +109,7 @@ public abstract class BVBaseTest {
         // Builder used to initialize the Bazaarvoice SDKs
         BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
         OkHttpClient okHttpClient = new OkHttpClient();
-        BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(gson, rootApiUrls, okHttpClient, "bvsdk-android/v"+ BuildConfig.BVSDK_VERSION_NAME, handlerThread, handlerThread.getLooper());
+        BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(gson, rootApiUrls, okHttpClient, "bvsdk-android/v" + BuildConfig.BVSDK_VERSION_NAME, handlerThread, handlerThread.getLooper());
         BVSDK.singleton = new BVSDK(bvUserProvidedData, bvLogger, bvActivityLifecycleCallbacks, bvAuthenticatedUser, handler, handlerThread, bvPixel, bvWorkerData, environment);
 
         afterInitSdk(BVSDK.getInstance());
@@ -151,5 +154,38 @@ public abstract class BVBaseTest {
         try (final BufferedSource source = Okio.buffer(FileSystem.SYSTEM.source(file))) {
             return source.readUtf8();
         }
+    }
+
+    public static File readFile(String filename, Class packageClass) {
+
+        File localImageFile = null;
+        InputStream stream = packageClass.getClassLoader().getResourceAsStream(filename);
+        localImageFile = createFileFromInputStream(stream);
+
+        return localImageFile;
+    }
+
+    private static File createFileFromInputStream(InputStream inputStream) {
+        try {
+            File f = File.createTempFile("tmp", "png");
+            OutputStream outputStream = new FileOutputStream(f);
+            byte buffer[] = new byte[1024];
+            int length = 0;
+
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            outputStream.close();
+            inputStream.close();
+
+            return f;
+
+        } catch (IOException e) {
+            //Logging exception
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

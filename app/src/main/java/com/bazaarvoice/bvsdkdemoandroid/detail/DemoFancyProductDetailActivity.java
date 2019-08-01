@@ -520,5 +520,6 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         public float getAverageRating() {
             return avgRating;
         }
+
     }
 }

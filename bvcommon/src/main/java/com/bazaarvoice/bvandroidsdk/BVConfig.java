@@ -29,6 +29,7 @@ public final class BVConfig {
   private final String apiKeyCurations;
   private final String apiKeyLocation;
   private final String apiKeyShopperAdvertising;
+  private final String apiKeyProgressiveSubmission;
   private final String clientId;
   private final boolean dryRunAnalytics;
 
@@ -39,6 +40,7 @@ public final class BVConfig {
     this.apiKeyCurations = builder.apiKeyCurations;
     this.apiKeyLocation = builder.apiKeyLocation;
     this.apiKeyShopperAdvertising = builder.apiKeyShopperAdvertising;
+    this.apiKeyProgressiveSubmission = builder.apiKeyProgressiveSubmission;
     this.clientId = builder.clientId;
     this.dryRunAnalytics = builder.dryRunAnalytics;
   }
@@ -67,6 +69,8 @@ public final class BVConfig {
     return apiKeyShopperAdvertising;
   }
 
+  String getApiKeyProgressiveSubmission() { return apiKeyProgressiveSubmission;}
+
   String getClientId() {
     return clientId;
   }
@@ -80,6 +84,7 @@ public final class BVConfig {
   }
 
   public static class Builder {
+    private String apiKeyProgressiveSubmission;
     private Locale analyticsDefaultLocale;
     private String apiKeyConversations;
     private String apiKeyConversationsStores;
@@ -101,6 +106,7 @@ public final class BVConfig {
       this.apiKeyShopperAdvertising = bvConfig.apiKeyShopperAdvertising;
       this.clientId = bvConfig.clientId;
       this.dryRunAnalytics = bvConfig.dryRunAnalytics;
+      this.apiKeyProgressiveSubmission = bvConfig.apiKeyProgressiveSubmission;
     }
 
     public Builder analyticsDefaultLocale(Locale analyticsDefaultLocale) {
@@ -130,6 +136,11 @@ public final class BVConfig {
 
     public Builder apiKeyShopperAdvertising(String apiKeyShopperAdvertising) {
       this.apiKeyShopperAdvertising = apiKeyShopperAdvertising;
+      return this;
+    }
+
+    public Builder apiKeyProgressiveSubmission(@NonNull String apiKeyProgressiveSubmission) {
+      this.apiKeyProgressiveSubmission = apiKeyProgressiveSubmission;
       return this;
     }
 

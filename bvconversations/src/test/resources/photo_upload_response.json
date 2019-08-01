@@ -1,0 +1,53 @@
+{
+  "Locale": "en_US",
+  "Errors": [],
+  "Form": [
+    {
+      "Type": "Field",
+      "Id": "photo"
+    }
+  ],
+  "FormErrors": {},
+  "SubmissionId": null,
+  "Data": {
+    "Fields": {
+      "photo": {
+        "Options": [],
+        "Type": "FileInput",
+        "Required": null,
+        "Label": null,
+        "Value": null,
+        "MinLength": null,
+        "Id": "photo",
+        "MaxLength": null,
+        "Default": null
+      }
+    },
+    "Groups": {},
+    "FieldsOrder": [
+      "photo"
+    ],
+    "GroupsOrder": []
+  },
+  "Photo": {
+    "Sizes": {
+      "normal": {
+        "Id": "normal",
+        "Url": "normalurl"
+      },
+      "thumbnail": {
+        "Id": "thumbnail",
+        "Url": "thumbnailurl"
+      }
+    },
+    "Id": "qqefgg6a2uuvc1o61u4j39qh0",
+    "SizesOrder": [
+      "thumbnail",
+      "normal"
+    ],
+    "Caption": null
+  },
+  "TypicalHoursToPost": null,
+  "AuthorSubmissionToken": null,
+  "HasErrors": false
+}

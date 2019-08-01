@@ -17,6 +17,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -25,9 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 /**
  * Common fields for UGC items
  *
@@ -35,47 +35,47 @@ import androidx.annotation.Nullable;
  */
 class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude> extends IncludeableContent<ConversationsIncludeType> {
 
-    @SerializedName("UserNickname")
+    @SerializedName(value = "UserNickname", alternate = "userNickname")
     private String userNickname;
-    @SerializedName("SubmissionId")
+    @SerializedName(value = "SubmissionId", alternate ={"submissionId", "submissionID"})
     private String submissionId;
-    @SerializedName("UserLocation")
+    @SerializedName(value = "UserLocation", alternate = "userLocation")
     private String userLocation;
-    @SerializedName("AuthorId")
+    @SerializedName(value = "AuthorId", alternate = "authorId")
     private String authorId;
-    @SerializedName("CampaignId")
+    @SerializedName(value = "CampaignId", alternate = "campaignId")
     private String campaignId;
-    @SerializedName("ContentLocale")
+    @SerializedName(value = "ContentLocale", alternate = "contentLocale")
     private String contentLocale;
-    @SerializedName("ModerationStatus")
+    @SerializedName(value = "ModerationStatus", alternate = "moderationStatus")
     private String moderationStatus;
-    @SerializedName("Id")
+    @SerializedName(value = "Id", alternate = "id")
     private String id;
-    @SerializedName("Photos")
+    @SerializedName(value = "Photos", alternate = "photos")
     private List<Photo> photos;
-    @SerializedName("ContextDataValues")
+    @SerializedName(value = "ContextDataValues", alternate = "contextDataValues")
     private Map<String, ContextDataValue> contextDataValues;
-    @SerializedName("Videos")
+    @SerializedName(value = "Videos", alternate = "videos")
     private List<Video> videos;
-    @SerializedName("Badges")
+    @SerializedName(value = "Badges", alternate = "badges")
     private Map<String, Badge> badges;
-    @SerializedName("ProductRecommendationIds")
+    @SerializedName(value = "ProductRecommendationIds", alternate = "productRecommendationIds")
     private List<String> productRecommendationIds;
-    @SerializedName("TotalFeedbackCount")
+    @SerializedName(value = "TotalFeedbackCount", alternate = "totalFeedbackCount")
     private Integer totalFeedbackCount;
-    @SerializedName("TotalPositiveFeedbackCount")
+    @SerializedName(value = "TotalPositiveFeedbackCount", alternate = "totalPositiveFeedbackCount")
     private Integer totalPositiveFeedbackCount;
-    @SerializedName("IsFeatured")
+    @SerializedName(value = "IsFeatured", alternate = "isFeatured")
     private Boolean isFeatured;
-    @SerializedName("TotalNegativeFeedbackCount")
+    @SerializedName(value = "TotalNegativeFeedbackCount", alternate = "totalNegativeFeedbackCount")
     private Integer totalNegativeFeedbackCount;
-    @SerializedName("LastModificationTime")
+    @SerializedName(value = "LastModificationTime", alternate = "lastModificationTime")
     private String lastModificationTime;
-    @SerializedName("LastModeratedTime")
+    @SerializedName(value = "LastModeratedTime", alternate = "lastModeratedTime")
     private String lastModeratedTime;
-    @SerializedName("SubmissionTime")
+    @SerializedName(value = "SubmissionTime", alternate = "submissionTime")
     private String submissionTime;
-    @SerializedName("AdditionalFields")
+    @SerializedName(value = "AdditionalFields", alternate = "additionalFields")
     private Map<String, Object> additionalFields;
 
     private transient Date submissionDate;
@@ -204,7 +204,7 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
     }
 
     static class ProductIncludedContentBase extends IncludedContentBase {
-        @SerializedName("ProductId")
+        @SerializedName(value = "ProductId", alternate = "productExternalID")
         private String productId;
 
         private transient Product product;

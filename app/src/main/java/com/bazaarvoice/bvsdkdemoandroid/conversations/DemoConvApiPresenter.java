@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvsdkdemoandroid.conversations;
 
+import androidx.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.AnswerSubmissionResponse;
@@ -23,11 +25,10 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 
 import java.io.File;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import androidx.annotation.NonNull;
 
 public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   private final DemoConvApiContract.View view;
@@ -194,11 +195,11 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     view.showProgressWithTitle("Submitting Review...");
 
     File localImageFile = demoAssetsUtil.parseImageFileFromAssets("puppy_thumbnail.jpg");
-
+    String userNickName = "shazbat105" + new Random().nextInt(1001);
     ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(submitAction, productId)
-        .userNickname("shazbat105")
+        .userNickname(userNickName)
         .userEmail("foo@bar.com")
-        .userId("shazbatuser" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+        .userId(userNickName) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
         .rating(5)
         .title("Review title")
         .reviewText("This is the review text the user adds about how great the product is!")

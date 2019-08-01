@@ -1,0 +1,267 @@
+{
+  "hasErrors": false,
+  "response": {
+    "productFormData": {
+      "product4": {
+        "review": {
+          "submissionID": "123456789020abc",
+          "productExternalID": "product4",
+          "submissionTime": "2019-08-21@18:38:15"
+        },
+        "fieldsOrder": [
+          "rating",
+          "title",
+          "reviewtext",
+          "FreeTextQuestion",
+          "netpromoterscore",
+          "isrecommended",
+          "userlocation",
+          "Quality",
+          "Value",
+          "ProsSoftware",
+          "ConsSoftware",
+          "1",
+          "Slider",
+          "UsageFrequency1",
+          "A",
+          "Age",
+          "Gender",
+          "photourl_1",
+          "photocaption_1",
+          "photourl_2",
+          "photocaption_2",
+          "photourl_3",
+          "photocaption_3",
+          "photourl_4",
+          "photocaption_4",
+          "photourl_5",
+          "photocaption_5"
+        ],
+        "fields": {
+          "A": {
+            "valuesLabels": {
+              "A": "something"
+            },
+            "autoPopulate": true,
+            "label": "ask me",
+            "id": "contextdatavalue_A",
+            "type": "choice",
+            "class": "cdv",
+            "required": false
+          },
+          "Slider": {
+            "valuesLabels": {
+              "valueLabel1": "All the way to the left",
+              "valueLabel2": "A little to the left",
+              "valueLabel3": "Smack dab in the middle",
+              "valueLabel4": "A little to the right",
+              "valueLabel5": "All the way to the right"
+            },
+            "autoPopulate": false,
+            "label": "Do you like the quality of the product?",
+            "id": "rating_Slider",
+            "type": "integer",
+            "sliderSize": 5,
+            "class": "slider",
+            "required": false
+          },
+          "photourl_2": {
+            "id": "photourl_2",
+            "type": "url",
+            "class": "photourl"
+          },
+          "FreeTextQuestion": {
+            "autoPopulate": false,
+            "answerLength": "MULTI_LINE",
+            "label": "FreeText",
+            "id": "additionalfield_FreeTextQuestion",
+            "type": "text",
+            "class": "additionalField",
+            "required": true
+          },
+          "photourl_3": {
+            "id": "photourl_3",
+            "type": "url",
+            "class": "photourl"
+          },
+          "photourl_4": {
+            "id": "photourl_4",
+            "type": "url",
+            "class": "photourl"
+          },
+          "photourl_5": {
+            "id": "photourl_5",
+            "type": "url",
+            "class": "photourl"
+          },
+          "rating": {
+            "id": "rating",
+            "type": "integer",
+            "class": "rating"
+          },
+          "Gender": {
+            "valuesLabels": {
+              "Male": "Male",
+              "Female": "Female"
+            },
+            "autoPopulate": true,
+            "label": "What is your gender?",
+            "id": "contextdatavalue_Gender",
+            "type": "choice",
+            "class": "cdv",
+            "required": false
+          },
+          "title": {
+            "required": true,
+            "id": "title",
+            "maxLength": 50,
+            "type": "text",
+            "class": "title"
+          },
+          "reviewtext": {
+            "required": true,
+            "id": "reviewtext",
+            "minLength": 50,
+            "type": "text",
+            "class": "reviewtext"
+          },
+          "isrecommended": {
+            "id": "isRecommended",
+            "type": "boolean",
+            "class": "isrecommended"
+          },
+          "netpromoterscore": {
+            "id": "netpromoterscore",
+            "type": "integer",
+            "class": "netpromoter"
+          },
+          "photocaption_2": {
+            "id": "photocaption_2",
+            "type": "text",
+            "class": "photocaption"
+          },
+          "photocaption_1": {
+            "id": "photocaption_1",
+            "type": "text",
+            "class": "photocaption"
+          },
+          "Quality": {
+            "autoPopulate": false,
+            "label": "How would you rate the quality of this product?",
+            "id": "rating_Quality",
+            "type": "integer",
+            "class": "rating",
+            "required": false
+          },
+          "photocaption_5": {
+            "id": "photocaption_5",
+            "type": "text",
+            "class": "photocaption"
+          },
+          "photocaption_4": {
+            "id": "photocaption_4",
+            "type": "text",
+            "class": "photocaption"
+          },
+          "photourl_1": {
+            "id": "photourl_1",
+            "type": "url",
+            "class": "photourl"
+          },
+          "photocaption_3": {
+            "id": "photocaption_3",
+            "type": "text",
+            "class": "photocaption"
+          },
+          "Age": {
+            "valuesLabels": {
+              "17orUnder": "17 or under",
+              "18to24": "18 to 24",
+              "25to34": "25 to 34",
+              "35to44": "35 to 44",
+              "45to54": "45 to 54",
+              "55to64": "55 to 64",
+              "65orOver": "65 or over"
+            },
+            "autoPopulate": true,
+            "label": "How old are you?",
+            "id": "contextdatavalue_Age",
+            "type": "choice",
+            "class": "cdv",
+            "required": false
+          },
+          "ProsSoftware": {
+            "valuesLabels": {
+              "EasyToInstall": "Easy To Install",
+              "EasyToNavigate": "Easy To Navigate",
+              "Fast": "Fast",
+              "GreatValue": "Great Value",
+              "Powerful": "Powerful"
+            },
+            "autoPopulate": false,
+            "label": "Pros",
+            "id": "tagid_ProsSoftware",
+            "type": "choice",
+            "class": "tag",
+            "required": false
+          },
+          "ConsSoftware": {
+            "valuesLabels": {
+              "CompatibilityIssues": "Compatibility Issues",
+              "DifficultToNavigate": "Difficult To Navigate",
+              "HardToInstallOrUpgrade": "Hard To Install or Upgrade",
+              "SlowsDownSystem": "Slows Down System"
+            },
+            "autoPopulate": false,
+            "label": "Cons",
+            "id": "tagid_ConsSoftware",
+            "type": "choice",
+            "class": "tag",
+            "required": false
+          },
+          "1": {
+            "valuesLabels": {
+              "Tag1": "tag1"
+            },
+            "autoPopulate": false,
+            "label": "1",
+            "id": "tagid_1",
+            "type": "choice",
+            "class": "tag",
+            "required": false
+          },
+          "UsageFrequency1": {
+            "valuesLabels": {
+              "Daily": "Daily",
+              "Weekly": "Weekly",
+              "Monthly": "Monthly",
+              "AFewTimesAYear": "A few times a year",
+              "LessThanOnceAYe": "Less than once a year"
+            },
+            "autoPopulate": false,
+            "label": "How often do you use the product?",
+            "id": "contextdatavalue_UsageFrequency1",
+            "type": "choice",
+            "class": "cdv",
+            "required": false
+          },
+          "Value": {
+            "autoPopulate": false,
+            "label": "How would you rate the value of this product?",
+            "id": "rating_Value",
+            "type": "integer",
+            "class": "rating",
+            "required": false
+          },
+          "_Location": {
+            "required": false,
+            "id": "userlocation",
+            "type": "text",
+            "class": "userlocation"
+          }
+        },
+        "submissionSessionToken": "1234567890abcde"
+      }
+    }
+  }
+}

@@ -17,6 +17,9 @@
 
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -24,45 +27,49 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 /**
  * Common Review attributes
  */
 public abstract class BaseReview extends IncludedContentBase.ProductIncludedContentBase {
-    @SerializedName("TagDimensions")
+    @SerializedName(value = "TagDimensions", alternate = "tagDimension")
     private Map<String, DimensionElement> tagDimensions;
-    @SerializedName("Cons")
+    @SerializedName(value= "Cons", alternate ="cons")
     private String cons;
-    @SerializedName("Pros")
+    @SerializedName(value = "Pros", alternate = "pros")
     private String pros;
-    @SerializedName("Title")
+    @SerializedName(value = "Title", alternate = "title")
     private String title;
-    @SerializedName("Helpfulness")
+    @SerializedName(value = "Helpfulness", alternate = "helpfulness")
     private String helpfulness;
-    @SerializedName("RatingRange")
+    @SerializedName(value = "RatingRange", alternate = "ratingRange")
     private String ratingRange;
-    @SerializedName("ReviewText")
+    @SerializedName(value = "ReviewText", alternate = "reviewText")
     private String reviewText;
-    @SerializedName("IsRecommended")
+    @SerializedName(value = "IsRecommended", alternate = "isRecommended")
     private Boolean isRecommended;
-    @SerializedName("IsSyndicated")
+    @SerializedName(value = "IsSyndicated", alternate = "isSyndicated")
     private Boolean isSyndicated;
-    @SerializedName("IsRatingsOnly")
+    @SerializedName(value = "IsRatingsOnly", alternate = "isRatingsOnly")
     private Boolean isRatingsOnly;
-    @SerializedName("Rating")
+    @SerializedName(value = "Rating", alternate = "rating")
     private Integer rating;
-    @SerializedName("TotalCommentCount")
+    @SerializedName(value = "TotalCommentCount", alternate = "totalCommentCount")
     private Integer totalCommentCount;
-    @SerializedName("ClientResponses")
+    @SerializedName(value = "ClientResponses", alternate = "clientResponses")
     private List<Object> clientResponses;
-    @SerializedName("SecondaryRatings")
+    @SerializedName(value = "SecondaryRatings", alternate = "secondaryRatings")
     private Map<String, SecondaryRating> secondaryRatings;
-    @SerializedName("CommentIds")
+    @SerializedName(value = "CommentIds", alternate = "commentIds")
     private List<Integer> commentIds;
-    @SerializedName("SyndicationSource")
+    @SerializedName(value = "SyndicationSource", alternate = "syndicationSource")
     private SyndicatedSource syndicatedSource;
+    @SerializedName(value ="SendEmailAlertWhenCommented", alternate = "sendEmailAlertWhenCommented")
+    private Boolean sendEmailAlertWhenCommented;
+    @SerializedName(value = "SendEmailAlertWhenPublished", alternate = "sendEmailAlertWhenPublished")
+    private Boolean sendEmailAlertWhenPublished;
+    @SerializedName(value = "TypicalHoursToPost", alternate = "typicalHoursToPost")
+    private Integer typicalHoursToPost;
+
 
     @Nullable
     public Map<String, DimensionElement> getTagDimensions() {
@@ -119,6 +126,18 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
 
     public List<Object> getClientResponses() {
         return clientResponses;
+    }
+
+    public Boolean getSendEmailAlertWhenCommented() {
+        return sendEmailAlertWhenCommented;
+    }
+
+    public Boolean getSendEmailAlertWhenPublished() {
+        return sendEmailAlertWhenPublished;
+    }
+
+    public Integer getTypicalHoursToPost() {
+        return typicalHoursToPost;
     }
 
     @Nullable

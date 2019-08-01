@@ -1,42 +1,49 @@
 package com.bazaarvoice.bvandroidsdk;
 
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
+import java.util.Map;
 
 /**
  * An individual field for a submission form
  */
 public class FormField {
-  @SerializedName("Options")
+  @SerializedName(value = "Options", alternate = "options")
   private List<FormFieldOption> formFieldOptions;
 
-  @SerializedName("Required")
+  @SerializedName(value = "Required", alternate = "required")
   private boolean isRequired;
 
-  @SerializedName("Id")
+  @SerializedName(value = "Id", alternate = "id")
   private String id;
 
-  @SerializedName("Label")
+  @SerializedName(value = "Label", alternate = "label")
   private String label;
 
-  @SerializedName("Type")
+  @SerializedName(value = "Type", alternate = "type")
   private FormInputType formInputType;
 
-  @SerializedName("Value")
+  @SerializedName(value = "Value", alternate = "value")
   private String value;
 
-  @SerializedName("MinLength")
+  @SerializedName(value = "MinLength", alternate = "minLength")
   private int minLength;
 
-  @SerializedName("MaxLength")
+  @SerializedName(value = "MaxLength", alternate = "maxLength")
   private int maxLength;
 
-  @SerializedName("Default")
+  @SerializedName(value = "Default", alternate = "isDefault")
   private boolean isDefault;
+
+  @SerializedName(value = "autoPopulate")
+  private boolean autoPopulate;
+
+  @SerializedName(value = "valuesLabels")
+  private Map<String, String> valueLabels;
 
   @NonNull
   public List<FormFieldOption> getFormFieldOptions() {
@@ -82,5 +89,13 @@ public class FormField {
 
   public boolean isDefault() {
     return isDefault;
+  }
+
+  public boolean isAutoPopulate() {
+    return autoPopulate;
+  }
+
+  public Map<String, String> getValueLabels() {
+    return valueLabels;
   }
 }

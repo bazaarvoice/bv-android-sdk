@@ -3,6 +3,7 @@ package com.bazaarvoice.bvandroidsdk;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -708,4 +709,13 @@ public class BasicRequestFactoryTest {
     final Request okRequest = requestFactoryUtils.createFullUserAuthTokenSubmissionRequest();
     requestFactoryUtils.assertFinalPathIs(okRequest.url(), "authenticateuser.json");
   }
+
+    @Test
+    public void shouldCreatePhotoUploadRequest() {
+        PhotoUpload photoUpload = new PhotoUpload(new File("filename"), "PhotoTesting", PhotoUpload.ContentType.REVIEW);
+        PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+        assertNotNull(request);
+    }
+
+
 }

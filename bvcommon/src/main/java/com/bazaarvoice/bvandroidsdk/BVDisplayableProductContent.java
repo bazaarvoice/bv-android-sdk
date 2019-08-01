@@ -19,4 +19,5 @@ public interface BVDisplayableProductContent {
     String getDisplayImageUrl();
 
     float getAverageRating();
+
 }

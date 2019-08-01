@@ -101,4 +101,5 @@ public class CurationsProduct implements BVDisplayableProductContent{
     public float getAverageRating() {
         return productReviewStatistics.getAvgRating();
     }
+
 }

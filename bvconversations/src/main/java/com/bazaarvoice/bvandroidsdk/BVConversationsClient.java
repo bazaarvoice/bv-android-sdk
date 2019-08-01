@@ -39,7 +39,6 @@ public final class BVConversationsClient {
 
     /**
      * @deprecated Now use the {@link Builder} which explicitly requires the {@link BVSDK} singleton instance.
-     *
      * Builds a instance with the {@link BVSDK} defaults
      */
     public BVConversationsClient() {
@@ -119,11 +118,6 @@ public final class BVConversationsClient {
         return factoryCreateDisplayCall(CommentsResponse.class, request);
     }
 
-    public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
-        void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
-        void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsDisplayCallback<ResponseType> callback);
-    }
-
     public LoadCallSubmission<AnswerSubmissionRequest, AnswerSubmissionResponse> prepareCall(AnswerSubmissionRequest submission) {
         return factoryCreateSubmissionCall(AnswerSubmissionResponse.class, submission);
     }
@@ -152,9 +146,21 @@ public final class BVConversationsClient {
         return factoryCreateSubmissionCall(UserAuthenticationStringResponse.class, request);
     }
 
+    public LoadCallProgressiveSubmission<PhotoUploadRequest, PhotoUploadResponse> prepareCall(PhotoUploadRequest request){
+        return factoryCreateProgressiveSubmissionCall(PhotoUploadResponse.class, request);
+    }
+
+    public LoadCallProgressiveSubmission<InitiateSubmitRequest, InitiateSubmitResponse> prepareCall(InitiateSubmitRequest request) {
+        return factoryCreateProgressiveSubmissionCall(InitiateSubmitResponse.class, request);
+    }
+
+    public LoadCallProgressiveSubmission<ProgressiveSubmitRequest, ProgressiveSubmitResponse> prepareCall(ProgressiveSubmitRequest request) {
+        return factoryCreateProgressiveSubmissionCall(ProgressiveSubmitResponse.class, request);
+    }
+
     private <RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> LoadCallDisplay<RequestType, ResponseType> factoryCreateDisplayCall(Class<ResponseType> responseTypeClass, RequestType request) {
         final Request okRequest = requestFactory.create(request);
-        return new LoadCallDisplay<RequestType, ResponseType>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager, okHttpClient, gson, uiLooper, bgLooper);
+        return new LoadCallDisplay<>(request, responseTypeClass, okHttpClient.newCall(okRequest), conversationsAnalyticsManager, okHttpClient, gson, uiLooper, bgLooper);
     }
 
     private <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> factoryCreateSubmissionCall(Class<ResponseType> responseTypeClass, RequestType request) {
@@ -164,8 +170,20 @@ public final class BVConversationsClient {
         return loadCallFromSubmission(responseTypeClass, request);
     }
 
+    private <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallProgressiveSubmission<RequestType, ResponseType> factoryCreateProgressiveSubmissionCall(Class<ResponseType> responseTypeClass, RequestType request) {
+        final Request okRequest = requestFactory.create(request);
+        return new LoadCallProgressiveSubmission<>(request, responseTypeClass,conversationsAnalyticsManager , uiLooper, bgLooper, okHttpClient, gson,  okHttpClient.newCall(okRequest));
+    }
+
+
     private <RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> LoadCallSubmission<RequestType, ResponseType> loadCallFromSubmission(Class<ResponseType> responseTypeClass, RequestType request) {
-        return new LoadCallSubmission<RequestType, ResponseType>(request, responseTypeClass, conversationsAnalyticsManager, requestFactory, bgLooper, uiLooper, okHttpClient, gson);
+        return new LoadCallSubmission<>(request, responseTypeClass, conversationsAnalyticsManager, requestFactory, bgLooper, uiLooper, okHttpClient, gson);
+    }
+
+    public interface DisplayLoader<RequestType extends ConversationsDisplayRequest, ResponseType extends ConversationsDisplayResponse> {
+        void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsCallback<ResponseType> callback);
+
+        void loadAsync(LoadCallDisplay<RequestType, ResponseType> call, ConversationsDisplayCallback<ResponseType> callback);
     }
 
     /**

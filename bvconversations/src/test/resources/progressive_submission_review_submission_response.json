@@ -1,0 +1,14 @@
+{
+  "hasErrors": false,
+  "response": {
+    "review": {
+      "SendEmailAlertWhenCommented": false,
+      "Rating": 4,
+      "SubmissionTime": "2019-08-21T18:58:39.510+00:00",
+      "SendEmailAlertWhenPublished": false
+    },
+    "submissionId": "123456abcd",
+    "isFormComplete": false,
+    "submissionSessionToken": "1234567890abcdef"
+  }
+}

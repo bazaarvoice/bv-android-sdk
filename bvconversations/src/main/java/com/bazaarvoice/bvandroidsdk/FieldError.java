@@ -18,19 +18,27 @@
 package com.bazaarvoice.bvandroidsdk;
 
 
-import com.google.gson.annotations.SerializedName;
-
 import androidx.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Metadata for the error for a specific field in a form
  */
 public class FieldError {
-    @SerializedName("Field") private String field;
-    @SerializedName("Message") private String message;
-    @SerializedName("Code") private String code;
+    @SerializedName(value = "Field", alternate = "field") private String field;
+    @SerializedName(value = "Message", alternate = "message") private String message;
+    @SerializedName(value = "Code", alternate = "code") private String code;
     private transient SubmissionErrorCode errorCode;
     private transient FormField formField;
+
+    public FieldError(){}
+
+    public FieldError(String field, String message, String code) {
+        this.field = field;
+        this.message = message;
+        this.code = code;
+    }
 
     public String getField() {
         return field;

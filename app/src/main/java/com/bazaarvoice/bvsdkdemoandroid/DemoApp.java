@@ -52,7 +52,6 @@ public class DemoApp extends Application {
         appComponent.inject(this);
 
         // Builder used to initialize the Bazaarvoice SDKs
-        //Set dryRunAnalytics to false to run a release build.
         BVSDK.builderWithConfig(this, bazaarEnvironment, bvConfig)
                 .logLevel(bvLogLevel)
                 .okHttpClient(okHttpClient)

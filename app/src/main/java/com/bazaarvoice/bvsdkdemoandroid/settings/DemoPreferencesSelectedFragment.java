@@ -68,16 +68,20 @@ public class DemoPreferencesSelectedFragment extends PreferenceFragmentCompat im
         Preference shopperAdPasskeyPref = findPreference(getString(R.string.key_shopper_ad_passkey));
         Preference conversationsPasskeyPref = findPreference(getString(R.string.key_conversations_passkey));
         Preference curationsPasskeyPref = findPreference(getString(R.string.key_curations_passkey));
+        Preference progressiveSubmissionPasskeyPref = findPreference(getString(R.string.key_progressive_passkey));
 
         // Parse the values from the config
         String shopperAdPasskey = selectedConfig.getApiKeyShopperAdvertising();
         String conversationsPasskey = selectedConfig.getApiKeyConversations();
         String curationsPasskey = selectedConfig.getApiKeyCurations();
+        String progressiveSubmissionPasskey = selectedConfig.getApiKeyProgressiveSubmission();
 
         // Update the ui preference objects
         shopperAdPasskeyPref.setSummary(selectedConfig.hasShopperAds() ? shopperAdPasskey : getNotSetString());
         conversationsPasskeyPref.setSummary(selectedConfig.hasConversations() ? conversationsPasskey : getNotSetString());
         curationsPasskeyPref.setSummary(selectedConfig.hasCurations() ? curationsPasskey : getNotSetString());
+        progressiveSubmissionPasskeyPref.setSummary(progressiveSubmissionPasskey);
+
     }
 
     private void updateNewConfig(DemoClient newSelectedConfig) {

@@ -51,6 +51,10 @@ public abstract class LoadCallTest extends BVBaseTest {
     private BVConversationsClient client;
     private boolean started = true;
 
+    public MockWebServer getServer() {
+      return server;
+    }
+
     public BVConversationsClientRule() {
       server = new MockWebServer();
       final HttpUrl httpUrl = server.url("/");
