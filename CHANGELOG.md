@@ -1,5 +1,19 @@
 # Changelog
 
+# 8.4.0
+
+## Added support for Progressive Submission, Photo Upload
+
+* Added support for the ProgressiveSubmission API. 
+* Added `InitiateSubmitRequest` and `ProgressiveSubmitRequest`
+* The Conversations `PhotoUploadRequest` has been made public 
+* Fixed Product description
+* Added additional fields to Review
+
+Examples of these requests can be found in `LoadCallTestProgressiveSubmission` and the DemoApp 
+
+Please see commit for details. 
+
 # 8.3.0
 
 ## Support for sdkVersion 29 and Demo updates
