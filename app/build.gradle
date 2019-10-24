@@ -100,7 +100,7 @@ dependencies {
         compileOnly project(':bvnotifications')
         compileOnly project(':bvcommon')
     } else {
-        implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-NEXUS_USER-3.0.1:3.0.1@aar')
+        implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-NEXUS_USER-4.0.0:4.0.0@aar')
         implementation "com.bazaarvoice.bvandroidsdk:analytics:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:auth-iovation:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:conversations:$demoAppSharedVersions.bvSdkVersion"
