@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.5.0
+
+## Added support for Iovation Android SDK 4.0.0
+
+* Updated the Iovation module to include support for v4.0.0
+
 # 8.4.0
 
 ## Added support for Progressive Submission, Photo Upload
