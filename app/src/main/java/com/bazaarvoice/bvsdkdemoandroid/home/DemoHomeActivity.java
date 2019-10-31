@@ -1,10 +1,13 @@
 package com.bazaarvoice.bvsdkdemoandroid.home;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoActivityModule;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -19,8 +22,6 @@ import com.bazaarvoice.bvsdkdemoandroid.utils.DemoLaunchIntentUtil;
 
 import javax.inject.Inject;
 
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -65,6 +66,10 @@ public class DemoHomeActivity extends AppCompatActivity {
         break;
       case R.id.cart_action:
         demoRouter.transitionToCart();
+        break;
+      case R.id.review_action:
+        demoRouter.transitionToProgressiveSubmissionActivity(
+                null);
         break;
     }
     return false;

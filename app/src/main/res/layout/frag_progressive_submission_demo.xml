@@ -3,23 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/api_spinner"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/input_productid"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:entries="@array/progressive_submission_types" />
+        android:hint="Product Id"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+
 
     <Button
         android:id="@+id/btnProgressiveSubmissionDemoLoad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Load Demo" />
 </LinearLayout>

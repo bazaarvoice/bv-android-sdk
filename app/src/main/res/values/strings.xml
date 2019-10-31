@@ -98,4 +98,11 @@
     <string name="required_id">test1</string>
     <string name="use_filter">Use Filter</string>
     <string name="rating_distribution">%d - %d Star Reviews</string>
+    <string name="product_name">Product Name Value</string>
+    <string name="product_image_description">Product Image</string>
+    <string name="rate_products_header">Tap to rate and review your recent purchases.</string>
+    <string name="complete">Complete Review</string>
+    <string name="submit">Submit</string>
+    <string name="save">Save</string>
+    <string name="upload">Upload</string>
 </resources>

@@ -36,6 +36,10 @@ public enum DemoCart {
         return products.get(i);
     }
 
+    public List<BVDisplayableProductContent> getProducts() {
+        return  products;
+    }
+
     public BVTransaction completeTransaction() {
         List<BVTransactionItem> items = new ArrayList<>();
 

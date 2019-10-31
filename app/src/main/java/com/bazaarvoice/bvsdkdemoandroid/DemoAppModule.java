@@ -20,10 +20,13 @@ package com.bazaarvoice.bvsdkdemoandroid;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import androidx.room.Room;
+
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
+import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.persistance.DemoBVPersistableProductDatabase;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -85,5 +88,15 @@ public class DemoAppModule {
     @Provides @DemoAppScope
     DemoAssetsUtil provideDemoAssetsUtil(@DemoAppContext Context context, Gson gson) {
         return new DemoAssetsUtil(context, gson);
+    }
+
+
+
+    @Provides @DemoAppScope
+    DemoBVPersistableProductDatabase provideDemoBVProductDatabase(@DemoAppContext Context context) {
+        return Room.databaseBuilder(
+                context,
+                DemoBVPersistableProductDatabase.class, "reviewable_products"
+        ).build();
     }
 }

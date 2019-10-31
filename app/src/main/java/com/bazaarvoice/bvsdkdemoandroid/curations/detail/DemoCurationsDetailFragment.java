@@ -20,6 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bazaarvoice.bvandroidsdk.CurationsFeedItem;
 import com.bazaarvoice.bvandroidsdk.CurationsPhoto;
 import com.bazaarvoice.bvandroidsdk.CurationsProduct;
@@ -39,10 +43,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 
 /**

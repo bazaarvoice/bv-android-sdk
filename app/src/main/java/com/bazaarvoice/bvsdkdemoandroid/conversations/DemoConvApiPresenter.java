@@ -72,7 +72,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   public void onApiMethodChanged(DemoConvApiContract.ConvApiMethod convApiMethod) {
     this.convApiMethod = convApiMethod;
 
-    // TODO: This is where we could swap out different forms for each Submission type
+    // TODO: This is where we could swap out different forms for each Submission Type
     switch (convApiMethod) {
       case DISPLAY_REVIEWS:
       case DISPLAY_QANDA:
