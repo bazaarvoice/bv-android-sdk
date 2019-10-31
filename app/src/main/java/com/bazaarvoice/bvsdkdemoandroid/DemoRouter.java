@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
@@ -124,7 +125,7 @@ public class DemoRouter {
         DemoSubmitReviewActivity.transitionTo(currentActivityContext, productId);
     }
 
-    public void transitionToProgressiveSubmissionActivity(String type, String productId) {
-        DemoProgressiveSubmissionActivity.transitionTo(currentActivityContext, type, productId );
+    public void transitionToProgressiveSubmissionActivity(String productId) {
+        DemoProgressiveSubmissionActivity.transitionTo(currentActivityContext, productId );
     }
 }

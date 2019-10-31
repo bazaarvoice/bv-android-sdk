@@ -23,6 +23,7 @@ import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
+import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
@@ -48,8 +49,8 @@ import com.bazaarvoice.bvsdkdemoandroid.detail.DemoProductDetailRecAdapter;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppContext;
 import com.bazaarvoice.bvsdkdemoandroid.di.DemoAppScope;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoProductsView;
-import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.demoprogressivesubmission.DemoProgressiveInitiateSubmitFragment;
-import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.demoprogressivesubmission.DemoProgressiveSubmissionHandlerReviewFragment;
+import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.review.DemoProgressiveSubmissionHandlerReviewFragment;
+import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.reviewlist.DemoReviewableProductsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoPreferencesSelectedFragment;
 import com.bazaarvoice.bvsdkdemoandroid.stores.DemoStoresActivity;
@@ -73,6 +74,7 @@ public interface DemoAppComponent {
     Action getSubmitAction();
     @DemoAppContext Context getAppContext();
 
+    //activities
     void inject(DemoAnswersActivity activity);
     void inject(DemoBulkRatingsActivity activity);
     void inject(DemoConversationsStoresAPIFragment fragment);
@@ -86,6 +88,9 @@ public interface DemoAppComponent {
     void inject(DemoCurationsFeedActivity activity);
     void inject(DemoCurationsMapsActivity activity);
     void inject(DemoFancyProductDetailActivity activity);
+    void inject(DemoCartActivity activity);
+
+    //fragments
     void inject(DemoRecommendationsFragment fragment);
     void inject(DemoPreferencesSelectedFragment fragment);
     void inject(DemoApp app);
@@ -97,5 +102,5 @@ public interface DemoAppComponent {
     void inject(DemoProductsView view);
     void inject(DemoStoresActivity activity);
     void inject(DemoProgressiveSubmissionHandlerReviewFragment fragment);
-    void inject(DemoProgressiveInitiateSubmitFragment fragment);
+    void inject(DemoReviewableProductsFragment fragment);
 }

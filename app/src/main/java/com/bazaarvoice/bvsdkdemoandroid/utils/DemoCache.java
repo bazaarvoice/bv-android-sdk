@@ -3,9 +3,10 @@
  */
 package com.bazaarvoice.bvsdkdemoandroid.utils;
 
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +60,11 @@ public abstract class DemoCache<DataItem> {
     public DataItem getDataItem(String key) {
         evictionCheck();
         return cachedMap.get(key);
+    }
+
+    public void removeDataItem(String key) {
+        evictionCheck();
+        cachedMap.remove(key);
     }
 
     private void evictionCheck() {

@@ -7,10 +7,6 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.view.Display;
 
-import com.bazaarvoice.bvandroidsdk.FormField;
-import com.bazaarvoice.bvandroidsdk.FormFieldOption;
-import com.bazaarvoice.bvandroidsdk.FormInputType;
-import com.bazaarvoice.bvandroidsdk.InitiateSubmitResponse;
 import com.google.android.gms.ads.AdRequest;
 
 import org.json.JSONException;
@@ -85,36 +81,4 @@ public class DemoUtils {
         return size;
     }
 
-    public static String formResponseToString(InitiateSubmitResponse.InitiateSubmitResponseData response) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (FormField formField : response.getFormFields()) {
-            stringBuilder.append("id: ").append(formField.getId()).append("\n")
-                    .append("required: ").append(formField.isRequired()).append("\n")
-                    .append("label: ").append(formField.getLabel()).append("\n")
-                    .append("value: ").append(formField.getValue()).append("\n");
-
-            if (formField.getFormInputType() != null) {
-                stringBuilder.append("type: ").append(formField.getFormInputType().getValue()).append("\n");
-            }
-
-            if (formField.getFormInputType() == FormInputType.TEXT_AREA) {
-                stringBuilder
-                        .append("minlength: ").append(formField.getMinLength()).append("\n")
-                        .append("maxlength: ").append(formField.getMaxLength()).append("\n");
-            }
-
-            if (formField.getFormInputType() == FormInputType.SELECT) {
-                stringBuilder.append("options: ").append("\n");
-                for (FormFieldOption option : formField.getFormFieldOptions()) {
-                    stringBuilder
-                            .append("\t--").append("\n")
-                            .append("\tlabel: ").append(option.getLabel()).append("\n")
-                            .append("\tvalue: ").append(option.getValue()).append("\n");
-                }
-            }
-
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
-    }
 }

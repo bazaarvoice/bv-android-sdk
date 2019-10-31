@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_progressivesubmission"
+    app:startDestination="@id/demoReviewableProductsFragment">
+
+    <fragment
+        tools:layout="@layout/demo_progressive_submission_review_fragment"
+        android:id="@+id/demoProgressiveSubmissionHandlerReviewFragment"
+        android:name="com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.review.DemoProgressiveSubmissionHandlerReviewFragment"
+        android:label="DemoProgressiveSubmissionHandlerReviewFragment" >
+        <action
+            android:id="@+id/action_demoProgressiveSubmissionHandlerReviewFragment_to_demoReviewableProductsFragment"
+            app:destination="@id/demoReviewableProductsFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/demoReviewableProductsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/reviewable_products_layout"
+        android:id="@+id/demoReviewableProductsFragment"
+        android:name="com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.reviewlist.DemoReviewableProductsFragment"
+        android:label="DemoReviewableProductsFragment" >
+        <action
+            android:id="@+id/action_demoReviewableProductsFragment_to_demoProgressiveSubmissionHandlerReviewFragment"
+            app:destination="@id/demoProgressiveSubmissionHandlerReviewFragment" />
+        <argument
+            android:name="productId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+</navigation>

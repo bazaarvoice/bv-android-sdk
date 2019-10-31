@@ -1,4 +1,4 @@
-package com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.demoprogressivesubmission
+package com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.review
 
 import android.content.Context
 import android.util.AttributeSet
@@ -15,14 +15,10 @@ class ProgressiveSubmissionFormItemView  @JvmOverloads constructor(context: Cont
         LinearLayout(context, attributeStyle, style) {
     lateinit var formSubmissionHandler: FormSubmissionHandler
 
-    init {
-        orientation = LinearLayout.VERTICAL
-    }
-
     fun setFormField(formField: FormField){
         val view = View.inflate(context, R.layout.form_item, null)
-        val title = view.findViewById<TextView>(R.id.Label)
-        val labelChoices = view.findViewById<RadioGroup>(R.id.Label_Choices)
+        val title = view.findViewById<TextView>(R.id.text_label)
+        val labelChoices = view.findViewById<RadioGroup>(R.id.choices)
         val inputAnswer = view.findViewById<TextView>(R.id.inputAnswer)
         if(formField.label == null || formField.label.isEmpty()) return
         title.text = formField.label
