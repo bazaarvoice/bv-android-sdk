@@ -34,7 +34,7 @@ public class DimensionElement {
     private String label;
     @SerializedName("Id")
     private String id;
-    @SerializedName("Value")
+    @SerializedName("Values")
     private List<String> values;
 
     public String getLabel() {
