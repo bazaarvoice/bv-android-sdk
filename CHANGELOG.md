@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.5.1
+
+## Fix for missing values property of tag dimensions.
+
+* Changes to JSON key to map the values property for tag dimensions.
+
 # 8.5.0
 
 ## Added support for Iovation Android SDK 4.0.0
