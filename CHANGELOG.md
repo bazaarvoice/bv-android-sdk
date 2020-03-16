@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.5.2
+
+## Added support for Iovation Android SDK 4.1.1
+
+*  Updated the Iovation module to include support for v4.1.1
+
 # 8.5.1
 
 ## Fix for missing values property of tag dimensions.
