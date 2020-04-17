@@ -71,6 +71,14 @@ public final class BVConversationsClient {
     }
 
     /**
+     * @param request ReviewHighlightRequest to be sent
+     * @return LoadCall object with the request ready to be sent
+     */
+    public LoadCallDisplay<ReviewHighlightsRequest, ReviewHighlightsResponse> prepareCall(ReviewHighlightsRequest request) {
+        return factoryCreateDisplayCall(ReviewHighlightsResponse.class, request);
+    }
+
+    /**
      * @param request ProductDisplayPageRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */

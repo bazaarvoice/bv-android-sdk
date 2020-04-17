@@ -1,0 +1,269 @@
+{
+  "subjects": {
+    "positive": {
+      "cleaning": {
+        "presenceCount": 6,
+        "mentionsCount": 7,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "cleaning",
+            "reviewText": "We use this with CET toothpaste every week and our two dogs love it AND it saves us vet bills for teeth cleaning. The finger toothbrush works best because you get better contact and you know where you are putting the toothpaste.",
+            "snippetId": "576b6b4f-f0c1-5848-bd3d-ea4e04fb77aa-sr:0:112",
+            "reviewId": "576b6b4f-f0c1-5848-bd3d-ea4e04fb77aa",
+            "summary": "We use this with CET toothpaste every week and our two dogs love it AND it saves us vet bills for teeth cleaning.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Awesome"
+          },
+          {
+            "rating": 3.0,
+            "about": "cleaning",
+            "reviewText": "I agree with another reviewer that there should come in many sizes, I have small hands and it is too big for me so I have to hold it with other fingers while I brush.\nHaving said that, I tried the cat but his mouth is too small. It works well with my golden retriever, plus she is not fuzzy and lets me clean her teeth which helps a lot.\nI think this is great for places you cannot reach with the brush plus the rubber in it is good for massaging the gums.",
+            "snippetId": "8124fc8c-3ba8-57d5-be8e-b2cb87ff6b21-sr:229:107",
+            "reviewId": "8124fc8c-3ba8-57d5-be8e-b2cb87ff6b21",
+            "summary": "It works well with my golden retriever, plus she is not fuzzy and lets me clean her teeth which helps a lot.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Useful"
+          },
+          {
+            "rating": 5.0,
+            "about": "cleaning",
+            "reviewText": "this finger brush is easy to use and very comfortable for my dog. he hates to have his teeth brushed, but with this he just stands there and lets me clean his teeth. i know he feels better with clean teeth and so do i",
+            "snippetId": "3807ddd0-4911-5766-8cd3-f0346c88c1a7-sr:66:98",
+            "reviewId": "3807ddd0-4911-5766-8cd3-f0346c88c1a7",
+            "summary": "he hates to have his teeth brushed, but with this he just stands there and lets me clean his teeth.",
+            "submissionTime": "Feb 24, 2015 11:59:12 AM",
+            "reviewTitle": "easy to use"
+          },
+          {
+            "rating": 4.0,
+            "about": "cleaning",
+            "reviewText": "Wow my Peke finally gave me no problems about cleaning his teeth with the finger brush. He actually liked the feeling on his gums too! Great product and what a wonderful idea this is! I would surely recommend this product to all!!",
+            "snippetId": "e8bbf005-c26f-5604-a7a2-5ba9cfd9b23e-sr:0:86",
+            "reviewId": "e8bbf005-c26f-5604-a7a2-5ba9cfd9b23e",
+            "summary": "Wow my Peke finally gave me no problems about cleaning his teeth with the finger brush.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Very Impressed!"
+          },
+          {
+            "rating": 5.0,
+            "about": "cleaning",
+            "reviewText": "I bought this product to use on my 12 year old beagle. Needless to say, she doesn\u0027t mine it at all. It is easy to use and helps to maintain clean teeth and gums. I would highly recommend.",
+            "snippetId": "327a514b-eb7e-5e0b-be6b-6beed2ca3ef3-sr:101:60",
+            "reviewId": "327a514b-eb7e-5e0b-be6b-6beed2ca3ef3",
+            "summary": "It is easy to use and helps to maintain clean teeth and gums.",
+            "submissionTime": "Jul 4, 2015 1:03:49 PM",
+            "reviewTitle": "Great product"
+          }
+        ]
+      },
+      "ease of use": {
+        "presenceCount": 3,
+        "mentionsCount": 3,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "ease of use",
+            "reviewText": "My miniature yorkshire truly believes he is human. I was skeptical how he would react to me brushing his teeth but this product has been very easy for both Bearington and myself to use. He actually enjoys having his teeth brushed and will wait patiently while I brush my teeth. He knows his get done after mine. The finger brush is very easy to use and the size is not too big for his mouth. I use the poultry flavor toothpaste with it and he enjoys the whole experience. I have also noticed his breath is much better since we have been brushing. I would definitely recommend this to my friends.",
+            "snippetId": "bb5a971b-6584-5e4a-89a4-5c6937b56164-sr:312:78",
+            "reviewId": "bb5a971b-6584-5e4a-89a4-5c6937b56164",
+            "summary": "The finger brush is very easy to use and the size is not too big for his mouth.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Easy to use"
+          },
+          {
+            "rating": 5.0,
+            "about": "ease of use",
+            "reviewText": "this finger brush is easy to use and very comfortable for my dog. he hates to have his teeth brushed, but with this he just stands there and lets me clean his teeth. i know he feels better with clean teeth and so do i",
+            "snippetId": "3807ddd0-4911-5766-8cd3-f0346c88c1a7-sr:0:64",
+            "reviewId": "3807ddd0-4911-5766-8cd3-f0346c88c1a7",
+            "summary": "this finger brush is easy to use and very comfortable for my dog.",
+            "submissionTime": "Feb 24, 2015 11:59:12 AM",
+            "reviewTitle": "easy to use"
+          },
+          {
+            "rating": 5.0,
+            "about": "ease of use",
+            "reviewText": "I bought this product to use on my 12 year old beagle. Needless to say, she doesn\u0027t mine it at all. It is easy to use and helps to maintain clean teeth and gums. I would highly recommend.",
+            "snippetId": "327a514b-eb7e-5e0b-be6b-6beed2ca3ef3-sr:101:60",
+            "reviewId": "327a514b-eb7e-5e0b-be6b-6beed2ca3ef3",
+            "summary": "It is easy to use and helps to maintain clean teeth and gums.",
+            "submissionTime": "Jul 4, 2015 1:03:49 PM",
+            "reviewTitle": "Great product"
+          }
+        ]
+      },
+      "satisfaction": {
+        "presenceCount": 6,
+        "mentionsCount": 6,
+        "bestExamples": [
+          {
+            "rating": 4.0,
+            "about": "satisfaction",
+            "reviewText": "I have a 5 month old English Setter pup, and wanted to start her early on teeth brushing. Other than getting her used to my fingers around her teeth and gums, I hadn\u0027t done much conditioning or training with tooth brushing, so I was glad to see that she didn\u0027t really mind the finger toothbrush. I think it\u0027s a little less effective by the time you get to the very back molar, but mostly because her jaw is smaller.\n\nThis is a great product for larger dogs, especially those not used to having their teeth brushed, because it\u0027s a little more sensitive and gentle of a sensation. But for smaller dogs (mine is 35 pounds) with smaller jaws, I don\u0027t know if it would do a good job with the back teeth. It was a good tool to start with, but I\u0027ll probably get a really soft bristled kid\u0027s toothbrush and use that until she (and her mouth) gets a little bit bigger.",
+            "snippetId": "bbeeff1e-0ac4-542a-a1f4-aae8121006a1-sr:90:206",
+            "reviewId": "bbeeff1e-0ac4-542a-a1f4-aae8121006a1",
+            "summary": "Other than getting her used to my fingers around her teeth and gums, I had not done much conditioning or training with tooth brushing, so I was glad to see that she did not really mind the finger toothbrush.",
+            "submissionTime": "Jan 23, 2013 12:06:55 PM",
+            "reviewTitle": "Pretty good tool!"
+          },
+          {
+            "rating": 4.0,
+            "about": "satisfaction",
+            "reviewText": "great item better than a toothbrush and I have a puppy she loves it.put on the dogs toothpaste on the finger brush first let the dog try the paste first then put the finger brush in there mouth.good luck",
+            "snippetId": "11c9df19-a5ae-5f3d-862b-6d35314b64ac-sr:0:202",
+            "reviewId": "11c9df19-a5ae-5f3d-862b-6d35314b64ac",
+            "summary": "great item better than a toothbrush and I have a puppy she loves it.put on the dogs toothpaste on the finger brush first let the dog try the paste first then put the finger brush in there mouth.good luck",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "use before giving feedback"
+          },
+          {
+            "rating": 5.0,
+            "about": "satisfaction",
+            "reviewText": "So happy I found a dog toothbrush with a thumb loop because I have small hands and other finger toothbrushes fell right off. I use my left hand to lift up my dogs lips on the sides of his mouth so I can really brush the back teeth well. He tolerates this much better than a regular toothbrush because he thinks it\u0027s weird and doesn\u0027t want it in his mouth, but if it\u0027s my finger he lets me do what I need to in there!",
+            "author": "taycatmu",
+            "snippetId": "8ab5b45b-1caf-5d3a-830b-e1d423a76d1c-sr:0:123",
+            "reviewId": "8ab5b45b-1caf-5d3a-830b-e1d423a76d1c",
+            "summary": "So happy I found a dog toothbrush with a thumb loop because I have small hands and other finger toothbrushes fell right off.",
+            "submissionTime": "Apr 4, 2017 3:47:34 PM",
+            "reviewTitle": "Love this finger brush!"
+          },
+          {
+            "rating": 5.0,
+            "about": "satisfaction",
+            "reviewText": "We use this with CET toothpaste every week and our two dogs love it AND it saves us vet bills for teeth cleaning. The finger toothbrush works best because you get better contact and you know where you are putting the toothpaste.",
+            "snippetId": "576b6b4f-f0c1-5848-bd3d-ea4e04fb77aa-sr:0:112",
+            "reviewId": "576b6b4f-f0c1-5848-bd3d-ea4e04fb77aa",
+            "summary": "We use this with CET toothpaste every week and our two dogs love it AND it saves us vet bills for teeth cleaning.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Awesome"
+          },
+          {
+            "rating": 5.0,
+            "about": "satisfaction",
+            "reviewText": "Love these brushes, last long and work great makes my job much easier.",
+            "snippetId": "af0343be-8e55-526d-ab1b-9ec9c7520f84-sr:0:69",
+            "reviewId": "af0343be-8e55-526d-ab1b-9ec9c7520f84",
+            "summary": "Love these brushes, last long and work great makes my job much easier.",
+            "submissionTime": "Dec 15, 2015 1:09:13 AM",
+            "reviewTitle": "Finger toothbrusb"
+          }
+        ]
+      }
+    },
+    "negative": {
+      "small": {
+        "presenceCount": 10,
+        "mentionsCount": 14,
+        "bestExamples": [
+          {
+            "rating": 2.0,
+            "about": "small",
+            "reviewText": "I found that the finger toothbrush was hard to maneuver in the dogs mouth and it also twirled around on my finger when trying to brush his teeth. These brushes may have been made for larger dogs mouthsl They seemed like a very good idea and i would suggest the company make several different sizes and figgure out a way to prevent slippage on smaller fingers.",
+            "snippetId": "210b5a5a-e6b8-5383-9422-9aca0a26c206-sr:146:212",
+            "reviewId": "210b5a5a-e6b8-5383-9422-9aca0a26c206",
+            "summary": "These brushes may have been made for larger dogs mouthsl They seemed like a very good idea and I would suggest the company make several different sizes and figgure out a way to prevent slippage on smaller fingers.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "finger toothbrush hard to maneuver"
+          },
+          {
+            "rating": 3.0,
+            "about": "small",
+            "reviewText": "I agree with another reviewer that there should come in many sizes, I have small hands and it is too big for me so I have to hold it with other fingers while I brush.\nHaving said that, I tried the cat but his mouth is too small. It works well with my golden retriever, plus she is not fuzzy and lets me clean her teeth which helps a lot.\nI think this is great for places you cannot reach with the brush plus the rubber in it is good for massaging the gums.",
+            "snippetId": "8124fc8c-3ba8-57d5-be8e-b2cb87ff6b21-sr:0:165",
+            "reviewId": "8124fc8c-3ba8-57d5-be8e-b2cb87ff6b21",
+            "summary": "I agree with another reviewer that there should come in many sizes, I have small hands and it is too big for me so I have to hold it with other fingers while I brush.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Useful"
+          },
+          {
+            "rating": 2.0,
+            "about": "small",
+            "reviewText": "Sorry, but these brushes are rather big for my index finger. I need to use my thumb to get a decent fit. I\u0027d like them to come in small, medium or large size as one of my dogs is a mini pin and this brush just will not go to the back of her teeth without a hastle. My Westie also gives me a time when I try to put the brush on the back teeth.",
+            "snippetId": "d0c284ba-b3f5-5165-9415-ae47f3267c05-sr:105:162",
+            "reviewId": "d0c284ba-b3f5-5165-9415-ae47f3267c05",
+            "summary": "I would like them to come in small, medium or large size as one of my dogs is a mini pin and this brush just will not go to the back of her teeth without a hastle.",
+            "submissionTime": "Jan 23, 2013 12:06:54 PM",
+            "reviewTitle": "Bulky"
+          },
+          {
+            "rating": 2.0,
+            "about": "small",
+            "reviewText": "I have been using these brushes on my dogs for years and have always been extremely pleased. My dogs have ranged in size from a Collie to a Corgi, But, as in all things, they eventually wore out ( after many years) and I had to replace them. I was so disappointed. They are too big. I use it on my middle finger and it is still too big. I didn\u0027t throw the old one out and even placing the new one over the old one, it still slides all around and diminishes its effectiveness. I understand that dogs mouths and their owners fingers differ in size, so hopefully you will consider manufacturing them in a small, medium and large. Thanks for listening.",
+            "snippetId": "07bb10bd-a0eb-5c3e-807c-357101de4855-sr:477:149",
+            "reviewId": "07bb10bd-a0eb-5c3e-807c-357101de4855",
+            "summary": "I understand that dogs mouths and their owners fingers differ in size, so hopefully you will consider manufacturing them in a small, medium and large.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Too big"
+          },
+          {
+            "rating": 4.0,
+            "about": "small",
+            "reviewText": "I have a 5 month old English Setter pup, and wanted to start her early on teeth brushing. Other than getting her used to my fingers around her teeth and gums, I hadn\u0027t done much conditioning or training with tooth brushing, so I was glad to see that she didn\u0027t really mind the finger toothbrush. I think it\u0027s a little less effective by the time you get to the very back molar, but mostly because her jaw is smaller.\n\nThis is a great product for larger dogs, especially those not used to having their teeth brushed, because it\u0027s a little more sensitive and gentle of a sensation. But for smaller dogs (mine is 35 pounds) with smaller jaws, I don\u0027t know if it would do a good job with the back teeth. It was a good tool to start with, but I\u0027ll probably get a really soft bristled kid\u0027s toothbrush and use that until she (and her mouth) gets a little bit bigger.",
+            "snippetId": "bbeeff1e-0ac4-542a-a1f4-aae8121006a1-sr:582:119",
+            "reviewId": "bbeeff1e-0ac4-542a-a1f4-aae8121006a1",
+            "summary": "But for smaller dogs (mine is 35 pounds) with smaller jaws, I do not know if it would do a good job with the back teeth.",
+            "submissionTime": "Jan 23, 2013 12:06:55 PM",
+            "reviewTitle": "Pretty good tool!"
+          }
+        ]
+      },
+      "large": {
+        "presenceCount": 9,
+        "mentionsCount": 13,
+        "bestExamples": [
+          {
+            "rating": 3.0,
+            "about": "large",
+            "reviewText": "I agree with another reviewer that there should come in many sizes, I have small hands and it is too big for me so I have to hold it with other fingers while I brush.\nHaving said that, I tried the cat but his mouth is too small. It works well with my golden retriever, plus she is not fuzzy and lets me clean her teeth which helps a lot.\nI think this is great for places you cannot reach with the brush plus the rubber in it is good for massaging the gums.",
+            "snippetId": "8124fc8c-3ba8-57d5-be8e-b2cb87ff6b21-sr:0:165",
+            "reviewId": "8124fc8c-3ba8-57d5-be8e-b2cb87ff6b21",
+            "summary": "I agree with another reviewer that there should come in many sizes, I have small hands and it is too big for me so I have to hold it with other fingers while I brush.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Useful"
+          },
+          {
+            "rating": 1.0,
+            "about": "large",
+            "reviewText": "I\u0027ve used this type of toothbrush effectively for many years. Unfortunately, I lost my last toothbrush \u0026 have been unable to replace it. This brush is similar but too large for my finger--it falls off in the dog\u0027s mouth, \u0026 too large for her mouth (she is only 6 \u00261/2 pounds).\nI HOPE YOU BEGIN TO CARRY THE SMALLER SIZE, PLEASE.",
+            "snippetId": "041a6fdc-d86c-5c76-a48f-fbec0cfb19e8-sr:139:137",
+            "reviewId": "041a6fdc-d86c-5c76-a48f-fbec0cfb19e8",
+            "summary": "This brush is similar but too large for my finger--it falls off in the dog\u0027s mouth, \u0026 too large for her mouth (she is only 6 \u00261/2 pounds).",
+            "submissionTime": "Jan 23, 2013 12:06:55 PM",
+            "reviewTitle": "brush is too large"
+          },
+          {
+            "rating": 1.0,
+            "about": "large",
+            "reviewText": "My dog loves the toothpaste so he lets me brush his front teeth. But he has a narrow, long mouth and the finger brush is too big to fit in the back of his mouth. I don\u0027t recommend this for small dogs.",
+            "snippetId": "31e63852-b046-5c3f-b01d-104fc61d39cd-sr:65:95",
+            "reviewId": "31e63852-b046-5c3f-b01d-104fc61d39cd",
+            "summary": "But he has a narrow, long mouth and the finger brush is too big to fit in the back of his mouth.",
+            "submissionTime": "Jan 23, 2013 12:07:05 PM",
+            "reviewTitle": "Small Dog"
+          },
+          {
+            "rating": 1.0,
+            "about": "large",
+            "reviewText": "This is the first item from PetMeds that was not satisfactory. The size was too large for my fingers, and kept turning and falling off. Also, for small dogs, it is much too large to comfortably fit their mouth. It is not a product I would recommend for dental cleaning.",
+            "snippetId": "a056ad6b-2736-530f-8f03-5bcf3a733e83-sr:63:71",
+            "reviewId": "a056ad6b-2736-530f-8f03-5bcf3a733e83",
+            "summary": "The size was too large for my fingers, and kept turning and falling off.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Finger Toothbrush"
+          },
+          {
+            "rating": 2.0,
+            "about": "large",
+            "reviewText": "I have been using these brushes on my dogs for years and have always been extremely pleased. My dogs have ranged in size from a Collie to a Corgi, But, as in all things, they eventually wore out ( after many years) and I had to replace them. I was so disappointed. They are too big. I use it on my middle finger and it is still too big. I didn\u0027t throw the old one out and even placing the new one over the old one, it still slides all around and diminishes its effectiveness. I understand that dogs mouths and their owners fingers differ in size, so hopefully you will consider manufacturing them in a small, medium and large. Thanks for listening.",
+            "snippetId": "07bb10bd-a0eb-5c3e-807c-357101de4855-sr:283:52",
+            "reviewId": "07bb10bd-a0eb-5c3e-807c-357101de4855",
+            "summary": "I use it on my middle finger and it is still too big.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Too big"
+          }
+        ]
+      }
+    }
+  }
+}

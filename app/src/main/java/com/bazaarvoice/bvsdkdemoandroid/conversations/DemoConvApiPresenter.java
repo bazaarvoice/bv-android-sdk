@@ -78,6 +78,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
       case DISPLAY_QANDA:
       case DISPLAY_PDP:
       case SUBMIT_REVIEW:
+      case DISPLAY_REVIEW_HIGHLGHTS:
       case SUBMIT_QUESTION: {
         view.showRequiredIdTitle("Product Id");
         break;
@@ -127,6 +128,10 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
       }
       case DISPLAY_QANDA: {
         demoRouter.transitionToQuestionsActivity(requiredId);
+        break;
+      }
+      case DISPLAY_REVIEW_HIGHLGHTS: {
+        demoRouter.transitionToReviewHighlights(requiredId);
         break;
       }
       case DISPLAY_PDP: {

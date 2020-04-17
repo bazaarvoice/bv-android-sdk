@@ -25,6 +25,7 @@ public interface DemoConvApiContract {
     DISPLAY_REVIEWS_PRODUCT("Display Reviews - ProductId"),
     DISPLAY_REVIEWS_FILTER("Display Reviews - Primary Filter"),
     DISPLAY_QANDA("Display QandA"),
+    DISPLAY_REVIEW_HIGHLGHTS("Display Review Highlights"),
     DISPLAY_PDP("Display PDP"),
     DISPLAY_BULK_RATINGS("Display Bulk Ratings"),
     DISPLAY_AUTHOR("Display Author"),
@@ -46,7 +47,9 @@ public interface DemoConvApiContract {
         return DISPLAY_REVIEWS;
       } else if (input.equals(DISPLAY_QANDA.getMethod())) {
         return DISPLAY_QANDA;
-      } else if (input.equals(DISPLAY_PDP.getMethod())) {
+      } else if (input.equals(DISPLAY_REVIEW_HIGHLGHTS.getMethod())) {
+        return DISPLAY_REVIEW_HIGHLGHTS;
+      }else if (input.equals(DISPLAY_PDP.getMethod())) {
         return DISPLAY_PDP;
       } else if (input.equals(DISPLAY_BULK_RATINGS.getMethod())) {
         return DISPLAY_BULK_RATINGS;

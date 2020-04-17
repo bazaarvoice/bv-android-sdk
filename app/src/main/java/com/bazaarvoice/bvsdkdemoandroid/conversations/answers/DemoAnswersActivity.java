@@ -62,7 +62,7 @@ public class DemoAnswersActivity extends AppCompatActivity implements DemoAnswer
         setContentView(R.layout.activity_conversations_answers);
         ButterKnife.bind(this);
 
-        DemoApp.getAppComponent(this).inject(this);
+       // DemoApp.getAppComponent(this).inject(this);
 
         String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         questionId = getIntent().getStringExtra(EXTRA_QUESTION_ID);

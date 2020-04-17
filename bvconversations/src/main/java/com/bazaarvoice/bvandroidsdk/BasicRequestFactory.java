@@ -66,6 +66,10 @@ class BasicRequestFactory implements RequestFactory {
     private static final String QUESTIONS_AND_ANSWERS_ENDPOINT = "data/questions.json";
     // endregion
 
+    // region Display Q&A Request Keys
+    private static final String REVIEW_HIGHLIGHTS_ENDPOINT = "highlights/v3/1/jaguar/2016XJLPAWD";
+    // endregion
+
     // region Display Statistics Request Keys
     private static final String STATS_ENDPOINT = "data/statistics.json";
     // endregion
@@ -201,6 +205,8 @@ class BasicRequestFactory implements RequestFactory {
             return createFromReviewRequest((ReviewsRequest) request);
         } else if (request instanceof QuestionAndAnswerRequest) {
             return createFromQuestionAndAnswerRequest((QuestionAndAnswerRequest) request);
+        }else if (request instanceof ReviewHighlightsRequest) {
+            return createFromReviewHighlightsRequest((ReviewHighlightsRequest) request);
         } else if (request instanceof CommentsRequest) {
             return createFromCommentsRequest((CommentsRequest) request);
         } else if (request instanceof AuthorsRequest) {
@@ -417,6 +423,20 @@ class BasicRequestFactory implements RequestFactory {
         return okRequestBuilder
                 .url(httpUrl)
                 .headers(headers)
+                .build();
+    }
+
+    private Request createFromReviewHighlightsRequest(ReviewHighlightsRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse("https://rh-stg.nexus.bazaarvoice.com")
+                .newBuilder()
+                .addPathSegments(REVIEW_HIGHLIGHTS_ENDPOINT);
+
+        HttpUrl httpUrl = httpUrlBuilder.build();
+
+        return okRequestBuilder
+                .url(httpUrl)
                 .build();
     }
 
