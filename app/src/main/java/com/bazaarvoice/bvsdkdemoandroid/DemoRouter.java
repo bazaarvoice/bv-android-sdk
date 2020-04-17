@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewHighlights.DemoReviewHighlightsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.comments.DemoCommentsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
@@ -101,6 +102,13 @@ public class DemoRouter {
         bundle.putString("extra_product_id", productId);
         bundle.putBoolean("extra_force_api_load", true);
         transitionToActivityWithExtras(DemoQuestionsActivity.class, bundle);
+    }
+
+    public void transitionToReviewHighlights(String productId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("extra_product_id", productId);
+        bundle.putBoolean("extra_force_api_load", true);
+        transitionToActivityWithExtras(DemoReviewHighlightsActivity.class, bundle);
     }
 
     public void transitionToProductStatsActivity(String productId) {

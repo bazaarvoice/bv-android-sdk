@@ -58,6 +58,7 @@ public class BVEventValues {
     AUTHENTICATION("Authentication"),
     CONVERSATIONS_REVIEWS("RatingsAndReviews"),
     CONVERSATIONS_QANDA("AskAndAnswer"),
+    CONVERSATIONS_REVIEWHIGHLIGHTS("ReviewHighlights"),
     CONVERSATIONS_PROFILE("Profiles"),
     CURATIONS("Curations"),
     PERSONALIZATION("Personalization"),

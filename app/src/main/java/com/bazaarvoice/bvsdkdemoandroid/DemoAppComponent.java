@@ -30,7 +30,7 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewHighlights.DemoReviewHighlightsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsActivity;
@@ -75,7 +75,7 @@ public interface DemoAppComponent {
     @DemoAppContext Context getAppContext();
 
     //activities
-    void inject(DemoAnswersActivity activity);
+    void inject(DemoReviewHighlightsActivity activity);
     void inject(DemoBulkRatingsActivity activity);
     void inject(DemoConversationsStoresAPIFragment fragment);
     void inject(DemoProductStatsActivity activity);

@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_demo_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.DarkActionBar">
-        <activity android:name=".progressivesubmission.DemoProgressiveSubmissionActivity"></activity>
+        <activity android:name=".conversations.ReviewHighlights.DemoReviewHighlightsActivity"></activity>
+        <activity android:name=".progressivesubmission.DemoProgressiveSubmissionActivity" />
         <activity
             android:name=".DemoMainActivity"
             android:label="@string/app_name"
