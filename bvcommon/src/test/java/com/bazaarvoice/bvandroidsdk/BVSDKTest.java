@@ -40,6 +40,7 @@ public class BVSDKTest {
     String conversationsApiKey;
     String conversationsStoresApiKey;
     String bazaarvoiceApiBaseUrl;
+    String bazaarvoiceReviewHighlightUrl;
     BVLogLevel bvLogLevel;
     String shopperMarketingApiBaseUrl;
     String notificationConfigUrl;
@@ -75,7 +76,7 @@ public class BVSDKTest {
         gson = new Gson();
         shopperAdvertisingApiKey = "/";
 
-        rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
+        rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl,bazaarvoiceReviewHighlightUrl);
 
       when(bvUserProvidedData.getApplication()).thenReturn(ApplicationProvider.getApplicationContext());
 

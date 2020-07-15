@@ -10,12 +10,14 @@ class BVRootApiUrls {
 
     final String shopperMarketingApiRootUrl;
     final String bazaarvoiceApiRootUrl;
+    final String bazaarvoiceReviewHighlightUrl;
     final String notificationConfigUrl;
 
-    public BVRootApiUrls(String shopperMarketingApiRootUrl, String bazaarvoiceApiRootUrl, String notificationConfigUrl) {
+    public BVRootApiUrls(String shopperMarketingApiRootUrl, String bazaarvoiceApiRootUrl, String notificationConfigUrl, String bazaarvoiceReviewHighlightUrl) {
         this.shopperMarketingApiRootUrl = shopperMarketingApiRootUrl;
         this.bazaarvoiceApiRootUrl = bazaarvoiceApiRootUrl;
         this.notificationConfigUrl = notificationConfigUrl;
+        this.bazaarvoiceReviewHighlightUrl = bazaarvoiceReviewHighlightUrl;
     }
 
     public String getShopperMarketingApiRootUrl() {
@@ -24,6 +26,10 @@ class BVRootApiUrls {
 
     public String getBazaarvoiceApiRootUrl() {
         return bazaarvoiceApiRootUrl;
+    }
+
+    public String  getBazaarvoiceReviewHighlightApiUrl(){
+       return bazaarvoiceReviewHighlightUrl;
     }
 
     public String getNotificationConfigUrl() {
