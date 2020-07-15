@@ -56,6 +56,7 @@ public abstract class BVBaseTest {
     String bazaarvoiceApiBaseUrl;
     String shopperMarketingApiBaseUrl;
     String notificationConfigUrl;
+    String bazaarvoiceReviewHighlightUrl;
 
     BazaarEnvironment environment;
     BVLogger bvLogger;
@@ -107,7 +108,7 @@ public abstract class BVBaseTest {
 
         modifyPropertiesToInitSDK();
         // Builder used to initialize the Bazaarvoice SDKs
-        BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl);
+        BVRootApiUrls rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl,bazaarvoiceReviewHighlightUrl);
         OkHttpClient okHttpClient = new OkHttpClient();
         BVSDK.BVWorkerData bvWorkerData = new BVSDK.BVWorkerData(gson, rootApiUrls, okHttpClient, "bvsdk-android/v" + BuildConfig.BVSDK_VERSION_NAME, handlerThread, handlerThread.getLooper());
         BVSDK.singleton = new BVSDK(bvUserProvidedData, bvLogger, bvActivityLifecycleCallbacks, bvAuthenticatedUser, handler, handlerThread, bvPixel, bvWorkerData, environment);

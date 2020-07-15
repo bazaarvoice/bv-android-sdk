@@ -67,7 +67,7 @@ class BasicRequestFactory implements RequestFactory {
     // endregion
 
     // region Display Q&A Request Keys
-    private static final String REVIEW_HIGHLIGHTS_ENDPOINT = "highlights/v3/1/jaguar/2016XJLPAWD";
+    private static final String REVIEW_HIGHLIGHTS_ENDPOINT = "highlights/v3/1";
     // endregion
 
     // region Display Statistics Request Keys
@@ -168,6 +168,7 @@ class BasicRequestFactory implements RequestFactory {
     // region Instance Fields
     private final BVMobileInfo bvMobileInfo;
     private final String bvRootApiUrl;
+    private final String bvReviewHighlightUrl;
     private final String convApiKey;
     private final String storeApiKey;
     private final String progressiveSubmissionApiKey;
@@ -185,12 +186,14 @@ class BasicRequestFactory implements RequestFactory {
     private final String kSUBMISSION_SESSION_TOKEN = "submissionSessionToken";
     private final String kEXTENDED = "extended";
     private final String kPROGRESSIVE_SUBMISSION_AGREE_TERMS = "agreedtotermsandconditions";
+    private BVConfig.Builder bvConfigBuilder;
     // endregion
 
     // region Constructor
     BasicRequestFactory(BVMobileInfo bvMobileInfo, BVRootApiUrls bvRootApiUrls, BVConfig bvConfig, String bvSdkUserAgent, FingerprintProvider fingerprintProvider) {
         this.bvMobileInfo = bvMobileInfo;
         this.bvRootApiUrl = bvRootApiUrls.getBazaarvoiceApiRootUrl();
+        this.bvReviewHighlightUrl = bvRootApiUrls.getBazaarvoiceReviewHighlightApiUrl();
         this.convApiKey = bvConfig.getApiKeyConversations();
         this.storeApiKey = bvConfig.getApiKeyConversationsStores();
         this.progressiveSubmissionApiKey = bvConfig.getApiKeyProgressiveSubmission();
@@ -429,9 +432,13 @@ class BasicRequestFactory implements RequestFactory {
     private Request createFromReviewHighlightsRequest(ReviewHighlightsRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
 
-        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse("https://rh-stg.nexus.bazaarvoice.com")
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvReviewHighlightUrl)
                 .newBuilder()
                 .addPathSegments(REVIEW_HIGHLIGHTS_ENDPOINT);
+
+        httpUrlBuilder.addPathSegment(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
+        System.out.println(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
+        httpUrlBuilder.addPathSegment(request.getProductId());
 
         HttpUrl httpUrl = httpUrlBuilder.build();
 

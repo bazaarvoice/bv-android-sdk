@@ -64,6 +64,8 @@ public class BVSDK {
     private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/";
+    private static final String BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_PRODUCTION = "https://rh.nexus.bazaarvoice.com/";
+    private static final String BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_STAGING = "https://rh-stg.nexus.bazaarvoice.com/";
     private static final String NOTIFICATION_CONFIG_URL = "https://s3.amazonaws.com/";
     private static final String BACKGROUND_THREAD_NAME = "BackgroundThread";
     static final int BVHandlePayload = 123;
@@ -517,9 +519,10 @@ public class BVSDK {
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
+            String bazaarvoiceReviewHighlightUrl = bazaarEnvironment == BazaarEnvironment.STAGING? BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_STAGING : BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
-            BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL);
+            BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL,bazaarvoiceReviewHighlightUrl);
             BVMobileInfo bvMobileInfo = new BVMobileInfo(application.getApplicationContext());
             BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, finalConfig, bvMobileInfo);
             BackgroundThread backgroundThread = new BackgroundThread();
