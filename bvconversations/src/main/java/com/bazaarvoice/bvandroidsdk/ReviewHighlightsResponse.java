@@ -2,13 +2,16 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.Map;
 
-public class ReviewHighlightsResponse extends IncludesResponse<ReviewHighlights, ConversationsIncludeProduct>  {
+public class ReviewHighlightsResponse  extends ConversationsDisplayResponse {
 
-    @SerializedName("subjects") private ReviewHighlights reviewHighlights;
+   @SerializedName("subjects") private ReviewHighlights reviewHighlights;
 
-    @Override
+    public  ReviewHighlights getReviewHighlights() {
+        return reviewHighlights;
+    }
+
     public Boolean getHasErrors() {
         return false;
     }

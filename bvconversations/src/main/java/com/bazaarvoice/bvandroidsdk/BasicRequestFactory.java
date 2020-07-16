@@ -437,7 +437,6 @@ class BasicRequestFactory implements RequestFactory {
                 .addPathSegments(REVIEW_HIGHLIGHTS_ENDPOINT);
 
         httpUrlBuilder.addPathSegment(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
-        System.out.println(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         httpUrlBuilder.addPathSegment(request.getProductId());
 
         HttpUrl httpUrl = httpUrlBuilder.build();
