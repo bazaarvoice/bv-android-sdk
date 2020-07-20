@@ -1,0 +1,89 @@
+{
+  "subjects": {
+    "positive": {},
+    "negative": {
+      "stains": {
+        "presenceCount": 4,
+        "mentionsCount": 5,
+        "bestExamples": [
+          {
+            "rating": 2.0,
+            "about": "stains",
+            "reviewText": "With a 5 mo old puppy with a beige coat and tear stains this product does not work. I just wasted my money and am not happy in this tough economy with money being tight.",
+            "snippetId": "9beab01c-08aa-5455-8a75-f706a4eb3069-sr:0:82",
+            "reviewId": "9beab01c-08aa-5455-8a75-f706a4eb3069",
+            "summary": "With a 5 mo old puppy with a beige coat and tear stains this product does not work.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Tear Stain"
+          },
+          {
+            "rating": 2.0,
+            "about": "stains",
+            "reviewText": "This product was not helpful. Had a past experience with it and my memory recalls a better outcome, although not perfect.\n\nWe also bought Puralube Vet Ointment to use in conjunction with tear stain. A failure.\n\nBuddy's off to the vet this evening.",
+            "snippetId": "ec3e4f1e-f2db-5230-a95c-701c99201c87-sr:122:74",
+            "reviewId": "ec3e4f1e-f2db-5230-a95c-701c99201c87",
+            "summary": "We also bought Puralube Vet Ointment to use in conjunction with tear stain.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Excel"
+          },
+          {
+            "rating": 1.0,
+            "about": "stains",
+            "reviewText": "I have 3 bishon frises and this tear stain remover DID NOT work at all. Wasted my money and won't ever buy it again.",
+            "snippetId": "9083578c-a26c-52a3-91fb-19f2c5d2f648-sr:0:70",
+            "reviewId": "9083578c-a26c-52a3-91fb-19f2c5d2f648",
+            "summary": "I have 3 bishon frises and this tear stain remover DID NOT work at all.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Don't recommend product at all"
+          },
+          {
+            "rating": 3.0,
+            "about": "stains",
+            "reviewText": "Seems to pull out alot of debris when used for on the tear stains. The tear stains on my White Min Schnauzer are never gone, but do lighten up considerably once her eyes are cleaned. I have used other similar products and this is comparable.",
+            "snippetId": "fc462bf9-3848-5e1d-85c8-20cd1cd24aba-sr:0:65",
+            "reviewId": "fc462bf9-3848-5e1d-85c8-20cd1cd24aba",
+            "summary": "Seems to pull out alot of debris when used for on the tear stains.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Average Results"
+          }
+        ]
+      },
+      "price": {
+        "presenceCount": 3,
+        "mentionsCount": 3,
+        "bestExamples": [
+          {
+            "rating": 2.0,
+            "about": "price",
+            "reviewText": "With a 5 mo old puppy with a beige coat and tear stains this product does not work. I just wasted my money and am not happy in this tough economy with money being tight.",
+            "snippetId": "9beab01c-08aa-5455-8a75-f706a4eb3069-sr:84:84",
+            "reviewId": "9beab01c-08aa-5455-8a75-f706a4eb3069",
+            "summary": "I just wasted my money and am not happy in this tough economy with money being tight.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Tear Stain"
+          },
+          {
+            "rating": 1.0,
+            "about": "price",
+            "reviewText": "I have 3 bishon frises and this tear stain remover DID NOT work at all. Wasted my money and won't ever buy it again.",
+            "snippetId": "9083578c-a26c-52a3-91fb-19f2c5d2f648-sr:72:46",
+            "reviewId": "9083578c-a26c-52a3-91fb-19f2c5d2f648",
+            "summary": "Wasted my money and will not ever buy it again.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Don't recommend product at all"
+          },
+          {
+            "rating": 1.0,
+            "about": "price",
+            "reviewText": "Used this product for a month. No noticeable decrease in\nstains. Directions do not mention how long to leave this med\non before washing off. Tried leaving it on without washing it\noff--didn't make a difference! This product should be taken\noff Pet Store shelves. It's money wasted.",
+            "snippetId": "e831103f-fb07-50c0-93f6-5d48129400e3-sr:268:18",
+            "reviewId": "e831103f-fb07-50c0-93f6-5d48129400e3",
+            "summary": "It is money wasted.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Ineffective Product"
+          }
+        ]
+      }
+    }
+  }
+}
