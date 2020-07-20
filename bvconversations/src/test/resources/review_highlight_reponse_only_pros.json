@@ -1,0 +1,305 @@
+{
+  "subjects": {
+    "positive": {
+      "convenient": {
+        "presenceCount": 18,
+        "mentionsCount": 18,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "convenient",
+            "reviewText": "I am so pleased with my order from Petmed's. My order was delivered right to my mailbox within 7 days, so Ginger never missed her dose of Heartgard and K9 Advantage. Although your company doesn't replace her vet care, it a pleasant and convenient addition to her health care.\nThank you for making my life a little easier and Ginger loved her new toys!",
+            "snippetId": "afc121cb-c3eb-5d52-9328-34ff9fdb954f-sr:166:109",
+            "reviewId": "afc121cb-c3eb-5d52-9328-34ff9fdb954f",
+            "summary": "Although your company does not replace her vet care, it a pleasant and convenient addition to her health care.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Easy as 123"
+          },
+          {
+            "rating": 5.0,
+            "about": "convenient",
+            "reviewText": "My little Cheech has used Heartgard for a while now. He loves the taste and gobbles them up each first of the month, and the price is reasonable compared to a lot of vet’s offices, even though the vet has to approve the meds. Very convenient process, and once your vet approves your order, shipping is fast.",
+            "author": "CheechA",
+            "snippetId": "9b803b53-3341-5fb3-9672-7cf431321035-sr:226:80",
+            "reviewId": "9b803b53-3341-5fb3-9672-7cf431321035",
+            "summary": "Very convenient process, and once your vet approves your order, shipping is fast.",
+            "submissionTime": "Apr 13, 2019 6:44:13 AM",
+            "reviewTitle": "So Easy is the Best Part"
+          },
+          {
+            "rating": 5.0,
+            "about": "convenient",
+            "reviewText": "1800petmeds are so easy  to order... Hassle  free  and very quick  shipping :)",
+            "author": "ROSITA",
+            "snippetId": "ec716a5d-e4bb-5fd9-98f5-4b0702a414af-sr:0:84",
+            "reviewId": "ec716a5d-e4bb-5fd9-98f5-4b0702a414af",
+            "summary": "1800petmeds are so easy  to order... Hassle  free  and very quick  shipping : )",
+            "submissionTime": "Dec 18, 2017 2:17:22 AM",
+            "reviewTitle": "I love 1800 petmeds"
+          },
+          {
+            "rating": 5.0,
+            "about": "convenient",
+            "reviewText": "Our 1 year old Bichon has always taken Heartguard Plus without any problems.I like that it is chewable and easy to give to him.It's more like a treat to him.\r\n1-800-Pet Meds is very convenient to use and has excellent customer service.",
+            "author": "Ginger",
+            "snippetId": "fba56590-21c5-5595-b24b-71e58d56dd71-sr:159:75",
+            "reviewId": "fba56590-21c5-5595-b24b-71e58d56dd71",
+            "summary": "1-800-Pet Meds is very convenient to use and has excellent customer service.",
+            "submissionTime": "Jul 20, 2016 10:13:15 AM",
+            "reviewTitle": "Chewable"
+          },
+          {
+            "rating": 5.0,
+            "about": "convenient",
+            "reviewText": "My 2 rescue doggies have been on Heartgard Plus for 8 years without issues.  1800PedMeds makes purchasing it convenient and my dogs love the free treat.",
+            "author": "Sann",
+            "snippetId": "c12f8799-5e42-50dd-a2ee-0e6c82493ea8-sr:76:74",
+            "reviewId": "c12f8799-5e42-50dd-a2ee-0e6c82493ea8",
+            "summary": "1800PedMeds makes purchasing it convenient and my dogs love the free treat.",
+            "submissionTime": "Jan 22, 2017 5:43:20 PM",
+            "reviewTitle": "Very effective and reasonibly priced"
+          }
+        ]
+      },
+      "price": {
+        "presenceCount": 139,
+        "mentionsCount": 152,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "price",
+            "reviewText": "Vets write prescriptions mainly because they don't want to lose clients. A vet may make about $30 on a package of Heartgard every six months per client but will make substantially more with a regular client. Vet clinics who don't write prescriptions simply to sell their own may lose clients to vet clinics who do. We write them just to keep clients happy (even though our stuff can be less expensive than certain items on this site, I've never really understood that). Prescriptions are also given out in case of problems with our stock. We have one dog who is simply too old and picky to use Iverhart. Since we don't carry Heartgard, we happily give out prescriptions for it to keep that dog healthy. We have a happy client as well who is more than likely going to stay with us.",
+            "snippetId": "e7d12638-1143-54d2-a6d9-0599428671c7-sr:317:155",
+            "reviewId": "e7d12638-1143-54d2-a6d9-0599428671c7",
+            "summary": "We write them just to keep clients happy (even though our stuff can be less expensive than certain items on this site, I have never really understood that).",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "For prescription questions"
+          },
+          {
+            "rating": 5.0,
+            "about": "price",
+            "reviewText": "This was so much easier than driving all the way to the vet's office to get the Heartgard my dog uses, and the price was much cheaper than at the vet's. I do like that they contact my vet to get approval",
+            "author": "Mollymom",
+            "snippetId": "07950a2a-2277-5f87-abde-c65f9227dd33-sr:0:151",
+            "reviewId": "07950a2a-2277-5f87-abde-c65f9227dd33",
+            "summary": "This was so much easier than driving all the way to the vet's office to get the Heartgard my dog uses, and the price was much cheaper than at the vet's.",
+            "submissionTime": "Mar 25, 2018 3:03:35 PM",
+            "reviewTitle": "Convenient and Great Price"
+          },
+          {
+            "rating": 5.0,
+            "about": "price",
+            "reviewText": "In reply to your question Barney is doing well as is Allie, his sister. They both love their Heartgard Medicine, they take it without any problem and always looking for more.\nI would like to also Thank You for your speedy service along with your terrific prices, I see no reason to purchase meds from the vets office.",
+            "snippetId": "788f83dc-7eb3-53f9-8e9e-24c22c50135f-sr:175:141",
+            "reviewId": "788f83dc-7eb3-53f9-8e9e-24c22c50135f",
+            "summary": "I would like to also Thank You for your speedy service along with your terrific prices, I see no reason to purchase meds from the vets office.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Happy Dogs and Owners"
+          },
+          {
+            "rating": 5.0,
+            "about": "price",
+            "reviewText": "Once a prescription was obtained from Roxie's vet, the process was quick and easy and cheaper than the vet. It also generated a terrific saving coupon which would have been helpful and probably kept me at the vet. Too little too late. Thanks PetsMed!",
+            "author": "Care",
+            "snippetId": "3db9142a-7d94-5a70-942f-85c9321d7e40-sr:108:104",
+            "reviewId": "3db9142a-7d94-5a70-942f-85c9321d7e40",
+            "summary": "It also generated a terrific saving coupon which would have been helpful and probably kept me at the vet.",
+            "submissionTime": "Jul 31, 2017 6:22:22 PM",
+            "reviewTitle": "Quick but careful"
+          },
+          {
+            "rating": 5.0,
+            "about": "price",
+            "reviewText": "I've been giving Copper Heartguard Plus for all of her 8 yrs even though I hated paying the high prices. She is worth it, of course! I found great prices on 1800Petmeds and have now told all my family how to save on their dogs meds. There are four families with a total of 9 dogs so everyone's happy to know about this.",
+            "author": "Coppers Mom",
+            "snippetId": "83ac8e28-a847-5be4-82b4-1814aa7d3551-sr:135:98",
+            "reviewId": "83ac8e28-a847-5be4-82b4-1814aa7d3551",
+            "summary": "I found great prices on 1800Petmeds and have now told all my family how to save on their dogs meds.",
+            "submissionTime": "May 16, 2017 11:49:52 AM",
+            "reviewTitle": "Best med at best prices"
+          }
+        ]
+      },
+      "packaging": {
+        "presenceCount": 28,
+        "mentionsCount": 30,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "packaging",
+            "reviewText": "I been getting these heart worms medicine for awhile and I like they give a doggie bone he knows the box and when he sees it like he wants me to open up\r\nSo he can have it I been getting the year supplies I love and the emails they send and with coupons specials",
+            "author": "Kathy103",
+            "snippetId": "e376fcd9-fb46-5e8c-96de-5e42e5bb7b98-sr:0:263",
+            "reviewId": "e376fcd9-fb46-5e8c-96de-5e42e5bb7b98",
+            "summary": "I been getting these heart worms medicine for awhile and I like they give a doggie bone he knows the box and when he sees it like he wants me to open up    So he can have it I been getting the year supplies I love and the emails they send and with coupons specials",
+            "submissionTime": "Nov 10, 2017 10:41:13 AM",
+            "reviewTitle": "I love Thai place"
+          },
+          {
+            "rating": 5.0,
+            "about": "packaging",
+            "reviewText": "I had used Heartgard Plus for several years and Molly had loved them since she was a pup and then a couple of years ago her vet stopped selling them and started pushing Sentinel which Molly did not like and we had to force them down her throat I did not like to do this so I ordered these from you. Now when I get the box out (Molly recognizes the box) she gets excited and jumps all over me while I get one out of the box and I cut it into small pieces so she can enjoy it longer.",
+            "author": "Amos",
+            "snippetId": "c5ddbaec-9171-5b2e-aa7c-cb8fa8237558-sr:299:181",
+            "reviewId": "c5ddbaec-9171-5b2e-aa7c-cb8fa8237558",
+            "summary": "Now when I get the box out (Molly recognizes the box) she gets excited and jumps all over me while I get one out of the box and I cut it into small pieces so she can enjoy it longer.",
+            "submissionTime": "Aug 12, 2018 9:30:34 PM",
+            "reviewTitle": "Easy to give"
+          },
+          {
+            "rating": 5.0,
+            "about": "packaging",
+            "reviewText": "I had ordered my Drinda's Heartgard late..it also required my Vet to approve the refill. I normally give the meds the 1st of every month...I ordered with an urgent email, you guys rocked this process out of the  box...my order was at the door step within 48 hours..amaZing...Thank you for keeping my girl on schedule...sometimes the Mommy forgets!!",
+            "author": "Marsha",
+            "snippetId": "e1d0db16-7686-5ccb-8165-a2a253b8fcf6-sr:91:174",
+            "reviewId": "e1d0db16-7686-5ccb-8165-a2a253b8fcf6",
+            "summary": "I normally give the meds the 1st of every month...I ordered with an urgent email, you guys rocked this process out of the  box...my order was at the door step within 48 hours.",
+            "submissionTime": "Sep 11, 2019 1:00:06 PM",
+            "reviewTitle": "Heartgard to Protect my Drinda Girl"
+          },
+          {
+            "rating": 5.0,
+            "about": "packaging",
+            "reviewText": "I’m happy with the product as it is the same as provided by my vet but better priced! Just a side note...I ordered multiple medications for my 2 dogs & only received 1 treat in the box, although, appreciated!",
+            "author": "Otto  Lola",
+            "snippetId": "9eb23ea5-7f8e-57bb-ab01-a635c0306438-sr:86:121",
+            "reviewId": "9eb23ea5-7f8e-57bb-ab01-a635c0306438",
+            "summary": "Just a side note...I ordered multiple medications for my 2 dogs & only received 1 treat in the box, although, appreciated!",
+            "submissionTime": "Dec 13, 2017 3:59:31 PM",
+            "reviewTitle": "Heartguard"
+          },
+          {
+            "rating": 5.0,
+            "about": "packaging",
+            "reviewText": "Easy to order, lower price than vet and other web sites. My pug loves the taste of this Heartgard and she really loves her free biscuit that comes in the box with the shipment.",
+            "snippetId": "5301ab94-5015-5a0e-9d69-40fc9500e172-sr:57:118",
+            "reviewId": "5301ab94-5015-5a0e-9d69-40fc9500e172",
+            "summary": "My pug loves the taste of this Heartgard and she really loves her free biscuit that comes in the box with the shipment.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Same quality Less Expensive"
+          }
+        ]
+      },
+      "protection": {
+        "presenceCount": 44,
+        "mentionsCount": 46,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "protection",
+            "reviewText": "I have used heartguard for 7 years now for my two dogs. They are litter-mates, big dogs (65 pounds each)...As a puppy Beau had a seizure after getting the then popular 6 month shot for protection against heartworms given by many vets. The product has been pulled from the market (thank heavens) although some animals who got it didn't make it. So, I switched to Heartguard and never looked back. No more seizures, very happy doggies, and VERY happy owner!",
+            "snippetId": "a799a670-7512-5267-aa83-138343b4f6e3-sr:56:177",
+            "reviewId": "a799a670-7512-5267-aa83-138343b4f6e3",
+            "summary": "They are litter-mates, big dogs (65 pounds each)...As a puppy Beau had a seizure after getting the then popular 6 month shot for protection against heartworms given by many vets.",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "Heartguard is the best!"
+          },
+          {
+            "rating": 5.0,
+            "about": "protection",
+            "reviewText": "Both of my dogs gobble up Heartgard like it was candy, making it very easy to keep them on heartworm protection.  I highly recommend this product.",
+            "author": "vickievoter",
+            "snippetId": "af60b0f2-54a6-592c-8b29-da83372a375d-sr:0:111",
+            "reviewId": "af60b0f2-54a6-592c-8b29-da83372a375d",
+            "summary": "Both of my dogs gobble up Heartgard like it was candy, making it very easy to keep them on heartworm protection.",
+            "submissionTime": "Oct 17, 2017 2:09:52 AM",
+            "reviewTitle": "My dogs love it!"
+          },
+          {
+            "rating": 5.0,
+            "about": "protection",
+            "reviewText": "I ordered a year supply of heart guard for our pup, they made it very easy and got it out to us extremely quick! They contacted our vet for us and it was just very simple. They even sent our pup a milk bone which was so sweet!!! I just thought that was awesome! Poor girl didn't get to eat it because she's allergic, but our foster pup enjoyed it! Thank you for making it so simple to receive our mess!",
+            "author": "Samm103",
+            "snippetId": "e295cdd5-4076-5aa2-94f0-c7b9e58c218c-sr:0:111",
+            "reviewId": "e295cdd5-4076-5aa2-94f0-c7b9e58c218c",
+            "summary": "I ordered a year supply of heart guard for our pup, they made it very easy and got it out to us extremely quick!",
+            "submissionTime": "Oct 8, 2016 1:44:19 PM",
+            "reviewTitle": "Wonderful!"
+          },
+          {
+            "rating": 5.0,
+            "about": "protection",
+            "reviewText": "My Bella try ed a few tablets heartworm ,a real struggle,so glad she gobbled Heart guard softchew right up!!!",
+            "author": "Jojo",
+            "snippetId": "1b879cb8-fb9e-5ec7-991f-db62491f3259-sr:0:108",
+            "reviewId": "1b879cb8-fb9e-5ec7-991f-db62491f3259",
+            "summary": "My Bella try ed a few tablets heartworm ,a real struggle,so glad she gobbled Heart guard softchew right up!!!",
+            "submissionTime": "Sep 16, 2017 9:06:58 PM",
+            "reviewTitle": "She ate it!"
+          },
+          {
+            "rating": 5.0,
+            "about": "protection",
+            "reviewText": "I like the conience ans the price in the purchase of the Heart guard and the arrival in timely matter",
+            "author": "Wolfgang",
+            "snippetId": "0e0408d1-4d9d-5c7d-811c-163f5252e7b6-sr:0:100",
+            "reviewId": "0e0408d1-4d9d-5c7d-811c-163f5252e7b6",
+            "summary": "I like the conience ans the price in the purchase of the Heart guard and the arrival in timely matter",
+            "submissionTime": "Mar 24, 2018 1:49:54 PM",
+            "reviewTitle": "Good"
+          }
+        ]
+      },
+      "speed": {
+        "presenceCount": 61,
+        "mentionsCount": 61,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "speed",
+            "reviewText": "easy to administer --Tanner and Sassy chew down with relish ----Delivery is fast---within a couple of days-and price is the lowest I have found anywhere",
+            "snippetId": "92bc29a5-04f5-5758-aaa6-20a68cd8a933-sr:0:151",
+            "reviewId": "92bc29a5-04f5-5758-aaa6-20a68cd8a933",
+            "summary": "easy to administer --Tanner and Sassy chew down with relish ----Delivery is fast---within a couple of days-and price is the lowest I have found anywhere",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "barbsnostalgia@aol..com"
+          },
+          {
+            "rating": 5.0,
+            "about": "speed",
+            "reviewText": "I ordered a year supply of heart guard for our pup, they made it very easy and got it out to us extremely quick! They contacted our vet for us and it was just very simple. They even sent our pup a milk bone which was so sweet!!! I just thought that was awesome! Poor girl didn't get to eat it because she's allergic, but our foster pup enjoyed it! Thank you for making it so simple to receive our mess!",
+            "author": "Samm103",
+            "snippetId": "e295cdd5-4076-5aa2-94f0-c7b9e58c218c-sr:0:111",
+            "reviewId": "e295cdd5-4076-5aa2-94f0-c7b9e58c218c",
+            "summary": "I ordered a year supply of heart guard for our pup, they made it very easy and got it out to us extremely quick!",
+            "submissionTime": "Oct 8, 2016 1:44:19 PM",
+            "reviewTitle": "Wonderful!"
+          },
+          {
+            "rating": 5.0,
+            "about": "speed",
+            "reviewText": "Once a prescription was obtained from Roxie's vet, the process was quick and easy and cheaper than the vet. It also generated a terrific saving coupon which would have been helpful and probably kept me at the vet. Too little too late. Thanks PetsMed!",
+            "author": "Care",
+            "snippetId": "3db9142a-7d94-5a70-942f-85c9321d7e40-sr:0:106",
+            "reviewId": "3db9142a-7d94-5a70-942f-85c9321d7e40",
+            "summary": "Once a prescription was obtained from Roxie's vet, the process was quick and easy and cheaper than the vet.",
+            "submissionTime": "Jul 31, 2017 6:22:22 PM",
+            "reviewTitle": "Quick but careful"
+          },
+          {
+            "rating": 5.0,
+            "about": "speed",
+            "reviewText": "I buy all my health products for dogs & cats thru pet meds, great prices & fast service. Recently Heartgard plus. Am very pleased",
+            "author": "Linda60",
+            "snippetId": "e737568b-78db-56e6-8eae-f57f6ea021db-sr:0:87",
+            "reviewId": "e737568b-78db-56e6-8eae-f57f6ea021db",
+            "summary": "I buy all my health products for dogs & cats thru pet meds, great prices & fast service.",
+            "submissionTime": "Mar 12, 2016 12:11:46 PM",
+            "reviewTitle": "Great company!!"
+          },
+          {
+            "rating": 5.0,
+            "about": "speed",
+            "reviewText": "She loves Heartgard...thinks it is her treats. I appreciate the ease at ordering, quick delivery and who does not love free shipping!",
+            "snippetId": "a38782b2-8433-509b-b0a3-854ad5be5e7e-sr:47:85",
+            "reviewId": "a38782b2-8433-509b-b0a3-854ad5be5e7e",
+            "summary": "I appreciate the ease at ordering, quick delivery and who does not love free shipping!",
+            "submissionTime": "Jan 29, 2013 5:27:04 AM",
+            "reviewTitle": "My Bebe"
+          }
+        ]
+      }
+    },
+    "negative": {}
+  }
+}

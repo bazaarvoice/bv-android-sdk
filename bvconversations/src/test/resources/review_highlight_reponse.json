@@ -1,0 +1,363 @@
+{
+  "subjects": {
+    "positive": {
+      "driving": {
+        "presenceCount": 86,
+        "mentionsCount": 71,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "driving",
+            "reviewText": "I love the vehicle after driving it fo 250 miles. The only negative is the absence of a rear window wiper. I know the theory the salon style vehicles clear rain by design. However, each morning in Florida, I have to squeegee the back window whereas with a wiper, this would be unnecessary.",
+            "author": "Gr8effex",
+            "snippetId": "1023596778-sr:0:48",
+            "reviewId": "1023596778",
+            "summary": "I love the vehicle after driving it fo 250 miles.",
+            "submissionTime": "Nov 15, 2016 10:20:03 PM",
+            "reviewTitle": "First new car purchase in 16 years"
+          },
+          {
+            "rating": 5.0,
+            "about": "driving",
+            "reviewText": "My prior car was a Porsche Panamera Turbo, and was extremely comfortable with a a huge performance package. The Jaguar XJ-L 5.0 SC is close, but more comfortable for a trip.",
+            "author": "Bob W",
+            "snippetId": "1008065535-sr:0:35",
+            "reviewId": "1008065535",
+            "summary": "wonderful driving and riding vehicle",
+            "submissionTime": "Jun 24, 2015 2:03:33 PM",
+            "reviewTitle": "wonderful driving and riding vehicle"
+          },
+          {
+            "rating": 4.0,
+            "about": "driving",
+            "reviewText": "Have owned other Top German Luxury Cars before my XJL. As far as the driving experience I like the Jag better than the other cars. Unfortunately there are some quality issues I need to have addressed. This is not acceptable in today's automotive competitive environment in my opinion. So in conclusion I can say that I like the comfort,handling and overall performance of the Jag but the German competitors are still built better.",
+            "author": "GJNO",
+            "snippetId": "1033805804-sr:0:35",
+            "reviewId": "1033805804",
+            "summary": "Great Driving Full Size Luxury Sedan",
+            "submissionTime": "Jun 6, 2017 5:29:50 PM",
+            "reviewTitle": "Great Driving Full Size Luxury Sedan"
+          },
+          {
+            "rating": 5.0,
+            "about": "driving",
+            "reviewText": "Love the massaging seat, heat and cooled too. I have not had it long enough to say much more. Once past the glitch, I found everything very easy to find and operate. But I love going for a ride. I have no idea what people are talking about with the radio controls being difficult. I just say AM 950, or FM whatever and it goes there. I need no dial. But if I did, is in the display and even tells me about the station. Phone hooked up in a second. I was driving a nice Q50 Infinity and decided to move up in Luxury and size with the XJL. This Jag does not fell like it is accelerating, but my own tests found it impressive. Some little glitches with the technology on first use of navigation system. Froze up everything. After the car sat a few hours all was OK and it never happened again. I heard you should lock the car, walk away, come back and unlock and would reset. Never got the chance to try that. The car itself is fantastic looking, and everyone looks and asks \"what is that?\" One guy asked if it was a Tesla. Inside is as impressive or more so. More than the other Jag models for sure. I keep it in sports mode, why not? Love the leather design and wood trim, etc. Quiet as well.",
+            "author": "Glenn",
+            "snippetId": "1022110351-sr:448:88",
+            "reviewId": "1022110351",
+            "summary": "I was driving a nice Q50 Infinity and decided to move up in Luxury and size with the XJL.",
+            "submissionTime": "Oct 5, 2016 8:21:54 PM",
+            "reviewTitle": "My move up in Luxury"
+          },
+          {
+            "rating": 4.0,
+            "about": "driving",
+            "reviewText": "Have owned other Top German Luxury Cars before my XJL. As far as the driving experience I like the Jag better than the other cars. Unfortunately there are some quality issues I need to have addressed. This is not acceptable in today's automotive competitive environment in my opinion. So in conclusion I can say that I like the comfort,handling and overall performance of the Jag but the German competitors are still built better.",
+            "author": "GJNO",
+            "snippetId": "1033805804-sr:55:74",
+            "reviewId": "1033805804",
+            "summary": "As far as the driving experience I like the Jag better than the other cars.",
+            "submissionTime": "Jun 6, 2017 5:29:50 PM",
+            "reviewTitle": "Great Driving Full Size Luxury Sedan"
+          }
+        ]
+      },
+      "enjoyment": {
+        "presenceCount": 50,
+        "mentionsCount": 54,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "enjoyment",
+            "reviewText": "it is the most beautiful car on the road fun to drive would drive anything else owner for life",
+            "author": "the jaguar",
+            "snippetId": "1047353759-sr:0:93",
+            "reviewId": "1047353759",
+            "summary": "it is the most beautiful car on the road fun to drive would drive anything else owner for life",
+            "submissionTime": "Jul 31, 2018 6:59:28 PM",
+            "reviewTitle": "love my Jaguar"
+          },
+          {
+            "rating": 5.0,
+            "about": "enjoyment",
+            "reviewText": "Every day I find something different that I enjoy about my new Jag. !!!",
+            "author": "Zech",
+            "snippetId": "1010079218-sr:0:66",
+            "reviewId": "1010079218",
+            "summary": "Every day I find something different that I enjoy about my new Jag.",
+            "submissionTime": "Oct 16, 2015 9:16:36 PM",
+            "reviewTitle": "It is the best car I have ever owned."
+          },
+          {
+            "rating": 5.0,
+            "about": "enjoyment",
+            "reviewText": "We thoroughly enjoy the performance and handling of our XJR.",
+            "author": "The Rose Jag",
+            "snippetId": "1048417411-sr:0:59",
+            "reviewId": "1048417411",
+            "summary": "We thoroughly enjoy the performance and handling of our XJR.",
+            "submissionTime": "Sep 16, 2018 12:27:12 AM",
+            "reviewTitle": "Great lunier vehicle"
+          },
+          {
+            "rating": 5.0,
+            "about": "enjoyment",
+            "reviewText": "The new Jaguar XJL replaced our twelve year old Vanden Plas. While we were sad to let the old Jaguar go, the 2016 model is a beautiful addition. Several new features on the XJL took some time to learn; but driving the XJL in the Colorado mountains is an experience like no other. Select the \"Sport Mode\" and enjoy the ride. Adaptive cruise control, emergency braking and self parking are the only features not included on this car's options. While these would enhance this car, the vehicle is a pleasure to drive and ride in; not to mention the attention to the interior and exterior luxury and styling.",
+            "author": "SLB JagXJL",
+            "snippetId": "1029628953-sr:280:42",
+            "reviewId": "1029628953",
+            "summary": "Select the \"Sport Mode\" and enjoy the ride.",
+            "submissionTime": "Mar 7, 2017 5:59:14 PM",
+            "reviewTitle": "Jaguar - 12 Years of Leaper & Growler"
+          },
+          {
+            "rating": 5.0,
+            "about": "enjoyment",
+            "reviewText": "Brand new to this make, always had an SUV. Enjoying the sedan & all the features. Feeling spoiled with this luxury vehicle!",
+            "author": "Shazzie",
+            "snippetId": "1009196176-sr:43:37",
+            "reviewId": "1009196176",
+            "summary": "Enjoying the sedan & all the features.",
+            "submissionTime": "Aug 28, 2015 3:18:03 PM",
+            "reviewTitle": "Super Luxurious!!!"
+          }
+        ]
+      },
+      "appearance": {
+        "presenceCount": 91,
+        "mentionsCount": 104,
+        "bestExamples": [
+          {
+            "rating": 4.0,
+            "about": "appearance",
+            "reviewText": "I think it is a beautiful car but VERY disappointed in the ride.....which takes every bump like you are in a jeep. I bought this car because I expected a smooth cushiony ride like all the previous XJ's I have owned but the 20\" wheels and the fact they have \" tightened\" the car up  stresses me out. I would like  to return it or exchange perhaps for a XJL if they have 18-19 \" wheels  The navigation and most everything else have improved greatly. It is a 2019 XJ not a 2018 as shown below",
+            "author": "Allan1",
+            "snippetId": "1056508360-sr:0:113",
+            "reviewId": "1056508360",
+            "summary": "I think it is a beautiful car but VERY disappointed in the ride.....which takes every bump like you are in a jeep.",
+            "submissionTime": "Jun 25, 2019 3:45:45 PM",
+            "reviewTitle": "Beautiful car in all respects....but bumpy"
+          },
+          {
+            "rating": 5.0,
+            "about": "appearance",
+            "reviewText": "Car is a treat...smooth, quick and beautiful, especially in hunter green. Only problem to date is Bluetooth to phone. Connects and disconnects randomly",
+            "author": "PlainBill",
+            "snippetId": "1064862989-sr:0:72",
+            "reviewId": "1064862989",
+            "summary": "Car is a treat...smooth, quick and beautiful, especially in hunter green.",
+            "submissionTime": "Dec 10, 2019 10:42:28 PM",
+            "reviewTitle": "My XF was great/This is Better"
+          },
+          {
+            "rating": 5.0,
+            "about": "appearance",
+            "reviewText": "This car is a true Jag. Stylish, powerful, beautiful and makes a statement on the road.",
+            "author": "Hare",
+            "snippetId": "1050845739-sr:24:62",
+            "reviewId": "1050845739",
+            "summary": "Stylish, powerful, beautiful and makes a statement on the road.",
+            "submissionTime": "Dec 18, 2018 7:22:29 PM",
+            "reviewTitle": "I’m pleased as punch!!!"
+          },
+          {
+            "rating": 4.0,
+            "about": "appearance",
+            "reviewText": "I think it is a beautiful car but VERY disappointed in the ride.....which takes every bump like you are in a jeep. I bought this car because I expected a smooth cushiony ride like all the previous XJ's I have owned but the 20\" wheels and the fact they have \" tightened\" the car up  stresses me out. I would like  to return it or exchange perhaps for a XJL if they have 18-19 \" wheels  The navigation and most everything else have improved greatly. It is a 2019 XJ not a 2018 as shown below",
+            "author": "Allan1",
+            "snippetId": "1056508360-sr:0:41",
+            "reviewId": "1056508360",
+            "summary": "Beautiful car in all respects....but bumpy",
+            "submissionTime": "Jun 25, 2019 3:45:45 PM",
+            "reviewTitle": "Beautiful car in all respects....but bumpy"
+          },
+          {
+            "rating": 5.0,
+            "about": "appearance",
+            "reviewText": "Sound system is wonderful- did not upgrade to the 1300W unit, do not really need it. Component speakers on the front and rear doors - work great, lots of base and crisp mid and tweeters. Sometimes at relatively high volumes you will hear some small rattles in the door. Have only had the car for a couple of months now. No issues. Did test drive a Maserati Quatrroporte - Jag luxury was better. Made was more geared for sports enthusiasts- but even while cursing the exhaust does not shut up!! So a 2 hour drive somewhere with the constant noise - was the deal breaker. The Jag also looks better than the Maze, BMW7, S-Class and Audi A8. Car rides very smoothly, when pushed above 3500 rpm, the beast leaps and you hear a wonderful growl!!! It is very quite, great seats with all the functions expected of a $100k+ car. Give great highway mileage. City mileage is what you expect with a V8. Head turner, long wheel based model - so it is one of the biggest cars out there - yet very agile. Jag has done it right. Did prefer the steering feel of the hydraulic version of my XF compared to this electronic version but still very good. Only draw back, Jag still falls short on the infotainment system - wish they had gone with Apple car play instead of having to plug my mobile in to have full interactivity with the phone. It is miles better than the old system though. Use to like driving my wife's Range Rover Sport when I had my old 2013 XF, now Being in the XJ, do not like driving the Range Rover - that is the difference in ride quality. Still did not get rid of the annoying 1 second delay between typing alphabets and numbers. Loving every moment!!",
+            "author": "NellyP17",
+            "snippetId": "1029388225-sr:0:39",
+            "reviewId": "1029388225",
+            "summary": "Beautiful Wild Beast - tamed by Jaguar!!",
+            "submissionTime": "Mar 2, 2017 2:43:56 AM",
+            "reviewTitle": "Beautiful Wild Beast - tamed by Jaguar!!"
+          }
+        ]
+      },
+      "satisfaction": {
+        "presenceCount": 165,
+        "mentionsCount": 209,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "satisfaction",
+            "reviewText": "LOVE this car! Auto dimming of bright lites, cooled seats, logical and easy to use GPS, Voice commands and smoooooooth ride make this solid feeling car a dream. Glad I got the larger 5.0 engine. Best interior of any high end car I looked at...including the 550 Mercedes. Love all the easy to use features. And love when my friends say, \"WOW\" what a beautiful car!",
+            "author": "cruisin susan",
+            "snippetId": "1003256089-sr:306:56",
+            "reviewId": "1003256089",
+            "summary": "And love when my friends say, \"WOW\" what a beautiful car!",
+            "submissionTime": "Aug 20, 2014 8:56:33 PM",
+            "reviewTitle": "Great ...and better than expected vehicle!"
+          },
+          {
+            "rating": 5.0,
+            "about": "satisfaction",
+            "reviewText": "Fantastic engineering and options. Love the roominess of this vehicle. Overall, I am very pleased.",
+            "author": "El Gato",
+            "snippetId": "1009349163-sr:35:34",
+            "reviewId": "1009349163",
+            "summary": "Love the roominess of this vehicle.",
+            "submissionTime": "Sep 8, 2015 5:29:23 PM",
+            "reviewTitle": "This is a great car!"
+          },
+          {
+            "rating": 5.0,
+            "about": "satisfaction",
+            "reviewText": "LOVE this car! Auto dimming of bright lites, cooled seats, logical and easy to use GPS, Voice commands and smoooooooth ride make this solid feeling car a dream. Glad I got the larger 5.0 engine. Best interior of any high end car I looked at...including the 550 Mercedes. Love all the easy to use features. And love when my friends say, \"WOW\" what a beautiful car!",
+            "author": "cruisin susan",
+            "snippetId": "1003256089-sr:271:33",
+            "reviewId": "1003256089",
+            "summary": "Love all the easy to use features.",
+            "submissionTime": "Aug 20, 2014 8:56:33 PM",
+            "reviewTitle": "Great ...and better than expected vehicle!"
+          },
+          {
+            "rating": 4.0,
+            "about": "satisfaction",
+            "reviewText": "XJL Supercharged is great overall. I traded a V6 Portfolio because I wanted V8 power. I do wish Jaguar would continue to make these engines available. Had issues initially, but dealer corrected them. This is my 8th Jaguar vehicle and one of 3 I currently own. I love the brand.",
+            "author": "MannKM",
+            "snippetId": "1052885833-sr:260:16",
+            "reviewId": "1052885833",
+            "summary": "I love the brand.",
+            "submissionTime": "Mar 5, 2019 2:36:31 PM",
+            "reviewTitle": "Best Luxury Car Ever"
+          },
+          {
+            "rating": 4.0,
+            "about": "satisfaction",
+            "reviewText": "First true luxury car I have owned in about 20 years. I think Jaguar hit the nail on the head with the XJ. The luxury component is certainly expected and the XJ  surrounds you in it but the surprising part is the handling for a car of this size. I think it’s very unfortunate that the general public is moving away from the traditional sedan to SUV’s. It may not be as functional as a SUV but it just satisfies you in so many other ways.",
+            "author": "Phillyfrank",
+            "snippetId": "1058074310-sr:352:84",
+            "reviewId": "1058074310",
+            "summary": "It may not be as functional as a SUV but it just satisfies you in so many other ways.",
+            "submissionTime": "Aug 13, 2019 4:22:20 PM",
+            "reviewTitle": "A true luxury car with sport when you need it"
+          }
+        ]
+      },
+      "comfort": {
+        "presenceCount": 58,
+        "mentionsCount": 63,
+        "bestExamples": [
+          {
+            "rating": 5.0,
+            "about": "comfort",
+            "reviewText": "l love the car, very comfortable and sexy. I love being in the \"few\" that have the privilege to own one...It is unique, distinctive, elegant, timeless and kicky at the same time.",
+            "author": "Carpe Diem",
+            "snippetId": "1008103011-sr:0:41",
+            "reviewId": "1008103011",
+            "summary": "l love the car, very comfortable and sexy.",
+            "submissionTime": "Jun 26, 2015 8:35:12 PM",
+            "reviewTitle": "Awesome Automobile - I came back!!!"
+          },
+          {
+            "rating": 5.0,
+            "about": "comfort",
+            "reviewText": "My prior car was a Porsche Panamera Turbo, and was extremely comfortable with a a huge performance package. The Jaguar XJ-L 5.0 SC is close, but more comfortable for a trip.",
+            "author": "Bob W",
+            "snippetId": "1008065535-sr:0:106",
+            "reviewId": "1008065535",
+            "summary": "My prior car was a Porsche Panamera Turbo, and was extremely comfortable with a a huge performance package.",
+            "submissionTime": "Jun 24, 2015 2:03:33 PM",
+            "reviewTitle": "wonderful driving and riding vehicle"
+          },
+          {
+            "rating": 5.0,
+            "about": "comfort",
+            "reviewText": "Its absolutely an amazing vehicle. I would compare the XJ supercharged to a Lear jet on wheels. Its the combination of comfort, responsiveness, and power that is so remarkable.",
+            "author": "Oz 001",
+            "snippetId": "1004911044-sr:96:79",
+            "reviewId": "1004911044",
+            "summary": "Its the combination of comfort, responsiveness, and power that is so remarkable.",
+            "submissionTime": "Jan 8, 2015 10:12:17 PM",
+            "reviewTitle": "Most exciting car I have driven!"
+          },
+          {
+            "rating": 4.0,
+            "about": "comfort",
+            "reviewText": "Have owned other Top German Luxury Cars before my XJL. As far as the driving experience I like the Jag better than the other cars. Unfortunately there are some quality issues I need to have addressed. This is not acceptable in today's automotive competitive environment in my opinion. So in conclusion I can say that I like the comfort,handling and overall performance of the Jag but the German competitors are still built better.",
+            "author": "GJNO",
+            "snippetId": "1033805804-sr:285:144",
+            "reviewId": "1033805804",
+            "summary": "So in conclusion I can say that I like the comfort,handling and overall performance of the Jag but the German competitors are still built better.",
+            "submissionTime": "Jun 6, 2017 5:29:50 PM",
+            "reviewTitle": "Great Driving Full Size Luxury Sedan"
+          },
+          {
+            "rating": 4.0,
+            "about": "comfort",
+            "reviewText": "Nice car well appointed, powerful and comfortable. Has a number of issues and flaws:    1. C-pillar was not flush with trunk lid and loose    2. Radio freezes often    3. Rear window small and hard to see cars behind you    4. Screen is too low and distracting to look at    5. Glove compartment door lock is poorly located; opens often accidentally    6. Blind spot warning not audible    7. Forward collision warning but does not slow down or stop car",
+            "author": "SSDJ",
+            "snippetId": "1062293547-sr:0:49",
+            "reviewId": "1062293547",
+            "summary": "Nice car well appointed, powerful and comfortable.",
+            "submissionTime": "Oct 16, 2019 1:05:53 AM",
+            "reviewTitle": "2019 Jaguar XJ sport"
+          }
+        ]
+      }
+    },
+    "negative": {
+      "disappointing": {
+        "presenceCount": 5,
+        "mentionsCount": 4,
+        "bestExamples": [
+          {
+            "rating": 2.0,
+            "about": "disappointing",
+            "reviewText": "Disappointed with my jag ! She is been in the shop twice for electronic issues and needs to go again !! Only 2200 miles  :( not happy with a window sticker of $ 88,000.",
+            "author": "kittie cat",
+            "snippetId": "1019278591-sr:0:22",
+            "reviewId": "1019278591",
+            "summary": "disappointed : (",
+            "submissionTime": "Jul 19, 2016 9:29:20 PM",
+            "reviewTitle": "disappointed : @@@@@@@@"
+          },
+          {
+            "rating": 3.0,
+            "about": "disappointing",
+            "reviewText": "I am very disappointed that you are slowly removing the luxury from this car. The suede headliner is now gone, and with the London tan you have made the console and doors black, it looks like you stuck London tan seats in a black car.its look terrible. I have been a 30 year Jaguar customer and now I am considering a tesla next time. Please let me know if you plan to fix these problems, cause I love the London tan and the suede headliner.",
+            "author": "Marsha lee",
+            "snippetId": "1045144878-sr:0:76",
+            "reviewId": "1045144878",
+            "summary": "I am very disappointed that you are slowly removing the luxury from this car.",
+            "submissionTime": "Apr 25, 2018 8:18:03 PM",
+            "reviewTitle": "Very disappointed"
+          },
+          {
+            "rating": 3.0,
+            "about": "disappointing",
+            "reviewText": "I am very disappointed that you are slowly removing the luxury from this car. The suede headliner is now gone, and with the London tan you have made the console and doors black, it looks like you stuck London tan seats in a black car.its look terrible. I have been a 30 year Jaguar customer and now I am considering a tesla next time. Please let me know if you plan to fix these problems, cause I love the London tan and the suede headliner.",
+            "author": "Marsha lee",
+            "snippetId": "1045144878-sr:0:16",
+            "reviewId": "1045144878",
+            "summary": "Very disappointed",
+            "submissionTime": "Apr 25, 2018 8:18:03 PM",
+            "reviewTitle": "Very disappointed"
+          },
+          {
+            "rating": 2.0,
+            "about": "disappointing",
+            "reviewText": "I have been very disappointed in my ownership experience with Jaguar so far. For the initial price of the vehicle, the technology is limited based on their competitors offerings at a fraction of the cost. Believe it or not, the navigation system does not accept voice instructions! I have had several instances in the first month of ownership and during the first 500 miles when systems did not perform as intended: the XM radio is not reliable, the computer display goes blank and will not respond to touch commands, the auto start seat massage is hit or miss at best, wifi system through AT&T is questionable, SOS system computer failed and had to be replaced, service has been unresponsive, difficult to reach customer service via phone and when you do, they are not familiar with the new in control programs        Big disappointment! Big waste of money for what you get!",
+            "author": "GSW1",
+            "snippetId": "1021741283-sr:0:75",
+            "reviewId": "1021741283",
+            "summary": "I have been very disappointed in my ownership experience with Jaguar so far.",
+            "submissionTime": "Sep 23, 2016 2:46:30 PM",
+            "reviewTitle": "Big disappointment"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -42,18 +42,15 @@ public class ReviewHighlights{
         }
         return this.negatives;
     }
-//Converting map to List and desending list to descending order wrt mentionsCount
+
+    //Converting map to List and desending list to descending order wrt mentionsCount
     @NonNull
-    private List<ReviewHighlight> processContent(@Nullable Map<String, ReviewHighlight> contents) {
+    private List<ReviewHighlight> processContent(@Nullable Map<String, ReviewHighlight> contents) { //check non null
         List<ReviewHighlight> contentList = new ArrayList<>();
         if (contents != null) {
-           int i = 0;
-            String[] titles = contents.keySet().toArray(new String[0]);
-            for (ReviewHighlight content : contents.values()) {
-                content.title = titles[i];
-                System.out.println(content.mentionsCount);
-                contentList.add(content);
-                i++;
+            for (Map.Entry<String, ReviewHighlight> entry : contents.entrySet()) {
+                entry.getValue().title = entry.getKey();
+                contentList.add(entry.getValue());
             }
         }
         Collections.sort(contentList, (s1, s2) ->

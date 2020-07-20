@@ -519,7 +519,7 @@ public class BVSDK {
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String shopperMarketingApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? SHOPPER_MARKETING_API_ROOT_URL_STAGING : SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION;
-            String bazaarvoiceReviewHighlightUrl = bazaarEnvironment == BazaarEnvironment.STAGING? BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_STAGING : BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_PRODUCTION;
+            String bazaarvoiceReviewHighlightUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_STAGING : BAZAARVOICE_ROOT_REVIEW_HIGHLIGHT_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
             BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL,bazaarvoiceReviewHighlightUrl);

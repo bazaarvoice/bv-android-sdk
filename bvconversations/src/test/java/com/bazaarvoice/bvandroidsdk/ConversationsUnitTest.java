@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import androidx.annotation.NonNull;
+
 import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
@@ -12,6 +14,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,7 +32,9 @@ import static org.junit.Assert.assertNotNull;
 public class ConversationsUnitTest extends BVBaseTest {
     private static final String UTF_8 = "UTF-8";
 
+
     @Override
+
     protected void modifyPropertiesToInitSDK() {
         bazaarvoiceApiBaseUrl = "https://examplesite/";
     }
@@ -528,4 +533,57 @@ public class ConversationsUnitTest extends BVBaseTest {
         firstAuthor.getQaStatistics();
     }
 
+    @Test
+    public void testReviewHighlightsParsing() throws Exception {
+        ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_response.json", ReviewHighlightsResponse.class, gson);
+        assertNotNull(response.getReviewHighlights());
+        assertNotNull(response.getReviewHighlights().getNegatives());
+        assertNotNull(response.getReviewHighlights().getPositives());
+        assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
+        assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
+    }
+
+    @Test
+    public void testReviewHighlightsOnlyPros() throws Exception {
+        ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_reponse_only_pros.json", ReviewHighlightsResponse.class, gson);
+        assertNotNull(response.getReviewHighlights());
+        assertNotNull(response.getReviewHighlights().getPositives());
+        assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
+        assertTrue(response.getReviewHighlights().getNegatives().isEmpty());
+    }
+
+    @Test
+    public void testReviewHighlightsOnlyCons() throws Exception {
+        ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_reponse_only_cons.json", ReviewHighlightsResponse.class, gson);
+        assertNotNull(response.getReviewHighlights());
+        assertNotNull(response.getReviewHighlights().getNegatives());
+        assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
+        assertTrue(response.getReviewHighlights().getPositives().isEmpty());
+    }
+
+    @Test
+    public void testReviewHighlightsMentionCountDescingOrder() throws Exception {
+        //expected cons
+        List<String> actualNegetiveMentionCount = new ArrayList<String>(Arrays.asList("small", "large"));
+        List<String> expectedNegetiveMentionCount = new ArrayList<String>();
+        //expeted pros
+        List<String> actualPositiveMentionCount = new ArrayList<String>(Arrays.asList("cleaning", "satisfaction","ease of use"));
+        List<String> expectedPositiveMentionCount = new ArrayList<String>();
+
+        ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_response.json", ReviewHighlightsResponse.class, gson);
+        List<ReviewHighlight> negetive = response.getReviewHighlights().getNegatives();
+        List<ReviewHighlight> positive = response.getReviewHighlights().getPositives();
+        //cons
+        for(int i = 0; i < negetive.size();i++){
+            assertNotNull(negetive.get(i).title);
+            expectedNegetiveMentionCount.add(negetive.get(i).title);
+        }
+        assertEquals(actualNegetiveMentionCount,expectedNegetiveMentionCount);
+        //pros
+        for(int i = 0; i < positive.size();i++){
+            assertNotNull(positive.get(i).title);
+            expectedPositiveMentionCount.add(positive.get(i).title);
+        }
+        assertEquals(actualPositiveMentionCount,expectedPositiveMentionCount);
+    }
 }
