@@ -3,14 +3,14 @@ package com.bazaarvoice.bvandroidsdk;
 import com.google.gson.annotations.SerializedName;
 
 public class ReviewHighligtsReview {
-    @SerializedName("rating") private String rating;
-    @SerializedName("about") private String about;
-    @SerializedName("author") private String author;
-    @SerializedName("reviewId") private String reviewId;
-    @SerializedName("summary") private String summary;
-    @SerializedName("submissionTime") private String submissionTime;
-    @SerializedName("reviewTitle") private String mentionreviewTitlesCount;
-
+    @SerializedName("rating") public String rating;
+    @SerializedName("about") public String about;
+    @SerializedName("author") public String author;
+    @SerializedName("reviewId") public String reviewId;
+    @SerializedName("summary") public String summary;
+    @SerializedName("submissionTime") public String submissionTime;
+    @SerializedName("reviewTitle") public String mentionreviewTitlesCount;
+    @SerializedName("snippetId") public String snippetId;
 }
 
 

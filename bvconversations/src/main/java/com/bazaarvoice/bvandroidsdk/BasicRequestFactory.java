@@ -431,16 +431,12 @@ class BasicRequestFactory implements RequestFactory {
 
     private Request createFromReviewHighlightsRequest(ReviewHighlightsRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
-
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvReviewHighlightUrl)
                 .newBuilder()
                 .addPathSegments(REVIEW_HIGHLIGHTS_ENDPOINT);
-
         httpUrlBuilder.addPathSegment(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
         httpUrlBuilder.addPathSegment(request.getProductId());
-
         HttpUrl httpUrl = httpUrlBuilder.build();
-
         return okRequestBuilder
                 .url(httpUrl)
                 .build();
