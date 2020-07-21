@@ -186,7 +186,7 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             if (conversationResponse != null && !conversationResponse.getHasErrors()) {
                 // Route callbacks to Analytics Manager to handle any analytics that are associated
                 // with a successful display response
-               // conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+                conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
             } else {
                 List<Error> errors = Collections.emptyList();
                 if (conversationResponse != null && conversationResponse.getErrors() != null) {
