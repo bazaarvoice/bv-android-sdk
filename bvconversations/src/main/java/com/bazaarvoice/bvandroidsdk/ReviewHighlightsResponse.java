@@ -13,6 +13,7 @@ public class ReviewHighlightsResponse  extends ConversationsDisplayResponse {
     }
 
     public Boolean getHasErrors() {
+        //TODO error handling changes
         return false;
     }
 }

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ReviewHighlight {
-    @SerializedName("presenceCount") private Integer presenceCount;
+    @SerializedName("presenceCount") public Integer presenceCount;
     @SerializedName("mentionsCount") public Integer mentionsCount;
     @SerializedName("bestExamples")
-    private ArrayList<ReviewHighligtsReview> bestExamples;
+    public ArrayList<ReviewHighligtsReview> bestExamples;
     public String title;
 
 }

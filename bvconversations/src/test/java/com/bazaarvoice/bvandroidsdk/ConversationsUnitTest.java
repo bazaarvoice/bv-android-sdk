@@ -539,6 +539,8 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertNotNull(response.getReviewHighlights());
         assertNotNull(response.getReviewHighlights().getNegatives());
         assertNotNull(response.getReviewHighlights().getPositives());
+        assertFalse(response.getReviewHighlights().getPositives().isEmpty());
+        assertFalse(response.getReviewHighlights().getNegatives().isEmpty());
         assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
         assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
     }
@@ -548,8 +550,10 @@ public class ConversationsUnitTest extends BVBaseTest {
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_reponse_only_pros.json", ReviewHighlightsResponse.class, gson);
         assertNotNull(response.getReviewHighlights());
         assertNotNull(response.getReviewHighlights().getPositives());
-        assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
+        assertNotNull(response.getReviewHighlights().getNegatives());
         assertTrue(response.getReviewHighlights().getNegatives().isEmpty());
+        assertFalse(response.getReviewHighlights().getPositives().isEmpty());
+        assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
     }
 
     @Test
@@ -557,33 +561,35 @@ public class ConversationsUnitTest extends BVBaseTest {
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_reponse_only_cons.json", ReviewHighlightsResponse.class, gson);
         assertNotNull(response.getReviewHighlights());
         assertNotNull(response.getReviewHighlights().getNegatives());
-        assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
+        assertNotNull(response.getReviewHighlights().getPositives());
         assertTrue(response.getReviewHighlights().getPositives().isEmpty());
+        assertFalse(response.getReviewHighlights().getNegatives().isEmpty());
+        assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
     }
 
     @Test
-    public void testReviewHighlightsMentionCountDescingOrder() throws Exception {
+    public void testReviewHighlightsSequence() throws Exception {
         //expected cons
-        List<String> actualNegetiveMentionCount = new ArrayList<String>(Arrays.asList("small", "large"));
-        List<String> expectedNegetiveMentionCount = new ArrayList<String>();
+        List<String> expectedNegatives = new ArrayList<String>(Arrays.asList("small", "large"));
         //expeted pros
-        List<String> actualPositiveMentionCount = new ArrayList<String>(Arrays.asList("cleaning", "satisfaction","ease of use"));
-        List<String> expectedPositiveMentionCount = new ArrayList<String>();
+        List<String> expectedPositives = new ArrayList<String>(Arrays.asList("cleaning", "satisfaction","ease of use"));
 
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_response.json", ReviewHighlightsResponse.class, gson);
-        List<ReviewHighlight> negetive = response.getReviewHighlights().getNegatives();
-        List<ReviewHighlight> positive = response.getReviewHighlights().getPositives();
-        //cons
-        for(int i = 0; i < negetive.size();i++){
-            assertNotNull(negetive.get(i).title);
-            expectedNegetiveMentionCount.add(negetive.get(i).title);
+        List<ReviewHighlight> negatives = response.getReviewHighlights().getNegatives();
+        List<ReviewHighlight> positives = response.getReviewHighlights().getPositives();
+
+        int i = 0;
+        for (ReviewHighlight positive : positives) {
+            assertNotNull(positive.title);
+            assertEquals(positive.title,expectedPositives.get(i));
+            i++;
         }
-        assertEquals(actualNegetiveMentionCount,expectedNegetiveMentionCount);
-        //pros
-        for(int i = 0; i < positive.size();i++){
-            assertNotNull(positive.get(i).title);
-            expectedPositiveMentionCount.add(positive.get(i).title);
+
+        i = 0;
+        for (ReviewHighlight negetive : negatives) {
+            assertNotNull(negetive.title);
+            assertEquals(negetive.title,expectedNegatives.get(i));
+            i++;
         }
-        assertEquals(actualPositiveMentionCount,expectedPositiveMentionCount);
     }
 }
