@@ -12,6 +12,18 @@ public class ErrorsUnitTest {
     return BVBaseTest.parseJsonResourceFile("conversations_errors.json", ReviewResponse.class, new GsonBuilder().setPrettyPrinting().create());
   }
 
+  private ReviewHighlightsResponse getMockReviewHighlightsErrors() throws Exception {
+    return BVBaseTest.parseJsonResourceFile("review_highlights_errors.json", ReviewHighlightsResponse.class, new GsonBuilder().setPrettyPrinting().create());
+  }
+
+  @Test
+  public void testErrorReviewHighlightsResponse() throws Exception{
+    ReviewHighlightsResponse errorResponse = getMockReviewHighlightsErrors();
+    assertTrue(errorResponse.getHasErrors());
+    Error firstError = errorResponse.getErrors().get(0);
+    assertEquals("NotAvailable", firstError.getMessage());
+  }
+
   @Test
   public void testErrorResponse() throws Exception {
     ConversationsResponse errorResponse = getMockConversationsErrors();
