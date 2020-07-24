@@ -58,7 +58,7 @@ public class DemoReviewHighlightsPresenter implements ConversationsDisplayCallba
 
             @Override
             public void onFailure(@NonNull ConversationsException exception) {
-
+              String  messsage = exception.getErrorListMessages();
             }
         });
     }

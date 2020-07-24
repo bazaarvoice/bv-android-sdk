@@ -28,6 +28,11 @@ public class Error {
     @SerializedName("Code") private String code;
     private transient ErrorCode errorCode;
 
+    Error(String message, String code){
+        this.message = message;
+        this.code = code;
+    }
+
     public String getMessage() {
         return message;
     }
