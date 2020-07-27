@@ -168,7 +168,7 @@ class BasicRequestFactory implements RequestFactory {
     // region Instance Fields
     private final BVMobileInfo bvMobileInfo;
     private final String bvRootApiUrl;
-    private final String bvReviewHighlightUrl;
+    private final String bvReviewHighlightsUrl;
     private final String convApiKey;
     private final String storeApiKey;
     private final String progressiveSubmissionApiKey;
@@ -193,7 +193,7 @@ class BasicRequestFactory implements RequestFactory {
     BasicRequestFactory(BVMobileInfo bvMobileInfo, BVRootApiUrls bvRootApiUrls, BVConfig bvConfig, String bvSdkUserAgent, FingerprintProvider fingerprintProvider) {
         this.bvMobileInfo = bvMobileInfo;
         this.bvRootApiUrl = bvRootApiUrls.getBazaarvoiceApiRootUrl();
-        this.bvReviewHighlightUrl = bvRootApiUrls.getBazaarvoiceReviewHighlightApiUrl();
+        this.bvReviewHighlightsUrl = bvRootApiUrls.getBazaarvoiceReviewHighlightApiUrl();
         this.convApiKey = bvConfig.getApiKeyConversations();
         this.storeApiKey = bvConfig.getApiKeyConversationsStores();
         this.progressiveSubmissionApiKey = bvConfig.getApiKeyProgressiveSubmission();
@@ -431,7 +431,7 @@ class BasicRequestFactory implements RequestFactory {
 
     private Request createFromReviewHighlightsRequest(ReviewHighlightsRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
-        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvReviewHighlightUrl)
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvReviewHighlightsUrl)
                 .newBuilder()
                 .addPathSegments(REVIEW_HIGHLIGHTS_ENDPOINT);
         httpUrlBuilder.addPathSegment(BVSDK.getInstance().getBvUserProvidedData().getBvConfig().getClientId());
