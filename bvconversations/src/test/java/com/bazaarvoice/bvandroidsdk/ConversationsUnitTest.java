@@ -536,11 +536,14 @@ public class ConversationsUnitTest extends BVBaseTest {
     @Test
     public void testReviewHighlightsParsing() throws Exception {
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_response.json", ReviewHighlightsResponse.class, gson);
+        // check not null
         assertNotNull(response.getReviewHighlights());
         assertNotNull(response.getReviewHighlights().getNegatives());
         assertNotNull(response.getReviewHighlights().getPositives());
+        // check not empty
         assertFalse(response.getReviewHighlights().getPositives().isEmpty());
         assertFalse(response.getReviewHighlights().getNegatives().isEmpty());
+        // check count <= 5
         assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
         assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
     }
@@ -548,22 +551,28 @@ public class ConversationsUnitTest extends BVBaseTest {
     @Test
     public void testReviewHighlightsOnlyPros() throws Exception {
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_reponse_only_pros.json", ReviewHighlightsResponse.class, gson);
+        // check not null
         assertNotNull(response.getReviewHighlights());
         assertNotNull(response.getReviewHighlights().getPositives());
         assertNotNull(response.getReviewHighlights().getNegatives());
+        // check not empty
         assertTrue(response.getReviewHighlights().getNegatives().isEmpty());
         assertFalse(response.getReviewHighlights().getPositives().isEmpty());
+        // check count <= 5
         assertTrue(response.getReviewHighlights().getPositives().size() <= 5);
     }
 
     @Test
     public void testReviewHighlightsOnlyCons() throws Exception {
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_reponse_only_cons.json", ReviewHighlightsResponse.class, gson);
+        // check not null
         assertNotNull(response.getReviewHighlights());
         assertNotNull(response.getReviewHighlights().getNegatives());
         assertNotNull(response.getReviewHighlights().getPositives());
+        // check not empty
         assertTrue(response.getReviewHighlights().getPositives().isEmpty());
         assertFalse(response.getReviewHighlights().getNegatives().isEmpty());
+        // check count <= 5
         assertTrue(response.getReviewHighlights().getNegatives().size() <= 5);
     }
 
@@ -577,7 +586,7 @@ public class ConversationsUnitTest extends BVBaseTest {
         ReviewHighlightsResponse response = parseJsonResourceFile("review_highlight_response.json", ReviewHighlightsResponse.class, gson);
         List<ReviewHighlight> negatives = response.getReviewHighlights().getNegatives();
         List<ReviewHighlight> positives = response.getReviewHighlights().getPositives();
-
+        // check not null title & sequence
         int i = 0;
         for (ReviewHighlight positive : positives) {
             assertNotNull(positive.title);
