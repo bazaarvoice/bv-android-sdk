@@ -52,7 +52,7 @@ class ConversationsAnalyticsManager {
      *
      * @param conversationResponse
      */
-    void sendSuccessfulConversationsDisplayResponse(ConversationsResponse conversationResponse) {
+    void sendSuccessfulConversationsDisplayResponse(ConversationsResponse conversationResponse, ConversationsDisplayRequest conversationrequest) {
         if (conversationResponse instanceof ReviewResponse) {
             ReviewResponse reviewResponse = (ReviewResponse) conversationResponse;
             sendUgcImpressionEvent(
@@ -85,6 +85,10 @@ class ConversationsAnalyticsManager {
                     commentsResponse.getResults(),
                     BVEventValues.BVProductType.CONVERSATIONS_REVIEWS,
                     BVEventValues.BVImpressionContentType.COMMENT);
+        } else if(conversationResponse instanceof ReviewHighlightsResponse){
+            ReviewHighlightsRequest reviewHighlightsRequest = (ReviewHighlightsRequest) conversationrequest;
+            String productId =  reviewHighlightsRequest.getProductId();
+            sendUsedFeatureEventReviewHighlights(productId);
         }
     }
 
@@ -424,5 +428,11 @@ class ConversationsAnalyticsManager {
         bvPixel.trackEventForClient(event, clientId);
     }
 
+    private void sendUsedFeatureEventReviewHighlights(String productId){
+        BVEventValues.BVProductType bvProductType = BVEventValues.BVProductType.CONVERSATIONS_REVIEWS;
+        BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.REVIEWHIGHLIGHTS;
+        BVFeatureUsedEvent event = new BVFeatureUsedEvent(productId, bvProductType, bvFeatureUsedEventType, null);
+        bvPixel.trackEventForClient(event, clientId);
+    }
     // endregion
 }

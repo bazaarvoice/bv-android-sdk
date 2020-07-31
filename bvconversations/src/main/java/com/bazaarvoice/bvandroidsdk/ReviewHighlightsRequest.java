@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
  */
 
 public class ReviewHighlightsRequest extends ConversationsDisplayRequest {
-    private final String productId;
+     String productId;
 
     private ReviewHighlightsRequest(Builder builder) {
         super(builder);
@@ -41,10 +41,11 @@ public class ReviewHighlightsRequest extends ConversationsDisplayRequest {
 
     public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
         private String productId;
-
+        /**
+         * Creates a reviewHighlights display request
+         */
         public Builder(@NonNull String productId) {
             super();
-
             this.productId = productId;
         }
         public ReviewHighlightsRequest build() {
