@@ -37,7 +37,7 @@ public class ConversationsAnalyticsManagerTest extends BVBaseTest {
     ConversationsAnalyticsManager subject = new ConversationsAnalyticsManager(bvPixel, clientId);
     ReviewResponse reviewResponse = parseJsonResourceFile("reviews_all_reviews.json", ReviewResponse.class, gson);
 
-    subject.sendSuccessfulConversationsDisplayResponse(reviewResponse);
+    subject.sendSuccessfulConversationsDisplayResponse(reviewResponse, null);
 
     ArgumentCaptor<BVMobileAnalyticsEvent> eventArgumentCaptor = ArgumentCaptor.forClass(BVMobileAnalyticsEvent.class);
     ArgumentCaptor<String> clientIdArgCaptor = ArgumentCaptor.forClass(String.class);
