@@ -87,7 +87,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             conversationResponse = deserializeAndCloseResponse(response);
             // Route callbacks to Analytics Manager to handle any analytics that are associated
             // with a successful display response
-            conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+            RequestType request = this.getRequest();
+            conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse,request);
         } catch (IOException e) {
             throw new BazaarException("Execution of call failed", e);
         } catch (BazaarException e) {
@@ -186,7 +187,8 @@ public final class LoadCallDisplay<RequestType extends ConversationsDisplayReque
             if (conversationResponse != null && !conversationResponse.getHasErrors()) {
                 // Route callbacks to Analytics Manager to handle any analytics that are associated
                 // with a successful display response
-                conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse);
+                RequestType request = this.getRequest();
+                conversationsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse,request);
             } else {
                 List<Error> errors = Collections.emptyList();
                 if (conversationResponse != null && conversationResponse.getErrors() != null) {

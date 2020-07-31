@@ -18,7 +18,8 @@ public class BVEventValues {
     PROFILE("Profile"),
     CONTENT_CLICK("Click"),
     NOTIFICATION("PushNotification"),
-    ENGAGED("Engaged");
+    ENGAGED("Engaged"),
+    REVIEWHIGHLIGHTS("ReviewHighlights");
 
     private String value;
 
