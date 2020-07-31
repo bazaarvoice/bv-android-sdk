@@ -428,6 +428,7 @@ class ConversationsAnalyticsManager {
         bvPixel.trackEventForClient(event, clientId);
     }
 
+    //BVPixel for reviewHighlights API
     private void sendUsedFeatureEventReviewHighlights(String productId){
         BVEventValues.BVProductType bvProductType = BVEventValues.BVProductType.CONVERSATIONS_REVIEWS;
         BVEventValues.BVFeatureUsedEventType bvFeatureUsedEventType = BVEventValues.BVFeatureUsedEventType.REVIEWHIGHLIGHTS;
