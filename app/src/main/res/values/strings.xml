@@ -28,6 +28,7 @@
     <string name="title_activity_bulkratings">Bulk Ratings</string>
     <string name="title_activity_product_stats">Product Review Stats</string>
     <string name="title_activity_questions">Product Questions</string>
+    <string name="title_activity_review_highlights">Review Highlights</string>
     <string name="title_activity_answers">Product Answers</string>
     <string name="title_activity_comments">Comments</string>
     <string name="title_activity_curations_map">Curations Photo Map</string>
