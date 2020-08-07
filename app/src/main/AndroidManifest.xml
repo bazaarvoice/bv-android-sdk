@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_demo_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.DarkActionBar">
-        <activity android:name=".conversations.ReviewHighlights.DemoReviewHighlightsActivity"></activity>
+
         <activity android:name=".progressivesubmission.DemoProgressiveSubmissionActivity" />
         <activity
             android:name=".DemoMainActivity"
@@ -99,6 +99,8 @@
         <activity
             android:name=".author.DemoAuthorActivity"
             android:label="@string/title_activity_author" />
+        <activity android:name=".conversations.ReviewHighlights.DemoReviewHighlightsActivity"
+            android:label="@string/title_activity_review_highlights"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

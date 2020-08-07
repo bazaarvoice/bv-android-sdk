@@ -3,7 +3,6 @@ package com.bazaarvoice.bvandroidsdk;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ReviewHighlight {
     @SerializedName("presenceCount") public Integer presenceCount;
