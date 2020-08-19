@@ -1,5 +1,12 @@
 # Changelog
 
+# 8.6.0
+
+## Added support for Review Highlights
+
+*  Added support for Review Highlights API
+*  Integration of Review Highlights in Demo App.
+
 # 8.5.2
 
 ## Added support for Iovation Android SDK 4.1.1
