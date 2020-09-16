@@ -291,6 +291,7 @@ public class RequestFactoryUtils {
     productIds.add("product2");
     final BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.NativeReviews)
         .addFilter(BulkRatingOptions.Filter.ContentLocale, EqualityOperator.EQ, "den")
+        .incentivizedStats(true)
         .build();
     final Request okRequest = requestFactory.create(request);
     return okRequest;

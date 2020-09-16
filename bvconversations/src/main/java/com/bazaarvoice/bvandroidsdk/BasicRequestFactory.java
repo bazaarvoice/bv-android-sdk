@@ -53,6 +53,7 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kLIMIT = "Limit";
     private static final String kOFFSET = "Offset";
     private static final String kSEARCH = "Search";
+    private static  final String kIncentivized_STAT = "incentivizedstats";
     // endregion
 
     // region Display Reviews Request Keys
@@ -565,7 +566,9 @@ class BasicRequestFactory implements RequestFactory {
         addCommonDisplayQueryParams(httpUrlBuilder, request);
 
         httpUrlBuilder.addQueryParameter(kSTATS, request.getStatsType().getKey());
-
+        if(request.getIncentivizedStats()){
+            httpUrlBuilder.addQueryParameter(kIncentivized_STAT, request.getIncentivizedStats().toString());
+        }
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
