@@ -27,11 +27,13 @@ import androidx.annotation.NonNull;
 public class BulkRatingsRequest extends ConversationsDisplayRequest {
   private final BulkRatingOptions.StatsType statsType;
   private final List<String> productIds;
+  private boolean incentivizedStats;
 
   private BulkRatingsRequest(Builder builder) {
     super(builder);
     statsType = builder.statsType;
     productIds = builder.productIds;
+    incentivizedStats = builder.incentivizedStats;
   }
 
   BulkRatingOptions.StatsType getStatsType() {
@@ -40,6 +42,10 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
 
   List<String> getProductIds() {
     return productIds;
+  }
+
+  Boolean getIncentivizedStats() {
+    return incentivizedStats;
   }
 
   @Override
@@ -53,16 +59,23 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
   public static final class Builder extends ConversationsDisplayRequest.Builder<Builder> {
     private final BulkRatingOptions.StatsType statsType;
     private final List<String> productIds;
+    private boolean incentivizedStats;
 
     public Builder(@NonNull List<String> productIds, BulkRatingOptions.StatsType statsType) {
       super();
       this.productIds = productIds;
       addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
       this.statsType = statsType;
+      this.incentivizedStats = incentivizedStats;
     }
 
     public Builder addFilter(@NonNull BulkRatingOptions.Filter filter, @NonNull EqualityOperator equalityOperator, @NonNull String value) {
       addFilter(new Filter(filter, equalityOperator, value));
+      return this;
+    }
+
+    public Builder incentivizedStats(@NonNull Boolean incentivizedStats) {
+      this.incentivizedStats = incentivizedStats;
       return this;
     }
 
