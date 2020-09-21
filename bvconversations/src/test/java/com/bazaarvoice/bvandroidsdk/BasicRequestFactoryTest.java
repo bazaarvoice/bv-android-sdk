@@ -257,6 +257,7 @@ public class BasicRequestFactoryTest {
     requestFactoryUtils.assertContainsGenericProperties(okRequest);
     assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:product1,product2"));
     assertTrue(url.queryParameterValues("Filter").contains("ContentLocale:eq:den"));
+    assertTrue(url.queryParameterValues("incentivizedstats").contains("true"));
     assertEquals("NativeReviews", url.queryParameter("Stats"));
   }
 

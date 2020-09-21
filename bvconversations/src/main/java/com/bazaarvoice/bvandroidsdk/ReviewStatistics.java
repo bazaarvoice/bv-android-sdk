@@ -64,6 +64,8 @@ public class ReviewStatistics {
     private Map<String, DistributionElement> tagDistribution;
     @SerializedName("ContextDataDistribution")
     private Map<String, DistributionElement> contextDataDistribution;
+    @SerializedName("IncentivizedReviewCount")
+    private int incentivizedReviewCount;
 
     private transient Date firstSubmissionDate;
     private transient Date lastSubmissionDate;
@@ -103,6 +105,10 @@ public class ReviewStatistics {
 
     public Float getAverageOverallRating() {
         return getFloatSafe(averageOverallRating);
+    }
+
+    public Integer getIncentivizedReviewCount() {
+        return getIntegerSafe(incentivizedReviewCount);
     }
 
     public Map<String, SecondaryRatingsAverages> getSecondaryRatingsAverages() {

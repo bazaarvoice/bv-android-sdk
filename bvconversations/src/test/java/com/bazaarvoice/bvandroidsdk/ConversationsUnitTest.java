@@ -601,4 +601,29 @@ public class ConversationsUnitTest extends BVBaseTest {
             i++;
         }
     }
+
+    @Test
+    public void testBulkRatingParsing() throws Exception {
+        BulkRatingsResponse response = parseJsonResourceFile("bulk_ratings_response.json", BulkRatingsResponse.class, gson);
+        //check count and result
+        assertEquals(1, response.getTotalResults().intValue());
+        assertNotNull(response.getResults());
+        for (Statistics stats : response.getResults()) {
+
+            ProductStatistics productStats = stats.getProductStatistics();
+            ReviewStatistics reviewStats = productStats.getReviewStatistics();
+            ReviewStatistics nativeStats = productStats.getNativeReviewStatistics();
+            //check incentivized count
+            assertEquals(15, reviewStats.getIncentivizedReviewCount().intValue());
+            assertEquals(15, nativeStats.getIncentivizedReviewCount().intValue());
+            //check response properties count
+            assertEquals(4.3818f, reviewStats.getAverageOverallRating());
+            assertEquals(4.3818f, nativeStats.getAverageOverallRating());
+            assertEquals(55, reviewStats.getTotalReviewCount().intValue());
+            assertEquals(55, nativeStats.getTotalReviewCount().intValue());
+            assertEquals(5, reviewStats.getOverallRatingRange().intValue());
+            assertEquals(5, nativeStats.getOverallRatingRange().intValue());
+        }
+
+    }
 }
