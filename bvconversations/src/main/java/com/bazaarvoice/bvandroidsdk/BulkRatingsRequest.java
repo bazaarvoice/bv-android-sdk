@@ -66,7 +66,7 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
       this.productIds = productIds;
       addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productIds));
       this.statsType = statsType;
-      this.incentivizedStats = incentivizedStats;
+      this.incentivizedStats = false;
     }
 
     public Builder addFilter(@NonNull BulkRatingOptions.Filter filter, @NonNull EqualityOperator equalityOperator, @NonNull String value) {
@@ -74,7 +74,7 @@ public class BulkRatingsRequest extends ConversationsDisplayRequest {
       return this;
     }
 
-    public Builder incentivizedStats(@NonNull Boolean incentivizedStats) {
+    public Builder addIncentivizedStats(@NonNull Boolean incentivizedStats) {
       this.incentivizedStats = incentivizedStats;
       return this;
     }

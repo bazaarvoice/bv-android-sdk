@@ -1,0 +1,28 @@
+{
+  "Limit": 1,
+  "Offset": 0,
+  "TotalResults": 1,
+  "Locale": "en_US",
+  "Results": [
+    {
+      "ProductStatistics": {
+        "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+        "NativeReviewStatistics": {
+          "AverageOverallRating": 4.3818,
+          "TotalReviewCount": 55,
+          "IncentivizedReviewCount": 15,
+          "OverallRatingRange": 5
+        },
+        "ReviewStatistics": {
+          "AverageOverallRating": 4.3818,
+          "TotalReviewCount": 55,
+          "IncentivizedReviewCount": 15,
+          "OverallRatingRange": 5
+        }
+      }
+    }
+  ],
+  "Includes": {},
+  "HasErrors": false,
+  "Errors": []
+}
