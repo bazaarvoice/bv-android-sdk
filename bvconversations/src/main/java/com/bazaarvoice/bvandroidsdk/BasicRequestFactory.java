@@ -55,6 +55,8 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kSEARCH = "Search";
     // endregion
 
+    private static final String kINCENTIVIZED_STATS = "incentivizedstats";
+
     // region Display Reviews Request Keys
     private static final String INCLUDE_ANSWERS = "Answers";
     private static final String REVIEWS_ENDPOINT = "data/reviews.json";
@@ -360,6 +362,10 @@ class BasicRequestFactory implements RequestFactory {
             }
             String includeStr = StringUtils.componentsSeparatedBy(request.getReviewIncludeTypes(), ",");
             httpUrlBuilder.addQueryParameter(kINCLUDE, includeStr);
+        }
+
+        if (request.getIncentivizedStats()) {
+            httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
         if (!request.getSorts().isEmpty()) {
