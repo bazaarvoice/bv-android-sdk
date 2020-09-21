@@ -69,6 +69,17 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayShouldHaveIncentivizedStatParams() throws Exception {
+    final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
+    final HttpUrl url = okRequest.url();
+    assertTrue(url.queryParameterValues("Filter").contains("ProductId:eq:prod1"));
+    assertEquals("products", url.queryParameter("Include"));
+    assertEquals("true", url.queryParameter("incentivizedstats"));
+    assertEquals("SubmissionTime:desc", url.queryParameter("Sort"));
+    assertTrue(url.queryParameterValues("Filter").contains("AuthorId:eq:me"));
+  }
+
+  @Test
   public void reviewDisplayFinalPath() throws Exception {
     final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
     requestFactoryUtils.assertFinalPathIs(okRequest.url(), "reviews.json");

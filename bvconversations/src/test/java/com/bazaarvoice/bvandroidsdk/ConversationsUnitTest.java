@@ -1,7 +1,5 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import androidx.annotation.NonNull;
-
 import com.bazaarvoice.bvandroidsdk.types.FeedbackContentType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackType;
 import com.bazaarvoice.bvandroidsdk.types.FeedbackVoteType;
@@ -89,6 +87,8 @@ public class ConversationsUnitTest extends BVBaseTest {
     public void testReviewsRequestValidLimit() {
 
         ReviewsRequest request = new ReviewsRequest.Builder("testProductId", 20, 0)
+                .addIncentivizedStats(true)
+                .includeSearchPhrase("test")
                 .build();
 
         assertTrue("Request does not contain error but one was found", request.getError() == null);
@@ -214,6 +214,47 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertEquals("REVIEW", top10Badge.getContentType());
         assertEquals("top10", top10Badge.getId());
         assertEquals("Merit", top10Badge.getType().name());
+    }
+
+    @Test
+    public void testReviewsForIncentivizedReviewParsing() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("review_incentivized.json", ReviewResponse.class, gson);
+
+        assertEquals(20, response.getResults().size());
+
+        Review firstReview = response.getResults().get(10);
+
+        assertNotNull(response.getIncludes().getProducts().get(0).getReviewStatistics());
+
+        assertNotNull(firstReview.getAuthorId());
+
+        Map<String, Badge> reviewBadges = firstReview.getBadges();
+        assertNotNull(reviewBadges);
+        Badge top10Badge = reviewBadges.get("incentivizedReview");
+        assertEquals("REVIEW", top10Badge.getContentType());
+        assertEquals("incentivizedReview", top10Badge.getId());
+        assertEquals("Custom", top10Badge.getType().name());
+
+
+        for (Product includes : response.getIncludes().getProducts()) {
+
+            assertNotNull(includes.getId());
+            assertEquals(includes.getId(), "data-gen-moppq9ekthfzbc6qff3bqokie");
+
+            // Review Statistics assertions
+            assertNotNull(includes.getReviewStatistics());
+            assertNotNull(includes.getReviewStatistics().getIncentivizedReviewCount());
+            assertEquals(15, includes.getReviewStatistics().getIncentivizedReviewCount().intValue());
+            assertNotNull(includes.getReviewStatistics().getContextDataDistribution().get("IncentivizedReview"));
+
+            assertEquals("IncentivizedReview", includes.getReviewStatistics().getContextDataDistribution().get("IncentivizedReview").getId());
+            assertEquals("Received an incentive for this review", includes.getReviewStatistics().getContextDataDistribution().get("IncentivizedReview").getLabel());
+            assertEquals(1, includes.getReviewStatistics().getContextDataDistribution().get("IncentivizedReview").getValues().size());
+
+        }
+
+        assertNotNull(response.getIncludes().getProducts().get(0).getReviewStatistics());
+
     }
 
     @Test
