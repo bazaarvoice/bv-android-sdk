@@ -56,8 +56,6 @@ class BasicRequestFactory implements RequestFactory {
     private static  final String kINCENTIVIZED_STATS = "incentivizedstats";
     // endregion
 
-    private static final String kINCENTIVIZED_STATS = "incentivizedstats";
-
     // region Display Reviews Request Keys
     private static final String INCLUDE_ANSWERS = "Answers";
     private static final String REVIEWS_ENDPOINT = "data/reviews.json";
