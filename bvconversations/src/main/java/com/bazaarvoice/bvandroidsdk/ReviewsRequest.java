@@ -32,6 +32,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final String searchPhrase;
     private final List<ReviewIncludeType> reviewIncludeTypes;
     private final List<PDPContentType> statistics;
+    private final Boolean incentivizedStat;
 
     private ReviewsRequest(Builder builder) {
         super(builder);
@@ -42,6 +43,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.searchPhrase = builder.searchPhrase;
         this.reviewIncludeTypes = builder.reviewIncludeTypes;
         this.statistics = builder.statistics;
+        this.incentivizedStat = builder.incentivizedStats;
 
     }
 
@@ -67,6 +69,10 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
     List<ReviewIncludeType> getReviewIncludeTypes() {
         return reviewIncludeTypes;
+    }
+
+    Boolean getIncentivizedStats() {
+        return incentivizedStat;
     }
 
     List<PDPContentType> getStatistics() {
