@@ -34,6 +34,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected final int offset;
   protected final ArrayList<PDPContentType> statistics;
   protected String searchPhrase;
+  protected Boolean incentivizedStats;
   protected List<ReviewIncludeType> reviewIncludeTypes;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
@@ -45,6 +46,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.offset = offset;
     addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
     this.productId = productId;
+    this.incentivizedStats = false;
   }
 
   public ReviewDisplayRequestBuilder(ReviewOptions.PrimaryFilter filterBy, String id, int limit, int offset) {
@@ -57,10 +59,16 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.productId = null;
     Filter filter = new Filter(filterBy, EqualityOperator.EQ, id);
     addFilter(filter);
+    this.incentivizedStats = false;
   }
 
   public BuilderType addPDPContentType(PDPContentType pdpContentType) {
     this.statistics.add(pdpContentType);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addIncentivizedStats(Boolean incentivizedstats) {
+    this.incentivizedStats = incentivizedstats;
     return (BuilderType) this;
   }
 

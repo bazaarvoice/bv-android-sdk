@@ -40,6 +40,8 @@ public class ReviewStatistics {
     private Integer notRecommendedCount;
     @SerializedName("FeaturedReviewCount")
     private Integer featuredReviewCount;
+    @SerializedName("IncentivizedReviewCount")
+    private  Integer incentivizedReviewCount;
     @SerializedName("NotHelpfulVoteCount")
     private Integer notHelpfulVoteCount;
     @SerializedName("OverallRatingRange")
@@ -82,6 +84,8 @@ public class ReviewStatistics {
     public Integer getFeaturedReviewCount() {
         return getIntegerSafe(featuredReviewCount);
     }
+
+    public  Integer getIncentivizedReviewCount() {return  getIntegerSafe(incentivizedReviewCount);}
 
     public Integer getNotHelpfulVoteCount() {
         return getIntegerSafe(notHelpfulVoteCount);
