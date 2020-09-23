@@ -9,6 +9,8 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
   private final List<Sort> reviewSorts, questionSorts, answerSorts;
   private final List<Include> includes;
   private final List<PDPContentType> statistics;
+  private boolean incentivizedStats;
+
 
   SortableProductRequest(Builder builder) {
     super(builder);
@@ -17,6 +19,7 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     answerSorts = builder.answerSorts;
     includes = builder.includes;
     statistics = builder.statistics;
+    incentivizedStats = builder.incentivizedStats;
   }
 
   List<Sort> getReviewSorts() {
@@ -39,6 +42,10 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     return statistics;
   }
 
+  Boolean getIncentivizedStats() {
+    return incentivizedStats;
+  }
+
   @Override
   BazaarException getError() {
     return null;
@@ -50,6 +57,7 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
         answerSorts = new ArrayList<>();
     private final List<Include> includes = new ArrayList<>();
     private final List<PDPContentType> statistics = new ArrayList<>();
+    private boolean incentivizedStats = false;
 
     Builder() {
       super();
@@ -101,6 +109,11 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
 
     public BuilderType addSort(ProductOptions.Sort sort, SortOrder sortOrder) {
       addSort(new Sort(sort, sortOrder));
+      return (BuilderType) this;
+    }
+
+    public BuilderType addIncentivizedStats(Boolean incentivizedStats){
+      this.incentivizedStats = incentivizedStats;
       return (BuilderType) this;
     }
 

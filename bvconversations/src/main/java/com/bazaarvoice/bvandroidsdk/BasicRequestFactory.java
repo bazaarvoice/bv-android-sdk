@@ -638,10 +638,15 @@ class BasicRequestFactory implements RequestFactory {
         addCommonDisplayQueryParams(httpUrlBuilder, request);
         addSortableProductParams(httpUrlBuilder, request);
 
+        if (request.getIncentivizedStats()) {
+            httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
+        }
+
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
         addCommonHeaders(headersBuilder, bvSdkUserAgent);
+
         Headers headers = headersBuilder.build();
 
         return okRequestBuilder
@@ -660,6 +665,10 @@ class BasicRequestFactory implements RequestFactory {
         addCommonQueryParams(httpUrlBuilder, convApiKey, bvMobileInfo);
         addCommonDisplayQueryParams(httpUrlBuilder, request);
         addSortableProductParams(httpUrlBuilder, request);
+        if (request.getIncentivizedStats()) {
+            httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
+        }
+
 
         HttpUrl httpUrl = httpUrlBuilder.build();
 
