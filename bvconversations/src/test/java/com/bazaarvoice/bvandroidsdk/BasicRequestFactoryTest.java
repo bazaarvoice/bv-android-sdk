@@ -325,6 +325,7 @@ public class BasicRequestFactoryTest {
     assertEquals("5", url.queryParameter("Limit_Reviews"));
     assertEquals("3", url.queryParameter("Limit_Questions"));
     assertTrue(url.queryParameterValues("Sort_Reviews").contains("HasPhotos:desc"));
+    assertEquals("true", url.queryParameter("incentivizedstats"));
     assertEquals("Reviews", url.queryParameter("Stats"));
   }
 
@@ -343,6 +344,7 @@ public class BasicRequestFactoryTest {
         .addIncludeContent(PDPContentType.Questions, 3)
         .addReviewSort(ReviewOptions.Sort.HasPhotos, SortOrder.DESC)
         .addIncludeStatistics(PDPContentType.Reviews)
+        .addIncentivizedStats(true)
         .build();
     final Request okRequest = requestFactory.create(request);
     assertNotNull(okRequest);
@@ -359,6 +361,7 @@ public class BasicRequestFactoryTest {
     assertEquals("3", url.queryParameter("Limit_Questions"));
     assertTrue(url.queryParameterValues("Sort_Reviews").contains("HasPhotos:desc"));
     assertEquals("Reviews", url.queryParameter("Stats"));
+    assertEquals("true", url.queryParameter("incentivizedstats"));
   }
 
   @Test

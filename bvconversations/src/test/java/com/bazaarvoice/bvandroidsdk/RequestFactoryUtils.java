@@ -310,6 +310,7 @@ public class RequestFactoryUtils {
         .addIncludeContent(PDPContentType.Questions, 3)
         .addReviewSort(ReviewOptions.Sort.HasPhotos, SortOrder.DESC)
         .addIncludeStatistics(PDPContentType.Reviews)
+        .addIncentivizedStats(true)
         .build();
     final Request okRequest = requestFactory.create(request);
     return okRequest;
