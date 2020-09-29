@@ -1,0 +1,229 @@
+{
+  "Limit": 10,
+  "Offset": 0,
+  "TotalResults": 1,
+  "Locale": "en_US",
+  "Results": [
+    {
+      "Description": "Increase your potential to shine with this beautiful Diamond necklace. A 16\" chain holds a White Gold teardrop studded with beautiful and shiny Diamonds. The smooth, shiny\n                bail adds texture and contrast to this piece. Wear alone or complete this look with the matching ring and earrings.",
+      "ImageUrl": "http://myshco.com/productImages/teardrop.jpg",
+      "Name": "14K White Gold Diamond Teardrop Necklace",
+      "Id": "data-gen-moppq9ekthfzbc6qff3bqokie",
+      "CategoryId": "data-gen-ejcf7ia6yt7iw82ewnh3dhmyc",
+      "Active": false,
+      "Disabled": false,
+      "EANs": [],
+      "QuestionIds": [],
+      "UPCs": [],
+      "Brand": {},
+      "ProductPageUrl": null,
+      "Attributes": {},
+      "ISBNs": [],
+      "ManufacturerPartNumbers": [],
+      "StoryIds": [],
+      "FamilyIds": [],
+      "AttributesOrder": [],
+      "ModelNumbers": [],
+      "ReviewIds": [],
+      "BrandExternalId": null,
+      "ReviewStatistics": {
+        "RatingDistribution": [
+          {
+            "RatingValue": 5,
+            "Count": 29
+          },
+          {
+            "RatingValue": 4,
+            "Count": 21
+          },
+          {
+            "RatingValue": 3,
+            "Count": 3
+          },
+          {
+            "RatingValue": 1,
+            "Count": 1
+          },
+          {
+            "RatingValue": 2,
+            "Count": 1
+          }
+        ],
+        "HelpfulVoteCount": 736,
+        "FirstSubmissionTime": "2016-01-19T00:56:00.000+00:00",
+        "LastSubmissionTime": "2019-06-06T16:46:45.000+00:00",
+        "IncentivizedReviewCount": 15,
+        "ContextDataDistributionOrder": [
+          "Age",
+          "Gender",
+          "IncentivizedReview",
+          "LengthOfOwnership",
+          "ReadReviews"
+        ],
+        "ContextDataDistribution": {
+          "Age": {
+            "Id": "Age",
+            "Values": [
+              {
+                "Count": 8,
+                "Value": "17orUnder"
+              },
+              {
+                "Count": 2,
+                "Value": "18to24"
+              },
+              {
+                "Count": 5,
+                "Value": "25to34"
+              },
+              {
+                "Count": 2,
+                "Value": "35to44"
+              },
+              {
+                "Count": 1,
+                "Value": "45to54"
+              },
+              {
+                "Count": 1,
+                "Value": "65orOver"
+              }
+            ],
+            "Label": "Age"
+          },
+          "Gender": {
+            "Id": "Gender",
+            "Values": [
+              {
+                "Count": 7,
+                "Value": "Male"
+              },
+              {
+                "Count": 14,
+                "Value": "Female"
+              }
+            ],
+            "Label": "Gender"
+          },
+          "IncentivizedReview": {
+            "Id": "IncentivizedReview",
+            "Values": [
+              {
+                "Count": 15,
+                "Value": "True"
+              }
+            ],
+            "Label": "Received an incentive for this review"
+          },
+          "LengthOfOwnership": {
+            "Id": "LengthOfOwnership",
+            "Values": [
+              {
+                "Count": 9,
+                "Value": "1week"
+              },
+              {
+                "Count": 3,
+                "Value": "1month"
+              },
+              {
+                "Count": 3,
+                "Value": "3months"
+              },
+              {
+                "Count": 1,
+                "Value": "6months"
+              }
+            ],
+            "Label": "Length of ownership"
+          },
+          "ReadReviews": {
+            "Id": "ReadReviews",
+            "Values": [
+              {
+                "Count": 12,
+                "Value": "Yes"
+              },
+              {
+                "Count": 6,
+                "Value": "No"
+              }
+            ],
+            "Label": "Read product reviews online before purchasing"
+          }
+        },
+        "RecommendedCount": 24,
+        "AverageOverallRating": 4.381818181818182,
+        "NotRecommendedCount": 20,
+        "TotalReviewCount": 55,
+        "RatingsOnlyReviewCount": 0,
+        "NotHelpfulVoteCount": 50,
+        "SecondaryRatingsAveragesOrder": [
+          "Quality",
+          "Value",
+          "Fit_22"
+        ],
+        "SecondaryRatingsAverages": {
+          "Value": {
+            "Id": "Value",
+            "AverageRating": 4.515151515151516,
+            "MaxLabel": null,
+            "DisplayType": "NORMAL",
+            "ValueRange": 5,
+            "MinLabel": null,
+            "Label": "Value of Product"
+          },
+          "Quality": {
+            "Id": "Quality",
+            "AverageRating": 4.5,
+            "MaxLabel": null,
+            "DisplayType": "NORMAL",
+            "ValueRange": 5,
+            "MinLabel": null,
+            "Label": "Quality of Product"
+          },
+          "Fit_22": {
+            "Id": "Fit_22",
+            "AverageRating": 3.125,
+            "DisplayType": "SLIDER",
+            "ValueRange": 5,
+            "MaxLabel": "Runs Large",
+            "MinLabel": "Runs Small",
+            "Label": "Fit"
+          }
+        },
+        "FeaturedReviewCount": 1,
+        "TagDistributionOrder": [],
+        "TagDistribution": {},
+        "OverallRatingRange": 5
+      },
+      "TotalReviewCount": 55,
+      "QAStatistics": {
+        "QuestionHelpfulVoteCount": 0,
+        "FirstAnswerTime": null,
+        "LastQuestionAnswerTime": null,
+        "FirstQuestionTime": null,
+        "FeaturedAnswerCount": 0,
+        "LastAnswerTime": null,
+        "TagDistribution": {},
+        "ContextDataDistribution": {},
+        "TotalAnswerCount": 11,
+        "FeaturedQuestionCount": 0,
+        "LastQuestionTime": null,
+        "QuestionNotHelpfulVoteCount": 0,
+        "BestAnswerCount": 0,
+        "TagDistributionOrder": [],
+        "AnswerHelpfulVoteCount": 0,
+        "HelpfulVoteCount": 0,
+        "AnswerNotHelpfulVoteCount": 0,
+        "TotalQuestionCount": 27,
+        "ContextDataDistributionOrder": []
+      },
+      "TotalQuestionCount": 27,
+      "TotalAnswerCount": 11
+    }
+  ],
+  "Includes": {},
+  "HasErrors": false,
+  "Errors": []
+}

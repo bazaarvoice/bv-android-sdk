@@ -667,4 +667,48 @@ public class ConversationsUnitTest extends BVBaseTest {
         }
 
     }
+
+    @Test
+    public void testProductIncentivizedResponse() throws Exception {
+        ProductDisplayPageResponse response = parseJsonResourceFile("product_page_display_incentivized_response.json", ProductDisplayPageResponse.class, gson);
+
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+
+        //check for IR count
+        assertNotNull(reviewStats.getIncentivizedReviewCount().intValue());
+        assertNotNull(reviewStats.getContextDataDistribution().get("IncentivizedReview"));
+        assertEquals(15,reviewStats.getIncentivizedReviewCount().intValue());
+
+        //check for IR in ContextDataDistribution
+        assertEquals(1, reviewStats.getContextDataDistribution().get("IncentivizedReview").getValues().size());
+        assertEquals("IncentivizedReview", reviewStats.getContextDataDistribution().get("IncentivizedReview").getId());
+        assertEquals("Received an incentive for this review", reviewStats.getContextDataDistribution().get("IncentivizedReview").getLabel());
+
+        //check for IR in ContextDataDistribution values
+        List<DistributionValue> distributionValue = reviewStats.getContextDataDistribution().get("IncentivizedReview").getValues();
+        assertEquals(15,distributionValue.get(0).getCount().intValue());
+        assertEquals("True",distributionValue.get(0).getValue());
+    }
+
+    @Test
+    public void testBulkProductIncentivizedResponse() throws Exception {
+        BulkProductResponse response = parseJsonResourceFile("product_page_display_incentivized_response.json", BulkProductResponse.class, gson);
+
+        ReviewStatistics reviewStats = response.getResults().get(0).getReviewStatistics();
+
+        //check for IR count
+        assertNotNull(reviewStats.getIncentivizedReviewCount().intValue());
+        assertNotNull(reviewStats.getContextDataDistribution().get("IncentivizedReview"));
+        assertEquals(15,reviewStats.getIncentivizedReviewCount().intValue());
+
+        //check for IR in ContextDataDistribution
+        assertEquals(1, reviewStats.getContextDataDistribution().get("IncentivizedReview").getValues().size());
+        assertEquals("IncentivizedReview", reviewStats.getContextDataDistribution().get("IncentivizedReview").getId());
+        assertEquals("Received an incentive for this review", reviewStats.getContextDataDistribution().get("IncentivizedReview").getLabel());
+
+        //check for IR in ContextDataDistribution values
+        List<DistributionValue> distributionValue = reviewStats.getContextDataDistribution().get("IncentivizedReview").getValues();
+        assertEquals(15,distributionValue.get(0).getCount().intValue());
+        assertEquals("True",distributionValue.get(0).getValue());
+    }
 }
