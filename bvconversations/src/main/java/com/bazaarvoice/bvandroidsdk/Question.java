@@ -41,6 +41,8 @@ public class Question extends IncludedContentBase.ProductIncludedContentBase {
     private Map<String, DimensionElement> tagDimensions;
     @SerializedName("IsSyndicated")
     private boolean isSyndicated;
+    @SerializedName(value = "SourceClient", alternate = "sourceClient")
+    private String sourceClient;
     @SerializedName("SyndicationSource")
     private SyndicatedSource syndicatedSource;
 
@@ -90,6 +92,8 @@ public class Question extends IncludedContentBase.ProductIncludedContentBase {
     public boolean isSyndicated() {
         return isSyndicated;
     }
+
+    public String getSourceClient() { return sourceClient; }
 
     public SyndicatedSource getSyndicatedSource() {
         return syndicatedSource;

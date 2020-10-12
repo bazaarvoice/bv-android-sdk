@@ -61,6 +61,8 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
     private Map<String, SecondaryRating> secondaryRatings;
     @SerializedName(value = "CommentIds", alternate = "commentIds")
     private List<Integer> commentIds;
+    @SerializedName(value = "SourceClient", alternate = "sourceClient")
+    private String sourceClient;
     @SerializedName(value = "SyndicationSource", alternate = "syndicationSource")
     private SyndicatedSource syndicatedSource;
     @SerializedName(value ="SendEmailAlertWhenCommented", alternate = "sendEmailAlertWhenCommented")
@@ -107,6 +109,8 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
     public Boolean getSyndicated() {
         return isSyndicated;
     }
+
+    public String getSourceClient() { return sourceClient; }
 
     public SyndicatedSource getSyndicatedSource(){
         return syndicatedSource;
