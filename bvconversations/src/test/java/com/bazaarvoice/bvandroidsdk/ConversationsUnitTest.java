@@ -317,7 +317,7 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertNotNull(firstReview.getSyndicatedSource());
         assertEquals("bazaarvoice", firstReview.getSyndicatedSource().getName());
         assertEquals("https://foo.com/hihowareyou.png", firstReview.getSyndicatedSource().getLogoImageUrl());
-
+        assertEquals("testcust-bazaarvoice", firstReview.getSourceClient());
     }
 
     @Test
@@ -346,6 +346,7 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertEquals("Proin accumsan tempor orci, nec condimentum enim malesuadaet.\n\nMaecenas sagittis, purus ac pulvinar dignissim, urna lacus lobortis elit, ac mollis magna elit velest.", firstComment.getCommentText());
         assertEquals(Integer.valueOf(9), firstComment.getTotalFeedbackCount());
         assertTrue(firstComment.isSyndicated());
+        assertEquals("conciergeapidocumentation", firstComment.getSourceClient());
         assertEquals("https://www.website.com/content/here", firstComment.getSyndicatedSource().getContentLink());
         assertEquals("https://www.website.com/image.png", firstComment.getSyndicatedSource().getLogoImageUrl());
         assertEquals("SourceName", firstComment.getSyndicatedSource().getName());
@@ -374,6 +375,7 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertNotNull(firstQuestion.getModerationStatus());
         assertNotNull(firstQuestion.getProductId());
         assertTrue(firstQuestion.isSyndicated());
+        assertEquals("testcust-bazaarvoice", firstQuestion.getSourceClient());
         assertEquals("https://www.website.com/content/here", firstQuestion.getSyndicatedSource().getContentLink());
         assertEquals("https://www.website.com/image.png", firstQuestion.getSyndicatedSource().getLogoImageUrl());
         assertEquals("SourceName", firstQuestion.getSyndicatedSource().getName());
@@ -381,6 +383,7 @@ public class ConversationsUnitTest extends BVBaseTest {
         Answer firstAnswer = firstQuestion.getAnswers().get(0);
         assertNotNull(firstAnswer.getBrandImageLogoUrl());
         assertTrue(firstAnswer.isSyndicated());
+        assertEquals("testcust-bazaarvoice", firstAnswer.getSourceClient());
         assertEquals("https://www.website.com/content/here", firstAnswer.getSyndicatedSource().getContentLink());
         assertEquals("https://www.website.com/image.png", firstAnswer.getSyndicatedSource().getLogoImageUrl());
         assertEquals("SourceName", firstAnswer.getSyndicatedSource().getName());

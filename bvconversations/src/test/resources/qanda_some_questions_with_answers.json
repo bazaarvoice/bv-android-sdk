@@ -20,6 +20,7 @@
         "Badges": {},
         "AuthorId": "8g90d8ea70g",
         "IsFeatured": false,
+        "SourceClient": "testcust-bazaarvoice",
         "IsSyndicated": true,
         "SyndicationSource": {
           "LogoImageUrl": "https://www.website.com/image.png",
@@ -93,6 +94,7 @@
       "AuthorId":"5lxezf3dcao",
       "IsFeatured":false,
       "IsSyndicated":true,
+      "SourceClient": "testcust-bazaarvoice",
       "SyndicationSource": {
         "LogoImageUrl": "https://www.website.com/image.png",
         "ContentLink": "https://www.website.com/content/here",
