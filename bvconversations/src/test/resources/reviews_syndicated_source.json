@@ -75,6 +75,7 @@
     "SecondaryRatingsOrder": [],
     "IsFeatured": false,
     "IsSyndicated": true,
+    "SourceClient": "testcust-bazaarvoice",
     "SyndicationSource": {
       "LogoImageUrl": "https://foo.com/hihowareyou.png",
       "ContentLink": null,
