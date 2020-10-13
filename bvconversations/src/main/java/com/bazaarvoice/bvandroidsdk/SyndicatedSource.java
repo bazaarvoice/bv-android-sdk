@@ -21,12 +21,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class SyndicatedSource {
 
+    @SerializedName("ClientId")
+    private String clientId;
     @SerializedName("LogoImageUrl")
     private String logoImageUrl;
     @SerializedName("ContentLink")
     private String contentLink;
     @SerializedName("Name")
     private String name;
+
+    public String getClientId() { return clientId; }
 
     public String getName(){
         return name;
