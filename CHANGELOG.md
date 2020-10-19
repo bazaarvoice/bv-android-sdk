@@ -1,5 +1,12 @@
 # Changelog
 
+
+# 8.7.0
+
+## Incentivized Reviews & Content Origin Support
+
+* Added support for Incentivized Reviews and Content Origin.
+
 # 8.6.0
 
 ## Added support for Review Highlights
