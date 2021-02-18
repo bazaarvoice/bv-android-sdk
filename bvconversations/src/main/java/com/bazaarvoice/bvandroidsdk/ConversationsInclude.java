@@ -38,12 +38,14 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
   @SerializedName("Questions") private Map<String, Question> questionMap;
   @SerializedName("Reviews") private Map<String, ReviewType> reviewMap;
   @SerializedName("Comments") private Map<String, Comment> commentMap;
+  @SerializedName("Authors") private Map<String, Author> authorMap;
 
   private transient List<ProductType> items;
   private transient List<Answer> answers;
   private transient List<Question> questions;
   private transient List<ReviewType> reviews;
   private transient List<Comment> comments;
+  private transient List<Author> authors;
 
   protected Map<String, ProductType> getItemMap() {
     return itemMap;
@@ -61,9 +63,11 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
     return reviewMap;
   }
 
-  protected Map<String, Comment> getCommentMap() {
+  protected Map<String, Comment> getCommentYeahMap() {
     return commentMap;
   }
+
+  protected Map<String, Author> getAuthorMap() { return authorMap;}
 
   protected List<ReviewType> getReviewsList() {
     if (reviews == null) {
@@ -98,6 +102,13 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
       comments = processContent(commentMap);
     }
     return comments;
+  }
+
+  protected List<Author> getAuthors() {
+    if (authors == null){
+      authors = processContent(authorMap);
+    }
+    return authors;
   }
 
   @NonNull
