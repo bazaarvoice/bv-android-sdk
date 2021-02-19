@@ -14,6 +14,7 @@ public abstract class ConversationsSubmissionResponse extends ConversationsRespo
   @SerializedName("Data") private FormData formData;
   @SerializedName("FormErrors") private FormError formErrors;
   @SerializedName("SubmissionId") private String submissionId;
+  @SerializedName("AuthorSubmissionToken")  private String authorSubmissionToken;
 
   /**
    * @deprecated Use the null-safe {@link #getFormFields()} instead
@@ -65,6 +66,14 @@ public abstract class ConversationsSubmissionResponse extends ConversationsRespo
     }
 
     return fieldErrors;
+  }
+
+  /**
+   * @return AuthorSubmissionToken for submission
+   */
+  @Nullable
+  public String getAuthorSubmissionToken() {
+    return authorSubmissionToken;
   }
 
   public String getSubmissionId() {
