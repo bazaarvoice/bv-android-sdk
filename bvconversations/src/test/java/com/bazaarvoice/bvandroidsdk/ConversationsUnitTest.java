@@ -714,4 +714,15 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertEquals(15,distributionValue.get(0).getCount().intValue());
         assertEquals("True",distributionValue.get(0).getValue());
     }
+
+    @Test
+    public void testParsingReviewRequestWithAuthorInclude() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("review_request_include_author.json", ReviewResponse.class, gson);
+
+        Author author = response.getIncludes().getAuthors().get(0);
+        assertNotNull(author);
+        assertEquals(0, author.getReviewStatistics().getHelpfulVoteCount().intValue());
+        assertEquals(1, author.getReviewStatistics().getTotalReviewCount().intValue());
+
+    }
 }
