@@ -23,6 +23,7 @@ public class ModelSerializationTest {
         ReviewSubmissionResponse submissionResponse = gson.fromJson(data, ReviewSubmissionResponse.class);
         assertNotNull(submissionResponse);
         assertNotNull(submissionResponse.getSubmissionId());
+        assertNotNull(submissionResponse.getAuthorSubmissionToken());
     }
 
     @Test
