@@ -63,7 +63,7 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
     return reviewMap;
   }
 
-  protected Map<String, Comment> getCommentYeahMap() {
+  protected Map<String, Comment> getCommentMap() {
     return commentMap;
   }
 
