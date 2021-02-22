@@ -104,7 +104,7 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
     return comments;
   }
 
-  protected List<Author> getAuthors() {
+  public List<Author> getAuthors() {
     if (authors == null){
       authors = processContent(authorMap);
     }
