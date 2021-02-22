@@ -24,6 +24,7 @@ public class ModelSerializationTest {
         assertNotNull(submissionResponse);
         assertNotNull(submissionResponse.getSubmissionId());
         assertNotNull(submissionResponse.getAuthorSubmissionToken());
+        assertNotNull(submissionResponse.getTypicalHoursToPost());
     }
 
     @Test
