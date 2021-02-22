@@ -15,6 +15,7 @@ public abstract class ConversationsSubmissionResponse extends ConversationsRespo
   @SerializedName("FormErrors") private FormError formErrors;
   @SerializedName("SubmissionId") private String submissionId;
   @SerializedName("AuthorSubmissionToken")  private String authorSubmissionToken;
+  @SerializedName("TypicalHoursToPost") private Integer typicalHoursToPost;
 
   /**
    * @deprecated Use the null-safe {@link #getFormFields()} instead
@@ -74,6 +75,14 @@ public abstract class ConversationsSubmissionResponse extends ConversationsRespo
   @Nullable
   public String getAuthorSubmissionToken() {
     return authorSubmissionToken;
+  }
+
+  /**
+   * @return typicalHoursToPost for submission
+   */
+  @Nullable
+  public Integer getTypicalHoursToPost() {
+    return typicalHoursToPost;
   }
 
   public String getSubmissionId() {

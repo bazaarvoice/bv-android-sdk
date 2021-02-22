@@ -25,15 +25,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class FeedbackSubmissionResponse extends ConversationsSubmissionResponse {
     @SerializedName("Locale") private String locale;
-    @SerializedName("TypicalHoursToPost") private Integer typicalHoursToPost;
     @SerializedName("Feedback") private SubmittedFeedback feedback;
 
     public String getLocale() {
         return locale;
-    }
-
-    public Integer getTypicalHoursToPost() {
-        return typicalHoursToPost;
     }
 
     public SubmittedFeedback getFeedback() {
