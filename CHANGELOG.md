@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.7.1
+
+## Mapped missing display and submission response properties.
+
+* Mapped TypicalHoursToPost & AuthorSubmissionToken properties for submission response.
+* Mapped Author Includes for display API response.
 
 # 8.7.0
 
