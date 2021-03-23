@@ -302,6 +302,15 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                     submissionRequest.setPhotos(photos);
                 } catch (BazaarException e) {
                     e.printStackTrace();
+
+                    ConversationsSubmissionException esp = (ConversationsSubmissionException) e;
+
+                    if (esp != null) {
+                        throw  ConversationsSubmissionException.withRequestErrors(esp.getErrors(), esp.getFieldErrors());
+                    }
+                    else {
+                        throw  ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
+                    }
                 }
             }
             // Toggle back to no be force preview anymore
@@ -447,6 +456,8 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                     }
                 }
             }
+        } catch (ConversationsSubmissionException e) {
+            throw ConversationsSubmissionException.withRequestErrors(e.getErrors(), e.getFieldErrors());
         } catch (Throwable e) {
             throw new BazaarException(e.getMessage());
         }
@@ -454,14 +465,31 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
         return photos;
     }
 
-    private Photo deserializePhotoResponse(Response response) throws BazaarException {
+    private Photo deserializePhotoResponse(Response response) throws ConversationsSubmissionException {
         BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Deserialize photo response");
         Reader reader = response.body().charStream();
         PhotoUploadResponse photoUploadResponse = gson.fromJson(reader, PhotoUploadResponse.class);
         response.body().close();
         if (photoUploadResponse.getHasErrors()) {
             BVSDK.getInstance().bvLogger.e("BVConversationsSubmission", "Failed to deserialize photo");
-            throw new BazaarException("Failed to upload image");
+
+            List<FormField> formFields = Collections.emptyList();
+            List<FieldError> fieldErrors = Collections.emptyList();
+            List<Error> errors = Collections.emptyList();
+
+            if (photoUploadResponse.getErrors() != null) {
+                errors = photoUploadResponse.getErrors();
+            }
+
+            if (photoUploadResponse instanceof ConversationsSubmissionResponse) {
+                final ConversationsSubmissionResponse submissionResponse = ((ConversationsSubmissionResponse) photoUploadResponse);
+                fieldErrors = submissionResponse.getFieldErrors();
+                formFields = submissionResponse.getFormFields();
+                addFormFieldsToFieldErrors(formFields, fieldErrors);
+            }
+
+            throw ConversationsSubmissionException.withRequestErrors(errors, fieldErrors);
+
         }
         return photoUploadResponse.getPhoto();
     }
