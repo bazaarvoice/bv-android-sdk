@@ -303,10 +303,10 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 } catch (BazaarException e) {
                     e.printStackTrace();
 
-                    ConversationsSubmissionException esp = (ConversationsSubmissionException) e;
+                    ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
 
-                    if (esp != null) {
-                        throw  ConversationsSubmissionException.withRequestErrors(esp.getErrors(), esp.getFieldErrors());
+                    if (conversationsSubmissionException != null) {
+                        throw  ConversationsSubmissionException.withRequestErrors(conversationsSubmissionException.getErrors(), conversationsSubmissionException.getFieldErrors());
                     }
                     else {
                         throw  ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
