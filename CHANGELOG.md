@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.7.2
+## Fixed error response not mapped for PhotoUploadResponse
+
+* Mapped error & field error response properties for PhotoUploadResponse
+
 # 8.7.1
 
 ## Mapped missing display and submission response properties.
