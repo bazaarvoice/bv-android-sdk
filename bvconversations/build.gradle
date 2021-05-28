@@ -19,6 +19,12 @@ dependencies {
     testCompileOnly sdkDep.gson
 }
 
+android {
+    defaultConfig {
+        consumerProguardFiles 'proguard-rules.txt'
+    }
+}
+
 apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
