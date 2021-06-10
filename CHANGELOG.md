@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.8.0
+## Minification support
+
+* Added keep rules to proguard-rules.txt file for BVConversations module.
+
 # 8.7.2
 ## Fixed error response not mapped for PhotoUploadResponse
 
