@@ -109,12 +109,14 @@ public class BasicRequestFactoryTest {
     types.add(ReviewIncludeType.AUTHORS);
     types.add(ReviewIncludeType.CATEGORIES);
     types.add(ReviewIncludeType.COMMENTS);
+    types.add(ReviewIncludeType.CATEGORIES);
     final ReviewsRequest request = new ReviewsRequest.Builder("", 0 ,0)
             .addIncludeContent(
                     ReviewIncludeType.PRODUCTS,
                     ReviewIncludeType.AUTHORS,
                     ReviewIncludeType.CATEGORIES,
-                    ReviewIncludeType.COMMENTS
+                    ReviewIncludeType.COMMENTS,
+                    ReviewIncludeType.CATEGORIES
             )
             .build();
     assertEquals(request.getReviewIncludeTypes(), types);
@@ -342,6 +344,7 @@ public class BasicRequestFactoryTest {
         .addFilter(ProductOptions.Filter.IsActive, EqualityOperator.EQ, "true")
         .addIncludeContent(PDPContentType.Reviews, 5)
         .addIncludeContent(PDPContentType.Questions, 3)
+            .addIncludeContent(PDPContentType.Authors, 10)
         .addReviewSort(ReviewOptions.Sort.HasPhotos, SortOrder.DESC)
         .addIncludeStatistics(PDPContentType.Reviews)
         .addIncentivizedStats(true)
@@ -356,9 +359,10 @@ public class BasicRequestFactoryTest {
     assertTrue(url.queryParameterValues("Filter").contains("Id:eq:prod1"));
     assertTrue(url.queryParameterValues("Filter").contains("AverageOverallRating:gte:3"));
     assertTrue(url.queryParameterValues("Filter").contains("IsActive:eq:true"));
-    assertEquals("Reviews,Questions", url.queryParameter("Include"));
+    assertEquals("Reviews,Questions,Authors", url.queryParameter("Include"));
     assertEquals("5", url.queryParameter("Limit_Reviews"));
     assertEquals("3", url.queryParameter("Limit_Questions"));
+    assertEquals("10", url.queryParameter("Limit_Authors"));
     assertTrue(url.queryParameterValues("Sort_Reviews").contains("HasPhotos:desc"));
     assertEquals("Reviews", url.queryParameter("Stats"));
     assertEquals("true", url.queryParameter("incentivizedstats"));
