@@ -24,6 +24,7 @@ public enum PDPContentType implements IncludeType {
     Reviews("Reviews"),
     Questions("Questions"),
     Answers("Answers"),
+    Authors("Authors"),
     Stories("Stories");
 
     private final String key;

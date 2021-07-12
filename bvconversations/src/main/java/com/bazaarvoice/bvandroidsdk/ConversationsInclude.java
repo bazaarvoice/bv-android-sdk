@@ -39,6 +39,7 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
   @SerializedName("Reviews") private Map<String, ReviewType> reviewMap;
   @SerializedName("Comments") private Map<String, Comment> commentMap;
   @SerializedName("Authors") private Map<String, Author> authorMap;
+  @SerializedName("Categories") private Map<String, Category> categoryMap;
 
   private transient List<ProductType> items;
   private transient List<Answer> answers;
@@ -46,6 +47,7 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
   private transient List<ReviewType> reviews;
   private transient List<Comment> comments;
   private transient List<Author> authors;
+  private transient List<Category> category;
 
   protected Map<String, ProductType> getItemMap() {
     return itemMap;
@@ -68,6 +70,8 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
   }
 
   protected Map<String, Author> getAuthorMap() { return authorMap;}
+
+  protected Map<String, Category> getCategoryMap() { return categoryMap;}
 
   protected List<ReviewType> getReviewsList() {
     if (reviews == null) {
@@ -97,7 +101,7 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
     return answers;
   }
 
-  protected List<Comment> getComments() {
+  public List<Comment> getComments() {
     if (comments == null) {
       comments = processContent(commentMap);
     }
@@ -110,6 +114,14 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
     }
     return authors;
   }
+
+  public List<Category> getCategory() {
+    if (category == null){
+      category = processContent(categoryMap );
+    }
+    return category;
+  }
+
 
   @NonNull
   private <ContentType extends IncludeableContent> List<ContentType> processContent(@Nullable Map<String, ContentType> contents) {
