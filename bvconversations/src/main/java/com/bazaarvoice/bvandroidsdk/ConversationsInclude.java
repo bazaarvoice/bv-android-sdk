@@ -117,7 +117,7 @@ class ConversationsInclude<ProductType extends BaseProduct, ReviewType extends B
 
   public List<Category> getCategory() {
     if (category == null){
-      category = processContent(categoryMap );
+      category = processContent(categoryMap);
     }
     return category;
   }
