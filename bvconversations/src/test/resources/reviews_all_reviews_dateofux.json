@@ -1,0 +1,631 @@
+{
+  "Locale": "en_US",
+  "Includes": {},
+  "Errors": [],
+  "Results": [
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-06T04:56:08.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "z6vu7mk3sulur35ntlxoe522mo",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-06T04:56:07.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16282257Y0WmzOpyh6",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-06T04:56:08.000+00:00",
+      "Id": "36224463",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 4,
+      "ReviewText": "Testing date of consumer.Testing date of consumer. More then 50",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-05T07:03:07.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "zp8fbho6cx2ctdc9z6zwd0ye8o",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-05T07:03:07.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-08",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16281469h0FVyrtOwE",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-05T07:03:07.000+00:00",
+      "Id": "36223788",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 4,
+      "ReviewText": "Testing date of consumer.Testing date of consumer. More then 50",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-05T06:47:19.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "z3dym9bw15rcs7ht8vd3c9x34i",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-05T06:47:19.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2021-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16281460VMrVZMSIDi",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-05T06:47:19.000+00:00",
+      "Id": "36223783",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-05T06:17:03.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "ziqict7lir6wk2zyo6megcwkaw",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-05T06:17:02.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16281442mzN6hYJqJU",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-05T06:17:03.000+00:00",
+      "Id": "36223780",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-05T03:08:01.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "z6buxqhahzvv9gqk38f4g7fjof",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-05T03:08:01.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16281328RxdfvCaxGi",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-05T03:08:01.000+00:00",
+      "Id": "36223770",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-05T03:05:42.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "zp0pfctjrb48g01btdbb02t7tq",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-05T03:05:41.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_162813276Aqslgoeh3",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-05T03:05:42.000+00:00",
+      "Id": "36223769",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-04T10:10:58.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "z9rgd3qi79nuab4p7caxsrd3vh",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-04T10:10:57.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_162807180eKHFEwHOY",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-04T10:10:58.000+00:00",
+      "Id": "36223576",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-04T06:32:00.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "z2rmxheyuikzb8ix9o4siyienq",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-04T06:31:59.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16280587JgxLr4aohs",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-04T06:32:00.000+00:00",
+      "Id": "36223554",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-04T06:10:31.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "zdopky2xp2ct2t79lraj5st7kg",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-04T06:10:30.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16280574MkgSJhYYyn",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-04T06:10:31.000+00:00",
+      "Id": "36223549",
+      "ContentLocale": "en_US"
+    },
+    {
+      "UserNickname": null,
+      "Rating": 5,
+      "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+      "ContextDataValues": {
+        "rcvdProductSample": {
+          "Value": "false",
+          "Id": "rcvdProductSample",
+          "ValueLabel": "No",
+          "DimensionLabel": "Received Free Product"
+        }
+      },
+      "ProductId": "test1",
+      "UserEmailAddress": null,
+      "Videos": [],
+      "CommentIds": [],
+      "Photos": [],
+      "TotalNegativeFeedbackCount": 0,
+      "RatingRange": 5,
+      "CampaignId": null,
+      "UserLocation": null,
+      "SecondaryRatingsOrder": [],
+      "TotalCommentCount": 0,
+      "ContextDataValuesOrder": [
+        "rcvdProductSample"
+      ],
+      "ClientResponses": [],
+      "TagDimensionsOrder": [],
+      "TotalPositiveFeedbackCount": 0,
+      "IsRatingsOnly": false,
+      "LastModificationTime": "2021-08-04T05:59:03.000+00:00",
+      "Pros": null,
+      "ProductRecommendationIds": [],
+      "BadgesOrder": [],
+      "AuthorId": "z76ow4u22nh5o57xdazlixof42",
+      "Helpfulness": 0.5,
+      "SubmissionTime": "2021-08-04T05:59:02.000+00:00",
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Label": "Date of user experience",
+          "Value": "2022-04-03",
+          "Id": "DateOfUserExperience"
+        }
+      },
+      "Title": "Testing date of consumer",
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "TotalFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "IsFeatured": false,
+      "Cons": null,
+      "TagDimensions": {},
+      "SecondaryRatings": {},
+      "Badges": {},
+      "SubmissionId": "r256test_d_16280567UuwygfUhpn",
+      "IsSyndicated": false,
+      "IsRecommended": null,
+      "LastModeratedTime": "2021-08-04T05:59:03.000+00:00",
+      "Id": "36223547",
+      "ContentLocale": "en_US"
+    }
+  ],
+  "TotalResults": 35,
+  "Limit": 10,
+  "HasErrors": false,
+  "Offset": 0
+}
