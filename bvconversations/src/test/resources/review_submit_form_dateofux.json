@@ -1,0 +1,2612 @@
+{
+  "Locale": "en_US",
+  "Errors": [],
+  "Form": [
+    {
+      "Type": "Field",
+      "Id": "userlocation"
+    },
+    {
+      "Type": "Group",
+      "Id": "userlocationgeocode"
+    },
+    {
+      "Type": "Field",
+      "Id": "useremail"
+    },
+    {
+      "Type": "Field",
+      "Id": "sendemailalertwhenpublished"
+    },
+    {
+      "Type": "Group",
+      "Id": "contextdatavalue"
+    },
+    {
+      "Type": "Group",
+      "Id": "socialconnect"
+    },
+    {
+      "Type": "Field",
+      "Id": "title"
+    },
+    {
+      "Type": "Field",
+      "Id": "reviewtext"
+    },
+    {
+      "Type": "Field",
+      "Id": "rating"
+    },
+    {
+      "Type": "Field",
+      "Id": "isrecommended"
+    },
+    {
+      "Type": "Field",
+      "Id": "netpromoterscore"
+    },
+    {
+      "Type": "Field",
+      "Id": "netpromotercomment"
+    },
+    {
+      "Type": "Field",
+      "Id": "netpromoterexpanded"
+    },
+    {
+      "Type": "Group",
+      "Id": "rating"
+    },
+    {
+      "Type": "Group",
+      "Id": "photo"
+    },
+    {
+      "Type": "Group",
+      "Id": "video"
+    },
+    {
+      "Type": "Group",
+      "Id": "productrecommendation"
+    },
+    {
+      "Type": "Group",
+      "Id": "tag"
+    },
+    {
+      "Type": "Group",
+      "Id": "additionalfield"
+    },
+    {
+      "Type": "Field",
+      "Id": "isratingsonly"
+    },
+    {
+      "Type": "Field",
+      "Id": "sendemailalertwhencommented"
+    },
+    {
+      "Type": "Field",
+      "Id": "additionalfield_dateofuserexperience"
+    },
+    {
+      "Type": "Field",
+      "Id": "authsourcetype"
+    },
+    {
+      "Type": "Field",
+      "Id": "productid"
+    },
+    {
+      "Type": "Field",
+      "Id": "return"
+    },
+    {
+      "Type": "Field",
+      "Id": "sessionparams"
+    },
+    {
+      "Type": "Field",
+      "Id": "submissionid"
+    },
+    {
+      "Type": "Field",
+      "Id": "userid"
+    },
+    {
+      "Type": "Field",
+      "Id": "useruuid"
+    },
+    {
+      "Type": "Field",
+      "Id": "forceIeUnicodeSubmission"
+    }
+  ],
+  "FormErrors": {},
+  "SubmissionId": null,
+  "Data": {
+    "Fields": {
+      "socialconnect_facebook_postdesired": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "socialconnect_facebook_postdesired",
+        "MaxLength": null,
+        "Default": null
+      },
+      "videourl_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "videourl_1",
+        "MaxLength": 1024,
+        "Default": null
+      },
+      "rating_Importance": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Too low",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Importance",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_FoodPresentation": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Food presentation",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_FoodPresentation",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_InstructionQuality": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Instructions",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_InstructionQuality",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_Expertise": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Beginner",
+            "Value": "Beginner",
+            "Selected": false
+          },
+          {
+            "Label": "Intermediate",
+            "Value": "Intermediate",
+            "Selected": false
+          },
+          {
+            "Label": "Expert",
+            "Value": "Expert",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "What is your level of expertise with this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_Expertise",
+        "MaxLength": null,
+        "Default": null
+      },
+      "additionalfield_foodToEat": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "Food to eat",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_foodToEat",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "contextdatavalue_Age": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "17 or under",
+            "Value": "17orUnder",
+            "Selected": false
+          },
+          {
+            "Label": "18 to 24",
+            "Value": "18to24",
+            "Selected": false
+          },
+          {
+            "Label": "25 to 34",
+            "Value": "25to34",
+            "Selected": false
+          },
+          {
+            "Label": "35 to 44",
+            "Value": "35to44",
+            "Selected": false
+          },
+          {
+            "Label": "45 to 54",
+            "Value": "45to54",
+            "Selected": false
+          },
+          {
+            "Label": "55 to 64",
+            "Value": "55to64",
+            "Selected": false
+          },
+          {
+            "Label": "65 or over",
+            "Value": "65orOver",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "How old are you?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_Age",
+        "MaxLength": null,
+        "Default": null
+      },
+      "socialconnect_facebook_hostname": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "socialconnect_facebook_hostname",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photocaption_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_2",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_1",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_6",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photocaption_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_5",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "socialconnect_facebook_usertoken": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "socialconnect_facebook_usertoken",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photocaption_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_4",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "contextdatavalue_rcvdProductSample": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "I received a free product for testing.",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_rcvdProductSample",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photocaption_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photocaption_3",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "videocaption_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "videocaption_1",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "contextdatavalue_purchaser": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": false
+          },
+          {
+            "Label": "Yes",
+            "Value": "yes",
+            "Selected": false
+          },
+          {
+            "Label": "No",
+            "Value": "no",
+            "Selected": true
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Do you currently own this product?",
+        "Value": "no",
+        "MinLength": null,
+        "Id": "contextdatavalue_purchaser",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocation": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocation",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "userlocationgeocode_latitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_latitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "contextdatavalue_HighestEducation": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "No degrees",
+            "Value": "NoDegrees",
+            "Selected": false
+          },
+          {
+            "Label": "High school",
+            "Value": "HighSchool",
+            "Selected": false
+          },
+          {
+            "Label": "Professional school",
+            "Value": "ProfessionalSchool",
+            "Selected": false
+          },
+          {
+            "Label": "Associates degree",
+            "Value": "AssociatesDegree",
+            "Selected": false
+          },
+          {
+            "Label": "Bachelor's degree",
+            "Value": "BachelorsDegree",
+            "Selected": false
+          },
+          {
+            "Label": "Master's degree",
+            "Value": "MastersDegree",
+            "Selected": false
+          },
+          {
+            "Label": "Doctoral degree",
+            "Value": "DoctoralDegree",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "What is the highest level of education you have received?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_HighestEducation",
+        "MaxLength": null,
+        "Default": null
+      },
+      "sendemailalertwhenpublished": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "sendemailalertwhenpublished",
+        "MaxLength": null,
+        "Default": null
+      },
+      "useremail": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": true,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "useremail",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "rating_Price": {
+        "Options": [
+          {
+            "Label": "Poor",
+            "Value": "1",
+            "Selected": false
+          },
+          {
+            "Label": "Fair",
+            "Value": "2",
+            "Selected": false
+          },
+          {
+            "Label": "Average",
+            "Value": "3",
+            "Selected": false
+          },
+          {
+            "Label": "Good",
+            "Value": "4",
+            "Selected": false
+          },
+          {
+            "Label": "Super",
+            "Value": "5",
+            "Selected": false
+          },
+          {
+            "Label": "Excellent",
+            "Value": "6",
+            "Selected": false
+          },
+          {
+            "Label": "Perfect",
+            "Value": "7",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Price",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Price",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tagid_Con/First": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "Con 1",
+        "Value": null,
+        "MinLength": null,
+        "Id": "tagid_Con/First",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Con_8": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_8",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Con_9": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_9",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Con_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_6",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Con_7": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_7",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Con_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_4",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Con_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_5",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Con_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_2",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "contextdatavalue_purchaserRank": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Number One Purchaser",
+            "Value": "top",
+            "Selected": false
+          },
+          {
+            "Label": "Top 10 Purchaser",
+            "Value": "top10",
+            "Selected": false
+          },
+          {
+            "Label": "Top 100 Purchaser",
+            "Value": "top100",
+            "Selected": false
+          },
+          {
+            "Label": "Top 1000 Purchaser",
+            "Value": "top1000",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Purchaser Rank",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_purchaserRank",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Con_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_3",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "additionalfield_sitesToSee": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "Sites to see",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_sitesToSee",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "contextdatavalue_EducationalRole": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Teacher",
+            "Value": "Teacher",
+            "Selected": false
+          },
+          {
+            "Label": "Teaching assistant",
+            "Value": "TeachingAssistant",
+            "Selected": false
+          },
+          {
+            "Label": "Student",
+            "Value": "Student",
+            "Selected": false
+          },
+          {
+            "Label": "Parent",
+            "Value": "Parent",
+            "Selected": false
+          },
+          {
+            "Label": "Other",
+            "Value": "Other",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "What is your educational role?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_EducationalRole",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_LengthOfUsage": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "1 week",
+            "Value": "1week",
+            "Selected": false
+          },
+          {
+            "Label": "1 month",
+            "Value": "1month",
+            "Selected": false
+          },
+          {
+            "Label": "3 months",
+            "Value": "3months",
+            "Selected": false
+          },
+          {
+            "Label": "6 months",
+            "Value": "6months",
+            "Selected": false
+          },
+          {
+            "Label": "1 year or longer",
+            "Value": "1year",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Approximately how long have you been using this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_LengthOfUsage",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_Quality": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Quality",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Quality",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_AccessToDoctors": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Access to doctors",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_AccessToDoctors",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tagid_Pro/First": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "Pro 1",
+        "Value": null,
+        "MinLength": null,
+        "Id": "tagid_Pro/First",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Con_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_1",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "rating_ComfortOfCare": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Comfort of care",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_ComfortOfCare",
+        "MaxLength": null,
+        "Default": null
+      },
+      "additionalfield_DateOfUserExperience": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": "Date of user experience",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_DateOfUserExperience",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_region": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_region",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "rating_Design": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Design",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Design",
+        "MaxLength": null,
+        "Default": null
+      },
+      "productrecommendationid_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "productrecommendationid_1",
+        "MaxLength": null,
+        "Default": null
+      },
+      "productrecommendationid_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "productrecommendationid_3",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Pro_10": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_10",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "productrecommendationid_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "productrecommendationid_2",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_country": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_country",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "netpromotercomment": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "netpromotercomment",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_FrequencyOfUse": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Daily",
+            "Value": "Daily",
+            "Selected": false
+          },
+          {
+            "Label": "Weekly",
+            "Value": "Weekly",
+            "Selected": false
+          },
+          {
+            "Label": "Monthly",
+            "Value": "Monthly",
+            "Selected": false
+          },
+          {
+            "Label": "Yearly",
+            "Value": "Yearly",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Approximately how often do you use this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_FrequencyOfUse",
+        "MaxLength": null,
+        "Default": null
+      },
+      "isratingsonly": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": true,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "isratingsonly",
+        "MaxLength": null,
+        "Default": null
+      },
+      "productrecommendationcaption_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "productrecommendationcaption_3",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "productrecommendationcaption_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "productrecommendationcaption_2",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "productrecommendationcaption_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "productrecommendationcaption_1",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "additionalfield_localCulture": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "Tell us about local culture",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_localCulture",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "userlocationgeocode_city": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_city",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "rating_ClothingFit": {
+        "Options": [
+          {
+            "Label": "too small",
+            "Value": "1",
+            "Selected": false
+          },
+          {
+            "Label": "a little small",
+            "Value": "2",
+            "Selected": false
+          },
+          {
+            "Label": "true to size",
+            "Value": "3",
+            "Selected": false
+          },
+          {
+            "Label": "a little big",
+            "Value": "4",
+            "Selected": false
+          },
+          {
+            "Label": "too big",
+            "Value": "5",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Fit",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_ClothingFit",
+        "MaxLength": null,
+        "Default": null
+      },
+      "photourl_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_6",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "tag_Con_10": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Con_10",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "additionalfield_whatToPack": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "What to Pack",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_whatToPack",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photourl_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_2",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_3",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_4",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "photourl_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_5",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "rating": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": true,
+        "Value": "5",
+        "Label": null,
+        "MinLength": null,
+        "Id": "rating",
+        "MaxLength": null,
+        "Default": null
+      },
+      "reviewtext": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": true,
+        "Value": "Testing date of consumer. Testing dateb of consumer",
+        "Label": null,
+        "MinLength": 50,
+        "Id": "reviewtext",
+        "MaxLength": 1000,
+        "Default": null
+      },
+      "tagid_Pro/Second": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "Pro 2",
+        "Value": null,
+        "MinLength": null,
+        "Id": "tagid_Pro/Second",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Pro_9": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_9",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Pro_8": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_8",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Pro_7": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_7",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "netpromoterscore": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": null,
+        "Id": "netpromoterscore",
+        "MaxLength": null,
+        "Default": null
+      },
+      "additionalfield_emailAddress": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": "Email Address",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_emailAddress",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "photourl_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "photourl_1",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "socialconnect_facebook_postresult": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "socialconnect_facebook_postresult",
+        "MaxLength": null,
+        "Default": null
+      },
+      "additionalfield_whatToBuy": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "What to Buy",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_whatToBuy",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "rating_Value": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Value",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_Value",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_RunningSurface": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Trails",
+            "Value": "Trails",
+            "Selected": false
+          },
+          {
+            "Label": "Track",
+            "Value": "Track",
+            "Selected": false
+          },
+          {
+            "Label": "Road",
+            "Value": "Road",
+            "Selected": false
+          },
+          {
+            "Label": "Treadmill",
+            "Value": "Treadmill",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "What type of surface do you typically run on?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_RunningSurface",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Pro_6": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_6",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Pro_5": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_5",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "tag_Pro_4": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_4",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "rating_VarietyOfVideoGamesAvailable": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Variety of games available",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_VarietyOfVideoGamesAvailable",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Pro_3": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_3",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "contextdatavalue_LengthOfOwnership": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "1 week",
+            "Value": "1week",
+            "Selected": false
+          },
+          {
+            "Label": "1 month",
+            "Value": "1month",
+            "Selected": false
+          },
+          {
+            "Label": "3 months",
+            "Value": "3months",
+            "Selected": false
+          },
+          {
+            "Label": "6 months",
+            "Value": "6months",
+            "Selected": false
+          },
+          {
+            "Label": "1 year or longer",
+            "Value": "1year",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Approximately how long have you owned this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_LengthOfOwnership",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Pro_2": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_2",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "netpromoterexpanded": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "netpromoterexpanded",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tag_Pro_1": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "tag_Pro_1",
+        "MaxLength": 50,
+        "Default": null
+      },
+      "contextdatavalue_id1": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Frequently",
+            "Value": "frequently",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "How often reviewer writes stories?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_id1",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_NumberOfChildren": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "0",
+            "Value": "0",
+            "Selected": false
+          },
+          {
+            "Label": "1",
+            "Value": "1",
+            "Selected": false
+          },
+          {
+            "Label": "2",
+            "Value": "2",
+            "Selected": false
+          },
+          {
+            "Label": "3",
+            "Value": "3",
+            "Selected": false
+          },
+          {
+            "Label": "4 or more",
+            "Value": "4orMore",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "How many children do you have?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_NumberOfChildren",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_UsageFrequency": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Daily",
+            "Value": "Daily",
+            "Selected": false
+          },
+          {
+            "Label": "Weekly",
+            "Value": "Weekly",
+            "Selected": false
+          },
+          {
+            "Label": "Monthly",
+            "Value": "Monthly",
+            "Selected": false
+          },
+          {
+            "Label": "Yearly",
+            "Value": "Yearly",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "Approximately how often do you use this product?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_UsageFrequency",
+        "MaxLength": null,
+        "Default": null
+      },
+      "additionalfield_stayInTouch": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "Staying in touch with new friends",
+        "Value": null,
+        "MinLength": 0,
+        "Id": "additionalfield_stayInTouch",
+        "MaxLength": 255,
+        "Default": null
+      },
+      "contextdatavalue_Gender": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "Male",
+            "Value": "Male",
+            "Selected": false
+          },
+          {
+            "Label": "Female",
+            "Value": "Female",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "What is your gender?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_Gender",
+        "MaxLength": null,
+        "Default": null
+      },
+      "title": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": true,
+        "Value": "Testing date of consumer",
+        "Label": null,
+        "MinLength": 10,
+        "Id": "title",
+        "MaxLength": 150,
+        "Default": null
+      },
+      "sendemailalertwhencommented": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "sendemailalertwhencommented",
+        "MaxLength": null,
+        "Default": null
+      },
+      "isrecommended": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": null,
+        "Id": "isrecommended",
+        "MaxLength": null,
+        "Default": null
+      },
+      "additionalfield_moreThoughts": {
+        "Options": [],
+        "Type": "TextAreaInput",
+        "Required": false,
+        "Label": "More Thoughts",
+        "Value": null,
+        "MinLength": 52,
+        "Id": "additionalfield_moreThoughts",
+        "MaxLength": 10000,
+        "Default": null
+      },
+      "contextdatavalue_NumberOfPets": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "0",
+            "Value": "0",
+            "Selected": false
+          },
+          {
+            "Label": "1",
+            "Value": "1",
+            "Selected": false
+          },
+          {
+            "Label": "2",
+            "Value": "2",
+            "Selected": false
+          },
+          {
+            "Label": "3",
+            "Value": "3",
+            "Selected": false
+          },
+          {
+            "Label": "4 or more",
+            "Value": "4orMore",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "How many pets do you own?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_NumberOfPets",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_RatingDimension3": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Example of a wordy dimension label",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_RatingDimension3",
+        "MaxLength": null,
+        "Default": null
+      },
+      "rating_EaseOfAssembly": {
+        "Options": [],
+        "Type": "IntegerInput",
+        "Required": false,
+        "Label": "Ease of assembly",
+        "Value": null,
+        "MinLength": null,
+        "Id": "rating_EaseOfAssembly",
+        "MaxLength": null,
+        "Default": null
+      },
+      "socialconnect_facebook_postonsubmit": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Value": "false",
+        "Label": null,
+        "MinLength": null,
+        "Id": "socialconnect_facebook_postonsubmit",
+        "MaxLength": null,
+        "Default": null
+      },
+      "contextdatavalue_MonthlyRunningDistance": {
+        "Options": [
+          {
+            "Label": "",
+            "Value": "",
+            "Selected": true
+          },
+          {
+            "Label": "1k",
+            "Value": "1k",
+            "Selected": false
+          },
+          {
+            "Label": "5k",
+            "Value": "5k",
+            "Selected": false
+          },
+          {
+            "Label": "10k",
+            "Value": "10k",
+            "Selected": false
+          },
+          {
+            "Label": "15k",
+            "Value": "15k",
+            "Selected": false
+          }
+        ],
+        "Type": "SelectInput",
+        "Required": false,
+        "Label": "How much do you run per month?",
+        "Value": null,
+        "MinLength": null,
+        "Id": "contextdatavalue_MonthlyRunningDistance",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tagid_Con/Second": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "Con 2",
+        "Value": null,
+        "MinLength": null,
+        "Id": "tagid_Con/Second",
+        "MaxLength": null,
+        "Default": null
+      },
+      "tagid_Con/LongExample": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "Example of wordy con value",
+        "Value": null,
+        "MinLength": null,
+        "Id": "tagid_Con/LongExample",
+        "MaxLength": null,
+        "Default": null
+      },
+      "userlocationgeocode_longitude": {
+        "Options": [],
+        "Type": "TextInput",
+        "Required": false,
+        "Label": null,
+        "Value": null,
+        "MinLength": 0,
+        "Id": "userlocationgeocode_longitude",
+        "MaxLength": 2048,
+        "Default": null
+      },
+      "tagid_Pro/LongExample": {
+        "Options": [],
+        "Type": "BooleanInput",
+        "Required": false,
+        "Label": "Example of wordy pro value",
+        "Value": null,
+        "MinLength": null,
+        "Id": "tagid_Pro/LongExample",
+        "MaxLength": null,
+        "Default": null
+      }
+    },
+    "Groups": {
+      "rating": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "rating_Design"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_Importance"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_RatingDimension3"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_Value"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_Quality"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_AccessToDoctors"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_EaseOfAssembly"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_VarietyOfVideoGamesAvailable"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_FoodPresentation"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_ComfortOfCare"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_InstructionQuality"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_Price"
+          },
+          {
+            "Type": "Field",
+            "Id": "rating_ClothingFit"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "rating"
+      },
+      "socialconnect": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "socialconnect_facebook"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "socialconnect"
+      },
+      "video": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "video_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "video"
+      },
+      "tag_Con": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "tag_Con_id"
+          },
+          {
+            "Type": "Group",
+            "Id": "tag_Con_text"
+          }
+        ],
+        "Required": false,
+        "Label": "Cons",
+        "Id": "tag_Con"
+      },
+      "video_1": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "videourl_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "videocaption_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "video_1"
+      },
+      "tag_Pro": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "tag_Pro_id"
+          },
+          {
+            "Type": "Group",
+            "Id": "tag_Pro_text"
+          }
+        ],
+        "Required": false,
+        "Label": "Pros",
+        "Id": "tag_Pro"
+      },
+      "tag": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "tag_Pro"
+          },
+          {
+            "Type": "Group",
+            "Id": "tag_Con"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "tag"
+      },
+      "socialconnect_facebook": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "socialconnect_facebook_usertoken"
+          },
+          {
+            "Type": "Field",
+            "Id": "socialconnect_facebook_hostname"
+          },
+          {
+            "Type": "Field",
+            "Id": "socialconnect_facebook_postresult"
+          },
+          {
+            "Type": "Field",
+            "Id": "socialconnect_facebook_postdesired"
+          },
+          {
+            "Type": "Field",
+            "Id": "socialconnect_facebook_postonsubmit"
+          }
+        ],
+        "Required": false,
+        "Label": "Facebook",
+        "Id": "socialconnect_facebook"
+      },
+      "photo_1": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_1"
+      },
+      "photo_2": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_2"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_2"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_2"
+      },
+      "photo_3": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_3"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_3"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_3"
+      },
+      "contextdatavalue": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_rcvdProductSample"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_id1"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_purchaser"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_purchaserRank"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_Gender"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_Age"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_FrequencyOfUse"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_Expertise"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_HighestEducation"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_EducationalRole"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_NumberOfChildren"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_NumberOfPets"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_UsageFrequency"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_MonthlyRunningDistance"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_RunningSurface"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_LengthOfOwnership"
+          },
+          {
+            "Type": "Field",
+            "Id": "contextdatavalue_LengthOfUsage"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "contextdatavalue"
+      },
+      "photo_4": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_4"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_4"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_4"
+      },
+      "additionalfield": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "additionalfield_emailAddress"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_DateOfUserExperience"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_whatToPack"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_whatToBuy"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_sitesToSee"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_foodToEat"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_localCulture"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_stayInTouch"
+          },
+          {
+            "Type": "Field",
+            "Id": "additionalfield_moreThoughts"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "additionalfield"
+      },
+      "photo": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "photo_1"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_2"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_3"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_4"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_5"
+          },
+          {
+            "Type": "Group",
+            "Id": "photo_6"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo"
+      },
+      "productrecommendation": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Group",
+            "Id": "productrecommendation_1"
+          },
+          {
+            "Type": "Group",
+            "Id": "productrecommendation_2"
+          },
+          {
+            "Type": "Group",
+            "Id": "productrecommendation_3"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "productrecommendation"
+      },
+      "photo_5": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_5"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_5"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_5"
+      },
+      "photo_6": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "photourl_6"
+          },
+          {
+            "Type": "Field",
+            "Id": "photocaption_6"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "photo_6"
+      },
+      "tag_Pro_id": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "tagid_Pro/First"
+          },
+          {
+            "Type": "Field",
+            "Id": "tagid_Pro/Second"
+          },
+          {
+            "Type": "Field",
+            "Id": "tagid_Pro/LongExample"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "tag_Pro_id"
+      },
+      "tag_Con_text": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "tag_Con_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_2"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_3"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_4"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_5"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_6"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_7"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_8"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_9"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Con_10"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "tag_Con_text"
+      },
+      "productrecommendation_2": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "productrecommendationid_2"
+          },
+          {
+            "Type": "Field",
+            "Id": "productrecommendationcaption_2"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "productrecommendation_2"
+      },
+      "productrecommendation_1": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "productrecommendationid_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "productrecommendationcaption_1"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "productrecommendation_1"
+      },
+      "tag_Pro_text": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_1"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_2"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_3"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_4"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_5"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_6"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_7"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_8"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_9"
+          },
+          {
+            "Type": "Field",
+            "Id": "tag_Pro_10"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "tag_Pro_text"
+      },
+      "userlocationgeocode": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_latitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_longitude"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_country"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_region"
+          },
+          {
+            "Type": "Field",
+            "Id": "userlocationgeocode_city"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "userlocationgeocode"
+      },
+      "productrecommendation_3": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "productrecommendationid_3"
+          },
+          {
+            "Type": "Field",
+            "Id": "productrecommendationcaption_3"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "productrecommendation_3"
+      },
+      "tag_Con_id": {
+        "Type": "InputGroup",
+        "SubElements": [
+          {
+            "Type": "Field",
+            "Id": "tagid_Con/First"
+          },
+          {
+            "Type": "Field",
+            "Id": "tagid_Con/Second"
+          },
+          {
+            "Type": "Field",
+            "Id": "tagid_Con/LongExample"
+          }
+        ],
+        "Required": false,
+        "Label": null,
+        "Id": "tag_Con_id"
+      }
+    },
+    "FieldsOrder": [
+      "userlocation",
+      "useremail",
+      "title",
+      "reviewtext",
+      "netpromotercomment",
+      "sendemailalertwhenpublished",
+      "isrecommended",
+      "netpromoterexpanded",
+      "isratingsonly",
+      "sendemailalertwhencommented",
+      "rating",
+      "netpromoterscore",
+      "userlocationgeocode_latitude",
+      "userlocationgeocode_longitude",
+      "userlocationgeocode_country",
+      "userlocationgeocode_region",
+      "userlocationgeocode_city",
+      "contextdatavalue_rcvdProductSample",
+      "contextdatavalue_id1",
+      "contextdatavalue_purchaser",
+      "contextdatavalue_purchaserRank",
+      "contextdatavalue_Gender",
+      "contextdatavalue_Age",
+      "contextdatavalue_FrequencyOfUse",
+      "contextdatavalue_Expertise",
+      "contextdatavalue_HighestEducation",
+      "contextdatavalue_EducationalRole",
+      "contextdatavalue_NumberOfChildren",
+      "contextdatavalue_NumberOfPets",
+      "contextdatavalue_UsageFrequency",
+      "contextdatavalue_MonthlyRunningDistance",
+      "contextdatavalue_RunningSurface",
+      "contextdatavalue_LengthOfOwnership",
+      "contextdatavalue_LengthOfUsage",
+      "socialconnect_facebook_usertoken",
+      "socialconnect_facebook_hostname",
+      "socialconnect_facebook_postresult",
+      "socialconnect_facebook_postdesired",
+      "socialconnect_facebook_postonsubmit",
+      "rating_Design",
+      "rating_Importance",
+      "rating_RatingDimension3",
+      "rating_Value",
+      "rating_Quality",
+      "rating_AccessToDoctors",
+      "rating_EaseOfAssembly",
+      "rating_VarietyOfVideoGamesAvailable",
+      "rating_FoodPresentation",
+      "rating_ComfortOfCare",
+      "rating_InstructionQuality",
+      "rating_Price",
+      "rating_ClothingFit",
+      "photourl_1",
+      "photocaption_1",
+      "photourl_2",
+      "photocaption_2",
+      "photourl_3",
+      "photocaption_3",
+      "photourl_4",
+      "photocaption_4",
+      "photourl_5",
+      "photocaption_5",
+      "photourl_6",
+      "photocaption_6",
+      "videourl_1",
+      "videocaption_1",
+      "productrecommendationid_1",
+      "productrecommendationcaption_1",
+      "productrecommendationid_2",
+      "productrecommendationcaption_2",
+      "productrecommendationid_3",
+      "productrecommendationcaption_3",
+      "tagid_Pro/First",
+      "tagid_Pro/Second",
+      "tagid_Pro/LongExample",
+      "tag_Pro_1",
+      "tag_Pro_2",
+      "tag_Pro_3",
+      "tag_Pro_4",
+      "tag_Pro_5",
+      "tag_Pro_6",
+      "tag_Pro_7",
+      "tag_Pro_8",
+      "tag_Pro_9",
+      "tag_Pro_10",
+      "tagid_Con/First",
+      "tagid_Con/Second",
+      "tagid_Con/LongExample",
+      "tag_Con_1",
+      "tag_Con_2",
+      "tag_Con_3",
+      "tag_Con_4",
+      "tag_Con_5",
+      "tag_Con_6",
+      "tag_Con_7",
+      "tag_Con_8",
+      "tag_Con_9",
+      "tag_Con_10",
+      "additionalfield_emailAddress",
+      "additionalfield_DateOfUserExperience",
+      "additionalfield_whatToPack",
+      "additionalfield_whatToBuy",
+      "additionalfield_sitesToSee",
+      "additionalfield_foodToEat",
+      "additionalfield_localCulture",
+      "additionalfield_stayInTouch",
+      "additionalfield_moreThoughts"
+    ],
+    "GroupsOrder": [
+      "userlocationgeocode",
+      "contextdatavalue",
+      "socialconnect",
+      "socialconnect_facebook",
+      "rating",
+      "photo",
+      "photo_1",
+      "photo_2",
+      "photo_3",
+      "photo_4",
+      "photo_5",
+      "photo_6",
+      "video",
+      "video_1",
+      "productrecommendation",
+      "productrecommendation_1",
+      "productrecommendation_2",
+      "productrecommendation_3",
+      "tag",
+      "tag_Pro",
+      "tag_Pro_id",
+      "tag_Pro_text",
+      "tag_Con",
+      "tag_Con_id",
+      "tag_Con_text",
+      "additionalfield"
+    ]
+  },
+  "TypicalHoursToPost": 72,
+  "Review": {
+    "SendEmailAlertWhenCommented": false,
+    "Rating": 5,
+    "SubmissionTime": "2021-08-09T11:49:49.156+00:00",
+    "ReviewText": "Testing date of consumer. Testing dateb of consumer",
+    "SubmissionId": null,
+    "Title": "Testing date of consumer",
+    "IsRecommended": null,
+    "TypicalHoursToPost": null,
+    "Id": null,
+    "SendEmailAlertWhenPublished": false
+  },
+  "AuthorSubmissionToken": null,
+  "HasErrors": false
+}
