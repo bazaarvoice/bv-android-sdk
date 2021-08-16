@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -258,6 +259,21 @@ public class ConversationsUnitTest extends BVBaseTest {
     }
 
     @Test
+    public void testReviewsWithDateOfUXParsing() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("reviews_all_reviews_dateofux.json", ReviewResponse.class, gson);
+        Review review = response.getResults().get(0);
+        Map<String, Object> additionalFields = review.getAdditionalFields();
+
+        assertNotNull(additionalFields.get("DateOfUserExperience"));
+
+        Map<String, String> dateOfConsumerExperienceField = (Map<String, String>) additionalFields.get("DateOfUserExperience");
+
+        assertEquals("DateOfUserExperience", dateOfConsumerExperienceField.get("Id"));
+        assertEquals("Date of user experience", dateOfConsumerExperienceField.get("Label"));
+        assertNotNull(dateOfConsumerExperienceField.get("Value"));
+    }
+
+    @Test
     public void testReviewsForProdParsing() throws Exception {
         parseJsonResourceFile("reviews_for_prod.json", ReviewResponse.class, gson);
     }
@@ -408,6 +424,59 @@ public class ConversationsUnitTest extends BVBaseTest {
 
         FormFieldOption ageOption = ageOptions.get(7);
         assertEquals("65orOver", ageOption.getValue());
+    }
+
+    @Test
+    public void testReviewDateOfConsumerExperienceFormFieldParsing() throws Exception {
+        ReviewSubmissionResponse response = parseJsonResourceFile("review_submit_form_dateofux.json", ReviewSubmissionResponse.class, gson);
+
+        List<FormField> formFields = response.getFormFields();
+        assertNotNull(formFields);
+
+        FormField dateOfUXFormField = formFields.get(43);
+        assertNotNull(dateOfUXFormField);
+        assertEquals("additionalfield_DateOfUserExperience", dateOfUXFormField.getId());
+    }
+
+    @Test
+    public void testReviewSubmissionRequestForInvalidDateOfUXField() throws Exception {
+
+        ReviewSubmissionResponse response = parseJsonResourceFile("review_submit_review_invalid_dateofux.json", ReviewSubmissionResponse.class, gson);
+
+        assertNotNull(response.getFieldErrors());
+
+        List<FieldError> fieldErrors = response.getFieldErrors();
+        assertEquals(1, fieldErrors.size());
+
+        FieldError invalidDateOfUX = fieldErrors.get(0);
+        assertEquals("ERROR_FORM_PATTERN_MISMATCH", invalidDateOfUX.getCode());
+        assertEquals(SubmissionErrorCode.ERROR_FORM_PATTERN_MISMATCH, invalidDateOfUX.getErrorCode());
+        assertEquals("additionalfield_DateOfUserExperience", invalidDateOfUX.getField());
+    }
+
+    @Test
+    public void testReviewSubmissionRequestForFutureDateOfUXField() throws Exception {
+
+        ReviewSubmissionResponse response = parseJsonResourceFile("review_submit_review_future_dateofux.json", ReviewSubmissionResponse.class, gson);
+
+        assertNotNull(response.getFieldErrors());
+
+        List<FieldError> fieldErrors = response.getFieldErrors();
+        assertEquals(1, fieldErrors.size());
+
+        FieldError futureDateOfUX = fieldErrors.get(0);
+        assertEquals("ERROR_FORM_FUTURE_DATE", futureDateOfUX.getCode());
+        assertEquals(SubmissionErrorCode.ERROR_FORM_FUTURE_DATE, futureDateOfUX.getErrorCode());
+        assertEquals("additionalfield_DateOfUserExperience", futureDateOfUX.getField());
+    }
+
+    @Test
+    public void testReviewSubmissionRequestForDateofUXField() {
+        ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "")
+                .addAdditionalField("DateOfUserExperience", "2021-04-03")
+                .build();
+        assertNotNull(request.getAdditionalFields());
+        assertEquals(request.getAdditionalFields().get("DateOfUserExperience"), "2021-04-03");
     }
 
     @Test
