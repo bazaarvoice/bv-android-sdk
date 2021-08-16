@@ -471,15 +471,6 @@ public class ConversationsUnitTest extends BVBaseTest {
     }
 
     @Test
-    public void testReviewSubmissionRequestForDateofUXField() {
-        ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "")
-                .addAdditionalField("DateOfUserExperience", "2021-04-03")
-                .build();
-        assertNotNull(request.getAdditionalFields());
-        assertEquals(request.getAdditionalFields().get("DateOfUserExperience"), "2021-04-03");
-    }
-
-    @Test
     public void testFeedbackSubmitHelpfulVote() {
 
         FeedbackSubmissionRequest request = new FeedbackSubmissionRequest.Builder("contentId")
