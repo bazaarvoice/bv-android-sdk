@@ -1,5 +1,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +46,16 @@ public class BasicRequestFactoryTest {
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("foo").contains("1"));
     assertTrue(url.queryParameterValues("foo").contains("2"));
+  }
+
+  @Test
+  public void testReviewSubmissionRequestForDateofUXField() throws Exception {
+    ReviewSubmissionRequest request = new ReviewSubmissionRequest.Builder(Action.Submit, "")
+            .addAdditionalField("DateOfUserExperience", "2021-04-03")
+            .build();
+
+    final Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFormBodyContainsKeyValEncoded(okRequest, "additionalfield_DateOfUserExperience", "2021-04-03");
   }
 
   @Test
