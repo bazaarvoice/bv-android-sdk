@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.9.0
+## Ability to pass Date of User Experience field in ReviewSubmissionRequest & retrieve Category information in ReviewsRequest
+
+* Allowing clients to capture the date when the product was tested during review submission via Date of User Experience field.
+* Requesting category information in ReviewsRequest.
+
 # 8.8.0
 ## Minification support
 
