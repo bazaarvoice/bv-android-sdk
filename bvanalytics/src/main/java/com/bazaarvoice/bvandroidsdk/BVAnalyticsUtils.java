@@ -24,7 +24,7 @@ class BVAnalyticsUtils {
   static final List<String> NON_PII_PARAMS = Arrays.asList(
       "orderId", "affiliation", "total", "tax", "shipping", "city",
       "state", "currency", "items", "locale", "type", "label",
-      "value", "partnerSource", "TestCase", "TestSession", "dc", "ref");
+      "value", "partnerSource", "TestCase", "TestSession", "dc", "ref", "deploymentZone", "discount", "country", "proxy");
 
   static void warnShouldNotBeEmpty(String name, Object obj) {
     if (obj == null) {
