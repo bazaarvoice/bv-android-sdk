@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.9.1
+## Fixed BVViewedCGCEvent event inaccessible issue and Added Missing non PII params
+
+* Made BVViewedCGCEvent event accessible publicly.
+* Added missing non PII params(deploymentZone,discount,country,proxy) for Transaction events in pixel.
+
 # 8.9.0
 ## Ability to pass Date of User Experience field in ReviewSubmissionRequest & retrieve Category information in ReviewsRequest
 
