@@ -18,7 +18,7 @@ import static com.bazaarvoice.bvandroidsdk.BVEventValues.BVEventType.VIEWED_CGC;
  * differs from a BVInViewEvent in that a delay should be provided (typically
  * 5 seconds) to know that content is visible and readable on the screen.
  */
-class BVViewedCgcEvent extends BVMobileAnalyticsEvent {
+public final class BVViewedCgcEvent extends BVMobileAnalyticsEvent {
   private final String productId;
   private final BVProductType bvProductType;
   private final String rootCategoryId;
@@ -33,7 +33,7 @@ class BVViewedCgcEvent extends BVMobileAnalyticsEvent {
    * @param categoryId Optional - This value should be obtained from the product feed.
    * @param brand Optional - The brand name of the product.
    */
-  BVViewedCgcEvent(
+  public BVViewedCgcEvent(
       @NonNull String productId,
       @NonNull BVProductType bvProductType,
       @Nullable String rootCategoryId,
