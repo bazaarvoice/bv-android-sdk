@@ -1,5 +1,11 @@
 # Changelog
 
+#8.9.2
+## Added missing contentLocale option in Primary Filter
+
+*Allowing client to filter the Reviews by ContentLocale in the Primary Filter.
+*This is our last release for 2021 and wish everyone best of Holiday Season. Stay safe and enjoy the celebrations. See you in 2022.
+
 # 8.9.1
 ## Fixed BVViewedCGCEvent event inaccessible issue and Added Missing non PII params
 
