@@ -65,7 +65,8 @@ public enum ReviewOptions {
         Id("Id"),
         ProductId("ProductId"),
         SubmissionId("SubmissionId"),
-        CategoryAncestorId("CategoryAncestorId");
+        CategoryAncestorId("CategoryAncestorId"),
+        ContentLocale("ContentLocale");
 
         private final String key;
 
