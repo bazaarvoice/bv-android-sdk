@@ -174,6 +174,15 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayRequestsWithPrimaryFilterContentLocale(){
+    final ReviewsRequest review = new ReviewsRequest.Builder(ReviewOptions.PrimaryFilter.ContentLocale,"en_US",10,0)
+            .build();
+    final Request okRequest = requestFactory.create(review);
+    final HttpUrl url = okRequest.url();
+    assertTrue(url.queryParameterValues("Filter").contains("ContentLocale:eq:en_US"));
+  }
+
+  @Test
   public void qnaDisplayShouldHaveBVSDKQueryParams() throws Exception {
     final Request okRequest = requestFactoryUtils.createFullQnaDisplayRequest();
     requestFactoryUtils.assertContainsGenericProperties(okRequest);
