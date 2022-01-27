@@ -6,11 +6,13 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.HttpUrl;
 import okhttp3.Request;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class ProgressiveSubmissionRequestsTests {
 
@@ -95,6 +97,27 @@ public class ProgressiveSubmissionRequestsTests {
         requestFactoryUtils.assertJsonBodyContainsKeyValEncoded(request, "locale", "locale", true);
         requestFactoryUtils.assertJsonBodyContainsKeyValEncoded(request, "submissionFields", "{\"agreedtotermsandconditions\":\"true\",\"ReviewText\":\"Review Text\"}", true);
         requestFactoryUtils.assertJsonBodyContainsKeyValEncoded(request, "submissionSessionToken", "submissionSessionToken", true);
+    }
+
+    @Test
+    public void shouldCreateValidOkHttpRequestFromProgressiveSubmissionRequestHostedAuth() throws Exception {
+        String validUrl = "https://api.bazaarvoice.com/data/progressiveSubmit.json?hostedauth=true&apiversion=5.4&passkey=progressiveSubApiKey&_appId=3.2.1&_appVersion=21&_buildNumber=1&_bvAndroidSdkVersion=bvsdk7";
+        HashMap<String, Object> submissionFields = new HashMap<>();
+        submissionFields.put("ReviewText", "Review Text");
+        ProgressiveSubmitRequest progressiveSubmitRequest = new ProgressiveSubmitRequest.Builder("product1", "123456abcd", "en_US")
+                .agreedToTermsAndConditions(true)
+                .submissionFields(submissionFields)
+                .hostedAuth(true)
+                .build();
+        Request request = this.requestFactory.create(progressiveSubmitRequest);
+        final HttpUrl url = request.url();
+        assertEquals(validUrl, request.url().toString());
+        assertEquals(request.url().queryParameter("passkey"), "progressiveSubApiKey");
+        assertTrue(url.queryParameterValues("hostedauth").contains("true"));
+        requestFactoryUtils.assertJsonBodyContainsKeyValEncoded(request, "locale", "en_US", true);
+        requestFactoryUtils.assertJsonBodyContainsKeyValEncoded(request, "submissionFields", "{\"agreedtotermsandconditions\":\"true\",\"ReviewText\":\"Review Text\"}", true);
+        requestFactoryUtils.assertJsonBodyContainsKeyValEncoded(request, "submissionSessionToken", "123456abcd", true);
+
     }
 
     @Test

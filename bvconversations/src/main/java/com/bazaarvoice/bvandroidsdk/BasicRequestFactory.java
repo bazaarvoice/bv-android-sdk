@@ -186,6 +186,7 @@ class BasicRequestFactory implements RequestFactory {
     private final String kSUBMISSION_FIELDS = "submissionFields";
     private final String kSUBMISSION_SESSION_TOKEN = "submissionSessionToken";
     private final String kEXTENDED = "extended";
+    private final String kHOSTED_AUTH = "hostedauth";
     private final String kPROGRESSIVE_SUBMISSION_AGREE_TERMS = "agreedtotermsandconditions";
     private BVConfig.Builder bvConfigBuilder;
     // endregion
@@ -259,6 +260,10 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter("preview", "true");
         }
 
+        if(request.isHostedAuth()) {
+            httpUrlBuilder.addQueryParameter(kHOSTED_AUTH, "true");
+        }
+
         if(request.includeFields()) {
             httpUrlBuilder.addEncodedQueryParameter("fields", "true");
         }
@@ -326,6 +331,10 @@ class BasicRequestFactory implements RequestFactory {
 
         if (request.isExtended()) {
             httpUrlBuilder.addQueryParameter(kEXTENDED, "true");
+        }
+
+        if (request.isHostedAuth()) {
+            httpUrlBuilder.addQueryParameter(kHOSTED_AUTH, "true");
         }
 
         headersBuilder.add("Content-Type", "application/json");

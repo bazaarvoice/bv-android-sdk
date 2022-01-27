@@ -17,6 +17,7 @@ public class ProgressiveSubmitRequest extends ConversationsSubmissionRequest{
     private String submissionSessionToken;
     private boolean isPreview;
     private boolean includeFields;
+    private boolean isHostedAuth;
 
     ProgressiveSubmitRequest(Builder builder) {
         super(builder);
@@ -25,6 +26,7 @@ public class ProgressiveSubmitRequest extends ConversationsSubmissionRequest{
         this.submissionSessionToken = builder.submissionSessionToken;
         this.isPreview = builder.isPreview;
         this.includeFields = builder.includeFields;
+        this.isHostedAuth = builder.isHostedAuth;
     }
 
     @Override
@@ -52,10 +54,16 @@ public class ProgressiveSubmitRequest extends ConversationsSubmissionRequest{
         return isPreview;
     }
 
+    public boolean isHostedAuth() {
+        return isHostedAuth;
+    }
+
+
     public static final class Builder extends ConversationsSubmissionRequest.Builder<Builder> {
 
         private String productId;
         private String submissionSessionToken;
+        private  boolean isHostedAuth;
         private Map<String, Object> submissionFields = new HashMap<>();
         private boolean isPreview;
         private boolean includeFields;
@@ -74,6 +82,11 @@ public class ProgressiveSubmitRequest extends ConversationsSubmissionRequest{
 
         public Builder isPreview(boolean isPreview) {
             this.isPreview = isPreview;
+            return this;
+        }
+
+        public Builder hostedAuth(boolean isHostedAuth) {
+            this.isHostedAuth = isHostedAuth;
             return this;
         }
 
