@@ -66,7 +66,27 @@ public enum ReviewOptions {
         ProductId("ProductId"),
         SubmissionId("SubmissionId"),
         CategoryAncestorId("CategoryAncestorId"),
-        ContentLocale("ContentLocale");
+        ContentLocale("ContentLocale"),
+        HasComments("HasComments"),
+        HasPhotos("HasPhotos"),
+        HasTags("HasTags"),
+        HasVideos("HasVideos"),
+        Helpfulness("Helpfulness"),
+        IsFeatured("IsFeatured"),
+        IsRatingsOnly("IsRatingsOnly"),
+        IsRecommended("IsRecommended"),
+        IsSubjectActive("IsSubjectActive"),
+        IsSyndicated("IsSyndicated"),
+        LastModeratedTime("LastModeratedTime"),
+        LastModificationTime("LastModificationTime"),
+        Rating("Rating"),
+        SubmissionTime("SubmissionTime"),
+        TotalCommentCount("TotalCommentCount"),
+        TotalFeedbackCount("TotalFeedbackCount"),
+        TotalNegativeFeedbackCount("TotalNegativeFeedbackCount"),
+        TotalPositiveFeedbackCount("TotalPositiveFeedbackCount"),
+        UserLocation("UserLocation");
+
 
         private final String key;
 
