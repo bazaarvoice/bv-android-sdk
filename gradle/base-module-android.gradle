@@ -51,6 +51,9 @@ android {
     unitTests.all {
       systemProperty 'robolectric.dependency.repo.url', 'https://repo.bazaarvoice.com:443/nexus/content/groups/public'
       systemProperty 'robolectric.dependency.repo.id', 'nexus'
+      systemProperty 'robolectric.dependency.repo.username', NEXUS_USER
+      systemProperty 'robolectric.dependency.repo.password', NEXUS_PASSWORD
+      systemProperty 'javax.net.ssl.trustScoreType', 'JKS'
     }
   }
 

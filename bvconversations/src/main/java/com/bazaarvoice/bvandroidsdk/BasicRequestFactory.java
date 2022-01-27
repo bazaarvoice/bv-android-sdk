@@ -54,6 +54,9 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kOFFSET = "Offset";
     private static final String kSEARCH = "Search";
     private static  final String kINCENTIVIZED_STATS = "incentivizedstats";
+    private static  final String kFEATURES = "feature";
+    private static final String kProductId = "productId";
+    private static final String kLanguage = "language";
     // endregion
 
     // region Display Reviews Request Keys
@@ -85,6 +88,10 @@ class BasicRequestFactory implements RequestFactory {
 
     // region Display Products Request Keys
     private static final String PRODUCTS_ENDPOINT = "data/products.json";
+    // endregion
+
+    // region Display Q&A Request Keys
+    private static final String TOPIC_FILTER_ENDPOINT = "data/features";
     // endregion
 
     // region Generic Submit Request Keys
@@ -226,7 +233,9 @@ class BasicRequestFactory implements RequestFactory {
             return createFromBulkProductRequest((BulkProductRequest) request);
         } else if (request instanceof ProductDisplayPageRequest) {
             return createFromProductDisplayPageRequest((ProductDisplayPageRequest) request);
-        } else if (request instanceof FeedbackSubmissionRequest) {
+        } else if (request instanceof TopicFilterRequest) {
+            return createFromTopicFilterRequest((TopicFilterRequest) request);
+        }else if (request instanceof FeedbackSubmissionRequest) {
             return createFromFeedbackSubmissionRequest((FeedbackSubmissionRequest) request);
         } else if (request instanceof ReviewSubmissionRequest) {
             return createFromReviewSubmissionRequest((ReviewSubmissionRequest) request);
@@ -376,6 +385,10 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
+        if (request.getFeatures() != null) {
+            httpUrlBuilder.addQueryParameter(kFEATURES, request.getFeatures());
+        }
+
         if (!request.getSorts().isEmpty()) {
             httpUrlBuilder
                     .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getSorts(), ","));
@@ -453,6 +466,29 @@ class BasicRequestFactory implements RequestFactory {
         HttpUrl httpUrl = httpUrlBuilder.build();
         return okRequestBuilder
                 .url(httpUrl)
+                .build();
+    }
+
+    private Request createFromTopicFilterRequest(TopicFilterRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+                .newBuilder()
+                .addPathSegments(TOPIC_FILTER_ENDPOINT);
+
+        addCommonQueryParams(httpUrlBuilder, convApiKey, bvMobileInfo);
+        httpUrlBuilder.addQueryParameter(kProductId, String.valueOf(request.getProductId()));
+        if(request.getLanguage()!=null){
+            httpUrlBuilder.addQueryParameter(kLanguage, String.valueOf(request.getLanguage()));
+        }
+        HttpUrl httpUrl = httpUrlBuilder.build();
+        Headers.Builder headersBuilder = new Headers.Builder();
+        addCommonHeaders(headersBuilder, bvSdkUserAgent);
+        Headers headers = headersBuilder.build();
+
+        return okRequestBuilder
+                .url(httpUrl)
+                .headers(headers)
                 .build();
     }
 

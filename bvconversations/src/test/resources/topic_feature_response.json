@@ -1,0 +1,36 @@
+{
+  "HasErrors": false,
+  "Errors": [],
+  "Results": [
+    {
+      "productId": "XYZ123-prod-3-4-ExternalId",
+      "language": "en",
+      "features": [
+        {
+          "feature": "speed",
+          "localizedFeature": "speed"
+        },
+        {
+          "feature": "smoke",
+          "localizedFeature": "smoke"
+        },
+        {
+          "feature": "sound",
+          "localizedFeature": "sound"
+        },
+        {
+          "feature": "visions",
+          "localizedFeature": "visions"
+        },
+        {
+          "feature": "colour",
+          "localizedFeature": "colour"
+        },
+        {
+          "feature": "small",
+          "localizedFeature": "small"
+        }
+      ]
+    }
+  ]
+}
