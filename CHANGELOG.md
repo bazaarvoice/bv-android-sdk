@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.10.0
+## Hosted Auth Support for Progressive Submission
+
+* Allowing clients to use Hosted Authentication with Progressive Submission.
+* Fixed Missing params in Primary Filters.
+
 #8.9.2
 ## Added missing contentLocale option in Primary Filter
 
