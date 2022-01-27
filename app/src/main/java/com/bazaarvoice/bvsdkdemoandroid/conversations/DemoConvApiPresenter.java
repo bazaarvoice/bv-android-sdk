@@ -183,10 +183,10 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     this.filterType = filterType;
   }
 
-    @Override
-    public void onFilterValueChanged(String filterValue) {
-        this.filterValue = filterValue;
-    }
+  @Override
+  public void onFilterValueChanged(String filterValue) {
+    this.filterValue = filterValue;
+  }
 
   private boolean readyForDemo() {
     String conversationsKey = demoClient.getApiKeyConversations();
@@ -202,17 +202,17 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     File localImageFile = demoAssetsUtil.parseImageFileFromAssets("puppy_thumbnail.jpg");
     String userNickName = "shazbat105" + new Random().nextInt(1001);
     ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(submitAction, productId)
-        .userNickname(userNickName)
-        .userEmail("foo@bar.com")
-        .userId(userNickName) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-        .rating(5)
-        .title("Review title")
-        .reviewText("This is the review text the user adds about how great the product is!")
-        .sendEmailAlertWhenCommented(true)
-        .sendEmailAlertWhenPublished(true)
-        .agreedToTermsAndConditions(true)
-        .addPhoto(localImageFile, "What a cute pupper!")
-        .build();
+            .userNickname(userNickName)
+            .userEmail("foo@bar.com")
+            .userId(userNickName) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+            .rating(5)
+            .title("Review title")
+            .reviewText("This is the review text the user adds about how great the product is!")
+            .sendEmailAlertWhenCommented(true)
+            .sendEmailAlertWhenPublished(true)
+            .agreedToTermsAndConditions(true)
+            .addPhoto(localImageFile, "What a cute pupper!")
+            .build();
 
     bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<ReviewSubmissionResponse>() {
       @Override
@@ -231,14 +231,14 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     view.showProgressWithTitle("Submitting Question...");
 
     QuestionSubmissionRequest submission = new QuestionSubmissionRequest.Builder(submitAction, productId)
-        .userNickname("shazbat")
-        .userEmail("foo@bar.com")
-        .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-        .questionDetails("Question details...")
-        .questionSummary("Question summary/title...")
-        .sendEmailAlertWhenPublished(true)
-        .agreedToTermsAndConditions(true)
-        .build();
+            .userNickname("shazbat")
+            .userEmail("foo@bar.com")
+            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+            .questionDetails("Question details...")
+            .questionSummary("Question summary/title...")
+            .sendEmailAlertWhenPublished(true)
+            .agreedToTermsAndConditions(true)
+            .build();
 
     bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<QuestionSubmissionResponse>() {
       @Override
@@ -257,13 +257,13 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     view.showProgressWithTitle("Submitting Answer...");
 
     AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(submitAction, questionId, "User answer text goes here....")
-        //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
-        .userNickname("shazbat")
-        .userEmail("foo@bar.com")
-        .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
-        .sendEmailAlertWhenPublished(true)
-        .agreedToTermsAndConditions(true)
-        .build();
+            //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
+            .userNickname("shazbat")
+            .userEmail("foo@bar.com")
+            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicated -- FOR TESTING ONLY!!!
+            .sendEmailAlertWhenPublished(true)
+            .agreedToTermsAndConditions(true)
+            .build();
 
     bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<AnswerSubmissionResponse>() {
       @Override
@@ -282,11 +282,11 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     view.showProgressWithTitle("Submitting Feedback...");
 
     FeedbackSubmissionRequest submission = new FeedbackSubmissionRequest.Builder(reviewId)
-        .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
-        .feedbackType(FeedbackType.HELPFULNESS)
-        .feedbackContentType(FeedbackContentType.REVIEW)
-        .feedbackVote(FeedbackVoteType.POSITIVE)
-        .build();
+            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
+            .feedbackType(FeedbackType.HELPFULNESS)
+            .feedbackContentType(FeedbackContentType.REVIEW)
+            .feedbackVote(FeedbackVoteType.POSITIVE)
+            .build();
 
     bvConversationsClient.prepareCall(submission).loadAsync(new ConversationsSubmissionCallback<FeedbackSubmissionResponse>() {
       @Override
@@ -309,11 +309,11 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
     File localImageFile = demoAssetsUtil.parseImageFileFromAssets("bike_shop_photo.png");
 
     CommentSubmissionRequest request = new CommentSubmissionRequest.Builder(submitAction, reviewId, commentText)
-        .title(commentTitle)
-        .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
-        .userNickname("androidsdkUserNick")
-        .addPhoto(localImageFile, "Cute puppy there")
-        .build();
+            .title(commentTitle)
+            .userId("user1234" + Math.random()) // Creating a random user id to avoid duplicates -- FOR TESTING ONLY!!!
+            .userNickname("androidsdkUserNick")
+            .addPhoto(localImageFile, "Cute puppy there")
+            .build();
 
     bvConversationsClient.prepareCall(request).loadAsync(new ConversationsSubmissionCallback<CommentSubmissionResponse>() {
       @Override

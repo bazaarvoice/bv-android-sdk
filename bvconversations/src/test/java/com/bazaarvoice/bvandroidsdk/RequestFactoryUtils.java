@@ -206,10 +206,12 @@ public class RequestFactoryUtils {
 
   public Request createFullReviewDisplayRequest() {
     final ReviewsRequest request = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addFilter(ReviewOptions.Filter.ContentLocale, EqualityOperator.EQ,"en_Us")
             .addIncludeContent(ReviewIncludeType.PRODUCTS)
             .addSort(ReviewOptions.Sort.SubmissionTime, SortOrder.DESC)
             .addFilter(ReviewOptions.Filter.AuthorId, EqualityOperator.EQ, "me")
             .addIncentivizedStats(true)
+            .addFeature("Satisfaction")
             .build();
     return requestFactory.create(request);
   }

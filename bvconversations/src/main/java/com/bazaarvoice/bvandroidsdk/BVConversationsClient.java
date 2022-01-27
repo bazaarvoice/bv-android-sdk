@@ -113,6 +113,13 @@ public final class BVConversationsClient {
     public LoadCallDisplay<ReviewsRequest, ReviewResponse> prepareCall(ReviewsRequest request) {
         return factoryCreateDisplayCall(ReviewResponse.class, request);
     }
+    /**
+     * @param request TopicFilterRequest to be sent
+     * @return LoadCall object with the request ready to be sent
+     */
+    public LoadCallDisplay<TopicFilterRequest, TopicFilterResponse> prepareCall(TopicFilterRequest request) {
+        return factoryCreateDisplayCall(TopicFilterResponse.class, request);
+    }
 
     public LoadCallDisplay<StoreReviewsRequest, StoreReviewResponse> prepareCall(StoreReviewsRequest request) {
         return factoryCreateDisplayCall(StoreReviewResponse.class, request);

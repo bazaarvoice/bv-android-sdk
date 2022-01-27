@@ -33,6 +33,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final List<ReviewIncludeType> reviewIncludeTypes;
     private final List<PDPContentType> statistics;
     private final Boolean incentivizedStat;
+    private final String feature;
 
     private ReviewsRequest(Builder builder) {
         super(builder);
@@ -44,6 +45,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.reviewIncludeTypes = builder.reviewIncludeTypes;
         this.statistics = builder.statistics;
         this.incentivizedStat = builder.incentivizedStats;
+        this.feature = builder.feature;
 
     }
 
@@ -73,6 +75,10 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
     Boolean getIncentivizedStats() {
         return incentivizedStat;
+    }
+
+    String getFeatures(){
+        return feature;
     }
 
     List<PDPContentType> getStatistics() {

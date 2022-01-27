@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -783,6 +782,18 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertNotNull(author);
         assertEquals(0, author.getReviewStatistics().getHelpfulVoteCount().intValue());
         assertEquals(1, author.getReviewStatistics().getTotalReviewCount().intValue());
+
+    }
+
+    @Test
+    public void testTopicFeatureResponse() throws Exception {
+        TopicFilterResponse response = parseJsonResourceFile("topic_feature_response.json", TopicFilterResponse.class, gson);
+
+        assertNotNull(response.getResults());
+        assertEquals("XYZ123-prod-3-4-ExternalId", response.getResults().get(0).getProductId());
+        assertEquals("speed", response.getResults().get(0).getFeatures().get(0).getFeature());
+        assertEquals("speed", response.getResults().get(0).getFeatures().get(0).getLocalizedFeature());
+
 
     }
 }

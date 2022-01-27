@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -765,6 +766,26 @@ public class BasicRequestFactoryTest {
         PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
         assertNotNull(request);
     }
+
+  @Test
+  public void reviewShouldContainFeatureKeyword(){
+      final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
+    final HttpUrl httpUrl = okRequest.url();
+    assertTrue(httpUrl.queryParameterValues("feature").contains("Satisfaction"));
+
+  }
+
+  @Test
+  public void topicFilter() throws Exception  {
+    final TopicFilterRequest request = new TopicFilterRequest.Builder("test1")
+            .addLanguage("en")
+            .build();
+    final Request okRequest = requestFactory.create(request);
+    final HttpUrl url = okRequest.url();
+    assertTrue(url.queryParameterValues("productId").contains("test1"));
+    assertTrue(url.queryParameterValues("language").contains("en"));
+  }
+
 
 
 }
