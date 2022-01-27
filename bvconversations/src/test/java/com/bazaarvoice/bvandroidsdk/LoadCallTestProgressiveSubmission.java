@@ -111,6 +111,8 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
                 assertEquals(FormInputType.BOOLEAN, fields.get("isrecommended").getFormInputType());
                 assertEquals(FormInputType.INTEGER, fields.get("Slider").getFormInputType());
                 assertEquals(response.getData().getProductFormData().get("product4").getFormFields().size(), 27);
+                assertEquals(response.getData().getUserId(),"zt9veeogfppnyelf2imdtvup2u");
+
             }
 
             @Override
@@ -201,6 +203,29 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
                 assertEquals("ERROR_FORM_REQUIRED", exception.getFieldErrors().get(1).getCode());
                 assertEquals(SubmissionErrorCode.ERROR_FORM_REQUIRED, exception.getFieldErrors().get(1).getErrorCode());
                 assertEquals("required", exception.getFieldErrors().get(1).getMessage());
+            }
+        });
+    }
+
+    @Test
+    public void shouldCallFailAndReturnParsedDataForProgressiveSubmitRequestHostedAuthWithFormErrors() throws Exception {
+        final ProgressiveSubmitRequest request = getStubProgressiveSubmissionRequest();
+        final BVConversationsClient client = clientRule.getClient();
+        clientRule.enqueueHttp200("progressive_submission_review_submission_response_hostedauth_with_errors.json");
+        LoadCallProgressiveSubmission<ProgressiveSubmitRequest, ProgressiveSubmitResponse> loadCallProgressiveSubmission = client.prepareCall(request);
+
+        loadCallProgressiveSubmission.loadAsync(new ConversationsSubmissionCallback<ProgressiveSubmitResponse>() {
+            @Override
+            public void onSuccess(ProgressiveSubmitResponse response) {
+                fail();
+            }
+
+            @Override
+            public void onFailure(ConversationsSubmissionException exception) {
+                assertNotNull(exception);
+                assertNotNull(exception.getErrors());
+                assertEquals("Supplied Submission session token does not match the Review and Subject", exception.getErrors().get(0).getMessage());
+
             }
         });
     }

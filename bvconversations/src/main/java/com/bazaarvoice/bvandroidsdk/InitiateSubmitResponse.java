@@ -26,9 +26,14 @@ public class InitiateSubmitResponse extends ConversationsSubmissionResponse {
     public class InitiateSubmitFormData {
 
         private Map<String, InitiateSubmitResponseData> productFormData;
+        private String userId;
 
         public Map<String,InitiateSubmitResponseData> getProductFormData() {
             return productFormData;
+        }
+
+        public String getUserId() {
+            return userId;
         }
     }
 
