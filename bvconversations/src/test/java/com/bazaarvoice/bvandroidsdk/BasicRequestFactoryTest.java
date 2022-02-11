@@ -786,6 +786,16 @@ public class BasicRequestFactoryTest {
     assertTrue(url.queryParameterValues("language").contains("en"));
   }
 
+  @Test
+  public void testProductDisplayPageRequest() {
+    ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
+            .addReviewFilter(ReviewOptions.Filter.HasComments,EqualityOperator.EQ,"123")
+            .addQuestionFilter(QuestionOptions.Filter.HasAnswers,EqualityOperator.EQ,"123")
+            .addCommentFilter(CommentOptions.Filter.AUTHOR_ID,EqualityOperator.EQ,"123")
+            .addAuthorFilter(AuthorOptions.Filter.HAS_PHOTOS,EqualityOperator.EQ,"123")
+            .build();
 
+    assertTrue("Request should not contain error", pdpRequest.getError() == null);
+  }
 
 }
