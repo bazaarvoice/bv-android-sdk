@@ -787,7 +787,7 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
-  public void testProductDisplayPageRequest() {
+  public void testProductDisplayPageFilterType() {
     ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
             .addReviewFilter(ReviewOptions.Filter.HasComments,EqualityOperator.EQ,"123")
             .addQuestionFilter(QuestionOptions.Filter.HasAnswers,EqualityOperator.EQ,"123")
