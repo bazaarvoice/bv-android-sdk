@@ -48,6 +48,10 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kSORT_REVIEW = "Sort_Reviews";
     private static final String kSORT_QUESTIONS = "Sort_Questions";
     private static final String kSORT_ANSWERS = "Sort_Answers";
+    private static final String kFILTER_REVIEW = "Filter_Reviews";
+    private static final String kFILTER_QUESTIONS = "Filter_Questions";
+    private static final String kFILTER_AUTHORS = "Filter_Authors";
+    private static final String kFILTER_COMMENTS = "Filter_Comments";
     private static final String kINCLUDE = "Include";
     private static final String kSTATS = "Stats";
     private static final String kLIMIT = "Limit";
@@ -710,6 +714,7 @@ class BasicRequestFactory implements RequestFactory {
         addCommonQueryParams(httpUrlBuilder, convApiKey, bvMobileInfo);
         addCommonDisplayQueryParams(httpUrlBuilder, request);
         addSortableProductParams(httpUrlBuilder, request);
+        addFilertableProductParams(httpUrlBuilder,request);
         if (request.getIncentivizedStats()) {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
@@ -1026,6 +1031,39 @@ class BasicRequestFactory implements RequestFactory {
         if (!request.getStatistics().isEmpty()) {
             httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(request.getStatistics(), ","));
         }
+    }
+
+    private static void addFilertableProductParams(HttpUrl.Builder httpUrlBuilder, SortableProductRequest request) {
+        if (!request.getReviewFilter().isEmpty()) {
+            for (Filter filter : request.getReviewFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_REVIEW, filter.toString());
+            }
+        }
+
+
+        if (!request.getQuestionFilter().isEmpty()) {
+            for (Filter filter : request.getQuestionFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_QUESTIONS, filter.toString());
+            }
+        }
+
+        if (!request.getAuthorFilter().isEmpty()) {
+            for (Filter filter : request.getAuthorFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_AUTHORS, filter.toString());
+            }
+
+        }
+
+        if (!request.getCommentFilter().isEmpty()) {
+            for (Filter filter : request.getCommentFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_COMMENTS, filter.toString());
+            }
+        }
+
     }
 
     private static void addProductSortParam(HttpUrl.Builder httpUrlBuilder, List<Sort> sorts) {
