@@ -60,19 +60,14 @@ public enum AuthorOptions {
         TOTAL_REVIEW_COUNT("TotalReviewCount"),
         USER_LOCATION("UserLocation");
 
-        private String value;
+        private final String key;
 
-        Filter(String value) {
-            this.value = value;
+        Filter(String key) {
+            this.key = key;
         }
 
-        public String getValue() {
-            return value;
-        }
-
-        @Override
         public String getKey() {
-            return null;
+            return this.key;
         }
 
         //                AdditionalField_[FIELD_NAME]

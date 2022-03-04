@@ -55,6 +55,13 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     return questionFilter;
   }
 
+  public List<Filter> getCommentFilter() {
+    return commentFilter;
+  }
+
+  public List<Filter> getAuthorFilter() {
+    return authorFilter;
+  }
 
   Boolean getIncentivizedStats() {
     return incentivizedStats;
