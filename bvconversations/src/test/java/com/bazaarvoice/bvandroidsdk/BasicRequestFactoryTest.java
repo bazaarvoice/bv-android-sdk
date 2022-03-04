@@ -794,8 +794,12 @@ public class BasicRequestFactoryTest {
             .addCommentFilter(CommentOptions.Filter.AUTHOR_ID,EqualityOperator.EQ,"123")
             .addAuthorFilter(AuthorOptions.Filter.HAS_PHOTOS,EqualityOperator.EQ,"123")
             .build();
+    assertTrue(pdpRequest.getReviewFilter().get(0).toString().contains("HasComments:eq:123"));
+    assertTrue(pdpRequest.getQuestionFilter().get(0).toString().contains("HasAnswers:eq:123"));
+    assertTrue(pdpRequest.getCommentFilter().get(0).toString().contains("AuthorId:eq:123"));
+    assertTrue(pdpRequest.getAuthorFilter().get(0).toString().contains("HasPhotos:eq:123"));
 
-    assertTrue("Request should not contain error", pdpRequest.getError() == null);
+
   }
 
 }
