@@ -18,6 +18,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
@@ -34,6 +35,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final List<PDPContentType> statistics;
     private final Boolean incentivizedStat;
     private final String feature;
+    private final Map<String, String> contextDataValues;
 
     private ReviewsRequest(Builder builder) {
         super(builder);
@@ -46,6 +48,8 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.statistics = builder.statistics;
         this.incentivizedStat = builder.incentivizedStats;
         this.feature = builder.feature;
+        contextDataValues = builder.contextDataValues;
+
 
     }
 
@@ -85,6 +89,11 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         return statistics;
     }
 
+    Map<String, String> getContextDataValues() {
+        return contextDataValues;
+    }
+
+
     @Override
     BazaarException getError() {
         if (limit < 1 || limit > 100) {
@@ -121,6 +130,5 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         public ReviewsRequest build() {
             return new ReviewsRequest(this);
         }
-
     }
 }
