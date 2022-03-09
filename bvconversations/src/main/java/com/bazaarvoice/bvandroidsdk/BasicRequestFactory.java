@@ -411,6 +411,14 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kSTATS, statsParam);
         }
 
+        if (request.getContextDataValues()!= null) {
+            final Set<String> contextDataValueKeys = request.getContextDataValues().keySet();
+            for (String key : contextDataValueKeys) {
+                String value = getContextDataValue(key,request.getContextDataValues().get(key));
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER, value);
+            }
+        }
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -421,6 +429,11 @@ class BasicRequestFactory implements RequestFactory {
                 .url(httpUrl)
                 .headers(headers)
                 .build();
+    }
+
+    private String getContextDataValue(String key, String value) {
+        final String keyRating = String.format(Locale.US, KEY_CDV_TEMPLATE, key);
+        return String.format("%s:%s", keyRating, value);
     }
 
     private Request createFromQuestionAndAnswerRequest(QuestionAndAnswerRequest request) {
@@ -984,6 +997,7 @@ class BasicRequestFactory implements RequestFactory {
         addFilterQueryParams(httpUrlBuilder, request.getFilters());
         addExtraQueryParams(httpUrlBuilder, request.getExtraParams());
         addProductSortParam(httpUrlBuilder, request.getSorts());
+
     }
 
     private static void addFilterQueryParams(HttpUrl.Builder httpUrlBuilder, List<Filter> filters) {

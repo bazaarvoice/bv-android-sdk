@@ -1,13 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -800,6 +797,15 @@ public class BasicRequestFactoryTest {
     assertTrue(pdpRequest.getAuthorFilter().get(0).toString().contains("HasPhotos:eq:123"));
 
 
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithContextDataValues() {
+    final ReviewsRequest.Builder reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2);
+    reviewsRequest.addFilterContextDataValue("Age","17orUnder");
+    final Request okRequest = requestFactory.create(reviewsRequest.build());
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("contextdatavalue_Age:17orUnder", filterParams.get(1));
   }
 
 }
