@@ -140,6 +140,7 @@ class BasicRequestFactory implements RequestFactory {
     private static final String VIDEO_CAPTION_TEMPLATE = "VideoCaption_%d";
     private static final String KEY_RATING_TEMPLATE = "rating_%s";
     private static final String KEY_CDV_TEMPLATE = "contextdatavalue_%s";
+    private static final String KEY_SECONDARY_RATING_TEMPLATE = "SecondaryRating_%s";
     private static final String KEY_FREEFORM_TAG_TEMPLATE = "tag_%s_%d";
     // endregion
 
@@ -419,6 +420,14 @@ class BasicRequestFactory implements RequestFactory {
                         .addEncodedQueryParameter(kFILTER, value);
             }
         }
+
+        if (request.getSecondaryRatings()!= null) {
+            for (BVSecondaryRatingFilter secondaryRatingFilters : request.getSecondaryRatings() ) {
+                String value = addSecondaryRatingsQueryParam(secondaryRatingFilters.getType(), secondaryRatingFilters.getEqualityOperator(), secondaryRatingFilters.getValue());
+                httpUrlBuilder.addEncodedQueryParameter(kFILTER,value);
+            }
+        }
+
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -429,6 +438,11 @@ class BasicRequestFactory implements RequestFactory {
                 .url(httpUrl)
                 .headers(headers)
                 .build();
+    }
+
+    private String addSecondaryRatingsQueryParam(String type, EqualityOperator equalityOperator, String value) {
+        final String keyRating = String.format(Locale.US, KEY_SECONDARY_RATING_TEMPLATE, type);
+        return String.format("%s:%s:%s", keyRating,equalityOperator, value);
     }
 
     private String getContextDataValue(String key, String value) {

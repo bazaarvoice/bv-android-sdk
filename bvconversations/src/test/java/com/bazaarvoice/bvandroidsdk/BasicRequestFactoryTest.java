@@ -801,11 +801,21 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void reviewDisplayRequestCreateRequestWithContextDataValues() {
-    final ReviewsRequest.Builder reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2);
-    reviewsRequest.addFilterContextDataValue("Age","17orUnder");
-    final Request okRequest = requestFactory.create(reviewsRequest.build());
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addFilterContextDataValue("Age","17orUnder")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
     final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
     assertEquals("contextdatavalue_Age:17orUnder", filterParams.get(1));
   }
 
+  @Test
+  public void reviewDisplayRequestCreateRequestWithSecondaryRatingValues() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addSecondaryRatingFilters("Quality",EqualityOperator.EQ,"5")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("SecondaryRating_Quality:EQ:5", filterParams.get(1));
+  }
 }
