@@ -40,6 +40,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected List<ReviewIncludeType> reviewIncludeTypes;
   protected  String feature;
   protected final Map<String, String> contextDataValues;
+  protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
     super();
@@ -52,6 +53,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.productId = productId;
     this.incentivizedStats = false;
     this.contextDataValues = new HashMap<>();
+    this.secondaryRatingFilters = new ArrayList<>();
 
   }
 
@@ -68,6 +70,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.incentivizedStats = false;
     this.feature = new String();
     this.contextDataValues = new HashMap<>();
+    this.secondaryRatingFilters =  new ArrayList<>();
   }
 
   public BuilderType addPDPContentType(PDPContentType pdpContentType) {
@@ -122,6 +125,11 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
 
   public BuilderType addFilterContextDataValue(String id, String value) {
     contextDataValues.put(id, value);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addSecondaryRatingFilters(String type, EqualityOperator equalityOperator, String value) {
+    secondaryRatingFilters.add(new BVSecondaryRatingFilter(type, equalityOperator, value));
     return (BuilderType) this;
   }
 

@@ -36,6 +36,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final Boolean incentivizedStat;
     private final String feature;
     private final Map<String, String> contextDataValues;
+    protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
 
     private ReviewsRequest(Builder builder) {
         super(builder);
@@ -48,7 +49,8 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.statistics = builder.statistics;
         this.incentivizedStat = builder.incentivizedStats;
         this.feature = builder.feature;
-        contextDataValues = builder.contextDataValues;
+        this.contextDataValues = builder.contextDataValues;
+        this.secondaryRatingFilters = builder.secondaryRatingFilters;
 
 
     }
@@ -93,6 +95,9 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         return contextDataValues;
     }
 
+    public List<BVSecondaryRatingFilter> getSecondaryRatings() {
+        return secondaryRatingFilters;
+    }
 
     @Override
     BazaarException getError() {
