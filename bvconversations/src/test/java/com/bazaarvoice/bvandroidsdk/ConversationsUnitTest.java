@@ -796,4 +796,14 @@ public class ConversationsUnitTest extends BVBaseTest {
 
 
     }
+
+    @Test
+    public void testValueLabelReviewResponse() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("reviews_include_value_label.json", ReviewResponse.class, gson);
+
+        for (Product includes : response.getIncludes().getProducts()) {
+            assertEquals("17 or under", includes.getReviewStatistics().getContextDataDistribution().get("Age").getValues().get(0).getValueLabel());
+        }
+
+    }
 }
