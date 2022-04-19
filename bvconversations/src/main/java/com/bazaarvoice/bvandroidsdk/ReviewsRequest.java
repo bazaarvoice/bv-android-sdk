@@ -36,6 +36,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final Boolean incentivizedStat;
     private final String feature;
     private final Map<String, String> contextDataValues;
+    private final Map<String, String> additionalFields;
     protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
 
     private ReviewsRequest(Builder builder) {
@@ -50,6 +51,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.incentivizedStat = builder.incentivizedStats;
         this.feature = builder.feature;
         this.contextDataValues = builder.contextDataValues;
+        this.additionalFields = builder.additionalFields;
         this.secondaryRatingFilters = builder.secondaryRatingFilters;
 
 
@@ -93,6 +95,10 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
     Map<String, String> getContextDataValues() {
         return contextDataValues;
+    }
+
+    public Map<String, String> getAdditionalFields() {
+        return additionalFields;
     }
 
     public List<BVSecondaryRatingFilter> getSecondaryRatings() {

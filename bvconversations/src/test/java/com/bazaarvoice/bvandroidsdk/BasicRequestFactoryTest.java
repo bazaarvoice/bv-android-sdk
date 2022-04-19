@@ -818,4 +818,14 @@ public class BasicRequestFactoryTest {
     final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
     assertEquals("SecondaryRating_Quality:EQ:5", filterParams.get(1));
   }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithAdditionalFields() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addAdditionalFields("DateOfUserExperience","2021-04-03")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("additionalfield_DateOfUserExperience:2021-04-03", filterParams.get(1));
+  }
 }
