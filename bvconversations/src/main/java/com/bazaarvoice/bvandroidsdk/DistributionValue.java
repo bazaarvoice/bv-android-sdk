@@ -24,6 +24,8 @@ public class DistributionValue {
     private Integer count;
     @SerializedName("Value")
     private String value;
+    @SerializedName("ValueLabel")
+    private String valueLabel;
 
     public Integer getCount() {
         return count;
@@ -31,5 +33,9 @@ public class DistributionValue {
 
     public String getValue() {
         return value;
+    }
+
+    public String getValueLabel() {
+        return valueLabel;
     }
 }
