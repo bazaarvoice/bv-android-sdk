@@ -421,6 +421,14 @@ class BasicRequestFactory implements RequestFactory {
             }
         }
 
+        if (request.getAdditionalFields()!= null) {
+            final Set<String> additionalFields = request.getAdditionalFields().keySet();
+            for (String key : additionalFields) {
+                String value = addAdditionalQueryParam(key,request.getAdditionalFields().get(key));
+                httpUrlBuilder.addEncodedQueryParameter(kFILTER, value);
+            }
+        }
+
         if (request.getSecondaryRatings()!= null) {
             for (BVSecondaryRatingFilter secondaryRatingFilters : request.getSecondaryRatings() ) {
                 String value = addSecondaryRatingsQueryParam(secondaryRatingFilters.getType(), secondaryRatingFilters.getEqualityOperator(), secondaryRatingFilters.getValue());
@@ -447,6 +455,11 @@ class BasicRequestFactory implements RequestFactory {
 
     private String getContextDataValue(String key, String value) {
         final String keyRating = String.format(Locale.US, KEY_CDV_TEMPLATE, key);
+        return String.format("%s:%s", keyRating, value);
+    }
+
+    private String  addAdditionalQueryParam(String key, String value) {
+        final String keyRating = String.format(Locale.US, KEY_ADDITIONAL_PARAM_TEMPLATE, key);
         return String.format("%s:%s", keyRating, value);
     }
 

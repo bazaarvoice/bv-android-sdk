@@ -41,6 +41,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected  String feature;
   protected final Map<String, String> contextDataValues;
   protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
+  protected final Map<String, String> additionalFields;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
     super();
@@ -54,7 +55,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.incentivizedStats = false;
     this.contextDataValues = new HashMap<>();
     this.secondaryRatingFilters = new ArrayList<>();
-
+    this.additionalFields = new HashMap<>();
   }
 
   public ReviewDisplayRequestBuilder(ReviewOptions.PrimaryFilter filterBy, String id, int limit, int offset) {
@@ -71,6 +72,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.feature = new String();
     this.contextDataValues = new HashMap<>();
     this.secondaryRatingFilters =  new ArrayList<>();
+    this.additionalFields = new HashMap<>();
   }
 
   public BuilderType addPDPContentType(PDPContentType pdpContentType) {
@@ -128,7 +130,12 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     return (BuilderType) this;
   }
 
-  public BuilderType addSecondaryRatingFilters(String type, EqualityOperator equalityOperator, String value) {
+  public BuilderType addAdditionalFields(String id, String value) {
+    additionalFields.put(id, value);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addSecondaryRatingFilters(String type,  EqualityOperator equalityOperator, String value) {
     secondaryRatingFilters.add(new BVSecondaryRatingFilter(type, equalityOperator, value));
     return (BuilderType) this;
   }
