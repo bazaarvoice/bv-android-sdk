@@ -142,6 +142,7 @@ class BasicRequestFactory implements RequestFactory {
     private static final String KEY_CDV_TEMPLATE = "contextdatavalue_%s";
     private static final String KEY_SECONDARY_RATING_TEMPLATE = "SecondaryRating_%s";
     private static final String KEY_FREEFORM_TAG_TEMPLATE = "tag_%s_%d";
+    private static final String KEY_TAG_FILTER_TEMPLATE = "tag_%s";
     // endregion
 
     // region Submit Question Request Keys
@@ -436,6 +437,14 @@ class BasicRequestFactory implements RequestFactory {
             }
         }
 
+        if (request.getTagFilters()!= null) {
+            final Set<String> tagFilterValues = request.getTagFilters().keySet();
+            for (String key : tagFilterValues) {
+                String value = addTagQueryParam(key,request.getTagFilters().get(key));
+                httpUrlBuilder.addEncodedQueryParameter(kFILTER, value);
+            }
+        }
+
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -456,6 +465,11 @@ class BasicRequestFactory implements RequestFactory {
     private String getContextDataValue(String key, String value) {
         final String keyRating = String.format(Locale.US, KEY_CDV_TEMPLATE, key);
         return String.format("%s:%s", keyRating, value);
+    }
+
+    private String addTagQueryParam(String type, String value) {
+        final String keyRating = String.format(Locale.US, KEY_TAG_FILTER_TEMPLATE, type);
+        return String.format("%s:%s",keyRating, value);
     }
 
     private String  addAdditionalQueryParam(String key, String value) {

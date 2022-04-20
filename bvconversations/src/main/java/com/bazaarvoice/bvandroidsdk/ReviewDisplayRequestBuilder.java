@@ -41,6 +41,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected  String feature;
   protected final Map<String, String> contextDataValues;
   protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
+  protected final Map<String, String> tagFilters;
   protected final Map<String, String> additionalFields;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
@@ -55,6 +56,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.incentivizedStats = false;
     this.contextDataValues = new HashMap<>();
     this.secondaryRatingFilters = new ArrayList<>();
+    this.tagFilters = new HashMap<>();
     this.additionalFields = new HashMap<>();
   }
 
@@ -72,6 +74,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     this.feature = new String();
     this.contextDataValues = new HashMap<>();
     this.secondaryRatingFilters =  new ArrayList<>();
+    this.tagFilters = new HashMap<>();
     this.additionalFields = new HashMap<>();
   }
 
@@ -137,6 +140,11 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
 
   public BuilderType addSecondaryRatingFilters(String type,  EqualityOperator equalityOperator, String value) {
     secondaryRatingFilters.add(new BVSecondaryRatingFilter(type, equalityOperator, value));
+    return (BuilderType) this;
+  }
+
+  public BuilderType addFilterTag(String id, String value) {
+    tagFilters.put(id, value);
     return (BuilderType) this;
   }
 

@@ -820,6 +820,16 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayRequestCreateRequestWithTagFilter() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addFilterTag("TagsSet", "Volume")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("tag_TagsSet:Volume", filterParams.get(1));
+  }
+
+  @Test
   public void reviewDisplayRequestCreateRequestWithAdditionalFields() {
     final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
             .addAdditionalFields("DateOfUserExperience","2021-04-03")
