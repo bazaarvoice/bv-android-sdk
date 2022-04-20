@@ -34,6 +34,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final List<ReviewIncludeType> reviewIncludeTypes;
     private final List<PDPContentType> statistics;
     private final Boolean incentivizedStat;
+    private final Boolean tagStats;
     private final String feature;
     private final Map<String, String> contextDataValues;
     private final Map<String, String> additionalFields;
@@ -50,6 +51,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.reviewIncludeTypes = builder.reviewIncludeTypes;
         this.statistics = builder.statistics;
         this.incentivizedStat = builder.incentivizedStats;
+        this.tagStats = builder.tagStats;
         this.feature = builder.feature;
         this.contextDataValues = builder.contextDataValues;
         this.additionalFields = builder.additionalFields;
@@ -84,6 +86,10 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
     Boolean getIncentivizedStats() {
         return incentivizedStat;
+    }
+
+    Boolean getTagStats() {
+        return tagStats;
     }
 
     String getFeatures(){

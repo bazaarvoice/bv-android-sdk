@@ -798,12 +798,22 @@ public class ConversationsUnitTest extends BVBaseTest {
     }
 
     @Test
+    public void testReviewsForTagStatsReviewParsing() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("review_tag_stats.json", ReviewResponse.class, gson);
+        for (Product includes : response.getIncludes().getProducts()) {
+            assertNotNull(includes.getReviewStatistics().getTagDistribution());
+        }
+        assertEquals("ProductVariant", response.getIncludes().getProducts().get(0).getReviewStatistics().getTagDistribution().get("ProductVariant").getId());
+        assertEquals("Gray", response.getIncludes().getProducts().get(0).getReviewStatistics().getTagDistribution().get("ProductVariant").getValues().get(0).getValue());
+        assertEquals(9, response.getIncludes().getProducts().get(0).getReviewStatistics().getTagDistribution().get("ProductVariant").getValues().get(0).getCount().intValue());
+    }
+
+    @Test
     public void testValueLabelReviewResponse() throws Exception {
         ReviewResponse response = parseJsonResourceFile("reviews_include_value_label.json", ReviewResponse.class, gson);
 
         for (Product includes : response.getIncludes().getProducts()) {
             assertEquals("17 or under", includes.getReviewStatistics().getContextDataDistribution().get("Age").getValues().get(0).getValueLabel());
         }
-
     }
 }
