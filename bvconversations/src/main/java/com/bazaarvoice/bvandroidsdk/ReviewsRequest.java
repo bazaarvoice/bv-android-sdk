@@ -38,6 +38,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final Map<String, String> contextDataValues;
     private final Map<String, String> additionalFields;
     protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
+    private final Map<String, String> tagFilters;
 
     private ReviewsRequest(Builder builder) {
         super(builder);
@@ -53,7 +54,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.contextDataValues = builder.contextDataValues;
         this.additionalFields = builder.additionalFields;
         this.secondaryRatingFilters = builder.secondaryRatingFilters;
-
+        this.tagFilters=builder.tagFilters;
 
     }
 
@@ -103,6 +104,10 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
     public List<BVSecondaryRatingFilter> getSecondaryRatings() {
         return secondaryRatingFilters;
+    }
+
+    public Map<String, String> getTagFilters() {
+        return tagFilters;
     }
 
     @Override
