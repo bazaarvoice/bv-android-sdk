@@ -58,6 +58,7 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kOFFSET = "Offset";
     private static final String kSEARCH = "Search";
     private static  final String kINCENTIVIZED_STATS = "incentivizedstats";
+    private static  final String kTAG_STATS = "tagstats";
     private static  final String kFEATURES = "feature";
     private static final String kProductId = "productId";
     private static final String kLanguage = "language";
@@ -389,6 +390,10 @@ class BasicRequestFactory implements RequestFactory {
 
         if (request.getIncentivizedStats()) {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
+        }
+
+        if (request.getTagStats()) {
+            httpUrlBuilder.addQueryParameter(kTAG_STATS, request.getTagStats().toString());
         }
 
         if (request.getFeatures() != null) {
@@ -745,6 +750,10 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
+        if (request.getTagStats()) {
+            httpUrlBuilder.addQueryParameter(kTAG_STATS, request.getTagStats().toString());
+        }
+
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -773,6 +782,9 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
+        if (request.getTagStats()) {
+            httpUrlBuilder.addQueryParameter(kTAG_STATS, request.getTagStats().toString());
+        }
 
         HttpUrl httpUrl = httpUrlBuilder.build();
 

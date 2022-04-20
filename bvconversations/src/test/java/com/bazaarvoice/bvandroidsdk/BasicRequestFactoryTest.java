@@ -820,6 +820,26 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayRequestCreateRequestWithTagStats() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addTagStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("tagstats"));
+  }
+
+  @Test
+  public void productreviewDisplayRequestCreateRequestWithTagStats() {
+    final ProductDisplayPageRequest reviewsRequest = new ProductDisplayPageRequest.Builder("prod1")
+            .addTagStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("tagstats"));
+  }
+
+  @Test
   public void reviewDisplayRequestCreateRequestWithTagFilter() {
     final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
             .addFilterTag("TagsSet", "Volume")
