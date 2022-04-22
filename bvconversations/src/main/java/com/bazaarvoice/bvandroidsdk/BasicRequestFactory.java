@@ -241,8 +241,8 @@ class BasicRequestFactory implements RequestFactory {
             return createFromBulkProductRequest((BulkProductRequest) request);
         } else if (request instanceof ProductDisplayPageRequest) {
             return createFromProductDisplayPageRequest((ProductDisplayPageRequest) request);
-        } else if (request instanceof TopicFilterRequest) {
-            return createFromTopicFilterRequest((TopicFilterRequest) request);
+        } else if (request instanceof FeaturesRequest) {
+            return createFromFeaturesRequest((FeaturesRequest) request);
         }else if (request instanceof FeedbackSubmissionRequest) {
             return createFromFeedbackSubmissionRequest((FeedbackSubmissionRequest) request);
         } else if (request instanceof ReviewSubmissionRequest) {
@@ -537,7 +537,7 @@ class BasicRequestFactory implements RequestFactory {
                 .build();
     }
 
-    private Request createFromTopicFilterRequest(TopicFilterRequest request) {
+    private Request createFromFeaturesRequest(FeaturesRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
 
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)

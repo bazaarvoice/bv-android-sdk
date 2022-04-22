@@ -787,7 +787,7 @@ public class ConversationsUnitTest extends BVBaseTest {
 
     @Test
     public void testTopicFeatureResponse() throws Exception {
-        TopicFilterResponse response = parseJsonResourceFile("topic_feature_response.json", TopicFilterResponse.class, gson);
+        FeaturesResponse response = parseJsonResourceFile("topic_feature_response.json", FeaturesResponse.class, gson);
 
         assertNotNull(response.getResults());
         assertEquals("XYZ123-prod-3-4-ExternalId", response.getResults().get(0).getProductId());
