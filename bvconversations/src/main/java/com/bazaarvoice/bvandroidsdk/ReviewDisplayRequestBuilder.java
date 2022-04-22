@@ -37,6 +37,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected final ArrayList<PDPContentType> statistics;
   protected String searchPhrase;
   protected Boolean incentivizedStats;
+  protected Boolean secondaryratingstats;
   protected Boolean tagStats;
   protected List<ReviewIncludeType> reviewIncludeTypes;
   protected  String feature;
@@ -55,6 +56,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
     this.productId = productId;
     this.incentivizedStats = false;
+    this.secondaryratingstats = false;
     this.tagStats = false;
     this.contextDataValues = new HashMap<>();
     this.secondaryRatingFilters = new ArrayList<>();
@@ -91,6 +93,10 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     return (BuilderType) this;
   }
 
+  public BuilderType addSecondaryRatingStats(Boolean secondaryratingstats) {
+    this.secondaryratingstats = secondaryratingstats;
+    return (BuilderType) this;
+  }
   public BuilderType addTagStats(Boolean tagStats) {
     this.tagStats = tagStats;
     return (BuilderType) this;

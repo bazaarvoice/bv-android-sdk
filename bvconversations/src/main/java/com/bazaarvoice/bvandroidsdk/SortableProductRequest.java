@@ -11,7 +11,9 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
   private final List<Include> includes;
   private final List<PDPContentType> statistics;
   private boolean incentivizedStats;
+  private boolean secondaryratingstats;
   private boolean tagStats;
+
 
 
   SortableProductRequest(Builder builder) {
@@ -26,6 +28,7 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     includes = builder.includes;
     statistics = builder.statistics;
     incentivizedStats = builder.incentivizedStats;
+    secondaryratingstats = builder.secondaryratingstats;
     tagStats = builder.tagStats;
   }
 
@@ -69,9 +72,9 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     return incentivizedStats;
   }
 
-  Boolean getTagStats() {
-    return tagStats;
-  }
+  Boolean getSecondaryratingStats() { return secondaryratingstats;}
+
+  Boolean getTagStats() { return tagStats; }
 
   @Override
   BazaarException getError() {
@@ -89,6 +92,7 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     private final List<Include> includes = new ArrayList<>();
     private final List<PDPContentType> statistics = new ArrayList<>();
     private boolean incentivizedStats = false;
+    private boolean secondaryratingstats = false;
     private boolean tagStats = false;
 
     Builder() {
@@ -167,6 +171,11 @@ public abstract class SortableProductRequest extends ConversationsDisplayRequest
     public BuilderType addIncentivizedStats(Boolean incentivizedStats){
       this.incentivizedStats = incentivizedStats;
       return (BuilderType) this;
+    }
+
+    public BuilderType addSecondaryRatingStats(Boolean secondaryratingstats) {
+        this.secondaryratingstats = secondaryratingstats;
+        return (BuilderType) this;
     }
 
     public BuilderType addTagStats(Boolean tagStats){

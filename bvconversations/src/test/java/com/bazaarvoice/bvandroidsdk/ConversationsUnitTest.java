@@ -798,6 +798,18 @@ public class ConversationsUnitTest extends BVBaseTest {
     }
 
     @Test
+    public void testReviewsForSecondaryRatingsReviewParsing() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("review_secondary_stats.json", ReviewResponse.class, gson);
+        for (Product includes : response.getIncludes().getProducts()) {
+            assertNotNull(includes.getReviewStatistics().getSecondaryRatingsDistribution());
+        }
+        assertEquals("WhatSizeIsTheProduct", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsDistribution().get("WhatSizeIsTheProduct").getId());
+        assertEquals(2, response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsDistribution().get("WhatSizeIsTheProduct").getValues().get(0).getValue().intValue());
+        assertEquals(6, response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsDistribution().get("WhatSizeIsTheProduct").getValues().get(0).getCount().intValue());
+        assertEquals("Medium", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsDistribution().get("WhatSizeIsTheProduct").getValues().get(0).getValueLabel());
+    }
+
+    @Test
     public void testReviewsForTagStatsReviewParsing() throws Exception {
         ReviewResponse response = parseJsonResourceFile("review_tag_stats.json", ReviewResponse.class, gson);
         for (Product includes : response.getIncludes().getProducts()) {

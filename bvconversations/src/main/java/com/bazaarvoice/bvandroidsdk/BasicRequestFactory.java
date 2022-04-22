@@ -58,6 +58,7 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kOFFSET = "Offset";
     private static final String kSEARCH = "Search";
     private static  final String kINCENTIVIZED_STATS = "incentivizedstats";
+    private static  final String kSECONDARY_RATING_STATS = "secondaryratingstats";
     private static  final String kTAG_STATS = "tagstats";
     private static  final String kFEATURES = "feature";
     private static final String kProductId = "productId";
@@ -390,6 +391,10 @@ class BasicRequestFactory implements RequestFactory {
 
         if (request.getIncentivizedStats()) {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
+        }
+
+        if (request.getSecondaryratingstats()) {
+            httpUrlBuilder.addQueryParameter(kSECONDARY_RATING_STATS, request.getSecondaryratingstats().toString());
         }
 
         if (request.getTagStats()) {
@@ -780,6 +785,10 @@ class BasicRequestFactory implements RequestFactory {
         addFilertableProductParams(httpUrlBuilder,request);
         if (request.getIncentivizedStats()) {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
+        }
+
+        if (request.getSecondaryratingStats()) {
+            httpUrlBuilder.addQueryParameter(kSECONDARY_RATING_STATS, request.getSecondaryratingStats().toString());
         }
 
         if (request.getTagStats()) {

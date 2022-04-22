@@ -820,6 +820,25 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayRequestCreateRequestWithSecondaryRatingsStats() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addSecondaryRatingStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("secondaryratingstats"));
+  }
+
+  @Test
+  public void productreviewDisplayRequestCreateRequestWithSecondaryRatingsStats() {
+    final ProductDisplayPageRequest reviewsRequest = new ProductDisplayPageRequest.Builder("prod1")
+            .addSecondaryRatingStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("secondaryratingstats"));
+  }
+
   public void reviewDisplayRequestCreateRequestWithTagStats() {
     final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
             .addTagStats(true)
