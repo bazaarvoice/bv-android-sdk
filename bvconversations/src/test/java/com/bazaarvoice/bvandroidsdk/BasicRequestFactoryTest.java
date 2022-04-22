@@ -773,8 +773,8 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
-  public void topicFilter() throws Exception  {
-    final TopicFilterRequest request = new TopicFilterRequest.Builder("test1")
+  public void feature() throws Exception  {
+    final FeaturesRequest request = new FeaturesRequest.Builder("test1")
             .addLanguage("en")
             .build();
     final Request okRequest = requestFactory.create(request);

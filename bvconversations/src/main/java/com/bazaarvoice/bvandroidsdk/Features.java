@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TopicFeatureResults extends IncludeableContent {
+public class Features extends IncludeableContent {
 
     @SerializedName("features")
-    private List<TopicFeature> features;
+    private List<Feature> features;
 
     @SerializedName("language")
     private String language;
@@ -16,7 +16,7 @@ public class TopicFeatureResults extends IncludeableContent {
     private String productId;
 
 
-    public List<TopicFeature> getFeatures() {
+    public List<Feature> getFeatures() {
         return features;
     }
 
