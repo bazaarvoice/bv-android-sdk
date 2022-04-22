@@ -19,14 +19,58 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Averages for ratings for specific qualities
  */
 public class SecondaryRatingsAverages {
+    @SerializedName("Id")
+    private String id;
     @SerializedName("AverageRating")
     private Float averageOverallRating;
+    @SerializedName("MaxLabel")
+    private String maxLabel;
+    @SerializedName("DisplayType")
+    private String displayType;
+    @SerializedName("MinLabel")
+    private String minLabel;
+    @SerializedName("Label")
+    private String label;
+    @SerializedName("ValueLabel")
+    private List<String> valueLabel;
+    @SerializedName("ValueRange")
+    private Integer valueRange;
 
     public Float getAverageOverallRating() {
         return averageOverallRating;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getMaxLabel() {
+        return maxLabel;
+    }
+
+    public String getDisplayType() {
+        return displayType;
+    }
+
+    public String getMinLabel() {
+        return minLabel;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public List<String> getValueLabel() {
+        return valueLabel;
+    }
+
+    public Integer getValueRange() {
+        return valueRange;
     }
 }
