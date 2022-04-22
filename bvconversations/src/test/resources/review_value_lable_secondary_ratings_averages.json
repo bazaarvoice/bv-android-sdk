@@ -1,0 +1,910 @@
+{
+  "Limit": 10,
+  "Offset": 0,
+  "TotalResults": 13,
+  "Locale": "en_US",
+  "Results": [
+    {
+      "Id": "40791461",
+      "CID": "6d369b25-ced2-5de9-a5aa-0b42e9e7b422",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-20T06:15:01.000+00:00",
+      "LastModificationTime": "2022-04-20T06:15:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "ev6uluge8efj1xaf4naspi1ni",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16504347wfNIAxPygT",
+      "SubmissionTime": "2022-04-20T06:06:17.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 6",
+      "UserNickname": "testSDKUse2234534543",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 4,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 2,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Medium",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779882",
+      "CID": "5c29b719-a2e0-5a26-897e-684c92781096",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T13:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T13:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "tkmyz67zw3ca728lb1bsspppm",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503724rskBklgu3U",
+      "SubmissionTime": "2022-04-19T12:47:02.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 6",
+      "UserNickname": "testSDKUse22345",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 4,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 2,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Medium",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779798",
+      "CID": "802d5824-297b-5d2b-85f4-97c7154a2639",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "int717159chkdwold24oh71e5",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503622uvf7b41tFn",
+      "SubmissionTime": "2022-04-19T09:58:14.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 6",
+      "UserNickname": "testSDKUse2234",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 4,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 2,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Medium",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779797",
+      "CID": "edf010ce-9c68-5412-be4e-e244995a338b",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "sm95g67twftr2mof6xovpj1yz",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503622rFngsnYbNK",
+      "SubmissionTime": "2022-04-19T09:58:11.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 6",
+      "UserNickname": "testSDKUse223",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 4,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 2,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Medium",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779795",
+      "CID": "28ea65b2-43ac-5cb0-9ca5-e9810972f6e8",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "lq8zmafnrtsgmx4i73dp0m0ry",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503622yCXV25pbp7",
+      "SubmissionTime": "2022-04-19T09:58:07.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 6",
+      "UserNickname": "testSDKUse22",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 4,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 2,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Medium",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779794",
+      "CID": "2822b55f-8d25-54f8-8ad2-e904345aadc2",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "6cv147jittrwpgfewym9pnuxq",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503622z2LBaoW8sh",
+      "SubmissionTime": "2022-04-19T09:58:03.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 6",
+      "UserNickname": "testSDKUse2",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 4,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 2,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Medium",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779793",
+      "CID": "5465ee80-3bbd-525d-a546-1848745290ec",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "22osqe8zpx5n6srcpkvfp1j1b",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 4,
+      "SecondaryRatingsOrder": [
+        "Quality",
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503622OZr7JMLIbF",
+      "SubmissionTime": "2022-04-19T09:57:45.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 4",
+      "UserNickname": "testSDKUse",
+      "SecondaryRatings": {
+        "Quality": {
+          "Value": 5,
+          "Id": "Quality",
+          "Label": "Quality of Product",
+          "MaxLabel": null,
+          "DisplayType": "NORMAL",
+          "ValueLabel": null,
+          "MinLabel": null,
+          "ValueRange": 5
+        },
+        "WhatSizeIsTheProduct": {
+          "Value": 3,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Large",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779792",
+      "CID": "e0333450-2565-5c74-a1c5-d3afb1609ad3",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "onwfpxl6aavn94o06ona361zb",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 2,
+      "SecondaryRatingsOrder": [
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_16503622WBMMjreSgu",
+      "SubmissionTime": "2022-04-19T09:56:54.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title 2",
+      "UserNickname": "testSDKUser867jhhjkbjk",
+      "SecondaryRatings": {
+        "WhatSizeIsTheProduct": {
+          "Value": 3,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Large",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "40779790",
+      "CID": "eda8ea11-1fd9-5923-b7b5-96cc2ed0d5a8",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-04-19T10:00:01.000+00:00",
+      "LastModificationTime": "2022-04-19T10:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "aoqigncoeyeacaomtarbytba4",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "WhatSizeIsTheProduct"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433_1650362182Fwy9x6Al",
+      "SubmissionTime": "2022-04-19T09:56:15.000+00:00",
+      "ReviewText": "More then 50, More then 50, More then 50, More then 50,",
+      "Title": "Review title",
+      "UserNickname": "testSDKUser867jh",
+      "SecondaryRatings": {
+        "WhatSizeIsTheProduct": {
+          "Value": 1,
+          "Id": "WhatSizeIsTheProduct",
+          "Label": "What size is the product?",
+          "MaxLabel": "Large",
+          "DisplayType": "SLIDER",
+          "ValueLabel": "Small",
+          "MinLabel": "Small",
+          "ValueRange": 3
+        }
+      },
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-03-10",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "ContextDataValues": {},
+      "Videos": []
+    },
+    {
+      "Id": "37976497",
+      "CID": "17b62d4c-8b9b-55fa-9531-2b045dc65320",
+      "SourceClient": "testcustomermobilesdk",
+      "LastModeratedTime": "2022-01-28T12:00:01.000+00:00",
+      "LastModificationTime": "2022-01-28T12:00:01.000+00:00",
+      "ProductId": "product1",
+      "AuthorId": "zeygrozkxbvg01ulz5yuxzk2y3",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 4,
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r210433-en_16433703ut9QJpQdTk",
+      "SubmissionTime": "2022-01-28T11:46:39.000+00:00",
+      "ReviewText": "This is great its so awesome. I highly recomend using this product and think it makes a great gift for any holiday or special occasion. by far the best purchase ive made this year",
+      "Title": "my favorite product ever!",
+      "UserNickname": null,
+      "AdditionalFields": {
+        "DateOfUserExperience": {
+          "Value": "2021-05-05",
+          "Id": "DateOfUserExperience",
+          "Label": "Date of Use"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "DateOfUserExperience"
+      ],
+      "Pros": null,
+      "Badges": {},
+      "RatingRange": 5,
+      "Helpfulness": null,
+      "ContextDataValuesOrder": [],
+      "ClientResponses": [],
+      "CommentIds": [],
+      "IsRecommended": null,
+      "Cons": null,
+      "InappropriateFeedbackList": [],
+      "SecondaryRatingsOrder": [],
+      "TagDimensions": {},
+      "IsSyndicated": false,
+      "ProductRecommendationIds": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "TagDimensionsOrder": [],
+      "BadgesOrder": [],
+      "Photos": [],
+      "SecondaryRatings": {},
+      "ContextDataValues": {},
+      "Videos": []
+    }
+  ],
+  "Includes": {
+    "Products": {
+      "product1": {
+        "Description": "Oriental poppies are among the most popular poppies available. The colors of the named varieties range all the way from silvery white, through blush and rose pink to salmon and scarlet-crimson.",
+        "ImageUrl": "http://display.ugc.bazaarvoice.com/common/test/images/oriental_poppy.jpg",
+        "Name": "Papaver orientale",
+        "Id": "product1",
+        "CategoryId": "sampleCategory",
+        "BrandExternalId": "sampleBrand",
+        "Brand": {
+          "Id": "sampleBrand",
+          "Name": "Flowers"
+        },
+        "Active": true,
+        "ProductPageUrl": "http://en.wikipedia.org/wiki/Papaver_orientale",
+        "Disabled": false,
+        "FamilyIds": [],
+        "ModelNumbers": [],
+        "AttributesOrder": [],
+        "UPCs": [],
+        "ISBNs": [],
+        "QuestionIds": [],
+        "StoryIds": [],
+        "Attributes": {},
+        "EANs": [],
+        "ManufacturerPartNumbers": [],
+        "ReviewIds": [],
+        "ReviewStatistics": {
+          "TotalReviewCount": 13,
+          "RecommendedCount": 0,
+          "NotRecommendedCount": 0,
+          "SecondaryRatingsDistributionOrder": [
+            "Quality",
+            null,
+            "WhatSizeIsTheProduct"
+          ],
+          "SecondaryRatingsDistribution": {
+            "Quality": {
+              "Id": "Quality",
+              "Values": [
+                {
+                  "Value": 4,
+                  "Count": 6
+                },
+                {
+                  "Value": 5,
+                  "Count": 1
+                }
+              ],
+              "Label": "Quality of Product"
+            },
+            "WhatSizeIsTheProduct": {
+              "Id": "WhatSizeIsTheProduct",
+              "Values": [
+                {
+                  "Value": 2,
+                  "Count": 6,
+                  "ValueLabel": "Medium"
+                },
+                {
+                  "Value": 3,
+                  "Count": 2,
+                  "ValueLabel": "Large"
+                },
+                {
+                  "Value": 1,
+                  "Count": 1,
+                  "ValueLabel": "Small"
+                }
+              ],
+              "Label": "What size is the product?"
+            }
+          },
+          "HelpfulVoteCount": 0,
+          "RatingsOnlyReviewCount": 0,
+          "FirstSubmissionTime": "2021-12-17T06:50:48.000+00:00",
+          "LastSubmissionTime": "2022-04-20T06:06:17.000+00:00",
+          "NotHelpfulVoteCount": 0,
+          "RatingDistribution": [
+            {
+              "RatingValue": 5,
+              "Count": 7
+            },
+            {
+              "RatingValue": 4,
+              "Count": 5
+            },
+            {
+              "RatingValue": 2,
+              "Count": 1
+            }
+          ],
+          "SecondaryRatingsAveragesOrder": [
+            "Quality",
+            "WhatSizeIsTheProduct"
+          ],
+          "SecondaryRatingsAverages": {
+            "WhatSizeIsTheProduct": {
+              "Id": "WhatSizeIsTheProduct",
+              "AverageRating": 2.111111111111111,
+              "DisplayType": "SLIDER",
+              "ValueRange": 3,
+              "MaxLabel": "Large",
+              "MinLabel": "Small",
+              "Label": "What size is the product?",
+              "ValueLabel": [
+                "Small",
+                "Medium",
+                "Large"
+              ]
+            },
+            "Quality": {
+              "Id": "Quality",
+              "AverageRating": 4.142857142857143,
+              "MaxLabel": null,
+              "DisplayType": "NORMAL",
+              "MinLabel": null,
+              "ValueRange": 5,
+              "Label": "Quality of Product"
+            }
+          },
+          "AverageOverallRating": 4.384615384615385,
+          "FeaturedReviewCount": 0,
+          "ContextDataDistribution": {},
+          "ContextDataDistributionOrder": [],
+          "OverallRatingRange": 5,
+          "TagDistribution": {},
+          "TagDistributionOrder": []
+        },
+        "TotalReviewCount": 13
+      }
+    },
+    "ProductsOrder": [
+      "product1"
+    ]
+  },
+  "HasErrors": false,
+  "Errors": []
+}

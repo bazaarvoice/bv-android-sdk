@@ -828,4 +828,19 @@ public class ConversationsUnitTest extends BVBaseTest {
             assertEquals("17 or under", includes.getReviewStatistics().getContextDataDistribution().get("Age").getValues().get(0).getValueLabel());
         }
     }
+
+    @Test
+    public void testValueLabelSecondaryRatingsAveragesReviewResponse() throws Exception {
+        ReviewResponse response = parseJsonResourceFile("review_value_lable_secondary_ratings_averages.json", ReviewResponse.class, gson);
+        for (Product includes : response.getIncludes().getProducts()) {
+            assertNotNull(includes.getReviewStatistics().getSecondaryRatingsAverages());
+        }
+        assertEquals("WhatSizeIsTheProduct", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getId());
+        assertEquals("SLIDER", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getDisplayType());
+        assertEquals(3, response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getValueRange().intValue());
+        assertEquals("Large", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getMaxLabel());
+        assertEquals("Small", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getMinLabel());
+        assertEquals("What size is the product?", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getLabel());
+        assertEquals("Small", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getValueLabel().get(0));
+    }
 }
