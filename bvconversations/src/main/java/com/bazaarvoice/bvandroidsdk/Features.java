@@ -7,7 +7,7 @@ import java.util.List;
 public class Features extends IncludeableContent {
 
     @SerializedName("features")
-    private List<FeatureKeyword> features;
+    private List<Feature> features;
 
     @SerializedName("language")
     private String language;
@@ -16,7 +16,7 @@ public class Features extends IncludeableContent {
     private String productId;
 
 
-    public List<FeatureKeyword> getFeatures() {
+    public List<Feature> getFeatures() {
         return features;
     }
 
