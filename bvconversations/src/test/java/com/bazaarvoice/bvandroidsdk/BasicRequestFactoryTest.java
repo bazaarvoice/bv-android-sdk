@@ -839,6 +839,7 @@ public class BasicRequestFactoryTest {
     assertEquals("true", url.queryParameter("secondaryratingstats"));
   }
 
+  @Test
   public void reviewDisplayRequestCreateRequestWithTagStats() {
     final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
             .addTagStats(true)
