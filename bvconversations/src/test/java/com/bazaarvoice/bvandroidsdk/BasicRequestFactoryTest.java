@@ -27,8 +27,8 @@ public class BasicRequestFactoryTest {
   @Test
   public void displayShouldHaveExtraQueryParams() throws Exception  {
     final ReviewsRequest request = new ReviewsRequest.Builder("some1", 10, 10)
-        .addCustomDisplayParameter("duck duck", "goose")
-        .build();
+            .addCustomDisplayParameter("duck duck", "goose")
+            .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("duck duck").contains("goose"));
@@ -773,8 +773,8 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
-  public void topicFilter() throws Exception  {
-    final TopicFilterRequest request = new TopicFilterRequest.Builder("test1")
+  public void feature() throws Exception  {
+    final FeaturesRequest request = new FeaturesRequest.Builder("test1")
             .addLanguage("en")
             .build();
     final Request okRequest = requestFactory.create(request);
@@ -837,5 +837,45 @@ public class BasicRequestFactoryTest {
     final Request okRequest = requestFactory.create(reviewsRequest);
     final HttpUrl url = okRequest.url();
     assertEquals("true", url.queryParameter("secondaryratingstats"));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithTagStats() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addTagStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("tagstats"));
+  }
+
+  @Test
+  public void productreviewDisplayRequestCreateRequestWithTagStats() {
+    final ProductDisplayPageRequest reviewsRequest = new ProductDisplayPageRequest.Builder("prod1")
+            .addTagStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("tagstats"));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithTagFilter() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addFilterTag("TagsSet", "Volume")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("tag_TagsSet:Volume", filterParams.get(1));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithAdditionalFields() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addAdditionalFields("DateOfUserExperience","2021-04-03")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("additionalfield_DateOfUserExperience:2021-04-03", filterParams.get(1));
   }
 }
