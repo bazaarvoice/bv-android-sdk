@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.10.1
+## Fixed ADID Google play policy changes
+
+* Added ADID Google Play services normal permission.
+
 # 8.10.0
 ## Hosted Auth Support for Progressive Submission
 
