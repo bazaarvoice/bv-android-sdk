@@ -20,7 +20,9 @@ package com.bazaarvoice.bvandroidsdk;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
@@ -35,8 +37,14 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   protected final ArrayList<PDPContentType> statistics;
   protected String searchPhrase;
   protected Boolean incentivizedStats;
+  protected Boolean secondaryratingstats;
+  protected Boolean tagStats;
   protected List<ReviewIncludeType> reviewIncludeTypes;
   protected  String feature;
+  protected final Map<String, String> contextDataValues;
+  protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
+  protected final Map<String, String> tagFilters;
+  protected final Map<String, String> additionalFields;
 
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
     super();
@@ -48,7 +56,12 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     addFilter(new Filter(Filter.Type.ProductId, EqualityOperator.EQ, productId));
     this.productId = productId;
     this.incentivizedStats = false;
-
+    this.secondaryratingstats = false;
+    this.tagStats = false;
+    this.contextDataValues = new HashMap<>();
+    this.secondaryRatingFilters = new ArrayList<>();
+    this.tagFilters = new HashMap<>();
+    this.additionalFields = new HashMap<>();
   }
 
   public ReviewDisplayRequestBuilder(ReviewOptions.PrimaryFilter filterBy, String id, int limit, int offset) {
@@ -62,7 +75,12 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     Filter filter = new Filter(filterBy, EqualityOperator.EQ, id);
     addFilter(filter);
     this.incentivizedStats = false;
+    this.tagStats = false;
     this.feature = new String();
+    this.contextDataValues = new HashMap<>();
+    this.secondaryRatingFilters =  new ArrayList<>();
+    this.tagFilters = new HashMap<>();
+    this.additionalFields = new HashMap<>();
   }
 
   public BuilderType addPDPContentType(PDPContentType pdpContentType) {
@@ -72,6 +90,15 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
 
   public BuilderType addIncentivizedStats(Boolean incentivizedstats) {
     this.incentivizedStats = incentivizedstats;
+    return (BuilderType) this;
+  }
+
+  public BuilderType addSecondaryRatingStats(Boolean secondaryratingstats) {
+    this.secondaryratingstats = secondaryratingstats;
+    return (BuilderType) this;
+  }
+  public BuilderType addTagStats(Boolean tagStats) {
+    this.tagStats = tagStats;
     return (BuilderType) this;
   }
 
@@ -112,6 +139,26 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
 
   public BuilderType addFeature(String feature) {
     this.feature = feature;
+    return (BuilderType) this;
+  }
+
+  public BuilderType addFilterContextDataValue(String id, String value) {
+    contextDataValues.put(id, value);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addAdditionalFields(String id, String value) {
+    additionalFields.put(id, value);
+    return (BuilderType) this;
+  }
+
+  public BuilderType addSecondaryRatingFilters(String type,  EqualityOperator equalityOperator, String value) {
+    secondaryRatingFilters.add(new BVSecondaryRatingFilter(type, equalityOperator, value));
+    return (BuilderType) this;
+  }
+
+  public BuilderType addFilterTag(String id, String value) {
+    tagFilters.put(id, value);
     return (BuilderType) this;
   }
 

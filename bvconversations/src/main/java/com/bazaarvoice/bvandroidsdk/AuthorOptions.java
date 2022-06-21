@@ -47,7 +47,7 @@ public enum AuthorOptions {
         }
     }
 
-    public enum FilterOptions {
+    public enum Filter implements UGCOption {
         ID("Id"),
         CONTENT_LOCALE("ContentLocale"),
         HAS_PHOTOS("HasPhotos"),
@@ -60,14 +60,14 @@ public enum AuthorOptions {
         TOTAL_REVIEW_COUNT("TotalReviewCount"),
         USER_LOCATION("UserLocation");
 
-        private String value;
+        private final String key;
 
-        FilterOptions(String value) {
-            this.value = value;
+        Filter(String key) {
+            this.key = key;
         }
 
-        public String getValue() {
-            return value;
+        public String getKey() {
+            return this.key;
         }
 
         //                AdditionalField_[FIELD_NAME]
@@ -77,4 +77,5 @@ public enum AuthorOptions {
 //        The context data value for the content. DIMENSION_EXTERNAL_ID can be age, gender, etc. e.g. filter=contextdatavalue_age:under21&filter=contextdatavalue_gender:male
 
     }
+
 }

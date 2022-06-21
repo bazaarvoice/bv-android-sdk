@@ -64,6 +64,8 @@ public class ReviewStatistics {
     private List<RatingDistributionContainer> ratingDistributions;
     @SerializedName("TagDistribution")
     private Map<String, DistributionElement> tagDistribution;
+    @SerializedName("SecondaryRatingsDistribution")
+    private Map<String, SecondaryDistributionElement> secondaryRatingsDistribution;
     @SerializedName("ContextDataDistribution")
     private Map<String, DistributionElement> contextDataDistribution;
 
@@ -119,6 +121,10 @@ public class ReviewStatistics {
 
     public Map<String, DistributionElement> getContextDataDistribution() {
         return contextDataDistribution;
+    }
+
+    public Map<String, SecondaryDistributionElement> getSecondaryRatingsDistribution() {
+        return secondaryRatingsDistribution;
     }
 
     public Date getFirstSubmissionDate() {

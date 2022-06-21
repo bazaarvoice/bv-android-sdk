@@ -19,11 +19,11 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DistributionValue {
+public class SecondaryDistributionValue {
     @SerializedName("Count")
     private Integer count;
     @SerializedName("Value")
-    private String value;
+    private Integer value;
     @SerializedName("ValueLabel")
     private String valueLabel;
 
@@ -31,7 +31,7 @@ public class DistributionValue {
         return count;
     }
 
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 

@@ -2,11 +2,11 @@ package com.bazaarvoice.bvandroidsdk;
 
 import androidx.annotation.NonNull;
 
-public class TopicFilterRequest extends ConversationsDisplayRequest {
+public class FeaturesRequest extends ConversationsDisplayRequest {
     private final String productId;
     private final String language;
 
-    TopicFilterRequest(Builder builder) {
+    FeaturesRequest(Builder builder) {
         super(builder);
         this.productId = builder.productId;
         this.language = builder.language;
@@ -25,7 +25,7 @@ public class TopicFilterRequest extends ConversationsDisplayRequest {
         return null;
     }
 
-    public static final class Builder extends ConversationsDisplayRequest.Builder<TopicFilterRequest.Builder> {
+    public static final class Builder extends ConversationsDisplayRequest.Builder<FeaturesRequest.Builder> {
 
         private String productId;
         private String language;
@@ -40,8 +40,8 @@ public class TopicFilterRequest extends ConversationsDisplayRequest {
             return this;
         }
 
-        public TopicFilterRequest build() {
-            return new TopicFilterRequest(this);
+        public FeaturesRequest build() {
+            return new FeaturesRequest(this);
         }
     }
 }

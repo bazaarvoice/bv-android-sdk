@@ -1,0 +1,1587 @@
+{
+  "Limit": 10,
+  "Offset": 0,
+  "TotalResults": 79,
+  "Locale": "en_US",
+  "Results": [
+    {
+      "Id": "36847658",
+      "CID": "6e656254-6443-5eb6-b806-fe835c4bf1a3",
+      "SourceClient": "trulliaudio",
+      "Badges": {
+        "verifiedPurchaser": {
+          "ContentType": "REVIEW",
+          "Id": "verifiedPurchaser",
+          "BadgeType": "Custom"
+        }
+      },
+      "BadgesOrder": [
+        "verifiedPurchaser"
+      ],
+      "LastModeratedTime": "2021-10-26T16:00:01.000+00:00",
+      "LastModificationTime": "2021-10-26T16:00:01.000+00:00",
+      "ProductId": "JAM5BLK",
+      "AuthorId": "local-1635263471589",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16352638fBCAxYpgrY",
+      "SubmissionTime": "2021-10-26T15:56:56.000+00:00",
+      "ReviewText": "This is a preview of the Ratings format for the JAM5 review on the Main Implementation deployment zone.",
+      "Title": "Testing the Main Implementation",
+      "UserNickname": "England Dan",
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "ContextDataValuesOrder": [],
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "AdditionalFieldsOrder": [],
+      "InappropriateFeedbackList": [],
+      "SecondaryRatingsOrder": [],
+      "Videos": [],
+      "ClientResponses": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "SecondaryRatings": {},
+      "TagDimensions": {},
+      "Photos": [],
+      "RatingRange": 5,
+      "ContextDataValues": {},
+      "AdditionalFields": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36702903",
+      "CID": "463fb22b-e643-5b3e-9d6b-e5d7cf7f9996",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-10-21T18:30:01.000+00:00",
+      "LastModificationTime": "2021-10-21T18:30:01.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "RecommendRating",
+        "AreYouATrulliEmployee",
+        "DidYouReceiveThisProductForFree"
+      ],
+      "UserLocation": "test, NE",
+      "AuthorId": "66iaouoyiegqyoberaws7jsnv",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16348405J0o4WX7Jr8",
+      "SubmissionTime": "2021-10-21T18:21:55.000+00:00",
+      "ReviewText": "Testing to validate whether the YouTube link inserted under \"Add photos / videos\" is working on dev.",
+      "Title": "Sound Quality is Super - Test Review AG",
+      "UserNickname": "Armand",
+      "Videos": [
+        {
+          "VideoId": "wzjWIxXBs_s",
+          "VideoHost": "www.youtube.com",
+          "VideoThumbnailUrl": null,
+          "VideoIframeUrl": "https://www.youtube.com/embed/wzjWIxXBs_s",
+          "Caption": null,
+          "VideoUrl": "https://www.youtube.com/watch?v=wzjWIxXBs_s"
+        }
+      ],
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 5,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 5,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 5,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 5,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 5,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 5,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "AreYouATrulliEmployee": {
+          "Value": "Yes",
+          "Id": "AreYouATrulliEmployee"
+        },
+        "DidYouReceiveThisProductForFree": {
+          "Value": "Yes",
+          "Id": "DidYouReceiveThisProductForFree"
+        },
+        "RecommendRating": {
+          "Value": "10",
+          "Id": "RecommendRating"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "1",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "InappropriateFeedbackList": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "TagDimensions": {},
+      "Photos": [],
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36672313",
+      "CID": "afd06bb1-0af5-5433-90a9-55bc5d919310",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-10-04T19:45:01.000+00:00",
+      "LastModificationTime": "2021-10-04T19:45:01.000+00:00",
+      "ProductId": "JAM5BLK",
+      "AuthorId": "6wjfm45mhkng1cjspdikm2oad",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16333759awvhsXtXK4",
+      "SubmissionTime": "2021-10-04T19:32:58.000+00:00",
+      "ReviewText": "this is an amazing review from bv to test api submission",
+      "Title": "This is a bv title test",
+      "UserNickname": "Paulius",
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "ContextDataValuesOrder": [],
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "AdditionalFieldsOrder": [],
+      "InappropriateFeedbackList": [],
+      "SecondaryRatingsOrder": [],
+      "Videos": [],
+      "ClientResponses": [],
+      "UserLocation": null,
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "SecondaryRatings": {},
+      "TagDimensions": {},
+      "Photos": [],
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "ContextDataValues": {},
+      "AdditionalFields": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36576409",
+      "CID": "163a372a-94c2-5192-b311-f9ae268261b9",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-09-09T06:30:01.000+00:00",
+      "LastModificationTime": "2021-09-09T06:30:01.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "Gender",
+        "TimeOwned"
+      ],
+      "UserLocation": "Austin, TX",
+      "AuthorId": "hwcmm4wso11imjb0k8lpgcswr",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "EaseOfUse",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16311689ZVbJWCyWs7",
+      "SubmissionTime": "2021-09-09T06:29:43.000+00:00",
+      "ReviewText": "This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test",
+      "Title": "Test test test test test test2",
+      "UserNickname": "testievanumber2",
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 2,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 4,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "EaseOfUse": {
+          "Value": 1,
+          "Id": "EaseOfUse",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 4,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 5,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 2,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 3,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "TimeOwned": {
+          "Value": "2",
+          "Id": "TimeOwned"
+        },
+        "Gender": {
+          "Value": "Female",
+          "Id": "Gender"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "1",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "InappropriateFeedbackList": [],
+      "Videos": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "TagDimensions": {},
+      "Photos": [],
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36576224",
+      "CID": "d7d801d3-80d9-58e7-afde-aa9287963ebb",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-09-08T12:00:02.000+00:00",
+      "LastModificationTime": "2021-09-08T12:00:02.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "Gender",
+        "TimeOwned"
+      ],
+      "UserLocation": "New York, AE",
+      "AuthorId": "sxvvfhbztoavxs2n84s16knql",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 3,
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16311016IjKr8W4hC0",
+      "SubmissionTime": "2021-09-08T11:48:08.000+00:00",
+      "ReviewText": "This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test",
+      "Title": "Test test test test test test",
+      "UserNickname": "Testnicname",
+      "ContextDataValues": {
+        "TimeOwned": {
+          "Value": "1",
+          "Id": "TimeOwned"
+        },
+        "Gender": {
+          "Value": "Female",
+          "Id": "Gender"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "4",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "InappropriateFeedbackList": [],
+      "SecondaryRatingsOrder": [],
+      "Videos": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "SecondaryRatings": {},
+      "TagDimensions": {},
+      "Photos": [],
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36538052",
+      "CID": "dae26371-0454-58df-8778-de97dc4b78f0",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-08-24T19:00:02.000+00:00",
+      "LastModificationTime": "2021-08-24T19:00:02.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "RecommendRating",
+        "AreYouATrulliEmployee",
+        "DidYouReceiveThisProductForFree"
+      ],
+      "UserLocation": ", AZ",
+      "AuthorId": "2rmswzo5r3hc8gkv78ycc5j4j",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Photos": [
+        {
+          "Sizes": {
+            "normal": {
+              "Id": "normal",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/3e97ce2e-9884-5fcd-afb3-85942e9e120d"
+            },
+            "thumbnail": {
+              "Id": "thumbnail",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/2e0d3837-683e-5c1d-99af-ca9886ba4d00"
+            },
+            "large": {
+              "Id": "large",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/0b1438e6-a3ab-5107-8e1a-6fc75f1a7260"
+            }
+          },
+          "Id": "1214766",
+          "SizesOrder": [
+            "normal",
+            "thumbnail",
+            "large"
+          ],
+          "Caption": null
+        }
+      ],
+      "Rating": 3,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16298308XMYXqLu04S",
+      "SubmissionTime": "2021-08-24T18:47:01.000+00:00",
+      "ReviewText": "Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus suscipit tortor eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat. Nulla porttitor accumsan tincidunt. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla porttitor accumsan tincidunt.",
+      "Title": "Testing 892",
+      "UserNickname": "nats",
+      "Videos": [
+        {
+          "VideoId": "rhE45ihB26E",
+          "VideoHost": "www.youtube.com",
+          "VideoThumbnailUrl": null,
+          "VideoIframeUrl": "https://www.youtube.com/embed/rhE45ihB26E",
+          "Caption": null,
+          "VideoUrl": "https://www.youtube.com/watch?v=rhE45ihB26E"
+        }
+      ],
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 2,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 2,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 5,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 4,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 3,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 1,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "AreYouATrulliEmployee": {
+          "Value": "Yes",
+          "Id": "AreYouATrulliEmployee"
+        },
+        "DidYouReceiveThisProductForFree": {
+          "Value": "Yes",
+          "Id": "DidYouReceiveThisProductForFree"
+        },
+        "RecommendRating": {
+          "Value": "8",
+          "Id": "RecommendRating"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "2",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "InappropriateFeedbackList": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "TagDimensions": {},
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36537853",
+      "CID": "44afaaaf-dc68-53e8-8b15-9d918b3c1e21",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-08-23T23:30:02.000+00:00",
+      "LastModificationTime": "2021-08-23T23:30:02.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "RecommendRating",
+        "AreYouATrulliEmployee",
+        "DidYouReceiveThisProductForFree"
+      ],
+      "UserLocation": "Chicago, IL",
+      "AuthorId": "ku8k38cou74orxxhku2rjvxch",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 5,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16297611pOhfeWokMN",
+      "SubmissionTime": "2021-08-23T23:26:17.000+00:00",
+      "ReviewText": "Ut scelerisque vitae tellus ac ullamcorper. Duis mollis quam vitae mauris consectetur, at lacinia ipsum fermentum. Aenean posuere viverra mattis. Phasellus finibus turpis velit, at tincidunt justo sollicitudin non.",
+      "Title": "Dev Test Review",
+      "UserNickname": "Dev Andres",
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 4,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 5,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 5,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 5,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 5,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 5,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "AreYouATrulliEmployee": {
+          "Value": "No",
+          "Id": "AreYouATrulliEmployee"
+        },
+        "DidYouReceiveThisProductForFree": {
+          "Value": "Yes",
+          "Id": "DidYouReceiveThisProductForFree"
+        },
+        "RecommendRating": {
+          "Value": "9",
+          "Id": "RecommendRating"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "7",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "InappropriateFeedbackList": [],
+      "Videos": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "TagDimensions": {},
+      "Photos": [],
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36537615",
+      "CID": "d9ef4cd4-5693-5c81-9207-f80511b1c2cf",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-08-23T17:00:02.000+00:00",
+      "LastModificationTime": "2021-08-23T17:00:02.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "RecommendRating",
+        "AreYouATrulliEmployee",
+        "DidYouReceiveThisProductForFree"
+      ],
+      "UserLocation": ", undefined",
+      "AuthorId": "e9wezdu8bg3o2za7xh4injrlp",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Rating": 4,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16297375sSV2td9w4R",
+      "SubmissionTime": "2021-08-23T16:51:48.000+00:00",
+      "ReviewText": "short review",
+      "Title": "Test Review",
+      "UserNickname": "Test Name",
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 5,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 4,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 4,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 5,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 5,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 5,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "AreYouATrulliEmployee": {
+          "Value": "No",
+          "Id": "AreYouATrulliEmployee"
+        },
+        "DidYouReceiveThisProductForFree": {
+          "Value": "Yes",
+          "Id": "DidYouReceiveThisProductForFree"
+        },
+        "RecommendRating": {
+          "Value": "9",
+          "Id": "RecommendRating"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "2",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "TagDimensionsOrder": [],
+      "InappropriateFeedbackList": [],
+      "Videos": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "TagDimensions": {},
+      "Photos": [],
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36075710",
+      "CID": "2d2b0abc-cdbd-53c1-a5b9-d48559af332c",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-07-21T19:00:01.000+00:00",
+      "LastModificationTime": "2021-07-21T19:00:01.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "RecommendRating",
+        "AreYouATrulliEmployee",
+        "DidYouReceiveThisProductForFree"
+      ],
+      "UserLocation": "Miami, FL",
+      "AuthorId": "q7i0cqiu5irjhr1vjwckj6374",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Photos": [
+        {
+          "Sizes": {
+            "normal": {
+              "Id": "normal",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/a6dae1b7-eeef-5858-82be-f41e7a180737"
+            },
+            "thumbnail": {
+              "Id": "thumbnail",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/7508581f-8731-56de-b5bc-dc1ad565fe5d"
+            },
+            "large": {
+              "Id": "large",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/e8cbd477-45f0-515f-8e4e-a1674cfa09b4"
+            }
+          },
+          "Id": "1201805",
+          "SizesOrder": [
+            "normal",
+            "thumbnail",
+            "large"
+          ],
+          "Caption": null
+        }
+      ],
+      "Rating": 2,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16268934WHjL9ZCuCQ",
+      "SubmissionTime": "2021-07-21T18:51:36.000+00:00",
+      "TagDimensionsOrder": [
+        "TagsSet"
+      ],
+      "ReviewText": "Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin molestie malesuada.",
+      "Title": "testing JAM5",
+      "UserNickname": "Nats",
+      "Videos": [
+        {
+          "VideoId": "cDQ34z0oqnQ",
+          "VideoHost": "www.youtube.com",
+          "VideoThumbnailUrl": null,
+          "VideoIframeUrl": "https://www.youtube.com/embed/cDQ34z0oqnQ",
+          "Caption": null,
+          "VideoUrl": "https://www.youtube.com/watch?v=cDQ34z0oqnQ"
+        }
+      ],
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 2,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 2,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 5,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 1,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 4,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 3,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "AreYouATrulliEmployee": {
+          "Value": "No",
+          "Id": "AreYouATrulliEmployee"
+        },
+        "DidYouReceiveThisProductForFree": {
+          "Value": "Yes",
+          "Id": "DidYouReceiveThisProductForFree"
+        },
+        "RecommendRating": {
+          "Value": "7",
+          "Id": "RecommendRating"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "5",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "TagDimensions": {
+        "TagsSet": {
+          "Values": [
+            "Volume"
+          ],
+          "Id": "TagsSet",
+          "Label": null
+        }
+      },
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "InappropriateFeedbackList": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    },
+    {
+      "Id": "36068931",
+      "CID": "3370ad60-5292-588d-8b8d-4f8aebf86619",
+      "SourceClient": "trulliaudio",
+      "LastModeratedTime": "2021-07-21T18:15:01.000+00:00",
+      "LastModificationTime": "2021-07-21T18:15:01.000+00:00",
+      "ProductId": "JAM5BLK",
+      "ContextDataValuesOrder": [
+        "RecommendRating",
+        "AreYouATrulliEmployee",
+        "DidYouReceiveThisProductForFree"
+      ],
+      "UserLocation": "Hawaii, HI",
+      "AuthorId": "h9uj1m4qi8yihab5miqv3asmt",
+      "ContentLocale": "en_US",
+      "IsFeatured": false,
+      "TotalInappropriateFeedbackCount": 0,
+      "TotalClientResponseCount": 0,
+      "TotalCommentCount": 0,
+      "Photos": [
+        {
+          "Sizes": {
+            "normal": {
+              "Id": "normal",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/92f0742a-3bc5-5b39-aacc-face6211c21a"
+            },
+            "thumbnail": {
+              "Id": "thumbnail",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/309ae4b1-3e16-5b51-b95e-3d80fa1d3181"
+            },
+            "large": {
+              "Id": "large",
+              "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86dHJ1bGxpYXVkaW8/0c471235-a54b-5017-b612-80e3a7427364"
+            }
+          },
+          "Id": "1200226",
+          "SizesOrder": [
+            "normal",
+            "thumbnail",
+            "large"
+          ],
+          "Caption": null
+        }
+      ],
+      "Rating": 3,
+      "SecondaryRatingsOrder": [
+        "SoundQuality",
+        "Volume",
+        "BatteryLife",
+        "Portability",
+        "SignalRange",
+        "AppearanceDesign"
+      ],
+      "IsRatingsOnly": false,
+      "TotalFeedbackCount": 0,
+      "TotalNegativeFeedbackCount": 0,
+      "TotalPositiveFeedbackCount": 0,
+      "ModerationStatus": "APPROVED",
+      "SubmissionId": "r217601-en_16268905YaNxDfVg41",
+      "SubmissionTime": "2021-07-21T18:01:56.000+00:00",
+      "TagDimensionsOrder": [
+        "TagsSet"
+      ],
+      "ReviewText": "Pellentesque in ipsum id orci porta dapibus. Sed porttitor lectus nibh. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec rutrum congue leo eget malesuada.",
+      "Title": "QA Engineer",
+      "UserNickname": "nathytest",
+      "Videos": [
+        {
+          "VideoId": "9b8zcDVWM9M",
+          "VideoHost": "www.youtube.com",
+          "VideoThumbnailUrl": null,
+          "VideoIframeUrl": "https://www.youtube.com/embed/9b8zcDVWM9M",
+          "Caption": null,
+          "VideoUrl": "https://www.youtube.com/watch?v=9b8zcDVWM9M"
+        }
+      ],
+      "SecondaryRatings": {
+        "AppearanceDesign": {
+          "Value": 3,
+          "Id": "AppearanceDesign",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Volume": {
+          "Value": 3,
+          "Id": "Volume",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SignalRange": {
+          "Value": 3,
+          "Id": "SignalRange",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "Portability": {
+          "Value": 3,
+          "Id": "Portability",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "BatteryLife": {
+          "Value": 3,
+          "Id": "BatteryLife",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        },
+        "SoundQuality": {
+          "Value": 3,
+          "Id": "SoundQuality",
+          "ValueLabel": null,
+          "ValueRange": 5,
+          "Label": null,
+          "DisplayType": "NORMAL",
+          "MaxLabel": null,
+          "MinLabel": null
+        }
+      },
+      "ContextDataValues": {
+        "AreYouATrulliEmployee": {
+          "Value": "Yes",
+          "Id": "AreYouATrulliEmployee"
+        },
+        "DidYouReceiveThisProductForFree": {
+          "Value": "Yes",
+          "Id": "DidYouReceiveThisProductForFree"
+        },
+        "RecommendRating": {
+          "Value": "8",
+          "Id": "RecommendRating"
+        }
+      },
+      "AdditionalFields": {
+        "Avatar": {
+          "Value": "1",
+          "Id": "Avatar"
+        }
+      },
+      "AdditionalFieldsOrder": [
+        "Avatar"
+      ],
+      "TagDimensions": {
+        "TagsSet": {
+          "Values": [
+            "Volume"
+          ],
+          "Id": "TagsSet",
+          "Label": null
+        }
+      },
+      "CommentIds": [],
+      "Pros": null,
+      "IsRecommended": null,
+      "Helpfulness": null,
+      "InappropriateFeedbackList": [],
+      "ClientResponses": [],
+      "CampaignId": null,
+      "IsSyndicated": false,
+      "BadgesOrder": [],
+      "RatingRange": 5,
+      "Badges": {},
+      "Cons": null,
+      "ProductRecommendationIds": []
+    }
+  ],
+  "Includes": {
+    "Products": {
+      "JAM5BLK": {
+        "Description": "Designed for music lovers, creators, performers, and educators alike",
+        "ModelNumbers": [
+          "3553585"
+        ],
+        "ImageUrl": "https://mcstaging.trulliaudio.com/media/catalog/product/f/r/front-1.jpg",
+        "Name": "JAM5",
+        "Id": "JAM5BLK",
+        "CategoryId": "9",
+        "Active": false,
+        "Disabled": false,
+        "ISBNs": [],
+        "ReviewIds": [],
+        "EANs": [],
+        "BrandExternalId": null,
+        "ProductPageUrl": null,
+        "FamilyIds": [],
+        "Brand": {},
+        "ManufacturerPartNumbers": [],
+        "QuestionIds": [],
+        "StoryIds": [],
+        "UPCs": [],
+        "Attributes": {},
+        "AttributesOrder": [],
+        "ReviewStatistics": {
+          "ContextDataDistributionOrder": [
+            "Gender",
+            "AreYouATrulliEmployee",
+            "ReadReviews_1",
+            "TimeOwned",
+            "IncentivizedReview",
+            "DidYouReceiveThisProductForFree"
+          ],
+          "ContextDataDistribution": {
+            "Gender": {
+              "Id": "Gender",
+              "Values": [
+                {
+                  "Count": 20,
+                  "Value": "Male"
+                },
+                {
+                  "Count": 9,
+                  "Value": "Female"
+                },
+                {
+                  "Count": 3,
+                  "Value": "Other"
+                }
+              ]
+            },
+            "AreYouATrulliEmployee": {
+              "Id": "AreYouATrulliEmployee",
+              "Values": [
+                {
+                  "Count": 7,
+                  "Value": "Yes"
+                },
+                {
+                  "Count": 16,
+                  "Value": "No"
+                }
+              ]
+            },
+            "ReadReviews_1": {
+              "Id": "ReadReviews_1",
+              "Values": [
+                {
+                  "Count": 4,
+                  "Value": "Yes"
+                },
+                {
+                  "Count": 1,
+                  "Value": "No"
+                }
+              ]
+            },
+            "TimeOwned": {
+              "Id": "TimeOwned",
+              "Values": [
+                {
+                  "Count": 12,
+                  "Value": "1"
+                },
+                {
+                  "Count": 12,
+                  "Value": "2"
+                },
+                {
+                  "Count": 5,
+                  "Value": "3"
+                }
+              ]
+            },
+            "IncentivizedReview": {
+              "Id": "IncentivizedReview",
+              "Values": [
+                {
+                  "Count": 3,
+                  "Value": "True"
+                }
+              ]
+            },
+            "DidYouReceiveThisProductForFree": {
+              "Id": "DidYouReceiveThisProductForFree",
+              "Values": [
+                {
+                  "Count": 10,
+                  "Value": "Yes"
+                },
+                {
+                  "Count": 13,
+                  "Value": "No"
+                }
+              ]
+            }
+          },
+          "FirstSubmissionTime": "2020-12-21T10:29:44.000+00:00",
+          "LastSubmissionTime": "2021-10-26T15:56:56.000+00:00",
+          "SecondaryRatingsAveragesOrder": [
+            "SoundQuality",
+            "Volume",
+            "BatteryLife",
+            "Portability",
+            "SignalRange",
+            "AppearanceDesign"
+          ],
+          "SecondaryRatingsAverages": {
+            "BatteryLife": {
+              "Id": "BatteryLife",
+              "AverageRating": 4.21875,
+              "MaxLabel": null,
+              "ValueRange": 5,
+              "MinLabel": null,
+              "DisplayType": "NORMAL"
+            },
+            "SignalRange": {
+              "Id": "SignalRange",
+              "AverageRating": 4.1875,
+              "MaxLabel": null,
+              "ValueRange": 5,
+              "MinLabel": null,
+              "DisplayType": "NORMAL"
+            },
+            "Volume": {
+              "Id": "Volume",
+              "AverageRating": 4.109375,
+              "MaxLabel": null,
+              "ValueRange": 5,
+              "MinLabel": null,
+              "DisplayType": "NORMAL"
+            },
+            "SoundQuality": {
+              "Id": "SoundQuality",
+              "AverageRating": 4.318181818181818,
+              "MaxLabel": null,
+              "ValueRange": 5,
+              "MinLabel": null,
+              "DisplayType": "NORMAL"
+            },
+            "Portability": {
+              "Id": "Portability",
+              "AverageRating": 4.0,
+              "MaxLabel": null,
+              "ValueRange": 5,
+              "MinLabel": null,
+              "DisplayType": "NORMAL"
+            },
+            "AppearanceDesign": {
+              "Id": "AppearanceDesign",
+              "AverageRating": 4.166666666666667,
+              "MaxLabel": null,
+              "ValueRange": 5,
+              "MinLabel": null,
+              "DisplayType": "NORMAL"
+            }
+          },
+          "HelpfulVoteCount": 0,
+          "RecommendedCount": 6,
+          "RatingDistribution": [
+            {
+              "RatingValue": 5,
+              "Count": 64
+            },
+            {
+              "RatingValue": 4,
+              "Count": 5
+            },
+            {
+              "RatingValue": 1,
+              "Count": 4
+            },
+            {
+              "RatingValue": 3,
+              "Count": 4
+            },
+            {
+              "RatingValue": 2,
+              "Count": 2
+            }
+          ],
+          "RatingsOnlyReviewCount": 3,
+          "NotRecommendedCount": 0,
+          "AverageOverallRating": 4.556962025316456,
+          "NotHelpfulVoteCount": 0,
+          "FeaturedReviewCount": 2,
+          "TagDistributionOrder": [
+            "TagsSet",
+            "ProductVariant"
+          ],
+          "TagDistribution": {
+            "ProductVariant": {
+              "Id": "ProductVariant",
+              "Values": [
+                {
+                  "Value": "Gray",
+                  "Count": 9
+                },
+                {
+                  "Value": "Black",
+                  "Count": 2
+                },
+                {
+                  "Value": "White",
+                  "Count": 1
+                }
+              ]
+            },
+            "TagsSet": {
+              "Id": "TagsSet",
+              "Values": [
+                {
+                  "Value": "Easy To Use",
+                  "Count": 7
+                },
+                {
+                  "Value": "Great Sound",
+                  "Count": 7
+                },
+                {
+                  "Value": "Volume",
+                  "Count": 6
+                },
+                {
+                  "Value": "Connectivity",
+                  "Count": 5
+                },
+                {
+                  "Value": "Customer Service",
+                  "Count": 4
+                },
+                {
+                  "Value": "Good Design",
+                  "Count": 4
+                },
+                {
+                  "Value": "Sound Quality",
+                  "Count": 4
+                },
+                {
+                  "Value": "Color",
+                  "Count": 3
+                },
+                {
+                  "Value": "Ease of Use",
+                  "Count": 1
+                }
+              ]
+            }
+          },
+          "TotalReviewCount": 79,
+          "OverallRatingRange": 5
+        },
+        "TotalReviewCount": 79
+      }
+    },
+    "ProductsOrder": [
+      "JAM5BLK"
+    ]
+  },
+  "HasErrors": false,
+  "Errors": []
+}

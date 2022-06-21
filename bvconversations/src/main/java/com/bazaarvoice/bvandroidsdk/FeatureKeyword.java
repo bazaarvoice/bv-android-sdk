@@ -2,7 +2,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TopicFeature extends IncludeableContent {
+public class FeatureKeyword extends IncludeableContent {
 
     @SerializedName("feature")
     private String feature;
