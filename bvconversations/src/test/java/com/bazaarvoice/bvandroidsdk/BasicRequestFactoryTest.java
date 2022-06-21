@@ -1,13 +1,10 @@
 package com.bazaarvoice.bvandroidsdk;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.HttpUrl;
@@ -30,8 +27,8 @@ public class BasicRequestFactoryTest {
   @Test
   public void displayShouldHaveExtraQueryParams() throws Exception  {
     final ReviewsRequest request = new ReviewsRequest.Builder("some1", 10, 10)
-        .addCustomDisplayParameter("duck duck", "goose")
-        .build();
+            .addCustomDisplayParameter("duck duck", "goose")
+            .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("duck duck").contains("goose"));
@@ -776,8 +773,8 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
-  public void topicFilter() throws Exception  {
-    final TopicFilterRequest request = new TopicFilterRequest.Builder("test1")
+  public void feature() throws Exception  {
+    final FeaturesRequest request = new FeaturesRequest.Builder("test1")
             .addLanguage("en")
             .build();
     final Request okRequest = requestFactory.create(request);
@@ -786,6 +783,99 @@ public class BasicRequestFactoryTest {
     assertTrue(url.queryParameterValues("language").contains("en"));
   }
 
+  @Test
+  public void testProductDisplayPageFilterType() {
+    ProductDisplayPageRequest pdpRequest = new ProductDisplayPageRequest.Builder("product_abc123")
+            .addReviewFilter(ReviewOptions.Filter.HasComments,EqualityOperator.EQ,"123")
+            .addQuestionFilter(QuestionOptions.Filter.HasAnswers,EqualityOperator.EQ,"123")
+            .addCommentFilter(CommentOptions.Filter.AUTHOR_ID,EqualityOperator.EQ,"123")
+            .addAuthorFilter(AuthorOptions.Filter.HAS_PHOTOS,EqualityOperator.EQ,"123")
+            .build();
+    assertTrue(pdpRequest.getReviewFilter().get(0).toString().contains("HasComments:eq:123"));
+    assertTrue(pdpRequest.getQuestionFilter().get(0).toString().contains("HasAnswers:eq:123"));
+    assertTrue(pdpRequest.getCommentFilter().get(0).toString().contains("AuthorId:eq:123"));
+    assertTrue(pdpRequest.getAuthorFilter().get(0).toString().contains("HasPhotos:eq:123"));
 
 
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithContextDataValues() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addFilterContextDataValue("Age","17orUnder")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("contextdatavalue_Age:17orUnder", filterParams.get(1));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithSecondaryRatingValues() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addSecondaryRatingFilters("Quality",EqualityOperator.EQ,"5")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("SecondaryRating_Quality:EQ:5", filterParams.get(1));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithSecondaryRatingsStats() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addSecondaryRatingStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("secondaryratingstats"));
+  }
+
+  @Test
+  public void productreviewDisplayRequestCreateRequestWithSecondaryRatingsStats() {
+    final ProductDisplayPageRequest reviewsRequest = new ProductDisplayPageRequest.Builder("prod1")
+            .addSecondaryRatingStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("secondaryratingstats"));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithTagStats() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addTagStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("tagstats"));
+  }
+
+  @Test
+  public void productreviewDisplayRequestCreateRequestWithTagStats() {
+    final ProductDisplayPageRequest reviewsRequest = new ProductDisplayPageRequest.Builder("prod1")
+            .addTagStats(true)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final HttpUrl url = okRequest.url();
+    assertEquals("true", url.queryParameter("tagstats"));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithTagFilter() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addFilterTag("TagsSet", "Volume")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("tag_TagsSet:Volume", filterParams.get(1));
+  }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithAdditionalFields() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addAdditionalFields("DateOfUserExperience","2021-04-03")
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
+    assertEquals("additionalfield_DateOfUserExperience:2021-04-03", filterParams.get(1));
+  }
 }

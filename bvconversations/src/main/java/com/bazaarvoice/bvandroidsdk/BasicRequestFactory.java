@@ -48,12 +48,18 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kSORT_REVIEW = "Sort_Reviews";
     private static final String kSORT_QUESTIONS = "Sort_Questions";
     private static final String kSORT_ANSWERS = "Sort_Answers";
+    private static final String kFILTER_REVIEW = "Filter_Reviews";
+    private static final String kFILTER_QUESTIONS = "Filter_Questions";
+    private static final String kFILTER_AUTHORS = "Filter_Authors";
+    private static final String kFILTER_COMMENTS = "Filter_Comments";
     private static final String kINCLUDE = "Include";
     private static final String kSTATS = "Stats";
     private static final String kLIMIT = "Limit";
     private static final String kOFFSET = "Offset";
     private static final String kSEARCH = "Search";
     private static  final String kINCENTIVIZED_STATS = "incentivizedstats";
+    private static  final String kSECONDARY_RATING_STATS = "secondaryratingstats";
+    private static  final String kTAG_STATS = "tagstats";
     private static  final String kFEATURES = "feature";
     private static final String kProductId = "productId";
     private static final String kLanguage = "language";
@@ -136,7 +142,9 @@ class BasicRequestFactory implements RequestFactory {
     private static final String VIDEO_CAPTION_TEMPLATE = "VideoCaption_%d";
     private static final String KEY_RATING_TEMPLATE = "rating_%s";
     private static final String KEY_CDV_TEMPLATE = "contextdatavalue_%s";
+    private static final String KEY_SECONDARY_RATING_TEMPLATE = "SecondaryRating_%s";
     private static final String KEY_FREEFORM_TAG_TEMPLATE = "tag_%s_%d";
+    private static final String KEY_TAG_FILTER_TEMPLATE = "tag_%s";
     // endregion
 
     // region Submit Question Request Keys
@@ -233,8 +241,8 @@ class BasicRequestFactory implements RequestFactory {
             return createFromBulkProductRequest((BulkProductRequest) request);
         } else if (request instanceof ProductDisplayPageRequest) {
             return createFromProductDisplayPageRequest((ProductDisplayPageRequest) request);
-        } else if (request instanceof TopicFilterRequest) {
-            return createFromTopicFilterRequest((TopicFilterRequest) request);
+        } else if (request instanceof FeaturesRequest) {
+            return createFromFeaturesRequest((FeaturesRequest) request);
         }else if (request instanceof FeedbackSubmissionRequest) {
             return createFromFeedbackSubmissionRequest((FeedbackSubmissionRequest) request);
         } else if (request instanceof ReviewSubmissionRequest) {
@@ -385,6 +393,14 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
+        if (request.getSecondaryratingstats()) {
+            httpUrlBuilder.addQueryParameter(kSECONDARY_RATING_STATS, request.getSecondaryratingstats().toString());
+        }
+
+        if (request.getTagStats()) {
+            httpUrlBuilder.addQueryParameter(kTAG_STATS, request.getTagStats().toString());
+        }
+
         if (request.getFeatures() != null) {
             httpUrlBuilder.addQueryParameter(kFEATURES, request.getFeatures());
         }
@@ -407,6 +423,38 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kSTATS, statsParam);
         }
 
+        if (request.getContextDataValues()!= null) {
+            final Set<String> contextDataValueKeys = request.getContextDataValues().keySet();
+            for (String key : contextDataValueKeys) {
+                String value = getContextDataValue(key,request.getContextDataValues().get(key));
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER, value);
+            }
+        }
+
+        if (request.getAdditionalFields()!= null) {
+            final Set<String> additionalFields = request.getAdditionalFields().keySet();
+            for (String key : additionalFields) {
+                String value = addAdditionalQueryParam(key,request.getAdditionalFields().get(key));
+                httpUrlBuilder.addEncodedQueryParameter(kFILTER, value);
+            }
+        }
+
+        if (request.getSecondaryRatings()!= null) {
+            for (BVSecondaryRatingFilter secondaryRatingFilters : request.getSecondaryRatings() ) {
+                String value = addSecondaryRatingsQueryParam(secondaryRatingFilters.getType(), secondaryRatingFilters.getEqualityOperator(), secondaryRatingFilters.getValue());
+                httpUrlBuilder.addEncodedQueryParameter(kFILTER,value);
+            }
+        }
+
+        if (request.getTagFilters()!= null) {
+            final Set<String> tagFilterValues = request.getTagFilters().keySet();
+            for (String key : tagFilterValues) {
+                String value = addTagQueryParam(key,request.getTagFilters().get(key));
+                httpUrlBuilder.addEncodedQueryParameter(kFILTER, value);
+            }
+        }
+
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -417,6 +465,26 @@ class BasicRequestFactory implements RequestFactory {
                 .url(httpUrl)
                 .headers(headers)
                 .build();
+    }
+
+    private String addSecondaryRatingsQueryParam(String type, EqualityOperator equalityOperator, String value) {
+        final String keyRating = String.format(Locale.US, KEY_SECONDARY_RATING_TEMPLATE, type);
+        return String.format("%s:%s:%s", keyRating,equalityOperator, value);
+    }
+
+    private String getContextDataValue(String key, String value) {
+        final String keyRating = String.format(Locale.US, KEY_CDV_TEMPLATE, key);
+        return String.format("%s:%s", keyRating, value);
+    }
+
+    private String addTagQueryParam(String type, String value) {
+        final String keyRating = String.format(Locale.US, KEY_TAG_FILTER_TEMPLATE, type);
+        return String.format("%s:%s",keyRating, value);
+    }
+
+    private String  addAdditionalQueryParam(String key, String value) {
+        final String keyRating = String.format(Locale.US, KEY_ADDITIONAL_PARAM_TEMPLATE, key);
+        return String.format("%s:%s", keyRating, value);
     }
 
     private Request createFromQuestionAndAnswerRequest(QuestionAndAnswerRequest request) {
@@ -469,7 +537,7 @@ class BasicRequestFactory implements RequestFactory {
                 .build();
     }
 
-    private Request createFromTopicFilterRequest(TopicFilterRequest request) {
+    private Request createFromFeaturesRequest(FeaturesRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
 
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
@@ -687,6 +755,10 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
+        if (request.getTagStats()) {
+            httpUrlBuilder.addQueryParameter(kTAG_STATS, request.getTagStats().toString());
+        }
+
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -710,10 +782,18 @@ class BasicRequestFactory implements RequestFactory {
         addCommonQueryParams(httpUrlBuilder, convApiKey, bvMobileInfo);
         addCommonDisplayQueryParams(httpUrlBuilder, request);
         addSortableProductParams(httpUrlBuilder, request);
+        addFilertableProductParams(httpUrlBuilder,request);
         if (request.getIncentivizedStats()) {
             httpUrlBuilder.addQueryParameter(kINCENTIVIZED_STATS, request.getIncentivizedStats().toString());
         }
 
+        if (request.getSecondaryratingStats()) {
+            httpUrlBuilder.addQueryParameter(kSECONDARY_RATING_STATS, request.getSecondaryratingStats().toString());
+        }
+
+        if (request.getTagStats()) {
+            httpUrlBuilder.addQueryParameter(kTAG_STATS, request.getTagStats().toString());
+        }
 
         HttpUrl httpUrl = httpUrlBuilder.build();
 
@@ -979,6 +1059,7 @@ class BasicRequestFactory implements RequestFactory {
         addFilterQueryParams(httpUrlBuilder, request.getFilters());
         addExtraQueryParams(httpUrlBuilder, request.getExtraParams());
         addProductSortParam(httpUrlBuilder, request.getSorts());
+
     }
 
     private static void addFilterQueryParams(HttpUrl.Builder httpUrlBuilder, List<Filter> filters) {
@@ -1026,6 +1107,39 @@ class BasicRequestFactory implements RequestFactory {
         if (!request.getStatistics().isEmpty()) {
             httpUrlBuilder.addQueryParameter(kSTATS, StringUtils.componentsSeparatedBy(request.getStatistics(), ","));
         }
+    }
+
+    private static void addFilertableProductParams(HttpUrl.Builder httpUrlBuilder, SortableProductRequest request) {
+        if (!request.getReviewFilter().isEmpty()) {
+            for (Filter filter : request.getReviewFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_REVIEW, filter.toString());
+            }
+        }
+
+
+        if (!request.getQuestionFilter().isEmpty()) {
+            for (Filter filter : request.getQuestionFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_QUESTIONS, filter.toString());
+            }
+        }
+
+        if (!request.getAuthorFilter().isEmpty()) {
+            for (Filter filter : request.getAuthorFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_AUTHORS, filter.toString());
+            }
+
+        }
+
+        if (!request.getCommentFilter().isEmpty()) {
+            for (Filter filter : request.getCommentFilter()) {
+                httpUrlBuilder
+                        .addEncodedQueryParameter(kFILTER_COMMENTS, filter.toString());
+            }
+        }
+
     }
 
     private static void addProductSortParam(HttpUrl.Builder httpUrlBuilder, List<Sort> sorts) {

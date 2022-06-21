@@ -18,6 +18,7 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
@@ -33,7 +34,13 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final List<ReviewIncludeType> reviewIncludeTypes;
     private final List<PDPContentType> statistics;
     private final Boolean incentivizedStat;
+    private final Boolean secondaryratingstats;
+    private final Boolean tagStats;
     private final String feature;
+    private final Map<String, String> contextDataValues;
+    private final Map<String, String> additionalFields;
+    protected final List<BVSecondaryRatingFilter> secondaryRatingFilters;
+    private final Map<String, String> tagFilters;
 
     private ReviewsRequest(Builder builder) {
         super(builder);
@@ -45,8 +52,13 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.reviewIncludeTypes = builder.reviewIncludeTypes;
         this.statistics = builder.statistics;
         this.incentivizedStat = builder.incentivizedStats;
+        this.tagStats = builder.tagStats;
         this.feature = builder.feature;
-
+        this.contextDataValues = builder.contextDataValues;
+        this.additionalFields = builder.additionalFields;
+        this.secondaryRatingFilters = builder.secondaryRatingFilters;
+        this.secondaryratingstats = builder.secondaryratingstats;
+        this.tagFilters=builder.tagFilters;
     }
 
     String getProductId() {
@@ -77,12 +89,30 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         return incentivizedStat;
     }
 
-    String getFeatures(){
-        return feature;
-    }
+    Boolean getSecondaryratingstats() { return secondaryratingstats;}
+
+    Boolean getTagStats() { return tagStats; }
+
+    String getFeatures(){ return feature; }
 
     List<PDPContentType> getStatistics() {
         return statistics;
+    }
+
+    Map<String, String> getContextDataValues() {
+        return contextDataValues;
+    }
+
+    public Map<String, String> getAdditionalFields() {
+        return additionalFields;
+    }
+
+    public List<BVSecondaryRatingFilter> getSecondaryRatings() {
+        return secondaryRatingFilters;
+    }
+
+    public Map<String, String> getTagFilters() {
+        return tagFilters;
     }
 
     @Override
@@ -121,6 +151,5 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         public ReviewsRequest build() {
             return new ReviewsRequest(this);
         }
-
     }
 }

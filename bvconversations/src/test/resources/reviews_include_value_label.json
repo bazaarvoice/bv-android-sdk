@@ -1,0 +1,1252 @@
+{
+   "Limit": 10,
+   "Offset": 0,
+   "TotalResults": 8,
+   "Locale": "en_US",
+   "Results": [
+      {
+         "Id": "19404139",
+         "CID": "5eed1861-104a-5a20-b7a2-963c911605c4",
+         "SourceClient": "conciergeapidocumentation",
+         "Badges": {
+            "incentivizedReview": {
+               "ContentType": "REVIEW",
+               "Id": "incentivizedReview",
+               "BadgeType": "Custom"
+            }
+         },
+         "BadgesOrder": [
+            "incentivizedReview"
+         ],
+         "LastModeratedTime": "2017-04-07T08:45:00.000+00:00",
+         "LastModificationTime": "2021-01-15T23:44:05.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "IncentivizedReview",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58e74d829c65a",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": true,
+         "Helpfulness": 1.0,
+         "TotalFeedbackCount": 1,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 1,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "3flbs7hk2gvc6str1635rx2t6",
+         "SubmissionTime": "2017-04-07T08:30:10.000+00:00",
+         "ReviewText": "OusdglB XP8GYEIDSHBKN O8YGIDHSKBVN OSFY8EGILFHKBN OS8DYGIFKHB NOSDYGFILHXBN OS8GDIYHFBV O8WEGY SHRD O8I7ERSO8W7EIRGOV8WEIYGROI7. O8WEIYR O87E O8EY O 8EI7YO8WEY O8E O8 Y OQEY HWOE8YWOE8RUWEO8WEO 8 OEWI U. PIYGFPYEGPIYHGYouccfgvocugWefghjklsdfghjklzesrxdfghjnkawzesdjnkmesxdrcfhjh",
+         "Title": "Review title uastgvyatgvsdxiutgvjn",
+         "UserNickname": "test1111111123123",
+         "Videos": [
+            {
+               "VideoId": "OzQ3mdZTm-w",
+               "VideoHost": "www.youtube.com",
+               "VideoThumbnailUrl": null,
+               "VideoIframeUrl": "https://www.youtube.com/embed/OzQ3mdZTm-w",
+               "Caption": "Gsuad",
+               "VideoUrl": "https://www.youtube.com/watch?v=OzQ3mdZTm-w"
+            }
+         ],
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            },
+            "IncentivizedReview": {
+               "Value": "True",
+               "Id": "IncentivizedReview",
+               "ValueLabel": "Yes",
+               "DimensionLabel": "Received an incentive for this review"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 5,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 3,
+               "Id": "Fit_22",
+               "ValueLabel": "True to size",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 5,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "RatingRange": 5,
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "19404130",
+         "CID": "73fbc1a6-f785-5f48-b2b7-6e68fb47f701",
+         "SourceClient": "conciergeapidocumentation",
+         "Badges": {
+            "incentivizedReview": {
+               "ContentType": "REVIEW",
+               "Id": "incentivizedReview",
+               "BadgeType": "Custom"
+            }
+         },
+         "BadgesOrder": [
+            "incentivizedReview"
+         ],
+         "LastModeratedTime": "2017-04-07T08:15:01.000+00:00",
+         "LastModificationTime": "2017-04-07T08:15:01.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "IncentivizedReview",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58e7477f9602a",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": true,
+         "TotalFeedbackCount": 0,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 0,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "pcn6i076ka8vdjpyzy3qbz3tx",
+         "SubmissionTime": "2017-04-07T08:04:31.000+00:00",
+         "ReviewText": "OusdglB XP8GYEIDSHBKN O8YGIDHSKBVN OSFY8EGILFHKBN OS8DYGIFKHB NOSDYGFILHXBN OS8GDIYHFBV O8WEGY SHRD O8I7ERSO8W7EIRGOV8WEIYGROI7. O8WEIYR O87E O8EY O 8EI7YO8WEY O8E O8 Y OQEY HWOE8YWOE8RUWEO8WEO 8 OEWI U. PIYGFPYEGPIYHGYouccfgvocugWefghjklsdfghjklzesrxdfghjnkawzesdjnkmesxdrcfhjh",
+         "Title": "Review title uastgvyatgvsdxiutgvjn",
+         "UserNickname": "test1111111",
+         "Videos": [
+            {
+               "VideoId": "OzQ3mdZTm-w",
+               "VideoHost": "www.youtube.com",
+               "VideoThumbnailUrl": null,
+               "VideoIframeUrl": "https://www.youtube.com/embed/OzQ3mdZTm-w",
+               "Caption": "Gsuad",
+               "VideoUrl": "https://www.youtube.com/watch?v=OzQ3mdZTm-w"
+            }
+         ],
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            },
+            "IncentivizedReview": {
+               "Value": "True",
+               "Id": "IncentivizedReview",
+               "ValueLabel": "Yes",
+               "DimensionLabel": "Received an incentive for this review"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 5,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 3,
+               "Id": "Fit_22",
+               "ValueLabel": "True to size",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 5,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "Helpfulness": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "RatingRange": 5,
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "19398816",
+         "CID": "0769b053-972a-5d88-aa70-f492f905bbc9",
+         "SourceClient": "conciergeapidocumentation",
+         "Badges": {
+            "incentivizedReview": {
+               "ContentType": "REVIEW",
+               "Id": "incentivizedReview",
+               "BadgeType": "Custom"
+            }
+         },
+         "BadgesOrder": [
+            "incentivizedReview"
+         ],
+         "LastModeratedTime": "2017-04-05T04:45:00.000+00:00",
+         "LastModificationTime": "2017-04-05T04:45:00.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "IncentivizedReview",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58e473d9b2725",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": true,
+         "TotalFeedbackCount": 0,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 0,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "tfs591fosv9ygarm31z6djiax",
+         "SubmissionTime": "2017-04-05T04:36:54.000+00:00",
+         "ReviewText": "OusdglB XP8GYEIDSHBKN O8YGIDHSKBVN OSFY8EGILFHKBN OS8DYGIFKHB NOSDYGFILHXBN OS8GDIYHFBV O8WEGY SHRD O8I7ERSO8W7EIRGOV8WEIYGROI7. O8WEIYR O87E O8EY O 8EI7YO8WEY O8E O8 Y OQEY HWOE8YWOE8RUWEO8WEO 8 OEWI U. PIYGFPYEGPIYHGYouccfgvocugWefghjklsdfghjklzesrxdfghjnkawzesdjnkmesxdrcfhjh",
+         "Title": "Review title uastgvyatgvsdxiutgvjn",
+         "UserNickname": "Quan10",
+         "Videos": [
+            {
+               "VideoId": "OzQ3mdZTm-w",
+               "VideoHost": "www.youtube.com",
+               "VideoThumbnailUrl": null,
+               "VideoIframeUrl": "https://www.youtube.com/embed/OzQ3mdZTm-w",
+               "Caption": "Gsuad",
+               "VideoUrl": "https://www.youtube.com/watch?v=OzQ3mdZTm-w"
+            }
+         ],
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            },
+            "IncentivizedReview": {
+               "Value": "True",
+               "Id": "IncentivizedReview",
+               "ValueLabel": "Yes",
+               "DimensionLabel": "Received an incentive for this review"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 5,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 3,
+               "Id": "Fit_22",
+               "ValueLabel": "True to size",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 5,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "Helpfulness": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "RatingRange": 5,
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "19398805",
+         "CID": "1c729a00-6ab0-5f01-83a5-2f5014bb24f4",
+         "SourceClient": "conciergeapidocumentation",
+         "Badges": {
+            "incentivizedReview": {
+               "ContentType": "REVIEW",
+               "Id": "incentivizedReview",
+               "BadgeType": "Custom"
+            }
+         },
+         "BadgesOrder": [
+            "incentivizedReview"
+         ],
+         "LastModeratedTime": "2017-04-05T04:30:00.000+00:00",
+         "LastModificationTime": "2017-04-05T04:30:00.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "IncentivizedReview",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58e46f913adae",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": true,
+         "TotalFeedbackCount": 0,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 0,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "q9kxsutih0x78gdy0h2rx8bm8",
+         "SubmissionTime": "2017-04-05T04:18:38.000+00:00",
+         "ReviewText": "OusdglB XP8GYEIDSHBKN O8YGIDHSKBVN OSFY8EGILFHKBN OS8DYGIFKHB NOSDYGFILHXBN OS8GDIYHFBV O8WEGY SHRD O8I7ERSO8W7EIRGOV8WEIYGROI7. O8WEIYR O87E O8EY O 8EI7YO8WEY O8E O8 Y OQEY HWOE8YWOE8RUWEO8WEO 8 OEWI U. PIYGFPYEGPIYHGYouccfgvocugWefghjklsdfghjklzesrxdfghjnkawzesdjnkmesxdrcfhjh",
+         "Title": "Review title uastgvyatgvsdxiutgvjn",
+         "UserNickname": "Quan9",
+         "Videos": [
+            {
+               "VideoId": "OzQ3mdZTm-w",
+               "VideoHost": "www.youtube.com",
+               "VideoThumbnailUrl": null,
+               "VideoIframeUrl": "https://www.youtube.com/embed/OzQ3mdZTm-w",
+               "Caption": "Gsuad",
+               "VideoUrl": "https://www.youtube.com/watch?v=OzQ3mdZTm-w"
+            }
+         ],
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            },
+            "IncentivizedReview": {
+               "Value": "True",
+               "Id": "IncentivizedReview",
+               "ValueLabel": "Yes",
+               "DimensionLabel": "Received an incentive for this review"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 5,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 3,
+               "Id": "Fit_22",
+               "ValueLabel": "True to size",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 5,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "Helpfulness": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "RatingRange": 5,
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "19385807",
+         "CID": "563426e6-038b-5ae8-8ca6-034dab786c00",
+         "SourceClient": "conciergeapidocumentation",
+         "LastModeratedTime": "2017-03-31T08:15:02.000+00:00",
+         "LastModificationTime": "2017-03-31T08:15:02.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58de0f787b53c",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": false,
+         "TotalFeedbackCount": 0,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 0,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "mgz1229f600rx6ajrb9utlent",
+         "SubmissionTime": "2017-03-31T08:14:55.000+00:00",
+         "ReviewText": "Dung cung duoc, noi chung la ok blah blah blah blah blah",
+         "Title": "This is review title",
+         "UserNickname": "quan07",
+         "Videos": [
+            {
+               "VideoId": "KvbqjwpYywI",
+               "VideoHost": "www.youtube.com",
+               "VideoThumbnailUrl": null,
+               "VideoIframeUrl": "https://www.youtube.com/embed/KvbqjwpYywI",
+               "Caption": "This is video caption 1",
+               "VideoUrl": "https://www.youtube.com/watch?v=KvbqjwpYywI"
+            }
+         ],
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 4,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 5,
+               "Id": "Fit_22",
+               "ValueLabel": "Too big",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 4,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "Helpfulness": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "BadgesOrder": [],
+         "RatingRange": 5,
+         "Badges": {},
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "19385747",
+         "CID": "c368b097-3ba6-50ec-b758-280f372aa74c",
+         "SourceClient": "conciergeapidocumentation",
+         "LastModeratedTime": "2017-03-31T06:45:00.000+00:00",
+         "LastModificationTime": "2017-03-31T06:45:00.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58ddf885a99cf",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": false,
+         "TotalFeedbackCount": 0,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 0,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "m381dr3t07r70b9vwjfd9i7kq",
+         "SubmissionTime": "2017-03-31T06:37:00.000+00:00",
+         "ReviewText": "Dung cung duoc, noi chung la ok blah blah blah blah blah",
+         "Title": "This is review title",
+         "UserNickname": "quan05",
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 4,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 5,
+               "Id": "Fit_22",
+               "ValueLabel": "Too big",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 4,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "Helpfulness": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "Videos": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "BadgesOrder": [],
+         "RatingRange": 5,
+         "Badges": {},
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "19385745",
+         "CID": "fb960048-9795-5447-8a75-4e7b99f47c10",
+         "SourceClient": "conciergeapidocumentation",
+         "LastModeratedTime": "2017-03-31T06:45:00.000+00:00",
+         "LastModificationTime": "2017-03-31T06:45:00.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender",
+            "LengthOfOwnership"
+         ],
+         "AuthorId": "58ddf834e8b1d",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Rating": 4,
+         "SecondaryRatingsOrder": [
+            "Quality",
+            "Value",
+            "Fit_22"
+         ],
+         "IsRatingsOnly": false,
+         "IsRecommended": false,
+         "TotalFeedbackCount": 0,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 0,
+         "ModerationStatus": "APPROVED",
+         "SubmissionId": "9ntdq5s0klbr5kg1fb6mgiuqw",
+         "SubmissionTime": "2017-03-31T06:35:40.000+00:00",
+         "ReviewText": "Dung cung duoc, noi chung la ok blah blah blah blah blah",
+         "Title": "This is review title",
+         "UserNickname": "quan04",
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "LengthOfOwnership": {
+               "Value": "1week",
+               "Id": "LengthOfOwnership",
+               "ValueLabel": "1 week",
+               "DimensionLabel": "Length of ownership"
+            },
+            "Gender": {
+               "Value": "Female",
+               "Id": "Gender",
+               "ValueLabel": "Female",
+               "DimensionLabel": "Gender"
+            }
+         },
+         "SecondaryRatings": {
+            "Value": {
+               "Value": 4,
+               "Id": "Value",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Value of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            },
+            "Fit_22": {
+               "Value": 5,
+               "Id": "Fit_22",
+               "ValueLabel": "Too big",
+               "ValueRange": 5,
+               "Label": "Fit",
+               "DisplayType": "SLIDER",
+               "MaxLabel": "Runs Large",
+               "MinLabel": "Runs Small"
+            },
+            "Quality": {
+               "Value": 4,
+               "Id": "Quality",
+               "ValueLabel": null,
+               "ValueRange": 5,
+               "Label": "Quality of Product",
+               "DisplayType": "NORMAL",
+               "MaxLabel": null,
+               "MinLabel": null
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "Helpfulness": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "Videos": [],
+         "ClientResponses": [],
+         "UserLocation": null,
+         "CampaignId": null,
+         "IsSyndicated": false,
+         "TagDimensions": {},
+         "Photos": [],
+         "BadgesOrder": [],
+         "RatingRange": 5,
+         "Badges": {},
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      },
+      {
+         "Id": "16970613",
+         "CID": "11eae441-87f7-5820-a873-9645cb5ae59c",
+         "SourceClient": "conciergeapidocumentation",
+         "Badges": {
+            "Expert": {
+               "ContentType": "REVIEW",
+               "Id": "Expert",
+               "BadgeType": "Rank"
+            },
+            "Staff": {
+               "ContentType": "REVIEW",
+               "Id": "Staff",
+               "BadgeType": "Affiliation"
+            }
+         },
+         "BadgesOrder": [
+            "Expert",
+            "Staff"
+         ],
+         "LastModeratedTime": "2017-01-05T19:36:10.000+00:00",
+         "LastModificationTime": "2021-01-14T22:50:18.000+00:00",
+         "ProductId": "data-gen-moppq9ekthfzbc6qff3bqokie",
+         "ContextDataValuesOrder": [
+            "Age",
+            "Gender"
+         ],
+         "UserLocation": "Rochester, MN",
+         "AuthorId": "data-gen-user-q329el4nt3x5p26bc88upxdj1",
+         "ContentLocale": "en_US",
+         "IsFeatured": false,
+         "TotalInappropriateFeedbackCount": 0,
+         "TotalClientResponseCount": 0,
+         "TotalCommentCount": 0,
+         "Photos": [
+            {
+               "Sizes": {
+                  "normal": {
+                     "Id": "normal",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/4b73d717-e338-5959-bcd1-b0478bd65b45"
+                  },
+                  "thumbnail": {
+                     "Id": "thumbnail",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/be9256eb-24d7-5b03-b0ec-5c0b9232b3b5"
+                  },
+                  "large": {
+                     "Id": "large",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/ce7fad87-0ff9-571f-9ed6-bd45d08aed77"
+                  }
+               },
+               "Id": "658456",
+               "SizesOrder": [
+                  "normal",
+                  "thumbnail",
+                  "large"
+               ],
+               "Caption": null
+            },
+            {
+               "Sizes": {
+                  "normal": {
+                     "Id": "normal",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/c8f6e924-4565-5c77-b9e9-189651b81c6c"
+                  },
+                  "thumbnail": {
+                     "Id": "thumbnail",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/c0d9105a-8c3b-5e4e-8630-3939f411bd11"
+                  },
+                  "large": {
+                     "Id": "large",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/56fec1d8-4135-5aa2-bcd8-d6e3fc62792d"
+                  }
+               },
+               "Id": "658457",
+               "SizesOrder": [
+                  "normal",
+                  "thumbnail",
+                  "large"
+               ],
+               "Caption": null
+            },
+            {
+               "Sizes": {
+                  "normal": {
+                     "Id": "normal",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/569b5372-bd70-50db-af53-7f0e59f088f7"
+                  },
+                  "thumbnail": {
+                     "Id": "thumbnail",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/21ad3fe6-81f3-5fbd-a6b9-c66b8746c620"
+                  },
+                  "large": {
+                     "Id": "large",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/dc8e376d-b0c1-5660-b494-1b9c3f8e8199"
+                  }
+               },
+               "Id": "658458",
+               "SizesOrder": [
+                  "normal",
+                  "thumbnail",
+                  "large"
+               ],
+               "Caption": null
+            },
+            {
+               "Sizes": {
+                  "normal": {
+                     "Id": "normal",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/d0c9dcdd-f00f-5f5c-a037-5a544d761a2e"
+                  },
+                  "thumbnail": {
+                     "Id": "thumbnail",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/05660653-9103-52bd-9e50-58461b1b3da8"
+                  },
+                  "large": {
+                     "Id": "large",
+                     "Url": "https://photos-uat-us.bazaarvoice.com/photo/2/cGhvdG86Y29uY2llcmdlYXBpZG9jdW1lbnRhdGlvbg/3d20397a-fe5d-59be-9821-11e0743a904d"
+                  }
+               },
+               "Id": "658459",
+               "SizesOrder": [
+                  "normal",
+                  "thumbnail",
+                  "large"
+               ],
+               "Caption": null
+            }
+         ],
+         "Rating": 5,
+         "IsRatingsOnly": false,
+         "IsRecommended": true,
+         "Helpfulness": 1.0,
+         "TotalFeedbackCount": 2,
+         "TotalNegativeFeedbackCount": 0,
+         "TotalPositiveFeedbackCount": 2,
+         "ModerationStatus": "APPROVED",
+         "SubmissionTime": "2016-10-20T23:01:00.000+00:00",
+         "ReviewText": "Nullam vel dui neque, et volutpatsem.Curabitur sit amet nibhnunc.Lorem ipsum dolor sit amet, consectetur adipiscingelit.\n\nAliquam vitae risus a felis lobortismolestie.Aenean nec scelerisquenunc.Praesent non malesuadadolor.\n\nCurabitur feugiat libero at velit aliquetlacinia.Sed rutrum quam sit amet purus luctus at aliquet antedapibus.In leo libero, aliquam et pretium vitae, hendrerit atdui.Fusce condimentum posuerevenenatis.\n\nSed vel nisl a mi pellentesque porta ut arisus.",
+         "Title": "Mauris quis portaeros.Aenean sit amet lacusmagna.",
+         "UserNickname": "adrian597",
+         "ContextDataValues": {
+            "Age": {
+               "Value": "17orUnder",
+               "Id": "Age",
+               "ValueLabel": "17 or under",
+               "DimensionLabel": "Age"
+            },
+            "Gender": {
+               "Value": "Male",
+               "Id": "Gender",
+               "ValueLabel": "Male",
+               "DimensionLabel": "Gender"
+            }
+         },
+         "CommentIds": [],
+         "Pros": null,
+         "TagDimensionsOrder": [],
+         "AdditionalFieldsOrder": [],
+         "InappropriateFeedbackList": [],
+         "SecondaryRatingsOrder": [],
+         "Videos": [],
+         "ClientResponses": [],
+         "CampaignId": null,
+         "SubmissionId": null,
+         "IsSyndicated": false,
+         "SecondaryRatings": {},
+         "TagDimensions": {},
+         "RatingRange": 5,
+         "AdditionalFields": {},
+         "Cons": null,
+         "ProductRecommendationIds": []
+      }
+   ],
+   "Includes": {
+      "Products": {
+         "data-gen-moppq9ekthfzbc6qff3bqokie": {
+            "Description": "Increase your potential to shine with this beautiful Diamond necklace. A 16\" chain holds a White Gold teardrop studded with beautiful and shiny Diamonds. The smooth, shiny\n                bail adds texture and contrast to this piece. Wear alone or complete this look with the matching ring and earrings.",
+            "ImageUrl": "http://myshco.com/productImages/teardrop.jpg",
+            "Name": "14K White Gold Diamond Teardrop Necklace",
+            "Id": "data-gen-moppq9ekthfzbc6qff3bqokie",
+            "CategoryId": "data-gen-ejcf7ia6yt7iw82ewnh3dhmyc",
+            "Active": false,
+            "Disabled": false,
+            "ModelNumbers": [],
+            "ISBNs": [],
+            "ReviewIds": [],
+            "EANs": [],
+            "BrandExternalId": null,
+            "ProductPageUrl": null,
+            "FamilyIds": [],
+            "Brand": {},
+            "ManufacturerPartNumbers": [],
+            "QuestionIds": [],
+            "StoryIds": [],
+            "UPCs": [],
+            "Attributes": {},
+            "AttributesOrder": [],
+            "ReviewStatistics": {
+               "RatingDistribution": [
+                  {
+                     "RatingValue": 4,
+                     "Count": 40
+                  },
+                  {
+                     "RatingValue": 5,
+                     "Count": 35
+                  },
+                  {
+                     "RatingValue": 3,
+                     "Count": 10
+                  },
+                  {
+                     "RatingValue": 1,
+                     "Count": 1
+                  },
+                  {
+                     "RatingValue": 2,
+                     "Count": 1
+                  }
+               ],
+               "HelpfulVoteCount": 845,
+               "FirstSubmissionTime": "2016-01-19T00:56:00.000+00:00",
+               "LastSubmissionTime": "2022-02-17T21:18:16.000+00:00",
+               "ContextDataDistributionOrder": [
+                  "Age",
+                  "Gender",
+                  "IncentivizedReview",
+                  "LengthOfOwnership",
+                  "ReadReviews"
+               ],
+               "ContextDataDistribution": {
+                  "Age": {
+                     "Id": "Age",
+                     "Values": [
+                        {
+                           "Count": 8,
+                           "Value": "17orUnder",
+                           "ValueLabel": "17 or under"
+                        },
+                        {
+                           "Count": 2,
+                           "Value": "18to24",
+                           "ValueLabel": "18 to 24"
+                        },
+                        {
+                           "Count": 5,
+                           "Value": "25to34",
+                           "ValueLabel": "25 to 34"
+                        },
+                        {
+                           "Count": 2,
+                           "Value": "35to44",
+                           "ValueLabel": "35 to 44"
+                        },
+                        {
+                           "Count": 1,
+                           "Value": "45to54",
+                           "ValueLabel": "45 to 54"
+                        },
+                        {
+                           "Count": 1,
+                           "Value": "65orOver",
+                           "ValueLabel": "65 or over"
+                        }
+                     ],
+                     "Label": "Age"
+                  },
+                  "Gender": {
+                     "Id": "Gender",
+                     "Values": [
+                        {
+                           "Count": 7,
+                           "Value": "Male",
+                           "ValueLabel": "Male"
+                        },
+                        {
+                           "Count": 14,
+                           "Value": "Female",
+                           "ValueLabel": "Female"
+                        }
+                     ],
+                     "Label": "Gender"
+                  },
+                  "IncentivizedReview": {
+                     "Id": "IncentivizedReview",
+                     "Values": [
+                        {
+                           "Count": 15,
+                           "Value": "True",
+                           "ValueLabel": "Yes"
+                        }
+                     ],
+                     "Label": "Received an incentive for this review"
+                  },
+                  "LengthOfOwnership": {
+                     "Id": "LengthOfOwnership",
+                     "Values": [
+                        {
+                           "Count": 9,
+                           "Value": "1week",
+                           "ValueLabel": "1 week"
+                        },
+                        {
+                           "Count": 3,
+                           "Value": "1month",
+                           "ValueLabel": "1 month"
+                        },
+                        {
+                           "Count": 3,
+                           "Value": "3months",
+                           "ValueLabel": "3 months"
+                        },
+                        {
+                           "Count": 1,
+                           "Value": "6months",
+                           "ValueLabel": "6 months"
+                        }
+                     ],
+                     "Label": "Length of ownership"
+                  },
+                  "ReadReviews": {
+                     "Id": "ReadReviews",
+                     "Values": [
+                        {
+                           "Count": 12,
+                           "Value": "Yes",
+                           "ValueLabel": "Yes"
+                        },
+                        {
+                           "Count": 6,
+                           "Value": "No",
+                           "ValueLabel": "No"
+                        }
+                     ],
+                     "Label": "Read product reviews online before purchasing"
+                  }
+               },
+               "RecommendedCount": 31,
+               "AverageOverallRating": 4.2298850574712645,
+               "NotRecommendedCount": 20,
+               "TotalReviewCount": 87,
+               "RatingsOnlyReviewCount": 0,
+               "NotHelpfulVoteCount": 83,
+               "SecondaryRatingsAveragesOrder": [
+                  "Quality",
+                  "Value",
+                  "Fit_22"
+               ],
+               "SecondaryRatingsAverages": {
+                  "Value": {
+                     "Id": "Value",
+                     "AverageRating": 4.515151515151516,
+                     "MaxLabel": null,
+                     "ValueRange": 5,
+                     "MinLabel": null,
+                     "DisplayType": "NORMAL",
+                     "Label": "Value of Product"
+                  },
+                  "Quality": {
+                     "Id": "Quality",
+                     "AverageRating": 4.5,
+                     "MaxLabel": null,
+                     "ValueRange": 5,
+                     "MinLabel": null,
+                     "DisplayType": "NORMAL",
+                     "Label": "Quality of Product"
+                  },
+                  "Fit_22": {
+                     "Id": "Fit_22",
+                     "AverageRating": 3.125,
+                     "DisplayType": "SLIDER",
+                     "ValueRange": 5,
+                     "MaxLabel": "Runs Large",
+                     "MinLabel": "Runs Small",
+                     "Label": "Fit"
+                  }
+               },
+               "FeaturedReviewCount": 1,
+               "OverallRatingRange": 5,
+               "TagDistribution": {},
+               "TagDistributionOrder": []
+            },
+            "TotalReviewCount": 87
+         }
+      },
+      "ProductsOrder": [
+         "data-gen-moppq9ekthfzbc6qff3bqokie"
+      ]
+   },
+   "HasErrors": false,
+   "Errors": []
+}

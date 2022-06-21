@@ -19,23 +19,26 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DistributionValue {
-    @SerializedName("Count")
-    private Integer count;
-    @SerializedName("Value")
-    private String value;
-    @SerializedName("ValueLabel")
-    private String valueLabel;
+import java.util.List;
 
-    public Integer getCount() {
-        return count;
+public class SecondaryDistributionElement {
+
+    @SerializedName("Id")
+    private String id;
+    @SerializedName("Label")
+    private String label;
+    @SerializedName("Values")
+    private List<SecondaryDistributionValue> values;
+
+    public String getId() {
+        return id;
     }
 
-    public String getValue() {
-        return value;
+    public String getLabel() {
+        return label;
     }
 
-    public String getValueLabel() {
-        return valueLabel;
+    public List<SecondaryDistributionValue> getValues() {
+        return values;
     }
 }
