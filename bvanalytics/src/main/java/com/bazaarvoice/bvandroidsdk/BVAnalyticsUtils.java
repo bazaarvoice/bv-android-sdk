@@ -65,13 +65,15 @@ class BVAnalyticsUtils {
   /**
    * @param map JsonObject to add PII params to
    * @param params All key-value pairs that a user provides as extra conversion info
+   * @return
    */
-  static void addPiiOnly(@NonNull Map<String, Object> map, @NonNull Map<String, Object> params) {
+  static boolean addPiiOnly(@NonNull Map<String, Object> map, @NonNull Map<String, Object> params) {
     for (Map.Entry<String, Object> entry : params.entrySet()) {
       if (isPiiParam(entry.getKey())) {
-        mapPutSafe(map, entry.getKey(), entry.getValue());
+        return true;
       }
     }
+    return false;
   }
 
   static boolean isPiiParam(String param) {
