@@ -410,6 +410,11 @@ class BasicRequestFactory implements RequestFactory {
                     .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getSorts(), ","));
         }
 
+        if (!request.getRelevancySorts().isEmpty()) {
+            httpUrlBuilder
+                    .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getRelevancySorts(), ","));
+        }
+
         if (request.getSearchPhrase() != null) {
             httpUrlBuilder
                     .addQueryParameter(kSEARCH, request.getSearchPhrase());

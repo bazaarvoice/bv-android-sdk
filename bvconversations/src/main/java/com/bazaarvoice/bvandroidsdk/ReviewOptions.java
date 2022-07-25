@@ -60,6 +60,21 @@ public enum ReviewOptions {
         }
     }
 
+    public enum RelevancySort implements UGCOption{
+
+        Relevancy("relevancy");
+
+        private final String key;
+
+        RelevancySort(String key) {
+            this.key = key;
+        }
+
+        public String getKey() {
+            return this.key;
+        }
+    }
+
     public enum PrimaryFilter implements UGCOption {
         AuthorId("AuthorId"),
         Id("Id"),
