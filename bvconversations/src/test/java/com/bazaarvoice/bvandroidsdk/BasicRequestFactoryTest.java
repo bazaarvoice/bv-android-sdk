@@ -878,4 +878,15 @@ public class BasicRequestFactoryTest {
     final List<String> filterParams = okRequest.url().queryParameterValues("Filter");
     assertEquals("additionalfield_DateOfUserExperience:2021-04-03", filterParams.get(1));
   }
+
+  @Test
+  public void reviewDisplayRequestCreateRequestWithContentLocaleSort() {
+    ArrayList<String> list =new ArrayList<>();
+    list.add("fr_FR");
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addSort(ReviewOptions.Sort.ContentLocale,list)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    assertEquals("ContentLocale:fr_FR", reviewsRequest.getSorts().get(0).toString());
+  }
 }
