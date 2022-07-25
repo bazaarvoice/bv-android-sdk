@@ -122,6 +122,11 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     return (BuilderType) this;
   }
 
+  public BuilderType addSort(ReviewOptions.Sort sort, List<String> sortList) {
+    this.sorts.add(new Sort(sort, sortList));
+    return (BuilderType) this;
+  }
+
   public BuilderType addFilter(ReviewOptions.Filter filter, EqualityOperator equalityOperator, String value) {
     addFilter(new Filter(filter, equalityOperator, value));
     return (BuilderType) this;

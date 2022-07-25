@@ -20,20 +20,39 @@ package com.bazaarvoice.bvandroidsdk;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * Helper class for creating a Sort query parameter
  */
 class Sort {
     private final UGCOption option;
     private final SortOrder sortOrder;
+    private final List<String> sortList;
 
     Sort(@NonNull UGCOption option, @NonNull SortOrder sortOrder) {
         this.option = option;
         this.sortOrder = sortOrder;
+        this.sortList =new ArrayList<>();
+    }
+
+    Sort(@NonNull UGCOption option, @NonNull List<String> sortList) {
+        this.option = option;
+        this.sortList = sortList;
+        this.sortOrder = SortOrder.CUSTOM_SORT_ORDER;
     }
 
     @Override
     public String toString() {
-        return String.format("%s:%s", option.getKey(), sortOrder.getKey());
+        String string;
+         if(sortOrder.getKey().equals(SortOrder.CUSTOM_SORT_ORDER.getKey())) {
+             string = String.format("%s:%s", option.getKey(),  StringUtils.componentsSeparatedByWithEscapes(sortList, ","));
+         }else {
+             string = String.format("%s:%s", option.getKey(), sortOrder.getKey());
+         }
+
+        return string;
     }
 }

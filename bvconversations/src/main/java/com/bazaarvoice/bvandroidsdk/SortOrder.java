@@ -19,7 +19,8 @@ package com.bazaarvoice.bvandroidsdk;
 
 public enum SortOrder {
     ASC("asc"),
-    DESC("desc");
+    DESC("desc"),
+    CUSTOM_SORT_ORDER("custom_sort_order");
 
     private final String key;
 
