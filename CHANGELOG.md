@@ -7,7 +7,6 @@
 * Allowing client to Sort the Reviews by Relevancy.
 * Fixed capturing of PII data in the Transaction Event.
 
-
 # 8.10.1
 ## Fixed ADID Google play policy changes
 
