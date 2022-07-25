@@ -31,6 +31,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
   private final int limit;
   private final int offset;
   private final List<Sort> sorts;
+  private final List<RelevancySort> relevancySorts;
   private final String searchPhrase;
   private final List<ReviewIncludeType> reviewIncludeTypes;
 
@@ -40,6 +41,7 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
     limit = builder.limit;
     offset = builder.offset;
     sorts = builder.sorts;
+    relevancySorts = builder.relevancySorts;
     searchPhrase = builder.searchPhrase;
     this.reviewIncludeTypes = builder.reviewIncludeTypes;
   }
@@ -58,6 +60,10 @@ public class StoreReviewsRequest extends ConversationsDisplayRequest {
 
   List<Sort> getSorts() {
     return sorts;
+  }
+
+  List<RelevancySort> getRelevancySorts() {
+    return relevancySorts;
   }
 
   String getSearchPhrase() {

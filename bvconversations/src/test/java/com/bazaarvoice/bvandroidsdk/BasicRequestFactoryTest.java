@@ -880,6 +880,15 @@ public class BasicRequestFactoryTest {
   }
 
   @Test
+  public void reviewDisplayRequestCreateRequestWithRelevanceSort() {
+    final ReviewsRequest reviewsRequest = new ReviewsRequest.Builder("prod1", 10, 2)
+            .addSort(ReviewOptions.RelevancySort.Relevancy, RelevancySortOrder.A2)
+            .build();
+    final Request okRequest = requestFactory.create(reviewsRequest);
+    assertEquals("relevancy:a2", reviewsRequest.getRelevancySorts().get(0).toString());
+  }
+
+  @Test
   public void reviewDisplayRequestCreateRequestWithContentLocaleSort() {
     ArrayList<String> list =new ArrayList<>();
     list.add("fr_FR");

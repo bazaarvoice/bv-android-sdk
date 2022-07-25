@@ -32,6 +32,7 @@ import androidx.annotation.NonNull;
 public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> extends ConversationsDisplayRequest.Builder<BuilderType> {
   protected final String productId;
   protected final List<Sort> sorts;
+  protected final List<RelevancySort> relevancySorts;
   protected final int limit;
   protected final int offset;
   protected final ArrayList<PDPContentType> statistics;
@@ -49,6 +50,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   public ReviewDisplayRequestBuilder(@NonNull String productId, int limit, int offset) {
     super();
     this.sorts = new ArrayList<>();
+    this.relevancySorts = new ArrayList<>();
     this.reviewIncludeTypes = new ArrayList<>();
     this.statistics = new ArrayList<>();
     this.limit = limit;
@@ -67,6 +69,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
   public ReviewDisplayRequestBuilder(ReviewOptions.PrimaryFilter filterBy, String id, int limit, int offset) {
     super();
     this.sorts = new ArrayList<>();
+    this.relevancySorts = new ArrayList<>();
     this.reviewIncludeTypes = new ArrayList<>();
     this.statistics = new ArrayList<>();
     this.limit = limit;
@@ -119,6 +122,10 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
 
   public BuilderType addSort(ReviewOptions.Sort sort, SortOrder sortOrder) {
     this.sorts.add(new Sort(sort, sortOrder));
+    return (BuilderType) this;
+  }
+  public BuilderType addSort(ReviewOptions.RelevancySort sort, RelevancySortOrder sortOrder) {
+    this.relevancySorts.add(new RelevancySort(sort, sortOrder));
     return (BuilderType) this;
   }
 

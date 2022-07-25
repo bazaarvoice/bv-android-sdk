@@ -30,6 +30,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
     private final int limit;
     private final int offset;
     private final List<Sort> sorts;
+    protected final List<RelevancySort> relevancySorts;
     private final String searchPhrase;
     private final List<ReviewIncludeType> reviewIncludeTypes;
     private final List<PDPContentType> statistics;
@@ -48,6 +49,7 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
         this.limit = builder.limit;
         this.offset = builder.offset;
         this.sorts = builder.sorts;
+        this.relevancySorts = builder.relevancySorts;
         this.searchPhrase = builder.searchPhrase;
         this.reviewIncludeTypes = builder.reviewIncludeTypes;
         this.statistics = builder.statistics;
@@ -75,6 +77,10 @@ public class ReviewsRequest extends ConversationsDisplayRequest {
 
     List<Sort> getSorts() {
         return sorts;
+    }
+
+    List<RelevancySort> getRelevancySorts() {
+        return relevancySorts;
     }
 
     String getSearchPhrase() {
