@@ -1,5 +1,13 @@
 # Changelog
 
+# 8.11.0
+## Relevancy Sort and Content Locale Sort Support
+
+* Allowing client to Sort the Reviews by ContentLocale (Custom Sort Order).
+* Allowing client to Sort the Reviews by Relevancy.
+* Fixed capturing of PII data in the Transaction Event.
+
+
 # 8.10.1
 ## Fixed ADID Google play policy changes
 
