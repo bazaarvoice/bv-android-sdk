@@ -32,9 +32,8 @@ public abstract class BVPiiEvent extends BVMobileAnalyticsEvent {
     if (additionalParams == null) {
       return;
     }
-    addPiiOnly(piiParams, additionalParams);
     this.additionalParams = nonPiiOnly(additionalParams);
-    this.hadPii = piiParams.entrySet().size() > 0;
+    this.hadPii = addPiiOnly(piiParams, additionalParams);
   }
 
 
