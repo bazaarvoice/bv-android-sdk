@@ -898,4 +898,16 @@ public class BasicRequestFactoryTest {
     final Request okRequest = requestFactory.create(reviewsRequest);
     assertEquals("ContentLocale:fr_FR", reviewsRequest.getSorts().get(0).toString());
   }
+
+  @Test
+  public void testQAStatsStatisticsRequest() {
+    final List<String> productIds = new ArrayList<String>();
+    productIds.add("product1");
+    productIds.add("product2");
+    final BulkRatingsRequest request = new BulkRatingsRequest.Builder(productIds, BulkRatingOptions.StatsType.Answers)
+            .build();
+    final Request okRequest = requestFactory.create(request);
+    final HttpUrl url = okRequest.url();
+    assertEquals("Answers", url.queryParameter("Stats"));
+  }
 }
