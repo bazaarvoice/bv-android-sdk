@@ -843,4 +843,13 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertEquals("What size is the product?", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getLabel());
         assertEquals("Small", response.getIncludes().getProducts().get(0).getReviewStatistics().getSecondaryRatingsAverages().get("WhatSizeIsTheProduct").getValueLabel().get(0));
     }
+    
+    @Test
+    public void testQAStatsStatisticsResponse() throws Exception {
+        BulkRatingsResponse response = parseJsonResourceFile("statistics_qa_stats.json", BulkRatingsResponse.class, gson);
+
+        assertEquals(3, response.getResults().get(0).getProductStatistics().getQAStatistics().getTotalQuestionCount().intValue());
+        assertEquals(5, response.getResults().get(0).getProductStatistics().getQAStatistics().getTotalAnswerCount().intValue());
+
+    }
 }
