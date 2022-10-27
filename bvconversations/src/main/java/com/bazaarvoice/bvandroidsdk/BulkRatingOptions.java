@@ -36,7 +36,9 @@ public class BulkRatingOptions {
     public enum StatsType implements UGCOption{
         Reviews("Reviews"),
         NativeReviews("NativeReviews"),
-        All("Reviews,NativeReviews");
+        Questions("Questions"),
+        Answers("Answers"),
+        All("Reviews,NativeReviews,Questions,Answers");
 
         private String key;
         StatsType(String key) {

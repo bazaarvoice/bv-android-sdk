@@ -1,0 +1,53 @@
+{
+  "Limit":2,
+  "offset":0,
+  "TotalResults":2,
+  "Locale":"en_US",
+  "Results":[
+    {
+      "ProductStatistics":{
+        "ProductId":"Synd3-Unique-Product-2",
+        "NativeReviewStatistics":{
+          "AverageOverallRating":2.9091,
+          "TotalReviewCount":11,
+          "OverallRatingRange":5
+        },
+        "ReviewStatistics":{
+          "AverageOverallRating":3.0455,
+          "TotalReviewCount":22,
+          "OverallRatingRange":5
+        },
+        "QAStatistics":{
+          "TotalQuestionCount":3,
+          "TotalAnswerCount":5
+        }
+      }
+    },
+    {
+      "ProductStatistics":{
+        "ProductId":"Synd3-Match-Product-2",
+        "NativeReviewStatistics":{
+          "AverageOverallRating":2.1818,
+          "TotalReviewCount":11,
+          "OverallRatingRange":5
+        },
+        "ReviewStatistics":{
+          "AverageOverallRating":2.6818,
+          "TotalReviewCount":22,
+          "OverallRatingRange":5
+        },
+        "QAStatistics":{
+          "TotalQuestionCount":3,
+          "TotalAnswerCount":4
+        }
+      }
+    }
+  ],
+  "Includes":{
+
+  },
+  "HasErrors":false,
+  "Errors":[
+
+  ]
+}
