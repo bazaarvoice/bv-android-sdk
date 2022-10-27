@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.12.0
+## Q&A Statistics
+
+* Allowing client to map Q&A Statistics in statistics.json.
+
 # 8.11.0
 ## Relevancy Sort and Content Locale Sort Support
 

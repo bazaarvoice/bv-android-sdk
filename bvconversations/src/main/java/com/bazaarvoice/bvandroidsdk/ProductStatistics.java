@@ -28,6 +28,8 @@ public class ProductStatistics {
     private ReviewStatistics reviewStatistics;
     @SerializedName("NativeReviewStatistics")
     private ReviewStatistics nativeReviewStatistics;
+    @SerializedName("QAStatistics")
+    private QAStatistics qaStatistics;
     @SerializedName("ProductId")
     private String productId;
 
@@ -37,6 +39,10 @@ public class ProductStatistics {
 
     public ReviewStatistics getNativeReviewStatistics() {
         return nativeReviewStatistics;
+    }
+
+    public QAStatistics getQAStatistics() {
+        return qaStatistics;
     }
 
     public String getProductId() {
