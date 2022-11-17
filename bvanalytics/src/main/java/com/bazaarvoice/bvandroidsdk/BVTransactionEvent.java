@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.mapPutSafe;
 import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.warnShouldNotBeEmpty;
 import static com.bazaarvoice.bvandroidsdk.BVAnalyticsUtils.mapPutAllSafe;
 
@@ -24,5 +25,13 @@ public final class BVTransactionEvent extends BVPiiEvent {
     Map<String, Object> transactionMap = transactionMapper.toRaw();
     mapPutAllSafe(map, transactionMap);
     return map;
+  }
+
+  @Override
+  protected void getPIIEvent(Map<String, Object> piiParams) {
+    BVTransactionEvent event = new BVTransactionEvent(transaction);
+    event.setAdditionalParams(piiParams);
+    event.setHadPiiConversion(true);
+    BVPixel.getInstance().track(event);
   }
 }
