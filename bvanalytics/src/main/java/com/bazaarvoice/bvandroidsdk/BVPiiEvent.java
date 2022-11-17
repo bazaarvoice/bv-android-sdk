@@ -16,6 +16,7 @@ public abstract class BVPiiEvent extends BVMobileAnalyticsEvent {
   @NonNull
   private final Map<String, Object> piiParams;
   private boolean hadPii;
+  private boolean hadPiiConversion=false;
 
   public BVPiiEvent(BVEventValues.BVEventClass eventClass, String customEventType) {
     super(eventClass, customEventType);
@@ -32,8 +33,9 @@ public abstract class BVPiiEvent extends BVMobileAnalyticsEvent {
     if (additionalParams == null) {
       return;
     }
+    addPiiOnly(piiParams, additionalParams);
     this.additionalParams = nonPiiOnly(additionalParams);
-    this.hadPii = addPiiOnly(piiParams, additionalParams);
+    this.hadPii = piiParams.entrySet().size() > 0;
   }
 
 
@@ -57,7 +59,20 @@ public abstract class BVPiiEvent extends BVMobileAnalyticsEvent {
     Map<String, Object> map = super.toRaw();
     mapPutAllSafe(map, getPiiUnrelatedParams());
     mapPutSafe(map, HAD_PII, hadPii);
+    if(hadPii&&!hadPiiConversion){
+      mapPutSafe(map, BVEventKeys.Event.CLASS, BVEventValues.BVEventClass.PII_CONVERSION.toString());
+      getPIIEvent(additionalParams);
+    }else{
+      if(hadPiiConversion)
+      mapPutSafe(map, HAD_PII, true);
+    }
     return map;
+  }
+
+  protected abstract void getPIIEvent(Map<String, Object> piiParams);
+
+  protected void setHadPiiConversion(boolean setHadPIIConversion){
+    hadPiiConversion =setHadPIIConversion;
   }
 
 }
