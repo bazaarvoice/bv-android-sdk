@@ -45,6 +45,11 @@ class BVErrorReport extends BVPiiEvent {
         return null;
     }
 
+    @Override
+    protected void getPIIEvent(Map<String, Object> piiParams) {
+
+    }
+
 
 }
 
