@@ -50,4 +50,9 @@ public class BVConversionEvent extends BVPiiEvent {
     mapPutSafe(map, LABEL, label);
     return map;
   }
+
+  @Override
+  protected void getPIIEvent(Map<String, Object> piiParams) {
+
+  }
 }

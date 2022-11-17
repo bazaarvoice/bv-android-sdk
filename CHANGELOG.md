@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.12.1
+## Fixed Capturing of the PII data
+
+* Fixed PIE feed not generated.
+
 # 8.12.0
 ## Q&A Statistics
 
