@@ -10,11 +10,11 @@ android {
 
 dependencies {
   implementation sdkDep.supportAnnotations
-  implementation sdkDep.playServiceAds
+  implementation sdkDep.playServiceAdsIdentifier
   implementation sdkDep.okhttp3
 
   // Dependencies for local unit tests
-  testImplementation sdkDep.playServiceAds
+  testImplementation sdkDep.playServiceAdsIdentifier
   testImplementation sdkDep.gson
   testImplementation sdkTestDep.junit
   testImplementation sdkTestDep.mockito
