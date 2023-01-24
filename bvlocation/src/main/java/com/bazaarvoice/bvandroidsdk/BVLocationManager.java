@@ -115,9 +115,9 @@ public class BVLocationManager {
         return new BVVisit(name, address, city, state, zip, storeId, dwellTimeMillis);
     }
 
-    void broadcastIntent(Intent intent) {
-        appContext.sendBroadcast(intent);
-    }
+//    void broadcastIntent(Intent intent) {
+//        appContext.sendBroadcast(intent);
+//    }
 
     public static boolean didStart(Intent intent) {
         return intent.getBooleanExtra(EXTRA_DID_START, true);
