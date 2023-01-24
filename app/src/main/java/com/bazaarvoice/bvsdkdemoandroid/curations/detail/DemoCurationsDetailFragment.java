@@ -233,7 +233,7 @@ public class DemoCurationsDetailFragment extends Fragment {
             if (video.getOrigin().equalsIgnoreCase("youtube")) {
                 videoView.setVisibility(View.GONE);
                 webView.setVisibility(View.VISIBLE);
-                webView.getSettings().setJavaScriptEnabled(true);
+              //  webView.getSettings().setJavaScriptEnabled(true);
 
                 final ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override

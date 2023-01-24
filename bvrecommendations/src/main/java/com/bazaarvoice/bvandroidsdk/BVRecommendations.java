@@ -134,7 +134,7 @@ public class BVRecommendations {
             bvLogger.v(TAG, "Getting recommendations: " + requestData.getRequestUrl());
 
             Request request = new Request.Builder()
-                    .url(requestData.getRequestUrl())
+                    .url(requestData.requestUrl)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                     .build();

@@ -176,7 +176,7 @@ public class BVLocationManager {
             String bvVisitStr = gson.toJson(bvVisit);
             intent.putExtra(EXTRA_BV_VISIT, bvVisitStr);
             intent.putExtra(EXTRA_DID_START, didStart);
-            bvLocationManager.broadcastIntent(intent);
+          //  bvLocationManager.broadcastIntent(intent);
 
             for (BVLocationListener locationListener : visitListeners.getListeners()) {
                 if (locationListener != null) {
