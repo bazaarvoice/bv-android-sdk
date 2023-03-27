@@ -25,6 +25,7 @@ android {
 
   useLibrary 'android.test.base'
   useLibrary 'android.test.mock'
+  namespace 'com.bazaarvoice.bvandroidsdk_common'
 
 }
 

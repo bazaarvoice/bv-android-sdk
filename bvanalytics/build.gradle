@@ -6,6 +6,7 @@ android {
       systemProperty 'robolectric.logging.enabled', 'true'
     }
   }
+  namespace 'com.bazaarvoice.bvandroidsdk_analytics'
 }
 
 dependencies {

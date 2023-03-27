@@ -8,7 +8,6 @@
  * apply from: rootProject.file('gradle/base-module-android.gradle')
  */
 apply plugin: 'com.android.library'
-apply from: rootProject.file('gradle/findbugs.gradle')
 //apply plugin: 'com.getkeepsafe.dexcount' // Cannot use Dexcount Plugin + Android Gradle Plugin 3.0.0 on AARs until https://github.com/KeepSafe/dexcount-gradle-plugin/issues/222 is resolved
 
 android {
@@ -51,8 +50,8 @@ android {
     unitTests.all {
       systemProperty 'robolectric.dependency.repo.url', 'https://repo.bazaarvoice.com:443/nexus/content/groups/public'
       systemProperty 'robolectric.dependency.repo.id', 'nexus'
-      systemProperty 'robolectric.dependency.repo.username', NEXUS_USER
-      systemProperty 'robolectric.dependency.repo.password', NEXUS_PASSWORD
+      systemProperty 'robolectric.dependency.repo.username', 'NEXUS_USER'
+      systemProperty 'robolectric.dependency.repo.password', 'NEXUS_PASSWORD'
       systemProperty 'javax.net.ssl.trustScoreType', 'JKS'
     }
   }

@@ -22,5 +22,9 @@ dependencies {
     testCompileOnly sdkDep.playServiceAds
 }
 
+android {
+    namespace 'com.bazaarvoice.bvandroidsdk_storenotifications'
+}
+
 apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

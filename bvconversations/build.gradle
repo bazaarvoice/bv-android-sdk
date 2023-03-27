@@ -23,6 +23,7 @@ android {
     defaultConfig {
         consumerProguardFiles 'proguard-rules.txt'
     }
+    namespace 'com.bazaarvoice.bvandroidsdk_conversations'
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

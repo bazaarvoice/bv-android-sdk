@@ -20,6 +20,10 @@ dependencies {
     testCompileOnly sdkDep.gson
 }
 
+android {
+    namespace 'com.bazaarvoice.bvandroidsdk_conversationsui'
+}
+
 apply from: rootProject.file('gradle/setup-signing.gradle')
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 
