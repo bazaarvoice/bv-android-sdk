@@ -1,17 +1,18 @@
 buildscript {
-    ext.kotlin_version = '1.3.50'
+    ext.kotlin_version = '1.8.10'
     apply from: rootProject.file('dependencies.gradle')
 
   repositories {
     google()
-    jcenter()
+    mavenCentral()
   }
 
   dependencies {
-    classpath sdkBuildDep.androidPlugin
+    classpath 'com.android.tools.build:gradle:7.4.0'
     classpath sdkBuildDep.dexCountPlugin
     classpath sdkBuildDep.credentialsPlugin
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
   }
 }
 
@@ -34,7 +35,7 @@ subprojects {
       }
     }
     google()
-    jcenter()
+    mavenCentral()
   }
 
   if (!isRootProject) {
