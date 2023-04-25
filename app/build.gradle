@@ -8,7 +8,6 @@ repositories {
 }
 apply plugin: 'maven-publish'
 apply plugin: 'com.android.application'
-apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
 apply plugin:  'kotlin-parcelize'
 
@@ -26,10 +25,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dexOptions {
-        // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
-        preDexLibraries = preDexEnabled && !isCi
-    }
+
     packagingOptions {
         resources {
             excludes += ['META-INF/LICENSE', 'META-INF/NOTICE', 'META-INF/DEPENDENCIES']
@@ -81,10 +77,7 @@ android {
     lint {
         abortOnError false
     }
-    buildFeatures
-            {
-                viewBinding = true
-            }
+
 
 }
 
@@ -115,7 +108,7 @@ dependencies {
         implementation "com.bazaarvoice.bvandroidsdk:conversations-ui:$demoAppSharedVersions.bvSdkVersion"
     }
     //BVSDK Dependencies
-    implementation 'com.google.android.gms:play-services-ads:21.5.0'
+    implementation sdkDep.playServiceAdsIdentifier
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
@@ -138,6 +131,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation 'com.google.dagger:dagger:2.28.3'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.28.3"
     implementation 'com.google.dagger:dagger-android:2.17'
     implementation 'com.jakewharton:butterknife:10.0.0'
     implementation 'com.jakewharton:butterknife-compiler:10.0.0'
@@ -165,13 +159,16 @@ dependencies {
 
 
     api 'com.google.guava:guava:27.0.1-android'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.17'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.17'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.28.3'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.28.3'
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:2.10'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
     testImplementation 'junit:junit:4.13.2'
     testImplementation "androidx.compose.ui:ui-test-junit4:1.4.0"
+
+    implementation 'com.android.databinding:viewbinding:7.4.2'
+
+
 
 }

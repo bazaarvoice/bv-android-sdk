@@ -15,7 +15,6 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigModule;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.questions.DemoQuestionsCache;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoReviewsCache;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
-import com.squareup.leakcanary.LeakCanary;
 
 import javax.inject.Inject;
 
@@ -34,14 +33,7 @@ public class DemoApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        if (DEBUG) {
-            if (LeakCanary.isInAnalyzerProcess(this)) {
-                // This process is dedicated to LeakCanary for heap analysis.
-                // You should not init your app in this process.
-                return;
-            }
-            LeakCanary.install(this);
-        }
+
 
         appComponent = DaggerDemoAppComponent.builder()
                 .demoAppModule(new DemoAppModule())
