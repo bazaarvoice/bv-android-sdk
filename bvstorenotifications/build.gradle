@@ -19,7 +19,7 @@ dependencies {
     testCompileOnly project(':bvanalytics')
     testCompileOnly project(':bvcommon')
     testCompileOnly sdkDep.gson
-    testCompileOnly sdkDep.playServiceAds
+    testCompileOnly sdkDep.playServiceAdsIdentifier
 }
 
 android {

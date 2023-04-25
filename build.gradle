@@ -8,7 +8,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.4.0'
+    classpath 'com.android.tools.build:gradle:7.4.2'
     classpath sdkBuildDep.dexCountPlugin
     classpath sdkBuildDep.credentialsPlugin
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

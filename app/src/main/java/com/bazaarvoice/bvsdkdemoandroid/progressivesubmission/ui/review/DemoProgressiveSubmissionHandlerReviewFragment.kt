@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +19,7 @@ import com.bazaarvoice.bvsdkdemoandroid.R
 import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.cache.DemoSubmissionFormCache
 import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.persistance.DemoBVPersistableProductDatabase
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil
-import kotlinx.android.synthetic.main.demo_progressive_submission_review_fragment.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -59,6 +62,11 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val formFieldsView = view.findViewById<ProgressiveSubmissionFormItemView>(R.id.formFieldsView)
+        val userRating = view.findViewById<RatingBar>(R.id.userRating)
+        val upload = view.findViewById<Button>(R.id.upload)
+        val buttonComplete = view.findViewById<FloatingActionButton>(R.id.button_complete)
+
         formFieldsView.formSubmissionHandler = this
         userRating.setOnRatingBarChangeListener { _, rating, _ ->
             onReviewItemSubmitted("rating", rating.toInt().toString())
@@ -79,7 +87,7 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
             bvConversationsClient.prepareCall(photoUploadRequest).loadAsync(photoUploadCallback)
         }
 
-        button_complete.setOnClickListener {
+        buttonComplete.setOnClickListener {
             uiScope.launch {
                 withContext(Dispatchers.IO) {
                     demoBVPersistableProductDatabase.demoBVPersistableProductContentDao().delete(productId)

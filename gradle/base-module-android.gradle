@@ -19,10 +19,7 @@ android {
     targetCompatibility sdkBuildInfo.targetCompatibilityVersion
   }
 
-  dexOptions {
-    // Skip pre-dexing when running on CI server or when disabled via -Dpre-dex=false.
-    preDexLibraries = preDexEnabled && !isCi
-  }
+
 
   defaultConfig {
     minSdkVersion sdkBuildInfo.minSdkVersion

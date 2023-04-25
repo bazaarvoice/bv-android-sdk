@@ -4,7 +4,7 @@ dependencies {
   implementation project(':bvanalytics')
   implementation sdkDep.okhttp3
   implementation sdkDep.recyclerview
-  implementation sdkDep.playServiceAds
+  implementation sdkDep.playServiceAdsIdentifier
   implementation sdkDep.gson
 
   // Dependencies for local unit tests
