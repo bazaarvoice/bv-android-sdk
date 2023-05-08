@@ -108,7 +108,7 @@ dependencies {
         implementation "com.bazaarvoice.bvandroidsdk:conversations-ui:$demoAppSharedVersions.bvSdkVersion"
     }
     //BVSDK Dependencies
-    implementation sdkDep.playServiceAdsIdentifier
+    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
@@ -168,6 +168,8 @@ dependencies {
     testImplementation "androidx.compose.ui:ui-test-junit4:1.4.0"
 
     implementation 'com.android.databinding:viewbinding:7.4.2'
+
+    implementation "androidx.core:core-ktx:1.10.0"
 
 
 
