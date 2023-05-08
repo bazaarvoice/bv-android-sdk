@@ -15,10 +15,10 @@ ext {
     // all artifacts with the same version number. This block is for sharing
     // the version number in one location for those artifacts
     sdkSharedVersions = [
-        okhttp3Version : '3.10.0',
+        okhttp3Version : '3.12.0',
         supportLibraryVersion : '28.0.0',
         gimbalVersion : '2.72',
-        playServicesAdsIdentifier : '17.1.0',
+        playServicesAdsIdentifier : '18.0.1',
         robolectric: '4.3',
         robolectricAddOn : '4.3',
         androidx: '1.0.0'
@@ -37,7 +37,7 @@ ext {
 
         // common
         okhttp3             : "com.squareup.okhttp3:okhttp:$sdkSharedVersions.okhttp3Version",
-        gson                : 'com.google.code.gson:gson:2.8.5',
+        gson                : 'com.google.code.gson:gson:2.9.0',
         playServiceAdsIdentifier      : "com.google.android.gms:play-services-ads-identifier:$sdkSharedVersions.playServicesAdsIdentifier",
         recyclerview        : "androidx.recyclerview:recyclerview:$sdkSharedVersions.androidx",
 
