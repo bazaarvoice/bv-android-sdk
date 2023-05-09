@@ -37,7 +37,7 @@
             />
         <activity
             android:name=".curations.detail.DemoCurationsDetailActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_curations_detail" />
         <activity
             android:name=".curations.feed.DemoCurationsFeedActivity"
