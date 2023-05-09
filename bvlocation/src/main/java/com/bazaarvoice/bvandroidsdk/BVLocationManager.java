@@ -115,9 +115,9 @@ public class BVLocationManager {
         return new BVVisit(name, address, city, state, zip, storeId, dwellTimeMillis);
     }
 
-    void broadcastIntent(Intent intent) {
-        appContext.sendBroadcast(intent);
-    }
+//    void broadcastIntent(Intent intent) {
+//        appContext.sendBroadcast(intent);
+//    }
 
     public static boolean didStart(Intent intent) {
         return intent.getBooleanExtra(EXTRA_DID_START, true);
@@ -176,7 +176,7 @@ public class BVLocationManager {
             String bvVisitStr = gson.toJson(bvVisit);
             intent.putExtra(EXTRA_BV_VISIT, bvVisitStr);
             intent.putExtra(EXTRA_DID_START, didStart);
-            bvLocationManager.broadcastIntent(intent);
+          //  bvLocationManager.broadcastIntent(intent);
 
             for (BVLocationListener locationListener : visitListeners.getListeners()) {
                 if (locationListener != null) {
