@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bazaarvoice.bvsdkdemoandroid">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -16,10 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.DarkActionBar">
 
-        <activity android:name=".progressivesubmission.DemoProgressiveSubmissionActivity" />
+        <activity android:name=".progressivesubmission.DemoProgressiveSubmissionActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".DemoMainActivity"
             android:label="@string/app_name"
+            android:exported="true"
+            tools:node="merge"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,33 +32,40 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".recommendations.detail.DemoProductDetailActivity" />
+        <activity android:name=".recommendations.detail.DemoProductDetailActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".curations.detail.DemoCurationsDetailActivity"
             android:exported="true"
             android:label="@string/title_activity_curations_detail" />
         <activity
             android:name=".curations.feed.DemoCurationsFeedActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/title_activity_curations_feed" />
         <activity
             android:name=".curations.DemoCurationsPostActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/title_activity_curations_post" />
         <activity
             android:name=".settings.DemoSettingsActivity"
             android:label="@string/settings_launcher_name"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".cart.DemoCartActivity"
-            android:label="@string/title_activity_cart" />
+            android:label="@string/title_activity_cart"
+            android:exported="false"
+            />
         <activity
             android:name=".detail.DemoFancyProductDetailActivity"
             android:label="@string/title_activity_fancy_product_detail"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".home.DemoHomeActivity"
             android:label="@string/title_activity_demo_app"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:taskAffinity="com.bazaarvoice.bvsdkdemoandroid.newhome">
             <intent-filter>
@@ -65,43 +76,58 @@
         </activity>
         <activity
             android:name=".conversations.reviews.DemoReviewsActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/title_activity_reviews"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conversations.reviews.DemoStoreReviewsActivity"
             android:label="@string/title_activity_store_reviews"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conversations.questions.DemoQuestionsActivity"
             android:label="@string/title_activity_questions"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conversations.answers.DemoAnswersActivity"
             android:label="@string/title_activity_answers"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conversations.comments.DemoCommentsActivity"
             android:label="@string/title_activity_comments"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conversations.bulkratings.DemoBulkRatingsActivity"
             android:label="@string/title_activity_bulkratings"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".conversations.productstats.DemoProductStatsActivity"
-            android:label="@string/title_activity_product_stats" />
+            android:label="@string/title_activity_product_stats"
+            android:exported="false"
+            />
         <activity
             android:name=".curations.map.DemoCurationsMapsActivity"
-            android:label="@string/title_activity_curations_map" />
+            android:label="@string/title_activity_curations_map"
+            android:exported="false"
+            />
         <activity
             android:name=".conversations.DemoRateActivity"
-            android:label="@string/title_activity_rate" />
+            android:label="@string/title_activity_rate"
+            android:exported="false"
+            />
         <activity
             android:name=".author.DemoAuthorActivity"
-            android:label="@string/title_activity_author" />
+            android:label="@string/title_activity_author"
+            android:exported="false"
+            />
         <activity android:name=".conversations.ReviewHighlights.DemoReviewHighlightsActivity"
-            android:label="@string/title_activity_review_highlights"/>
+            android:label="@string/title_activity_review_highlights"
+            android:exported="false"
+            />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -123,10 +149,14 @@
 
         <activity
             android:name=".stores.DemoStoresActivity"
-            android:label="@string/title_activity_stores" />
+            android:label="@string/title_activity_stores"
+            android:exported="false"
+            />
         <activity
             android:name=".conversations.reviews.submit.DemoSubmitReviewActivity"
-            android:label="@string/title_activity_submit_review" />
+            android:label="@string/title_activity_submit_review"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

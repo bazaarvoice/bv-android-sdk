@@ -19,7 +19,11 @@ dependencies {
     testCompileOnly project(':bvanalytics')
     testCompileOnly project(':bvcommon')
     testCompileOnly sdkDep.gson
-    testCompileOnly sdkDep.playServiceAds
+    testCompileOnly sdkDep.playServiceAdsIdentifier
+}
+
+android {
+    namespace 'com.bazaarvoice.bvandroidsdk_storenotifications'
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')
