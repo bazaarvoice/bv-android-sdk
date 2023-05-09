@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.13.0
+## Upgrade Gradle
+
+* Upgraded Gradle and Dependencies of AndroidX,GoogleAds,Kotlin etc.
+
 # 8.12.1
 ## Fixed Capturing of the PII data
 
