@@ -7,7 +7,7 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.view.Display;
 
-import com.google.android.gms.ads.AdRequest;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,20 +59,7 @@ public class DemoUtils {
         return value != null ? value : defaultValue;
     }
 
-    public static String getDfpAdErrorMessage(int errorCode) {
-        switch (errorCode) {
-            case AdRequest.ERROR_CODE_INTERNAL_ERROR:
-                return "Something happened internally; for instance, an invalid response was received from the ad server.";
-            case AdRequest.ERROR_CODE_NETWORK_ERROR:
-                return "The ad request was unsuccessful due to network connectivity.";
-            case AdRequest.ERROR_CODE_INVALID_REQUEST:
-                return "The ad request was invalid; for instance, the ad unit ID was incorrect.";
-            case AdRequest.ERROR_CODE_NO_FILL:
-                return "The ad request was successful, but no ad was returned due to lack of ad inventory.";
-            default:
-                return "unknown error code";
-        }
-    }
+
 
     public static Point getScreenDimensions(Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();

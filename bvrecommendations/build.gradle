@@ -6,7 +6,7 @@ dependencies {
     compileOnly sdkDep.recyclerview
     compileOnly sdkDep.gson
     compileOnly sdkDep.okhttp3
-    compileOnly sdkDep.playServiceAds
+    compileOnly sdkDep.playServiceAdsIdentifier
 
     // Dependencies for local unit tests
     testImplementation sdkTestDep.junit
@@ -15,7 +15,11 @@ dependencies {
     testImplementation sdkTestDep.robolectric
     testCompileOnly project(':bvanalytics')
     testCompileOnly sdkDep.gson
-    testCompileOnly sdkDep.playServiceAds
+    testCompileOnly sdkDep.playServiceAdsIdentifier
+}
+
+android {
+    namespace 'com.bazaarvoice.bvandroidsdk_recommendations'
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

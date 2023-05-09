@@ -16,8 +16,12 @@ dependencies {
     testImplementation sdkTestDep.robolectric
     testImplementation project(':bvanalytics')
     testCompileOnly sdkTestDep.androidJson
-    testCompileOnly sdkDep.playServiceAds
+    testCompileOnly sdkDep.playServiceAdsIdentifier
     testCompileOnly sdkDep.gson
+}
+
+android {
+    namespace 'com.bazaarvoice.bvandroidsdk_conversationsui'
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

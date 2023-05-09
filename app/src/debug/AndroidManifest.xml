@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.bazaarvoice.bvsdkdemoandroid">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -13,6 +12,7 @@
         android:name="com.bazaarvoice.bvsdkdemoandroid.DemoApp"
         android:allowBackup="true"
         android:supportsRtl="true"
+        tools:replace="android:name"
         android:theme="@style/AppTheme.DarkActionBar">
 
         <activity
@@ -21,6 +21,7 @@
             tools:replace="android:icon"
             android:icon="@mipmap/ic_code_sample_launcher"
             android:roundIcon="@mipmap/ic_code_sample_launcher"
+            android:exported="true"
             android:taskAffinity="com.bazaarvoice.bvsdkdemoandroid.codesamples"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

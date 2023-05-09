@@ -4,7 +4,7 @@ dependencies {
   implementation project(':bvanalytics')
   implementation sdkDep.okhttp3
   implementation sdkDep.recyclerview
-  implementation sdkDep.playServiceAds
+  implementation sdkDep.playServiceAdsIdentifier
   implementation sdkDep.gson
 
   // Dependencies for local unit tests
@@ -25,6 +25,7 @@ android {
 
   useLibrary 'android.test.base'
   useLibrary 'android.test.mock'
+  namespace 'com.bazaarvoice.bvandroidsdk_common'
 
 }
 
