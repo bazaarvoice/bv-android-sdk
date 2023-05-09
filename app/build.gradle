@@ -165,7 +165,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "androidx.compose.ui:ui-test-junit4:1.4.0"
+    testImplementation "androidx.compose.ui:ui-test-junit4:1.4.3"
 
     implementation 'com.android.databinding:viewbinding:7.4.2'
 

@@ -56,7 +56,7 @@ ext {
         robolectric         : "org.robolectric:robolectric:$sdkSharedVersions.robolectric",
         roboPlayServices    : "org.robolectric:shadows-playservices:$sdkSharedVersions.robolectricAddOn",
         androidJson         : "org.json:json:20160810",
-        androidXTest        : "androidx.test:core:1.2.0"
+        androidXTest        : "androidx.test:core:1.4.0"
 
     ]
 
