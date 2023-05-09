@@ -78,6 +78,7 @@ public abstract class ReviewDisplayRequestBuilder<BuilderType, RequestType> exte
     Filter filter = new Filter(filterBy, EqualityOperator.EQ, id);
     addFilter(filter);
     this.incentivizedStats = false;
+    this.secondaryratingstats = false;
     this.tagStats = false;
     this.feature = new String();
     this.contextDataValues = new HashMap<>();
