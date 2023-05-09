@@ -6,7 +6,7 @@
     app:startDestination="@id/demoReviewableProductsFragment">
 
     <fragment
-        tools:layout="@layout/Unresolved reference: FragmentDemoProgressiveSubmissionHandlerReviewBindingdemo_progressive_submission_review"
+        tools:layout="@layout/demo_progressive_submission_review_fragment"
         android:id="@+id/demoProgressiveSubmissionHandlerReviewFragment"
         android:name="com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.review.DemoProgressiveSubmissionHandlerReviewFragment"
         android:label="DemoProgressiveSubmissionHandlerReviewFragment" >
