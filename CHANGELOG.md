@@ -3,7 +3,7 @@
 # 8.14.0
 ## Upgrade Gradle
 
-* Upgraded Gradle and Dependencies of AndroidX,GoogleAds,Kotlin etc.
+* Upgraded Gradle and Dependencies of AndroidX,GoogleAds,  Kotlin etc.
 
 # 8.13.0
 ## Upgrade Gradle
