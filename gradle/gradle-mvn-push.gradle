@@ -16,6 +16,7 @@
 
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
+apply plugin: 'nu.studer.credentials'
 
 version = VERSION_NAME
 group = GROUP
@@ -25,41 +26,33 @@ def isReleaseBuild() {
 }
 
 def isOpenSourceRelease() {
-  return hasProperty('openSourceRelease') && openSourceRelease.toBoolean()
+  return true
 }
 
 def getReleaseRepositoryUrl() {
   if (isOpenSourceRelease()) {
-    // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
     return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
   } else {
     if (hasProperty('RELEASE_REPOSITORY_URL')) {
-      // else get the BV Maven Repo URL if it exists
       return RELEASE_REPOSITORY_URL
     } else {
       throw new GradleException("RELEASE_REPOSITORY_URL must be defined in " +
               "~/.gradle/gradle.properties and point to the internal BV maven repo")
     }
   }
-  return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-          : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 }
 
 def getSnapshotRepositoryUrl() {
   if (isOpenSourceRelease()) {
-    // if -PopenSourceRelease=true is passed in then get BV Maven Repo URL
     return "https://oss.sonatype.org/content/repositories/snapshots/"
   } else {
     if (hasProperty('SNAPSHOT_REPOSITORY_URL')) {
-      // else get the BV Maven Repo URL if it exists
       return SNAPSHOT_REPOSITORY_URL
     } else {
       throw new GradleException("SNAPSHOT_REPOSITORY_URL must be defined in " +
               "~/.gradle/gradle.properties and point to the internal BV maven repo")
     }
   }
-  return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-          : "https://oss.sonatype.org/content/repositories/snapshots/"
 }
 
 def getRepositoryUsername() {
@@ -78,7 +71,6 @@ def getRepositoryUsername() {
               "~/.gradle/gradle.properties")
     }
   }
-  return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
 }
 
 def getRepositoryPassword() {
@@ -97,8 +89,8 @@ def getRepositoryPassword() {
               "~/.gradle/gradle.encrypted.properties")
     }
   }
-  return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
 }
+
 
 def configurePom(pom) {
   pom.name = POM_NAME
@@ -128,43 +120,91 @@ def configurePom(pom) {
   }
 }
 
-afterEvaluate { project ->
+
+afterEvaluate {
   publishing {
-    if (isReleasing) { // Only add the uploadArchives task if we are releasing
-      logger.info("BVSDK Upload Archives for " + POM_ARTIFACT_ID)
+    publications {
+      maven(MavenPublication) {
+        from components.NEXUS_USER
 
-      repositories {
-        maven {
-          def NEXUS_USERsRepoUrl = getReleaseRepositoryUrl()
-          def snapshotsRepoUrl = getSnapshotRepositoryUrl()
-          url = isReleaseBuild() ? NEXUS_USERsRepoUrl : snapshotsRepoUrl
 
-          credentials(PasswordCredentials) {
-            username = getRepositoryUsername()
-            password = getRepositoryPassword()
+        groupId = GROUP
+        artifactId = POM_ARTIFACT_ID
+        version = VERSION_NAME
+
+        pom.name = POM_NAME
+        pom.packaging = POM_PACKAGING
+        pom.description = POM_DESCRIPTION
+        pom.url = POM_URL
+
+        pom.scm {
+          url = POM_SCM_URL
+          connection = POM_SCM_CONNECTION
+          developerConnection = POM_SCM_DEV_CONNECTION
+        }
+
+        pom.licenses {
+          license {
+            name = POM_LICENCE_NAME
+            url = POM_LICENCE_URL
+            distribution = POM_LICENCE_DIST
           }
+        }
+
+        pom.developers {
+          developer {
+            id = POM_DEVELOPER_ID
+            name = POM_DEVELOPER_NAME
+          }
+
+        }
+      }
+
+
+    }
+    repositories {
+      maven {
+        def NEXUS_USERsRepoUrl = getReleaseRepositoryUrl()
+        def snapshotsRepoUrl = getSnapshotRepositoryUrl()
+        url = isReleaseBuild() ? NEXUS_USERsRepoUrl : snapshotsRepoUrl
+
+        credentials(PasswordCredentials) {
+          username = getRepositoryUsername()
+          password = getRepositoryPassword()
         }
       }
     }
   }
 
-  if (project.getPlugins().hasPlugin('com.android.application') ||
-          project.getPlugins().hasPlugin('com.android.library')) {
+  signing {
+    sign publishing.publications.maven
+  }
 
-    task androidJavadocs(type: Javadoc) {
-      source = android.sourceSets.main.java.source
-      classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-      excludes = ['**/*.kt']
-    }
+  task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  }
 
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-      classifier = 'javadoc'
-      from androidJavadocs.destinationDir
-    }
+  task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    archiveClassifier.set('javadoc')
+    from androidJavadocs.destinationDir
+  }
 
-    task androidSourcesJar(type: Jar) {
-      classifier = 'sources'
-      from android.sourceSets.main.java.source
+  task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.sourceFiles
+  }
+
+  allprojects {
+    tasks.withType(Javadoc) {
+      options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        failOnError false
+        version true
+        links "https://developer.android.google.cn/reference/"
+      }
     }
   }
 
@@ -175,7 +215,6 @@ afterEvaluate { project ->
       }
     }
   }
-
   if (JavaVersion.current().isJava9Compatible()) {
     allprojects {
       tasks.withType(Javadoc) {
@@ -185,32 +224,7 @@ afterEvaluate { project ->
   }
 
   artifacts {
-    if (project.getPlugins().hasPlugin('com.android.application') ||
-            project.getPlugins().hasPlugin('com.android.library')) {
-      archives androidSourcesJar
-      archives androidJavadocsJar
-    }
-  }
-
-  android.libraryVariants.all { variant ->
-    tasks.androidJavadocs.doFirst {
-      classpath += files(variant.javaCompileProvider.get().classpath.files.join(File.pathSeparator))
-    }
-  }
-
-  publishing.publications.all { publication ->
-    publication.groupId = GROUP
-    publication.version = VERSION_NAME
-
-    publication.artifact androidSourcesJar
-    publication.artifact androidJavadocsJar
-
-    configurePom(publication.pom)
-  }
-
-  signing {
-    publishing.publications.all { publication ->
-      sign publication
-    }
+    archives androidSourcesJar
+    archives androidJavadocsJar
   }
 }
