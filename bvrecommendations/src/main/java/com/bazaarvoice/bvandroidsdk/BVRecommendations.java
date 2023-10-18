@@ -134,13 +134,6 @@ public class BVRecommendations {
             bvLogger.v(TAG, "Getting recommendations: " + requestData.getRequestUrl());
             URL url = requestData.getRequestUrl();
 
-            // Parse and validate the URL
-            String scheme = url.getProtocol(); // Get the URL scheme (protocol)
-            if (!scheme.equals("http") && !scheme.equals("https")) {
-                throw new IllegalArgumentException("Only HTTP and HTTPS schemes are allowed");
-            }
-
-
             Request request = new Request.Builder()
                     .url(url)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
