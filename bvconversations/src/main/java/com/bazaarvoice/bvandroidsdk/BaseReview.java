@@ -49,6 +49,11 @@ public abstract class BaseReview extends IncludedContentBase.ProductIncludedCont
     private Boolean isRecommended;
     @SerializedName(value = "IsSyndicated", alternate = "isSyndicated")
     private Boolean isSyndicated;
+    public String getOriginalProductName() {
+        return originalProductName;
+    }
+    @SerializedName(value = "OriginalProductName", alternate = "originalProductName")
+    private String originalProductName;
     @SerializedName(value = "IsRatingsOnly", alternate = "isRatingsOnly")
     private Boolean isRatingsOnly;
     @SerializedName(value = "Rating", alternate = "rating")

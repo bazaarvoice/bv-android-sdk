@@ -852,4 +852,14 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertEquals(5, response.getResults().get(0).getProductStatistics().getQAStatistics().getTotalAnswerCount().intValue());
 
     }
+
+    @Test
+    public void testReviewForOriginalProductName() throws Exception {
+
+        ReviewResponse response = parseJsonResourceFile("reviews_with_original_product_name.json", ReviewResponse.class, gson);
+        Review firstReview = response.getResults().get(0);
+
+        assertEquals("14K White Gold Diamond Teardrop Necklace", firstReview.getOriginalProductName());
+
+    }
 }
