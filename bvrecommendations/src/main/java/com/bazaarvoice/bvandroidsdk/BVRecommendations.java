@@ -132,9 +132,10 @@ public class BVRecommendations {
             ShopperProfile shopperProfile = new ShopperProfile();
 
             bvLogger.v(TAG, "Getting recommendations: " + requestData.getRequestUrl());
+            URL url = requestData.getRequestUrl();
 
             Request request = new Request.Builder()
-                    .url(requestData.requestUrl)
+                    .url(url)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                     .build();
