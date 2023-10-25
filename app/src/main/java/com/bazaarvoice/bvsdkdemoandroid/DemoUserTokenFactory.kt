@@ -1,5 +1,6 @@
 package com.bazaarvoice.bvsdkdemoandroid
 
+import java.security.SecureRandom
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.crypto.Mac
@@ -12,6 +13,7 @@ import javax.crypto.spec.SecretKeySpec
 internal object DemoUserTokenFactory {
 
     var UAS:String? = null
+    private val secureRandom = SecureRandom()
     @JvmStatic
     @JvmName("generateUserToken")
     internal fun generateUserToken(userEmail: String, userId: String, encodingKey: String): String {
@@ -49,11 +51,17 @@ internal object DemoUserTokenFactory {
         if(UAS != null) {
             return UAS!!
         }
-        val mockEncodingKey = "mockencodingkey"
+        val mockEncodingKey = generateRandomKey().toHex();
         val id = Date().time
         val mockEmail = "bvtestuser$id@bv.com"
         val mockUserId = "local-$id"
         UAS = generateUserToken(mockEmail, mockUserId, mockEncodingKey)
         return UAS!!
+    }
+
+    private fun generateRandomKey(): ByteArray {
+        val key = ByteArray(32)
+        secureRandom.nextBytes(key)
+        return key
     }
 }
