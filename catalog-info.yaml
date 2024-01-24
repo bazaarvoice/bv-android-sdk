@@ -1,0 +1,99 @@
+#########################################################################################
+#   Resources - Secrets
+#########################################################################################
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: bvsdk_config_staging_apiKeyConversations
+  title: bvsdk_config_staging_apiKeyConversations
+  description: Staging Client Keys for Connversations
+  tags:
+    - secret
+    - mobile-sdk
+    - security
+  links:
+    - url: https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/78625898606/MOBILE+SDK+-Secrets+Catalog
+      title: MOBILE SDK - Secrets Catalog
+      icon: docs
+spec:
+  type: secret
+  system: mobile-sdk
+  owner: mobile-sdk
+  lifecycle: production
+  dependsOn:
+    - resource:aws-secrets-manager
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: bvsdk_config_staging_apiKeyProgressiveSubmission
+  title: bvsdk_config_staging_apiKeyProgressiveSubmission
+  description: Staging Client Keys for ProgressiveSubmission
+  tags:
+    - secret
+    - mobile-sdk
+    - security
+  links:
+    - url: https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/78625898606/MOBILE+SDK+-Secrets+Catalog
+      title: MOBILE SDK - Secrets Catalog
+      icon: docs
+spec:
+  type: secret
+  system: mobile-sdk
+  owner: mobile-sdk
+  lifecycle: production
+  dependsOn:
+    - resource:aws-secrets-manager
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: bvsdk_config_staging_clientId
+  title: bvsdk_config_staging_clientId
+  description: Staging Client Id
+  tags:
+    - secret
+    - mobile-sdk
+    - security
+  links:
+    - url: https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/78625898606/MOBILE+SDK+-Secrets+Catalog
+      title: MOBILE SDK - Secrets Catalog
+      icon: docs
+spec:
+  type: secret
+  system: mobile-sdk
+  owner: mobile-sdk
+  lifecycle: production
+  dependsOn:
+    - resource:aws-secrets-manager
+
+---
+
+#########################################################################################
+#   Component
+#########################################################################################
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: bv-android-sdk
+  description: Bazaarvoice Mobile SDK for Android.
+  links:
+    - url: https://github.com/bvengineering/bv-android-dev
+      title: bv-android-sdk repository
+  tags:
+    - mobile-sdk
+spec:
+  type: service
+  lifecycle: production
+  owner: mobile-sdk
+  system: mobile-sdk
+  dependsOn:
+    - resource:apiKeyConversations
+    - resource:apiKeyProgressiveSubmission
+    - resource:clientId
+
+---
