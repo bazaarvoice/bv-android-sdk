@@ -92,8 +92,8 @@ spec:
   owner: mobile-sdk
   system: mobile-sdk
   dependsOn:
-    - resource:apiKeyConversations
-    - resource:apiKeyProgressiveSubmission
-    - resource:clientId
+    - resource:bvsdk_config_staging_apiKeyConversations
+    - resource:bvsdk_config_staging_apiKeyProgressiveSubmission
+    - resource:bvsdk_config_staging_clientId
 
 ---
