@@ -14,12 +14,12 @@ metadata:
     - security
   links:
     - url: https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/78625898606/MOBILE+SDK+-Secrets+Catalog
-      title: MOBILE SDK - Secrets Catalog
+      title: Internal Rotation Documentation
       icon: docs
 spec:
   type: secret
   system: mobile-sdk
-  owner: mobile-sdk
+  owner: mobile
   lifecycle: production
   dependsOn:
     - resource:aws-secrets-manager
@@ -35,14 +35,15 @@ metadata:
     - secret
     - mobile-sdk
     - security
+    - mobile
   links:
     - url: https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/78625898606/MOBILE+SDK+-Secrets+Catalog
-      title: MOBILE SDK - Secrets Catalog
+      title: Internal Rotation Documentation
       icon: docs
 spec:
   type: secret
   system: mobile-sdk
-  owner: mobile-sdk
+  owner: mobile
   lifecycle: production
   dependsOn:
     - resource:aws-secrets-manager
@@ -58,14 +59,15 @@ metadata:
     - secret
     - mobile-sdk
     - security
+    - mobile
   links:
     - url: https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/78625898606/MOBILE+SDK+-Secrets+Catalog
-      title: MOBILE SDK - Secrets Catalog
+      title: Internal Rotation Documentation
       icon: docs
 spec:
   type: secret
   system: mobile-sdk
-  owner: mobile-sdk
+  owner: mobile
   lifecycle: production
   dependsOn:
     - resource:aws-secrets-manager
@@ -86,10 +88,12 @@ metadata:
       title: bv-android-sdk repository
   tags:
     - mobile-sdk
+    - mobile
+    - java
 spec:
   type: service
   lifecycle: production
-  owner: mobile-sdk
+  owner: mobile
   system: mobile-sdk
   dependsOn:
     - resource:bvsdk_config_staging_apiKeyConversations
@@ -97,3 +101,4 @@ spec:
     - resource:bvsdk_config_staging_clientId
 
 ---
+
