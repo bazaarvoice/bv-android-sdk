@@ -170,7 +170,9 @@ class BasicRequestFactory implements RequestFactory {
 
     // region Submit Photo Request Keys
     private static final String PHOTO_SUBMIT_ENDPOINT = "data/uploadphoto.json";
+    private static final String VIDEO_SUBMIT_ENDPOINT = "data/uploadvideo.json";
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+    private static final MediaType MEDIA_TYPE_VIDEO = MediaType.parse("video/*");
     // endregion
 
     // region Get UAS Keys
@@ -257,7 +259,9 @@ class BasicRequestFactory implements RequestFactory {
             return createFromCommentSubmissionRequest((CommentSubmissionRequest) request);
         } else if (request instanceof PhotoUploadRequest) {
             return createFromPhotoUploadRequest((PhotoUploadRequest) request);
-        } else if (request instanceof UserAuthenticationStringRequest) {
+        } else if (request instanceof VideoUploadRequest) {
+            return createFromVideoUploadRequest((VideoUploadRequest) request);
+        }else if (request instanceof UserAuthenticationStringRequest) {
             return createFromUserAuthenticationStringRequest((UserAuthenticationStringRequest) request);
         } else if (request instanceof InitiateSubmitRequest) {
             return createFromInitiateSubmitRequest((InitiateSubmitRequest) request);
@@ -997,6 +1001,38 @@ class BasicRequestFactory implements RequestFactory {
                 .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
                 .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("photo", "photo.jpg", RequestBody.create(MEDIA_TYPE_JPG, upload.getPhotoFile()));
+
+        RequestBody requestBody = multiPartBuilder.build();
+        HttpUrl httpUrl = httpUrlBuilder.build();
+
+        Headers.Builder headersBuilder = new Headers.Builder();
+        addCommonHeaders(headersBuilder, bvSdkUserAgent);
+        Headers headers = headersBuilder.build();
+
+        return okRequestBuilder
+                .url(httpUrl)
+                .headers(headers)
+                .post(requestBody)
+                .build();
+    }
+
+    private Request createFromVideoUploadRequest(VideoUploadRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+                .newBuilder()
+                .addPathSegments(VIDEO_SUBMIT_ENDPOINT);
+
+        MultipartBody.Builder multiPartBuilder = new MultipartBody.Builder();
+
+        VideoUpload upload = request.getVideoUpload();
+
+        multiPartBuilder
+                .setType(MultipartBody.FORM)
+                .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
+                .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
+                .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
+                .addFormDataPart("video", "video.mp4", RequestBody.create(MEDIA_TYPE_VIDEO, upload.getVideoFile()));
 
         RequestBody requestBody = multiPartBuilder.build();
         HttpUrl httpUrl = httpUrlBuilder.build();

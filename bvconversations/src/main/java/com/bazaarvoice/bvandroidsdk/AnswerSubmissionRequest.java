@@ -63,5 +63,10 @@ public class AnswerSubmissionRequest extends ConversationsSubmissionRequest {
         PhotoUpload.ContentType getPhotoContentType() {
             return PhotoUpload.ContentType.ANSWER;
         }
+
+        @Override
+        VideoUpload.ContentType getVideoContentType() {
+            return VideoUpload.ContentType.ANSWER;
+        }
     }
 }

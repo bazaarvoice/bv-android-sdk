@@ -765,6 +765,13 @@ public class BasicRequestFactoryTest {
     }
 
   @Test
+  public void shouldCreateVideoUploadRequest() {
+    VideoUpload videoUpload = new VideoUpload(new File("filename"), "VideoTesting", VideoUpload.ContentType.REVIEW);
+    VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
+    assertNotNull(request);
+  }
+
+  @Test
   public void reviewShouldContainFeatureKeyword(){
       final Request okRequest = requestFactoryUtils.createFullReviewDisplayRequest();
     final HttpUrl httpUrl = okRequest.url();
