@@ -529,10 +529,11 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 final VideoUploadRequest uploadRequest = new VideoUploadRequest.Builder(upload).build();
                 BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload video request ready");
                 final Request okRequest = requestFactory.create(uploadRequest);
-                Call photoCall = okHttpClient.newCall(okRequest);
+                Call videoCall = okHttpClient.newCall(okRequest);
                 Response response = null;
                 try {
-                    response = photoCall.execute();
+                    response = videoCall.execute();
+
                     BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload video request executed");
                     Video video = deserializeVideoResponse(response);
                     video.setCaption(upload.getCaption());

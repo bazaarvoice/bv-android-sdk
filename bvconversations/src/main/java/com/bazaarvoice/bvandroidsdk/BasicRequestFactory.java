@@ -115,6 +115,8 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kACTION = "action";
     private static final String KEY_PHOTO_URL_TEMPLATE = "photourl_%d";
     private static final String KEY_PHOTO_CAPTION_TEMPLATE = "photocaption_%d";
+    private static final String KEY_VIDEO_URL_TEMPLATE = "videourl_%d";
+    private static final String KEY_VIDEO_CAPTION_TEMPLATE = "videocaption_%d";
     private static final String kPRODUCT_ID = "ProductId";
     // endregion
 
@@ -1031,7 +1033,7 @@ class BasicRequestFactory implements RequestFactory {
                 .setType(MultipartBody.FORM)
                 .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
                 .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
-                .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
+                .addFormDataPart(VideoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("video", "video.mp4", RequestBody.create(MEDIA_TYPE_VIDEO, upload.getVideoFile()));
 
         RequestBody requestBody = multiPartBuilder.build();
@@ -1246,6 +1248,7 @@ class BasicRequestFactory implements RequestFactory {
         }
 
         addSubmissionPhotosFormParams(formBodyBuilder, request);
+        addSubmissionVideosFormParams(formBodyBuilder, request);
     }
 
     private void addCommonProgressiveSubmissionJsonParams(JsonObject json, ConversationsSubmissionRequest request, String apiKey, BVMobileInfo bvMobileInfo, FingerprintProvider fingerprintProvider) {
@@ -1302,6 +1305,20 @@ class BasicRequestFactory implements RequestFactory {
                 final String keyPhotoCaption = String.format(Locale.US, KEY_PHOTO_CAPTION_TEMPLATE, idx);
                 formPutSafe(formBodyBuilder, keyPhotoUrl, photo.getContent().getNormalUrl());
                 formPutSafe(formBodyBuilder, keyPhotoCaption, photo.getCaption());
+                idx++;
+            }
+        }
+    }
+
+    private static void addSubmissionVideosFormParams(FormBody.Builder formBodyBuilder, ConversationsSubmissionRequest request) {
+        final List<Video> videos = request.getVideos();
+        if (videos != null) {
+            int idx = 0;
+            for (Video video : videos) {
+                final String keyVideoUrl = String.format(Locale.US, KEY_VIDEO_URL_TEMPLATE, idx);
+                final String keyVideoCaption = String.format(Locale.US, KEY_VIDEO_CAPTION_TEMPLATE, idx);
+                formPutSafe(formBodyBuilder, keyVideoUrl, video.getContent().getNormalUrl());
+                formPutSafe(formBodyBuilder, keyVideoCaption, video.getCaption());
                 idx++;
             }
         }
