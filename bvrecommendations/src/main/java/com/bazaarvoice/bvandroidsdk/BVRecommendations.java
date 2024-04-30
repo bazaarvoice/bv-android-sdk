@@ -140,6 +140,7 @@ public class BVRecommendations {
                 throw new IllegalArgumentException("Only HTTP and HTTPS schemes are allowed");
             }
 
+
             Request request = new Request.Builder()
                     .url(url)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
