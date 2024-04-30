@@ -25,7 +25,7 @@ public class DemoConstants {
     // Ad/Recommendations Other Config Options
     // User auth string pre-populated with a small profile
     // interested in men's and women's apparel -- for testing and demonstration purposes
-    public static final String BV_USER_AUTH_STRING = "0ce436b29697d6bc74f30f724b9b0bb6646174653d31323334267573657269643d5265636f6d6d656e646174696f6e7353646b54657374";
+    public static final String BV_USER_AUTH_STRING = "auth_token";
 
     // Ad Other Config Options
     public static final String DFP_TEST_DEVICE_ID = "REPLACE_ME";

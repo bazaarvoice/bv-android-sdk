@@ -164,6 +164,9 @@ public final class BVConversationsClient {
     public LoadCallProgressiveSubmission<PhotoUploadRequest, PhotoUploadResponse> prepareCall(PhotoUploadRequest request){
         return factoryCreateProgressiveSubmissionCall(PhotoUploadResponse.class, request);
     }
+    public LoadCallProgressiveSubmission<VideoUploadRequest, VideoUploadResponse> prepareCall(VideoUploadRequest request){
+        return factoryCreateProgressiveSubmissionCall(VideoUploadResponse.class, request);
+    }
 
     public LoadCallProgressiveSubmission<InitiateSubmitRequest, InitiateSubmitResponse> prepareCall(InitiateSubmitRequest request) {
         return factoryCreateProgressiveSubmissionCall(InitiateSubmitResponse.class, request);

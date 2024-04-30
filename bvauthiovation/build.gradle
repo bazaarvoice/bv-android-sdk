@@ -7,7 +7,7 @@ repositories {
 apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
 
 dependencies {
-  implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-4.1.1-NEXUS_USER:4.1.1@aar')
+  implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-4.1.1-release:4.1.1@aar')
   implementation project(':bvconversations')
   compileOnly project(':bvcommon')
   compileOnly sdkDep.gson

@@ -67,6 +67,7 @@ public class ConversationsStoresUnitTest extends BVBaseTest{
                 .addContextDataValueBoolean("key", true)
                 .addFreeFormTag("questionId", "value")
                 .addPhoto(new File("path/to/file"), "caption")
+                .addVideo(new File("path/to/file"),"caption")
                 .addPredefinedTag("questionId", "tagId", "value")
                 .addRatingQuestion("questionName", 100)
                 .addRatingSlider("questionName", "value")

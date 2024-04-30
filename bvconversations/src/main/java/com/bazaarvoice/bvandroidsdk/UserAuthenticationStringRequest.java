@@ -32,5 +32,10 @@ public class UserAuthenticationStringRequest extends ConversationsSubmissionRequ
     PhotoUpload.ContentType getPhotoContentType() {
       return null;
     }
+
+    @Override
+    VideoUpload.ContentType getVideoContentType() {
+      return null;
+    }
   }
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.16.0
+## Add Video Submission.
+
+* Allow SDK clients on submitreview.json to collect video natively.
+* Allow SDK  clients on progressive endpoint to collect video natively.
+
 # 8.15.0
 ## Add Product Level Attribution.
 

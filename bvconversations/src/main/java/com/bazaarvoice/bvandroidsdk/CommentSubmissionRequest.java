@@ -54,6 +54,11 @@ public class CommentSubmissionRequest extends ConversationsSubmissionRequest {
       return PhotoUpload.ContentType.COMMENT;
     }
 
+    @Override
+    VideoUpload.ContentType getVideoContentType() {
+      return VideoUpload.ContentType.COMMENT;
+    }
+
     public CommentSubmissionRequest build() {
       return new CommentSubmissionRequest(this);
     }

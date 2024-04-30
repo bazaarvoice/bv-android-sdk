@@ -19,44 +19,52 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 /**
  * Metadata for a video and its link
  */
 public class Video {
-    @SerializedName("VideoHost")
-    private String videoHost;
+
     @SerializedName("Caption")
     private String caption;
-    @SerializedName("VideoThumbnailUrl")
-    private String videoThumbnailUrl;
-    @SerializedName("VideoId")
-    private String videoId;
-    @SerializedName("VideoUrl")
-    private String videoUrl;
-    @SerializedName("VideoIframeUrl")
-    private String videoIframeUrl;
-
-    public String getVideoHost() {
-        return videoHost;
-    }
+    @SerializedName("Id")
+    private String id;
+    @SerializedName("Sizes")
+    private Photo.Content content;
 
     public String getCaption() {
         return caption;
     }
-
-    public String getVideoThumbnailUrl() {
-        return videoThumbnailUrl;
+    void setCaption(String caption) {
+        this.caption = caption;
     }
 
-    public String getVideoId() {
-        return videoId;
+    public String getId() {
+        return id;
     }
 
-    public String getVideoUrl() {
-        return videoUrl;
+    public Photo.Content getContent() {
+        return content;
     }
 
-    public String getVideoIframeUrl() {
-        return videoIframeUrl;
+    public class Content {
+        private static final String kURL = "Url";
+
+        @SerializedName("thumbnail")
+        private Map<String, Object> thumbnail;
+        @SerializedName("normal")
+        private Map<String, Object> normal;
+
+        private transient String thumbnailUrl;
+        private transient String normalUrl;
+
+        public String getThumbnailUrl() {
+            return (String) thumbnail.get(kURL);
+        }
+
+        public String getNormalUrl() {
+            return (String) normal.get(kURL);
+        }
     }
 }
