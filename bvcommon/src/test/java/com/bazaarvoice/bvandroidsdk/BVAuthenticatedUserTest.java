@@ -42,7 +42,7 @@ public class BVAuthenticatedUserTest extends BVBaseTest {
         super.setup();
         initMocks(this);
         baseurl = server.url("example.com/").toString();
-        shopperApiKey = "testString123";
+        shopperApiKey = "testString"+Math.random();
         okHttpClient = new OkHttpClient();
         gson = new Gson();
         bvLogger = new BVLogger(BVLogLevel.VERBOSE);

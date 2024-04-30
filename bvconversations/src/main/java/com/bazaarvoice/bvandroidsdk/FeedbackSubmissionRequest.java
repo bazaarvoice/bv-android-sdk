@@ -122,6 +122,11 @@ public class FeedbackSubmissionRequest extends ConversationsSubmissionRequest {
             // TODO: Return unsupported?
             return PhotoUpload.ContentType.QUESTION;
         }
+
+        @Override
+        VideoUpload.ContentType getVideoContentType() {
+            return VideoUpload.ContentType.QUESTION;
+        }
     }
 
 }

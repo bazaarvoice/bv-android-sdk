@@ -62,6 +62,13 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
                 .build();
     }
 
+    private VideoUploadRequest getStubVideoUploadRequest() {
+
+        File file = readFile("bv_sample_video.mp4", this.getClass());
+        return new VideoUploadRequest.Builder(new VideoUpload(file, "comments", VideoUpload.ContentType.REVIEW))
+                .build();
+    }
+
     @Test
     public void shouldCallFailureWithConversationsExceptionWhenHasErrorsIsTrue() throws Exception {
         final InitiateSubmitRequest request = getStubInitiateProgressiveSessionFormRequest();
@@ -247,6 +254,32 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
                 assertNotNull(response.getPhoto().getContent().getThumbnailUrl());
                 assertEquals("normalurl",response.getPhoto().getContent().getNormalUrl());
                 assertEquals("thumbnailurl",response.getPhoto().getContent().getThumbnailUrl());
+            }
+
+            @Override
+            public void onFailure(@NonNull ConversationsSubmissionException exception) {
+                fail();
+            }
+        });
+    }
+
+    @Test
+    public void shouldCompleteVideoUploadRequestSucessfully() throws Exception {
+        final VideoUploadRequest request = getStubVideoUploadRequest();
+        final BVConversationsClient client = clientRule.getClient();
+        clientRule.enqueueHttp200("photo_upload_response.json");
+        LoadCallProgressiveSubmission<VideoUploadRequest, VideoUploadResponse> loadCallProgressiveSubmission = client.prepareCall(request);
+
+        loadCallProgressiveSubmission.loadAsync(new ConversationsSubmissionCallback<VideoUploadResponse>() {
+            @Override
+            public void onSuccess(@NonNull VideoUploadResponse response) {
+                assertNotNull(response);
+                assertNotNull(response.getVideo());
+                assertNotNull(response.getVideo().getContent());
+                assertNotNull(response.getVideo().getContent().getNormalUrl());
+                assertNotNull(response.getVideo().getContent().getThumbnailUrl());
+                assertEquals("normalurl",response.getVideo().getContent().getNormalUrl());
+                assertEquals("thumbnailurl",response.getVideo().getContent().getThumbnailUrl());
             }
 
             @Override

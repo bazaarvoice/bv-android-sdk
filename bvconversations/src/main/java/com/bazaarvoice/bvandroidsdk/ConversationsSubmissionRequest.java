@@ -30,6 +30,8 @@ import androidx.annotation.Nullable;
 abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     private final Builder builder;
     private List<Photo> photos;
+
+    private List<Video> videos;
     private boolean forcePreview;
 
     // region Builder Fields
@@ -49,6 +51,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     private final Action action;
     private final List<FormPair> formPairs;
     private final List<PhotoUpload> photoUploads;
+    private final List<VideoUpload> videoUploads;
     // endregion
 
     ConversationsSubmissionRequest(Builder builder) {
@@ -69,6 +72,7 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         this.action = builder.action;
         this.formPairs = builder.formPairs;
         this.photoUploads = builder.photoUploads;
+        this.videoUploads = builder.videoUploads;
     }
 
     Builder getBuilder() {
@@ -78,6 +82,11 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
+
+    void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
 
     // TODO: Remove this stateful logic from the request object
     void setForcePreview(boolean forcePreview) {
@@ -91,6 +100,11 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
     List<Photo> getPhotos() {
         return photos;
     }
+
+    List<Video> getVideos() {
+        return videos;
+    }
+
 
     boolean isForcePreview() {
         return forcePreview;
@@ -160,6 +174,11 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         return photoUploads;
     }
 
+    List<VideoUpload> getVideoUploads() {
+        return videoUploads;
+    }
+
+
     static class FormPair {
         private final String key, value;
 
@@ -195,7 +214,11 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         private final List<FormPair> formPairs;
         transient final List<PhotoUpload> photoUploads = new ArrayList<>();
 
+        transient final List<VideoUpload> videoUploads = new ArrayList<>();
+
         abstract PhotoUpload.ContentType getPhotoContentType();
+
+        abstract VideoUpload.ContentType getVideoContentType();
 
         Builder(@NonNull Action action) {
             this.action = action;
@@ -313,6 +336,12 @@ abstract class ConversationsSubmissionRequest extends ConversationsRequest {
         public BuilderChildType addPhoto(@NonNull File photo, @Nullable String caption) {
             PhotoUpload upload = new PhotoUpload(photo, caption, getPhotoContentType());
             photoUploads.add(upload);
+            return (BuilderChildType)this;
+        }
+
+        public BuilderChildType addVideo(@NonNull File video, @Nullable String caption) {
+            VideoUpload upload = new VideoUpload(video, caption, getVideoContentType());
+            videoUploads.add(upload);
             return (BuilderChildType)this;
         }
     }

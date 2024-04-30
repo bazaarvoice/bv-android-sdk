@@ -103,5 +103,10 @@ public class ProgressiveSubmitRequest extends ConversationsSubmissionRequest{
         PhotoUpload.ContentType getPhotoContentType() {
             return null;
         }
+
+        @Override
+        VideoUpload.ContentType getVideoContentType() {
+            return null;
+        }
     }
 }

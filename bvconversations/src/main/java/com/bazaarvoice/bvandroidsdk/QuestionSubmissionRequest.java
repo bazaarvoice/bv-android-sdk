@@ -104,5 +104,10 @@ public class QuestionSubmissionRequest extends ConversationsSubmissionRequest {
         PhotoUpload.ContentType getPhotoContentType() {
             return PhotoUpload.ContentType.QUESTION;
         }
+
+        @Override
+        VideoUpload.ContentType getVideoContentType() {
+            return VideoUpload.ContentType.QUESTION;
+        }
     }
 }

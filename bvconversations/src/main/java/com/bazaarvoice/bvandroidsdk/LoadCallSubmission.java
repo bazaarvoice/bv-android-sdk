@@ -174,6 +174,14 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 List<Photo> photos = postPhotosAndSubmissionSync(submissionRequest.getPhotoUploads());
                 submissionRequest.setPhotos(photos);
             }
+
+            // If it is a valid request, follow through with a full submit
+            if (submissionRequest.getVideoUploads() != null && submissionRequest.getVideoUploads().size() > 0) {
+                // If the user wants to submit photos, submit each of them, collect the metadata,
+                // and associate it with the submission request
+                List<Video> videos = postVideosAndSubmissionSync(submissionRequest.getVideoUploads());
+                submissionRequest.setVideos(videos);
+            }
             // Toggle back to no be force preview anymore
             submissionRequest.setForcePreview(false);
             return submit();
@@ -300,6 +308,25 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 try {
                     List<Photo> photos = postPhotosAndSubmissionSync(submissionRequest.getPhotoUploads());
                     submissionRequest.setPhotos(photos);
+                } catch (BazaarException e) {
+                    e.printStackTrace();
+
+                    ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
+
+                    if (conversationsSubmissionException != null) {
+                        throw  ConversationsSubmissionException.withRequestErrors(conversationsSubmissionException.getErrors(), conversationsSubmissionException.getFieldErrors());
+                    }
+                    else {
+                        throw  ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
+                    }
+                }
+            }
+            if (submissionRequest.getVideoUploads() != null && submissionRequest.getVideoUploads().size() > 0) {
+                // If the user wants to submit photos, submit each of them, collect the metadata,
+                // and associate it with the submission request
+                try {
+                    List<Video> videos = postVideosAndSubmissionSync(submissionRequest.getVideoUploads());
+                    submissionRequest.setVideos(videos);
                 } catch (BazaarException e) {
                     e.printStackTrace();
 
@@ -492,6 +519,68 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
 
         }
         return photoUploadResponse.getPhoto();
+    }
+    private List<Video> postVideosAndSubmissionSync(List<VideoUpload> videoUploads) throws BazaarException {
+        BVSDK.getInstance().bvLogger.d("Submission", String.format("Preparing to submit %d videos", videoUploads.size()));
+        final List<Video> videos = new ArrayList<>();
+
+        try {
+            for (VideoUpload upload : videoUploads) {
+                final VideoUploadRequest uploadRequest = new VideoUploadRequest.Builder(upload).build();
+                BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload video request ready");
+                final Request okRequest = requestFactory.create(uploadRequest);
+                Call videoCall = okHttpClient.newCall(okRequest);
+                Response response = null;
+                try {
+                    response = videoCall.execute();
+
+                    BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload video request executed");
+                    Video video = deserializeVideoResponse(response);
+                    video.setCaption(upload.getCaption());
+                    videos.add(video);
+                    BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Upload video request complete");
+                } finally {
+                    if (response != null) {
+                        response.body().close();
+                    }
+                }
+            }
+        } catch (ConversationsSubmissionException e) {
+            throw ConversationsSubmissionException.withRequestErrors(e.getErrors(), e.getFieldErrors());
+        } catch (Throwable e) {
+            throw new BazaarException(e.getMessage());
+        }
+
+        return videos;
+    }
+
+    private Video deserializeVideoResponse(Response response) throws ConversationsSubmissionException {
+        BVSDK.getInstance().bvLogger.d("BVConversationsSubmission", "Deserialize video response");
+        Reader reader = response.body().charStream();
+        VideoUploadResponse videoUploadResponse = gson.fromJson(reader, VideoUploadResponse.class);
+        response.body().close();
+        if (videoUploadResponse.getHasErrors()) {
+            BVSDK.getInstance().bvLogger.e("BVConversationsSubmission", "Failed to deserialize photo");
+
+            List<FormField> formFields = Collections.emptyList();
+            List<FieldError> fieldErrors = Collections.emptyList();
+            List<Error> errors = Collections.emptyList();
+
+            if (videoUploadResponse.getErrors() != null) {
+                errors = videoUploadResponse.getErrors();
+            }
+
+            if (videoUploadResponse instanceof ConversationsSubmissionResponse) {
+                final ConversationsSubmissionResponse submissionResponse = ((ConversationsSubmissionResponse) videoUploadResponse);
+                fieldErrors = submissionResponse.getFieldErrors();
+                formFields = submissionResponse.getFormFields();
+                addFormFieldsToFieldErrors(formFields, fieldErrors);
+            }
+
+            throw ConversationsSubmissionException.withRequestErrors(errors, fieldErrors);
+
+        }
+        return videoUploadResponse.getVideo();
     }
 
     private static class SubmitUiHandler<RequestType extends ConversationsSubmissionRequest, ResponseType extends ConversationsResponse> extends Handler {

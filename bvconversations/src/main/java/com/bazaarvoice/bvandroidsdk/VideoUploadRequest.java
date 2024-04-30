@@ -5,12 +5,12 @@ import androidx.annotation.NonNull;
 /**
  * Internal class for uploading photos associate with CGC submission
  */
-public class PhotoUploadRequest extends ConversationsSubmissionRequest {
-  private final PhotoUpload photoUpload;
+public class VideoUploadRequest extends ConversationsSubmissionRequest {
+  private final VideoUpload videoUpload;
 
-  private PhotoUploadRequest(Builder builder) {
+  private VideoUploadRequest(Builder builder) {
     super(builder);
-    photoUpload = builder.photoUpload;
+    videoUpload = builder.videoUpload;
   }
 
   @Override
@@ -18,20 +18,20 @@ public class PhotoUploadRequest extends ConversationsSubmissionRequest {
     return null;
   }
 
-  public PhotoUpload getPhotoUpload() {
-    return photoUpload;
+  public VideoUpload getVideoUpload() {
+    return videoUpload;
   }
 
   public static class Builder extends ConversationsSubmissionRequest.Builder<Builder>{
-    private final PhotoUpload photoUpload;
+    private final VideoUpload videoUpload;
 
-    public Builder(@NonNull PhotoUpload photoUpload) {
+    public Builder(@NonNull VideoUpload videoUpload) {
       super(Action.Submit);
-      this.photoUpload = photoUpload;
+      this.videoUpload = videoUpload;
     }
 
-    public PhotoUploadRequest build() {
-      return new PhotoUploadRequest(this);
+    public VideoUploadRequest build() {
+      return new VideoUploadRequest(this);
     }
 
     @Override

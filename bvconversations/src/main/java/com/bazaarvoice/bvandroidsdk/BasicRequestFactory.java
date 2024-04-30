@@ -115,6 +115,8 @@ class BasicRequestFactory implements RequestFactory {
     private static final String kACTION = "action";
     private static final String KEY_PHOTO_URL_TEMPLATE = "photourl_%d";
     private static final String KEY_PHOTO_CAPTION_TEMPLATE = "photocaption_%d";
+    private static final String KEY_VIDEO_URL_TEMPLATE = "videourl_%d";
+    private static final String KEY_VIDEO_CAPTION_TEMPLATE = "videocaption_%d";
     private static final String kPRODUCT_ID = "ProductId";
     // endregion
 
@@ -170,7 +172,9 @@ class BasicRequestFactory implements RequestFactory {
 
     // region Submit Photo Request Keys
     private static final String PHOTO_SUBMIT_ENDPOINT = "data/uploadphoto.json";
+    private static final String VIDEO_SUBMIT_ENDPOINT = "data/uploadvideo.json";
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+    private static final MediaType MEDIA_TYPE_VIDEO = MediaType.parse("video/*");
     // endregion
 
     // region Get UAS Keys
@@ -257,7 +261,9 @@ class BasicRequestFactory implements RequestFactory {
             return createFromCommentSubmissionRequest((CommentSubmissionRequest) request);
         } else if (request instanceof PhotoUploadRequest) {
             return createFromPhotoUploadRequest((PhotoUploadRequest) request);
-        } else if (request instanceof UserAuthenticationStringRequest) {
+        } else if (request instanceof VideoUploadRequest) {
+            return createFromVideoUploadRequest((VideoUploadRequest) request);
+        }else if (request instanceof UserAuthenticationStringRequest) {
             return createFromUserAuthenticationStringRequest((UserAuthenticationStringRequest) request);
         } else if (request instanceof InitiateSubmitRequest) {
             return createFromInitiateSubmitRequest((InitiateSubmitRequest) request);
@@ -1012,6 +1018,38 @@ class BasicRequestFactory implements RequestFactory {
                 .build();
     }
 
+    private Request createFromVideoUploadRequest(VideoUploadRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+                .newBuilder()
+                .addPathSegments(VIDEO_SUBMIT_ENDPOINT);
+
+        MultipartBody.Builder multiPartBuilder = new MultipartBody.Builder();
+
+        VideoUpload upload = request.getVideoUpload();
+
+        multiPartBuilder
+                .setType(MultipartBody.FORM)
+                .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
+                .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
+                .addFormDataPart(VideoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
+                .addFormDataPart("video", "video.mp4", RequestBody.create(MEDIA_TYPE_VIDEO, upload.getVideoFile()));
+
+        RequestBody requestBody = multiPartBuilder.build();
+        HttpUrl httpUrl = httpUrlBuilder.build();
+
+        Headers.Builder headersBuilder = new Headers.Builder();
+        addCommonHeaders(headersBuilder, bvSdkUserAgent);
+        Headers headers = headersBuilder.build();
+
+        return okRequestBuilder
+                .url(httpUrl)
+                .headers(headers)
+                .post(requestBody)
+                .build();
+    }
+
     private Request createFromUserAuthenticationStringRequest(UserAuthenticationStringRequest request) {
         final Request.Builder okRequestBuilder = new Request.Builder();
         final HttpUrl httpUrl = HttpUrl.parse(bvRootApiUrl)
@@ -1210,6 +1248,7 @@ class BasicRequestFactory implements RequestFactory {
         }
 
         addSubmissionPhotosFormParams(formBodyBuilder, request);
+        addSubmissionVideosFormParams(formBodyBuilder, request);
     }
 
     private void addCommonProgressiveSubmissionJsonParams(JsonObject json, ConversationsSubmissionRequest request, String apiKey, BVMobileInfo bvMobileInfo, FingerprintProvider fingerprintProvider) {
@@ -1266,6 +1305,20 @@ class BasicRequestFactory implements RequestFactory {
                 final String keyPhotoCaption = String.format(Locale.US, KEY_PHOTO_CAPTION_TEMPLATE, idx);
                 formPutSafe(formBodyBuilder, keyPhotoUrl, photo.getContent().getNormalUrl());
                 formPutSafe(formBodyBuilder, keyPhotoCaption, photo.getCaption());
+                idx++;
+            }
+        }
+    }
+
+    private static void addSubmissionVideosFormParams(FormBody.Builder formBodyBuilder, ConversationsSubmissionRequest request) {
+        final List<Video> videos = request.getVideos();
+        if (videos != null) {
+            int idx = 0;
+            for (Video video : videos) {
+                final String keyVideoUrl = String.format(Locale.US, KEY_VIDEO_URL_TEMPLATE, idx);
+                final String keyVideoCaption = String.format(Locale.US, KEY_VIDEO_CAPTION_TEMPLATE, idx);
+                formPutSafe(formBodyBuilder, keyVideoUrl, video.getContent().getNormalUrl());
+                formPutSafe(formBodyBuilder, keyVideoCaption, video.getCaption());
                 idx++;
             }
         }
