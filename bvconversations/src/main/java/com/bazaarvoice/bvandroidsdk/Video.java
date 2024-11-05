@@ -33,6 +33,7 @@ public class Video {
     @SerializedName("Sizes")
     private Video.Content content;
 
+
     public String getCaption() {
         return caption;
     }
@@ -45,6 +46,7 @@ public class Video {
     }
 
     public Video.Content getContent() {
+
         return content;
     }
 
