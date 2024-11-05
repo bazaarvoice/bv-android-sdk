@@ -25,6 +25,7 @@ public final class BVConfig {
   // analyticsDefaultLocale can't be final if we want to set it in our custom deserializer.
   private Locale analyticsDefaultLocale;
   private final String apiKeyConversations;
+  private String apiKeyProductSentiments;
   private final String apiKeyConversationsStores;
   private final String apiKeyCurations;
   private final String apiKeyLocation;
@@ -36,6 +37,7 @@ public final class BVConfig {
   BVConfig(Builder builder) {
     this.analyticsDefaultLocale = builder.analyticsDefaultLocale;
     this.apiKeyConversations = builder.apiKeyConversations;
+    this.apiKeyProductSentiments = builder.apiKeyProductSentiments;
     this.apiKeyConversationsStores = builder.apiKeyConversationsStores;
     this.apiKeyCurations = builder.apiKeyCurations;
     this.apiKeyLocation = builder.apiKeyLocation;
@@ -55,6 +57,10 @@ public final class BVConfig {
 
   String getApiKeyConversationsStores() {
     return apiKeyConversationsStores;
+  }
+
+  public String getApiKeyProductSentiments() {
+    return apiKeyProductSentiments;
   }
 
   String getApiKeyCurations() {
@@ -87,6 +93,7 @@ public final class BVConfig {
     private String apiKeyProgressiveSubmission;
     private Locale analyticsDefaultLocale;
     private String apiKeyConversations;
+    private String apiKeyProductSentiments;
     private String apiKeyConversationsStores;
     private String apiKeyCurations;
     private String apiKeyLocation;
@@ -100,6 +107,7 @@ public final class BVConfig {
     private Builder(BVConfig bvConfig) {
       this.analyticsDefaultLocale = bvConfig.analyticsDefaultLocale;
       this.apiKeyConversations = bvConfig.apiKeyConversations;
+      this.apiKeyProductSentiments = bvConfig.apiKeyProductSentiments;
       this.apiKeyConversationsStores = bvConfig.apiKeyConversationsStores;
       this.apiKeyCurations = bvConfig.apiKeyCurations;
       this.apiKeyLocation = bvConfig.apiKeyLocation;
@@ -121,6 +129,11 @@ public final class BVConfig {
 
     public Builder apiKeyConversationsStores(String apiKeyConversationsStores) {
       this.apiKeyConversationsStores = apiKeyConversationsStores;
+      return this;
+    }
+
+    public Builder apiKeyProductSentiments(String apiKeyProductSentiments) {
+      this.apiKeyProductSentiments = apiKeyProductSentiments;
       return this;
     }
 

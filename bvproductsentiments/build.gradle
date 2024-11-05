@@ -1,0 +1,27 @@
+apply from: rootProject.file('gradle/bvsdk-module-android.gradle')
+
+dependencies {
+    implementation project(':bvcommon')
+    compileOnly project(':bvanalytics')
+    compileOnly sdkDep.recyclerview
+    compileOnly sdkDep.gson
+    compileOnly sdkDep.okhttp3
+    compileOnly sdkDep.playServiceAdsIdentifier
+
+    // Dependencies for local unit tests
+    testImplementation sdkTestDep.junit
+    testImplementation sdkTestDep.mockito
+    testImplementation sdkTestDep.mockWebServer
+    testImplementation sdkTestDep.robolectric
+    testCompileOnly project(':bvanalytics')
+    testCompileOnly sdkDep.gson
+    testCompileOnly sdkDep.playServiceAdsIdentifier
+}
+
+android {
+    namespace 'com.bazaarvoice.bvandroidsdk_poductsentiments'
+}
+
+apply from: rootProject.file('gradle/setup-signing.gradle')
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+

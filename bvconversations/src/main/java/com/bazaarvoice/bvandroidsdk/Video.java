@@ -31,7 +31,7 @@ public class Video {
     @SerializedName("Id")
     private String id;
     @SerializedName("Sizes")
-    private Photo.Content content;
+    private Video.Content content;
 
     public String getCaption() {
         return caption;
@@ -44,7 +44,7 @@ public class Video {
         return id;
     }
 
-    public Photo.Content getContent() {
+    public Video.Content getContent() {
         return content;
     }
 

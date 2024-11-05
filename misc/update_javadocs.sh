@@ -38,5 +38,6 @@ update_javadoc_for_module bvlocation
 update_javadoc_for_module bvnotifications
 update_javadoc_for_module bvrecommendations
 update_javadoc_for_module bvstorenotifications
+update_javadoc_for_module bvproductsentiments
 
 echo Success: all javadocs updated

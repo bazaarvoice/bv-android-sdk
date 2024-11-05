@@ -1,0 +1,72 @@
+{
+  "bestFeatures": [
+    {
+      "featureId": "string",
+      "feature": "string",
+      "percentPositive": 0,
+      "nativeFeature": "string",
+      "reviewsMentioned": {
+        "total": 90,
+        "positive": 84,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 5.5,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "_embedded": {
+        "quotes": [
+          {
+            "quoteId": "quoteId",
+            "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "emotion": "joy",
+            "reviewRating": 5,
+            "reviewId": "reviewId",
+            "reviewedAt": "2021-05-03",
+            "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "nativeLanguage": "en-US",
+            "incentivised": false,
+            "reviewType": "NATIVE"
+          }
+        ]
+      }
+    }
+  ],
+  "worstFeatures": [
+    {
+      "featureId": "string",
+      "feature": "string",
+      "percentPositive": 0,
+      "nativeFeature": "string",
+      "reviewsMentioned": {
+        "total": 90,
+        "positive": 84,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 5.5,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "_embedded": {
+        "quotes": [
+          {
+            "quoteId": "quoteId",
+            "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "emotion": "joy",
+            "reviewRating": 5,
+            "reviewId": "reviewId",
+            "reviewedAt": "2021-05-03",
+            "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "nativeLanguage": "en-US",
+            "incentivised": false,
+            "reviewType": "NATIVE"
+          }
+        ]
+      }
+    }
+  ]
+}

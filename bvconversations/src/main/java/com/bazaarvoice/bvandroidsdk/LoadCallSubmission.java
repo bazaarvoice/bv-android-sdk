@@ -311,13 +311,14 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 } catch (BazaarException e) {
                     e.printStackTrace();
 
-                    ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
-
-                    if (conversationsSubmissionException != null) {
-                        throw  ConversationsSubmissionException.withRequestErrors(conversationsSubmissionException.getErrors(), conversationsSubmissionException.getFieldErrors());
-                    }
-                    else {
-                        throw  ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
+                    if (e instanceof ConversationsSubmissionException) {
+                        ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
+                        throw ConversationsSubmissionException.withRequestErrors(
+                                conversationsSubmissionException.getErrors(),
+                                conversationsSubmissionException.getFieldErrors()
+                        );
+                    } else {
+                        throw ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
                     }
                 }
             }
@@ -330,13 +331,14 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 } catch (BazaarException e) {
                     e.printStackTrace();
 
-                    ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
-
-                    if (conversationsSubmissionException != null) {
-                        throw  ConversationsSubmissionException.withRequestErrors(conversationsSubmissionException.getErrors(), conversationsSubmissionException.getFieldErrors());
-                    }
-                    else {
-                        throw  ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
+                    if (e instanceof ConversationsSubmissionException) {
+                        ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
+                        throw ConversationsSubmissionException.withRequestErrors(
+                                conversationsSubmissionException.getErrors(),
+                                conversationsSubmissionException.getFieldErrors()
+                        );
+                    } else {
+                        throw ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
                     }
                 }
             }

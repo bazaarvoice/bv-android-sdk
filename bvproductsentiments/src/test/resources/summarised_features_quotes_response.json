@@ -1,0 +1,29 @@
+{
+  "quotes": [
+    {
+      "quoteId": "quoteId",
+      "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+      "emotion": "joy",
+      "reviewRating": 5,
+      "reviewId": "59902a9d-a6d8-5798-aa46-cde93d80e666",
+      "reviewedAt": "2021-05-03",
+      "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+      "nativeLanguage": "en-US",
+      "incentivised": false,
+      "reviewType": "NATIVE"
+    },
+    {
+      "quoteId": "quoteId",
+      "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+      "emotion": "joy",
+      "reviewRating": 5,
+      "reviewId": "reviewId",
+      "reviewedAt": "2021-05-03",
+      "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+      "nativeLanguage": "en-US",
+      "incentivised": false,
+      "reviewType": "NATIVE"
+    }
+  ]
+}
+
