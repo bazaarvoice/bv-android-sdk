@@ -118,6 +118,8 @@ class BasicRequestFactory implements RequestFactory {
     private static final String KEY_VIDEO_URL_TEMPLATE = "videourl_%d";
     private static final String KEY_VIDEO_CAPTION_TEMPLATE = "videocaption_%d";
     private static final String kPRODUCT_ID = "ProductId";
+    private static final String kEMBED = "embed";
+    private static final String kQUOTES = "quotes";
     // endregion
 
     // region Submit Feedback Request Keys
@@ -247,7 +249,7 @@ class BasicRequestFactory implements RequestFactory {
             return createFromProductDisplayPageRequest((ProductDisplayPageRequest) request);
         } else if (request instanceof FeaturesRequest) {
             return createFromFeaturesRequest((FeaturesRequest) request);
-        }else if (request instanceof FeedbackSubmissionRequest) {
+        } else if (request instanceof FeedbackSubmissionRequest) {
             return createFromFeedbackSubmissionRequest((FeedbackSubmissionRequest) request);
         } else if (request instanceof ReviewSubmissionRequest) {
             return createFromReviewSubmissionRequest((ReviewSubmissionRequest) request);

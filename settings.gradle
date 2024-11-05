@@ -9,4 +9,5 @@ include ':app',
     ':bvlocation',
     ':bvnotifications',
     ':bvstorenotifications',
+    ':bvproductsentiments',
     ':bvcurationsui'

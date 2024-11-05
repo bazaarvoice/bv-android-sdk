@@ -1,0 +1,28 @@
+{
+  "quotes": [
+    {
+      "id": "ID",
+      "text": "Lovely soft material, great fitting and comfortable.",
+      "reviewRating": 5,
+      "reviewId": "reviewId",
+      "reviewedAt": "2024-07-10",
+      "nativeLanguage": "en-US",
+      "highlightedText": "Lovely <strong>soft</strong> material, great fitting and Comfortable.",
+      "incentivised": false,
+      "translatedText": "Lovely soft material, great fitting and comfortable.",
+      "reviewType": "NATIVE"
+    },
+    {
+      "id": "ID",
+      "text": "Lovely soft material, great fitting and comfortable.",
+      "reviewRating": 5,
+      "reviewId": "reviewId",
+      "reviewedAt": "2024-07-10",
+      "nativeLanguage": "en-US",
+      "highlightedText": "Lovely <strong>soft</strong> material, great fitting and Comfortable.",
+      "incentivised": false,
+      "translatedText": "Lovely soft material, great fitting and comfortable.",
+      "reviewType": "NATIVE"
+    }
+  ]
+}

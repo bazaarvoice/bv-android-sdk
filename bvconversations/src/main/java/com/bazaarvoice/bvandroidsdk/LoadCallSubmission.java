@@ -311,13 +311,34 @@ public final class LoadCallSubmission<RequestType extends ConversationsSubmissio
                 } catch (BazaarException e) {
                     e.printStackTrace();
 
-                    ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
-
-                    if (conversationsSubmissionException != null) {
-                        throw  ConversationsSubmissionException.withRequestErrors(conversationsSubmissionException.getErrors(), conversationsSubmissionException.getFieldErrors());
+                    if (e instanceof ConversationsSubmissionException) {
+                        ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
+                        throw ConversationsSubmissionException.withRequestErrors(
+                                conversationsSubmissionException.getErrors(),
+                                conversationsSubmissionException.getFieldErrors()
+                        );
+                    } else {
+                        throw ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
                     }
-                    else {
-                        throw  ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
+                }
+            }
+            if (submissionRequest.getVideoUploads() != null && submissionRequest.getVideoUploads().size() > 0) {
+                // If the user wants to submit photos, submit each of them, collect the metadata,
+                // and associate it with the submission request
+                try {
+                    List<Video> videos = postVideosAndSubmissionSync(submissionRequest.getVideoUploads());
+                    submissionRequest.setVideos(videos);
+                } catch (BazaarException e) {
+                    e.printStackTrace();
+
+                    if (e instanceof ConversationsSubmissionException) {
+                        ConversationsSubmissionException conversationsSubmissionException = (ConversationsSubmissionException) e;
+                        throw ConversationsSubmissionException.withRequestErrors(
+                                conversationsSubmissionException.getErrors(),
+                                conversationsSubmissionException.getFieldErrors()
+                        );
+                    } else {
+                        throw ConversationsSubmissionException.withNoRequestErrors(e.getMessage());
                     }
                 }
             }

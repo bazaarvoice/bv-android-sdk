@@ -1,5 +1,14 @@
 # Changelog
 
+# 8.17.0
+## Add Product Sentiments.
+
+* Allow SDK clients to Retrieve Summarised Features API.
+* Allow SDK clients to Retrieve Quotes for a Summarised Features API.
+* Allow SDK clients to get Retrieve Features API.
+* Allow SDK clients to Retrieve Quotes API.
+* Allow SDK clients to get Retrieve Quotes API.
+
 # 8.16.0
 ## Add Video Submission.
 

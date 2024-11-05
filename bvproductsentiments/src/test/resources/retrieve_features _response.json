@@ -1,0 +1,44 @@
+{
+  "features": [
+    {
+      "feature": "comfort",
+      "nativeFeature": "consuelo"
+    },
+    {
+      "feature": "satisfaction",
+      "nativeFeature": "satisfacción"
+    },
+    {
+      "feature": "quality",
+      "nativeFeature": "calidad"
+    },
+    {
+      "feature": "fit",
+      "nativeFeature": "caber"
+    },
+    {
+      "feature": "purchase",
+      "nativeFeature": "compra"
+    },
+    {
+      "feature": "appearance",
+      "nativeFeature": "apariencia"
+    },
+    {
+      "feature": "size",
+      "nativeFeature": "tamaño"
+    },
+    {
+      "feature": "material",
+      "nativeFeature": "material"
+    },
+    {
+      "feature": "price",
+      "nativeFeature": "precio"
+    },
+    {
+      "feature": "color",
+      "nativeFeature": "color"
+    }
+  ]
+}
