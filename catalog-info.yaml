@@ -18,7 +18,6 @@ metadata:
       icon: docs
 spec:
   type: secret
-  system: mobile-sdk
   owner: mobile-sdk
   lifecycle: production
   dependsOn:
@@ -42,7 +41,6 @@ metadata:
       icon: docs
 spec:
   type: secret
-  system: mobile-sdk
   owner: mobile-sdk
   lifecycle: production
   dependsOn:
@@ -66,7 +64,6 @@ metadata:
       icon: docs
 spec:
   type: secret
-  system: mobile-sdk
   owner: mobile-sdk
   lifecycle: production
   dependsOn:
@@ -94,7 +91,6 @@ spec:
   type: service
   lifecycle: production
   owner: mobile-sdk
-  system: mobile-sdk
   dependsOn:
     - resource:bvsdk_config_staging_apiKeyConversations
     - resource:bvsdk_config_staging_apiKeyProgressiveSubmission
