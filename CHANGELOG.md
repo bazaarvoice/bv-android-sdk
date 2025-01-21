@@ -1,5 +1,9 @@
 # Changelog
 
+# 8.18.0
+## Add Retrieve Review Summary.
+* Allow SDK clients to Retrieve Review Summary API.
+
 # 8.17.0
 ## Add Product Sentiments.
 

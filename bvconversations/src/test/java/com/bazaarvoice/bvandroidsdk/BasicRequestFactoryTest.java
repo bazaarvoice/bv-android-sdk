@@ -917,4 +917,15 @@ public class BasicRequestFactoryTest {
     final HttpUrl url = okRequest.url();
     assertEquals("Answers", url.queryParameter("Stats"));
   }
+
+  @Test
+  public void testReivewSummaryRequest() throws Exception  {
+    final ReivewSummaryRequest request = new ReivewSummaryRequest.Builder("test1")
+            .addFormatType("paragraph")
+            .build();
+    final Request okRequest = requestFactory.create(request);
+    final HttpUrl url = okRequest.url();
+    assertTrue(url.queryParameterValues("productId").contains("test1"));
+    assertTrue(url.queryParameterValues("formatType").contains("paragraph"));
+  }
 }

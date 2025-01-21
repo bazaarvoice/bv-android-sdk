@@ -63,6 +63,7 @@ class BasicRequestFactory implements RequestFactory {
     private static  final String kFEATURES = "feature";
     private static final String kProductId = "productId";
     private static final String kLanguage = "language";
+    private static final String kFormatType = "formatType";
     // endregion
 
     // region Display Reviews Request Keys
@@ -98,6 +99,9 @@ class BasicRequestFactory implements RequestFactory {
 
     // region Display Q&A Request Keys
     private static final String TOPIC_FILTER_ENDPOINT = "data/features";
+
+    // region Display
+    private static final String REVIEW_SUMMARY_ENDPOINT = "data/reviewsummary";
     // endregion
 
     // region Generic Submit Request Keys
@@ -249,6 +253,8 @@ class BasicRequestFactory implements RequestFactory {
             return createFromProductDisplayPageRequest((ProductDisplayPageRequest) request);
         } else if (request instanceof FeaturesRequest) {
             return createFromFeaturesRequest((FeaturesRequest) request);
+        } else if (request instanceof ReivewSummaryRequest) {
+            return createFromReivewSummaryRequest((ReivewSummaryRequest) request);
         } else if (request instanceof FeedbackSubmissionRequest) {
             return createFromFeedbackSubmissionRequest((FeedbackSubmissionRequest) request);
         } else if (request instanceof ReviewSubmissionRequest) {
@@ -561,6 +567,29 @@ class BasicRequestFactory implements RequestFactory {
         httpUrlBuilder.addQueryParameter(kProductId, String.valueOf(request.getProductId()));
         if(request.getLanguage()!=null){
             httpUrlBuilder.addQueryParameter(kLanguage, String.valueOf(request.getLanguage()));
+        }
+        HttpUrl httpUrl = httpUrlBuilder.build();
+        Headers.Builder headersBuilder = new Headers.Builder();
+        addCommonHeaders(headersBuilder, bvSdkUserAgent);
+        Headers headers = headersBuilder.build();
+
+        return okRequestBuilder
+                .url(httpUrl)
+                .headers(headers)
+                .build();
+    }
+
+    private Request createFromReivewSummaryRequest(ReivewSummaryRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+                .newBuilder()
+                .addPathSegments(REVIEW_SUMMARY_ENDPOINT);
+
+        addCommonQueryParams(httpUrlBuilder, convApiKey, bvMobileInfo);
+        httpUrlBuilder.addQueryParameter(kProductId, String.valueOf(request.getProductId()));
+        if(request.getFormatType()!=null){
+            httpUrlBuilder.addQueryParameter(kFormatType, String.valueOf(request.getFormatType()));
         }
         HttpUrl httpUrl = httpUrlBuilder.build();
         Headers.Builder headersBuilder = new Headers.Builder();
