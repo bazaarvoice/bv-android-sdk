@@ -89,7 +89,7 @@ metadata:
     - mobile
     - java
 spec:
-  type: service
+  type: library
   lifecycle: production
   owner: mobile-sdk
   system: mobile-sdk
