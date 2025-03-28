@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,7 +35,6 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class})
 public abstract class BVBaseTest {
 
     MockWebServer server = new MockWebServer();

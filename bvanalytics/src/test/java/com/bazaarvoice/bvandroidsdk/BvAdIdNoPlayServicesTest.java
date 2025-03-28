@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowAdIdClientNoPlayServices.class, BaseShadows.ShadowNetwork.class})
+@Config(shadows = {BaseShadows.ShadowAdIdClientNoPlayServices.class})
 public class BvAdIdNoPlayServicesTest {
   private BvStubData stubData;
 
