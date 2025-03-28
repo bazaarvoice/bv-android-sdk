@@ -17,7 +17,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
+@Config(shadows = {BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class AdIdRequestTaskTest {
 
     @Test(expected = IllegalArgumentException.class)

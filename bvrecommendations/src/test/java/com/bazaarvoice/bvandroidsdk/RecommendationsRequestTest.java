@@ -3,9 +3,7 @@ package com.bazaarvoice.bvandroidsdk;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class})
 public class RecommendationsRequestTest extends BVBaseTest {
 
     String adId = "testAdId";
