@@ -56,8 +56,12 @@ public class Photo {
         @SerializedName("normal")
         private Map<String, Object> normal;
 
+        @SerializedName("large")
+        private Map<String, Object> large;
+
         private transient String thumbnailUrl;
         private transient String normalUrl;
+        private transient String largeUrl;
 
         public String getThumbnailUrl() {
             return (String) thumbnail.get(kURL);
@@ -66,5 +70,10 @@ public class Photo {
         public String getNormalUrl() {
             return (String) normal.get(kURL);
         }
+
+        public String getLargeUrl() {
+            return (String) large.get(kURL);
+        }
+
     }
 }

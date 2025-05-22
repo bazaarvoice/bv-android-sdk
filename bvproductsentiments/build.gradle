@@ -19,7 +19,7 @@ dependencies {
 }
 
 android {
-    namespace 'com.bazaarvoice.bvandroidsdk_poductsentiments'
+    namespace 'com.bazaarvoice.bvandroidsdk_productsentiments'
 }
 
 apply from: rootProject.file('gradle/setup-signing.gradle')

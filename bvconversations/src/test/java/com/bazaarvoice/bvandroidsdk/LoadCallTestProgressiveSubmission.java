@@ -254,6 +254,7 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
                 assertNotNull(response.getPhoto().getContent().getThumbnailUrl());
                 assertEquals("normalurl",response.getPhoto().getContent().getNormalUrl());
                 assertEquals("thumbnailurl",response.getPhoto().getContent().getThumbnailUrl());
+                assertEquals("largeurl",response.getPhoto().getContent().getLargeUrl());
             }
 
             @Override

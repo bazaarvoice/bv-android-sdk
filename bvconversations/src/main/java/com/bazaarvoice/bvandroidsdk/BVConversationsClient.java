@@ -125,8 +125,8 @@ public final class BVConversationsClient {
      * @param request ReivewSummarryRequest to be sent
      * @return LoadCall object with the request ready to be sent
      */
-    public LoadCallDisplay<ReivewSummaryRequest, ReivewSummaryResponse> prepareCall(ReivewSummaryRequest request) {
-        return factoryCreateDisplayCall(ReivewSummaryResponse.class, request);
+    public LoadCallDisplay<ReviewSummaryRequest, ReviewSummaryResponse> prepareCall(ReviewSummaryRequest request) {
+        return factoryCreateDisplayCall(ReviewSummaryResponse.class, request);
     }
 
     public LoadCallDisplay<StoreReviewsRequest, StoreReviewResponse> prepareCall(StoreReviewsRequest request) {

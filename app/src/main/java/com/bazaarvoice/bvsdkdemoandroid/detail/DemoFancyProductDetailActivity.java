@@ -100,10 +100,14 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     @BindView(R.id.rowCurations) View rowCurations;
 
     @BindView(R.id.conv_reviews) TextView convReviews;
+    @BindView(R.id.conv_reviews_summary_text) TextView convReviewsSummaryText;
     @BindView(R.id.conv_questions_image) TextView fontAwesomeQuestionIcon;
     @BindView(R.id.conv_reviews_loading) ProgressBar convReviewsProgressBar;
+    @BindView(R.id.conv_reviews_summary_loading) ProgressBar convReviewsSummaryProgressBar;
     @BindView(R.id.conv_questions) TextView convQuestions;
     @BindView(R.id.conv_reviews_image) TextView fontAwesomeReviewsIcon;
+
+    @BindView(R.id.conv_reviews_summary_image) TextView fontAwesomeReviewsSummaryIcon;
     @BindView(R.id.conv_questions_loading) ProgressBar convQuestionsProgressBar;
 
     private DemoProductRecContract.UserActionsListener recRowActionListener;
@@ -204,6 +208,9 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
         // Add the Font-Awesome icon
         Typeface fontAwesomeFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
         fontAwesomeReviewsIcon.setTypeface(fontAwesomeFont);
+
+        Typeface fontAwesomeSummaryFont = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
+        fontAwesomeReviewsSummaryIcon.setTypeface(fontAwesomeFont);
 
         ViewGroup convReviewsViewGroup = findViewById(R.id.conv_reviews_container);
         convReviewsViewGroup.setOnClickListener(convReviewsRowClickListener);
@@ -464,6 +471,7 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
     public void showLoadingProduct(boolean show) {
         convReviewsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
         convQuestionsProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        convReviewsSummaryProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

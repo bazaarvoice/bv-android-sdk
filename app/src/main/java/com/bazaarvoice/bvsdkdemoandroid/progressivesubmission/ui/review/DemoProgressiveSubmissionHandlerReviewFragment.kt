@@ -50,6 +50,18 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
 
     }
 
+    private val videoUploadCallback = object : ConversationsSubmissionCallback<VideoUploadResponse> {
+        override fun onSuccess(response: VideoUploadResponse) {
+            Log.d("Got Video", response.toString())
+            val photoUrl = response.video.content.normalUrl
+            onReviewItemSubmitted("photourl_1", photoUrl)
+        }
+        override fun onFailure(exception: ConversationsSubmissionException) {
+            Toast.makeText(context?.applicationContext, "Photo Failed To Submit: ${exception?.message}", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DemoApp.getAppComponent(context).inject(this)
@@ -65,6 +77,8 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
         val formFieldsView = view.findViewById<ProgressiveSubmissionFormItemView>(R.id.formFieldsView)
         val userRating = view.findViewById<RatingBar>(R.id.userRating)
         val upload = view.findViewById<Button>(R.id.upload)
+        val uploadVideo = view.findViewById<Button>(R.id.upload_video)
+
         val buttonComplete = view.findViewById<FloatingActionButton>(R.id.button_complete)
 
         formFieldsView.formSubmissionHandler = this
@@ -85,6 +99,14 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
             val photoUpload = PhotoUpload(file, "Me and my purchase", PhotoUpload.ContentType.REVIEW)
             val photoUploadRequest = PhotoUploadRequest.Builder(photoUpload).build()
             bvConversationsClient.prepareCall(photoUploadRequest).loadAsync(photoUploadCallback)
+        }
+        uploadVideo.setOnClickListener {
+            //upload video to photoVideo. Attach it to ReviewAndSubmit.
+            val file = demoAssetsUtil.parseImageFileFromAssets("bv_sample_image.png")
+            Log.d("CreatedFile", "Filed Create")
+            val videoUpload = VideoUpload(file, "Me and my purchase", VideoUpload.ContentType.REVIEW)
+            val videoUploadRequest = VideoUploadRequest.Builder(videoUpload).build()
+            bvConversationsClient.prepareCall(videoUploadRequest).loadAsync(videoUploadCallback)
         }
 
         buttonComplete.setOnClickListener {
