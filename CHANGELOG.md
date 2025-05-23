@@ -1,5 +1,11 @@
 # Changelog
 
+# 8.19.0
+## Add Demo for Review Summary, Video Submission and param LargeURL for Photos.
+* Added LargeURL for Photos and misssing videoHost and videoUrl fields.
+* Fix Response for Review Summary.
+* Demo App Updates
+
 # 8.18.0
 ## Add Retrieve Review Summary.
 * Allow SDK clients to Retrieve Review Summary API.
