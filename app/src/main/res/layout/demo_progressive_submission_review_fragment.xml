@@ -64,6 +64,35 @@
                     android:layout_gravity="bottom|end"
                     android:text="@string/upload" />
             </LinearLayout>
+            <TextView
+                android:id="@+id/LabelVideoUpload"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Upload Video" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="16dp"
+                    android:padding="8dp"
+                    android:src="@drawable/bv_sample_image" />
+
+                <Button
+                    android:id="@+id/upload_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_gravity="bottom|end"
+                    android:text="@string/upload" />
+            </LinearLayout>
 
 
             <com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.ui.review.ProgressiveSubmissionFormItemView

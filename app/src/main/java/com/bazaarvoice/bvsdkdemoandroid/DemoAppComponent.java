@@ -31,6 +31,7 @@ import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConversationsStoresAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewHighlights.DemoReviewHighlightsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewSummary.DemoReviewSummaryActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.answers.DemoAnswersActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
@@ -105,4 +106,6 @@ public interface DemoAppComponent {
     void inject(DemoStoresActivity activity);
     void inject(DemoProgressiveSubmissionHandlerReviewFragment fragment);
     void inject(DemoReviewableProductsFragment fragment);
+
+    void inject(DemoReviewSummaryActivity demoReviewSummaryActivity);
 }

@@ -38,12 +38,17 @@
       "thumbnail": {
         "Id": "thumbnail",
         "Url": "thumbnailurl"
+      },
+      "large": {
+        "Id": "large",
+        "Url": "largeurl"
       }
     },
     "Id": "qqefgg6a2uuvc1o61u4j39qh0",
     "SizesOrder": [
       "thumbnail",
-      "normal"
+      "normal",
+      "large"
     ],
     "Caption": null
   },

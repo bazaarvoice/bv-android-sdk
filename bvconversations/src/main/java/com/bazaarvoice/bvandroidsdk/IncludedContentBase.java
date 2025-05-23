@@ -56,7 +56,7 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
     @SerializedName(value = "ContextDataValues", alternate = "contextDataValues")
     private Map<String, ContextDataValue> contextDataValues;
     @SerializedName(value = "Videos", alternate = "videos")
-    private List<Video> videos;
+    private List<Videos> videos;
     @SerializedName(value = "Badges", alternate = "badges")
     private Map<String, Badge> badges;
     @SerializedName(value = "ProductRecommendationIds", alternate = "productRecommendationIds")
@@ -125,7 +125,7 @@ class IncludedContentBase<ConversationsIncludeType extends ConversationsInclude>
         return contextDataValues;
     }
 
-    public List<Video> getVideos() {
+    public List<Videos> getVideos() {
         return videos;
     }
 

@@ -75,15 +75,15 @@ def getRepositoryUsername() {
 
 def getRepositoryPassword() {
   if (isOpenSourceRelease()) {
-    if (credentials.OPEN_SOURCE_NEXUS_PASSWORD != null) {
-      return credentials.OPEN_SOURCE_NEXUS_PASSWORD
+    if (credentials.forKey('OPEN_SOURCE_NEXUS_PASSWORD')!= null) {
+      return credentials.forKey('OPEN_SOURCE_NEXUS_PASSWORD')
     } else {
       throw new GradleException("OPEN_SOURCE_NEXUS_PASSWORD must be defined in " +
               "~/.gradle/gradle.encrypted.properties")
     }
   } else {
-    if (credentials.NEXUS_PASSWORD != null) {
-      return credentials.NEXUS_PASSWORD
+    if ( credentials.forKey('NEXUS_PASSWORD') != null) {
+      return  credentials.forKey('NEXUS_PASSWORD')
     } else {
       throw new GradleException("NEXUS_PASSWORD must be defined in " +
               "~/.gradle/gradle.encrypted.properties")

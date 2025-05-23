@@ -128,6 +128,10 @@
             android:label="@string/title_activity_review_highlights"
             android:exported="false"
             />
+        <activity android:name=".conversations.ReviewSummary.DemoReviewSummaryActivity"
+            android:label="@string/title_activity_review_Summary"
+            android:exported="false"
+            />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

@@ -920,7 +920,7 @@ public class BasicRequestFactoryTest {
 
   @Test
   public void testReivewSummaryRequest() throws Exception  {
-    final ReivewSummaryRequest request = new ReivewSummaryRequest.Builder("test1")
+    final ReviewSummaryRequest request = new ReviewSummaryRequest.Builder("test1")
             .addFormatType("paragraph")
             .build();
     final Request okRequest = requestFactory.create(request);

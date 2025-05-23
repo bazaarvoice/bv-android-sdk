@@ -2,11 +2,11 @@ package com.bazaarvoice.bvandroidsdk;
 
 import androidx.annotation.NonNull;
 
-public class ReivewSummaryRequest extends ConversationsDisplayRequest {
+public class ReviewSummaryRequest extends ConversationsDisplayRequest {
     private final String productId;
     private final String formatType;
 
-    ReivewSummaryRequest(Builder builder) {
+    ReviewSummaryRequest(Builder builder) {
         super(builder);
         this.productId = builder.productId;
         this.formatType = builder.formatType;
@@ -40,8 +40,8 @@ public class ReivewSummaryRequest extends ConversationsDisplayRequest {
             return this;
         }
 
-        public ReivewSummaryRequest build() {
-            return new ReivewSummaryRequest(this);
+        public ReviewSummaryRequest build() {
+            return new ReviewSummaryRequest(this);
         }
     }
 }

@@ -2,7 +2,7 @@ package com.bazaarvoice.bvandroidsdk;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ReivewSummary extends IncludeableContent {
+public class ReviewSummary extends IncludeableContent {
     @SerializedName("summary")
     private String summary;
     @SerializedName("status")

@@ -29,6 +29,7 @@
     <string name="title_activity_product_stats">Product Review Stats</string>
     <string name="title_activity_questions">Product Questions</string>
     <string name="title_activity_review_highlights">Review Highlights</string>
+    <string name="title_activity_review_Summary">Review Summary</string>
     <string name="title_activity_answers">Product Answers</string>
     <string name="title_activity_comments">Comments</string>
     <string name="title_activity_curations_map">Curations Photo Map</string>
@@ -82,6 +83,7 @@
 
     <string name="conv_comments_count">Comments (%d)</string>
     <string name="conv_reviews_photos">"%1$d Reviews</string>
+    <string name="conv_reviews_summary">"%1$d Reviews Summary</string>
     <string name="conv_questions">"%1$d Questions, %2$d Answers"</string>
     <string name="conv_answers">"Read %s Answers"</string>
     <string name="conv_answer">"Read %s Answer</string>
