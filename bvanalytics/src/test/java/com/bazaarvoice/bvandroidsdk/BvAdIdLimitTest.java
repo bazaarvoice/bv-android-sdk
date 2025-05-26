@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowAdIdClientWithLimit.class, BaseShadows.ShadowNetwork.class})
+@Config(shadows = {BaseShadows.ShadowAdIdClientWithLimit.class})
 public class BvAdIdLimitTest {
   private BvStubData stubData;
 

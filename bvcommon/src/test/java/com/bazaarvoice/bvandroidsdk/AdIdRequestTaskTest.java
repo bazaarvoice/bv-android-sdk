@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.annotation.LooperMode;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -17,7 +18,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
+@Config(shadows = {BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class})
 public class AdIdRequestTaskTest {
 
     @Test(expected = IllegalArgumentException.class)
@@ -33,6 +34,7 @@ public class AdIdRequestTaskTest {
     }
 
     @Test
+    @LooperMode(LooperMode.Mode.LEGACY)
     public void shouldReturnAnAdId() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         AdIdRequestTask.AdIdCallback adIdCallback = result -> {
