@@ -1,188 +1,48 @@
-/*
- * Copyright 2013 Chris Banes
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-apply plugin: 'maven-publish'
+apply plugin: 'com.android.library'
+apply plugin:'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'nu.studer.credentials'
 
-version = VERSION_NAME
-group = GROUP
+// Android block for THIS module's specific configuration
+android {
+  compileSdk 34
 
-def isReleaseBuild() {
-  return VERSION_NAME.contains("SNAPSHOT") == false
-}
 
-def isOpenSourceRelease() {
-  return true
-}
-
-def getReleaseRepositoryUrl() {
-  if (isOpenSourceRelease()) {
-    return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-  } else {
-    if (hasProperty('RELEASE_REPOSITORY_URL')) {
-      return RELEASE_REPOSITORY_URL
-    } else {
-      throw new GradleException("RELEASE_REPOSITORY_URL must be defined in " +
-              "~/.gradle/gradle.properties and point to the internal BV maven repo")
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  defaultConfig {
+    minSdk 21
+  }
+  packagingOptions {
+    resources {
+      excludes += ['META-INF/LICENSE', 'META-INF/NOTICE', 'META-INF/DEPENDENCIES']
     }
+  }
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
+  lint {
+    abortOnError false
   }
 }
 
-def getSnapshotRepositoryUrl() {
-  if (isOpenSourceRelease()) {
-    return "https://oss.sonatype.org/content/repositories/snapshots/"
-  } else {
-    if (hasProperty('SNAPSHOT_REPOSITORY_URL')) {
-      return SNAPSHOT_REPOSITORY_URL
-    } else {
-      throw new GradleException("SNAPSHOT_REPOSITORY_URL must be defined in " +
-              "~/.gradle/gradle.properties and point to the internal BV maven repo")
-    }
-  }
-}
-
-def getRepositoryUsername() {
-  if (isOpenSourceRelease()) {
-    if (hasProperty('OPEN_SOURCE_NEXUS_USER')) {
-      return OPEN_SOURCE_NEXUS_USER
-    } else {
-      throw new GradleException("OPEN_SOURCE_NEXUS_USER must be defined in " +
-              "~/.gradle/gradle.properties")
-    }
-  } else {
-    if (hasProperty('NEXUS_USER')) {
-      return NEXUS_USER
-    } else {
-      throw new GradleException("NEXUS_USER must be defined in " +
-              "~/.gradle/gradle.properties")
-    }
-  }
-}
-
-def getRepositoryPassword() {
-  if (isOpenSourceRelease()) {
-    if (credentials.forKey('OPEN_SOURCE_NEXUS_PASSWORD')!= null) {
-      return credentials.forKey('OPEN_SOURCE_NEXUS_PASSWORD')
-    } else {
-      throw new GradleException("OPEN_SOURCE_NEXUS_PASSWORD must be defined in " +
-              "~/.gradle/gradle.encrypted.properties")
-    }
-  } else {
-    if ( credentials.forKey('NEXUS_PASSWORD') != null) {
-      return  credentials.forKey('NEXUS_PASSWORD')
-    } else {
-      throw new GradleException("NEXUS_PASSWORD must be defined in " +
-              "~/.gradle/gradle.encrypted.properties")
-    }
-  }
-}
-
-
-def configurePom(pom) {
-  pom.name = POM_NAME
-  pom.packaging = POM_PACKAGING
-  pom.description = POM_DESCRIPTION
-  pom.url = POM_URL
-
-  pom.scm {
-    url = POM_SCM_URL
-    connection = POM_SCM_CONNECTION
-    developerConnection = POM_SCM_DEV_CONNECTION
-  }
-
-  pom.licenses {
-    license {
-      name = POM_LICENCE_NAME
-      url = POM_LICENCE_URL
-      distribution = POM_LICENCE_DIST
-    }
-  }
-
-  pom.developers {
-    developer {
-      id = POM_DEVELOPER_ID
-      name = POM_DEVELOPER_NAME
-    }
-  }
-}
 
 
 afterEvaluate {
-  publishing {
-    publications {
-      maven(MavenPublication) {
-        from components.NEXUS_USER
-
-
-        groupId = GROUP
-        artifactId = POM_ARTIFACT_ID
-        version = VERSION_NAME
-
-        pom.name = POM_NAME
-        pom.packaging = POM_PACKAGING
-        pom.description = POM_DESCRIPTION
-        pom.url = POM_URL
-
-        pom.scm {
-          url = POM_SCM_URL
-          connection = POM_SCM_CONNECTION
-          developerConnection = POM_SCM_DEV_CONNECTION
-        }
-
-        pom.licenses {
-          license {
-            name = POM_LICENCE_NAME
-            url = POM_LICENCE_URL
-            distribution = POM_LICENCE_DIST
-          }
-        }
-
-        pom.developers {
-          developer {
-            id = POM_DEVELOPER_ID
-            name = POM_DEVELOPER_NAME
-          }
-
-        }
-      }
-
-
-    }
-    repositories {
-      maven {
-        def NEXUS_USERsRepoUrl = getReleaseRepositoryUrl()
-        def snapshotsRepoUrl = getSnapshotRepositoryUrl()
-        url = isReleaseBuild() ? NEXUS_USERsRepoUrl : snapshotsRepoUrl
-
-        credentials(PasswordCredentials) {
-          username = getRepositoryUsername()
-          password = getRepositoryPassword()
-        }
-      }
-    }
-  }
-
-  signing {
-    sign publishing.publications.maven
-  }
-
+  // === REQUIRED: KEEP JAVADOC AND SOURCES JAR TASKS INSIDE afterEvaluate ===
+  // These tasks are manually defined to get around the issues with `java {}` block methods.
   task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
+    // Use getByName for robustness
+    source = android.sourceSets.getByName('main').java.srcDirs
+    // If your project uses Kotlin, also include Kotlin source directories:
+     source += android.sourceSets.getByName('main').kotlin.srcDirs
+
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    // If your library has compileOnly dependencies that are needed for javadoc generation, add them
+    // classpath += configurations.compileOnly // Example
+    classpath += configurations.implementation // Example (often needed)
   }
 
   task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
@@ -192,39 +52,78 @@ afterEvaluate {
 
   task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
-    from android.sourceSets.main.java.sourceFiles
+    from android.sourceSets.getByName('main').java.srcDirs
+    from android.sourceSets.getByName('main').kotlin.srcDirs
   }
 
-  allprojects {
-    tasks.withType(Javadoc) {
-      options {
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        failOnError false
-        version true
-        links "https://developer.android.google.cn/reference/"
+  publishing {
+    publications {
+      mavenJava(MavenPublication) {
+        from components.release // This is crucial for Android Libraries
+
+        groupId = project.group
+        artifactId = project.name // Use project.name for artifactId if common
+        version = project.version
+
+        // === REQUIRED: ATTACH MANUALLY CREATED JAVADOC AND SOURCES JARs ===
+        artifact androidSourcesJar
+        artifact androidJavadocsJar
+
+        pom {
+          name = POM_NAME
+          description = POM_DESCRIPTION
+          url = POM_URL
+          licenses {
+            license {
+              name = POM_LICENCE_NAME
+              url = POM_LICENCE_URL
+              distribution = POM_LICENCE_DIST
+            }
+          }
+          developers {
+            developer {
+              id = POM_DEVELOPER_ID
+              name = POM_DEVELOPER_NAME
+              email = 'open-source@bazaarvoice.com'
+              organization = 'Bazaarvoice, Inc.'
+              organizationUrl = 'https://www.bazaarvoice.com'
+            }
+          }
+          scm {
+            url = POM_SCM_URL
+            connection = POM_SCM_CONNECTION
+            developerConnection = POM_SCM_DEV_CONNECTION
+          }
+        }
       }
+    }
+  }
+
+  signing {
+    sign publishing.publications.mavenJava
+    useGpgCmd()
+  }
+
+  // Javadoc options (apply to all Javadoc tasks in this project)
+  tasks.withType(Javadoc) {
+    options {
+      encoding "UTF-8"
+      charSet 'UTF-8'
+      author true
+      failOnError false // Keep this false during development, change for strict CI
+      version true
+      links "https://developer.android.google.cn/reference/"
     }
   }
 
   if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-      tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-      }
+    tasks.withType(Javadoc) {
+      options.addStringOption('Xdoclint:none', '-quiet')
     }
   }
   if (JavaVersion.current().isJava9Compatible()) {
-    allprojects {
-      tasks.withType(Javadoc) {
-        options.addBooleanOption('html5', true)
-      }
+    tasks.withType(Javadoc) {
+      options.addBooleanOption('html5', true)
     }
   }
-
-  artifacts {
-    archives androidSourcesJar
-    archives androidJavadocsJar
-  }
-}
+} // End of afterEvaluate block

@@ -1,3 +1,14 @@
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal() // Essential for finding most Gradle plugins
+        google()           // Essential for Android-related plugins
+        mavenCentral()     // Essential for general Maven dependencies
+    }
+}
+
+// Your root project name (adjust if different)
+rootProject.name = 'bv-android-sdk-dev'
 include ':app',
     ':bvauthiovation',
     ':bvanalytics',
