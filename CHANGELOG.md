@@ -4,6 +4,7 @@
 ## Updated Iovation SDK to 5.3.1
 * Updated Iovation SDK to 5.3.1 to support latest security patches and features.
 * Fix Double Sorting issue in ReviewsRequest.
+* Demo App Updates
 
 # 8.19.0
 ## Add Demo for Review Summary, Video Submission and param LargeURL for Photos.
