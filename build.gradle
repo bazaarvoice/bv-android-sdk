@@ -1,33 +1,47 @@
 buildscript {
-    ext.kotlin_version = '1.8.10'
-    apply from: rootProject.file('dependencies.gradle')
+  ext.kotlin_version = '1.8.10'
+  apply from: rootProject.file('dependencies.gradle') // Assumes dependencies for classpath are defined here
 
   repositories {
     google()
     mavenCentral()
+    gradlePluginPortal() // Necessary for classpath dependencies if they come from plugin portal
   }
 
   dependencies {
     classpath 'com.android.tools.build:gradle:7.4.2'
+    // Assuming sdkBuildDep.dexCountPlugin and sdkBuildDep.credentialsPlugin are defined in dependencies.gradle
     classpath sdkBuildDep.dexCountPlugin
     classpath sdkBuildDep.credentialsPlugin
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    // ===> REQUIRED: Add the nexus publish plugin to the classpath here <===
+    classpath "io.github.gradle-nexus:publish-plugin:2.0.0"
   }
 }
 
+// ===> REQUIRED: This is the correct plugins block for the ROOT project <===
 plugins {
   id "org.sonarqube" version "3.3"
+  // Declare the Nexus plugin here, but tell Gradle *not* to automatically apply it.
+  // We will apply it explicitly below to ensure it's applied ONLY to the root.
+  id 'io.github.gradle-nexus.publish-plugin' version '2.0.0' apply false
 }
+
+// ===> REQUIRED: Explicitly apply the Nexus plugin to the ROOT project <===
+// This ensures the plugin's requirement "Plugin must be applied to the root project" is met.
+project.plugins.apply(io.github.gradlenexus.publishplugin.NexusPublishPlugin)
+
 
 subprojects {
   def isRootProject = rootProject.name.equals(name)
 
+  // Common repositories for all subprojects
   repositories {
     if (rootProject.hasProperty('NEXUS_USER') &&
-        rootProject.hasProperty('NEXUS_PASSWORD')) {
+            rootProject.hasProperty('NEXUS_PASSWORD')) {
       maven {
-        url "https://repo.bazaarvoice.com/nexus/content/repositories/snapshots"
+        url "https://repo.bazaarvoice.com/nexus/content/repositories/snapshots" // BV Internal Nexus
         credentials {
           username NEXUS_USER
           password NEXUS_PASSWORD
@@ -36,10 +50,11 @@ subprojects {
     }
     google()
     mavenCentral()
+    mavenLocal() // Good for local development/testing
   }
 
   if (!isRootProject) {
-    plugins.apply('checkstyle')
+    plugins.apply('checkstyle') // This applies checkstyle to subprojects
 
     task('checkstyle', type: Checkstyle) {
       configFile rootProject.file('checkstyle.xml')
@@ -47,17 +62,35 @@ subprojects {
       ignoreFailures false
       showViolations true
       include '**/*.java'
-
       classpath = files()
     }
   }
 
-  group = GROUP
-  version = VERSION_NAME
+  // Common group and version for all subprojects if applicable,
+  // otherwise define in each module's build.gradle
+  group = GROUP // Assumes GROUP is defined in root gradle.properties
+  version = VERSION_NAME // Assumes VERSION_NAME is defined in root gradle.properties
 
   afterEvaluate {
     if (!isRootProject) {
       tasks.findByName('check').dependsOn('checkstyle')
+    }
+  }
+}
+
+// ===> REQUIRED: The nexusPublishing configuration block MUST BE IN THE ROOT build.gradle <===
+// This configures how the root project coordinates publishing for all modules.
+nexusPublishing {
+  repositories {
+    sonatype {
+      // New staging API URL for Central Sonatype
+      nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+      // New snapshot repository URL for Central Sonatype
+      snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+
+      // Fetch credentials from ~/.gradle/gradle.properties or environment variables
+      username = project.hasProperty("centralUsername") ? project.property("centralUsername") : ""
+      password = project.hasProperty("centralPassword") ? project.property("centralPassword") : ""
     }
   }
 }

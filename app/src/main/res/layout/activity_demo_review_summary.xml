@@ -6,11 +6,39 @@
     android:layout_height="match_parent"
     android:background="#f5f7f7"
     tools:context="com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewHighlights.DemoReviewHighlightsActivity">
+
   <LinearLayout
       android:id="@+id/reviewSummaryLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
+      android:padding="16dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       tools:ignore="MissingConstraints">
+
+
+    <TextView
+        android:id="@+id/tvSummaryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/ai_generated_review_summary"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:drawableStartCompat="@drawable/ic_sparkles" />
+
+    <TextView
+        android:id="@+id/tvSummaryBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="4dp"
+        android:textSize="16sp"
+        android:text="@string/the_mascara_is_praised_for_its_ability_to_curl_lengthen_and_volumize_lashes_without_clumping_or_flaking_the_curved_brush_effectively_separates_and_lifts_lashes_and_the_buildable_formula_creates_a_dramatic_look_especially_for_those_with_short_straight_or_sparse_lashes_however_some_found_the_formula_to_be_too_wet_or_heavy_and_it_did_not_hold_a_curl_well_overall_the_mascara_is_considered_excellent_at_delivering_on_its_claims_of_lifting_and_volumizing_lashes"
+        android:textAppearance="?attr/textAppearanceBodyMedium"/>
+
   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

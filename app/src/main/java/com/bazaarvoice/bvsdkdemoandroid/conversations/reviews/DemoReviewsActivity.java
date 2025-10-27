@@ -7,7 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentimentResponse;
 import com.bazaarvoice.bvandroidsdk.Review;
+import com.bazaarvoice.bvandroidsdk.SummarisedFeaturesResponse;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
@@ -52,8 +55,14 @@ public class DemoReviewsActivity extends DemoBaseReviewsActivity<Review> {
     }
 
     @Override
+    BVProductSentimentsClient getPsClient() {
+        return null;
+    }
+
+    @Override
     protected DemoReviewsAdapter<Review> createAdapter() {
         return new DemoReviewsAdapter<>(picasso, prettyTime, bvConversationsClient);
     }
+
 
 }

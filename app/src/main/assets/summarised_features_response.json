@@ -1,0 +1,185 @@
+{
+  "bestFeatures": [
+    {
+      "featureId": "111715",
+      "feature": "removal",
+      "percentPositive": 1.0,
+      "nativeFeature": "removal",
+      "reviewsMentioned": {
+        "total": 4,
+        "positive": 4,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 5.0,
+        "negative": 0.0,
+        "incentivized": 0.0
+      }, "_embedded": {
+      "quotes": [
+        {
+          "quoteId": "id",
+          "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+          "emotion": "joy",
+          "reviewRating": 5,
+          "reviewId": "id",
+          "reviewedAt": "2021-05-03",
+          "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+          "nativeLanguage": "en-US",
+          "incentivised": false,
+          "reviewType": "NATIVE"
+        }
+      ]
+    }
+    },
+    {
+      "featureId": "111090",
+      "feature": "appearance",
+      "percentPositive": 1.0,
+      "nativeFeature": "appearance",
+      "reviewsMentioned": {
+        "total": 3,
+        "positive": 3,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 6.6666665,
+        "negative": 0.0,
+        "incentivized": 0.0
+      }, "_embedded": {
+      "quotes": [
+        {
+          "quoteId": "id",
+          "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+          "emotion": "joy",
+          "reviewRating": 5,
+          "reviewId": "id",
+          "reviewedAt": "2021-05-03",
+          "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+          "nativeLanguage": "en-US",
+          "incentivised": false,
+          "reviewType": "NATIVE"
+        }
+      ]
+    }
+    },
+    {
+      "featureId": "111708",
+      "feature": "vivid",
+      "percentPositive": 1.0,
+      "nativeFeature": "vivid",
+      "reviewsMentioned": {
+        "total": 2,
+        "positive": 2,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 7.0,
+        "negative": 0.0,
+        "incentivized": 0.0
+      }
+    },
+    {
+      "featureId": "111766",
+      "feature": "for everyday use",
+      "percentPositive": 1.0,
+      "nativeFeature": "for everyday use",
+      "reviewsMentioned": {
+        "total": 3,
+        "positive": 3,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 5.0,
+        "negative": 0.0,
+        "incentivized": 0.0
+      }, "_embedded": {
+      "quotes": [
+        {
+          "quoteId": "id",
+          "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+          "emotion": "joy",
+          "reviewRating": 5,
+          "reviewId": "id",
+          "reviewedAt": "2021-05-03",
+          "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+          "nativeLanguage": "en-US",
+          "incentivised": false,
+          "reviewType": "NATIVE"
+        }
+      ]
+    }
+    },
+    {
+      "featureId": "81293",
+      "feature": "quick",
+      "percentPositive": 1.0,
+      "nativeFeature": "quick",
+      "reviewsMentioned": {
+        "total": 4,
+        "positive": 3,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 4.6666665,
+        "negative": 0.0,
+        "incentivized": 0.0
+      },
+      "_embedded": {
+        "quotes": [
+          {
+            "quoteId": "id",
+            "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "emotion": "joy",
+            "reviewRating": 5,
+            "reviewId": "id",
+            "reviewedAt": "2021-05-03",
+            "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "nativeLanguage": "en-US",
+            "incentivised": false,
+            "reviewType": "NATIVE"
+          }
+        ]
+      }
+    }
+  ],
+  "worstFeatures": [
+    {
+      "featureId": "string",
+      "feature": "string",
+      "percentPositive": 0,
+      "nativeFeature": "string",
+      "reviewsMentioned": {
+        "total": 90,
+        "positive": 84,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "averageRatingReviews": {
+        "positive": 5.5,
+        "negative": 0,
+        "incentivized": 0
+      },
+      "_embedded": {
+        "quotes": [
+          {
+            "quoteId": "id",
+            "text": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "emotion": "joy",
+            "reviewRating": 5,
+            "reviewId": "id",
+            "reviewedAt": "2021-05-03",
+            "translatedText": "Lovely fitting look nice and the quality of the leggings is lovely they wash well too!",
+            "nativeLanguage": "en-US",
+            "incentivised": false,
+            "reviewType": "NATIVE"
+          }
+        ]
+      }
+    }
+  ]
+}

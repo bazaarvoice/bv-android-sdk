@@ -22,6 +22,8 @@ import com.bazaarvoice.bvandroidsdk.BulkRatingsResponse;
 import com.bazaarvoice.bvandroidsdk.CommentsResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsFeedResponse;
 import com.bazaarvoice.bvandroidsdk.CurationsPostResponse;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentimentRequest;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentimentResponse;
 import com.bazaarvoice.bvandroidsdk.ProductDisplayPageResponse;
 import com.bazaarvoice.bvandroidsdk.Question;
 import com.bazaarvoice.bvandroidsdk.QuestionAndAnswerResponse;
@@ -29,6 +31,7 @@ import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ShopperProfile;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvandroidsdk.StoreReviewResponse;
+import com.bazaarvoice.bvandroidsdk.SummarisedFeaturesResponse;
 import com.bazaarvoice.bvsdkdemoandroid.utils.DemoAssetsUtil;
 import com.google.gson.Gson;
 
@@ -48,6 +51,8 @@ public class DemoMockDataUtil {
     private ShopperProfile shopperProfile;
     private CurationsFeedResponse savedCurationsFeedResponse;
     private ReviewResponse savedConversationsReviews;
+    private SummarisedFeaturesResponse savedSummarisedFeaturesResponse;
+    private FeaturesSentimentResponse savedFeaturesSentimentResponse;
     private List<StoreReview> savedConversationsStoreReviews;
     private QuestionAndAnswerResponse savedConversationsQuestions;
     private ProductDisplayPageResponse savedConversationsPdp;
@@ -92,6 +97,26 @@ public class DemoMockDataUtil {
             "conversationsReviewsEnduranceCycles.json",
             ReviewResponse.class);
         return savedConversationsReviews;
+    }
+
+    public SummarisedFeaturesResponse getSummarisedFeatures() {
+        if (savedSummarisedFeaturesResponse != null) {
+            return savedSummarisedFeaturesResponse;
+        }
+        savedSummarisedFeaturesResponse = demoAssetsUtil.parseJsonFileFromAssets(
+                "summarised_features_response.json",
+                SummarisedFeaturesResponse.class);
+        return savedSummarisedFeaturesResponse;
+    }
+
+    public FeaturesSentimentResponse getFeaturesSentimentResponse() {
+        if (savedFeaturesSentimentResponse != null) {
+            return savedFeaturesSentimentResponse;
+        }
+        savedFeaturesSentimentResponse = demoAssetsUtil.parseJsonFileFromAssets(
+                "retrieve_features _response.json",
+                FeaturesSentimentResponse.class);
+        return savedFeaturesSentimentResponse;
     }
 
     private String getResponseAsJsonString(Object response) {

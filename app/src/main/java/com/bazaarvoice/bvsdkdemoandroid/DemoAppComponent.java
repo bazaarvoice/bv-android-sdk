@@ -21,6 +21,7 @@ import android.content.Context;
 
 import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvsdkdemoandroid.carousel.DemoCarouselView;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
@@ -66,6 +67,7 @@ import dagger.Component;
 @Component(modules = {DemoAppModule.class, DemoClientConfigModule.class, DemoBvModule.class, DemoAndroidModule.class})
 public interface DemoAppComponent {
     BVConversationsClient getBvConvClient();
+    BVProductSentimentsClient getBVPsClient();
     BVRecommendations getBvRecommendations();
     PrettyTime getPrettyTime();
     DemoClientConfigUtils getDemoConfigUtils();

@@ -7,15 +7,22 @@ import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsException;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentimentRequest;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentimentResponse;
 import com.bazaarvoice.bvandroidsdk.PDPContentType;
+import com.bazaarvoice.bvandroidsdk.ProductSentimentsCallback;
+import com.bazaarvoice.bvandroidsdk.ProductSentimentsException;
 import com.bazaarvoice.bvandroidsdk.Review;
 import com.bazaarvoice.bvandroidsdk.ReviewIncludeType;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
 import com.bazaarvoice.bvandroidsdk.ReviewResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewsRequest;
 import com.bazaarvoice.bvandroidsdk.SortOrder;
+import com.bazaarvoice.bvandroidsdk.SummarisedFeaturesRequest;
+import com.bazaarvoice.bvandroidsdk.SummarisedFeaturesResponse;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
@@ -34,11 +41,13 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
     protected ReviewOptions.PrimaryFilter filterType;
     protected boolean fetched = false;
     protected final BVConversationsClient client;
+    protected final BVProductSentimentsClient psClient;
     protected boolean forceAPICall;
 
-    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, String filterId, ReviewOptions.PrimaryFilter filterType, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
+    public DemoReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, BVProductSentimentsClient psClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, String filterId, ReviewOptions.PrimaryFilter filterType, boolean forceAPICall, BVConversationsClient.DisplayLoader reviewsLoader) {
         this.view = view;
         this.client = client;
+        this.psClient = psClient;
         this.demoClient = demoClient;
         this.demoMockDataUtil = demoMockDataUtil;
         this.reviewsLoader = reviewsLoader;
@@ -74,6 +83,51 @@ public class DemoReviewsPresenter implements DemoReviewsContract.UserActionsList
         } else {
             showReviews(cachedReviews);
         }
+    }
+    public void loadSummarisedFeatures(boolean forceRefresh) {
+        fetched = false;
+        if (!forceAPICall && demoClient.isMockClient()) {
+            view.showSummarisedFeatures(demoMockDataUtil.getSummarisedFeatures());
+            return;
+        }
+        SummarisedFeaturesRequest request = new SummarisedFeaturesRequest.Builder(productId)
+                .addLanguage("en")
+                .addEmbed("quotes")
+                .build();
+        psClient.prepareCall(request).loadAsync(new ProductSentimentsCallback<SummarisedFeaturesResponse>() {
+            @Override
+            public void onSuccess(@NonNull SummarisedFeaturesResponse response) {
+                view.showSummarisedFeatures(response);
+            }
+
+            @Override
+            public void onFailure(@NonNull ProductSentimentsException e) {
+
+            }
+        });
+    }
+
+    public void loadFeaturesSentiment(boolean forceRefresh) {
+        fetched = false;
+        if (!forceAPICall && demoClient.isMockClient()) {
+            view.showFeaturesSentiment(demoMockDataUtil.getFeaturesSentimentResponse());
+            return;
+        }
+        FeaturesSentimentRequest request = new FeaturesSentimentRequest.Builder(productId)
+                .addLanguage("en")
+                .addLimit("10")
+                .build();
+        psClient.prepareCall(request).loadAsync(new ProductSentimentsCallback<FeaturesSentimentResponse>() {
+            @Override
+            public void onSuccess(@NonNull FeaturesSentimentResponse response) {
+                view.showFeaturesSentiment(response);
+            }
+
+            @Override
+            public void onFailure(@NonNull ProductSentimentsException e) {
+
+            }
+        });
     }
 
     private boolean isShouldHitNetwork(boolean forceRefresh, List<Review> cachedReviews) {

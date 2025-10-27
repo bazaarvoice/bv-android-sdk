@@ -35,6 +35,7 @@ public class DemoClient {
             "REPLACE_ME",
             "00000000-0000-0000-0000-000000000000",
             "REPLACE_ME",
+            "REPLACE_ME",
             MOCK_DISPLAY_NAME,
             false);
     private String apiKeyConversations;
@@ -43,6 +44,7 @@ public class DemoClient {
     private String apiKeyLocationAndroid;
     private String apiKeyShopperAdvertising;
     private String apiKeyProgressiveSubmission;
+    private String apiKeyProductSentiments;
     private String clientId;
     private String displayName;
     private boolean dryRunAnalytics;
@@ -53,6 +55,7 @@ public class DemoClient {
                        String apiKeyShopperAdvertising,
                        String apiKeyProgressiveSubmission,
                        String apiKeyLocationAndroid,
+                       String apiKeyProductSentiments,
                        String clientId,
                        String displayName,
                        boolean dryRunAnalytics) {
@@ -64,6 +67,7 @@ public class DemoClient {
         this.clientId = clientId;
         this.displayName = displayName;
         this.apiKeyLocationAndroid = apiKeyLocationAndroid;
+        this.apiKeyProductSentiments = apiKeyProductSentiments;
         this.dryRunAnalytics = dryRunAnalytics;
     }
 
@@ -97,6 +101,9 @@ public class DemoClient {
     }
 
     public String getApiKeyProgressiveSubmission() { return apiKeyProgressiveSubmission; }
+    public String getApiKeyProductSentiments() {
+        return apiKeyProductSentiments;
+    }
 
     /**
      * Use this for SingleTenantSource since the generated config files have no concept of displayName
@@ -117,7 +124,9 @@ public class DemoClient {
     public boolean hasCurations() {
         return apiKeyCurations != null && !apiKeyCurations.equals("REPLACE_ME");
     }
-
+    public boolean hasProductSentiments() {
+        return apiKeyProductSentiments != null && !apiKeyProductSentiments.equals("REPLACE_ME");
+    }
     public boolean hasShopperAds() {
         return apiKeyShopperAdvertising != null && !apiKeyShopperAdvertising.equals("REPLACE_ME");
     }
@@ -147,6 +156,9 @@ public class DemoClient {
         if (hasCurations()) {
             summary.append("curations, ");
         }
+        if (hasProductSentiments()) {
+            summary.append("product sentiments, ");
+        }
         if (hasShopperAds()) {
             summary.append("shopper advertising, ");
         }
@@ -167,6 +179,7 @@ public class DemoClient {
                 .apiKeyLocation(getKeyOrReplaceMe(demoClient.getApiKeyLocationAndroid()))
                 .apiKeyProgressiveSubmission(getKeyOrReplaceMe(demoClient.getApiKeyProgressiveSubmission()))
                 .apiKeyShopperAdvertising(getKeyOrReplaceMe(demoClient.getApiKeyShopperAdvertising()))
+                .apiKeyProductSentiments(getKeyOrReplaceMe(demoClient.getApiKeyProductSentiments()))
                 .clientId(getKeyOrReplaceMe(demoClient.getClientId()))
                 .dryRunAnalytics(demoClient.isDryRunAnalytics())
                 .build();

@@ -18,16 +18,28 @@ import android.widget.TextView;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVDisplayableProductContent;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
 import com.bazaarvoice.bvandroidsdk.BVUiConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.BaseReview;
+import com.bazaarvoice.bvandroidsdk.BestFeature;
+import com.bazaarvoice.bvandroidsdk.FeatureSentiment;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentiment;
+import com.bazaarvoice.bvandroidsdk.FeaturesSentimentResponse;
+import com.bazaarvoice.bvandroidsdk.Quote;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
+import com.bazaarvoice.bvandroidsdk.SummarisedFeaturesResponse;
+import com.bazaarvoice.bvandroidsdk.WorstFeature;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClient;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoMockDataUtil;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.productsentiments.ChipAdapter;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.productsentiments.ReviewAdapter;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.productsentiments.ReviewItem;
 import com.bazaarvoice.bvsdkdemoandroid.products.DemoDisplayableProductsCache;
 import com.bazaarvoice.bvsdkdemoandroid.utils.VerticalSpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
@@ -35,6 +47,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -73,6 +87,8 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     private ReviewOptions.PrimaryFilter filterType;
     private String filterTypeIntent;
     private String filterValue;
+    private ReviewAdapter reviewAdapter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +106,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         setupToolbarViews();
         setupRecyclerView();
         DemoMockDataUtil demoMockDataUtil = getDataUtil();
-        reviewsUserActionListener = getReviewsUserActionListener(this, getConvClient(), getDemoClient(), demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+        reviewsUserActionListener = getReviewsUserActionListener(this, getConvClient(),getPsClient(), getDemoClient(), demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     abstract DemoClient getDemoClient();
@@ -100,6 +116,7 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     abstract Picasso getPicasso();
 
     abstract BVConversationsClient getConvClient();
+    abstract BVProductSentimentsClient getPsClient();
 
     void inflateRecyclerView() {
         recyclerViewStub.setLayoutResource(R.layout.reviews_recyclerview);
@@ -107,8 +124,8 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         reviewsRecyclerView = (BVUiConversationsDisplayRecyclerView) findViewById(R.id.reviews_recycler_view);
     }
 
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, BVUiConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoReviewsPresenter(view, client, demoClient, demoMockDataUtil, productId, filterValue, filterType, forceLoadFromProductId, reviewsRecyclerView);
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient client,BVProductSentimentsClient psClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, BVUiConversationsDisplayRecyclerView reviewsRecyclerView) {
+        return new DemoReviewsPresenter(view, client,psClient, demoClient, demoMockDataUtil, productId, filterValue, filterType, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     private void setupToolbarViews() {
@@ -154,6 +171,8 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     protected void onResume() {
         super.onResume();
         reviewsUserActionListener.loadReviews(false);
+        reviewsUserActionListener.loadSummarisedFeatures(false);
+        reviewsUserActionListener.loadFeaturesSentiment(false);
     }
 
     @Override
@@ -226,5 +245,85 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         intent.putExtra(EXTRA_FILTER_OPERATOR_ID, filterOperator);
         intent.putExtra(EXTRA_FILTER_VALUE_ID, filterValue);
         fromActivity.startActivity(intent);
+    }
+
+
+    @Override
+    public void showSummarisedFeatures(SummarisedFeaturesResponse response) {
+        List<ReviewItem> allItems = new ArrayList<>();
+
+        // 1. Build the list of ALL possible items (chips and quotes)
+        // Add best features section
+        if (response.getBestFeatures() != null && !response.getBestFeatures().isEmpty()) {
+            List<String> positiveChips = new ArrayList<>();
+            for (BestFeature feature : response.getBestFeatures()) {
+                positiveChips.add(feature.getFeature());
+            }
+            // Using R.drawable.ic_add_circle from our previous step
+            allItems.add(new ReviewItem.ChipSection("Pros", positiveChips, R.drawable.ic_add_circle));
+
+            List<String> positiveQuotes = new ArrayList<>();
+            for (BestFeature feature : response.getBestFeatures()) {
+                if (feature.getEmbedded() != null && feature.getEmbedded().getQuotes() != null) {
+                    for (Quote quote : feature.getEmbedded().getQuotes()) {
+                        positiveQuotes.add(quote.getText());
+                    }
+                }
+            }
+            if (!positiveQuotes.isEmpty()) {
+                allItems.add(new ReviewItem.QuoteCard("What people like", positiveQuotes));
+            }
+        }
+
+        // Add worst features section
+        if (response.getWorstFeatures() != null && !response.getWorstFeatures().isEmpty()) {
+            List<String> negativeChips = new ArrayList<>();
+            for (WorstFeature feature : response.getWorstFeatures()) {
+                negativeChips.add(feature.getFeature());
+            }
+            // Using R.drawable.ic_remove_circle from our previous step
+            allItems.add(new ReviewItem.ChipSection("Cons", negativeChips, R.drawable.ic_remove_circle));
+
+            List<String> negativeQuotes = new ArrayList<>();
+            for (WorstFeature feature : response.getWorstFeatures()) {
+                if (feature.getEmbedded() != null && feature.getEmbedded().getQuotes() != null) {
+                    for (Quote quote : feature.getEmbedded().getQuotes()) {
+                        negativeQuotes.add(quote.getText());
+                    }
+                }
+            }
+            if (!negativeQuotes.isEmpty()) {
+                allItems.add(new ReviewItem.QuoteCard("What people dislike", negativeQuotes));
+            }
+        }
+
+        // If the list has content, set up the adapter
+        if (!allItems.isEmpty()) {
+            RecyclerView recyclerView = findViewById(R.id.recycler_view_sum_features);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            // 2. Give the full list to the stateful adapter.
+            //    The adapter will handle the toggle logic internally.
+            //    (Ensure you are using the ReviewAdapter from the previous answer)
+            ReviewAdapter adapter = new ReviewAdapter(this, allItems);
+            recyclerView.setAdapter(adapter);
+        }
+
+    }
+
+    @Override
+    public void showFeaturesSentiment(FeaturesSentimentResponse response) {
+        if (response != null && response.getFeatures() != null) {
+
+            List<String> features = new ArrayList<>();
+            for (FeatureSentiment feature : response.getFeatures()) {
+                features.add(feature.getFeature());
+            }
+            // Set up RecyclerView for features chips
+            RecyclerView chipsRecyclerView = findViewById(R.id.recyclerViewChips );
+            chipsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            ChipAdapter chipAdapter = new ChipAdapter(this, features);
+            chipsRecyclerView.setAdapter(chipAdapter);
+        }
     }
 }

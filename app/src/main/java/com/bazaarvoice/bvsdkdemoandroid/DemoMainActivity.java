@@ -36,6 +36,7 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.DemoStoreReviewsAc
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoCurationsPostActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.feed.DemoCurationsFeedActivity;
+import com.bazaarvoice.bvsdkdemoandroid.productsentiments.DemoProductSentimentsAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.DemoProgressiveSubmissionAPIFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.DemoRecommendationsFragment;
 import com.bazaarvoice.bvsdkdemoandroid.recommendations.detail.DemoProductDetailActivity;
@@ -184,6 +185,11 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                 case R.id.progressive_submission:
                     toolbar.setTitle("Progressive Submission");
                     transitionTo(DemoProgressiveSubmissionAPIFragment.newInstance());
+                case R.id.product_sentiments:
+                    toolbar.setTitle("Product Sentiments");
+                    transitionTo(DemoProductSentimentsAPIFragment.newInstance());
+
+
             }
 
             // Close the navigation drawer when an item is selected.

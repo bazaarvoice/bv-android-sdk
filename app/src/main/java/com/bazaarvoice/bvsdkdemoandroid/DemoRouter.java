@@ -21,6 +21,7 @@ import com.bazaarvoice.bvsdkdemoandroid.conversations.reviews.submit.DemoSubmitR
 import com.bazaarvoice.bvsdkdemoandroid.curations.detail.DemoCurationsDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.curations.map.DemoCurationsMapsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
+import com.bazaarvoice.bvsdkdemoandroid.productsentiments.DemoProductSentimentsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.DemoProgressiveSubmissionActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewSummary.DemoReviewSummaryActivity;
@@ -137,6 +138,10 @@ public class DemoRouter {
 
     public void transitionToProgressiveSubmissionActivity(String productId) {
         DemoProgressiveSubmissionActivity.transitionTo(currentActivityContext, productId );
+    }
+
+    public void transitionToProductSentimentsActivity(String productId) {
+        DemoProductSentimentsActivity.transitionTo(currentActivityContext, productId );
     }
 
     public void transitionToReviewSummaryActivity(String productId) {

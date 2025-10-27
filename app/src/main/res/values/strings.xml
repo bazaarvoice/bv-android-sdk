@@ -40,6 +40,7 @@
     <string name="title_activity_rate">Rate</string>
     <string name="title_activity_author">Author</string>
     <string name="title_activity_submit_review">Submit Review</string>
+    <string name="title_activity_product_sentiments">Product Sentiments</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
@@ -69,6 +70,8 @@
     <string name="key_staging_enabled">key_staging_enabled</string>
     <string name="key_last_location_event">key_last_location_event</string>
     <string name="key_progressive_passkey">key_progressive_passkey</string>
+    <string name="key_product_sentiments_passkey"> key_product_sentiments_passkey</string>
+
 
     <string name="product_not_setup">This product is not setup for this client.</string>
 
@@ -108,4 +111,7 @@
     <string name="submit">Submit</string>
     <string name="save">Save</string>
     <string name="upload">Upload</string>
+    <string name="filter_reviews_by">Filter reviews by</string>
+    <string name="ai_generated_review_summary">AI Generated Review Summary</string>
+    <string name="the_mascara_is_praised_for_its_ability_to_curl_lengthen_and_volumize_lashes_without_clumping_or_flaking_the_curved_brush_effectively_separates_and_lifts_lashes_and_the_buildable_formula_creates_a_dramatic_look_especially_for_those_with_short_straight_or_sparse_lashes_however_some_found_the_formula_to_be_too_wet_or_heavy_and_it_did_not_hold_a_curl_well_overall_the_mascara_is_considered_excellent_at_delivering_on_its_claims_of_lifting_and_volumizing_lashes">The mascara is praised for its ability to curl, lengthen, and volumize lashes without clumping or flaking. The curved brush effectively separates and lifts lashes, and the buildable formula creates a dramatic look, especially for those with short, straight, or sparse lashes. However, some found the formula to be too wet or heavy, and it did not hold a curl well. Overall, the mascara is considered excellent at delivering on its claims of lifting and volumizing lashes.</string>
 </resources>

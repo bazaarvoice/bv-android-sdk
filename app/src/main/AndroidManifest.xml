@@ -161,6 +161,11 @@
             android:label="@string/title_activity_submit_review"
             android:exported="false"
             />
+        <activity
+            android:name=".productsentiments.DemoProductSentimentsActivity"
+            android:label="@string/title_activity_product_sentiments"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

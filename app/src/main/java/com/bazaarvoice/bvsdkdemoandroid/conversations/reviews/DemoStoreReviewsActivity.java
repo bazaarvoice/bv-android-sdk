@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
 import com.bazaarvoice.bvandroidsdk.BVUiConversationsDisplayRecyclerView;
 import com.bazaarvoice.bvandroidsdk.StoreReview;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
@@ -25,6 +26,8 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     @Inject Picasso picasso;
     @Inject PrettyTime prettyTime;
     @Inject BVConversationsClient bvConversationsClient;
+    @Inject BVProductSentimentsClient bvProductSentimentsClient;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +56,13 @@ public class DemoStoreReviewsActivity extends DemoBaseReviewsActivity<StoreRevie
     }
 
     @Override
-    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient bvConversationsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, BVUiConversationsDisplayRecyclerView reviewsRecyclerView) {
-        return new DemoStoreReviewsPresenter(view, bvConversationsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
+    BVProductSentimentsClient getPsClient() {
+        return bvProductSentimentsClient;
+    }
+
+    @Override
+    protected DemoReviewsContract.UserActionsListener getReviewsUserActionListener(DemoReviewsContract.View view, BVConversationsClient bvConversationsClient,BVProductSentimentsClient bvProductSentimentsClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceLoadFromProductId, BVUiConversationsDisplayRecyclerView reviewsRecyclerView) {
+        return new DemoStoreReviewsPresenter(view, bvConversationsClient,bvProductSentimentsClient, demoClient, demoMockDataUtil, productId, forceLoadFromProductId, reviewsRecyclerView);
     }
 
     @Override
