@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.20.0
+## Updated Iovation SDK to 5.3.1
+* Updated Iovation SDK to 5.3.1 to support latest security patches and features.
+* Fix Double Sorting issue in ReviewsRequest.
+
 # 8.19.0
 ## Add Demo for Review Summary, Video Submission and param LargeURL for Photos.
 * Added LargeURL for Photos and misssing videoHost and videoUrl fields.
