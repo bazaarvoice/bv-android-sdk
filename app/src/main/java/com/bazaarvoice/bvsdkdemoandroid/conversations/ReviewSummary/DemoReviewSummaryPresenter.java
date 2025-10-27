@@ -21,7 +21,6 @@ public class DemoReviewSummaryPresenter implements DemoReviewSummaryDetailContra
         this.view = view;
         this.conversationsClient = bvConversationsClient;
         this.productId = productId;
-        this.productId = productId;
     }
 
     public void loadReviewSummary(boolean forceRefresh) {

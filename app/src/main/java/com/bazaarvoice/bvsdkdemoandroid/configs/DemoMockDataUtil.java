@@ -114,7 +114,7 @@ public class DemoMockDataUtil {
             return savedFeaturesSentimentResponse;
         }
         savedFeaturesSentimentResponse = demoAssetsUtil.parseJsonFileFromAssets(
-                "retrieve_features _response.json",
+                "retrieve_features_response.json",
                 FeaturesSentimentResponse.class);
         return savedFeaturesSentimentResponse;
     }

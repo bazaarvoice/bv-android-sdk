@@ -185,6 +185,7 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                 case R.id.progressive_submission:
                     toolbar.setTitle("Progressive Submission");
                     transitionTo(DemoProgressiveSubmissionAPIFragment.newInstance());
+                    break;
                 case R.id.product_sentiments:
                     toolbar.setTitle("Product Sentiments");
                     transitionTo(DemoProductSentimentsAPIFragment.newInstance());
