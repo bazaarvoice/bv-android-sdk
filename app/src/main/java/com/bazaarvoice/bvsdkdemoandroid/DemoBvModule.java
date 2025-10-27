@@ -21,11 +21,13 @@ import com.bazaarvoice.bvandroidsdk.Action;
 import com.bazaarvoice.bvandroidsdk.BVConfig;
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.BVLogLevel;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
 import com.bazaarvoice.bvandroidsdk.BVRecommendations;
 import com.bazaarvoice.bvandroidsdk.BVSDK;
 import com.bazaarvoice.bvandroidsdk.BazaarEnvironment;
 import com.bazaarvoice.bvandroidsdk.CurationsImageLoader;
 import com.bazaarvoice.bvandroidsdk.IovationFingerprint;
+import com.bazaarvoice.bvandroidsdk.ProductSentimentsFingerprintProvider;
 import com.bazaarvoice.bvsdkdemoandroid.configs.DemoClientConfigUtils;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.DemoConvResponseHandler;
 import com.bazaarvoice.bvsdkdemoandroid.curations.DemoImageLoader;
@@ -50,6 +52,12 @@ public class DemoBvModule {
         return new BVConversationsClient.Builder(bvsdk)
             .fingerprintProvider(new IovationFingerprint(bvsdk)) // For North America authentication
             .build();
+    }
+
+    @Provides @DemoAppScope
+    BVProductSentimentsClient provideProductSentimentsClient(BVSDK bvsdk) {
+        return new BVProductSentimentsClient.Builder(bvsdk)
+                .build();
     }
 
     @Provides @DemoAppScope

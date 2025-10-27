@@ -1,5 +1,5 @@
 <resources>
-    <style name="AppTheme.DarkActionBar" parent="Theme.AppCompat.Light">
+    <style name="AppTheme.DarkActionBar" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -9,11 +9,10 @@
         <item name="android:textColorSecondary">@color/bv_black_1</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <!-- Same base properties -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -29,9 +28,9 @@
         <item name="android:maxHeight">23dp</item>
     </style>
 
-    <style name="AppTheme.TextAppearance.Body1" parent="TextAppearance.AppCompat.Body1" />
-    <style name="AppTheme.TextAppearance.Body2" parent="TextAppearance.AppCompat.Body2" />
-    <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.AppCompat.Button" />
-    <style name="AppTheme.TextAppearance.Headline" parent="TextAppearance.AppCompat.Headline" />
-    <style name="AppTheme.TextAppearance.Caption" parent="TextAppearance.AppCompat.Caption" />
+    <style name="AppTheme.TextAppearance.Body1" parent="TextAppearance.MaterialComponents.Body1" />
+    <style name="AppTheme.TextAppearance.Body2" parent="TextAppearance.MaterialComponents.Body2" />
+    <style name="AppTheme.TextAppearance.Button" parent="TextAppearance.MaterialComponents.Button" />
+    <style name="AppTheme.TextAppearance.Headline" parent="TextAppearance.MaterialComponents.Headline6" />
+    <style name="AppTheme.TextAppearance.Caption" parent="TextAppearance.MaterialComponents.Caption" />
 </resources>

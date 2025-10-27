@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,6 +29,9 @@ public class DemoReviewSummaryActivity extends AppCompatActivity implements Demo
     private DemoReviewSummaryDetailContract.UserActionsListener reviewSummaryListener;
     @Inject
     BVConversationsClient bvConversationsClient;
+    private LinearLayout reviewSummaryLayout;
+    private TextView tvSummaryTitle;
+    private TextView tvSummaryBody;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,41 +55,13 @@ public class DemoReviewSummaryActivity extends AppCompatActivity implements Demo
     }
     @Override
     public void showReviewSummary(ReviewSummary reviewSummary) {
-        LinearLayout reviewSummaryLayout = findViewById(R.id.reviewSummaryLayout);
-        reviewSummaryLayout.removeAllViews(); // Clear any previous content
+        reviewSummaryLayout = findViewById(R.id.reviewSummaryLayout);
+        tvSummaryTitle = findViewById(R.id.tvSummaryTitle);
+        tvSummaryBody = findViewById(R.id.tvSummaryBody);
 
-        // Layout parameters for spacing
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20, 20, 20, 10);
 
-        // Title
-        TextView titleView = new TextView(this);
-        titleView.setText(reviewSummary.getTitle());
-        titleView.setTextSize(22);
-        titleView.setTypeface(null, Typeface.BOLD);
-        titleView.setTextColor(Color.parseColor("#336470"));
-        titleView.setLayoutParams(layoutParams);
-        reviewSummaryLayout.addView(titleView);
+        tvSummaryBody.setText(reviewSummary.getSummary());
 
-        // Summary content
-        TextView summaryView = new TextView(this);
-        summaryView.setText(reviewSummary.getSummary());
-        summaryView.setTextSize(16);
-        summaryView.setTextColor(Color.DKGRAY);
-        summaryView.setLayoutParams(layoutParams);
-        reviewSummaryLayout.addView(summaryView);
-
-        // Optional Disclaimer
-        if (reviewSummary.getDisclaimer() != null && !reviewSummary.getDisclaimer().isEmpty()) {
-            TextView disclaimerView = new TextView(this);
-            disclaimerView.setText(reviewSummary.getDisclaimer());
-            disclaimerView.setTextSize(12);
-            disclaimerView.setTextColor(Color.GRAY);
-            disclaimerView.setLayoutParams(layoutParams);
-            disclaimerView.setPadding(0, 20, 0, 0);
-            reviewSummaryLayout.addView(disclaimerView);
-        }
     }
 
     @Override

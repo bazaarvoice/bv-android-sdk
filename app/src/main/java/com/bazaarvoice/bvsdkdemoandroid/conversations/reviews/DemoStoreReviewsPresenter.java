@@ -6,6 +6,7 @@ package com.bazaarvoice.bvsdkdemoandroid.conversations.reviews;
 import androidx.annotation.NonNull;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
+import com.bazaarvoice.bvandroidsdk.BVProductSentimentsClient;
 import com.bazaarvoice.bvandroidsdk.ConversationsDisplayCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsException;
 import com.bazaarvoice.bvandroidsdk.ReviewOptions;
@@ -21,8 +22,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class DemoStoreReviewsPresenter extends DemoReviewsPresenter {
-    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
-        super(view, client, demoClient, demoMockDataUtil, productId, null, null, forceAPICall, reviewsLoader);
+    public DemoStoreReviewsPresenter(DemoReviewsContract.View view, BVConversationsClient client, BVProductSentimentsClient psClient, DemoClient demoClient, DemoMockDataUtil demoMockDataUtil, String productId, boolean forceAPICall, BVConversationsClient.DisplayLoader<StoreReviewsRequest, StoreReviewResponse> reviewsLoader) {
+        super(view, client,psClient, demoClient, demoMockDataUtil, productId, null, null, forceAPICall, reviewsLoader);
     }
 
     @Override

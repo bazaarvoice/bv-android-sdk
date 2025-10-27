@@ -184,6 +184,11 @@ public class DemoMainActivity extends AppCompatActivity implements CurationsPost
                 case R.id.progressive_submission:
                     toolbar.setTitle("Progressive Submission");
                     transitionTo(DemoProgressiveSubmissionAPIFragment.newInstance());
+                case R.id.product_sentiments:
+                    toolbar.setTitle("Product Sentiments");
+                    transitionTo(DemoProgressiveSubmissionAPIFragment.newInstance());
+
+
             }
 
             // Close the navigation drawer when an item is selected.

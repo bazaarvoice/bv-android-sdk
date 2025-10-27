@@ -1,6 +1,7 @@
 repositories {
     mavenLocal()
     mavenCentral()
+    google()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     flatDir {
         dirs 'libs'
@@ -17,7 +18,7 @@ def hasAppdemoBuildSettings() {
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     buildToolsVersion '33.0.0'
 
     compileOptions {
@@ -141,6 +142,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'com.google.android.material:material:1.12.0' // Or latest
+
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
