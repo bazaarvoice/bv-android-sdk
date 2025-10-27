@@ -419,11 +419,6 @@ class BasicRequestFactory implements RequestFactory {
             httpUrlBuilder.addQueryParameter(kFEATURES, request.getFeatures());
         }
 
-        if (!request.getSorts().isEmpty()) {
-            httpUrlBuilder
-                    .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getSorts(), ","));
-        }
-
         if (!request.getRelevancySorts().isEmpty()) {
             httpUrlBuilder
                     .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getRelevancySorts(), ","));
@@ -626,11 +621,6 @@ class BasicRequestFactory implements RequestFactory {
             }
         }
 
-        if (!request.getSorts().isEmpty()) {
-            httpUrlBuilder
-                    .addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getSorts(), ","));
-        }
-
         HttpUrl httpUrl = httpUrlBuilder.build();
 
         Headers.Builder headersBuilder = new Headers.Builder();
@@ -759,10 +749,6 @@ class BasicRequestFactory implements RequestFactory {
             }
             String includeStr = StringUtils.componentsSeparatedBy(request.getReviewIncludeTypes(), ",");
             httpUrlBuilder.addQueryParameter(kINCLUDE, includeStr);
-        }
-
-        if (!request.getSorts().isEmpty()) {
-            httpUrlBuilder.addQueryParameter(kSORT, StringUtils.componentsSeparatedBy(request.getSorts(), ","));
         }
 
         // TODO: All of these repeated query params are begging for some better composability. Composite or Decorator pattern?

@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 33
         versionCode 13
         versionName "2.1.1"
@@ -99,7 +99,7 @@ dependencies {
         compileOnly project(':bvnotifications')
         compileOnly project(':bvcommon')
     } else {
-        implementation('com.iovation.fraudforce.lib.FraudForce:fraudforce-lib-4.1.1-NEXUS_USER:4.1.1@aar')
+        implementation(name: 'fraudforce-lib-release-5.3.0', ext: 'aar')
         implementation "com.bazaarvoice.bvandroidsdk:analytics:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:auth-iovation:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:conversations:$demoAppSharedVersions.bvSdkVersion"

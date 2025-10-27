@@ -24,7 +24,7 @@
     <Preference
         android:enabled="false"
         android:key="@string/key_product_sentiments_passkey"
-        android:title="Progressive Submission Passkey" />
+        android:title="Product Sentiments Passkey" />
 
 
 </PreferenceScreen>

@@ -13,7 +13,7 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
   defaultConfig {
-    minSdk 21
+    minSdk 24
   }
   packagingOptions {
     resources {

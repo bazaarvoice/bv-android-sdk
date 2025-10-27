@@ -40,6 +40,7 @@
     <string name="title_activity_rate">Rate</string>
     <string name="title_activity_author">Author</string>
     <string name="title_activity_submit_review">Submit Review</string>
+    <string name="title_activity_product_sentiments">Product Sentiments</string>
 
     <string name="location_example_details">Refer to LocationManagerExample.java for examples on how to tie the Ads SDK into your LocationManager and Geofence implementation.</string>
     <string name="gimbal_example_details">Gimbal requires registration to gain access to their SDK. Visit the <a href="http://www.gimbal.com/developers/">Gimbal Developer Portal</a>
