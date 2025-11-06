@@ -6,7 +6,6 @@ import com.bazaarvoice.bvandroidsdk_curations.BuildConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowLooper;
@@ -29,7 +28,7 @@ import static junit.framework.Assert.fail;
  */
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class, BaseShadows.NetworkSecurityPolicyWorkaround.class})
+@Config(shadows = {BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class, BaseShadows.NetworkSecurityPolicyWorkaround.class})
 public class CurationsUnitTest extends BVBaseTest {
 
     BVCurations curations;

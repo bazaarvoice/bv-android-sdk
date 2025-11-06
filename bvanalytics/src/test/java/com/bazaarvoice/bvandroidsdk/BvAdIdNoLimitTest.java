@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowAdIdClientNoLimit.class, BaseShadows.ShadowNetwork.class})
+@Config(shadows = {BaseShadows.ShadowAdIdClientNoLimit.class})
 public class BvAdIdNoLimitTest {
   private static final String UUID_PATTERN = "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}";
   private BvStubData stubData;

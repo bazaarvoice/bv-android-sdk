@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(shadows = {BaseShadows.ShadowNetwork.class, BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class, BaseShadows.NetworkSecurityPolicyWorkaround.class})
+@Config(shadows = {BvSdkShadows.BvShadowAsyncTask.class, BaseShadows.ShadowAdIdClientNoLimit.class, BaseShadows.NetworkSecurityPolicyWorkaround.class})
 public class BVAuthenticatedUserTest extends BVBaseTest {
 
     BVAuthenticatedUser subject;
