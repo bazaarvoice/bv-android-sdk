@@ -1,5 +1,5 @@
 buildscript {
-  ext.kotlin_version = '1.8.10'
+  ext.kotlin_version = '1.9.22'
   apply from: rootProject.file('dependencies.gradle') // Assumes dependencies for classpath are defined here
 
   repositories {
@@ -38,6 +38,9 @@ subprojects {
 
   // Common repositories for all subprojects
   repositories {
+      google()
+      mavenCentral()
+      mavenLocal() // Good for local development/testing
     if (rootProject.hasProperty('NEXUS_USER') &&
             rootProject.hasProperty('NEXUS_PASSWORD')) {
       maven {
@@ -48,9 +51,7 @@ subprojects {
         }
       }
     }
-    google()
-    mavenCentral()
-    mavenLocal() // Good for local development/testing
+
   }
 
   if (!isRootProject) {

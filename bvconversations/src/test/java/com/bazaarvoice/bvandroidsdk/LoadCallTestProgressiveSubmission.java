@@ -290,4 +290,30 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
         });
     }
 
+    @Test
+    public void shouldCompleteVideoUploadRequestSucessfully() throws Exception {
+        final VideoUploadRequest request = getStubVideoUploadRequest();
+        final BVConversationsClient client = clientRule.getClient();
+        clientRule.enqueueHttp200("photo_upload_response.json");
+        LoadCallProgressiveSubmission<VideoUploadRequest, VideoUploadResponse> loadCallProgressiveSubmission = client.prepareCall(request);
+
+        loadCallProgressiveSubmission.loadAsync(new ConversationsSubmissionCallback<VideoUploadResponse>() {
+            @Override
+            public void onSuccess(@NonNull VideoUploadResponse response) {
+                assertNotNull(response);
+                assertNotNull(response.getVideo());
+                assertNotNull(response.getVideo().getContent());
+                assertNotNull(response.getVideo().getContent().getNormalUrl());
+                assertNotNull(response.getVideo().getContent().getThumbnailUrl());
+                assertEquals("normalurl",response.getVideo().getContent().getNormalUrl());
+                assertEquals("thumbnailurl",response.getVideo().getContent().getThumbnailUrl());
+            }
+
+            @Override
+            public void onFailure(@NonNull ConversationsSubmissionException exception) {
+                fail();
+            }
+        });
+    }
+
 }
