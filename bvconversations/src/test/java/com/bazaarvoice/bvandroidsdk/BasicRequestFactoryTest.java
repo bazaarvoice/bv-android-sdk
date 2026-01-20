@@ -928,4 +928,33 @@ public class BasicRequestFactoryTest {
     assertTrue(url.queryParameterValues("productId").contains("test1"));
     assertTrue(url.queryParameterValues("formatType").contains("paragraph"));
   }
+
+    @Test
+    public void testReviewTokensRequest() {
+        ReviewTokensRequest request = new ReviewTokensRequest.Builder("test-product-123")
+                .build();
+
+        final Request okRequest = requestFactory.create(request);
+        final HttpUrl url = okRequest.url();
+
+        assertEquals("test-product-123", url.queryParameter("productId"));
+    }
+
+    @Test
+    public void testMatchedTokensRequest() {
+        MatchedTokensRequest request = new MatchedTokensRequest.Builder(
+                "test-product-456").addReviewText("The fit is Fragrance, Projection").build();
+
+        final Request okRequest = requestFactory.create(request);
+
+        final HttpUrl url = okRequest.url();
+
+        assertTrue(url.toString().contains("data/matchedtokens"));
+
+        // Verify Content-Type header
+        assertEquals("application/json", okRequest.header("Content-Type"));
+    }
+
+
+
 }

@@ -189,8 +189,11 @@ class BasicRequestFactory implements RequestFactory {
     public static final String kDEVICE_FINGERPRINT = "deviceFingerprint";
     public static final String kEMAIL_USER = "userEmail";
     // endregion
-    // endregion
 
+    // region Matched and Review Tokens Request Keys
+    private static final String MATCHED_TOKENS_ENDPOINT = "data/matchedtokens";
+    private static final String REVIEW_TOKENS_ENDPOINT = "data/reviewtokens";
+    // endregion
     // region Instance Fields
     private final BVMobileInfo bvMobileInfo;
     private final String bvRootApiUrl;
@@ -277,6 +280,10 @@ class BasicRequestFactory implements RequestFactory {
             return createFromInitiateSubmitRequest((InitiateSubmitRequest) request);
         } else if(request instanceof ProgressiveSubmitRequest) {
             return createFromProgressiveSubmitRequest((ProgressiveSubmitRequest) request);
+        } else if (request instanceof ReviewTokensRequest) {
+            return createFromReviewTokensRequest((ReviewTokensRequest) request);
+        } else if (request instanceof MatchedTokensRequest) {
+            return createFromMatchedTokensRequest((MatchedTokensRequest) request);
         }
         throw new IllegalStateException("Unknown request type: " + request.getClass().getCanonicalName());
     }
@@ -1100,6 +1107,53 @@ class BasicRequestFactory implements RequestFactory {
     }
     // endregion
 
+    private Request createFromMatchedTokensRequest(MatchedTokensRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+                .newBuilder()
+                .addPathSegments(MATCHED_TOKENS_ENDPOINT)
+                .addQueryParameter(kPASS_KEY, convApiKey);
+
+        MediaType type = MediaType.parse("application/json; charset=utf-8");
+        JsonObject json = new JsonObject();
+        json.addProperty("productId", request.getProductId());
+        json.addProperty("reviewText", request.getReviewText());
+
+        Headers.Builder headersBuilder = new Headers.Builder();
+        addCommonHeaders(headersBuilder, bvSdkUserAgent);
+        headersBuilder.add("Content-Type", "application/json");
+
+        HttpUrl url = httpUrlBuilder.build();
+        RequestBody body = RequestBody.create(type, json.toString());
+
+        return okRequestBuilder
+                .url(url)
+                .headers(headersBuilder.build())
+                .post(body)
+                .build();
+    }
+
+    private Request createFromReviewTokensRequest(ReviewTokensRequest request) {
+        Request.Builder okRequestBuilder = new Request.Builder();
+
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+                .newBuilder()
+                .addPathSegments(REVIEW_TOKENS_ENDPOINT)
+                .addQueryParameter(kPASS_KEY, convApiKey)
+                .addQueryParameter(kProductId, request.getProductId());
+
+        Headers.Builder headersBuilder = new Headers.Builder();
+        addCommonHeaders(headersBuilder, bvSdkUserAgent);
+
+        HttpUrl url = httpUrlBuilder.build();
+
+        return okRequestBuilder
+                .url(url)
+                .headers(headersBuilder.build())
+                .get()
+                .build();
+    }
     // region Static Helpers
     private static void addCommonQueryParams(HttpUrl.Builder httpUrlBuilder, String apiKey, BVMobileInfo bvMobileInfo) {
         httpUrlBuilder.addQueryParameter(kAPI_VERSION, API_VERSION)
