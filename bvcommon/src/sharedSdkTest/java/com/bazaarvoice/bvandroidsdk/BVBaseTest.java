@@ -159,34 +159,32 @@ public abstract class BVBaseTest {
 
     public static File readFile(String filename, Class packageClass) {
 
-        File localImageFile = null;
         InputStream stream = packageClass.getClassLoader().getResourceAsStream(filename);
-        localImageFile = createFileFromInputStream(stream);
-
-        return localImageFile;
+        if (stream == null) return null;
+        return createFileFromInputStream(stream, filename);
     }
 
-    private static File createFileFromInputStream(InputStream inputStream) {
-        try {
-            File f = File.createTempFile("tmp", "png");
-            OutputStream outputStream = new FileOutputStream(f);
-            byte buffer[] = new byte[1024];
-            int length = 0;
-
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
-            }
-
-            outputStream.close();
-            inputStream.close();
-
-            return f;
-
-        } catch (IOException e) {
-            //Logging exception
-            e.printStackTrace();
+    private static File createFileFromInputStream(InputStream inputStream, String originalFilename) {
+        String ext = "dat";
+        int dot = (originalFilename != null) ? originalFilename.lastIndexOf('.') : -1;
+        if (dot >= 0 && dot < originalFilename.length() - 1) {
+            ext = originalFilename.substring(dot + 1);
         }
 
-        return null;
+        try {
+            File f = File.createTempFile("tmp", "." + ext);
+            try (OutputStream outputStream = new FileOutputStream(f);
+                 InputStream in = inputStream) {
+                byte[] buffer = new byte[8 * 1024];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
+                }
+            }
+            return f;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

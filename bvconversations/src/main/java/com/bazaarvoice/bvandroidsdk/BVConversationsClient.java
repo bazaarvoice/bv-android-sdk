@@ -141,6 +141,14 @@ public final class BVConversationsClient {
         return factoryCreateDisplayCall(CommentsResponse.class, request);
     }
 
+    public LoadCallDisplay<MatchedTokensRequest, MatchedTokensResponse> prepareCall(MatchedTokensRequest request) {
+        return factoryCreateDisplayCall(MatchedTokensResponse.class, request);
+    }
+
+    public LoadCallDisplay<ReviewTokensRequest, ReviewTokensResponse> prepareCall(ReviewTokensRequest request) {
+        return factoryCreateDisplayCall(ReviewTokensResponse.class, request);
+    }
+
     public LoadCallSubmission<AnswerSubmissionRequest, AnswerSubmissionResponse> prepareCall(AnswerSubmissionRequest submission) {
         return factoryCreateSubmissionCall(AnswerSubmissionResponse.class, submission);
     }
