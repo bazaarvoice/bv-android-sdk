@@ -4,7 +4,7 @@
 # 8.21.0
 ## Generative AI Content Coach
 * Allow SDK clients to use Review Tokens API.
-* Allow SDK clients to usd Matched Tokens API.
+* Allow SDK clients to use Matched Tokens API.
 
 
 # 8.20.0

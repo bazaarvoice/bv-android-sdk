@@ -593,6 +593,9 @@ class BasicRequestFactory implements RequestFactory {
         if(request.getFormatType()!=null){
             httpUrlBuilder.addQueryParameter(kFormatType, String.valueOf(request.getFormatType()));
         }
+        if (request.getLanguage() != null) {
+            httpUrlBuilder.addQueryParameter(kLanguage, String.valueOf(request.getLanguage()));
+        }
         HttpUrl httpUrl = httpUrlBuilder.build();
         Headers.Builder headersBuilder = new Headers.Builder();
         addCommonHeaders(headersBuilder, bvSdkUserAgent);

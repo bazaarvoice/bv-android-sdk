@@ -104,7 +104,7 @@ dependencies {
         compileOnly project(':bvnotifications')
         compileOnly project(':bvcommon')
     } else {
-        implementation(name: 'fraudforce-lib-release-5.3.0', ext: 'aar')
+        compileOnly files('libs/fraudforce-lib-release-5.3.0.aar')
         implementation "com.bazaarvoice.bvandroidsdk:analytics:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:auth-iovation:$demoAppSharedVersions.bvSdkVersion"
         implementation "com.bazaarvoice.bvandroidsdk:conversations:$demoAppSharedVersions.bvSdkVersion"
