@@ -76,7 +76,7 @@ public class BVSDKTest {
         gson = new Gson();
         shopperAdvertisingApiKey = "/";
 
-        rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl,bazaarvoiceReviewHighlightUrl);
+        rootApiUrls = new BVRootApiUrls(shopperMarketingApiBaseUrl, bazaarvoiceApiBaseUrl, notificationConfigUrl, bazaarvoiceReviewHighlightUrl, bazaarvoiceApiBaseUrl);
 
       when(bvUserProvidedData.getApplication()).thenReturn(ApplicationProvider.getApplicationContext());
 

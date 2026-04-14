@@ -194,9 +194,11 @@ class BasicRequestFactory implements RequestFactory {
     private static final String MATCHED_TOKENS_ENDPOINT = "data/matchedtokens";
     private static final String REVIEW_TOKENS_ENDPOINT = "data/reviewtokens";
     // endregion
+
     // region Instance Fields
     private final BVMobileInfo bvMobileInfo;
     private final String bvRootApiUrl;
+    private final String bvMediaApiUrl;
     private final String bvReviewHighlightsUrl;
     private final String convApiKey;
     private final String storeApiKey;
@@ -223,6 +225,7 @@ class BasicRequestFactory implements RequestFactory {
     BasicRequestFactory(BVMobileInfo bvMobileInfo, BVRootApiUrls bvRootApiUrls, BVConfig bvConfig, String bvSdkUserAgent, FingerprintProvider fingerprintProvider) {
         this.bvMobileInfo = bvMobileInfo;
         this.bvRootApiUrl = bvRootApiUrls.getBazaarvoiceApiRootUrl();
+        this.bvMediaApiUrl = bvRootApiUrls.getBazaarvoiceMediaApiRootUrl();
         this.bvReviewHighlightsUrl = bvRootApiUrls.getBazaarvoiceReviewHighlightApiUrl();
         this.convApiKey = bvConfig.getApiKeyConversations();
         this.storeApiKey = bvConfig.getApiKeyConversationsStores();
@@ -1047,20 +1050,20 @@ class BasicRequestFactory implements RequestFactory {
 
     private Request createFromVideoUploadRequest(VideoUploadRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
+        VideoUpload upload = request.getVideoUpload();
 
-        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
+        HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvMediaApiUrl)
                 .newBuilder()
-                .addPathSegments(VIDEO_SUBMIT_ENDPOINT);
+                .addPathSegments(VIDEO_SUBMIT_ENDPOINT)
+                .addQueryParameter(kPASS_KEY, convApiKey)
+                .addQueryParameter(ConversationsRequest.kAPI_VERSION, API_VERSION)
+                .addQueryParameter(VideoUpload.kCONTENT_TYPE, upload.getContentType().getKey());
+
 
         MultipartBody.Builder multiPartBuilder = new MultipartBody.Builder();
 
-        VideoUpload upload = request.getVideoUpload();
-
         multiPartBuilder
                 .setType(MultipartBody.FORM)
-                .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
-                .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
-                .addFormDataPart(VideoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("video", "video.mp4", RequestBody.create(MEDIA_TYPE_VIDEO, upload.getVideoFile()));
 
         RequestBody requestBody = multiPartBuilder.build();
@@ -1391,7 +1394,7 @@ class BasicRequestFactory implements RequestFactory {
             for (Video video : videos) {
                 final String keyVideoUrl = String.format(Locale.US, KEY_VIDEO_URL_TEMPLATE, idx);
                 final String keyVideoCaption = String.format(Locale.US, KEY_VIDEO_CAPTION_TEMPLATE, idx);
-                formPutSafe(formBodyBuilder, keyVideoUrl, video.getContent().getNormalUrl());
+                formPutSafe(formBodyBuilder, keyVideoUrl, video.getVideoUrl());
                 formPutSafe(formBodyBuilder, keyVideoCaption, video.getCaption());
                 idx++;
             }
