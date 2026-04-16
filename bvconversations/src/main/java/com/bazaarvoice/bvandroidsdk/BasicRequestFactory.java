@@ -1015,7 +1015,9 @@ class BasicRequestFactory implements RequestFactory {
 
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
                 .newBuilder()
-                .addPathSegments(PHOTO_SUBMIT_ENDPOINT);
+                .addPathSegments(PHOTO_SUBMIT_ENDPOINT)
+                .addQueryParameter(kAPI_VERSION, API_VERSION)
+                .addQueryParameter(kPASS_KEY, convApiKey);
 
         MultipartBody.Builder multiPartBuilder = new MultipartBody.Builder();
 
@@ -1023,8 +1025,6 @@ class BasicRequestFactory implements RequestFactory {
 
         multiPartBuilder
                 .setType(MultipartBody.FORM)
-                .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
-                .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
                 .addFormDataPart(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("photo", "photo.jpg", RequestBody.create(MEDIA_TYPE_JPG, upload.getPhotoFile()));
 
@@ -1047,7 +1047,9 @@ class BasicRequestFactory implements RequestFactory {
 
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
                 .newBuilder()
-                .addPathSegments(VIDEO_SUBMIT_ENDPOINT);
+                .addPathSegments(VIDEO_SUBMIT_ENDPOINT)
+                .addQueryParameter(kAPI_VERSION, API_VERSION)
+                .addQueryParameter(kPASS_KEY, convApiKey);
 
         MultipartBody.Builder multiPartBuilder = new MultipartBody.Builder();
 
@@ -1055,8 +1057,6 @@ class BasicRequestFactory implements RequestFactory {
 
         multiPartBuilder
                 .setType(MultipartBody.FORM)
-                .addFormDataPart(ConversationsRequest.kAPI_VERSION, API_VERSION)
-                .addFormDataPart(ConversationsRequest.kPASS_KEY, convApiKey)
                 .addFormDataPart(VideoUpload.kCONTENT_TYPE, upload.getContentType().getKey())
                 .addFormDataPart("video", "video.mp4", RequestBody.create(MEDIA_TYPE_VIDEO, upload.getVideoFile()));
 

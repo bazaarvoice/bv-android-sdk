@@ -10,6 +10,9 @@ import java.util.List;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 
+import static com.bazaarvoice.bvandroidsdk.ConversationsRequest.API_VERSION;
+import static com.bazaarvoice.bvandroidsdk.ConversationsRequest.kPASS_KEY;
+import static com.bazaarvoice.bvandroidsdk.ConversationsRequest.kAPI_VERSION;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -769,6 +772,133 @@ public class BasicRequestFactoryTest {
     VideoUpload videoUpload = new VideoUpload(new File("filename"), "VideoTesting", VideoUpload.ContentType.REVIEW);
     VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
     assertNotNull(request);
+  }
+
+  @Test
+  public void photoUploadShouldHaveAuthKeyAsQueryParam() throws Exception {
+    File tempFile = File.createTempFile("test_photo", ".jpg");
+    tempFile.deleteOnExit();
+    PhotoUpload photoUpload = new PhotoUpload(tempFile, "PhotoTesting", PhotoUpload.ContentType.REVIEW);
+    PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    HttpUrl url = okRequest.url();
+    assertEquals("convApiKeyFoo", url.queryParameter(kPASS_KEY));
+  }
+
+  @Test
+  public void photoUploadShouldHaveApiVersionAsQueryParam() throws Exception {
+    File tempFile = File.createTempFile("test_photo", ".jpg");
+    tempFile.deleteOnExit();
+    PhotoUpload photoUpload = new PhotoUpload(tempFile, "PhotoTesting", PhotoUpload.ContentType.REVIEW);
+    PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    HttpUrl url = okRequest.url();
+    assertEquals(API_VERSION, url.queryParameter(kAPI_VERSION));
+  }
+
+  @Test
+  public void photoUploadShouldHaveCorrectEndpoint() throws Exception {
+    File tempFile = File.createTempFile("test_photo", ".jpg");
+    tempFile.deleteOnExit();
+    PhotoUpload photoUpload = new PhotoUpload(tempFile, "PhotoTesting", PhotoUpload.ContentType.REVIEW);
+    PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "uploadphoto.json");
+  }
+
+  @Test
+  public void photoUploadShouldBePostRequest() throws Exception {
+    File tempFile = File.createTempFile("test_photo", ".jpg");
+    tempFile.deleteOnExit();
+    PhotoUpload photoUpload = new PhotoUpload(tempFile, "PhotoTesting", PhotoUpload.ContentType.REVIEW);
+    PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    assertEquals("POST", okRequest.method());
+  }
+
+  @Test
+  public void photoUploadShouldHaveUserAgentHeader() throws Exception {
+    File tempFile = File.createTempFile("test_photo", ".jpg");
+    tempFile.deleteOnExit();
+    PhotoUpload photoUpload = new PhotoUpload(tempFile, "PhotoTesting", PhotoUpload.ContentType.REVIEW);
+    PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    assertEquals("Android-TestDk", okRequest.header("User-Agent"));
+  }
+
+  @Test
+  public void videoUploadShouldHaveAuthKeyAsQueryParam() throws Exception {
+    File tempFile = File.createTempFile("test_video", ".mp4");
+    tempFile.deleteOnExit();
+    VideoUpload videoUpload = new VideoUpload(tempFile, "VideoTesting", VideoUpload.ContentType.REVIEW);
+    VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    HttpUrl url = okRequest.url();
+    assertEquals("convApiKeyFoo", url.queryParameter(kPASS_KEY));
+  }
+
+  @Test
+  public void videoUploadShouldHaveApiVersionAsQueryParam() throws Exception {
+    File tempFile = File.createTempFile("test_video", ".mp4");
+    tempFile.deleteOnExit();
+    VideoUpload videoUpload = new VideoUpload(tempFile, "VideoTesting", VideoUpload.ContentType.REVIEW);
+    VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    HttpUrl url = okRequest.url();
+    assertEquals(API_VERSION, url.queryParameter(kAPI_VERSION));
+  }
+
+  @Test
+  public void videoUploadShouldHaveCorrectEndpoint() throws Exception {
+    File tempFile = File.createTempFile("test_video", ".mp4");
+    tempFile.deleteOnExit();
+    VideoUpload videoUpload = new VideoUpload(tempFile, "VideoTesting", VideoUpload.ContentType.REVIEW);
+    VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    requestFactoryUtils.assertFinalPathIs(okRequest.url(), "uploadvideo.json");
+  }
+
+  @Test
+  public void videoUploadShouldBePostRequest() throws Exception {
+    File tempFile = File.createTempFile("test_video", ".mp4");
+    tempFile.deleteOnExit();
+    VideoUpload videoUpload = new VideoUpload(tempFile, "VideoTesting", VideoUpload.ContentType.REVIEW);
+    VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    assertEquals("POST", okRequest.method());
+  }
+
+  @Test
+  public void videoUploadShouldHaveUserAgentHeader() throws Exception {
+    File tempFile = File.createTempFile("test_video", ".mp4");
+    tempFile.deleteOnExit();
+    VideoUpload videoUpload = new VideoUpload(tempFile, "VideoTesting", VideoUpload.ContentType.REVIEW);
+    VideoUploadRequest request = new VideoUploadRequest.Builder(videoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    assertEquals("Android-TestDk", okRequest.header("User-Agent"));
+  }
+
+  @Test
+  public void photoUploadShouldHandleLargeFile() throws Exception {
+    File tempFile = File.createTempFile("test_large_photo", ".jpg");
+    tempFile.deleteOnExit();
+    // Create a 30MB file to simulate a large photo upload
+    long thirtyMB = 30 * 1024 * 1024;
+    try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(tempFile, "rw")) {
+      raf.setLength(thirtyMB);
+    }
+    PhotoUpload photoUpload = new PhotoUpload(tempFile, "LargePhotoTesting", PhotoUpload.ContentType.REVIEW);
+    PhotoUploadRequest request = new PhotoUploadRequest.Builder(photoUpload).build();
+    Request okRequest = requestFactory.create(request);
+    HttpUrl url = okRequest.url();
+    // Auth key and API version should be in query params, not in the multipart body
+    assertEquals("convApiKeyFoo", url.queryParameter(kPASS_KEY));
+    assertEquals(API_VERSION, url.queryParameter(kAPI_VERSION));
+    requestFactoryUtils.assertFinalPathIs(url, "uploadphoto.json");
+    assertEquals("POST", okRequest.method());
+    // Verify the request body is multipart and contains the large file data
+    assertNotNull(okRequest.body());
+    assertTrue(okRequest.body().contentLength() >= thirtyMB);
   }
 
   @Test
