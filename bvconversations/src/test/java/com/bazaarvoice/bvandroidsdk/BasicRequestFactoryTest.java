@@ -1052,11 +1052,13 @@ public class BasicRequestFactoryTest {
   public void testReivewSummaryRequest() throws Exception  {
     final ReviewSummaryRequest request = new ReviewSummaryRequest.Builder("test1")
             .addFormatType("paragraph")
+            .addLanguage("en")
             .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("productId").contains("test1"));
     assertTrue(url.queryParameterValues("formatType").contains("paragraph"));
+    assertTrue(url.queryParameterValues("language").contains("en"));
   }
 
     @Test

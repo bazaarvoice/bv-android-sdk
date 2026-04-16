@@ -268,45 +268,25 @@ public class LoadCallTestProgressiveSubmission extends LoadCallTest {
     public void shouldCompleteVideoUploadRequestSucessfully() throws Exception {
         final VideoUploadRequest request = getStubVideoUploadRequest();
         final BVConversationsClient client = clientRule.getClient();
-        clientRule.enqueueHttp200("photo_upload_response.json");
+        clientRule.enqueueHttp200("video_upload_response.json");
         LoadCallProgressiveSubmission<VideoUploadRequest, VideoUploadResponse> loadCallProgressiveSubmission = client.prepareCall(request);
 
         loadCallProgressiveSubmission.loadAsync(new ConversationsSubmissionCallback<VideoUploadResponse>() {
             @Override
             public void onSuccess(@NonNull VideoUploadResponse response) {
                 assertNotNull(response);
+                assertFalse(response.getHasErrors());
                 assertNotNull(response.getVideo());
-                assertNotNull(response.getVideo().getContent());
-                assertNotNull(response.getVideo().getContent().getNormalUrl());
-                assertNotNull(response.getVideo().getContent().getThumbnailUrl());
-                assertEquals("normalurl",response.getVideo().getContent().getNormalUrl());
-                assertEquals("thumbnailurl",response.getVideo().getContent().getThumbnailUrl());
-            }
-
-            @Override
-            public void onFailure(@NonNull ConversationsSubmissionException exception) {
-                fail();
-            }
-        });
-    }
-
-    @Test
-    public void shouldCompleteVideoUploadRequestSucessfully() throws Exception {
-        final VideoUploadRequest request = getStubVideoUploadRequest();
-        final BVConversationsClient client = clientRule.getClient();
-        clientRule.enqueueHttp200("photo_upload_response.json");
-        LoadCallProgressiveSubmission<VideoUploadRequest, VideoUploadResponse> loadCallProgressiveSubmission = client.prepareCall(request);
-
-        loadCallProgressiveSubmission.loadAsync(new ConversationsSubmissionCallback<VideoUploadResponse>() {
-            @Override
-            public void onSuccess(@NonNull VideoUploadResponse response) {
-                assertNotNull(response);
-                assertNotNull(response.getVideo());
-                assertNotNull(response.getVideo().getContent());
-                assertNotNull(response.getVideo().getContent().getNormalUrl());
-                assertNotNull(response.getVideo().getContent().getThumbnailUrl());
-                assertEquals("normalurl",response.getVideo().getContent().getNormalUrl());
-                assertEquals("thumbnailurl",response.getVideo().getContent().getThumbnailUrl());
+                assertEquals("89c0e4d2-4261-4708-9e64-6251cc819f87", response.getVideo().getVideoId());
+                assertEquals("BAZAARVOICE", response.getVideo().getVideoHost());
+                assertEquals(
+                    "https://stgvideo.api.bazaarvoice.com/89c0e4d2-4261-4708-9e64-6251cc819f87/video/movie.mp4",
+                    response.getVideo().getVideoUrl()
+                );
+                assertEquals(
+                    "https://stgvideo.api.bazaarvoice.com/89c0e4d2-4261-4708-9e64-6251cc819f87/thumbnail/image-00001.png",
+                    response.getVideo().getVideoThumbnailUrl()
+                );
             }
 
             @Override

@@ -1,3 +1,4 @@
+
 apply plugin: 'com.android.library'
 apply plugin:'maven-publish'
 apply plugin: 'signing'
@@ -5,125 +6,130 @@ apply plugin: 'nu.studer.credentials'
 
 // Android block for THIS module's specific configuration
 android {
-  compileSdk 34
+    compileSdk 34
 
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
-  }
-  defaultConfig {
-    minSdk 24
-  }
-  packagingOptions {
-    resources {
-      excludes += ['META-INF/LICENSE', 'META-INF/NOTICE', 'META-INF/DEPENDENCIES']
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-  }
-  testOptions {
-    unitTests.returnDefaultValues = true
-  }
-  lint {
-    abortOnError false
-  }
+    defaultConfig {
+        minSdk 24
+    }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/LICENSE', 'META-INF/NOTICE', 'META-INF/DEPENDENCIES']
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    lint {
+        abortOnError false
+    }
 }
 
 
 
 afterEvaluate {
-  // === REQUIRED: KEEP JAVADOC AND SOURCES JAR TASKS INSIDE afterEvaluate ===
-  // These tasks are manually defined to get around the issues with `java {}` block methods.
-  task androidJavadocs(type: Javadoc) {
-    // Use getByName for robustness
-    source = android.sourceSets.getByName('main').java.srcDirs
-    // If your project uses Kotlin, also include Kotlin source directories:
-     source += android.sourceSets.getByName('main').kotlin.srcDirs
+    // === REQUIRED: KEEP JAVADOC AND SOURCES JAR TASKS INSIDE afterEvaluate ===
+    // These tasks are manually defined to get around the issues with `java {}` block methods.
+    task androidJavadocs(type: Javadoc) {
+        // Use getByName for robustness
+        source = android.sourceSets.getByName('main').java.srcDirs
+        source += android.sourceSets.getByName('main').kotlin.srcDirs
 
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    // If your library has compileOnly dependencies that are needed for javadoc generation, add them
-    // classpath += configurations.compileOnly // Example
-    classpath += configurations.implementation // Example (often needed)
-  }
-
-  task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    archiveClassifier.set('javadoc')
-    from androidJavadocs.destinationDir
-  }
-
-  task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.getByName('main').java.srcDirs
-    from android.sourceSets.getByName('main').kotlin.srcDirs
-  }
-
-  publishing {
-    publications {
-      mavenJava(MavenPublication) {
-        from components.release // This is crucial for Android Libraries
-
-        groupId = project.group
-        artifactId = project.name // Use project.name for artifactId if common
-        version = project.version
-
-        // === REQUIRED: ATTACH MANUALLY CREATED JAVADOC AND SOURCES JARs ===
-        artifact androidSourcesJar
-        artifact androidJavadocsJar
-
-        pom {
-          name = POM_NAME
-          description = POM_DESCRIPTION
-          url = POM_URL
-          licenses {
-            license {
-              name = POM_LICENCE_NAME
-              url = POM_LICENCE_URL
-              distribution = POM_LICENCE_DIST
+        // 2. Fix the classpath (The "Resolvable" way)
+        // We use releaseCompileClasspath because this is for a Maven release
+        classpath = configurations.releaseCompileClasspath.incoming.artifactView {
+            attributes {
+                attribute(Attribute.of('artifactType', String), 'jar')
             }
-          }
-          developers {
-            developer {
-              id = POM_DEVELOPER_ID
-              name = POM_DEVELOPER_NAME
-              email = 'open-source@bazaarvoice.com'
-              organization = 'Bazaarvoice, Inc.'
-              organizationUrl = 'https://www.bazaarvoice.com'
+        }.files
+
+        // 3. Add Android SDK classes
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+        archiveClassifier.set('javadoc')
+        from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        archiveClassifier.set('sources')
+        from android.sourceSets.getByName('main').java.srcDirs
+        from android.sourceSets.getByName('main').kotlin.srcDirs
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.release // This is crucial for Android Libraries
+
+                groupId = project.group
+                artifactId = POM_ARTIFACT_ID // Use project.name for artifactId if common
+                version = project.version
+
+                // === REQUIRED: ATTACH MANUALLY CREATED JAVADOC AND SOURCES JARs ===
+                artifact androidSourcesJar
+                artifact androidJavadocsJar
+
+                pom {
+                    name = POM_NAME
+                    description = POM_DESCRIPTION
+                    url = POM_URL
+                    licenses {
+                        license {
+                            name = POM_LICENCE_NAME
+                            url = POM_LICENCE_URL
+                            distribution = POM_LICENCE_DIST
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = POM_DEVELOPER_ID
+                            name = POM_DEVELOPER_NAME
+                            email = 'open-source@bazaarvoice.com'
+                            organization = 'Bazaarvoice, Inc.'
+                            organizationUrl = 'https://www.bazaarvoice.com'
+                        }
+                    }
+                    scm {
+                        url = POM_SCM_URL
+                        connection = POM_SCM_CONNECTION
+                        developerConnection = POM_SCM_DEV_CONNECTION
+                    }
+                }
             }
-          }
-          scm {
-            url = POM_SCM_URL
-            connection = POM_SCM_CONNECTION
-            developerConnection = POM_SCM_DEV_CONNECTION
-          }
         }
-      }
     }
-  }
 
-  signing {
-    sign publishing.publications.mavenJava
-    useGpgCmd()
-  }
-
-  // Javadoc options (apply to all Javadoc tasks in this project)
-  tasks.withType(Javadoc) {
-    options {
-      encoding "UTF-8"
-      charSet 'UTF-8'
-      author true
-      failOnError false // Keep this false during development, change for strict CI
-      version true
-      links "https://developer.android.google.cn/reference/"
+    signing {
+        sign publishing.publications.mavenJava
+       // useGpgCmd()
     }
-  }
 
-  if (JavaVersion.current().isJava8Compatible()) {
+    // Javadoc options (apply to all Javadoc tasks in this project)
     tasks.withType(Javadoc) {
-      options.addStringOption('Xdoclint:none', '-quiet')
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            author true
+            failOnError false // Keep this false during development, change for strict CI
+            version true
+            links "https://developer.android.google.cn/reference/"
+        }
     }
-  }
-  if (JavaVersion.current().isJava9Compatible()) {
-    tasks.withType(Javadoc) {
-      options.addBooleanOption('html5', true)
+
+    if (JavaVersion.current().isJava8Compatible()) {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
     }
-  }
+    if (JavaVersion.current().isJava9Compatible()) {
+        tasks.withType(Javadoc) {
+            options.addBooleanOption('html5', true)
+        }
+    }
 } // End of afterEvaluate block

@@ -64,6 +64,10 @@ public class BVSDK {
     private static final String SHOPPER_MARKETING_API_ROOT_URL_PRODUCTION = "https://my.network.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_STAGING = "https://stg.api.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_URL_PRODUCTION = "https://api.bazaarvoice.com/";
+
+    private static final String BAZAARVOICE_MEDIA_ROOT_URL_STAGING = "https://stgmedia.api.bazaarvoice.com/";
+    private static final String BAZAARVOICE_MEDIA_ROOT_URL_PRODUCTION = "https://media.api.bazaarvoice.com/";
+
     private static final String BAZAARVOICE_ROOT_REVIEW_HIGHLIGHTS_URL_PRODUCTION = "https://rh.nexus.bazaarvoice.com/";
     private static final String BAZAARVOICE_ROOT_REVIEW_HIGHLIGHTS_URL_STAGING = "https://rh-stg.nexus.bazaarvoice.com/";
     private static final String NOTIFICATION_CONFIG_URL = "https://s3.amazonaws.com/";
@@ -522,7 +526,8 @@ public class BVSDK {
             String bazaarvoiceReviewHighlightUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_REVIEW_HIGHLIGHTS_URL_STAGING : BAZAARVOICE_ROOT_REVIEW_HIGHLIGHTS_URL_PRODUCTION;
             List<Integer> profilePollTimes = Arrays.asList(0, 5000, 12000, 24000);
             String bazaarvoiceApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_ROOT_URL_STAGING : BAZAARVOICE_ROOT_URL_PRODUCTION;
-            BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL,bazaarvoiceReviewHighlightUrl);
+            String bazaarvoiceMediaApiRootUrl = bazaarEnvironment == BazaarEnvironment.STAGING ? BAZAARVOICE_MEDIA_ROOT_URL_STAGING : BAZAARVOICE_MEDIA_ROOT_URL_PRODUCTION;
+            BVRootApiUrls endPoints = new BVRootApiUrls(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, NOTIFICATION_CONFIG_URL, bazaarvoiceReviewHighlightUrl, bazaarvoiceMediaApiRootUrl);
             BVMobileInfo bvMobileInfo = new BVMobileInfo(application.getApplicationContext());
             BVUserProvidedData bvUserProvidedData = new BVUserProvidedData(application, finalConfig, bvMobileInfo);
             BackgroundThread backgroundThread = new BackgroundThread();

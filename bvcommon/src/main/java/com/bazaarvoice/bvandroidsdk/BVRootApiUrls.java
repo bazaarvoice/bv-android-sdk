@@ -12,12 +12,22 @@ class BVRootApiUrls {
     final String bazaarvoiceApiRootUrl;
     final String bazaarvoiceReviewHighlightUrl;
     final String notificationConfigUrl;
+    final String bazaarvoiceMediaApiRootUrl;
 
-    public BVRootApiUrls(String shopperMarketingApiRootUrl, String bazaarvoiceApiRootUrl, String notificationConfigUrl, String bazaarvoiceReviewHighlightUrl) {
+    public BVRootApiUrls(String shopperMarketingApiRootUrl, String bazaarvoiceApiRootUrl, String notificationConfigUrl, String bazaarvoiceReviewHighlightUrl, String bazaarvoiceMediaApiRootUrl) {
         this.shopperMarketingApiRootUrl = shopperMarketingApiRootUrl;
         this.bazaarvoiceApiRootUrl = bazaarvoiceApiRootUrl;
         this.notificationConfigUrl = notificationConfigUrl;
         this.bazaarvoiceReviewHighlightUrl = bazaarvoiceReviewHighlightUrl;
+        this.bazaarvoiceMediaApiRootUrl = bazaarvoiceMediaApiRootUrl;
+    }
+
+    /**
+     * Backwards-compatible constructor: if no media URL is provided, default to the standard
+     * Bazaarvoice API root URL.
+     */
+    public BVRootApiUrls(String shopperMarketingApiRootUrl, String bazaarvoiceApiRootUrl, String notificationConfigUrl, String bazaarvoiceReviewHighlightUrl) {
+        this(shopperMarketingApiRootUrl, bazaarvoiceApiRootUrl, notificationConfigUrl, bazaarvoiceReviewHighlightUrl, bazaarvoiceApiRootUrl);
     }
 
     public String getShopperMarketingApiRootUrl() {
@@ -34,5 +44,9 @@ class BVRootApiUrls {
 
     public String getNotificationConfigUrl() {
         return notificationConfigUrl;
+    }
+
+    public String getBazaarvoiceMediaApiRootUrl() {
+        return bazaarvoiceMediaApiRootUrl;
     }
 }

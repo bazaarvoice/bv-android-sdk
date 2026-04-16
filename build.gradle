@@ -84,6 +84,7 @@ subprojects {
 nexusPublishing {
   repositories {
     sonatype {
+        packageGroup = "com.bazaarvoice"
       // New staging API URL for Central Sonatype
       nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
       // New snapshot repository URL for Central Sonatype

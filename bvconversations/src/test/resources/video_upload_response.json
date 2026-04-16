@@ -1,0 +1,41 @@
+{
+  "Locale": "en_US",
+  "Errors": [],
+  "Form": [
+    {
+      "Type": "Field",
+      "Id": "video"
+    }
+  ],
+  "FormErrors": {},
+  "SubmissionId": null,
+  "Data": {
+    "Fields": {
+      "video": {
+        "Options": [],
+        "Type": "FileInput",
+        "Required": null,
+        "Label": null,
+        "Value": null,
+        "MinLength": null,
+        "Id": "video",
+        "MaxLength": null,
+        "Default": null
+      }
+    },
+    "Groups": {},
+    "FieldsOrder": [
+      "video"
+    ],
+    "GroupsOrder": []
+  },
+  "TypicalHoursToPost": null,
+  "AuthorSubmissionToken": null,
+  "HasErrors": false,
+  "Video": {
+    "VideoId": "89c0e4d2-4261-4708-9e64-6251cc819f87",
+    "VideoHost": "BAZAARVOICE",
+    "VideoThumbnailUrl": "https://stgvideo.api.bazaarvoice.com/89c0e4d2-4261-4708-9e64-6251cc819f87/thumbnail/image-00001.png",
+    "VideoUrl": "https://stgvideo.api.bazaarvoice.com/89c0e4d2-4261-4708-9e64-6251cc819f87/video/movie.mp4"
+  }
+}
