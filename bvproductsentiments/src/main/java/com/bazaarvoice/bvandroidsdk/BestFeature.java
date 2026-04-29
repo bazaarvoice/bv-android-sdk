@@ -8,7 +8,7 @@ public class BestFeature {
     @SerializedName("feature")
     private String feature;
     @SerializedName("percentPositive")
-    private int percentPositive;
+    private float percentPositive;
     @SerializedName("nativeFeature")
     private String nativeFeature;
     @SerializedName("reviewsMentioned")
@@ -34,11 +34,11 @@ public class BestFeature {
         this.feature = feature;
     }
 
-    public int getPercentPositive() {
+    public float getPercentPositive() {
         return percentPositive;
     }
 
-    public void setPercentPositive(int percentPositive) {
+    public void setPercentPositive(float percentPositive) {
         this.percentPositive = percentPositive;
     }
 

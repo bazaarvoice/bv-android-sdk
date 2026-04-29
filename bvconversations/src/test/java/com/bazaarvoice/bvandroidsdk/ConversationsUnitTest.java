@@ -402,6 +402,8 @@ public class ConversationsUnitTest extends BVBaseTest {
         assertEquals("https://www.website.com/content/here", firstAnswer.getSyndicatedSource().getContentLink());
         assertEquals("https://www.website.com/image.png", firstAnswer.getSyndicatedSource().getLogoImageUrl());
         assertEquals("SourceName", firstAnswer.getSyndicatedSource().getName());
+        assertEquals("AI-Assisted", firstAnswer.getAutomatedAnswerSource());
+
     }
 
     @Test

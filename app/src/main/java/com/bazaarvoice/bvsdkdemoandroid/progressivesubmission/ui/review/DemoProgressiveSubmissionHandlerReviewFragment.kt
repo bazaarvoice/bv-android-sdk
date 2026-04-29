@@ -53,8 +53,8 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
     private val videoUploadCallback = object : ConversationsSubmissionCallback<VideoUploadResponse> {
         override fun onSuccess(response: VideoUploadResponse) {
             Log.d("Got Video", response.toString())
-            val photoUrl = response.video.content.normalUrl
-            onReviewItemSubmitted("photourl_1", photoUrl)
+            val videoUrl = response.video.videoUrl
+            onReviewItemSubmitted("videourl_1", videoUrl)
         }
         override fun onFailure(exception: ConversationsSubmissionException) {
             Toast.makeText(context?.applicationContext, "Photo Failed To Submit: ${exception?.message}", Toast.LENGTH_SHORT).show()
@@ -102,7 +102,7 @@ class DemoProgressiveSubmissionHandlerReviewFragment : Fragment(), FormSubmissio
         }
         uploadVideo.setOnClickListener {
             //upload video to photoVideo. Attach it to ReviewAndSubmit.
-            val file = demoAssetsUtil.parseImageFileFromAssets("bv_sample_image.png")
+            val file = demoAssetsUtil.parseVideoFileFromAssets("bv_sample_video.mp4")
             Log.d("CreatedFile", "Filed Create")
             val videoUpload = VideoUpload(file, "Me and my purchase", VideoUpload.ContentType.REVIEW)
             val videoUploadRequest = VideoUploadRequest.Builder(videoUpload).build()

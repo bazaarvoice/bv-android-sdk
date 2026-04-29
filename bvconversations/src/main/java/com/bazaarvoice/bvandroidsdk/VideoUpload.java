@@ -27,7 +27,9 @@ import java.io.File;
  * submission API
  */
 public class VideoUpload {
-    static final String kCONTENT_TYPE = "contenttype";
+    static final String kCONTENT_TYPE = "contentType";
+    static final String kAPI_VERSION = "ApiVersion";
+    static final String kPASS_KEY = "PassKey";
 
     private final File videoFile;
     private final String caption;

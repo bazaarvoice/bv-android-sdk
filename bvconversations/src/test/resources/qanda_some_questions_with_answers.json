@@ -20,7 +20,7 @@
         "Badges": {},
         "AuthorId": "8g90d8ea70g",
         "IsFeatured": false,
-        "SourceClient": "testcust-bazaarvoice",
+        "AutomatedAnswerSource": "AI-Assisted",        "SourceClient": "testcust-bazaarvoice",
         "IsSyndicated": true,
         "SyndicationSource": {
           "LogoImageUrl": "https://www.website.com/image.png",

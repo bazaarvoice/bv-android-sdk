@@ -1,13 +1,15 @@
-
 apply plugin: 'com.android.library'
-apply plugin:'maven-publish'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'nu.studer.credentials'
 
-// Android block for THIS module's specific configuration
 android {
-    compileSdk 34
+    compileSdk 35
 
+    // ✅ singleVariant belongs HERE, inside the android block
+    publishing {
+        singleVariant('release')
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -29,25 +31,16 @@ android {
     }
 }
 
-
-
 afterEvaluate {
-    // === REQUIRED: KEEP JAVADOC AND SOURCES JAR TASKS INSIDE afterEvaluate ===
-    // These tasks are manually defined to get around the issues with `java {}` block methods.
+
     task androidJavadocs(type: Javadoc) {
-        // Use getByName for robustness
         source = android.sourceSets.getByName('main').java.srcDirs
         source += android.sourceSets.getByName('main').kotlin.srcDirs
-
-        // 2. Fix the classpath (The "Resolvable" way)
-        // We use releaseCompileClasspath because this is for a Maven release
         classpath = configurations.releaseCompileClasspath.incoming.artifactView {
             attributes {
                 attribute(Attribute.of('artifactType', String), 'jar')
             }
         }.files
-
-        // 3. Add Android SDK classes
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
@@ -62,16 +55,16 @@ afterEvaluate {
         from android.sourceSets.getByName('main').kotlin.srcDirs
     }
 
+    // ✅ publishing block is separate from android block — NOT nested inside it
     publishing {
         publications {
             mavenJava(MavenPublication) {
-                from components.release // This is crucial for Android Libraries
+                from components.release
 
                 groupId = project.group
-                artifactId = POM_ARTIFACT_ID // Use project.name for artifactId if common
+                artifactId = POM_ARTIFACT_ID
                 version = project.version
 
-                // === REQUIRED: ATTACH MANUALLY CREATED JAVADOC AND SOURCES JARs ===
                 artifact androidSourcesJar
                 artifact androidJavadocsJar
 
@@ -105,18 +98,17 @@ afterEvaluate {
         }
     }
 
+    // ✅ signing is also separate, outside of publishing block
     signing {
         sign publishing.publications.mavenJava
-       // useGpgCmd()
     }
 
-    // Javadoc options (apply to all Javadoc tasks in this project)
     tasks.withType(Javadoc) {
         options {
             encoding "UTF-8"
             charSet 'UTF-8'
             author true
-            failOnError false // Keep this false during development, change for strict CI
+            failOnError false
             version true
             links "https://developer.android.google.cn/reference/"
         }
@@ -132,4 +124,5 @@ afterEvaluate {
             options.addBooleanOption('html5', true)
         }
     }
-} // End of afterEvaluate block
+
+} // End of afterEvaluate

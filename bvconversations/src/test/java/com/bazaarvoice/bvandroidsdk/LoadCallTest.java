@@ -121,6 +121,7 @@ public abstract class LoadCallTest extends BVBaseTest {
     private BVSDK.BVWorkerData getStubBvWorkerData(HttpUrl httpUrl) {
       final BVRootApiUrls bvRootApiUrls = mock(BVRootApiUrls.class);
       when(bvRootApiUrls.getBazaarvoiceApiRootUrl()).thenReturn(httpUrl.toString());
+      when(bvRootApiUrls.getBazaarvoiceMediaApiRootUrl()).thenReturn(httpUrl.toString());
       final OkHttpClient okHttpClient = new OkHttpClient.Builder()
           .connectTimeout(1, TimeUnit.SECONDS)
           .readTimeout(1, TimeUnit.SECONDS)

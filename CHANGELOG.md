@@ -1,5 +1,12 @@
 # Changelog
 
+# 8.22.0
+## Review Summarisation - Language keyword
+* Allow Client Access to language keyword.
+## Updated Video Upload Endpoint
+* Updated Video Upload Endpoint which allows for larger videos and more video hosting options.
+* Fix Product Sentiments response parsing issue.
+
 
 # 8.21.0
 ## Generative AI Content Coach

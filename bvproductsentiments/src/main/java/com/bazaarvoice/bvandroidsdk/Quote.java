@@ -12,7 +12,7 @@ public class Quote  {
     @SerializedName("emotion")
     private String emotion;
     @SerializedName("reviewRating")
-    private int reviewRating;
+    private float reviewRating;
     @SerializedName("reviewId")
     private String reviewId;
     @SerializedName("reviewedAt")
@@ -25,7 +25,6 @@ public class Quote  {
     private boolean incentivised;
     @SerializedName("reviewType")
     private String reviewType;
-    private final static long serialVersionUID = -6012454666753937341L;
 
     public String getQuoteId() {
         return quoteId;
@@ -51,11 +50,11 @@ public class Quote  {
         this.emotion = emotion;
     }
 
-    public int getReviewRating() {
+    public float getReviewRating() {
         return reviewRating;
     }
 
-    public void setReviewRating(int reviewRating) {
+    public void setReviewRating(float reviewRating) {
         this.reviewRating = reviewRating;
     }
 

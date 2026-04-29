@@ -60,7 +60,7 @@ public class DemoAssetsUtil {
 
     try {
       InputStream stream = context.getAssets().open(fileName);
-      localImageFile = createFileFromInputStream(stream);
+      localImageFile = createFileFromInputStream(stream, "png");
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -69,9 +69,23 @@ public class DemoAssetsUtil {
     return localImageFile;
   }
 
-  private File createFileFromInputStream(InputStream inputStream) {
+  public File parseVideoFileFromAssets(String fileName) {
+    File localVideoFile = null;
+
+    try {
+      InputStream stream = context.getAssets().open(fileName);
+      localVideoFile = createFileFromInputStream(stream, "mp4");
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return localVideoFile;
+  }
+
+  private File createFileFromInputStream(InputStream inputStream, String extension) {
     try{
-      File f = File.createTempFile("tmp", "png");
+      File f = File.createTempFile("tmp", extension);
       OutputStream outputStream = new FileOutputStream(f);
       byte buffer[] = new byte[1024];
       int length = 0;

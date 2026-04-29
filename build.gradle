@@ -9,7 +9,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:7.4.2'
+    classpath 'com.android.tools.build:gradle:8.13.2'
     // Assuming sdkBuildDep.dexCountPlugin and sdkBuildDep.credentialsPlugin are defined in dependencies.gradle
     classpath sdkBuildDep.dexCountPlugin
     classpath sdkBuildDep.credentialsPlugin

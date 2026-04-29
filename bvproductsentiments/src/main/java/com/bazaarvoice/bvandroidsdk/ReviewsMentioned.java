@@ -4,43 +4,43 @@ import com.google.gson.annotations.SerializedName;
 
 public class ReviewsMentioned {
     @SerializedName("total")
-    private int total;
+    private float total;
     @SerializedName("positive")
-    private int positive;
+    private float positive;
     @SerializedName("negative")
-    private int negative;
+    private float negative;
     @SerializedName("incentivized")
-    private int incentivized;
+    private float incentivized;
 
-    public int getTotal() {
+    public float getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 
-    public int getPositive() {
+    public float getPositive() {
         return positive;
     }
 
-    public void setPositive(int positive) {
+    public void setPositive(float positive) {
         this.positive = positive;
     }
 
-    public int getNegative() {
+    public float getNegative() {
         return negative;
     }
 
-    public void setNegative(int negative) {
+    public void setNegative(float negative) {
         this.negative = negative;
     }
 
-    public int getIncentivized() {
+    public float getIncentivized() {
         return incentivized;
     }
 
-    public void setIncentivized(int incentivized) {
+    public void setIncentivized(float incentivized) {
         this.incentivized = incentivized;
     }
 }

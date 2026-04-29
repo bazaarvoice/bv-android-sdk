@@ -1018,18 +1018,18 @@ class BasicRequestFactory implements RequestFactory {
 
     private Request createFromPhotoUploadRequest(PhotoUploadRequest request) {
         Request.Builder okRequestBuilder = new Request.Builder();
+        PhotoUpload upload = request.getPhotoUpload();
 
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvRootApiUrl)
                 .newBuilder()
                 .addPathSegments(PHOTO_SUBMIT_ENDPOINT)
                 .addQueryParameter(kAPI_VERSION, API_VERSION)
-                .addQueryParameter(kPASS_KEY, convApiKey);
+                .addQueryParameter(kPASS_KEY, convApiKey)
                 .addQueryParameter(PhotoUpload.kCONTENT_TYPE, upload.getContentType().getKey());
 
 
         MultipartBody.Builder multiPartBuilder = new MultipartBody.Builder();
 
-        PhotoUpload upload = request.getPhotoUpload();
 
         multiPartBuilder
                 .setType(MultipartBody.FORM)
@@ -1056,8 +1056,8 @@ class BasicRequestFactory implements RequestFactory {
         HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(bvMediaApiUrl)
                 .newBuilder()
                 .addPathSegments(VIDEO_SUBMIT_ENDPOINT)
-                .addQueryParameter(kPASS_KEY, convApiKey)
-                .addQueryParameter(ConversationsRequest.kAPI_VERSION, API_VERSION)
+                .addQueryParameter(VideoUpload.kPASS_KEY, convApiKey)
+                .addQueryParameter(VideoUpload.kAPI_VERSION, API_VERSION)
                 .addQueryParameter(VideoUpload.kCONTENT_TYPE, upload.getContentType().getKey());
 
 

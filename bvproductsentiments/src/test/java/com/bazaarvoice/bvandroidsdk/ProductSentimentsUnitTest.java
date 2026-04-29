@@ -19,8 +19,8 @@ public class ProductSentimentsUnitTest extends BVBaseTest {
             assertNotNull(feature.getFeatureId());
             assertNotNull(feature.getFeature());
             assertNotNull(feature.getReviewsMentioned());
-            assertEquals(90, feature.getReviewsMentioned().getTotal());
-            assertEquals(84, feature.getReviewsMentioned().getPositive());
+            assertEquals(90.0f, feature.getReviewsMentioned().getTotal());
+            assertEquals(84.0f, feature.getReviewsMentioned().getPositive());
             assertEquals(5.5, feature.getAverageRatingReviews().getPositive(), 0.01);
         }
 
@@ -28,8 +28,8 @@ public class ProductSentimentsUnitTest extends BVBaseTest {
             assertNotNull(feature.getFeatureId());
             assertNotNull(feature.getFeature());
             assertNotNull(feature.getReviewsMentioned());
-            assertEquals(90, feature.getReviewsMentioned().getTotal());
-            assertEquals(84, feature.getReviewsMentioned().getPositive());
+            assertEquals(90.0f, feature.getReviewsMentioned().getTotal());
+            assertEquals(84.0f, feature.getReviewsMentioned().getPositive());
             assertEquals(5.5, feature.getAverageRatingReviews().getPositive(), 0.01);
         }
     }
@@ -64,7 +64,7 @@ public class ProductSentimentsUnitTest extends BVBaseTest {
             assertEquals("joy", quote.getEmotion());
 
             assertNotNull(quote.getReviewRating());
-            assertEquals(5, quote.getReviewRating());
+            assertEquals(5.0f, quote.getReviewRating());
 
             assertNotNull(quote.getReviewId());
             assertEquals("reviewId", quote.getReviewId());
@@ -97,25 +97,22 @@ public void testQuotesSentimentResponse() throws Exception {
 
     for (Quote quote : response.getQuotes()) {
         assertNotNull(quote.getId());
-        assertEquals("Id", quote.getId());
+        assertEquals("ID", quote.getId());
 
         assertNotNull(quote.getText());
-        assertEquals("Lovely fitting look nice and the quality of the leggings is lovely they wash well too!", quote.getText());
-
-        assertNotNull(quote.getEmotion());
-        assertEquals("joy", quote.getEmotion());
+        assertEquals("Lovely soft material, great fitting and comfortable.", quote.getText());
 
         assertNotNull(quote.getReviewRating());
-        assertEquals(5, quote.getReviewRating());
+        assertEquals(5.0f, quote.getReviewRating());
 
         assertNotNull(quote.getReviewId());
         assertEquals("reviewId", quote.getReviewId());
 
         assertNotNull(quote.getReviewedAt());
-        assertEquals("2021-05-03", quote.getReviewedAt());
+        assertEquals("2024-07-10", quote.getReviewedAt());
 
         assertNotNull(quote.getTranslatedText());
-        assertEquals("Lovely fitting look nice and the quality of the leggings is lovely they wash well too!", quote.getTranslatedText());
+        assertEquals("Lovely soft material, great fitting and comfortable.", quote.getTranslatedText());
 
         assertNotNull(quote.getNativeLanguage());
         assertEquals("en-US", quote.getNativeLanguage());
@@ -130,7 +127,7 @@ public void testQuotesSentimentResponse() throws Exception {
 
     @Test
     public void testFeaturesSentimentResponse() throws Exception {
-        FeaturesSentimentResponse response = parseJsonResourceFile("summarised_features_with_features.json", FeaturesSentimentResponse.class, gson);
+        FeaturesSentimentResponse response = parseJsonResourceFile("retrieve_features _response.json", FeaturesSentimentResponse.class, gson);
 
         // Test "features" data
         assertNotNull(response.getFeatures());

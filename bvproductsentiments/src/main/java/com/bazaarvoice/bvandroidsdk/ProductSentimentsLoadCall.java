@@ -79,11 +79,16 @@ public class ProductSentimentsLoadCall<RequestType extends ProductSentimentsRequ
         Response response = null;
         try {
             response = call.execute();
+
+            // ✅ Only treat HTTP 200 as success; everything else (including 204) goes to failure
+            int httpCode = response.code();
+            if (httpCode != 200) {
+                throw ProductSentimentsException.withNoRequestErrors(
+                        "Request failed with HTTP status: " + httpCode, null
+                );
+            }
             productSentimentsResponse = deserializeAndCloseResponse(response);
-            // Route callbacks to Analytics Manager to handle any analytics that are associated
-            // with a successful display response
-            RequestType request = this.getRequest();
-            //  productSentimentsAnalyticsManager.sendSuccessfulConversationsDisplayResponse(conversationResponse,request);
+
         } catch (IOException e) {
             throw  ProductSentimentsException.withNoRequestErrors("Execution of call failed", e);
         } catch (ProductSentimentsException e) {

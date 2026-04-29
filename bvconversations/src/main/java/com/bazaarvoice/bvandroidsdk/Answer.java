@@ -35,6 +35,8 @@ public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
     private String sourceClient;
     @SerializedName("SyndicationSource")
     private SyndicatedSource syndicatedSource;
+    @SerializedName("AutomatedAnswerSource")
+    private String automatedAnswerSource;
     private transient Question question;
 
     public Question getQuestion() {
@@ -61,5 +63,9 @@ public class Answer extends IncludedContentBase<ConversationsIncludeProduct> {
 
     public SyndicatedSource getSyndicatedSource() {
         return syndicatedSource;
+    }
+
+    public String getAutomatedAnswerSource() {
+        return automatedAnswerSource;
     }
 }
