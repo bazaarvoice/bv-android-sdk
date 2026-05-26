@@ -1,0 +1,78 @@
+name: DORA Deployment Bridge
+run-name: "Track ${{ inputs.action }}: to ${{ inputs.environment }} in ${{ inputs.region }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment for the deployment'
+        required: true
+        type: string
+      action:
+        description: 'Determines if the run is for a deployment or a rollback'
+        required: true
+        type: string
+        default: 'deployment'
+      region:
+        description: 'Target region for the deployment'
+        required: true
+        type: string
+      deployment_ref:
+        description: 'Git ref (SHA, tag, or branch) being deployed'
+        required: true
+        type: string
+      pr_number:
+        description: 'Pull Request number associated with the deployment (optional)'
+        required: false
+        type: string
+      description:
+        description: 'Description of the deployment (optional)'
+        required: false
+        type: string
+        default: 'Deployment triggered from Jenkins'
+      jenkins_build_url:
+        description: 'URL to the Jenkins build (optional)'
+        required: false
+        type: string
+      manual:
+        description: 'Indicates if the deployment was triggered manually'
+        required: false
+        type: boolean
+        default: false
+
+# Only allow one deployment per environment at a time
+concurrency:
+  group: deploy-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  record-deployment:
+    name: Record ${{ inputs.action }} to [env=${{ inputs.environment }}, region=${{ inputs.region }}, ref=${{ inputs.deployment_ref }}]
+    runs-on: [eks-tooling, qa]
+    environment: "${{ inputs.environment }}.aws.${{ inputs.region }}"
+
+    steps:
+      - name: Deployment Information
+        run: |
+          echo "## Deployment Details" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Environment** | ${{ inputs.environment }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Region** | ${{ inputs.region }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Action** | ${{ inputs.action }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Ref** | ${{ inputs.deployment_ref }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **PR Number** | ${{ inputs.pr_number }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Description** | ${{ inputs.description }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Jenkins Build** | ${{ inputs.jenkins_build_url }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Manual** | ${{ inputs.manual }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Triggered By** | ${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Timestamp** | $(date -u +'%Y-%m-%dT%H:%M:%SZ') |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This deployment was recorded for DORA metrics tracking." >> $GITHUB_STEP_SUMMARY
+
+      - name: Record Deployment Success
+        run: |
+          echo "✅ Deployment to ${{ inputs.environment }} recorded successfully"
+          echo "Ref: ${{ inputs.deployment_ref }}"
+
