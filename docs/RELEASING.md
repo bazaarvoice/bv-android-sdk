@@ -14,6 +14,8 @@ Bump version number in `bv-android-sdk/gradle.properties`. Following semantic ve
 
 ## Release
 
+> **DORA Metrics Reminder:** After publishing to production, trigger the [DORA Deployment Bridge](../.github/workflows/deploy-tracker.yaml) workflow. If deploying via a Jenkins job, this is triggered automatically. If deploying manually from local, [trigger it manually](https://github.com/bvengineering/bv-android-sdk-dev/actions/workflows/deploy-tracker.yaml). See [How-To Track Manual Deployments](https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/80695689218/How-To+Track+Manual+Deployments).
+
 * To publish to internal Bazaarvoice repo,
 
 ```
@@ -27,6 +29,8 @@ $ ./gradlew clean uploadArchives -PNEXUS_USER=true -PopenSourceRelease=true
 ```
 
 ## After Releasing
+
+> **DORA Metrics Reminder:** After publishing to production, trigger the [DORA Deployment Bridge](../.github/workflows/deploy-tracker.yaml) workflow. If deploying via a Jenkins job, this is triggered automatically. If deploying manually from local, [trigger it manually](https://github.com/bvengineering/bv-android-sdk-dev/actions/workflows/deploy-tracker.yaml). See [How-To Track Manual Deployments](https://bazaarvoice.atlassian.net/wiki/spaces/DEV/pages/80695689218/How-To+Track+Manual+Deployments).
 
 * If you published to Maven Central you still to login to promote the NEXUS_USER candidate since
 our NEXUS_USER task here still does not manage auto releasing.
