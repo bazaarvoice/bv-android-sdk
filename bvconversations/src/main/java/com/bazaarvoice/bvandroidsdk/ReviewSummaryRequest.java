@@ -6,12 +6,14 @@ public class ReviewSummaryRequest extends ConversationsDisplayRequest {
     private final String productId;
     private final String formatType;
     private final String language;
+    private final String locale;
 
     ReviewSummaryRequest(Builder builder) {
         super(builder);
         this.productId = builder.productId;
         this.formatType = builder.formatType;
         this.language = builder.language;
+        this.locale = builder.locale;
     }
 
     String getProductId() {
@@ -26,6 +28,10 @@ public class ReviewSummaryRequest extends ConversationsDisplayRequest {
         return language;
     }
 
+    public String getLocale() {
+        return locale;
+    }
+
     @Override
     BazaarException getError() {
         return null;
@@ -36,6 +42,7 @@ public class ReviewSummaryRequest extends ConversationsDisplayRequest {
         private String productId;
         private String formatType;
         private String language;
+        private String locale;
 
         public Builder(@NonNull String productId) {
             super();
@@ -50,6 +57,11 @@ public class ReviewSummaryRequest extends ConversationsDisplayRequest {
 
         public Builder addLanguage(String language) {
             this.language = language;
+            return this;
+        }
+
+        public Builder addLocale(String locale) {
+            this.locale = locale;
             return this;
         }
 

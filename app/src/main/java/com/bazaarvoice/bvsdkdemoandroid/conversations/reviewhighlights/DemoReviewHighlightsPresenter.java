@@ -1,4 +1,4 @@
-package com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewHighlights;
+package com.bazaarvoice.bvsdkdemoandroid.conversations.reviewhighlights;
 
 import androidx.annotation.NonNull;
 

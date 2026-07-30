@@ -12,6 +12,9 @@ import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionCallback;
 import com.bazaarvoice.bvandroidsdk.ConversationsSubmissionException;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.FeedbackSubmissionResponse;
+import com.bazaarvoice.bvandroidsdk.PhotoUpload;
+import com.bazaarvoice.bvandroidsdk.PhotoUploadRequest;
+import com.bazaarvoice.bvandroidsdk.PhotoUploadResponse;
 import com.bazaarvoice.bvandroidsdk.QuestionSubmissionRequest;
 import com.bazaarvoice.bvandroidsdk.QuestionSubmissionResponse;
 import com.bazaarvoice.bvandroidsdk.ReviewSubmissionRequest;
@@ -77,10 +80,12 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
       case DISPLAY_REVIEWS:
       case DISPLAY_QANDA:
       case DISPLAY_PDP:
-      case SUBMIT_REVIEW:
       case DISPLAY_REVIEW_HIGHLGHTS:
+      case SUBMIT_REVIEW:
       case SUBMIT_QUESTION:
-      case REVIEW_SUMMARY:{
+      case REVIEW_SUMMARY:
+      case CONTENT_COACH:
+      case MATCHED_TOKENS: {
         view.showRequiredIdTitle("Product Id");
         break;
       }
@@ -175,6 +180,14 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
         demoRouter.transitionToReviewSummaryActivity(requiredId);
         break;
       }
+      case CONTENT_COACH: {
+        demoRouter.transitionToContentCoachActivity(requiredId);
+        break;
+      }
+      case MATCHED_TOKENS: {
+        demoRouter.transitionToMatchedTokensActivity(requiredId);
+        break;
+      }
     }
   }
 
@@ -204,7 +217,7 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
   private void submitReviewWithPhoto(String productId) {
     view.showProgressWithTitle("Submitting Review...");
 
-    File localImageFile = demoAssetsUtil.parseImageFileFromAssets("puppy_thumbnail.jpg");
+    File localImageFile = demoAssetsUtil.parseImageFileFromAssets("bv-sample_image.jpg");
     String userNickName = "shazbat105" + new Random().nextInt(1001);
     ReviewSubmissionRequest submission = new ReviewSubmissionRequest.Builder(submitAction, productId)
             .userNickname(userNickName)
@@ -260,7 +273,6 @@ public class DemoConvApiPresenter implements DemoConvApiContract.Presenter {
 
   private void submitAnswer(String questionId) {
     view.showProgressWithTitle("Submitting Answer...");
-
     AnswerSubmissionRequest submission = new AnswerSubmissionRequest.Builder(submitAction, questionId, "User answer text goes here....")
             //.fingerPrint(blackbox)  // uncomment me when using iovation SDK
             .userNickname("shazbat")

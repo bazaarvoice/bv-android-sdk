@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.bazaarvoice.bvsdkdemoandroid.author.DemoAuthorActivity;
 import com.bazaarvoice.bvsdkdemoandroid.cart.DemoCartActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewHighlights.DemoReviewHighlightsActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviewhighlights.DemoReviewHighlightsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.bulkratings.DemoBulkRatingsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.comments.DemoCommentsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.conversations.productstats.DemoProductStatsActivity;
@@ -24,7 +24,9 @@ import com.bazaarvoice.bvsdkdemoandroid.detail.DemoFancyProductDetailActivity;
 import com.bazaarvoice.bvsdkdemoandroid.productsentiments.DemoProductSentimentsActivity;
 import com.bazaarvoice.bvsdkdemoandroid.progressivesubmission.DemoProgressiveSubmissionActivity;
 import com.bazaarvoice.bvsdkdemoandroid.settings.DemoSettingsActivity;
-import com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewSummary.DemoReviewSummaryActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.reviewsummary.DemoReviewSummaryActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.contentcoach.DemoContentCoachActivity;
+import com.bazaarvoice.bvsdkdemoandroid.conversations.matchedtokens.DemoMatchedTokensActivity;
 
 
 import java.util.ArrayList;
@@ -146,5 +148,13 @@ public class DemoRouter {
 
     public void transitionToReviewSummaryActivity(String productId) {
         DemoReviewSummaryActivity.transitionTo(currentActivityContext, productId );
+    }
+
+    public void transitionToContentCoachActivity(String productId) {
+        DemoContentCoachActivity.transitionTo(currentActivityContext, productId);
+    }
+
+    public void transitionToMatchedTokensActivity(String productId) {
+        DemoMatchedTokensActivity.transitionTo(currentActivityContext, productId);
     }
 }

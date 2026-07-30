@@ -1,12 +1,9 @@
-package com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewSummary;
+package com.bazaarvoice.bvsdkdemoandroid.conversations.reviewsummary;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bazaarvoice.bvandroidsdk.BVConversationsClient;
 import com.bazaarvoice.bvandroidsdk.ReviewSummary;
-import com.bazaarvoice.bvandroidsdk.ReviewSummaryResponse;
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
 
@@ -39,13 +35,23 @@ public class DemoReviewSummaryActivity extends AppCompatActivity implements Demo
         ButterKnife.bind(this);
         DemoApp.getAppComponent(this).inject(this);
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+
+        // Sanitize input to prevent SSRF or URL injection
+        if (TextUtils.isEmpty(productId) || !productId.matches("^[a-zA-Z0-9_.-]+$")) {
+            showDialogWithMessage("Invalid Product ID");
+            finish();
+            return;
+        }
+
         reviewSummaryListener = new DemoReviewSummaryPresenter(this, productId, bvConversationsClient);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        reviewSummaryListener.loadReviewSummary(false);
+        if (reviewSummaryListener != null) {
+            reviewSummaryListener.loadReviewSummary(false);
+        }
     }
 
     public static void transitionTo(Context fromActivity, String productId) {
@@ -72,4 +78,3 @@ public class DemoReviewSummaryActivity extends AppCompatActivity implements Demo
     }
 
 }
-

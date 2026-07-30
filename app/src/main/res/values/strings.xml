@@ -30,6 +30,8 @@
     <string name="title_activity_questions">Product Questions</string>
     <string name="title_activity_review_highlights">Review Highlights</string>
     <string name="title_activity_review_Summary">Review Summary</string>
+    <string name="title_activity_content_coach">Review API - Content Coach</string>
+    <string name="title_activity_matched_tokens">Matched Token API - Content Coach</string>
     <string name="title_activity_answers">Product Answers</string>
     <string name="title_activity_comments">Comments</string>
     <string name="title_activity_curations_map">Curations Photo Map</string>

@@ -64,10 +64,24 @@ public class DemoStoresActivity extends AppCompatActivity implements DemoStoresC
         ButterKnife.bind(this);
 
         Bundle extras = getIntent().getExtras();
-        if (extras.containsKey(EXTRA_PRODUCT_IDS)) {
-            List<String> productIds = getIntent().getExtras().getStringArrayList(EXTRA_PRODUCT_IDS);
-            userActionsListener = new DemoStoresPresenter(this, client, productIds);
-        } else if (extras.containsKey(EXTRA_LIMIT) && extras.containsKey(EXTRA_OFFSET)) {
+        if (extras != null && extras.containsKey(EXTRA_PRODUCT_IDS)) {
+            List<String> productIds = extras.getStringArrayList(EXTRA_PRODUCT_IDS);
+            List<String> sanitizedIds = new ArrayList<>();
+            if (productIds != null) {
+                for (String id : productIds) {
+                    if (id != null && id.matches("^[a-zA-Z0-9_.-]+$")) {
+                        sanitizedIds.add(id);
+                    }
+                }
+            }
+
+            if (sanitizedIds.isEmpty()) {
+                showMessage("Invalid Store IDs");
+                finish();
+                return;
+            }
+            userActionsListener = new DemoStoresPresenter(this, client, sanitizedIds);
+        } else if (extras != null && extras.containsKey(EXTRA_LIMIT) && extras.containsKey(EXTRA_OFFSET)) {
             int limit = extras.getInt(EXTRA_LIMIT);
             int offset = extras.getInt(EXTRA_OFFSET);
             userActionsListener = new DemoStoresPresenter(this, client, limit, offset);
@@ -76,14 +90,18 @@ public class DemoStoresActivity extends AppCompatActivity implements DemoStoresC
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                userActionsListener.onSwipeRefresh();
+                if (userActionsListener != null) {
+                    userActionsListener.onSwipeRefresh();
+                }
             }
         });
         demoStoreAdapter = new DemoStoreAdapter();
         demoStoreAdapter.setOnItemClickListener(new DemoStoreAdapter.OnBvProductClickListener() {
             @Override
             public void onStoreClickListener(Store store, View row) {
-                userActionsListener.onStoreTapped(store);
+                if (userActionsListener != null) {
+                    userActionsListener.onStoreTapped(store);
+                }
             }
         });
         storesRecyclerView.setAdapter(demoStoreAdapter);
@@ -101,7 +119,9 @@ public class DemoStoresActivity extends AppCompatActivity implements DemoStoresC
     @Override
     protected void onResume() {
         super.onResume();
-        userActionsListener.loadStores(false);
+        if (userActionsListener != null) {
+            userActionsListener.loadStores(false);
+        }
     }
 
     @Override

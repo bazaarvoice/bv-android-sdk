@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -138,10 +139,19 @@ public class DemoFancyProductDetailActivity extends AppCompatActivity implements
                 productImageUrl = getIntent().getStringExtra(EXTRA_PRODUCT_IMAGE_URL);
             } else {
                 BVDisplayableProductContent bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
-                productName = bvProduct.getDisplayName();
-                productImageUrl = bvProduct.getDisplayImageUrl();
-                productAverageRating = bvProduct.getAverageRating();
+                if (bvProduct != null) {
+                    productName = bvProduct.getDisplayName();
+                    productImageUrl = bvProduct.getDisplayImageUrl();
+                    productAverageRating = bvProduct.getAverageRating();
+                }
             }
+        }
+
+        // Sanitize input to prevent SSRF or URL injection
+        if (TextUtils.isEmpty(productId) || !productId.matches("^[a-zA-Z0-9_.-]+$")) {
+            showRecMessage("Invalid Product ID");
+            finish();
+            return;
         }
 
         setupToolbar();

@@ -15,6 +15,7 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -134,14 +135,39 @@ public class BVRecommendations {
             bvLogger.v(TAG, "Getting recommendations: " + requestData.getRequestUrl());
             URL url = requestData.getRequestUrl();
 
-            // Parse and validate the URL
-            String scheme = url.getProtocol(); // Get the URL scheme (protocol)
-            if (!scheme.equals("http") && !scheme.equals("https")) {
-                throw new IllegalArgumentException("Only HTTP and HTTPS schemes are allowed");
+            // Parse and validate the URL - prevent SSRF by allowlisting trusted hosts
+            HttpUrl parsedUrl = HttpUrl.parse(url.toString());
+            if (parsedUrl == null) {
+                throw new IllegalArgumentException("Recommendations request URL could not be parsed");
+            }
+            String scheme = parsedUrl.scheme();
+            if (!scheme.equals("https")) {
+                throw new IllegalArgumentException("Only HTTPS scheme is allowed");
+            }
+            String host = parsedUrl.host();
+            HttpUrl baseUrl = HttpUrl.parse(BVSDK.getInstance().getBvWorkerData().getRootApiUrls().getShopperMarketingApiRootUrl());
+            String expectedHost = baseUrl != null ? baseUrl.host() : null;
+            if (host == null || expectedHost == null || !host.equalsIgnoreCase(expectedHost)) {
+                throw new IllegalArgumentException("Request host does not match configured shopper marketing API host");
             }
 
+
+            HttpUrl.Builder safeUrlBuilder = new HttpUrl.Builder()
+                    .scheme(scheme)
+                    .host(host);
+            if (parsedUrl.port() > 0 && parsedUrl.port() != HttpUrl.defaultPort(scheme)) {
+                safeUrlBuilder.port(parsedUrl.port());
+            }
+            for (String pathSegment : parsedUrl.encodedPathSegments()) {
+                safeUrlBuilder.addEncodedPathSegment(pathSegment);
+            }
+            for (int i = 0; i < parsedUrl.querySize(); i++) {
+                safeUrlBuilder.addQueryParameter(parsedUrl.queryParameterName(i), parsedUrl.queryParameterValue(i));
+            }
+            HttpUrl safeUrl = safeUrlBuilder.build();
+
             Request request = new Request.Builder()
-                    .url(url)
+                    .url(safeUrl)
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
                     .addHeader("User-Agent", BVSDK.getInstance().getBvWorkerData().getBvSdkUserAgent())
                     .build();

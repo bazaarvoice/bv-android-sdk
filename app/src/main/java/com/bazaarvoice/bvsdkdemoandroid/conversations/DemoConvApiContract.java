@@ -35,7 +35,9 @@ public interface DemoConvApiContract {
     SUBMIT_ANSWER("Submit Answer"),
     SUBMIT_FEEDBACK("Submit Feedback"),
     SUBMIT_COMMENT("Submit Comment"),
-    REVIEW_SUMMARY("Review Summary");
+    REVIEW_SUMMARY("Review Summary"),
+    CONTENT_COACH("Review API - Content Coach"),
+    MATCHED_TOKENS("Matched Token API - Content Coach");
     private String method;
 
     ConvApiMethod(String method) {
@@ -69,6 +71,10 @@ public interface DemoConvApiContract {
         return SUBMIT_COMMENT;
       } else if (input.equals(REVIEW_SUMMARY.getMethod())) {
         return REVIEW_SUMMARY;
+      } else if (input.equals(CONTENT_COACH.getMethod())) {
+        return CONTENT_COACH;
+      } else if (input.equals(MATCHED_TOKENS.getMethod())) {
+        return MATCHED_TOKENS;
       }else {
         throw new IllegalStateException("Not an available API method");
       }

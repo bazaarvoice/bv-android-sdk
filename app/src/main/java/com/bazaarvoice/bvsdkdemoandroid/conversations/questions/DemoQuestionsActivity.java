@@ -75,6 +75,13 @@ public class DemoQuestionsActivity extends AppCompatActivity implements DemoQues
         this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
         this.forceLoadFromProductId = getIntent().getBooleanExtra(FORCE_LOAD_API, false);
 
+        // Sanitize input to prevent SSRF or URL injection
+        if (TextUtils.isEmpty(productId) || !productId.matches("^[a-zA-Z0-9_.-]+$")) {
+            showDialogWithMessage("Invalid Product ID");
+            finish();
+            return;
+        }
+
         if (!forceLoadFromProductId && demoClient.isMockClient()) {
             List<BVProduct> recommendedProducts = demoMockDataUtil.getRecommendationsProfile().getProfile().getRecommendedProducts();
             for (BVProduct currRecProd : recommendedProducts) {

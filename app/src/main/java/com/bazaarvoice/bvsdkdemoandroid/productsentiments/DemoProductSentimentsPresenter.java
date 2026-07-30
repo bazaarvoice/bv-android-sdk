@@ -51,7 +51,7 @@ public class DemoProductSentimentsPresenter implements DemoProductSentimentsCont
 
             @Override
             public void onFailure(@NonNull ProductSentimentsException e) {
-                //Log.e(TAG, "Failed to load summarised features", e);
+                Log.d(TAG, "Failed to load summarised features"+  e.getMessage());
                 view.showSummarisedFeaturesError();
             }
         });

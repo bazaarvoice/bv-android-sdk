@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.RatingBar;
 
 import com.bazaarvoice.bvsdkdemoandroid.DemoApp;
 import com.bazaarvoice.bvsdkdemoandroid.R;
+
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -22,6 +25,10 @@ import butterknife.ButterKnife;
 
 public class DemoSubmitReviewActivity extends AppCompatActivity implements DemoSubmitReviewContract.View {
   private static final String EXTRA_PRODUCT_ID = "extra_product_id";
+
+  // Allowlist pattern used to validate/sanitize the Intent-provided productId
+  // before it is used to build outgoing API requests (SSRF hardening).
+  private static final Pattern VALID_PRODUCT_ID = Pattern.compile("^[A-Za-z0-9_.\\-]{1,200}$");
 
   @Inject DemoSubmitReviewContract.Presenter presenter;
 
@@ -37,7 +44,17 @@ public class DemoSubmitReviewActivity extends AppCompatActivity implements DemoS
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_submit_review);
     ButterKnife.bind(this);
-    final String productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+    final String rawProductId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+    final String productId = sanitizeProductId(rawProductId);
+    if (!TextUtils.isEmpty(rawProductId) && productId == null) {
+      new AlertDialog.Builder(this)
+          .setMessage("Invalid Product ID")
+          .setNegativeButton("OK", null)
+          .create()
+          .show();
+      finish();
+      return;
+    }
     DaggerDemoSubmitReviewComponent.builder()
         .demoAppComponent(DemoApp.getAppComponent(this))
         .demoSubmitReviewPresenterModule(new DemoSubmitReviewPresenterModule(this, productId))
@@ -45,6 +62,18 @@ public class DemoSubmitReviewActivity extends AppCompatActivity implements DemoS
         .inject(this);
     presenter.start();
     setupViews();
+  }
+
+  /**
+   * Validates the incoming productId against a strict allowlist so that
+   * unsanitized external input cannot be used to manipulate outgoing API
+   * requests, mitigating SSRF / URL injection risk. Returns null if invalid.
+   */
+  private String sanitizeProductId(String rawProductId) {
+    if (rawProductId != null && VALID_PRODUCT_ID.matcher(rawProductId).matches()) {
+      return rawProductId;
+    }
+    return null;
   }
 
   private void setupViews() {

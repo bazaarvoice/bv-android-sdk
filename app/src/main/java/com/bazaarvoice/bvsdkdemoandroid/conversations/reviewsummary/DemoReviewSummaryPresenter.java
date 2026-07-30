@@ -1,4 +1,4 @@
-package com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewSummary;
+package com.bazaarvoice.bvsdkdemoandroid.conversations.reviewsummary;
 
 import androidx.annotation.NonNull;
 

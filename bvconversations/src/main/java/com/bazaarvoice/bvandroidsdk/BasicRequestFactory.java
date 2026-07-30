@@ -63,6 +63,7 @@ class BasicRequestFactory implements RequestFactory {
     private static  final String kFEATURES = "feature";
     private static final String kProductId = "productId";
     private static final String kLanguage = "language";
+    private static final String kLocale = "locale";
     private static final String kFormatType = "formatType";
     // endregion
 
@@ -598,6 +599,9 @@ class BasicRequestFactory implements RequestFactory {
         }
         if (request.getLanguage() != null) {
             httpUrlBuilder.addQueryParameter(kLanguage, String.valueOf(request.getLanguage()));
+        }
+        if (request.getLocale() != null) {
+            httpUrlBuilder.addQueryParameter(kLocale, String.valueOf(request.getLocale()));
         }
         HttpUrl httpUrl = httpUrlBuilder.build();
         Headers.Builder headersBuilder = new Headers.Builder();

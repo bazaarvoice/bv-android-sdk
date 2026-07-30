@@ -124,12 +124,20 @@
             android:label="@string/title_activity_author"
             android:exported="false"
             />
-        <activity android:name=".conversations.ReviewHighlights.DemoReviewHighlightsActivity"
+        <activity android:name=".conversations.reviewhighlights.DemoReviewHighlightsActivity"
             android:label="@string/title_activity_review_highlights"
             android:exported="false"
             />
-        <activity android:name=".conversations.ReviewSummary.DemoReviewSummaryActivity"
+        <activity android:name=".conversations.reviewsummary.DemoReviewSummaryActivity"
             android:label="@string/title_activity_review_Summary"
+            android:exported="false"
+            />
+        <activity android:name=".conversations.contentcoach.DemoContentCoachActivity"
+            android:label="@string/title_activity_content_coach"
+            android:exported="false"
+            />
+        <activity android:name=".conversations.matchedtokens.DemoMatchedTokensActivity"
+            android:label="@string/title_activity_matched_tokens"
             android:exported="false"
             />
         <!--

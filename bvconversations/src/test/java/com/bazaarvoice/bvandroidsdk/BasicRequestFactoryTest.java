@@ -1053,12 +1053,14 @@ public class BasicRequestFactoryTest {
     final ReviewSummaryRequest request = new ReviewSummaryRequest.Builder("test1")
             .addFormatType("paragraph")
             .addLanguage("en")
+            .addLocale("en_US")
             .build();
     final Request okRequest = requestFactory.create(request);
     final HttpUrl url = okRequest.url();
     assertTrue(url.queryParameterValues("productId").contains("test1"));
     assertTrue(url.queryParameterValues("formatType").contains("paragraph"));
     assertTrue(url.queryParameterValues("language").contains("en"));
+    assertTrue(url.queryParameterValues("locale").contains("en_US"));
   }
 
     @Test

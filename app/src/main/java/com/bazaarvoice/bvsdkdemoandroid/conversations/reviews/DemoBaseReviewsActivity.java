@@ -60,6 +60,9 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     private static final String EXTRA_FILTER_VALUE_ID = "extra_filter_value_id";
     private static final String EXTRA_FORCE_API_LOAD = "extra_force_api_load";
 
+    private static final java.util.regex.Pattern VALID_ID_PATTERN =
+            java.util.regex.Pattern.compile("^[A-Za-z0-9_.\\-]{1,200}$");
+
     private BVDisplayableProductContent bvProduct;
     private DemoReviewsContract.UserActionsListener reviewsUserActionListener;
 
@@ -89,6 +92,20 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
     private String filterValue;
     private ReviewAdapter reviewAdapter;
 
+    /**
+     * Validates a value coming from an Intent extra against a strict allowlist so
+     * that unsanitized external input cannot be used to manipulate outgoing API
+     * requests (mitigates SSRF / URL injection risk). Returns null if invalid.
+     */
+    private String sanitizeIntentValue(String rawValue) {
+        if (rawValue == null) {
+            return null;
+        }
+        if (!VALID_ID_PATTERN.matcher(rawValue).matches()) {
+            return null;
+        }
+        return rawValue;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,10 +113,24 @@ abstract class DemoBaseReviewsActivity<ReviewType extends BaseReview> extends Ap
         setContentView(R.layout.activity_conversations_reviews);
         ButterKnife.bind(this);
         inflateRecyclerView();
-        this.productId = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
-        this.filterTypeIntent = getIntent().getStringExtra(EXTRA_FILTER_TYPE_ID);
-        this.filterValue = getIntent().getStringExtra(EXTRA_FILTER_VALUE_ID);
+        this.productId = sanitizeIntentValue(getIntent().getStringExtra(EXTRA_PRODUCT_ID));
+        this.filterTypeIntent = sanitizeIntentValue(getIntent().getStringExtra(EXTRA_FILTER_TYPE_ID));
+        this.filterValue = sanitizeIntentValue(getIntent().getStringExtra(EXTRA_FILTER_VALUE_ID));
         this.forceLoadFromProductId = getIntent().getBooleanExtra(EXTRA_FORCE_API_LOAD, false);
+
+        String rawProductIdExtra = getIntent().getStringExtra(EXTRA_PRODUCT_ID);
+        if (!TextUtils.isEmpty(rawProductIdExtra) && this.productId == null) {
+            showDialogWithMessage("Invalid product id provided");
+            finish();
+            return;
+        }
+        String rawFilterValueExtra = getIntent().getStringExtra(EXTRA_FILTER_VALUE_ID);
+        if (!TextUtils.isEmpty(rawFilterValueExtra) && this.filterValue == null) {
+            showDialogWithMessage("Invalid filter value provided");
+            finish();
+            return;
+        }
+
         bvProduct = DemoDisplayableProductsCache.getInstance().getDataItem(productId);
 
         setFilterTypeFromIntent(filterTypeIntent);

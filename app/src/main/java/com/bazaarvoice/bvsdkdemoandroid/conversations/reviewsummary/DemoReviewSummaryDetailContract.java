@@ -1,7 +1,6 @@
-package com.bazaarvoice.bvsdkdemoandroid.conversations.ReviewSummary;
+package com.bazaarvoice.bvsdkdemoandroid.conversations.reviewsummary;
 
 import com.bazaarvoice.bvandroidsdk.ReviewSummary;
-import com.bazaarvoice.bvandroidsdk.ReviewSummaryResponse;
 
 public interface DemoReviewSummaryDetailContract {
 
