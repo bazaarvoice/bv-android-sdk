@@ -1,5 +1,10 @@
 # Changelog
 
+# 8.23.0
+## Review Summarisation - Locale keyword
+* Allow Client Access to language keyword.
+* Security Fixes and Dependencies update
+
 # 8.22.0
 ## Review Summarisation - Language keyword
 * Allow Client Access to language keyword.
