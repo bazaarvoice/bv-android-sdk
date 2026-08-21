@@ -1,7 +1,6 @@
 package com.bazaarvoice.bvandroidsdk;
 
 import android.content.Context;
-import android.net.Network;
 import android.security.NetworkSecurityPolicy;
 
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -38,14 +37,6 @@ final class BaseShadows {
     public static AdvertisingIdClient.Info getAdvertisingIdInfo(Context context) throws IOException, IllegalStateException, GooglePlayServicesNotAvailableException, GooglePlayServicesRepairableException {
       throw new GooglePlayServicesNotAvailableException(0);
     }
-  }
-
-  /**
-   * Here because https://github.com/robolectric/robolectric/issues/2223
-   */
-  @Implements(Network.class)
-  public static class ShadowNetwork {
-
   }
 
   @Implements(NetworkSecurityPolicy.class)
